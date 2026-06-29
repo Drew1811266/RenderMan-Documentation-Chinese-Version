@@ -1,0 +1,55 @@
+{"item_id":"1d766d996f:0","text":"Input Parameters"}
+{"item_id":"1d766d996f:1","text":"Random Type"}
+{"item_id":"1d766d996f:2","text":"id 取随机颜色 float；integer 取整数值。Both（二者）都用于在相邻 shape 节点处生成差异，以支持最终的边缘检测。"}
+{"item_id":"1d766d996f:3","text":"Cam Depth Type"}
+{"item_id":"1d766d996f:4","text":"两种模式：camera P 的长度，或 camera P 的 Z 分量绝对值。"}
+{"item_id":"1d766d996f:5","text":"Lines Page"}
+{"item_id":"1d766d996f:6","text":"Section Spread Scale"}
+{"item_id":"1d766d996f:7","text":"如果相邻对象上的 random id sections colors 过于接近，可将此值调到 1 以上，让随机颜色分散得更远，从而在对象边界上获得更一致的边缘检测。"}
+{"item_id":"1d766d996f:8","text":"Albedo Color"}
+{"item_id":"1d766d996f:9","text":"直通颜色；可将输出 RGB 连接到 PxrSurface 的 Diffuse color。"}
+{"item_id":"1d766d996f:10","text":"Line Albedo Color"}
+{"item_id":"1d766d996f:11","text":"在 PxrStylizedLines 中选择 Line Color From Pattern 选项时生成的线条 Color。"}
+{"item_id":"1d766d996f:12","text":"Line Albedo HSV"}
+{"item_id":"1d766d996f:13","text":"Line Albedo color/map 的 Hue、Saturation、Value 颜色校正。"}
+{"item_id":"1d766d996f:14","text":"Line Thickness"}
+{"item_id":"1d766d996f:15","text":"如果在 PxrStylizedLines 中选择 Line Thickness From Pattern，则此 Line Thickness 会用于连接到此节点的所有对象。"}
+{"item_id":"1d766d996f:16","text":"Line Thickness Remap Switch"}
+{"item_id":"1d766d996f:17","text":"OFF：只使用 float Line Thickness 值。"}
+{"item_id":"1d766d996f:18","text":"ON：将上游 Pattern（fractal、texture 等）连接到 Line Thickness，然后使用下面的 remap_min 和 remap_max 在两者之间进行线性阶跃。例如：如果一个在 0..1 之间变化的 fractal 接入 Line Thickness，remap_min=0、remap_max=10，那么 fractal 为 1（白色）的位置最终线宽为 10，fractal 为 0（黑色）的位置最终线宽为 0。"}
+{"item_id":"1d766d996f:19","text":"Line Thickness Remap Min"}
+{"item_id":"1d766d996f:20","text":"如果在 PxrStylizedLines 中选择 Line Thickness From Pattern，并且上游节点连接到 Line Thickness，则使用此 min 值作为上游 0 值重映射到的目标。例如：如果 PxrFractal 在上游接入 Line Thickness，则 PxrFractal pattern 中的 0（黑色）值会重映射到此 min。"}
+{"item_id":"1d766d996f:21","text":"Line Thickness Remap Max"}
+{"item_id":"1d766d996f:22","text":"如果在 PxrStylizedLines 中选择 Line Thickness From Pattern，并且上游节点连接到 Line Thickness，则使用此 max 值作为上游 1 值重映射到的目标。例如：如果 PxrFractal 在上游接入 Line Thickness，则 PxrFractal pattern 中的 1（白色）值会重映射到此 max。"}
+{"item_id":"1d766d996f:23","text":"Line Mask"}
+{"item_id":"1d766d996f:24","text":"通过将上游节点 texture 或 pattern 作为 Mask 接入，遮掉最终边缘检测线条中不需要的区域。"}
+{"item_id":"1d766d996f:25","text":"Hatching Mask"}
+{"item_id":"1d766d996f:26","text":"通过将上游节点 texture 或 pattern 作为 Mask 接入，遮掉最终 hatching 中不需要的区域。该值存储在 NPRlineMask AOV 的 GREEN channel 中。"}
+{"item_id":"1d766d996f:27","text":"Sections Map Switch"}
+{"item_id":"1d766d996f:28","text":"使用下面 sections \\map 中的贴图来定义图像中的差异，而不是使用 random id。"}
+{"item_id":"1d766d996f:29","text":"Sections Map"}
+{"item_id":"1d766d996f:30","text":"可选 color map，用于在按对象 random id 未检测出线条的位置添加线条。例如：如果希望在角色下巴处触发边缘检测，但 random sections id 在那里没有差异，可接入一个上游 texture map，在目标区域绘制 2 种不同颜色，生成的 sections map 会传递给边缘检测算法。默认黑色 (0,0,0) 不会触发变化。"}
+{"item_id":"1d766d996f:31","text":"Sections Map Black Mask Switch"}
+{"item_id":"1d766d996f:32","text":"在自定义 sections Map 中为黑色的位置，将其合成到现有 sections random color 之上。"}
+{"item_id":"1d766d996f:33","text":"Sections HSV"}
+{"item_id":"1d766d996f:34","text":"在 HSV 中为 Sections Map 着色。第 1 个输入 = Hue，第 2 个输入 = Saturation，第 3 个输入 = Value。"}
+{"item_id":"1d766d996f:35","text":"Hatching Projections Page"}
+{"item_id":"1d766d996f:36","text":"Hatching Mask"}
+{"item_id":"1d766d996f:37","text":"通过将上游节点 texture 或 pattern 作为 Mask 接入，遮掉最终 hatching 中不需要的区域。该值存储在 NPRlineMask AOV 的 GREEN channel 中。"}
+{"item_id":"1d766d996f:38","text":"P Triplanar"}
+{"item_id":"1d766d996f:39","text":"P：object space P；__Pref：如果作为 primvar 存在；Input P Triplanar：连接到此节点 inputPtriplanar 输入的上游 PxrManifold3d。"}
+{"item_id":"1d766d996f:40","text":"Input P Triplanar"}
+{"item_id":"1d766d996f:41","text":"如果在 PxrStylizedHatching 中使用 Blended Triplanar Projections，可选择在这里接入上游 point P XYZ 到 RGB。例如：对于角色变形动画，可以在这里连接通过 PxrProjector 或 PxrManifold3d 创建的自定义 __Pref。"}
+{"item_id":"1d766d996f:42","text":"N Triplanar"}
+{"item_id":"1d766d996f:43","text":"N：默认 global N；__Nref：如果作为 primvar 存在；Input N Triplanar：用户连接到此节点 inputNtriplanar 输入的任意上游 N XYZ。"}
+{"item_id":"1d766d996f:44","text":"Input N Triplanar"}
+{"item_id":"1d766d996f:45","text":"如果在 PxrStylizedHatching 中使用 Blended Triplanar Projections，可选择在这里接入上游 normal N XYZ 到 RGB。例如：对于角色变形动画，可以在这里连接通过 PxrProjector 或 PxrManifold3d 创建的自定义 __Nref。"}
+{"item_id":"1d766d996f:46","text":"Input Texture Coordinates"}
+{"item_id":"1d766d996f:47","text":"如果在 PxrStylizedHatching 中使用 Texture Coordinates，可选择在这里接入上游 point P XYZ 到 RGB。例如，如果需要自定义 camera projection，可在这里接入上游 PxrProjector。"}
+{"item_id":"1d766d996f:48","text":"Triplanar Scale X"}
+{"item_id":"1d766d996f:49","text":"Scale（缩放）用于 triplanar projections 的 P 的 X 分量，以改变该平面上的纹理频率。"}
+{"item_id":"1d766d996f:50","text":"Triplanar Scale Y"}
+{"item_id":"1d766d996f:51","text":"Scale（缩放）用于 triplanar projections 的 P 的 Y 分量，以改变该平面上的纹理频率。"}
+{"item_id":"1d766d996f:52","text":"Triplanar Scale Z"}
+{"item_id":"1d766d996f:53","text":"Scale（缩放）用于 triplanar projections 的 P 的 Z 分量，以改变该平面上的纹理频率。"}
+{"item_id":"1d766d996f:54","text":"在 Teapot 上将 Triplanar Scale XYZ 从 1 改为 3"}

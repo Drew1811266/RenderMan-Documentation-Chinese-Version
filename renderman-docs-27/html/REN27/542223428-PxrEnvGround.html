@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PxrEnvGround</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>PxrEnvGround</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/REN27/542223428/PxrEnvGround">https://rmanwiki-27.pixar.com/space/REN27/542223428/PxrEnvGround</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>When creating a turntable for look development, it's useful to render an object with an environment and ground for lighting and reflection. <br/><br/>This pattern is intended to be used with a High Dynamic Range Image or HDRI, typically an OpenEXR file of a photographically captured environment that is also your light source using a <a href="/wiki/spaces/REN27/pages/542226975/PxrDomeLight" data-linked-resource-id="542226975" data-linked-resource-version="1" data-linked-resource-type="page">PxrDomeLight</a>. It is then connected to your ground geometry material.</p><p>The placement controls such as Offset and Rotation are meant to allow you to match this with the final placement of your PxrDomeLight.</p><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="fe1aa902-14f5-4761-8c0a-896686f4c234" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>This pattern is intended to be used in a look-development workflow with your asset at the scene origin/center to maintain the correct projection.</p></div></div><h3 id="PxrEnvGround-InputParameters"><br/>Input Parameters</h3><h4 id="PxrEnvGround-Filename">Filename</h4><p>This is where to supply an HDRI texture as the ground. Note that details may become lost as you travel away from the origin.</p><h4 id="PxrEnvGround-EnvironmentRadius">Environment Radius</h4><p>This changes the distance of the supplied projection, incorrect values will result in visible stretching.</p><h4 id="PxrEnvGround-OffsetX">Offset X</h4><p>Shift the result in the X direction. Negative values shift the opposite direction.</p><h4 id="PxrEnvGround-OffsetZ">Offset Z</h4><p>Shift the result in the Y direction. Negative values shift the opposite direction.</p><h4 id="PxrEnvGround-Rotation">Rotation</h4><p>Rotate the result in degrees around the Y axis.</p><h4 id="PxrEnvGround-FilterWidth">Filter Width</h4><p>Can be used to blur the texture result.</p><h3 id="PxrEnvGround-Output">Output</h3><h4 id="PxrEnvGround-ResultRGB">ResultRGB</h4><p>This is typically connected to the Diffuse color input of your material.</p><h4 id="PxrEnvGround-ResultPresence">Result Presence</h4><p>This is connected to the Presence parameter of your material.</p><h4 id="PxrEnvGround-ResultNG">ResultNG</h4><p>This connects to a <a href="/wiki/spaces/REN27/pages/542222881/PxrBumpMixer" data-linked-resource-id="542222881" data-linked-resource-version="1" data-linked-resource-type="page">PxrBumpMixer</a> (required) that is then connected to the Normal/Bump parameter of your material, usually the global bump if one exists.</p><p><strong><br/></strong></p>
+  </article>
+</main>
+</body>
+</html>

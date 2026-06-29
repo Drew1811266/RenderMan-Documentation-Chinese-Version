@@ -1,0 +1,151 @@
+{"item_id":"a62db73269:0","text":"spooler 会把 job scripts 送入 Tractor job queue，以便在 farm 上处理和分发。Job scripts 是文件，通常采用 Tractor job scripting format（也称为 Alfred scripts）。这些 scripts 通常由其他 applications 编写，例如 \"RenderMan for Maya\" plug-in，或各 studio 的专用 job submission scripts。对于简单 tasks，tractor-spool 本身可以根据你想发送到 farm 的简单 command 为你创建 job。如果你已经有一组要提交的 RenderMan RIB files，tractor-spool 也可以根据这些 filenames 自动为你创建 job（参见 \"--ribs\" example）。"}
+{"item_id":"a62db73269:1","text":"Usage:"}
+{"item_id":"a62db73269:2","text":"其中 \"jobfiles\" 是描述待执行 work 的 job scripts。可以给出多个 job file names；它们会按顺序提交到 job queue。\"-c\" 和 \"--ribs\" variants 会根据 command 或 RIB arguments 为你创建 job scripts，并提交这些 scripts。"}
+{"item_id":"a62db73269:3","text":"术语说明：Job submission 有时也称为"}
+{"item_id":"a62db73269:4","text":"spooling"}
+{"item_id":"a62db73269:5","text":"，这是类比 print spooling 或传统 batch job systems 的说法。"}
+{"item_id":"a62db73269:6","text":"Option"}
+{"item_id":"a62db73269:7","text":"说明"}
+{"item_id":"a62db73269:8","text":"--version"}
+{"item_id":"a62db73269:9","text":"显示程序 version information，然后退出。"}
+{"item_id":"a62db73269:10","text":"-h,"}
+{"item_id":"a62db73269:11","text":"--help"}
+{"item_id":"a62db73269:12","text":"打印 usage summary，然后退出。"}
+{"item_id":"a62db73269:13","text":"-v"}
+{"item_id":"a62db73269:14","text":"添加 verbose 详细状态消息。"}
+{"item_id":"a62db73269:15","text":"-q"}
+{"item_id":"a62db73269:16","text":"Quiet mode 静默模式，不打印状态信息。"}
+{"item_id":"a62db73269:17","text":"--engine=HOST[:port]"}
+{"item_id":"a62db73269:18","text":"中央 Tractor Engine service 的 Hostname[:port]，默认值为 tractor-engine:80。hostname \"tractor-engine\" 通常是 local network administrators 添加的 DNS alias，指向当前运行该 service 的实际 hostname。这个 alias 简化了到 tractor-engine process 的所有 connections，因为默认都会尝试该名称。默认 port 为 80，并且必须与 tractor-engine 实际监听的 port number 匹配（启动 tractor-engine 时选择）。如果未给出此 option，spooler 会先查找名为 TRACTOR_ENGINE 的 environment variable 作为 host:port specification，然后才使用 defaults。"}
+{"item_id":"a62db73269:19","text":"-c"}
+{"item_id":"a62db73269:20","text":"--command"}
+{"item_id":"a62db73269:21","text":"-C"}
+{"item_id":"a62db73269:22","text":"把带有给定 arguments 的 single command 发送到 farm（而不是发送预先写好的 job script）。它会收集所有剩余 command-line parameters，然后创建一个 single-task Tractor job，把给定 command 发送到 remote tractor-blade。"}
+{"item_id":"a62db73269:23","text":"注意：这必须是给出的 LAST option"}
+{"item_id":"a62db73269:24","text":"，因为 -c 后面的每个 \"words\"（shell tokens）都会成为给定 application 的单独 arguments。例如："}
+{"item_id":"a62db73269:25","text":"用于启动给定 command 的 search paths 和其他 environment settings 由每台 host 上的 tractor-blade server 控制。既有 default paths 和 settings，也有 configurable site-defined \"environment packages\"，例如某个正在 production 的 show 的所有 locked down settings；这些可用此处描述的其他 options 选择，例如下面的 --envkey。"}
+{"item_id":"a62db73269:26","text":"如果 command 需要特定类型的 remote server，请在 -c 之前添加 --service=name specification。Service name abstractions 在 blade.config 中定义，但如果目标是某个 specific host，也可以直接使用 hostname；如果该 class 中任意 host 都可接受，则可使用 profile name。"}
+{"item_id":"a62db73269:27","text":"有几个 built-in \"portability aliases\" 可用于常见 commands，这些 commands 通常用于 test 或 diagnostic 场景。这些 aliases 以 equal-sign 开头，以便和具体 actual executables 区分。最有用的可能是："}
+{"item_id":"a62db73269:28","text":"使用 -c 生成常规 RemoteCmd format，使用 -C 强制生成 local Cmd。"}
+{"item_id":"a62db73269:29","text":"-r,"}
+{"item_id":"a62db73269:30","text":"--ribs"}
+{"item_id":"a62db73269:31","text":"把剩余 filename arguments 视为独立 RIB files，并作为不同 remote tractor-blades 上的 INDEPENDENT prman processes 渲染；创建一个 multi-task Tractor job 来处理这些 renderings。"}
+{"item_id":"a62db73269:32","text":"-R, --rib"}
+{"item_id":"a62db73269:33","text":"把剩余 filename arguments 视为 RIB files，并使用 remote tractor-blade 上的 SINGLE prman process 渲染，也就是说 prman 会 concatenate 所有 rib files 进行 rendering；创建一个 single-task Tractor job 来处理该 rendering。"}
+{"item_id":"a62db73269:34","text":"--jobcwd=DIRNAME"}
+{"item_id":"a62db73269:35","text":"从此 job 启动 commands 时，blades 会尝试 chdir 到指定 directory；默认值就是运行 tractor-spool 时的 current directory。"}
+{"item_id":"a62db73269:36","text":"--projects=PROJECTS"}
+{"item_id":"a62db73269:37","text":"project affiliations list，例如 'TheFilm lighting'，可配合"}
+{"item_id":"a62db73269:38","text":"Limit Allocations"}
+{"item_id":"a62db73269:39","text":"管理 resource pools 资源池。"}
+{"item_id":"a62db73269:40","text":"--priority=FLOAT"}
+{"item_id":"a62db73269:41","text":"spooled job(s) 的任意正 floating-point priority；priority 值较高的 jobs 会先处理。Studios 通常会制定如何使用 priorities 的 conventions。"}
+{"item_id":"a62db73269:42","text":"--title=\"words\""}
+{"item_id":"a62db73269:43","text":"与 -c 和 -r 一起使用，用于更改 auto-generated job 的 default job title。"}
+{"item_id":"a62db73269:44","text":"--svckey=SVCKEY"}
+{"item_id":"a62db73269:45","text":"为 spooled job 中的 Cmds 指定额外 job-wide service key restriction；这些 key(s) 会与 Cmds 自身已有的任何 keys 做 AND。与 -c 或 --rib option 一起使用时，它会覆盖 \"PixarRender\"，作为用于为这些 Cmds 选择 matching blades 的 sole service key。"}
+{"item_id":"a62db73269:46","text":"--cmdsvckey=CMDSVCKEY"}
+{"item_id":"a62db73269:47","text":"--cmdservice=CMDSVCKEY"}
+{"item_id":"a62db73269:48","text":"与 -c 或 -r option 一起使用，用于为每个 command 指定 sole service key expression；该 expression 会受 RANGE 和 ITER substitution 影响。"}
+{"item_id":"a62db73269:49","text":"--remotecleankey=KEY"}
+{"item_id":"a62db73269:50","text":"把 \"local\" clean-up Cmds 转换为 RemoteCmds。在某些上下文中，user 可能无法控制 job generation 的细节，因此无法以其他方式强制 clean-ups 远程运行。\"local\" Cmd 必须在 spool 该 job 的同一 host 上运行，例如 artist workstation，这意味着 user 必须在 desktop 上保持 tractor-blade process 运行以处理这些 Cmd clean-ups。相比之下，RemoteCmd clean-up 会在第一台 available farm machine 上运行。给出此 option 时，默认也会把 Job -whenerror 和 -whendone blocks 转换为 RemoteCmds，而不是 local Cmds。此 spooling option 还要求给出 blade service key name，用于指定运行 clean-up 的合适 blade 类型。这个 conversion option 是一种 workaround，用于 job script generator 本身无法更新为在 cleanup blocks 中直接使用 RemoteCmd，并且需要把 Job -whendone/error blocks 转换为更通用 -postscript blocks 的情况。"}
+{"item_id":"a62db73269:51","text":"--envkey=ENVKEY"}
+{"item_id":"a62db73269:52","text":"与 -c 和 -r 一起使用，用于更改 environment key，该 key 会配置应用到这些 auto-generated job scripts 的 environment variables；默认值：None。"}
+{"item_id":"a62db73269:53","text":"--range=RANGE"}
+{"item_id":"a62db73269:54","text":"为"}
+{"item_id":"a62db73269:55","text":"给定 range 中的每个 integer 创建一个带 separate task 的 job。Ranges 可写成 '1-10' 或 '1-4,7,9,16-20'。"}
+{"item_id":"a62db73269:56","text":"仅适用于通过 --command (-c)"}
+{"item_id":"a62db73269:57","text":"option 指定的 command templates。每个 new task 都包含一份 command template 的 copy，"}
+{"item_id":"a62db73269:58","text":"其中 word '"}
+{"item_id":"a62db73269:59","text":"RANGE"}
+{"item_id":"a62db73269:60","text":"' 会被替换为"}
+{"item_id":"a62db73269:61","text":"range sequence 中的下一个 integer。也支持并推荐使用 Python string format() syntax，field name 为 {"}
+{"item_id":"a62db73269:62","text":"RANGE"}
+{"item_id":"a62db73269:63","text":"。"}
+{"item_id":"a62db73269:64","text":"若要插入类似 00041、00042 的 leading-zero padding，请使用 {"}
+{"item_id":"a62db73269:65","text":"RANGE"}
+{"item_id":"a62db73269:66","text":":0>NN}，其中 NN 是 digits 数量。"}
+{"item_id":"a62db73269:67","text":"（另请参阅"}
+{"item_id":"a62db73269:68","text":"--ribs"}
+{"item_id":"a62db73269:69","text":"，可轻松提交一系列已有 rib files。）"}
+{"item_id":"a62db73269:70","text":"例如："}
+{"item_id":"a62db73269:71","text":"会显示以下 job file："}
+{"item_id":"a62db73269:72","text":"注意："}
+{"item_id":"a62db73269:73","text":"和"}
+{"item_id":"a62db73269:74","text":"characters 对许多 command line shells 有特殊意义。上面使用 double quotes，是为了确保"}
+{"item_id":"a62db73269:75","text":"和"}
+{"item_id":"a62db73269:76","text":"会被传入"}
+{"item_id":"a62db73269:77","text":"；这对大多数 shells 都是必需的，包括"}
+{"item_id":"a62db73269:78","text":"和"}
+{"item_id":"a62db73269:79","text":"，以及"}
+{"item_id":"a62db73269:80","text":"等。"}
+{"item_id":"a62db73269:81","text":"--range-formatting=both|sfmt|text"}
+{"item_id":"a62db73269:82","text":"默认 setting 'both' 会尝试把 range"}
+{"item_id":"a62db73269:83","text":"integers 替换进 -c command arguments，首先使用 Python"}
+{"item_id":"a62db73269:84","text":"Python string format() 风格 {"}
+{"item_id":"a62db73269:85","text":"RANGE"}
+{"item_id":"a62db73269:86","text":"} expressions，然后对任何剩余"}
+{"item_id":"a62db73269:87","text":"occurrences"}
+{"item_id":"a62db73269:88","text":"的"}
+{"item_id":"a62db73269:89","text":"word"}
+{"item_id":"a62db73269:90","text":"RANGE"}
+{"item_id":"a62db73269:91","text":"做 simple replacement。此处使用 value 'sfmt' 表示只处理 string format"}
+{"item_id":"a62db73269:92","text":"RANGE"}
+{"item_id":"a62db73269:93","text":"} expressions；或使用 value 'text' 表示只做 simple"}
+{"item_id":"a62db73269:94","text":"replacement 简单文本替换处理。"}
+{"item_id":"a62db73269:95","text":"--itervalues=LIST"}
+{"item_id":"a62db73269:96","text":"为 list 中的每个 item 创建一个 task；该 list 以 comma-separated items 指定，并在 command string 或 service key expression 中把 ITER 替换为 current value；例如 red,green,blue 或 'red house,green lawn,blue sky'。"}
+{"item_id":"a62db73269:97","text":"--iterfile=FILENAME"}
+{"item_id":"a62db73269:98","text":"为 file 中的每个 item 创建一个 task；该 file 指定 line-separated items list。"}
+{"item_id":"a62db73269:99","text":"--task-title=TTITLE"}
+{"item_id":"a62db73269:100","text":"Task title pattern，用于使用 RANGE 或 ITER construction 的 auto-generated jobs。"}
+{"item_id":"a62db73269:101","text":"-T [MINSECS,]MAXSEC"}
+{"item_id":"a62db73269:102","text":"--runtime-bounds=[MINSECS,]MAXSECS"}
+{"item_id":"a62db73269:103","text":"与 -c 一起使用，为 command 在 blade 上的 elapsed time 添加 minimum 和 maximum bounds。以 'min,max' 或 'min-max' 形式给出 seconds range。如果 launched command 的 elapsed run time 短于或长于给定 bounds，则标记为 Error。"}
+{"item_id":"a62db73269:104","text":"超过 maximum time 的 commands 会被 kill。如果只给出一个 value，则它指定 max run time。max time 为 0（zero）表示 unbounded。"}
+{"item_id":"a62db73269:105","text":"--limit-tags=TAGS"}
+{"item_id":"a62db73269:106","text":"指定要添加到每个 command 的 limit counting tags；会受 RANGE 和 ITER substitution 影响。"}
+{"item_id":"a62db73269:107","text":"--tier=TIER"}
+{"item_id":"a62db73269:108","text":"Dispatching tier assignment 调度层级分配，用于 special-case jobs 特殊作业。"}
+{"item_id":"a62db73269:109","text":"--paused"}
+{"item_id":"a62db73269:110","text":"以 paused state spool 该 job，表示在以后把 priority 从 negative 改为 positive number 之前，不会从该 job 启动任何 tasks。"}
+{"item_id":"a62db73269:111","text":"--aftertime='MM DD HH:MM'"}
+{"item_id":"a62db73269:112","text":"把 job start 延迟到给定 date，格式为 'MM DD HH:MM'。"}
+{"item_id":"a62db73269:113","text":"--afterjid=JID"}
+{"item_id":"a62db73269:114","text":"把 job start 延迟到给定 job(s) 完成，指定为 jid(s)。"}
+{"item_id":"a62db73269:115","text":"--nrm"}
+{"item_id":"a62db73269:116","text":"让 auto-generated --ribs 使用 local blade 上的 netrender，而不是在 blade 上用 prman direct rendering；当 named RIBfile 无法被 remote blades 直接访问时使用。"}
+{"item_id":"a62db73269:117","text":"--spool-wait"}
+{"item_id":"a62db73269:118","text":"block，直到 job 完全 spooled（到 tractor-engine 2.0+）。"}
+{"item_id":"a62db73269:119","text":"--status-json"}
+{"item_id":"a62db73269:120","text":"在 stdout 上以 JSON-format dict 打印 submission confirmation message（或 denial），而不是 plain text。"}
+{"item_id":"a62db73269:121","text":"--status-plain"}
+{"item_id":"a62db73269:122","text":"以 human-readable plain text 打印 spool confirmation message；这是 default。"}
+{"item_id":"a62db73269:123","text":"-A, --in-alfred（Alfred 输入格式选项）"}
+{"item_id":"a62db73269:124","text":"表示正在提交的 job file 是 Alfred (tcl) format，这是默认值。"}
+{"item_id":"a62db73269:125","text":"-J, --in-json"}
+{"item_id":"a62db73269:126","text":"表示正在提交的 job file(s) 格式为 Tractor compliant JSON。"}
+{"item_id":"a62db73269:127","text":"--alfescape"}
+{"item_id":"a62db73269:128","text":"处理 job files 时假定它们期望 backward-compatible alfred-style two-level unquoting / substitution。"}
+{"item_id":"a62db73269:129","text":"--alf-argv-subst"}
+{"item_id":"a62db73269:130","text":"只对 Cmd executable parameters 应用第二次 substitution pass。"}
+{"item_id":"a62db73269:131","text":"--maxactive=MAXACTIVE"}
+{"item_id":"a62db73269:132","text":"限制 job 的 concurrently active commands 并发活动命令 maximum number 最大数量。"}
+{"item_id":"a62db73269:133","text":"--user=LOGIN"}
+{"item_id":"a62db73269:134","text":"与此 job 关联的 user（login）；默认值为执行 spooling script 的 user name。Site configuration policies 可能禁止这样设置。"}
+{"item_id":"a62db73269:135","text":"--jdelete=JDEL_ID"}
+{"item_id":"a62db73269:136","text":"--jretire=JDEL_ID"}
+{"item_id":"a62db73269:137","text":"从 active queue 活动队列删除 requested job 请求的作业。"}
+{"item_id":"a62db73269:138","text":"--haddr=HADDR"}
+{"item_id":"a62db73269:139","text":"submitting host 的 host address selection，通常不需要。只有在 submitting host 有多个 network interfaces，或者 tractor-engine 可能看到 submission script 与 locally running tractor-blade node 的不同 addresses 时，才可能需要它，且通常只针对 \"local Cmd\" variant jobs。"}
+{"item_id":"a62db73269:140","text":"-p PASSWD"}
+{"item_id":"a62db73269:141","text":"--passwd=PASSWD"}
+{"item_id":"a62db73269:142","text":"提交 job 的 user 的 Tractor login password（如果启用了 engine passwords）。"}
+{"item_id":"a62db73269:143","text":"--configfile=CONFIGFILE"}
+{"item_id":"a62db73269:144","text":"包含运行 tractor-spool 的 user 的 cached login 和 password data 的 file。"}
+{"item_id":"a62db73269:145","text":"--parse-debug"}
+{"item_id":"a62db73269:146","text":"parse inbound job text 并 report errors；该 job 不会提交给 engine 处理。"}
+{"item_id":"a62db73269:147","text":"-o"}
+{"item_id":"a62db73269:148","text":"--review"}
+{"item_id":"a62db73269:149","text":"--print-alfscript"}
+{"item_id":"a62db73269:150","text":"打印 job alfscript 而不是 spool 它；通常用于查看或保存 tractor-spool 自身基于其他 arguments 生成的 job text，而不是读取现有 job file 时使用。"}

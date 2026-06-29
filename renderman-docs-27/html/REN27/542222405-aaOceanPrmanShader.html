@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>aaOceanPrmanShader</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>aaOceanPrmanShader</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/REN27/542222405/aaOceanPrmanShader">https://rmanwiki-27.pixar.com/space/REN27/542222405/aaOceanPrmanShader</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p><br/></p><span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="1071" loading="lazy" src="../../attachments/542222405/aaocean_tweaked.png" data-image-src="../../attachments/542222405/aaocean_tweaked.png" data-height="360" data-width="640" data-unresolved-comment-count="0" data-linked-resource-id="542222437" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="aaocean_tweaked.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542222405" data-linked-resource-container-version="1" data-media-id="ef224b22-101b-458c-a520-0261395c2531" data-media-type="file"></span><div class="toc-macro client-side-toc-macro  conf-macro output-block" data-hasbody="false" data-headerelements="H3" data-layout="default" data-local-id="94779cdb-2bf0-4067-8cf1-1cc08d7f0942" data-macro-id="cad98e99-b097-483c-8aec-0db712e40486" data-macro-name="toc"> </div><p style="text-align: center;"></p><p>A Tessendorf Ocean generator. Code contributed by Amaan Akram (<a class="external-link" href="http://www.amaanakram.com/" rel="nofollow">www.amaanakram.com</a>).</p><p>This produces a bumped normal that can be fed into a displacement shader to create ocean-like waves.</p><h3 id="aaOceanPrmanShader-InputParameters">Input Parameters</h3><h4 id="aaOceanPrmanShader-Resolution">Resolution</h4><p>Specifies generated texture resolution. Valid settings are 3 through 7. Each value generates the following resolution:</p><ul><li><p>A value of 3 generates a resolution of 128x128</p></li><li><p>4: 256x256</p></li><li><p>5: 512x512</p></li><li><p>6: 1024x1024</p></li><li><p>7: 2048x2048.</p></li></ul><h4 id="aaOceanPrmanShader-OceanScale">Ocean Scale</h4><p>Size of the ocean patch in meters. Larger values &quot;fit&quot; a larger expanse of the ocean into the rendered geometry.</p><h4 id="aaOceanPrmanShader-Seed">Seed</h4><p>Seed for the random number generator. Different values produce different ocean patches.</p><h4 id="aaOceanPrmanShader-CurrentTime">Current Time</h4><p>Current scene time in seconds. Use an expression to drive this parameter.</p><h4 id="aaOceanPrmanShader-RepeatTime">Repeat Time</h4><p>Waves loop (repeat their shape) after the specified amount of time in seconds.</p><h4 id="aaOceanPrmanShader-Fade">Fade</h4><p>Fades (scales) the ocean vector displacement strength.</p><h4 id="aaOceanPrmanShader-ChopAmount">Chop Amount</h4><p>The sharpness of the peaks of the waves is controlled by this parameter. Also affects foam values.</p><h4 id="aaOceanPrmanShader-Velocity">Velocity</h4><p>Controls the size of the waves. Higher velocities make fewer, but bigger waves. Lower velocities make a calm ocean.</p><h4 id="aaOceanPrmanShader-WaveSpeed">Wave Speed</h4><p>Speed multiplier for waves.</p><h4 id="aaOceanPrmanShader-Cutoff">Cutoff</h4><p>Defines a smoothing factor for the overall ocean surface. Cuts off (removes) waves with wavelengths smaller than the specified value.</p><h4 id="aaOceanPrmanShader-WaveHeight">Wave Height</h4><p>Height multiplier for waves.</p><h4 id="aaOceanPrmanShader-WindDirection">Wind Direction</h4><p>The direction the waves travel in.</p><h4 id="aaOceanPrmanShader-Damp">Damp</h4><p>Bias waves traveling in the direction of the wind. Value of 0 makes waves travel opposite to the wind direction. 1.0 makes the waves travel in the wind direction only.</p><h4 id="aaOceanPrmanShader-WindAlign">Wind Align</h4><p>Align waves perpendicular to the direction of the wind, as observed in shallow waters.</p><h4 id="aaOceanPrmanShader-InvertFoam">Invert Foam</h4><p>Makes wave peaks appear white, instead of making wave troughs white.</p><h4 id="aaOceanPrmanShader-Gamma">Gamma</h4><p>Gamma factor to apply to the eigenvalue output.</p><h4 id="aaOceanPrmanShader-Brightness">Brightness</h4><p>Multiplier for the eigenvalues.</p><h4 id="aaOceanPrmanShader-Normalize">Normalize</h4><p>Whether to normalize the eigenvalues. See <em>fMin</em> and <em>fMax</em>.</p><h4 id="aaOceanPrmanShader-fMin">fMin</h4><p>fMin and fMax are used to normalize the eigenvalues, which can go into negative and positive values. See render log for typical values on a frame.</p><h4 id="aaOceanPrmanShader-fMax">fMax</h4><p>fMin and fMax are used to normalize the eigenvalues, which can go into negative and positive values. See render log for typical values on a frame.</p><h4 id="aaOceanPrmanShader-WriteFile">Write File</h4><p>Writes out a full-float OpenEXR vector displacement map sequence in object space.</p><h4 id="aaOceanPrmanShader-OutputFolder">Output Folder</h4><p>Path to the folder for output images.</p><h4 id="aaOceanPrmanShader-Postfix">Postfix</h4><p>Provides any postfix to apply to the generated file to identify it uniquely.</p><h4 id="aaOceanPrmanShader-CurrentFrame">Current Frame</h4><p>Set an expression for the current frame for frame padded sequence names.</p><h4 id="aaOceanPrmanShader-OceanDepth">Ocean Depth</h4><p>Slows down waves as depth decreases.</p><h4 id="aaOceanPrmanShader-SurfaceTension">Surface Tension</h4><p>Capillary waves that run on top of the ocean surface. For small-scale effects only. See the original <a class="external-link" href="http://jerrytessendorf.blogspot.com/2011/10/simulating-ocean-surface-jerry.html" rel="nofollow">Tessendorf</a> paper for details.</p><h4 id="aaOceanPrmanShader-InvertT">Invert T</h4><p>Inverts the t parameter for the manifold.</p><h4 id="aaOceanPrmanShader-Manifold">Manifold</h4><p>Provides the domain over which to apply the displacement. Defaults to s,t.</p><h3 id="aaOceanPrmanShader-OutputParameters">Output Parameters</h3><h4 id="aaOceanPrmanShader-outputDisplacementRGB">outputDisplacementRGB</h4><p>The bumped normal.</p><h4 id="aaOceanPrmanShader-outEigenvalueFloat">outEigenvalueFloat</h4><p>The eigenvalues.</p><h3 id="aaOceanPrmanShader-ExampleUsage">Example Usage</h3><p>To quickly get a convincing-looking ocean render, we can use <a href="542213836-PxrSurface.html" rel="nofollow">PxrSurface</a> (using the Glass parameters) as the Bxdf. The only thing we want to tweak is the <em>Refractive Index</em> (eta), which we'll change to 1.33 to match the value of water.</p><p>For the displacement, we can use the PxrDisplace shader. Connect aaOceanPrmanShader's <em>outputDisplacementRGB</em> output.</p><p>Below is an example render with the default settings for aaOceanPrmanShader. The ocean is being lit by an environment light using the <code>Luxo-Jr_4000x2000.tex</code> texture that is included with RenderMan.</p><span class="confluence-embedded-file-wrapper image-center-wrapper"><img class="confluence-embedded-image image-center" loading="lazy" src="../../attachments/542222405/aaocean_default.png" data-image-src="../../attachments/542222405/aaocean_default.png" data-height="360" data-width="640" data-unresolved-comment-count="0" data-linked-resource-id="542222434" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="aaocean_default.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542222405" data-linked-resource-container-version="1" data-media-id="91a01f79-17d7-474c-b1ad-9db5f8a1caa7" data-media-type="file"></span><p style="text-align: center;"><em>A calm ocean.</em></p><p>Depending on the size of the object, it may be necessary to increase the <em>Resolution</em> parameter. For the next render, because of the size of the plane, <em>Resolution</em> has been increased to 7. Also, <em>Chop Amount</em> is increased to 10.0.</p><span class="confluence-embedded-file-wrapper image-center-wrapper"><img class="confluence-embedded-image image-center" loading="lazy" src="../../attachments/542222405/aaocean_tweaked.png" data-image-src="../../attachments/542222405/aaocean_tweaked.png" data-height="360" data-width="640" data-unresolved-comment-count="0" data-linked-resource-id="542222437" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="aaocean_tweaked.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542222405" data-linked-resource-container-version="1" data-media-id="ef224b22-101b-458c-a520-0261395c2531" data-media-type="file"></span><p style="text-align: center;"><em>Things are getting bumpy.</em></p><p>To add some simplistic white foam, we can add a diffuse layer to our ocean, by adding diffuse to our <a href="542213836-PxrSurface.html" rel="nofollow">PxrSurface</a>.</p><p>Create a <a href="542216714-PxrLayerSurface.html" rel="nofollow">PxrLayerSurface</a> shader, and connect the <em>outputDisplacementRGB</em> output to the (diffuse) <em>Bump</em> parameter and set the (diffuse) <em>Color</em> to something closer to white. Make sure that the specular and clear coat lobes have been disabled.</p><p>For the layer mask, we can use the <em>outEigenvalueFloat</em> output from the <a href="542222405-aaOceanPrmanShader.html" rel="nofollow">aaOceanPrmanShader</a> pattern. It's necessary that the values fall into the 0-1 range. We can easily enforce that by using a <a href="542224612-PxrRemap.html" rel="nofollow">PxrRemap</a> node. Connect the PxrRemap to the layer mask parameter. Because PxrRemap only works with colors, we can use a <a href="542225462-PxrToFloat3.html" rel="nofollow">PxrToFloat3</a> to convert the <em>outEigenvalueFloat</em> to a triplet. Set the <em>Input Min</em> and <em>Input Max</em> to -5 and 5, respectively, on the PxrRemap node.</p><p>Lastly, turn on <em>invertFoam</em> in the aaOceanPrmanShader node so that the white appears at the wave peaks. You should then get a render similar to the image below.</p><span class="confluence-embedded-file-wrapper image-center-wrapper"><img class="confluence-embedded-image image-center" loading="lazy" src="../../attachments/542222405/aaocean_foam.png" data-image-src="../../attachments/542222405/aaocean_foam.png" data-height="360" data-width="640" data-unresolved-comment-count="0" data-linked-resource-id="542222431" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="aaocean_foam.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542222405" data-linked-resource-container-version="1" data-media-id="2059606f-ee65-41bf-97b8-7282be9fef4f" data-media-type="file"></span><p style="text-align: center;"><em>Not so calm anymore.</em></p><p><br/></p><p><br/></p>
+  </article>
+</main>
+</body>
+</html>

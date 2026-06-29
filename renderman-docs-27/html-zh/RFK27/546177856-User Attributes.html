@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>User Attributes</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>User Attributes</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFK27/546177856/User+Attributes">https://rmanwiki-27.pixar.com/space/RFK27/546177856/User+Attributes</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p><a href="https://renderman.atlassian.net/wiki/pages/createpage.action?spaceKey=DEV22&amp;title=Attribute%20user" rel="nofollow">User attributes（用户属性）</a> 是一种便捷方式，可在不更改 shading network（着色网络）的情况下，让多个对象之间的着色产生变化。它们特别有用，因为与 <a href="546177881-Primitive Variables.html" data-linked-resource-id="546177881" data-linked-resource-version="4" data-linked-resource-type="page">primitive variables（图元变量）</a>不同，它们可以随 instance（实例）变化。</p><h3 id="UserAttributes-SettingUserAttributes">Setting User Attributes（设置用户属性）</h3><p>下面是一个示例，展示如何使用 OpScript 设置 color user attribute（颜色用户属性）：</p><div class="table-wrap"><table data-table-width="808.5708" data-layout="wide" data-local-id="053f9974-0438-454c-b70c-e2171c6dd22c" class="confluenceTable"><colgroup><col style="width: 808.57px;"/></colgroup><tbody><tr><td class="confluenceTd"><p><code>gb =</code> <code>GroupBuilder()</code><br/><code>gb:set(&quot;value&quot;, FloatAttribute({0.0, 1.0, 0.0}, 3))</code><br/><code>gb:set(&quot;type&quot;, StringAttribute(&quot;color&quot;))</code><br/><code>Interface.SetAttr(&quot;prmanStatements.attributes.user.myColor&quot;, gb:build())</code></p></td></tr></tbody></table></div><p>虽然所有 user attributes（用户属性）都可以设置为 GroupAttribute，但 color attributes（颜色属性）是唯一需要这样做的类型。Int、float 和 string user attributes（字符串用户属性）可以直接设置，其类型会从 Katana attribute type（Katana 属性类型）推断出来：</p><div class="table-wrap"><table data-table-width="1800" data-layout="default" data-local-id="c0ee1830-c1b4-48f6-9d0c-63576b1818e1" class="confluenceTable"><tbody><tr><td class="confluenceTd"><p><code>Interface.SetAttr(&quot;prmanStatements.attributes.user.myFloat&quot;, FloatAttribute(3))</code></p></td></tr></tbody></table></div><h3 id="UserAttributes-UsingUserAttributes">Using User Attributes（使用用户属性）</h3><p>RenderMan 随附了几个使用 user attributes（用户属性）的插件。  <a href="https://rmanwiki-26.pixar.com/space/REN26/19661579/PxrAttribute" data-linked-resource-id="19661579" data-linked-resource-version="1" data-linked-resource-type="page">PxrAttribute</a> 或 <a href="https://rmanwiki-26.pixar.com/space/REN26/19661737/PxrVary" data-linked-resource-id="19661737" data-linked-resource-version="1" data-linked-resource-type="page">PxrVary</a> 是读取 user attributes（用户属性）的 patterns（模式）。 <a href="https://rmanwiki-26.pixar.com/space/REN26/19661911/PxrCryptomatte" data-linked-resource-id="19661911" data-linked-resource-version="2" data-linked-resource-type="page">PxrCryptomatte</a> sample filter（采样过滤器）可以基于 string user attributes（字符串用户属性）创建不同的输出。使用这些插件时，attribute（属性）参数应包含前缀 <code>user:</code>，后接 attribute name（属性名称）。</p>
+  </article>
+</main>
+</body>
+</html>

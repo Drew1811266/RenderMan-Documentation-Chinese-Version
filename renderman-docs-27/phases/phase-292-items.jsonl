@@ -1,0 +1,46 @@
+{"id": "37ed6856d9851a837079440f3d67093f5ef673e512bc81ee1dd154fd77f51e4a", "item_id": "150909e6ee:0", "text": "RenderMan requires certain AOVs to be enabled for the denoiser to work correctly on batch renders."}
+{"id": "b4db7cada0cf299acc039b6988a9082632cda15917b3286c71fce51384b42599", "item_id": "150909e6ee:1", "text": "These AOVs can be applied in 2 ways."}
+{"id": "4e8d7d65713897ec8fe9d0c7456bf9baf8a99b756e59c4ef71207a66d07169f7", "item_id": "150909e6ee:2", "text": "Either with a"}
+{"id": "143e71f0f48d23a8cb1b9cb52585511b2e5436c2cb023bd933dacf126f1470b0", "item_id": "150909e6ee:3", "text": "rendermanrendervars"}
+{"id": "0c9e9527ed78d74a4525c58acd5958fa744e6ee0bdaee6ac765068821cd7cb47", "item_id": "150909e6ee:4", "text": "node or via the"}
+{"id": "0b888fb68be194d75a46874b49364d72811e0dc4a3e74295221e88b0b31ba102", "item_id": "150909e6ee:5", "text": "rendermanrendersettings"}
+{"id": "a559ef5324dfa321d172608c6be1be99e68ec3819bb824ab50b53a396c204029", "item_id": "150909e6ee:6", "text": "node.  Both are valid workflows."}
+{"id": "09d5a87313820074a103f500930b54430ce7752ecfc8522831f60b7c24a11703", "item_id": "150909e6ee:7", "text": "The Denoiser AOVs needs to be activated, and the easiest way to do this is by clicking the blue R in the top right corner (highlighted red in the images below)"}
+{"id": "f873f7b34403b12c673698a65bea24aba1a9f3c56a1211f0424bc29fa088d5a7", "item_id": "150909e6ee:8", "text": "This will enable all AOVs required by the Denoiser."}
+{"id": "420cb020700c79321552e33d617835af2dcdac157219b0c7277758c305637f19", "item_id": "150909e6ee:9", "text": "Once you have activated the required denoising AOVS, you can do one of the following two setups:"}
+{"id": "c41cfc64d3c7adc4707a38590e78ae9a5bf25f58b919bbebd385995ac503d1b5", "item_id": "150909e6ee:10", "text": "Setup 1 - ROP Fetch Node"}
+{"id": "debd72916d54052e5e9c3f77fc9c832487deebb8b992c72eb933e834b07760c2", "item_id": "150909e6ee:33", "text": "In the OUT context, create a ROP"}
+{"id": "e7d3799ecc09f5cbc446aa0a79bb1fb9d0126395fa19a5903b7425f42e5e92e7", "item_id": "150909e6ee:22", "text": "fetch"}
+{"id": "545ea538461003efdc8c81c244531b003f6f26cfccf6c0073b3239fdedf49446", "item_id": "150909e6ee:13", "text": "node"}
+{"id": "0c4aef9f2fba18cffe21a6c07ebc4cd2445370f96386c3367c2a379674aa90b8", "item_id": "150909e6ee:42", "text": "Set the"}
+{"id": "0e570ca6fabe24f94e52c1833f3ffd25567022beb826fa16891f3322051bc221", "item_id": "150909e6ee:15", "text": "Source"}
+{"id": "16ee3ee2e4a781041aeac27a9e2e05f1ea3b9ca6a175a989133e9274453a8162", "item_id": "150909e6ee:16", "text": "parameter to a desired desired LOP"}
+{"id": "6248980c0a349578c0510782126df298cc11dd98fba03664cbe95fdd66ed7997", "item_id": "150909e6ee:28", "text": "usdrender_rop"}
+{"id": "2790c5c46dae5ab0b2930f4aecb9cf10010a3484f02110a7604adbd79713e3eb", "item_id": "150909e6ee:18", "text": "node in the Solaris/Stage context."}
+{"id": "175f8cc2c8aadac726053cad17418e3be0c49687d152dab097857dc4bc957df8", "item_id": "150909e6ee:47", "text": "Connect a ROP"}
+{"id": "bc56bb075d0cd5f5f26ccd7626d9c56da3a685ad4f4fc60bda9eee978f744d4f", "item_id": "150909e6ee:56", "text": "denoise"}
+{"id": "41fb6cfa98ab6814ace956298bc059e5e120863420c5af75f328b6d285df5e37", "item_id": "150909e6ee:21", "text": "node to the ROP"}
+{"id": "aaaa0679a5f20ebbe64e67476270348a86408730afb27d915e976f800fbe0478", "item_id": "150909e6ee:23", "text": "node input."}
+{"id": "ca8e331b2b4d8c2b059fb52ab98d9c05068fddea73c5ff17616da00425088a7b", "item_id": "150909e6ee:50", "text": "On the ROP"}
+{"id": "be7f96447bf8a8c16ef98b1204d122a75e54dd4de74bb300a028d9f4f4b82c9f", "item_id": "150909e6ee:26", "text": "node, set mode type, output location, asymmetry, flow and debug options, and once ready to render, press the Denoise button."}
+{"id": "6960205c042f80611e85096d1a2ffa2c69917c7f5d1b6e8941f35edb0cca5536", "item_id": "150909e6ee:27", "text": "Houdini will render the LOP"}
+{"id": "a692b6bc35c7839b1c38e5f026f9776063380aa19126dc858bdc074d5ab6eacf", "item_id": "150909e6ee:55", "text": "node using the frame range on the"}
+{"id": "394d5ce993be5f0ed7ca15e1ed6f94c9f6a59c6b9259eb0a3de82770c4913643", "item_id": "150909e6ee:57", "text": "node. Once all the frames have been rendered, the denoise process will begin."}
+{"id": "c18c00d7f79171e5f6acc0afe366f78255ec6885692b6d31f0b041ef5ddcb34f", "item_id": "150909e6ee:32", "text": "Setup 2 - ROP USD Render Node"}
+{"id": "3d3b0dc587c6b161dbf716f8d7923975e0ef47f2af14895a8eccfd84e8fd141b", "item_id": "150909e6ee:54", "text": "usdrender"}
+{"id": "b576f0eaad8310142d6d0aa1d27b0d486f631c86ffa17bd07daa9940f98dd330", "item_id": "150909e6ee:35", "text": "node, and change the render delegate to RenderMan RIS (XPU rendering is not currently supported with denoising in Solaris)"}
+{"id": "a1dd9fe6a4b23763d3dfad658bfe92347a9ce9f527356e8c4c10892fd951a160", "item_id": "150909e6ee:37", "text": "LOP path"}
+{"id": "134bfc82ccbd7b211a23aea0225cd5b4cfd805fdd57213cc97deb3ee87e629a9", "item_id": "150909e6ee:38", "text": "parameter to a desired node in the Solaris/Stage context where some"}
+{"id": "5c77ab11a4d3563103b7c94dd69570eb724627e6f688a5721ff23cb9d954bbb0", "item_id": "150909e6ee:45", "text": "RenderSettings"}
+{"id": "fe8563e6bb16e6c83bd268ecf15431459b823a08a7d9424410c455d6eeaac086", "item_id": "150909e6ee:40", "text": "primitive exist (the most probable default case will be"}
+{"id": "a40ec0ef3eb192fe14f970faeff8badd364fba3a2615dc0b1db7754577b373ce", "item_id": "150909e6ee:41", "text": "/stage/rendermanrendersettings"}
+{"id": "82e971defec02bee07dc78266c242eaf0a00426b8988dfdb2a864da6e8f8576c", "item_id": "150909e6ee:43", "text": "Render Settings"}
+{"id": "741313eb25458d903f45418caabd16f4f315617395d2efeb759359e207613767", "item_id": "150909e6ee:44", "text": "parameter to the location in your scene graph tree where the desired"}
+{"id": "a2b22e0e66ffeefa3a6f50d978f185410f13dcedaaee71a8b966f911116a73ef", "item_id": "150909e6ee:46", "text": "primitive is (the most probable default case will be /Render/rendersettings)"}
+{"id": "bac9f5c0b84a50cff30290b74e9234df75825203bcca757246e888fea6b03a2b", "item_id": "150909e6ee:49", "text": "node to the ROP usdrender node input"}
+{"id": "e333b9e7ddaccd9651224b453c3102cf3d6036eecebcbae5d58c8559dd9d08a4", "item_id": "150909e6ee:52", "text": "node, set your desired parameters, and click the denoise button to begin rendering the frames to disc and denoise."}
+{"id": "bf64594a4a849a8128b5663d65f7d902f74a33f0ac243d78f76c064a79bb5aec", "item_id": "150909e6ee:53", "text": "Houdini will render the ROP"}
+{"id": "886d042b6b4ab2d003e8e49c264649da637b33944dd15d53d0258bda1b9e9a7b", "item_id": "150909e6ee:58", "text": "Note : At this time we do not support the denoising workflow for Solaris in TOPs / PDG yet"}
+{"id": "1dac68aa77be7f85d1b2c235568d15f8d4e39e37fad6aee6c3f8909377ce770f", "item_id": "150909e6ee:59", "text": "1920 x 1080"}
+{"id": "65ca8f8807838bed2beff88a7321fea8abbd97ecea98c7eb6cfbcf26703cdf7e", "item_id": "150909e6ee:60", "text": "Pixel Variance = 0.26"}
+{"id": "42be81e9daa459a37fdb99f56108f11b3722964d8099f40fad486c9494b66fc2", "item_id": "150909e6ee:61", "text": "Max Samples = 64"}

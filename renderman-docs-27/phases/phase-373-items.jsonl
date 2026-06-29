@@ -1,0 +1,18 @@
+{"id": "3c8e8c34ad405120c4b97f66134a40884743c8d05dd6d1d2847effd990eb5971", "item_id": "d4f06fbfda:0", "text": "PxrMatteID"}
+{"id": "f27047eb85295f0344d2f234d1c3489e9cd2ecf46b3e6615a3502b5fca7bc1b2", "item_id": "d4f06fbfda:1", "text": "outputs matte AOVs for compositing.  This requires you add a User Attribute, explained in more detail"}
+{"id": "946440e5f3d3c0ff03dcc18ca3d072a653a947d08f10fb41f015b0beb8fdaac1", "item_id": "d4f06fbfda:4", "text": "PxrCryptomatte has since superseded this workflow as a useful and nearly automatic alternative."}
+{"id": "6892e0364debca1b9b5d9ba2f1eae784f021a9808ac5898ea2801b04fc8cd621", "item_id": "d4f06fbfda:5", "text": "Add a user attribute for MatteID0."}
+{"id": "cfdb748a8ea0fe8adcee4cbe2d814672e5bf643b94cdf314f44814f7ff8679a9", "item_id": "d4f06fbfda:6", "text": "Duplicate the fields for:"}
+{"id": "dcd1d5223f73b3a965c07e3ff5dbee3eedcfedb806686a05b9b3868a2c3d6d50", "item_id": "d4f06fbfda:7", "text": "Name"}
+{"id": "fe663042adbbb69fb511fecd88687b60333d6d3bf1499748b6e2df30e8a24d0d", "item_id": "d4f06fbfda:8", "text": "Label (this is the UI name)"}
+{"id": "70066e892dee227eaeecd6eafaeeacfd0d0934b178424e0c5042ca3bc02a1e26", "item_id": "d4f06fbfda:9", "text": "Tags (necessary to see RenderMan attributes and edit them during interactive rendering)"}
+{"id": "c0947b4840007ea2ad87f59d80c2164820af2fc4589582fcce53fc212f81d7a8", "item_id": "d4f06fbfda:10", "text": "script_ritype  color"}
+{"id": "5b8f2de495e5dfd5f52c2936da28f02f4afeba302bf6fb16c86af0e2e2f912d3", "item_id": "d4f06fbfda:11", "text": "renderman  attr"}
+{"id": "67eca618dd445fbe82ffee4eb5aa88e36ddf5ff07f7b75294ff5f635b454dc24", "item_id": "d4f06fbfda:12", "text": "Set its type and color value."}
+{"id": "5463c896eca987a03363d9056f0fe09843c61d9178a44b948c77aa2f9a000a5a", "item_id": "d4f06fbfda:13", "text": "Add PxrMatteID"}
+{"id": "3bf327211901f862bd879a28f157b6a953c0fcb1fd7ac075cd3655e4a4f3fe84", "item_id": "d4f06fbfda:14", "text": "Create a Houdini buildarray node to connect to the Utility Pattern on the PxrSurface material. Then connect a PxrMatteID Pattern node to the buildarray as shown below."}
+{"id": "1bc5d7754bae1fb2e85e4ea2f4670fdd319e2daf73b43a8240b2b9455d2adc24", "item_id": "d4f06fbfda:15", "text": "In your PxrMaterialBuilder Network, add a PxrMatteID VOP.  Set the color as the user attribute above."}
+{"id": "982b0e3e906d54b543d7c4c571f47d73aa4b57663c9362954e9c2f79989795ef", "item_id": "d4f06fbfda:16", "text": "Connect PxrMatteID's resultAOV to PxrSurface's Utility Pattern."}
+{"id": "99ecfe1367bdc375657cd556e4a26f08b414f7319e3e0e8a19d8062cfd6d738b", "item_id": "d4f06fbfda:17", "text": "Set up AOV for Output"}
+{"id": "3b807f740f2159cd9e31c81d212fec3138502de1738d063c22dfa6e5deea49e6", "item_id": "d4f06fbfda:18", "text": "Choose the correct/corresponding MatteID AOV output from the RenderMan ROP node Displays Tab"}
+{"id": "5e83e601f22d94bb39d171cfbcae2c72a5f42dd99862880e897551952648dd15", "item_id": "d4f06fbfda:19", "text": "You will notice we set a color on the OBJ with an attribute and there's also a color from the MatteID pattern itself. This is so you can multiply the color of the attribute by the pattern node. For example, you can supply a texture mask to the MatteID pattern node and have it multiplied against the color chosen in the MatteID Attribute"}

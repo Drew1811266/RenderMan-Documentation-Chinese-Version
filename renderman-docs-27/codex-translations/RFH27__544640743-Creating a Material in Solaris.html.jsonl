@@ -1,0 +1,23 @@
+{"id":"18df01da63309a7e7d79c9c30381c5783ec0af36a2bf381212c75059e5d893fa","item_id":"4637ba59d2:0","text":"有关使用 LOPs 在 USD 中创作材质的更多细节，例如添加材质 references（引用）和 variants（变体），请参见"}
+{"id":"ebbde3811ce6dbb271a918db911a8c972532bdbd5915fa886f86f2ea95a67faf","item_id":"4637ba59d2:1","text":"LOPS tutorial 1"}
+{"id":"4dbe3165742cb8f21d642cdaf9fce33c144c795f0a2635983e3e15777655d983","item_id":"4637ba59d2:2","text":"。下面将概述使用"}
+{"id":"aa9f146c3d424a8c4b32f5ba83d79579f5d0892e81b6167e459582e2c1c8e4c4","item_id":"4637ba59d2:3","text":"RenderMan"}
+{"id":"33b3b13ca1c3be08a19b739df90c9ecb8ef8cbcfbd60e36b98d699595d7254de","item_id":"4637ba59d2:4","text":"materials（材质）的基本材质工作流。"}
+{"id":"d43438d4733b100b7703b6c0647d2c2156e36ffd53056b5fb50357738ceb5b14","item_id":"4637ba59d2:5","text":"Create Material（创建材质）"}
+{"id":"f1376b137529cc20b2707908b472689aa4938e8ecdd89022f471bcc2172fd1f8","item_id":"4637ba59d2:6","text":"Materials（材质）在 Material Library LOP 中创建。"}
+{"id":"fc3bea42934e564aff3cb078438b77a2961960918bae231f19a26b09fb726a8d","item_id":"4637ba59d2:7","text":"进入"}
+{"id":"cd6b542886cebcd3bc6d6586d2130be8e85426bd46c3b020bede0a23452c81cb","item_id":"4637ba59d2:8","text":"materiallibrary"}
+{"id":"ebc7c52784d08bcdd1675a54d9bee4bd442d183220811137d8a722b08206e094","item_id":"4637ba59d2:9","text":"内部，然后创建 RenderMan Material Builder(Hydra) 节点。"}
+{"id":"dbdab42d8b52dbd31db6db71ea4eb8e35afc30bb98731436d28430b461389f18","item_id":"4637ba59d2:10","text":"在新的 RenderMan material builder 节点内部，可以创建你的 shading networks（着色网络）。"}
+{"id":"966f35e82499f3e72640282768bc8aeab7d631578f8ae8562badf9ae28255d39","item_id":"4637ba59d2:11","text":"返回 Material Library 参数并 auto-fill materials（自动填充材质）。这会把新材质添加到 Solaris Scene Graph（Solaris 场景图），以便分配。"}
+{"id":"68f49068320da4a6f381ddb61b4c998c18990945a3fab786d1f308f5fae18659","item_id":"4637ba59d2:12","text":"Assign Materials（分配材质）"}
+{"id":"73f6587823e16a9bd3aed7e3849aeac9fa4ee602978f7ea2e47ada9e54c81cba","item_id":"4637ba59d2:13","text":"Fill in（填写）Primitives 和 Material Path 参数，位置在"}
+{"id":"f82edc061062b0584449305a063be2c645d2e7eb2cb8f1bf2dbaf7bb85e9f532","item_id":"4637ba59d2:14","text":"assignmaterial"}
+{"id":"49c9e668ca1fc229c19679db55dbfd8b04012ad62c221ce2755ee7a781074647","item_id":"4637ba59d2:15","text":"节点上；这是每一次材质分配都需要填写的内容。可以直接输入路径，也可以从 Scene Graph Tree（场景图树）拖放。也可以使用"}
+{"id":"6f2db63d0204abd173ac78c11fde1be2c5a04882a57ec3cefa3b0f51cf3578ef","item_id":"4637ba59d2:16","text":"materiallinker"}
+{"id":"545ea538461003efdc8c81c244531b003f6f26cfccf6c0073b3239fdedf49446","item_id":"4637ba59d2:17","text":"节点"}
+{"id":"ef080258fb9a75e3b5099e427d0f3c67b6c52cbc234c9889cd5987e79f154ac0","item_id":"4637ba59d2:18","text":"这里将上面创建的材质分配给 /ToyBox_PlateB/PlateGeo"}
+{"id":"bfab4d9ca2912017f1dcbf0e5d9e08524d3c037bd3f8b04e141c960ac45eab8c","item_id":"4637ba59d2:19","text":"Multi-Renderer Workflow（多渲染器工作流）"}
+{"id":"32872aaf229690e4447b4061e7d2f7655819cf3015bc4e419e8a92e8a78ef1ae","item_id":"4637ba59d2:20","text":"Solaris 支持 multi-render materials（多渲染器材质）。创建时，将不同渲染器的 material networks（材质网络）连接到 collect node（收集节点）。启动 hydra render（Hydra 渲染）时，会选择正确的网络。"}
+{"id":"36e300ae98654054beea579aabb83f21f678a18d23e674fd37073df00e69318d","item_id":"4637ba59d2:21","text":"Solaris 中尚不支持 PxrMaterialBuilder；它是你在其他位置看到的默认 RfH 工作流。要打包 RenderMan material network（RenderMan 材质网络），请创建 subnetwork VOP（子网络 VOP），用于把相关着色节点集中封装，方便之后连接到材质库中。"}
+{"id":"6281d1510c9365c446e5392599baa48e91ffb54e2aa9ed4f5838af29007674c1","item_id":"4637ba59d2:22","text":"Subnetwork VOP 包含一个子输入（subinput）和一个子输出（suboutput）。将 bxdf 与 displacement 连接接到子输出。然后将这些输出连接到 material library 的 collect node（收集节点）。子输入 VOP 可用于从材质库网络接收间接输入。这样可以把材质库中的间接数据传入打包后的网络，保持多渲染器材质结构清晰。"}

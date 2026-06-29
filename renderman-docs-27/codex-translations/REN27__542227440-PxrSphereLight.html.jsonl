@@ -1,0 +1,126 @@
+{"item_id":"133791c8ec:0","text":"此 area light 模拟点光源和球形光源，例如灯泡、头灯等。"}
+{"item_id":"133791c8ec:1","text":"注意，此灯光的缩放始终是统一缩放。此灯光是单面的，也就是说，球体内部没有照明。如果需要内部照明，请改用"}
+{"item_id":"133791c8ec:2","text":"PxrDomeLight"}
+{"item_id":"133791c8ec:4","text":"你会看到对“非物理”控制的提及。这些控制用于帮助艺术家通过忽略我们通常模拟的某些物理定律，制作艺术指导图像。"}
+{"item_id":"133791c8ec:14","text":"Intensity"}
+{"item_id":"133791c8ec:8","text":"线性缩放此灯光的贡献。灯光强度使用物理衰减计算。下面的"}
+{"item_id":"133791c8ec:10","text":"参数在每次渲染中增加 1.0。"}
+{"item_id":"133791c8ec:12","text":"指定 area light 的 Exposure，以 2 的幂表示。Exposure 增加 1 会使光源发出的能量翻倍。值 0 在光源处产生 1 的强度，-1 产生 0.5。现实世界"}
+{"item_id":"133791c8ec:13","text":"照明能量很高，典型 exposure 值较低；如果要获得等效的"}
+{"item_id":"133791c8ec:15","text":"，你可能必须输入非常大的数字。对于熟悉摄影测量的艺术家来说，这也更顺手。下面显示 1.0、然后 2.0、最后 3.0 的值。Intensity 被重置为 1.0，所以由于灯光的物理衰减，结果会比上方示例开始时更暗。"}
+{"item_id":"133791c8ec:17","text":"发出灯光的颜色。"}
+{"item_id":"133791c8ec:18","text":"Enable Temperature"}
+{"item_id":"133791c8ec:19","text":"开启或关闭色温。下面我们使用同一个 Luxo/Pixar HDRI，并使用以下温度：6500K（默认）、4000K，最后是 8500K。"}
+{"item_id":"133791c8ec:20","text":"Color Temperature"}
+{"item_id":"133791c8ec:21","text":"允许用户选择灯光的色温，单位为 Kelvin。不同于基础灯光颜色，这让用户可以根据标准温度测量轻松选择可信的灯光颜色。此控制的作用类似灯光前方的 filter 或 gel（一层带 tint 的透明表面）。如果灯光为白色，你会得到所选色温。如果灯光已有颜色，色温会使它更冷（高于 6500K）或更暖（低于 6500K）。"}
+{"item_id":"133791c8ec:22","text":"该效果在完全饱和的单色灯光上不太明显。默认值为 6500K，在大多数显示器上应非常接近白色（sRGB 和 Rec 709 使用的 D65 illuminant）。"}
+{"item_id":"133791c8ec:23","text":"Primary Visibility"}
+{"item_id":"133791c8ec:24","text":"默认情况下，灯光不会直接对 camera 可见。开启此项会使其可见，并且可使用 emission token 'O' 写入 LPE。"}
+{"item_id":"133791c8ec:25","text":"Refine"}
+{"item_id":"133791c8ec:26","text":"请注意，在 UI 中，PxrSphereLight 包含一个 directional marker（方向标记），指向 emission（发射）方向和 cone visibility（锥形可见性）方向。你可能需要旋转 sphere light，让灯光指向正确方向。"}
+{"item_id":"133791c8ec:33","text":"Emission Focus"}
+{"item_id":"133791c8ec:28","text":"离轴余弦幂指数，用于塑造发射。这会控制灯光的"}
+{"item_id":"133791c8ec:29","text":"扩散范围"}
+{"item_id":"133791c8ec:30","text":"。数值越高，灯光越会开始向中心聚焦，从而缩窄光照扩散范围。下面的值分别为 0.0（Off）、10.0，最后是 50.0。"}
+{"item_id":"133791c8ec:31","text":"Emission Focus Tint"}
+{"item_id":"133791c8ec:32","text":"离轴灯光颜色 tint。它会从灯光的 off-angle direction（离轴角方向）朝中心方向，为衰减区域中的发射着色。默认情况下，tint 颜色为黑色（无）。除了着色之外，大于白色的值还会提高衰减区域的强度。下面的"}
+{"item_id":"133791c8ec:34","text":"设为 10.0，并使用以下颜色：White、Red 和 Blue。注意，使用 White 时，emission focus 看起来几乎像是关闭的。"}
+{"item_id":"133791c8ec:38","text":"Specular Amount"}
+{"item_id":"133791c8ec:36","text":"发出的 specular light（镜面反射光）数量。这是一个非物理控制。"}
+{"item_id":"133791c8ec:37","text":"你可以使用一个"}
+{"item_id":"133791c8ec:43","text":"你可以使用一个"}
+{"item_id":"133791c8ec:39","text":"为 0.0 的灯光，作为场景对象的纯 diffuse light（漫反射光）来源，并避免添加高光。"}
+{"item_id":"133791c8ec:40","text":"下面我们从默认值（1.0）变为 0.5，然后变为 0.0（无贡献）。此场景有细微反射，但你可以注意到在最右侧铬球的 reflection（反射）中，灯光消失了。"}
+{"item_id":"133791c8ec:44","text":"Diffuse Amount"}
+{"item_id":"133791c8ec:42","text":"发出的 diffuse light（漫反射光）数量。这是一个非物理控制。"}
+{"item_id":"133791c8ec:45","text":"为 0.0 的灯光，作为场景对象的纯高光来源。"}
+{"item_id":"133791c8ec:46","text":"下面我们从默认值（1.0）变为 0.5，然后变为 0.0（无贡献）。"}
+{"item_id":"133791c8ec:47","text":"Intensity Near Dist"}
+{"item_id":"133791c8ec:48","text":"被照亮点与灯光之间的近距离，在该距离内样本不会继续变亮。当灯光靠近表面时，这可能有助于避免热点和采样问题。下面分别为 0.0、2.5，最后是 5.0。这些值取决于你的场景尺度/距离，因此这里只是示例。"}
+{"item_id":"133791c8ec:49","text":"Specular Near Dist"}
+{"item_id":"133791c8ec:50","text":"带有 specular shading（镜面着色）的被照亮点与灯光之间的近距离，在该距离内样本不会继续变亮。当灯光靠近 specular surface（镜面表面）时，这可能有助于避免热点和采样问题。"}
+{"item_id":"133791c8ec:51","text":"注意"}
+{"item_id":"133791c8ec:52","text":"，此值不会应用于从 camera 看到的灯光。"}
+{"item_id":"133791c8ec:56","text":"注意"}
+{"item_id":"133791c8ec:57","text":"，此值不会应用于从 camera 看到的灯光。"}
+{"item_id":"133791c8ec:53","text":"下面，右侧球体的距离分别为 0.0、5.0，最后是 10.0。这些值取决于你的场景尺度/距离，因此这里只是示例。"}
+{"item_id":"133791c8ec:54","text":"Diffuse Near Dist"}
+{"item_id":"133791c8ec:55","text":"带有 diffuse shading（漫反射着色）的被照亮点与灯光之间的近距离，在该距离内样本不会继续变亮。当灯光靠近 diffuse surface（漫反射表面）时，这可能有助于避免热点和采样问题。"}
+{"item_id":"133791c8ec:58","text":"下面，左侧球体的距离分别为 0.0、5.0，最后是 10.0。这些值取决于你的场景尺度/距离，因此这里只是示例。"}
+{"item_id":"133791c8ec:65","text":"Cone Angle"}
+{"item_id":"133791c8ec:60","text":"灯光上虚拟遮扉的角度，用于把它变成 spot light（聚光灯）。这不会影响 IES Profiles（如果你正在使用 IES Profile）。下面我们从 90（默认）变为 45，最后是 20。"}
+{"item_id":"133791c8ec:61","text":"Cone Softness"}
+{"item_id":"133791c8ec:62","text":"控制"}
+{"item_id":"133791c8ec:64","text":"的截断柔和度。常规范围为 0（硬截断）到 1（平滑过渡），但也可以设为高于 1，以获得额外渐变。上方的"}
+{"item_id":"133791c8ec:66","text":"示例中，你会注意到边缘看起来很硬；此参数可以改善该结果，使其更悦目。下面我们从 0.0（默认，关闭）变为 0.25，然后是非常柔和的 0.75。"}
+{"item_id":"133791c8ec:67","text":"Light Profile"}
+{"item_id":"133791c8ec:68","text":"IES Profile"}
+{"item_id":"133791c8ec:69","text":"IES 灯光配置文件的名称。下面使用三个不同的 IES profiles 和一些暗调氛围照明。"}
+{"item_id":"133791c8ec:70","text":"Profile Scale"}
+{"item_id":"133791c8ec:71","text":"重新缩放 IES profiles 的角度分布。小于 0 的值表示 profile 覆盖的角度范围较小，并会有效增大投射 profile 的大小。默认值为 0，表示完整覆盖（无缩放）。"}
+{"item_id":"133791c8ec:72","text":"Profile Normalization"}
+{"item_id":"133791c8ec:73","text":"设置 IES profile，防止其振幅改变灯光的能量。"}
+{"item_id":"133791c8ec:75","text":"如果灯光的"}
+{"item_id":"133791c8ec:111","text":"Trace Light Paths"}
+{"item_id":"133791c8ec:77","text":"在 Advanced 中启用，则所有 shadow 参数都会被忽略。下面的选项在脱离默认状态使用时都是非物理控制。如果"}
+{"item_id":"133791c8ec:79","text":"启用，则会强制执行其物理属性。"}
+{"item_id":"133791c8ec:80","text":"Enable Shadows"}
+{"item_id":"133791c8ec:81","text":"启用光线追踪阴影。下图分别为开启（默认）和关闭。"}
+{"item_id":"133791c8ec:83","text":"发出光投射的阴影颜色。下面分别为 Red、Yellow 和 Blue-Green。"}
+{"item_id":"133791c8ec:94","text":"Shadow Max Distance"}
+{"item_id":"133791c8ec:85","text":"从被着色点位置开始计算的最大阴影距离。-1.0 表示未设置，此时使用被着色点与灯光上点之间的距离。你可以使用此控制人为减少投射阴影的距离。它也可能通过不计算该距离之外的阴影来提高渲染速度。这里用它移除了该灯光闪光灯泡效果在后墙上的阴影。"}
+{"item_id":"133791c8ec:96","text":"Shadow Falloff"}
+{"item_id":"133791c8ec:87","text":"从灯光处开始发生阴影衰减的距离。-1.0 会关闭阴影衰减。它与"}
+{"item_id":"133791c8ec:89","text":"一起使用，为被"}
+{"item_id":"133791c8ec:91","text":"参数削弱或截断的阴影创建伪淡出。下面是两个参数一起使用且 falloff 增加的示例。从左到右分别为 Off、0.25，然后是 1.0。注意，此参数可能影响复杂灯光设置中的性能。"}
+{"item_id":"133791c8ec:92","text":"Shadow Falloff Gamma"}
+{"item_id":"133791c8ec:93","text":"衰减区域中阴影强度的 gamma。这需要使用"}
+{"item_id":"133791c8ec:97","text":"。默认值为 1.0，这里首先显示默认值，然后是 0.5，最后是 0.25。"}
+{"item_id":"133791c8ec:98","text":"Trace Subset"}
+{"item_id":"133791c8ec:99","text":"要纳入追踪阴影求交的 geometry 集合。如果未指定，则所有 geometry 都会纳入追踪阴影求交。"}
+{"item_id":"133791c8ec:100","text":"Don't Trace Subset"}
+{"item_id":"133791c8ec:101","text":"要忽略追踪阴影求交的 geometry 集合。如果未指定，则所有 geometry 都用于追踪阴影求交。"}
+{"item_id":"133791c8ec:103","text":"Normalize"}
+{"item_id":"133791c8ec:104","text":"启用 Normalize 后，当你缩放光源时，贡献到场景中的灯光量不会改变。这会让你更容易在不改变场景照明的情况下调整高光大小。"}
+{"item_id":"133791c8ec:106","text":"启用从此灯光开始的光线和光子追踪。该值会强制使用基于物理的灯光，并且作为副作用禁用上面的"}
+{"item_id":"133791c8ec:108","text":"控制。使用 PxrVCM 或 PxrUnified Integrators 时，用户可利用此功能有选择地决定哪些灯光发射光子。"}
+{"item_id":"133791c8ec:109","text":"Thin Shadow"}
+{"item_id":"133791c8ec:110","text":"为此灯光启用 thin shadow（薄阴影）并禁用折射焦散。如果"}
+{"item_id":"133791c8ec:112","text":"已启用，则会忽略此参数。这是一个非物理控制，可为透射对象创建“伪”彩色阴影，而无需为焦散生成光子。下面我们从 On（默认）切换到 Off（不透明阴影）。注意，选择 Off 时会丢失彩色阴影和内部彩色反射，但会换来一些渲染速度。"}
+{"item_id":"133791c8ec:113","text":"Visible in Refraction"}
+{"item_id":"133791c8ec:114","text":"开启此项可使灯光通过玻璃和窗户等透射效果可见。"}
+{"item_id":"133791c8ec:115","text":"Manifold Walk"}
+{"item_id":"133791c8ec:116","text":"与 PxrUnified Integrator 一起使用，并启用"}
+{"item_id":"133791c8ec:120","text":"与 PxrUnified Integrator 一起使用，并启用"}
+{"item_id":"133791c8ec:117","text":"Enable Manifold Walk"}
+{"item_id":"133791c8ec:118","text":"以创建低成本 caustics（焦散）。注意：你必须禁用 Thin Shadows"}
+{"item_id":"133791c8ec:119","text":"Manifold Walk Exclude Group"}
+{"item_id":"133791c8ec:121","text":"Enable Manifold Walk，"}
+{"item_id":"133791c8ec:122","text":"在流形探索期间会忽略此 trace set，以避免停止或遮挡流形探索光线"}
+{"item_id":"133791c8ec:123","text":"Light Samples"}
+{"item_id":"133791c8ec:124","text":"指定此光源要采用的灯光采样数量覆盖值。如果设为非零值，它会覆盖 integrator（积分器）执行的采样。除非你遇到来自该灯光且无法解决的 noise，否则建议保持默认值。"}
+{"item_id":"133791c8ec:125","text":"Light Group"}
+{"item_id":"133791c8ec:126","text":"指定用于 light group LPEs 的 Light Group 名称。这对于生成 per-light AOVs 以便之后在合成中调整很有用。"}
+{"item_id":"133791c8ec:127","text":"Importance Multiplier"}
+{"item_id":"133791c8ec:128","text":"用户不必显式设置 Light Samples，而可以通过更改此值来改变内部分配给该灯光的采样数量。RenderMan 会在渲染时为场景中的所有灯光创建一组采样，改变此值会在这些灯光之间重新平衡采样。注意，增大此值会使"}
+{"item_id":"133791c8ec:129","text":"更多"}
+{"item_id":"133791c8ec:130","text":"采样从此灯光中被选择，同时减少场景中其他灯光的采样。低于默认值则会"}
+{"item_id":"133791c8ec:131","text":"减少"}
+{"item_id":"133791c8ec:132","text":"该灯光的采样，同时为场景中的其他灯光提供更多采样。"}
+{"id": "90b5d13011f6a86532541bbf1ec3c2c9f09d654e267e4e889db77b09b8bbb990", "item_id": "133791c8ec:3", "text": "。"}
+{"id": "e68b36b17cbd990802f57741cb75cf3a73fa66a61999b0cd70e3cf7d26cfb25f", "item_id": "133791c8ec:5", "text": "Parameters（参数）"}
+{"id": "0e35f6e9742e074dfd62e874de3c242c6d9b64c21bf9afbaf3d11f05579b4495", "item_id": "133791c8ec:6", "text": "Basic"}
+{"id": "a6d01dcff3bfd333edf90a50daac2104cefab98b85bdbba67c8209ab75eb6447", "item_id": "133791c8ec:7", "text": "Intensity"}
+{"id": "cc5454a4b7ce211370dcd2aa0ae58d6b564eee7940b42de516d05f5b269c414b", "item_id": "133791c8ec:11", "text": "Exposure"}
+{"id": "6b73191a0a4b67420e61d51c9f207c35277eaf18fbbf5beb52a320a23fe09653", "item_id": "133791c8ec:16", "text": "Color"}
+{"id": "4ecee707df728cce950afc1f73ae071d75e5176b9fb06d1a7287bb40e5349834", "item_id": "133791c8ec:27", "text": "Emission Focus"}
+{"id": "e444834d64a4a3fd087a67df3468ccacca520875122124d0d195e8b8e006e101", "item_id": "133791c8ec:35", "text": "Specular Amount"}
+{"id": "9afefd5c02c99d5aad7e8dd8c7adb15934039c880d30638d4d649768f1458856", "item_id": "133791c8ec:41", "text": "Diffuse Amount"}
+{"id": "2983ec23def6c23bc47b017c2fde125fccbd91240a133d6856b207590541a134", "item_id": "133791c8ec:59", "text": "Cone Angle"}
+{"id": "2a19bdc09aa3bd9d5ba8c9707687136c2825da0e2af28b7c5de7c65b9c50f365", "item_id": "133791c8ec:74", "text": "Shadows"}
+{"id": "f4d3a2f271156e6358087cfb3ac2512cab7e39689c1f0484ba02c936081ea73c", "item_id": "133791c8ec:76", "text": "Trace Light Paths"}
+{"id": "6946fd2382957f0655d0fd423e1699825089519d5bf4903df891d5d5f327a146", "item_id": "133791c8ec:82", "text": "Shadow Color"}
+{"id": "51bf2649416c6d8f0d023ce582f0d8d65b25d81bac519b57ae585a4770f276f2", "item_id": "133791c8ec:84", "text": "Shadow Max Distance"}
+{"id": "ca6a1f4bade57a14da1dc6abfd08b3ff6b65ad156ae60b4b116e99ce980a730d", "item_id": "133791c8ec:86", "text": "Shadow Falloff"}
+{"id": "6201111b83a0cb5b0922cb37cc442b9a40e24e3b1ce100a4bb204f4c63fd2ac0", "item_id": "133791c8ec:95", "text": "和"}
+{"id": "9f088dbebd6c3c70a5ddbc2c943b11e4ca9acea5757b0b4f2b32479f0dbb747e", "item_id": "133791c8ec:102", "text": "Advanced"}

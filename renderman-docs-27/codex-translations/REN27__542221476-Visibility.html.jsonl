@@ -1,0 +1,44 @@
+{"id":"9998a4ba72a3cb158590b989a9040ba548d0acefb1014edad39e0b8e84a4c02a","text":"Object Visibility（对象可见性）"}
+{"id":"23d3d440e63523838d4b40586c50de941b15851faf7afc3da56844387059d23d","text":"Camera Visibility（摄像机可见性）"}
+{"id":"89ebce7412c48723ca2b204abe0c44406f391f79304c90964bba4de6dabb0391","text":"是一个"}
+{"id":"42319105c7c2209d4736cf6bfefe04dd76f6bc657c4c3956d8a0bca0537b173f","text":"对象属性"}
+{"id":"39cb3329d849dfe4d09954a5d717b5182be3187ec6d6b646fb470bff313a53d9","text":"，用于设置 camera visibility。它用于对摄像机显示或隐藏对象。"}
+{"id":"0963c5f3364280466ff0844dd012f9ef83d773f63df30167758eae2afd69e088","text":"默认情况下，camera visibility 设置为 1。将 camera visibility 设为 0，是从摄像机隐藏对象但仍让它投射阴影、在反射等效果中可见的最高效方式。下图中，左侧 Alien 对摄像机不可见，但它会投射阴影，并且在身后的镜面墙中可见。"}
+{"id":"6576ac83d107590f7a7177736ec8ffad8c09ad7fcdd87a139b2b0475a101e373","text":"Indirect Visibility（间接可见性）"}
+{"id":"c85ea4b75b97c3a7d19e6b21a1703956edb6a482ea9d9d464bbf4d859075558a","text":"，用于设置 indirect visibility。它用于在反射、折射等效果中显示或隐藏对象。"}
+{"id":"490822eac26e3d2f3192f005626b81056fb814aa5bb636c46ad821f6cd264c38","text":"默认情况下，indirect visibility 设置为 1。将 indirect visibility 设为 0，是从其他对象中隐藏该对象但仍让它投射阴影并在摄像机中可见的最高效方式。可以想象渲染一个吸血鬼：按传说它不应该在镜子里可见。下图中，左侧 Alien 对镜面墙不可见，但它会投射阴影，并且对摄像机可见。"}
+{"id":"94d2b249f87f8d11bd579b748ba1486d2a1a295fe5ec6128ecae42c9f28cc797","text":"Transmission Visibility（透射可见性）"}
+{"id":"9e68505ab0252163acc27d3346f74ab822eda11ff204e92b1195f5590eba55d5","text":"，用于设置 shadow visibility。它用于禁用投射阴影。"}
+{"id":"1c52ccda02276be56495834986d6e5619dfc6a38898e6b5634c545682457a878","text":"默认情况下，transmission visibility 设置为 1。将 transmission visibility 设为 0，是禁用阴影的最高效方式。这在某些场景中可能很有用，例如室内场景里半透明窗帘会阻挡部分 portal lighting，从而让房间变得过暗；或者对象阴影形成了不需要的形状。下图中，左侧 Alien 不投射阴影（甚至不会投到自己身上），但仍在身后的镜面墙和摄像机中可见。它也无法阻挡光源。"}
+{"id":"2b7666e081f3f86ad552c2f2c163210cdb7732f440f02e4b374f013c434ac0e8","text":"下面是一个简单示例，展示如何在两个常见应用中更改这些参数。"}
+{"id":"031e45c699d1aace4e9471a1071ae1a296025b44fc925d400f6ccee598c7ec69","text":"Maya"}
+{"id":"b44d5a36d1e3f76046c5f885f5776016c4ce23d03223f5bc5daaaf9edc1289fb","text":"RenderMan for Maya 中的 camera visibility 是对象属性。要将它设为 0，请在 Maya Attribute Editor 的"}
+{"id":"bfdc3ace765408db028ff108580ff3e7571da3b8a0923718e21ba87ea7430b16","text":"Attributes > RenderMan > Visibility Settings"}
+{"id":"2a35ee9463d44929a97b6172c4d05540a7c21deb5f145303f8d284d19bbdd440","text":"Katana"}
+{"id":"182bc742ca179102edbc628ce1ad1e32a1f264d04610dc18661f720bc582219b","text":"RenderMan for Katana 中的 camera visibility 是对象属性。要将它设为 0，请在"}
+{"id":"4982befb18866b1fd23644331df7d53a08bca8703b951c218e77115c16ad33b5","text":"PrmanObjectSettings"}
+{"id":"d52c1dd722f4466db1158c52434fa8088e5726b78fb3665af491e32df35fa6af","text":"的 Visibility for camera 中将它设为 No："}
+{"id":"09c8ac2136ca16f345076f72c7252dfcebb67326f1f3c6cb9d2e34b09e59db37","text":"注意，在 Katana 中，隐藏对象还有另一种选项，即对对象执行 pruning。这样会将它完全移除。"}
+{"id":"1bcab59db3228a79697abda9c74309a07604a9b1a52917ff0e833727aa87c120","text":"Presence 是一个"}
+{"id":"be19c10b4801255eecdede0bdf539cea200db55d83c1032a85386e252c77688f","text":"Bxdf"}
+{"id":"0551fb965b2ce47af793fc87e81e31ad43955c451200f7068619bd35107161aa","text":"参数，用于设置表面命中的"}
+{"id":"3955f8fd92cda2c17a22e4cccf13c595bc7975089af39fd576cb1be59c0b8269","text":"概率"}
+{"id":"8531cfb58d2865f47b8e7e310b7305dbc6ca583696740c9037d9e12c4c2825ac","text":"。它是 0 或 1 的标量值。默认值为 1，表示表面命中概率为 100%，因此该表面对渲染器存在。如果设为 0，则表示该表面对渲染器不存在。这可用于让几何体的一部分对渲染器不可见。上面指定的是整个对象何时可见，而这里可以创建类似用卡片做成的树叶，移除树叶纹理外部区域。它可以与上面的可见性设置组合使用。"}
+{"id":"e8a711f15182f4402933eba4cd0cf891f2f32fcea83cccf88417e994f333ae2f","text":"无论它存在还是不存在，光散射属性都不会改变。"}
+{"id":"9a0d198658d4fa9ae095c9c109b99ab2c59ecdb9deb3d01e02a625ba97dd0f95","text":"Presence 应连接到黑白 mask。在下面的示例中可以看到，当它为 0（mask 中的黑色）时，就没有表面。alpha channel 为黑色。"}
+{"id":"d029f87e3d80f8fd9b1be67c7426b4cc1ff47b4a9d0a8461c826a59d8c5eb6cd","text":"Example（示例）"}
+{"id":"62ea332115fb3ca3779dedf4118abad2031acc8f7860150ba2deb86aed127e80","text":"Why Do We Need This?（为什么需要它？）"}
+{"id":"9880dd5c97bcfbb03c5283fc5a7a8f0ce6be2a829aef67e076643d97bbedfb15","text":"用于渲染优化。Presence 适用于 camera rays"}
+{"id":"094296bd61e2402922e7ea573f9afecfb5fe6bc53fe989c98fac0dfdfedb20f4","text":"indirect rays。渲染器只需在表面存在时对表面着色并执行 Bxdf。"}
+{"id":"c3f6387535e0c59f3014cce43954857bb6b46c7ff9e6cecef2fa810cc4df3428","text":"When To Use（适用场景）"}
+{"id":"ebeb81e14dfb7f23df9f0139070910123278ff3886fc35ef07e524b6a1ba217b","text":"将 Presence 参数连接到一张定义表面 “cut out”的纹理。例如，我们把树叶建模为便宜的 bilinear patch，并为树叶形状绘制黑白 mask。"}
+{"id":"601498b04abf23d0d50dbfd8f8e2d3c3f6273fb0a5709ee76a20d9b45b1dd2cb","text":"用于隐藏 particles。"}
+{"id":"bc5afe1cfc700b17d1985eae1df22f915fb3ee17475ca316c507caec28ff1a44","text":"当需要控制对象不透明度时使用。请记住，production integrators 出于效率原因可能会关闭此功能（设为 0）。可以把 0 改成一个合理偏低的整数，将不透明度计算启用到特定深度。"}
+{"id":"9784a968dd47cff095a1106519c1bee5de233b36ff40dcf138954b84ecd54b95","text":"When Not to Use（不适用场景）"}
+{"id":"e99b2611a5ffeb835de10784fbfd38b29b5c33fddc24c9ea6b9273553d0bf249","text":"不适用于半透明（translucency）、透明（transparency）或折射（refraction）。"}
+{"id":"640b6f74297aa8c11b2fb68860ad6e7297a4988f5600864cba2379a4269e85ff","text":"如果要对半透明表面进行 shading，应改用 Double-Sided Transmit shading parameter；该参数在 Diffuse controls 中，属于"}
+{"id":"90b5d13011f6a86532541bbf1ec3c2c9f09d654e267e4e889db77b09b8bbb990","text":"。"}
+{"id": "e7ac0786668e0ff0f02b62bd04f45ff636fd82db63b1104601c975dc005f3a67", "item_id": "06a51621ae:23", "text": "："}
+{"id": "d6b3e8c828d3742089ed59ebbfd89492ec2ce0bc89a19294cae52a6ac233b244", "item_id": "06a51621ae:29", "text": "Presence"}
+{"id": "6201111b83a0cb5b0922cb37cc442b9a40e24e3b1ce100a4bb204f4c63fd2ac0", "item_id": "06a51621ae:40", "text": "和"}
+{"id": "8608905e6533fb79c29dcbee9e54642763cc7988fd456046ba16656c6564e8fd", "item_id": "06a51621ae:49", "text": "PxrSurface"}

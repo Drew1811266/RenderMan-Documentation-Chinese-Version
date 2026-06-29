@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OpenVDB Volumes in Blender</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>OpenVDB Volumes in Blender</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFB27/544637687/OpenVDB+Volumes+in+Blender">https://rmanwiki-27.pixar.com/space/RFB27/544637687/OpenVDB+Volumes+in+Blender</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>To add an OpenVDB volume geometry, use <strong>Import OpenVDB </strong>from the Add menu:</p><p><span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image" height="248" loading="lazy" src="../../attachments/544637687/add_openvdb.png" data-image-src="../../attachments/544637687/add_openvdb.png" data-unresolved-comment-count="0" data-linked-resource-id="544637710" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="add_openvdb.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544637687" data-linked-resource-container-version="1" data-media-id="a6d815de-e066-46ef-b898-763a0c208474" data-media-type="file"></span></p><p>This will add a Blender <a class="external-link" href="https://docs.blender.org/manual/en/latest/modeling/volumes/properties.html#openvdb-file" rel="nofollow">OpenVDB</a> node as well as attach a <a href="/wiki/spaces/REN26/pages/19661555/PxrVolume" data-linked-resource-id="19661555" data-linked-resource-version="12" data-linked-resource-type="page">PxrVolume</a> shader. Here's a render using the bunny_cloud.vdb example from the <a class="external-link" href="https://www.openvdb.org/" rel="nofollow">OpenVDB</a> website.</p><p><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/544637687/vdb_bunny.jpg" data-image-src="../../attachments/544637687/vdb_bunny.jpg" data-unresolved-comment-count="0" data-linked-resource-id="544637713" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="vdb_bunny.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544637687" data-linked-resource-container-version="1" data-media-id="f233db6e-7ea5-449a-9354-96b903284d8e" data-media-type="file"></span></p><h3 id="OpenVDBVolumesinBlender-OpenVDBAttributes">OpenVDB Attributes</h3><p><span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image" height="113" loading="lazy" src="../../attachments/544637687/volume_attributes.png" data-image-src="../../attachments/544637687/volume_attributes.png" data-unresolved-comment-count="0" data-linked-resource-id="544637707" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="volume_attributes.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544637687" data-linked-resource-container-version="1" data-media-id="818f5921-3280-40a3-8b95-7f6e7c890ea8" data-media-type="file"></span></p><p><strong>Filter Width</strong>: If set to 0, disables mipmapping. If greater than 0, values less than 1 bias towards finer levels of the mipmap and values larger than one bias towards coarser levels.</p><p><strong>Density Multiplier</strong>: Scales the values in the density grid of the volume. This should be more efficient than scaling the density in the shader.</p><p><strong>Density Rolloff: </strong>Values greater than 0 produce a logarithmic falloff in density values. Smaller rolloff values produce greater falloff.</p><p><strong>DSO Min/Max: </strong>Currently only used for <a href="/wiki/spaces/RFB27/pages/544637554/Aggregate+Volumes+in+Blender" data-linked-resource-id="544637554" data-linked-resource-version="1" data-linked-resource-type="page">aggregate volumes</a>, and only for volumes that use an ImplicitField DSO (like OpenVDB). If set to 1, the DSO may be able to use stored information from the file directly to compute the minimum and maximum values within the volume. This may allow the renderer to avoid shading the volume up front, greatly decreasing time to first pixel. This can only be enabled if the density signal from the volume is used directly, or if the density signal is modulated only by the DSO itself. Any shading modifications of the density signal requires setting this parameter to off.</p>
+  </article>
+</main>
+</body>
+</html>

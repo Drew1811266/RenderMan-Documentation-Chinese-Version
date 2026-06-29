@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Blade List Pane</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Blade List Pane</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/TRA/22184222/Blade+List+Pane">https://rmanwiki-27.pixar.com/space/TRA/22184222/Blade+List+Pane</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="figure align-center"><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/22184222/serverlist_pane.jpg" data-image-src="../../attachments/22184222/serverlist_pane.jpg" data-unresolved-comment-count="0" data-linked-resource-id="22195913" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="serverlist_pane.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="22184222" data-linked-resource-container-version="4" data-media-id="66d8cf45-eea2-488f-bbdc-62c70d4c4246" data-media-type="file"></span></div><p>Blade List pane 提供用于监控 server 及其 activity 的主要界面。与从 Engine 接收实时 update 的 Job List pane 不同，blade list 会以批量方式刷新，刷新可以手动触发，也可以由 Dashboard 管理的 timer 触发。在 toolbar 中选择 blade list 图标即可触发手动刷新。</p><p>默认情况下，blade list 每 60 秒自动刷新一次。此值可在 preferences pane 中更改。在大型站点，此查询返回的数据量可能很大，因此应谨慎选择 reload interval，以避免网络瓶颈。<br/> </p><div class="section"><h3 id="BladeListPane-SpecialFunctions">特殊功能</h3><p>Blade List pane 会响应多种 mouse 操作：</p><ul><li><p class="first">选择（Select）</p><p>点击任意 row，会在 Blade List pane 下方的 Blade Info pane 中显示所选 blade 的信息。<br/> </p></li><li><p class="first">多选操作</p><p>Blade List pane 也响应标准的 multi-click control。这通常与 context sensitive menu 选择配合使用。<br/> </p></li><li><p class="first">上下文菜单（Context-sensitive menu）</p><p>右键点击（或 Control-click）会打开 context sensitive menu，用于对所选 blade 执行操作。</p><div class="figure"><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/22184222/serverlist_contextmenu.jpg" data-image-src="../../attachments/22184222/serverlist_contextmenu.jpg" data-unresolved-comment-count="0" data-linked-resource-id="22195911" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="serverlist_contextmenu.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="22184222" data-linked-resource-container-version="4" data-media-id="8d55a590-679c-411c-b45f-6e8768bd9643" data-media-type="file"></span></div></li><li><p class="first">清除较早的 Blade 数据（Clear Earlier Blade Data）</p><p>通知 engine 从内存中移除所选 blade。这是清理曾经启动但已不再活动的 blade 的好方法。如果清除的是 active blade，它在向 engine check in 时会重新出现。<br/> </p></li><li><p class="first">NIMBY 限制（On | Off）</p><p>向所选 blade 发送请求，设置其 NIMBY（Not-In-My-Backyard）mode。当 NIMBY 设置为 "on" 时，blade 只接受从该 host（通常是用户桌面）spool 出来的 job。NIMBY 为 "off" 时，任何匹配常规 profile criteria 的 job 都可被接受。注意，也可以通过发送到 blade 的 http directive，把该 mode 限制到特定用户。<br/> </p></li><li><p class="first">Assignment Tracer</p><div class="figure align-center"><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/22184222/tracer.jpg" data-image-src="../../attachments/22184222/tracer.jpg" data-unresolved-comment-count="0" data-linked-resource-id="22195882" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="tracer.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="22184222" data-linked-resource-container-version="4" data-media-id="2408d374-feb1-4bbe-a3ef-06b45b9f4f80" data-media-type="file"></span></div><p>assignment tracer 提供一种机制，用于在 blade 没有接收新 task 时辅助 debug。</p><p>选择一个 blade 并从 context menu 中选择 "Assignment Tracer" 后，会打开 tracer dialog。在所选 blade 向 engine 请求 job 之前，该 dialog 会保持空白。随后 engine 会记录它如何遍历现有 job，以判断是否向该 blade 分配 work。</p><p>此历史会如上图所示详细显示在 tracer dialog 中。在此 trace 中，我们看到若干 job 没有 dispatchable task，还有一个 job 需要特定的（不同的）host。<br/> </p></li></ul></div><div class="section"><h3 id="BladeListPane-KeyboardShortcuts">键盘快捷键（Keyboard Shortcuts）</h3><p>Blade List pane 中可使用以下 keyboard shortcut：</p><ul><li><p class="first">Control/Command-A 全选快捷键</p><p>选择所有 blade。<br/> </p></li><li><p class="first">F5 刷新键</p><p>刷新 blade 列表。</p></li></ul></div>
+  </article>
+</main>
+</body>
+</html>

@@ -1,0 +1,208 @@
+{"item_id":"45bbbfa978:0","text":"Critters，使用由九个 OSL shaders 组成的 shading network"}
+{"item_id":"45bbbfa978:1","text":"RenderMan 原生支持 OSL，但存在"}
+{"item_id":"45bbbfa978:2","text":"下列限制"}
+{"item_id":"45bbbfa978:4","text":"已知限制"}
+{"item_id":"45bbbfa978:5","text":"并非 OSL 的所有操作都受支持。目前不支持以下内容："}
+{"item_id":"45bbbfa978:6","text":"material closures"}
+{"item_id":"45bbbfa978:7","text":"environment"}
+{"item_id":"45bbbfa978:8","text":"pointcloud_search"}
+{"item_id":"45bbbfa978:9","text":"pointcloud_get"}
+{"item_id":"45bbbfa978:10","text":"pointcloud_write"}
+{"item_id":"45bbbfa978:11","text":"setmessage"}
+{"item_id":"45bbbfa978:12","text":"getmessage"}
+{"item_id":"45bbbfa978:13","text":"surfacearea"}
+{"item_id":"45bbbfa978:14","text":"另请注意，目前只支持三种标准 OSL 纹理过滤器类型。使用不完整或不受支持功能的 OSL shaders 可能会导致程序终止。"}
+{"item_id":"45bbbfa978:15","text":"OSL patterns 目前支持 OSL 的许多功能，但需要特别注意它们"}
+{"item_id":"45bbbfa978:16","text":"不支持使用 material closures"}
+{"item_id":"45bbbfa978:17","text":"。相反，该插件被设计为创建 pattern 结果；这些结果随后通过把 OSL 输出连接到其他 patterns，并把 OSL shader 结果送入 Bxdfs 和 Displace shaders 的各种输入来使用。Bxdfs 和 Displace shaders 以可扩展方式取代 closures，并且允许比 OSL closures 提供的线性组合更复杂的分层。"}
+{"item_id":"45bbbfa978:19","text":"下面提供了一个示例，其中使用两个不同的 OSL shaders：一个用于创建木纹纹理（改编自《Advanced RenderMan》），另一个用于创建看起来像碳纤维的 2 层材质。对于每种表面类型，使用的是同一个材质 shader，但使用两个非常不同的 OSL shaders 来创建不同外观。"}
+{"item_id":"45bbbfa978:20","text":"橡木与碳纤维，使用两个连接到 PxrDisney 的 OSL shaders"}
+{"item_id":"45bbbfa978:21","text":"上图的 RIB 文件位于"}
+{"item_id":"45bbbfa978:22","text":"目录中，OSL shaders 位于其中的"}
+{"item_id":"45bbbfa978:23","text":"子目录中。"}
+{"item_id":"45bbbfa978:24","text":"OSL 性能说明"}
+{"item_id":"45bbbfa978:25","text":"在 RenderMan 中使用 OSL 时，需要注意几个性能方面的考虑。首先，默认情况下，OSL 会先为给定点执行 shader network 中所有已连接节点，然后再转到下一个点，而不是像其他 Pattern nodes 那样为所有点逐个执行每个节点。如果网络中访问了大量纹理，这意味着为了维持相同性能，纹理缓存需要一次性容纳所有这些纹理，而不是只缓存单个纹理。对于 C++ Pattern node 可以在所有点之间复用某些设置的情况，OSL 有时必须为每个点重复这些设置。"}
+{"item_id":"45bbbfa978:26","text":"默认情况下，OSL 以“垂直”方式执行 shaders，而不是像其他 PxrPattern nodes 那样跨一组点执行。如果访问许多纹理，并且纹理设置会在一组着色点上连续执行，这可能导致效率下降。"}
+{"item_id":"45bbbfa978:27","text":"不过，当前"}
+{"item_id":"45bbbfa978:28","text":"默认"}
+{"item_id":"45bbbfa978:29","text":"使用"}
+{"item_id":"45bbbfa978:30","text":"“Batched”"}
+{"item_id":"45bbbfa978:31","text":"模式。该模式会通过硬件支持的向量化指令运行多个着色点。batched OSL 的加速效果取决于工作负载：射线发散量高、shader coherence 较低的场景提升较小；而 coherence 较高的场景，例如 single-bounce 或 PxrVisualizer，以及规模较大的 OSL shaders，会看到更多提升。我们会谨慎地只在必要时执行优化，以提供整体最佳性能。"}
+{"item_id":"45bbbfa978:32","text":"OSL 的 SIMD 版本经过优化，可使用 Intel® Advanced Vector Extensions 512 (Intel® AVX-512) 一次执行 16 个样本。它也可以使用 Intel® Advanced Vector Extensions 2 (Intel® AVX2)、Intel® Advanced Vector Extensions (Intel® AVX) 或 Intel® Streaming SIMD Extensions 4.2 (Intel® SSE4.2) 执行，但性能级别会降低。OSL 的 SIMD 版本支持 RenderMan 所支持的全部 OSL 1.8 语言功能和库调用。"}
+{"item_id":"45bbbfa978:33","text":"它通过以下"}
+{"item_id":"45bbbfa978:34","text":"user"}
+{"item_id":"45bbbfa978:35","text":"选项启用"}
+{"item_id":"45bbbfa978:36","text":"另外，在运行时编译 shaders 和 shader networks 的成本可能会变得显著，尤其是因为这个编译阶段会阻止多线程以最高效率运行。通常，对于渲染时间较长的场景，这项成本实际上会被摊销掉。不过，如果存在数十万个唯一 shader 实例，这项成本就可能开始影响最终渲染时间。Batched 模式对启动时间的影响可能大于非 batched 模式，但对于复杂场景，整体收益是值得的。"}
+{"item_id":"45bbbfa978:37","text":"不过，使用 OSL 的一个好处是，它能够基于 shader 的 uniform 输入参数创建优化过的原生机器代码。对于复杂网络以及为利用这些优化而编写的代码，性能提升可能非常显著。这使得你可以编写带有所有所需功能的 shading nodes；只要你愿意在渲染开始时支付编译成本，就可以针对每种不同用法高效地重新编译，只保留渲染时真正需要的功能。"}
+{"item_id":"45bbbfa978:38","text":"可以通过输出不同级别的统计信息，更好地理解场景中的 OSL。请注意，更高的 verbosity 会影响渲染时间，因为渲染期间打印消息存在开销。因此，建议只在挖掘场景数据时使用，不要在速度很重要的最终渲染或 lookdev 测试中使用。verbosity 与标准 OSL 消息级别对应：0 不输出，1 仅 severe，2 仅 severe 和 error，3 severe、error、message，4 severe、error、message、warning，5 severe、error、message、info。这些统计会写入 RenderMan 的 Advanced XML stats 的 Plugins 选项卡。3 级及以上的统计输出会向统计中添加计时信息，并且可能比低级别对性能影响更大。4 级及以上应与 RenderMan 支持团队配合使用，并同时提供你对 batched 模式或默认模式的使用信息。"}
+{"item_id":"45bbbfa978:39","text":"Basic OSL shader 编写"}
+{"item_id":"45bbbfa978:40","text":"你可以在一个或多个文本文件中创建 shader，通常使用 .osl 扩展名。然后使用 OSL 编译器 oslc 将它们编译成带 .oso 扩展名的 shader object files。为方便起见，RenderMan 发行版随附 oslc。这些 shader object files 随后可以直接作为 RenderMan 中的 Pattern shaders 使用。"}
+{"item_id":"45bbbfa978:41","text":"我们将通过下面这个简单 shader 示例，说明编写 OSL shader 的基础知识，以及该 shader 如何集成到 RenderMan 中："}
+{"item_id":"45bbbfa978:42","text":"第一行包含 shader 类型、shader 名称以及参数列表的开头。RenderMan 只支持 generic “shader” shader type，不支持其他 renderer 使用的更具体的 “surface”、“displacement”、“light” 和 “volume” shader 类型。"}
+{"item_id":"45bbbfa978:43","text":"接下来是参数列表。每个参数都必须有默认初始化值。可以在双中括号 [[ ]] 中指定 metadata，为 renderer 和其他内容创作应用程序提供关于这些参数的额外信息。在这个例子中，metadata int lockgeom = 0 表示 mixVal 的值可以从附着到几何体上的 mixVal 变量插值而来。目前，RenderMan 允许附着 OSL 支持的所有类型变量，但 int 和 structs 除外。"}
+{"item_id":"45bbbfa978:44","text":"shader 的结果，在本例中是 color resultRGB，会通过声明为 outputs 的参数连接到 shading network 的其余部分。这些 outputs 可以连接到 Bxdfs 和 Displace shader 输入，也可以连接到其他 OSL 或 C++ Pattern shader 输入。RenderMan 提供这个接口来替代标准 closures，因为标准 closures 在 RenderMan 中不受支持。"}
+{"item_id":"45bbbfa978:45","text":"这个 shader 最先做的事情之一，是声明一个局部变量 finalMix。它将 OSL 函数 clamp() 应用于 mixVal 输入，并把结果存储在 finalMix 中。OSL 中的输入不可写，因此必须把它存到第二个临时值中。不过不必担心这个额外变量，OSL 的渲染时优化步骤很擅长消除这类变量，所以可以放心使用这种临时变量，让 shader 代码更清晰。"}
+{"item_id":"45bbbfa978:46","text":"RenderMan 支持几乎所有 OSL 内置标准函数，例如 clamp()。可以参考“已知限制”查看不受支持的函数列表，并参考 OSL 文档了解受支持函数的用法。你可以用 OSL 编写自己的函数，但目前没有接口可以直接链接用其他语言（例如 C++）编写的函数。为此，需要编写 C++ pattern，并通过 C++ 与 OSL 之间的参数列表传递值。有关混合 C++ 与 OSL Patterns 的详细信息和限制，请参见下文相应章节。"}
+{"item_id":"45bbbfa978:47","text":"下一处值得关注的是 getattribute() 调用。它允许按 attribute 名称获取当前几何体片段上设置的 attributes。它还支持对象名称，用来指明 attribute 应该来自何处。RenderMan 支持使用 “global,”、“primvar” 和 “builtin” 对象名称，也支持不提供名称或使用空字符串 “”。不提供名称或使用空字符串会获取当前几何体片段的 RenderMan attributes。使用 “global” 会获取 options。由于 RenderMan Attributes 和 Options 被划分为不同类别，因此获取它们时需要在 attribute 名称前加上类别和冒号。例如，Attribute “dice” “float micropolygonlength” 可以使用 getattribute(“dice:micropolygonlength”) 获取。使用 “primvar” 只会获取存储在几何体自身上的值，它们独立于 RenderMan attribute state。使用 “builtin” 会获取 RIS 提供的额外内置变量，这些变量不是 OSL 默认 global 变量的一部分。"}
+{"item_id":"45bbbfa978:48","text":"XPU 允许 float 与 int 自由互转，也允许从"}
+{"item_id":"45bbbfa978:49","text":"转换为"}
+{"item_id":"45bbbfa978:51","text":"类型，并在使用"}
+{"item_id":"45bbbfa978:52","text":" 进行查找时返回 1。RIS 不允许这种转换，会返回 0。"}
+{"item_id":"45bbbfa978:53","text":"混合 C++ 与 OSL Patterns（仅 RIS）"}
+{"item_id":"45bbbfa978:54","text":"为了让 C++ 与 OSL patterns 相互交互，需要告诉 OSL patterns 不要假定它们的输入是常量，因为这些输入可能由 C++ Pattern 输出提供。如果要允许把非 OSL 输出连接到 OSL 输入，必须为该输入设置 metadata 标志 [[ int lockgeom = 0 ]]。"}
+{"item_id":"45bbbfa978:55","text":"使用 OSL 的一个优势是，大型 Patterns 网络会在 renderer 使用它们时即时整体编译。这意味着编译器可以利用 shaders 的当前设置，并优化掉任何给定对象未使用的部分。不过，OSL 编译器无法“看到”基于 C++ 的 Pattern nodes 内部，因此混入它们可能会削弱一部分优化过程。此外，OSL Patterns 会被分组并一起执行，而 C++ Patterns 会逐个执行。如果一个 C++ Pattern 位于网络中间，RenderMan 可能必须把 OSL Patterns 拆成两组：必须在 C++ Pattern 之前执行的一组，以及必须在其之后执行的一组。遗憾的是，RenderMan 目前无法在这两组节点之间传递隐式导数，因此如果你的纹理过滤或凹凸贴图依赖上游信号的导数，混入 C++ nodes 可能会打断这些导数。因此，不建议在网络中间交错插入 C++ nodes。不过，它们可以放在所有 OSL nodes 下游而不会造成损害，也可以完全放在所有 OSL nodes 上游，通常不会产生多少意外影响（除了纹理过滤和凹凸贴图无法工作）。"}
+{"item_id":"45bbbfa978:56","text":"OSL 实现说明："}
+{"item_id":"45bbbfa978:57","text":"在 PRMan 中将 primvars 绑定到几何体相当简单：只需在 shader 中使用"}
+{"item_id":"45bbbfa978:58","text":"标记参数即可。这会告诉 shading system 将该变量视为 varying 输入，并且如果该变量存在于几何体上，就会把它绑定到 shader 中。另请注意，可以绑定其他 Pattern nodes 的输出，OSL pattern node 会自动把一个 Pattern node 的输出绑定到 OSL shader 的参数。同样，OSL shader 的输出也可以被其他节点引用，无论这些节点是 Pattern、Bxdf 还是 Displace nodes。只需按名称引用它们即可。"}
+{"item_id":"45bbbfa978:59","text":"大致表示：“允许 OSL jit 锁定几何绑定，并假定该 shader 参数为常量值”。这使常量传播能够更积极地工作，但也会阻止该 shader 以该参数的 varying 输入执行。如果要接入会变化的 C++ 输入，就需要在 jit 时强制这一行为；不过在这种情况下，prman 此时已经会为你处理。"}
+{"item_id":"45bbbfa978:60","text":"第二部分表示，如果你已经锁定几何绑定，即 lockgeom=1，那么 primvar 到 shader 输入的自动绑定将不会发生。这是默认行为，因此如果某个输入是 'color primColor'，并且部分几何体上有名为 'primColor' 的 vertex variable，而你期望它被连入 shader，就需要设置一个 [[int lockgeom=0]] metadata tag。"}
+{"item_id":"45bbbfa978:61","text":"有几个选项可以控制 OSL 在 RenderMan 中的行为和使用方式。"}
+{"item_id":"45bbbfa978:62","text":"Option “user” “int osl:verbose” [0-5] - 控制 RenderMan 回显的 OSL 消息 verbosity。0 表示关闭，1-5 每级都会向打印内容中增加一类 OSL 消息。这些类别为：1 - SEVERE，2 - ERROR，3 - MESSAGE，4 - WARNING，5 - INFO。"}
+{"item_id":"45bbbfa978:63","text":"Option “user” “int osl:statisticslevel” - 这类似于 “osl:statistics:level” attribute，但它控制 RenderMan 为整个 OSL shading system 集成所跟踪的统计级别。"}
+{"item_id":"45bbbfa978:64","text":"请注意，有若干 OSL attributes 可在 RIB 文件中设置。支持以下 attributes："}
+{"item_id":"45bbbfa978:65","text":"有关其用法的详细信息，请参考 OSL 文档。你也可以访问以下链接，了解当前版本的 OSL："}
+{"item_id":"45bbbfa978:66","text":"OpenShadingLanguage"}
+{"item_id":"45bbbfa978:68","text":"使用 trace() shadeop："}
+{"item_id":"45bbbfa978:69","text":"包含了对 trace() shadeop 的有限支持。trace() shadeop 不能在 displacement、presence 和 opacity shading 期间调用。trace() shadeop 也仅限于取回几何值，因为我们不允许递归 shading，所以可选的 “shade” 参数会被忽略，并始终假定为 0。在 trace() 之后，getmessage() 可以取回 “hit”、“hitdist” 和 “geom:name” 值，以及命中几何体上的 primvars 值。"}
+{"item_id":"45bbbfa978:70","text":"访问 Renderer 信息"}
+{"item_id":"45bbbfa978:71","text":"可以通过使用"}
+{"item_id":"45bbbfa978:72","text":"调用并把 “rendererInfo” 作为对象，获取当前正在运行的 renderer 版本信息。"}
+{"item_id":"45bbbfa978:73","text":"在"}
+{"item_id":"45bbbfa978:74","text":"对象中支持三个查询："}
+{"item_id":"45bbbfa978:77","text":"会返回字符串"}
+{"item_id":"45bbbfa978:78","text":"，表示正在 RenderMan 内运行。"}
+{"item_id":"45bbbfa978:79","text":"会返回 renderer 的当前版本字符串。"}
+{"item_id":"45bbbfa978:81","text":"数组，包含版本信息；"}
+{"item_id":"45bbbfa978:82","text":"始终为 3，"}
+{"item_id":"45bbbfa978:83","text":"为发行版的主版本号（例如 RenderMan 26 中的 26），"}
+{"item_id":"45bbbfa978:84","text":"为发行版的次版本号，并且"}
+{"item_id":"45bbbfa978:85","text":"为构建号。"}
+{"item_id":"45bbbfa978:86","text":"访问 Shading Contexts"}
+{"item_id":"45bbbfa978:87","text":"可以访问 C++ shaders 在 RixShadingContext 上可见的 RenderMan 专用上下文，方法是通过"}
+{"item_id":"45bbbfa978:88","text":"调用并把 “context” 作为对象。"}
+{"item_id":"45bbbfa978:89","text":"“shadingMode” 的值对应 RixShading.h 中的 RixSCShadingMode："}
+{"item_id":"45bbbfa978:90","text":"presence"}
+{"item_id":"45bbbfa978:91","text":"opacity"}
+{"item_id":"45bbbfa978:92","text":"scatter"}
+{"item_id":"45bbbfa978:93","text":"volumeTransmission"}
+{"item_id":"45bbbfa978:94","text":"volumeScatter"}
+{"item_id":"45bbbfa978:95","text":"emission"}
+{"item_id":"45bbbfa978:96","text":"bake"}
+{"item_id":"45bbbfa978:97","text":"displacement"}
+{"item_id":"45bbbfa978:98","text":"如果希望获得类似 grid 的 shading，而不是 ray hits，则不要使用 shadingMode，而是可以查询一个返回 1 或 0 的布尔 context attribute，其中包括："}
+{"item_id":"45bbbfa978:99","text":"eyePath (*)"}
+{"item_id":"45bbbfa978:100","text":"lightPath (*)"}
+{"item_id":"45bbbfa978:101","text":"primaryHit"}
+{"item_id":"45bbbfa978:102","text":"missContext (*)"}
+{"item_id":"45bbbfa978:103","text":"reyesGrid"}
+{"item_id":"45bbbfa978:104","text":"标记为 (*) 的查询在 XPU 中始终返回 0。"}
+{"item_id":"45bbbfa978:105","text":"访问 RIS builtin 变量"}
+{"item_id":"45bbbfa978:106","text":"通过 RIS GetBuiltin shading 调用可访问的内容，在 OSL 中会以下列形式暴露："}
+{"item_id":"45bbbfa978:107","text":"除非它们已经可通过标准 OSL globals 获得。以下内容可以通过该调用访问。请注意，在 XPU 中，许多 builtins 不可用，但可能有替代实现。对于需要在 RIS 和 XPU 中无缝使用的前瞻性 shaders，我们建议避免使用 XPU 不支持的 builtins。"}
+{"item_id":"45bbbfa978:108","text":"名称"}
+{"item_id":"45bbbfa978:109","text":"XPU 中可用"}
+{"item_id":"45bbbfa978:110","text":"说明"}
+{"item_id":"45bbbfa978:111","text":"已弃用，首选 global P"}
+{"item_id":"45bbbfa978:112","text":"PRadius"}
+{"item_id":"45bbbfa978:113","text":"已弃用，首选"}
+{"item_id":"45bbbfa978:114","text":"（如有需要，缩放为半径）"}
+{"item_id":"45bbbfa978:115","text":"Po"}
+{"item_id":"45bbbfa978:116","text":"如果几何体发生了置换，则该值是置换后成为 P 的未置换位置。"}
+{"item_id":"45bbbfa978:117","text":"Nn"}
+{"item_id":"45bbbfa978:118","text":"已弃用，首选 global N"}
+{"item_id":"45bbbfa978:119","text":"Ngn"}
+{"item_id":"45bbbfa978:120","text":"已弃用，首选 global Ng"}
+{"item_id":"45bbbfa978:121","text":"Non"}
+{"item_id":"45bbbfa978:122","text":"归一化的未置换法线，即如果几何体未经历置换，则等价于 Nn。在 XPU 中，仅当发生置换时才可用。"}
+{"item_id":"45bbbfa978:123","text":"Naon"}
+{"item_id":"45bbbfa978:124","text":"归一化的解析未置换 N。"}
+{"item_id":"45bbbfa978:125","text":"替代写法："}
+{"item_id":"45bbbfa978:126","text":"Tn"}
+{"item_id":"45bbbfa978:127","text":"shading tangent。通常是与 shading normal Nn 正交归一的向量，常与其配合用于创建正交归一基。"}
+{"item_id":"45bbbfa978:128","text":"Vn"}
+{"item_id":"45bbbfa978:129","text":"归一化的视图向量，方向从 P 指向外部。"}
+{"item_id":"45bbbfa978:131","text":"VLen"}
+{"item_id":"45bbbfa978:132","text":"已弃用，首选 global I："}
+{"item_id":"45bbbfa978:133","text":"curvature"}
+{"item_id":"45bbbfa978:134","text":"局部平均表面曲率"}
+{"item_id":"45bbbfa978:135","text":"curvatureU"}
+{"item_id":"45bbbfa978:136","text":"参数 u 方向上的主曲率，通过 dot(dNu, dPu) / |dPu|^2 计算，其中 dNu 是在 P 与 P'（P' 是 P 附近沿 u 方向偏移的点）处计算的两个表面法线之差，dPu 是 P 与 P` 之间的差值。这是一个带符号量。"}
+{"item_id":"45bbbfa978:137","text":"curvatureV"}
+{"item_id":"45bbbfa978:138","text":"参数 v 方向上的主曲率，通过 dot(dNv, dPv) / |dPv|^2 计算，其中 dNv 是在 P 与 P'（P' 是 P 附近沿 v 方向偏移的点）处计算的两个表面法线之差，dPv 是 P 与 P` 之间的差值。这是一个带符号量。"}
+{"item_id":"45bbbfa978:139","text":"time"}
+{"item_id":"45bbbfa978:140","text":"已弃用，首选 global time"}
+{"item_id":"45bbbfa978:141","text":"Id"}
+{"item_id":"45bbbfa978:142","text":"与几何体关联的任意 Attribute “identifier” “id” 的值。"}
+{"item_id":"45bbbfa978:143","text":"Id2"}
+{"item_id":"45bbbfa978:144","text":"与几何体关联的任意 Attribute “identifier” “id2” 的值。"}
+{"item_id":"45bbbfa978:145","text":"incidentRaySpread"}
+{"item_id":"45bbbfa978:146","text":"入射射线每行进一个单位距离时，射线半径增加的量。"}
+{"item_id":"45bbbfa978:147","text":"incidentRayRadius"}
+{"item_id":"45bbbfa978:148","text":"P 处入射射线的 Radius（半径）。"}
+{"item_id":"45bbbfa978:149","text":"mpSize"}
+{"item_id":"45bbbfa978:150","text":"micropolygon 大小。对于未细分曲面的表面为 0。可作为偏置用途的提示。"}
+{"item_id":"45bbbfa978:151","text":"motionFore"}
+{"item_id":"45bbbfa978:152","text":"前向 2D raster-space motion vector。"}
+{"item_id":"45bbbfa978:153","text":"motionBack"}
+{"item_id":"45bbbfa978:154","text":"后向 2D raster-space motion vector。"}
+{"item_id":"45bbbfa978:155","text":"biasR, biasT"}
+{"item_id":"45bbbfa978:156","text":"renderer 计算出的 bias，用于反射和透射射线。"}
+{"item_id":"45bbbfa978:157","text":"du, dv"}
+{"item_id":"45bbbfa978:158","text":"参数空间中射线 footprint（半径）的大小。"}
+{"item_id":"45bbbfa978:159","text":"已弃用，首选 Dx(u) 或 Dy(v)（但请注意 OSL 的 Dx 和 Dy 基于直径："}
+{"item_id":"45bbbfa978:160","text":"；"}
+{"item_id":"45bbbfa978:161","text":"dPdv, dPdu"}
+{"item_id":"45bbbfa978:162","text":"已弃用，首选 global dPdu 和 global dPdv"}
+{"item_id":"45bbbfa978:163","text":"dPcameradtime"}
+{"item_id":"45bbbfa978:164","text":"P 相对于相机的瞬时速度。"}
+{"item_id":"45bbbfa978:165","text":"outsideIOR"}
+{"item_id":"45bbbfa978:166","text":"入射折射率。"}
+{"item_id":"45bbbfa978:167","text":"隐式导数"}
+{"item_id":"45bbbfa978:168","text":"OSL 使用隐式微分按需跟踪变量的导数。RenderMan 将导数的 x 和 y 空间映射到底层几何体的隐式 u 和 v 空间。隐式导数用于控制纹理过滤，也可用于为凹凸贴图创建新的 shading normals。不过，只有当来自 renderer 的原始值已使用导数“primed” 时，这才有效，因为导数必须与这些初始值中的变量一起计算，并经过其他数学运算变换，直到在 texture() 或 calculatenormal() 调用中使用。导数主要来自 shader global P，prman 确实会使用适当导数对这个 shader global 进行 priming。此外，在几何体上插值的 varying primitive variables，如果通过"}
+{"item_id":"45bbbfa978:169","text":"访问，或者直接通过"}
+{"item_id":"45bbbfa978:170","text":"访问，也会提供导数。"}
+{"item_id":"45bbbfa978:171","text":"与 C++ shading context 中可用 builtin 对应的值，可以通过"}
+{"item_id":"45bbbfa978:172","text":"调用访问，但它们"}
+{"item_id":"45bbbfa978:173","text":"不会"}
+{"item_id":"45bbbfa978:174","text":"提供导数，因为底层 C++ 实现并不提供它们。这类值最常见的需求，是访问 shader global P 的预置换值的导数。C++ shader 作者可能习惯把这个值作为 builtin “Po” 获取，但对于 OSL，建议使用"}
+{"item_id":"45bbbfa978:175","text":"它会从底层几何体重新插值 P，并返回预置换值及其关联导数。"}
+{"item_id":"45bbbfa978:176","text":"Global options、attributes、constant/uniform primitive variables 以及 “context” variables 的隐式导数也会平凡地为 0，因为它们不会在表面上变化。"}
+{"item_id":"45bbbfa978:177","text":"字符串替换"}
+{"item_id":"45bbbfa978:178","text":"在基于 CPU 的渲染中，shader 内的字符串操作可能开销很高；在基于 GPU 的渲染中，如果字符串操作不能完全在编译时完成，则会被禁止。为帮助处理这一点，RenderMan 支持在纹理文件名中替换以下 token"}
+{"item_id":"45bbbfa978:179","text":"<udim> - 将替换为与提供的纹理坐标对应的 UDIM tile"}
+{"item_id":"45bbbfa978:180","text":"<u>,<v>,<U>,<V> - 将分别替换为纹理坐标的整数部分，截断或向上取整"}
+{"item_id":"45bbbfa978:181","text":"<primstr:primvarname> - 将替换为具名 constant string primitive variable 的值，例如在一个带有 \"const string model\" [\"apple\"] 的苹果上，\"/assets/<primstr:model>/diffuse.tex\" 这样的资产名称会扩展为 \"/assets/apple/diffuse.tex\""}
+{"item_id":"45bbbfa978:182","text":"LPE 匹配与 Throughput"}
+{"item_id":"45bbbfa978:183","text":"custom LPE match 和 throughput 值可以在 OSL 中通过"}
+{"item_id":"45bbbfa978:184","text":" 访问。该功能允许 shading 根据 custom LPE 指定的路径变化，甚至根据这些路径的 throughput 变化。例如，shader 可以根据射线是否折射穿过某个特定对象而作出响应并返回不同值。"}
+{"item_id":"45bbbfa978:186","text":"查询会在当前 shading event 之前的 ray path 匹配该 LPE 时返回 1，否则返回 0。"}
+{"item_id":"45bbbfa978:187","text":"预期类型为 float。"}
+{"item_id":"45bbbfa978:189","text":"查询会返回 ray path 的总 path throughput；如果当前 shading event 之前的 ray path 不匹配该 LPE，则返回 0。"}
+{"item_id":"45bbbfa978:190","text":"必须是 color。"}
+{"item_id":"45bbbfa978:191","text":"在这两种情况下，传给"}
+{"item_id":"45bbbfa978:192","text":"的第二个参数可以是 custom LPE name，也可以是 custom LPE expression。一个"}
+{"item_id":"45bbbfa978:194","text":"是典型的 LPE 字符串，例如"}
+{"item_id":"45bbbfa978:195","text":"。一个"}
+{"item_id":"45bbbfa978:196","text":"name"}
+{"item_id":"45bbbfa978:197","text":"是一种方便且对艺术家友好的方式，用来引用一个"}
+{"item_id":"45bbbfa978:198","text":"expression"}
+{"item_id":"45bbbfa978:199","text":"，并且需要设置 pipeline，使 Options 被 renderer 知晓，从而建立该 name 与 expression 的关系。例如，如果向 renderer 发出以下 Option 调用："}
+{"item_id":"45bbbfa978:200","text":"后续"}
+{"item_id":"45bbbfa978:201","text":"调用便可以自由使用"}
+{"item_id":"45bbbfa978:203","text":"作为对应 LPE expression 的同义名。"}
+{"item_id":"45bbbfa978:204","text":"请注意，在 RenderMan 中，pattern shading 是在"}
+{"item_id":"45bbbfa978:205","text":"光照之前"}
+{"item_id":"45bbbfa978:206","text":"进行的，因此你的 LPE expressions 需要考虑这一点。特别是，如果你习惯在 AOV LPE expressions 末尾使用"}
+{"item_id":"45bbbfa978:207","text":"token（用于捕获一条路径直到并包含光源为止的贡献），则需要移除 L，才能将这类表达式用于"}
+{"item_id":"45bbbfa978:209","text":"。请注意，上面"}
+{"item_id":"45bbbfa978:210","text":"的定义没有以"}
+{"id":"cfe61ce73a234cbf301b23bfc05e55d740876256fcd5c56d04e3c40a9b1cb3ca","text":"已弃用，首选 global I："}
+{"id":"b8bc0e4f01a0ebdbfe99180d4ea3cb49092d268fecd0789d2e9372fa616e9542","text":"expression"}
+{"id":"4aa9bfd2f175a94ad5a7cb321e1aea9790c73eb366a3415b47a00aeaa9fbf24a","text":"，以及"}
+{"item_id":"45bbbfa978:211","text":" 结尾。"}
+{"id": "cdb4ee2aea69cc6a83331bbe96dc2caa9a299d21329efb0336fc02a82e1839a8", "item_id": "45bbbfa978:3", "text": "。"}
+{"id": "d029f87e3d80f8fd9b1be67c7426b4cc1ff47b4a9d0a8461c826a59d8c5eb6cd", "item_id": "45bbbfa978:18", "text": "Example（示例）"}
+{"id": "6201111b83a0cb5b0922cb37cc442b9a40e24e3b1ce100a4bb204f4c63fd2ac0", "item_id": "45bbbfa978:50", "text": "和"}
+{"id": "89ebce7412c48723ca2b204abe0c44406f391f79304c90964bba4de6dabb0391", "item_id": "45bbbfa978:80", "text": "是一个"}
+{"id": "b344d80e24a3679999fa964450b34bc24d1578a35509f934c1418b0a20d21a67", "item_id": "45bbbfa978:185", "text": "该"}
+{"id": "7175517a370b5cd2e664e3fd29c4ea9db5ce17058eb9772fe090a5485e49dad6", "item_id": "45bbbfa978:208", "text": "或"}

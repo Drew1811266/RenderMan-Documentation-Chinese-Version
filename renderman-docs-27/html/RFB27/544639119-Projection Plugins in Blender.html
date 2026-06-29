@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Projection Plugins in Blender</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Projection Plugins in Blender</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFB27/544639119/Projection+Plugins+in+Blender">https://rmanwiki-27.pixar.com/space/RFB27/544639119/Projection+Plugins+in+Blender</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>Projection Plugins are the lens through which RenderMan views the digital scene.  You can create custom projection plugins using C++.  RenderMan comes with multiple plugins with PxrCamera being the common projection. The Omnidirectional Stereo projection renders images in a format suitable for VR viewing.</p><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="b8650048-be4f-4db4-97f3-01eca9d8215f" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body">See <a class="external-link" href="http://rmanwiki-test.pixar.com/display/REN/Projection+Plugins" rel="nofollow">Projection Plugins</a> for more information.</div></div><p class="auto-cursor-target">By default, RenderMan for Blender will map the default Blender camera types using the table below:</p><div class="table-wrap"><table class="confluenceTable"><colgroup><col/><col/></colgroup><tbody><tr><th class="confluenceTh">Blender</th><th class="confluenceTh">RenderMan</th></tr><tr><td colspan="1" class="confluenceTd">Perspective</td><td colspan="1" class="confluenceTd">PxrCamera</td></tr><tr><td class="confluenceTd">Orthographic</td><td class="confluenceTd">PxrOrthographic</td></tr><tr><td class="confluenceTd">Panoramic</td><td class="confluenceTd">PxrSphereCamera</td></tr></tbody></table></div><p><br/></p><p>To explicitly set the projection plugin used for the camera, go to the camera data properties <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image confluence-thumbnail" height="25" loading="lazy" src="../../attachments/544639119/camera_data_properties.png" data-image-src="../../attachments/544639119/camera_data_properties.png" data-unresolved-comment-count="0" data-linked-resource-id="544639133" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="camera_data_properties.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544639119" data-linked-resource-container-version="1" data-media-id="f86526ad-1e56-4c66-b0b7-359cdc7eccc7" data-media-type="file"></span>and go to the RenderMan Projection subpanel under the RenderMan Camera panel, and click Add Projection Plugin.</p><p><span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image" height="67" loading="lazy" src="../../attachments/544639119/projection_plugin1.png" data-image-src="../../attachments/544639119/projection_plugin1.png" data-unresolved-comment-count="0" data-linked-resource-id="544639136" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="projection_plugin1.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544639119" data-linked-resource-container-version="1" data-media-id="3ce034f3-c7bd-44d3-a501-217fe047a301" data-media-type="file"></span></p><p>Next, select the projection plugin you're interested and click OK.</p><p><span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image" height="97" loading="lazy" src="../../attachments/544639119/projection_plugin2.png" data-image-src="../../attachments/544639119/projection_plugin2.png" data-unresolved-comment-count="0" data-linked-resource-id="544639139" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="projection_plugin2.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544639119" data-linked-resource-container-version="1" data-media-id="86a2c779-e39e-4f70-a6ed-8d8677a19176" data-media-type="file"></span></p><p>You should now see parameters for the projection plugin in the panel.</p><p><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/544639119/projection_plugin3.png" data-image-src="../../attachments/544639119/projection_plugin3.png" data-unresolved-comment-count="0" data-linked-resource-id="544639142" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="projection_plugin3.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544639119" data-linked-resource-container-version="1" data-media-id="21533918-aa94-4cd6-ba8c-cdf34fccde7b" data-media-type="file"></span></p><p>Note, the Use Camera FOV option will copy what's currently used for the camera's field of view settings, effectively ignoring the FOV settings on the plugin. This help matches what the current view for the camera is in the viewport.</p>
+  </article>
+</main>
+</body>
+</html>

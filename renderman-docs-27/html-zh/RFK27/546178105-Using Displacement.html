@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Using Displacement</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Using Displacement</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFK27/546178105/Using+Displacement">https://rmanwiki-27.pixar.com/space/RFK27/546178105/Using+Displacement</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>使用 <a href="https://rmanwiki-26.pixar.com/space/REN26/19661545/PxrDisplace" data-linked-resource-id="19661545" data-linked-resource-version="2" data-linked-resource-type="page">PxrDisplace</a> 创建额外 geometric details（几何细节）是一种常见工作流，通常会结合 Mudbox 或 ZBrush 等软件导出 maps（贴图）。我们推荐使用 vector displacement（矢量置换），因为这对 layering（分层）最合理；不过我们会用同一个节点渲染 scalar maps（标量贴图）和 vector maps（矢量贴图）。</p><p>需要确保带有 displacement（置换）的 object（对象）具有非零 displacement bound（置换边界）。出于 performance（性能）原因，该值默认为零，因此对于需要 displacements（置换）的 object，必须始终增大此值。</p><ul><li><p>创建 PrmanObjectStatements 节点，并将其分配给你的 object（使用 CEL 参数）</p></li></ul><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="438" loading="lazy" src="../../attachments/546178105/rfk_displaceObjSettings.jpg" data-image-src="../../attachments/546178105/rfk_displaceObjSettings.jpg" data-height="633" data-width="694" data-unresolved-comment-count="0" data-linked-resource-id="546178119" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfk_displaceObjSettings.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="546178105" data-linked-resource-container-version="3" data-media-id="559d4910-d903-4da1-8870-c6ca54a4b1a5" data-media-type="file"></span><ul><li><p>在 PrmanObjectStatements 节点中找到 "primAttributes.displacementbound" 下的 displacement bound（置换边界）</p></li><li><p>将 "Sphere" 设置为大于零的值：它要足够大，能够包住 displacement（置换），但也要足够小，避免让 renderer（渲染器）认为 surface（曲面）延伸超过预期的最终边界。如果 bounds（边界）太小，会看到裁切或缺失片段；如果太大，可能会过早对 object 进行置换。之后我们会自动收紧这些 bounds，使其更高效。因此宁可偏大，也不要偏小。值为 0（零）会禁用该 object 的 displacement。</p></li></ul><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="500" loading="lazy" src="../../attachments/546178105/rfkDisplacementBounds.png" data-image-src="../../attachments/546178105/rfkDisplacementBounds.png" data-height="512" data-width="1024" data-unresolved-comment-count="0" data-linked-resource-id="546178125" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfkDisplacementBounds.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="546178105" data-linked-resource-container-version="3" data-media-id="0565bc52-80c7-43f3-8886-34996a5c759b" data-media-type="file"></span><p /><p>RenderMan 会为过大或过小的 bounds 打印警告，最小因子为 10，以帮助你调整</p><p>下面是一个为 object 添加 displacement 的典型 network（网络）：</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="350" loading="lazy" src="../../attachments/546178105/rfkDisplacementNet.png" data-image-src="../../attachments/546178105/rfkDisplacementNet.png" data-height="809" data-width="484" data-unresolved-comment-count="0" data-linked-resource-id="546178122" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfkDisplacementNet.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="546178105" data-linked-resource-container-version="3" data-media-id="9861fe74-349d-4a99-a631-51c7d236c15c" data-media-type="file"></span><ul><li><p>创建一个 Network Material</p><ul><li><p>在该节点中使用 Add Terminal，为 Bxdf 或 surface shading（曲面着色）创建一个端口</p></li><li><p>使用同一菜单为 Displacement（置换）创建第二个端口</p></li></ul></li><li><p>一个 PrmanShadingNode 用作 surfaceShader，通常类型为 PxrSurface</p></li><li><p>第二个 PrmanShadingNode 的类型为 PxrDisplace</p></li><li><p>将 pattern out（模式输出，标量置换为 float，矢量置换为 RGB）连接到 displacementShader</p></li></ul><p>渲染以查看结果。确保在 Merge 节点之后有一个 MaterialAssign，并且它具有指向 object(s) 的正确 CEL path（CEL 路径），同时 network material location（网络材质位置）设置为 NetworkMaterial</p><p />
+  </article>
+</main>
+</body>
+</html>

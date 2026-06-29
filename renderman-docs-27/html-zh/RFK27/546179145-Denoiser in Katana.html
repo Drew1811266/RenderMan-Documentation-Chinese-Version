@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Denoiser in Katana</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Denoiser in Katana</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFK27/546179145/Denoiser+in+Katana">https://rmanwiki-27.pixar.com/space/RFK27/546179145/Denoiser+in+Katana</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><style>[data-colorid=t9lqf57kej]{color:#4269b8} html[data-color-mode=dark] [data-colorid=t9lqf57kej]{color:#476ebd}[data-colorid=rwhovr9ww5]{color:#4269b8} html[data-color-mode=dark] [data-colorid=rwhovr9ww5]{color:#476ebd}[data-colorid=qrr52asvml]{color:#4269b8} html[data-color-mode=dark] [data-colorid=qrr52asvml]{color:#476ebd}</style><img class="confluence-embedded-image image-center" width="900" loading="lazy" src="../../attachments/546179145/RenderMan_Katana_Header.jpg" data-image-src="../../attachments/546179145/RenderMan_Katana_Header.jpg" data-height="708" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="546179161" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Katana_Header.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="546179145" data-linked-resource-container-version="1" data-media-id="817b2b76-cc7d-4df1-9619-2d86cda26ea9" data-media-type="file" /></span><h3 id="DenoiserinKatana-BasicSetupinKatana"><br />Basic Setup in Katana（Katana 基础设置）</h3><p><strong><span data-colorid="rwhovr9ww5">Step 1（步骤 1）：</span></strong></p><p>添加一个 <em>PrmanDenoiseChannelDefine</em> node，用于创建 denoiser 所需的全部 DisplayChannels。</p><p><strong><span data-colorid="t9lqf57kej">Step 2（步骤 2）：</span></strong></p><p>添加一个 <em>PrmanDenoiseRenderOutputDefine</em> node，用于为 beauty pass 输出 multichannel OpenEXR file。该 file 包含所有必需的 denoise channels。</p><p>将 renderLocation parameter 设为 output image 的位置。denoiser 期望 images 采用以下形式 <code>&lt;NAME&gt;.&lt;FRAME_NUMBER&gt;.exr</code>（例如 <code>image.1001.exr</code>）。在 Katana 中，可以通过 filename 中 # 的数量指定 frame number 的 digits 数（例如 <code>image.##.exr</code> 会得到 <code>image.01.exr</code>).</p><p><strong><span data-colorid="qrr52asvml">Step 3（步骤 3）：</span></strong></p><p>将 <em>pixelfiltermode</em> 设置为 <em>importance</em>（如果你已将其从默认值改掉）。此设置在 PrmanGlobalStatements 中完成。</p><h3 id="DenoiserinKatana-CustomsetupinKatana">Custom setup in Katana（Katana 自定义设置）</h3><p>这两个 <em>PrmanDenoiseChannelDefine </em>和<em> PrmanDenoiseRenderOutputDefine</em> nodes 都是 macros。可以 command-click 查看这些 macros 内部，并在必要时修改 settings。</p><p>如果你的 pipeline 不支持 multichannel EXRs，可以使用 separate RenderOutputDefine nodes，为以下 node 中定义的每个 channel 创建一个 output： <em>PrmanDenoiseChannelDefine</em>。然后使用&nbsp;<code>$RMANTREE/bin/exrmerge</code>&nbsp;将 AOVs 合并成 multichannel EXR。将这个 merged multichannel EXR 用于 denoiser。使用 Katana 的 RenderOutputDefine merge 创建的 combined EXRs 无法用于 denoiser。</p><p>在任何为 denoising 创建的 RenderOutputDefine nodes 上，type 都应设为 "raw"，以避免 Katana 进行任何 post-processing。然后确保 <em>asrgba</em> 处于 off 状态，使 channel names 与 denoiser 期望的一致。&nbsp;<br /><br /></p><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="b784117d-7317-4ae6-8dc3-82d8ce33051f" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>请参阅 <em>denoise_teapots.katana</em> 这个位于 RfK 的 Examples directory 中的 example file，了解如何设置 denoising。&nbsp;</p></div></div><p /><hr /><h3 id="DenoiserinKatana-RunningtheDenoiser:">Running the Denoiser（运行 Denoiser）：</h3><p>有几种 options 可用于对 Katana renders 执行 denoise。RenderMan 同时提供名为 denoise_batch 的 command line denoise tool 和 Denoise UI。 </p><h4 id="DenoiserinKatana-Option1:RenderOutputDefineScript(SingleFrame)">Option 1：RenderOutputDefine Script（Single Frame）</h4><ol start="1"><li><p>创建一个 RenderOutputDefine。 </p></li><li><p>将此 node 连接到前一个 RenderOutputDefine node。 </p></li><li><p> 输入 denoise_primary，将 outputName 设为 denoise_primary。</p></li><li><p>通过选择 script option，将 type 设为 script。这会导致 scriptInput parameter 显示 error。忽略它并继续下一步。</p></li><li><p>通过选择 primary option，将 scriptInput 设为 primary。</p></li><li><p>将 scriptCommand 设为 expression。 </p></li><li><p>然后输入 expression<br /></p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="4d6267cf-1d07-4d78-bc29-c4cc7aab4f5b" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">'&quot;' + path.join(getenv(&quot;RMANTREE&quot;, ''), 'bin', 'denoise_batch') + '&quot; -o ' + path.join(katanaTmpDir, 'denoised') + ' $INPUT'</pre>
+</div></div></li></ol><p>此时，后续的 Render node 应该有两个 outputs：primary（raw）和 denoise_primary（script - 在 primary 上运行）。 </p><p>Disk Render 完成后，original image 会位于 /tmp/katana/image.1.exr，denoised image 会位于 /tmp/katana/denoised/image.1.exr。</p><p /><h4 id="DenoiserinKatana-Option2:commandline(CrossframeorSingleFrame)">Option 2：command line（Crossframe 或 Single Frame）</h4><p>使用 katana --batch 或 katana queue render 出 images。然后运行以下 command：&nbsp;</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="32894ff3-c3ba-4eb1-95eb-9ee34049573b" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">$RMANTREE/bin/denoise_batch -o /path/to/directory/for/denoised/images imagename.*.exr</pre>
+</div></div><p>请参阅 <a class="external-link" href="https://renderman-26.refined.site/space/REN26/19661811/Denoiser+Command+Line" rel="nofollow">Denoiser Command Line</a> documentation，了解可用 settings 的更多信息。</p><p /><h4 id="DenoiserinKatana-Option3:DenoiseUI(CrossframeorSingleFrame)">Option 3：Denoise UI（Crossframe 或 Single Frame）</h4><ol start="1"><li><p>将 images 从 Katana 作为 disk 或 batch render 输出。</p></li><li><p>PRMan 25 shelf 中有一个名为 RenderMan Denoiser 的 script。运行此 script 可启动 Denoise UI。也可以直接从以下位置访问 UI： <code>$RMANTREE/bin/denoise</code>&nbsp;</p></li><li><p>在 UI 中，选择 "Add Directory..."，并选择包含已从 Katana render 出来的 images 的 directory。</p></li><li><p>接下来选择 folder icon，选择 denoised images 要保存到的 directory。</p></li><li><p>点击 "start" 开始 denoising。</p></li></ol><p>请参阅 <a class="external-link" href="https://renderman-26.refined.site/space/REN26/19662141/Denoiser+UI" rel="nofollow">Denoiser UI</a> documentation，了解可用 settings 的更多信息。</p><p /><hr /><p /><p><br /><br /><br /><br /></p>
+  </article>
+</main>
+</body>
+</html>

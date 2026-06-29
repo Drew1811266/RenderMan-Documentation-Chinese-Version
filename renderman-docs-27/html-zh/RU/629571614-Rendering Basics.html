@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rendering Basics</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Rendering Basics</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RU/629571614/Rendering+Basics">https://rmanwiki-27.pixar.com/space/RU/629571614/Rendering+Basics</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>有没有好奇过，当你按下 render 按钮时，RenderMan hood 之下到底发生了什么？</p><p>嗯……这里是对这个过程的简化说明。</p><p /><p /><ol start="1"><li><p>Read：将 scene description 读入 renderer（如果已经读入，则更新它）</p></li><li><p>对 geometry 进行 tessellation（并可选 displacement）；构建 ray tracing data structures</p></li><li><p>生成并发射 camera rays</p></li><li><p>对 ray hit points 进行 shading：评估 shading networks、materials，并计算 direct illumination</p></li><li><p>生成 indirect illumination 所需的 rays；trace 这些 rays</p></li><li><p>回到第 4 步。重复。</p></li></ol><p /><p /><p /><p /><p><br/>第 1 步：场景转换（Step 1 Scene translation）<br/>Step 2 Path tracing（路径追踪）<br/>第 3 步：显示数据（Step 3. Display the data）<br/>第 4 步：降噪处理（Step 4. Denoising）</p><p /><p /><p /><p><strong>场景转换阶段（Scene Translation）</strong></p><p>对 geometry 进行 tessellation / 生成 micropolygons</p><p>把 data 放入 RAM（system 或/和 vram）</p><p /><p>TIP：将 geometry 保持为 polygons 更便宜，但 RenderMan 更偏好 subdivision</p><p>事实：你从不需要选择 subdiv levels；RenderMan 会为你完成全部处理，并始终保持平滑</p><p /><p><strong>Path tracing（路径追踪）</strong></p><p>从 camera 发射光线 rays</p><p>命中场景中的 surfaces， </p><p>发现 shaders 并进行 render</p><p /><p>TIP：Procedural shading networks 总是比 textures 更昂贵。如果你确实需要 procedural networks，可以将它们 bake 到 disc。</p><p /><p><strong>显示数据阶段（Display the data）</strong></p><p>显示 render（IT 或 viewport），或保存到 disc（2D image 或 Deep data）</p><p /><p /><p /><p><strong>最终降噪阶段（Denoising）</strong></p><p>清理 path-traced variance，并生成干净结果</p><p /><p /><p /><p /><p />
+  </article>
+</main>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PxrDispTransform</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>PxrDispTransform</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/REN27/542223359/PxrDispTransform">https://rmanwiki-27.pixar.com/space/REN27/542223359/PxrDispTransform</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>This pattern transforms the input displacement values to a customized range of values for the input to PxrDisplace.  This includes remapping the displacement center, transforming it to a different displacement scale and space.</p><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="9e5060b6-d101-4abf-8208-59738a0e0bf3" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>We need to connect the result of this pattern to the input of <a href="/wiki/spaces/REN27/pages/542221096/PxrDisplace" data-linked-resource-id="542221096" data-linked-resource-version="1" data-linked-resource-type="page">PxrDisplace's</a> Scalar or Vector Displacement in order to displace the geometry.</p></div></div><p> </p><h3 id="PxrDispTransform-InputParameters"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="800" confluence-query-params="effects=drop-shadow" loading="lazy" src="../../attachments/542223359/vectorDispGraph.png" data-image-src="../../attachments/542223359/vectorDispGraph.png" data-unresolved-comment-count="0" data-linked-resource-id="542223381" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="vectorDispGraph.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542223359" data-linked-resource-container-version="1" data-media-id="befc21fe-6625-492c-8cca-9c5d9bb614a5" data-media-type="file"></span>Input Parameters</h3><h4 id="PxrDispTransform-DisplacementType">Displacement Type</h4><p>Specify the displacement type for the input.</p><ul><li>1: Scalar.  <br/>This is a float type.  </li><li>2: Generic Vector.  <br/>This can be any vector created procedurally or textured which does not need any special decoding like in Mudbox or ZBrush vector displacement maps.</li><li>3: Mudbox Vector.  <br/>This is the extracted vector displacement map from Mudbox. </li><li>4: Zbrush Vector. <br/>This is the extracted vector displacement map from ZBrush. </li></ul><h4 id="PxrDispTransform-ScalarDisplacement">Scalar Displacement</h4><p>Scalar displacement input.  This is a float displacement.  Connect a <a href="/wiki/spaces/REN27/pages/542225070/PxrTexture" data-linked-resource-id="542225070" data-linked-resource-version="1" data-linked-resource-type="page">PxrTexture</a> or any float pattern node to this parameter.</p><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="82b64e18-de76-4463-8d2f-44c05c9f4a5a" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>This is only valid if the Displacement Type is set to Scalar.</p></div></div><h4 id="PxrDispTransform-VectorDisplacement">Vector Displacement</h4><p>Vector displacement input. Vector displacement data is a three channel data XYZ. Connect a PxrTexture or any RIS vector pattern node's resultXYZ or resultRGB to this parameter. </p><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="1b6ee8ba-fb24-4d70-8893-cfb803b8f0d4" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>This is only valid if the Displacement Type is Vector.</p></div></div><h4 id="PxrDispTransform-VectorSpace">Vector Space</h4><p>Specify which space the vector was created in. For Mudbox and ZBrush vector type, this would be the space that the vector displacement was exported from.  </p><ul><li>1: World</li><li>2: Object</li><li>3: Tangent</li><li>4: Current</li></ul><p>It is very important to set the right vector space otherwise the resulting vector displacement will be rendered incorrectly. </p><div class="confluence-information-macro confluence-information-macro-tip conf-macro output-block" data-hasbody="true" data-macro-id="d9e9e30f-f3ff-429d-8420-0fcf6de1cbf3" data-macro-name="tip"><span class="aui-icon aui-icon-small aui-iconfont-approve confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>Most of the time when you are getting an unexpected result, it is the vector space that is set incorrectly. </p></div></div><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="cd6f1e67-4a75-401b-a9d4-bb934d345eb9" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>For Mudbox, vector displacement needs to be exported from Mudbox in Absolute Tangent, not Relative Tangent.</p></div></div><h4 id="PxrDispTransform-DisplacementHeight">Displacement Height</h4><p>Displacement height applies to the displacement value that is displacing out.</p><h4 id="PxrDispTransform-DisplacementDepth">Displacement Depth</h4><p>Displacement depth applies to the displacement value that is displacing in.</p><h4 id="PxrDispTransform-RemappingMode">Remapping Mode</h4><p>Specify how to remap the displacement values:</p><ul><li>1:  None.  <br/>Reads the displacement value as is without any remapping.  Use Displacement Height to scale the displacement value.</li><li> 2:  Centered: <br/>The displacement value is centered at the Displacement Center specified. If the value is equal to the center, there is no displacement.  <br/>Any values below the center will be displacing in whereas any values above the center will be displacing out.</li></ul><ul><li><p>3: Interpolate Depth and Height:</p><p>Fits the displacement depth and height specified through a catmull-rom spline (spline(&quot;catmullrom&quot;, -depth, -depth, 0, height, height). This mode does not use the Displacement Center.</p></li></ul><h4 id="PxrDispTransform-DisplacementCenter">Displacement Center</h4><p>Displacement center for the &quot;Centered&quot; Remapping Mode.</p><h4 id="PxrDispTransform-DisplacementScaleSpace">Displacement Scale Space</h4><p>Space in which displacement units are measured.  E.g. &quot;world&quot;, &quot;object&quot;, or user-defined coordinate system.</p><p>We offer two rendering spaces for specifying displacement, world and object space.</p><p>By default, RenderMan will displace in Object space. This is typically desired for sculpted models. But for some objects this can result in discontinuities. For example, a set of objects displaced together like a set of planes made into an environment piece. In object space these may result in gaps or discontinuity between patches like below.</p><p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" height="250" loading="lazy" src="../../attachments/542223359/groundplanes_objectspace.jpg" data-image-src="../../attachments/542223359/groundplanes_objectspace.jpg" data-unresolved-comment-count="0" data-linked-resource-id="542223378" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="groundplanes_objectspace.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542223359" data-linked-resource-container-version="1" data-media-id="9fdf51a6-6ad5-47ad-8ecb-da08317b79c8" data-media-type="file"></span></p><p>To correct for this particular scenario, you can select World Space to achieve the result below using the same eight patches. This will solve issues like ocean planes, cliffs, and rocks, where displacement is shared across the shapes.</p><p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" height="250" loading="lazy" src="../../attachments/542223359/groundplanes_worldspace.jpg" data-image-src="../../attachments/542223359/groundplanes_worldspace.jpg" data-unresolved-comment-count="0" data-linked-resource-id="542223375" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="groundplanes_worldspace.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542223359" data-linked-resource-container-version="1" data-media-id="04bfb202-b313-415a-b6c0-1af484347fce" data-media-type="file"></span></p><h4 id="PxrDispTransform-UseDisplacementDirection">Use Displacement Direction</h4><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="67fd55dc-489f-4b97-8123-b23c22b620b8" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>This is only valid if the Displacement Type is set to Scalar.</p></div></div><p>When on, displacement will be along the displacement direction provided below instead of along the surface normal.</p><h4 id="PxrDispTransform-DisplacementDirection">Displacement Direction</h4><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="c8ba5981-8509-4606-99ab-0914266b0533" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>This is only valid if the Displacement Type is set to Scalar.</p></div></div><p>Displacement will be in the direction this points to rather than along the surface normal. Note that the displacement direction vector will be normalized before its use.</p><h4 id="PxrDispTransform-DisplacementDirectionSpace">Displacement Direction Space</h4><p>Space in which the displacement direction vectors are in.  E.g. &quot;world&quot;, &quot;object&quot;, or user-defined coordinate system.</p><h3 id="PxrDispTransform-OutputParameters">Output Parameters</h3><h4 id="PxrDispTransform-resultXYZ">resultXYZ</h4><p>The vector result.</p>
+  </article>
+</main>
+</body>
+</html>

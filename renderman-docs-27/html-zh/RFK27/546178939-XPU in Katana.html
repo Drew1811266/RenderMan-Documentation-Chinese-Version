@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>XPU in Katana</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>XPU in Katana</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFK27/546178939/XPU+in+Katana">https://rmanwiki-27.pixar.com/space/RFK27/546178939/XPU+in+Katana</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>使用 XPU 渲染时，还有一些额外 options 可供配置。为了支持 studios 希望采用的不同工作方式，RfK 提供了多种设置和 override 这些 settings 的方法。</p><hr/><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="861" loading="lazy" src="../../attachments/546178939/rfk_pgs_renderVariant.png" data-image-src="../../attachments/546178939/rfk_pgs_renderVariant.png" data-height="551" data-width="861" data-unresolved-comment-count="0" data-linked-resource-id="546178954" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfk_pgs_renderVariant.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="546178939" data-linked-resource-container-version="4" data-media-id="06651211-b153-4638-9d6b-c514543df0f6" data-media-type="file"></span><p>PrmanGlobalStatements 有一个 renderVariant setting，可用于选择使用 RIS 还是 XPU 渲染。还有额外的 XPU settings，可限制它只使用 GPU 或只使用 CPU。XPU - CPU 在需要在没有受支持 GPU 的 machine 上渲染时尤其有用。 </p><p>如果使用 XPU 或 XPU-GPU 渲染，还会有一个 GPU Selection option；如果你的 machine 有多个 GPU，可以在这里选择要使用的 GPU。</p><p /><hr/><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="822" loading="lazy" src="../../attachments/546178939/rfk_xpu_prefs.png" data-image-src="../../attachments/546178939/rfk_xpu_prefs.png" data-height="400" data-width="822" data-unresolved-comment-count="0" data-linked-resource-id="546178951" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfk_xpu_prefs.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="546178939" data-linked-resource-container-version="4" data-media-id="27d43d52-5325-47ea-981f-3d67fe30132d" data-media-type="file"></span><p>对于 interactive renders（Live/Preview renders），Preferences menu 中的 settings 会优先于 renderVariant selection，除非 "interactiveXPUSettingsOverride" preference 被禁用。这样可以让每个人根据自己的 machine 自定义 settings，而不是被 show settings 或 batch renders 的默认值约束。仍然需要将 PrmanGlobalStatements 的 renderVariant 设为某个 XPU option，才能在 scene 中启用 XPU；但会使用 enableGPU/enableCPU 和 gpuSelection preferences，而不是 PGS settings。</p><p /><hr/><p>对于 batch renders，RfK 提供了一种方式，可在 katana batch command 中 override renderVariant 和 GPU Selection，例如：katana --batch --katana-file=myfile.katana --render-node=Render -t 1 -- --prmanRenderVariant=xpugpu --prmanGpuSelection=0。请注意，-- 必须位于 prman command line arguments 之前。prmanRenderVariant 的 options 为 xpugpu、xpucpu、xpu 和 prman。prmanGpuSelection option 接受一个整数值，表示 gpu number。</p>
+  </article>
+</main>
+</body>
+</html>

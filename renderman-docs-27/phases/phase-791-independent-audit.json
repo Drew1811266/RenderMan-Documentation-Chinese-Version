@@ -1,0 +1,181 @@
+{
+  "phase": 791,
+  "file": "TRA/22184264-JSON Job Scripting.html",
+  "file_id": "98016d128a",
+  "source_items": 38,
+  "translation_rows": 38,
+  "source_items_match_translation_rows": true,
+  "duplicate_rows": [],
+  "missing_item_ids": [],
+  "extra_item_ids": [],
+  "tag_fingerprint_identical": true,
+  "rendered_markup_matches_target_markup": true,
+  "glossary_violations": [],
+  "direct_placement_missing": [],
+  "actionable_long_source_residuals": [],
+  "accepted_long_source_residuals": [
+    {
+      "item_id": "98016d128a:2",
+      "source": "special purpose TCL scripts"
+    },
+    {
+      "item_id": "98016d128a:11",
+      "source": "additional command-line options"
+    },
+    {
+      "item_id": "98016d128a:14",
+      "source": "A JSON Job Example"
+    }
+  ],
+  "actionable_ascii_heavy_residuals": [],
+  "accepted_ascii_heavy_residuals": [
+    {
+      "item_id": "98016d128a:1",
+      "text": "Tractor Job files 通常表示为",
+      "ascii_letters": 15,
+      "cjk_chars": 5
+    },
+    {
+      "item_id": "98016d128a:2",
+      "text": "专用 TCL 作业脚本（special purpose TCL scripts）",
+      "ascii_letters": 27,
+      "cjk_chars": 6
+    },
+    {
+      "item_id": "98016d128a:3",
+      "text": "，并使用 Tractor job parser 可识别的额外 job definition operators。这种格式最初为 Alfred system 引入，而 Tractor 仍与几乎所有 Alfred constructs 兼容。",
+      "ascii_letters": 73,
+      "cjk_chars": 27
+    },
+    {
+      "item_id": "98016d128a:4",
+      "text": "Tractor 还支持一组不断演进的 JSON job specification formats，本文会对此进行说明。",
+      "ascii_letters": 34,
+      "cjk_chars": 19
+    },
+    {
+      "item_id": "98016d128a:5",
+      "text": "Introduction（介绍）",
+      "ascii_letters": 12,
+      "cjk_chars": 2
+    },
+    {
+      "item_id": "98016d128a:6",
+      "text": "Job scripts 描述将由 Tractor dispatch 和 monitor 的 work。它们通常由 content-creation applications 中的 plug-ins 在 spool 新 rendering jobs 时创建。因此，下面的 syntax discussion 可能只对开发 Tractor-compliant applications 的人员有用。",
+      "ascii_letters": 132,
+      "cjk_chars": 34
+    },
+    {
+      "item_id": "98016d128a:8",
+      "text": "简单的方法可以生成 basic Tractor job",
+      "ascii_letters": 15,
+      "cjk_chars": 9
+    },
+    {
+      "item_id": "98016d128a:9",
+      "text": "，可从 command-line 或 shell script 内完成。tractor-spool command-line tool 用于把 job scripts 发送到由 tractor-engine 管理的 job queue。你也可以让 tractor-spool 直接生成一个 simple job script：",
+      "ascii_letters": 107,
+      "cjk_chars": 27
+    },
+    {
+      "item_id": "98016d128a:10",
+      "text": "-c 之后的任何 text 都会被包进 job definition，并发送到 farm 上可用的 tractor-blade server。还有多种",
+      "ascii_letters": 40,
+      "cjk_chars": 22
+    },
+    {
+      "item_id": "98016d128a:11",
+      "text": "additional command-line options（额外命令行选项）",
+      "ascii_letters": 28,
+      "cjk_chars": 7
+    },
+    {
+      "item_id": "98016d128a:13",
+      "text": "Job scripts 支持一种简单的 hierarchical structuring scheme，可编码 dependencies，而这些 dependencies 会决定 task execution 的顺序。",
+      "ascii_letters": 76,
+      "cjk_chars": 19
+    },
+    {
+      "item_id": "98016d128a:14",
+      "text": "A JSON Job Example（JSON 作业示例）",
+      "ascii_letters": 19,
+      "cjk_chars": 4
+    },
+    {
+      "item_id": "98016d128a:15",
+      "text": "下面是一个 simple script，用于定义示例 task hierarchy。假设我们需要计算两个 shadow maps，以及一个引用它们的 final frame；在这种情况下，必须先完成 shadow maps，final frame 的 rendering 才能开始。",
+      "ascii_letters": 74,
+      "cjk_chars": 46
+    },
+    {
+      "item_id": "98016d128a:16",
+      "text": "这个 job script 描述一个 two-level execution tree，其中名为",
+      "ascii_letters": 30,
+      "cjk_chars": 10
+    },
+    {
+      "item_id": "98016d128a:17",
+      "text": "Scene One",
+      "ascii_letters": 8,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "98016d128a:20",
+      "text": "tasks）。nested task descriptions 定义了（depth-first）execution order；因此会先启动 light.1.rib 的 render command，随后启动 light.2.rib 的 command。然后，当二者都完成后，再 render frame.1.rib。Commands 会按照它们在 script 中出现的顺序，作为独立 sub-processes 启动。",
+      "ascii_letters": 127,
+      "cjk_chars": 43
+    },
+    {
+      "item_id": "98016d128a:21",
+      "text": "请注意，这两个 shadow commands 彼此不依赖，也就是说，它们相互之间没有 nested 关系；因此它们代表一个 parallel processing opportunity。在资源充足时，Tractor 通常会同时启动这两个 commands，并允许它们 concurrent execution。因此，script 定义的是一种",
+      "ascii_letters": 89,
+      "cjk_chars": 62
+    },
+    {
+      "item_id": "98016d128a:22",
+      "text": "命令启动顺序（launching order）",
+      "ascii_letters": 14,
+      "cjk_chars": 6
+    },
+    {
+      "item_id": "98016d128a:25",
+      "text": "sub-tasks 都已成功完成各自的 commands。",
+      "ascii_letters": 16,
+      "cjk_chars": 9
+    },
+    {
+      "item_id": "98016d128a:26",
+      "text": "此示例中的 assumptions 如下：",
+      "ascii_letters": 11,
+      "cjk_chars": 7
+    },
+    {
+      "item_id": "98016d128a:29",
+      "text": "的 executable，位于当前 search path 中的某处。",
+      "ascii_letters": 20,
+      "cjk_chars": 9
+    },
+    {
+      "item_id": "98016d128a:30",
+      "text": "两个 shadow map images 会在 disk 上创建，并位于 frame.1.rib 期望找到它们的位置（即这些 RIB files 中的 file system references 是一致的）。",
+      "ascii_letters": 55,
+      "cjk_chars": 28
+    },
+    {
+      "item_id": "98016d128a:33",
+      "text": "尝试确认这些 assumptions；这是 job generator 的职责。如果确实发生 error，该 task 会变为 blocked，相应 UI widget 会转为 error state，所有依赖这个 broken task 的 tasks 都不会执行（不过不依赖它的其他 tasks 仍可继续）。",
+      "ascii_letters": 77,
+      "cjk_chars": 51
+    },
+    {
+      "item_id": "98016d128a:36",
+      "text": "child tasks 列在 -subtasks field 中；如果没有 dependencies，可以为空或省略。",
+      "ascii_letters": 35,
+      "cjk_chars": 14
+    }
+  ],
+  "required_phrase_missing": [],
+  "section_order_positions": [],
+  "section_order_ok": true,
+  "passed": true
+}

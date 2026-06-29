@@ -1,0 +1,42 @@
+{"item_id":"a314bcfb66:0","text":"Primitive Variables（图元变量，也称为 primvars）是存储在对象上的数据。此数据可用于 shading variation（着色变化），很像"}
+{"item_id":"a314bcfb66:1","text":"user attributes（用户属性）"}
+{"item_id":"a314bcfb66:2","text":"。两者主要有两个区别 - primvars 不能随 instances（实例）变化，但它们允许更具体的变化级别：constant（常量）、uniform（一致）、varying（变化）、vertex（顶点）和 facevarying（面变化）。"}
+{"item_id":"a314bcfb66:3","text":"Constant（常量）："}
+{"item_id":"a314bcfb66:4","text":"一个值在整个 surface primitive（曲面图元）上保持 constant（常量）。这是 user attributes（用户属性）唯一能达到的级别。"}
+{"item_id":"a314bcfb66:5","text":"Uniform（一致）："}
+{"item_id":"a314bcfb66:6","text":"每个 surface primitive（曲面图元）的 uv patch segment（UV 补丁段）各有一个保持 constant（常量）的值。"}
+{"item_id":"a314bcfb66:7","text":"Varying（变化）："}
+{"item_id":"a314bcfb66:8","text":"在曲面的每个 uv patch segment（UV 补丁段）上插值四个值。四个值之间使用 Bilinear interpolation（双线性插值）。"}
+{"item_id":"a314bcfb66:9","text":"Vertex（顶点）："}
+{"item_id":"a314bcfb66:10","text":"值在 surface primitive（曲面图元）的每个 vertex（顶点）之间插值。曲面的 basis function（基函数）用于顶点之间的插值。"}
+{"item_id":"a314bcfb66:11","text":"Facevarying（面变化）："}
+{"item_id":"a314bcfb66:12","text":"对于 polygons（多边形）和 subdivision surfaces（细分曲面），会在 mesh（网格）的每个 face（面）上插值四个值。四个值之间使用 Bilinear interpolation（双线性插值）。"}
+{"item_id":"a314bcfb66:13","text":"Setting arbitrary primvars（设置任意 primvars）"}
+{"item_id":"a314bcfb66:14","text":"RenderMan for Katana 使用 Katana 标准的"}
+{"item_id":"a314bcfb66:15","text":"Arbitrary Attribute（任意属性）"}
+{"item_id":"a314bcfb66:16","text":"约定来支持 primitive variables（图元变量）。"}
+{"item_id":"a314bcfb66:17","text":"下面列出"}
+{"item_id":"a314bcfb66:18","text":"geometry.arbitrary.<group>."}
+{"item_id":"a314bcfb66:19","text":"outputType 支持的值。Katana 文档列出了其他类型，但 RenderMan 只支持以下这些："}
+{"item_id":"a314bcfb66:20","text":"float"}
+{"item_id":"a314bcfb66:21","text":"double（转换为 float）"}
+{"item_id":"a314bcfb66:22","text":"string"}
+{"item_id":"a314bcfb66:23","text":"int"}
+{"item_id":"a314bcfb66:24","text":"color3"}
+{"item_id":"a314bcfb66:25","text":"normal3"}
+{"item_id":"a314bcfb66:26","text":"vector2"}
+{"item_id":"a314bcfb66:27","text":"vector3"}
+{"item_id":"a314bcfb66:28","text":"point2"}
+{"item_id":"a314bcfb66:29","text":"point3"}
+{"item_id":"a314bcfb66:30","text":"point4"}
+{"item_id":"a314bcfb66:31","text":"matrix16"}
+{"item_id":"a314bcfb66:32","text":"Katana 的 arbitrary attribute \"scope\" 只有四个值：primitive、face、point 和 vertex。总体上，这些 scope 值会映射到 RenderMan primvar tags（RenderMan primvar 标签），对应关系如下：primitive = constant、face = uniform、point = varying、vertex = facevarying。Subdivision meshes（细分网格）支持在 \"point\" scope 上通过 \"interpolationType\" attribute（属性）对 primvars 使用不同的插值方式。如果 geometry.arbitrary.<group>.interpolationType 设置为 \"subdiv\"，该 primvar 将是 \"vertex\"；否则该 primvar 将是 \"varying\"。"}
+{"item_id":"a314bcfb66:33","text":"下面是一个 OpScript 示例，展示如何设置一个 arbitrary constant color primvar（任意 constant 颜色 primvar）："}
+{"item_id":"a314bcfb66:34","text":"Using Primvars（使用 Primvars）"}
+{"item_id":"a314bcfb66:35","text":"通常，production workflows（生产工作流）会将这些 arbitrary attributes（任意属性）作为 Alembic 或 USD asset（资产）的一部分导出，因此无需在 Katana 内部设置。否则，可以使用 OpScript 直接在 geometry location（几何体位置）上设置 geometry.arbitrary attribute（属性）- 该属性不可继承。"}
+{"item_id":"a314bcfb66:36","text":"Primvars 会由各种 shading plugins（着色插件）读取。"}
+{"item_id":"a314bcfb66:37","text":"PxrPrimvar"}
+{"item_id":"a314bcfb66:38","text":"PxrVariable"}
+{"item_id":"a314bcfb66:39","text":"，以及"}
+{"item_id":"a314bcfb66:40","text":"PxrVary"}
+{"item_id":"a314bcfb66:41","text":"是 RenderMan 随附的一些使用 arbitrary primvars（任意 primvars）的插件。"}

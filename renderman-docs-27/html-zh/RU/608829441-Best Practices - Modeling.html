@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Best Practices - Modeling</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Best Practices - Modeling</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RU/608829441/Best+Practices+-+Modeling">https://rmanwiki-27.pixar.com/space/RU/608829441/Best+Practices+-+Modeling</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="contentLayout2"><style>[data-colorid=e88aigv7o9]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=e88aigv7o9]{color:#004eb3}[data-colorid=h3x5v92pzx]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=h3x5v92pzx]{color:#004eb3}[data-colorid=d2krnik7nh]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=d2krnik7nh]{color:#004eb3}[data-colorid=ckk1qjycos]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=ckk1qjycos]{color:#004eb3}</style>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="CookiesNMilk_new_Banner.jpg" width="760" loading="lazy" src="../../attachments/608829441/CookiesNMilk_new_Banner.jpg" data-image-src="../../attachments/608829441/CookiesNMilk_new_Banner.jpg" data-height="1073" data-width="1074" data-unresolved-comment-count="0" data-linked-resource-id="608829450" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="CookiesNMilk_new_Banner.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="608829441" data-linked-resource-container-version="3" data-media-id="013edc77-9f28-4b81-a067-439db1e384d7" data-media-type="file" /></span><h1 id="BestPractices-Modeling-Modeling">Modeling（建模）</h1><p>创建资产时，必须理解哪些对象属于特定类别，并据此为它们建模相应的细节层级：</p><p><strong><span data-colorid="e88aigv7o9">Hero assets（主角级资产）</span> </strong><br />例如主要角色，以及镜头或故事中的视觉焦点。</p><p><strong><span data-colorid="ckk1qjycos">Set assets（场景资产与布景对象）</span></strong><br />这些资产可能会根据它们在场景中的位置拥有不同细节级别。近景物体可能需要更多细节。</p><p><strong><span data-colorid="d2krnik7nh">Props（道具）</span></strong><br />这类对象通常会尽量保持简单。你会惊讶于优秀的 texturing 能把低细节资产提升到相当不错的观感。</p><h2 id="BestPractices-Modeling-RenderManisdesignedtorendersubdivisionsurfaceswhenpossibleforanimatedcharactersandheroobjects.Thisreducespossibletearingandimprovesthelookofcharactersandorganicobjectsseenupclose.Thisisalsoagoodchoicewhenusingdisplacement."><strong>RenderMan 被设计为在可能的情况下渲染 subdivision surfaces</strong>，尤其适用于动画角色和 hero objects。这可以减少潜在撕裂，并改善近距离观看的角色和有机物体外观。在使用 displacement 时，这通常也是很好的选择。 </h2><p /><p>Polygons 在 displacement 后容易分离，因此应转换为 Subdivision Surface。</p><p>为 Subdivision Surfaces 建模时，请记住以下事项，以获得想要的形状，同时不破坏性能：</p><p /><ul><li><p>使用默认 Catmull-Clark 方案转换为 Subdivision Mesh 时，为避免过度 dicing，请只使用 quads。这意味着所有面都应为四边形。避免 triangles 和 N-sided faces。</p></li></ul><p /><ul><li><p>在 base mesh 中只建模必需的最低限度细节，使细分后的表面形状正确即可，不要过度添加。</p></li></ul><p /><ul><li><p>尽量减少 creased edges；它们可能代价较高。</p></li></ul><p /><ul><li><p>利用更高的 micropolygonlength 设置。它会提供自动 level-of-detail，数值越高越粗糙，但仍可能足以获得良好效果。合理的制作质量可以尝试 1.5 到 3 之间的设置。（注意，如果它过于粗糙，尤其是在边缘附近会产生 shading artifacts，此时应缓慢降低该值。任何小于 1 的数值都是 <em>非常高</em> 的质量。）</p></li></ul><p /><p>Polygons 对任何带有 hard normals 的对象也很有用，例如许多无机物体的分面表面：建筑、道具、布景件等。近距离渲染时，你可以软化这些 normals，或添加更多建模细节让它看起来更好，但要注意，如果处理不足，shading 过程中可能出现 silhouette artifacts。 </p><p>尽管有这些注意事项，背景和道具对象使用 polygons 仍能很好地渲染，并且性能相当不错。这些对象通常不会发生变形，而且在场景中数量很多。 </p><p>把这些对象都做成 subdivision surfaces，可能会让内存占用膨胀，而视觉收益很小。 </p><p>在 polygons 上优先使用 bump mapping 而不是 displacement；如果确实需要 displacement，则将它们转换为 subdivision surfaces。</p><p>布局 UVs 时，避免重叠 UVs，并注意带有翻转边的 UV shells，因为这可能在 displacement 时产生 artifacts，或在渲染期间触发警告。</p><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="ab47c30f-10cd-4c6d-ae9a-86085b28cf19" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>我们的 texture caching 机制可以在场景中填充高质量纹理细节和 look，但整场景中用于光线追踪的几何体必须驻留在内存中。只要谨慎选择建模方式，你就能在场景中放入相当多的内容，并一次渲染大量纹理，规模可达许多 GB。</p></div></div><p /><hr /><h3 id="BestPractices-Modeling-NextSteps"><span data-colorid="h3x5v92pzx">Next Steps（下一步）</span></h3><p>现在你已经了解了建模最佳实践，以及 RenderMan 如何在渲染时细分几何体，接下来让我们介绍 PxrSurface。</p><p /></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p /></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<a href="608796697-Best Practices - PxrSurface.html" data-linked-resource-id="608796697" data-linked-resource-version="3" data-linked-resource-type="page"><span class="confluence-embedded-file-wrapper image-right-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-right" alt="nextLesson.png" width="200" loading="lazy" src="../../attachments/608829441/nextLesson.png" data-image-src="../../attachments/608829441/nextLesson.png" data-height="67" data-width="286" data-unresolved-comment-count="0" data-linked-resource-id="608731200" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="nextLesson.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="608829441" data-linked-resource-container-version="3" data-media-id="a10a49e0-e064-4a26-b254-9bdd4aab9485" data-media-type="file" /></span></a><p /></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<hr /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="RenderManUniversity_logo_Small.png" width="100" loading="lazy" src="../../attachments/608829441/RenderManUniversity_logo_Small.png" data-image-src="../../attachments/608829441/RenderManUniversity_logo_Small.png" data-height="100" data-width="100" data-unresolved-comment-count="0" data-linked-resource-id="608731206" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderManUniversity_logo_Small.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="608829441" data-linked-resource-container-version="3" data-media-id="3c02c952-9414-475c-a4c4-4d8f82939b25" data-media-type="file" /></span></div>
+</div>
+</div>
+</div>
+  </article>
+</main>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Interactive Denoiser</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Interactive Denoiser</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFK27/546179198/Interactive+Denoiser">https://rmanwiki-27.pixar.com/space/RFK27/546179198/Interactive+Denoiser</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="900" loading="lazy" src="../../attachments/546179198/RenderMan_InteractiveDenoiser_Katana.jpg" data-image-src="../../attachments/546179198/RenderMan_InteractiveDenoiser_Katana.jpg" data-height="679" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="546179219" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_InteractiveDenoiser_Katana.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="546179198" data-linked-resource-container-version="2" data-media-id="dd24171f-c59d-42a7-b535-9db2ff76da0b" data-media-type="file"></span><p /><hr/><h3 id="InteractiveDenoiser-ActivateInteractiveDenoising">Activate Interactive Denoising（启用交互式降噪）</h3><p>interactive denoising option 可以在 PrmanGlobalStatements node 上找到。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="900" loading="lazy" src="../../attachments/546179198/RenderMan_InteractiveDenoiser_Panel.jpg" data-image-src="../../attachments/546179198/RenderMan_InteractiveDenoiser_Panel.jpg" data-height="190" data-width="1178" data-unresolved-comment-count="0" data-linked-resource-id="546179213" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_InteractiveDenoiser_Panel.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="546179198" data-linked-resource-container-version="2" data-media-id="8203dec0-f110-4eff-abb3-9366d41dfd26" data-media-type="file"></span><hr/><h3 id="InteractiveDenoiser-Preferences"><strong>Preferences（首选项）</strong></h3><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="900" loading="lazy" src="../../attachments/546179198/RenderMan_InteractiveDenoiser_Prefs.jpg" data-image-src="../../attachments/546179198/RenderMan_InteractiveDenoiser_Prefs.jpg" data-height="754" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="546179216" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_InteractiveDenoiser_Prefs.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="546179198" data-linked-resource-container-version="2" data-media-id="67a87ee2-8580-4736-af36-d387b0eff69d" data-media-type="file"></span><p><strong>Cheap First Pass（低成本首次 Pass）</strong><br/><span class="legacy-color-text-default">如果勾选，first pass 会使用成本更低的 heuristic（稍快，但 quality 较低）。</span></p><p><span class="legacy-color-text-default">如果正在 render 的内容 convergence 很快，并且你想优先更快获得 denoised result，这会很有用。</span></p><p><strong>Interval（间隔）</strong><br/><span class="legacy-color-text-default">denoise runs 之间的 time interval（以 seconds 为单位）</span></p><p><strong>LogInfo</strong><br/><span class="legacy-color-text-default">Output logging info（输出日志信息）</span></p><p><strong>Min Samples（最小 Samples）</strong><br/><span class="legacy-color-text-default">interactive denoiser 第一次运行前，每个 bucket 的 average samples 最小数量。更改此 preference 后，需要 restart render，此 option 才会生效。</span><br/><br/><br/></p><p /><div class="embeddedObject conf-macro output-block" data-hasbody="false" data-layout="default" data-local-id="8e51d9c0-51b2-4ddb-8b74-749411be9713" data-macro-id="82dd2c89-69d5-4cd9-accf-43c4b65d3a3a" data-macro-name="multimedia">
+    <video src="https://renderman.atlassian.net/wiki/download/attachments/546179198/KatanaDenoiser.mp4" height="540" width="960" autoplay="" controls="">
+        你的 browser 不支持 HTML5 video element。
+</video>
+
+</div>
+  </article>
+</main>
+</body>
+</html>

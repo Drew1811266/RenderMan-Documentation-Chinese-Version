@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Batch Rendering in Blender</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Batch Rendering in Blender</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFB27/544639612/Batch+Rendering+in+Blender">https://rmanwiki-27.pixar.com/space/RFB27/544639612/Batch+Rendering+in+Blender</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/544639612/RenderManForBlender_batchrender.png" data-image-src="../../attachments/544639612/RenderManForBlender_batchrender.png" data-unresolved-comment-count="0" data-linked-resource-id="544639626" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderManForBlender_batchrender.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544639612" data-linked-resource-container-version="1" data-media-id="30a46db2-95ea-449e-bd19-47b79907c0ce" data-media-type="file"></span></p><p>刚完成一段精彩的新动画，现在该把它渲染出来了吗？<br/><br/>Batch Rendering（批量渲染）就是用来把所有漂亮帧渲染到磁盘的地方。<br/><br/>使用 RenderMan for Blender 进行 batch rendering（批量渲染）可以在 render properties（渲染属性）中的 External Rendering panel（外部渲染面板）完成。 <br/>下面看一下可用的一些选项。<br/><br/></p><p><br/></p><hr/><h3 id="BatchRenderinginBlender-BatchRender"><br/>Batch Render（批量渲染）</h3><p>启动并 spool（提交）一个 batch render job（批量渲染作业）</p><h3 id="BatchRenderinginBlender-BatchBakeRender">Batch Bake Render（批量烘焙渲染）</h3><p>启动并 spool（提交）一个 bake render job（烘焙渲染作业）</p><h3 id="BatchRenderinginBlender-RenderAnimation">Render Animation（渲染动画）</h3><p>决定是渲染完整 animation（动画，即多帧），还是渲染指定的 in / out frame sequence（入点/出点帧序列）。 <br/>frame range（帧范围）应通过 <strong>Start（开始）</strong> 和 <strong>End（结束）</strong> 设置来指定。<br/>将 By 保持默认值 1 会渲染每一帧；但如果想在序列中每隔 5 帧渲染一次，只需在这里输入 5。</p><h3 id="BatchRenderinginBlender-SpoolStyle">Spool Style（提交方式）</h3><p>在 Blender Batch 或 RIB 之间选择。 <br/>Blender Batch 会生成一个单独的 blender 进程来渲染。对于 RIB，RenderMan for Blender 会先把外部 RIB 文件写入磁盘，然后再渲染（Blender 不参与渲染）。每种模式都有优缺点。 </p><h3 id="BatchRenderinginBlender-SpoolTo">Spool To（提交到）</h3><p>在 Local Queue（本地队列）或 <a href="../TRA/22183944-Tractor 2.html">Tractor</a>。 <br/>Local Queue 是本地 render queue manager（渲染队列管理器）；所有渲染都在本机完成。Tractor 是我们的 render farm job queue（渲染农场作业队列）和 work distribution system（工作分发系统）。选择它要求你的本机安装了 Tractor，并且本地网络中还安装了 Tractor Engine 和 Tractor blades。</p><h3 id="BatchRenderinginBlender-FrameChunking">Frame Chunking（帧分块）</h3><p>这只适用于 Blender Batch 样式。 <br/>这决定每个 Blender Batch 进程要渲染多少帧。例如，如果渲染 10 帧序列，frame chunk（帧块）设置为 1 会产生 10 个独立的 blender batch 进程；而 frame chunking（帧分块）设置为 5，则只会产生 2 个 blender batch 进程，每个进程渲染 5 帧。Frame Chunking 配合 <strong>Persistent Data（持久数据）</strong> 选项开启后，可以帮助加速 batch renders（批量渲染）。</p><h3 id="BatchRenderinginBlender-UseBlenderCompositor">Use Blender Compositor（使用 Blender 合成器）</h3><p>这只适用于 Blender Batch 样式。如果启用，所有 RenderMan Displays 选项都会被忽略，并且只保存最终 composited image（合成图像）。如果关闭，则会忽略 Compositor（合成器）中的所有 compositing operators（合成操作项）。如果 composited image（合成图像）需要 denoise（降噪），请启用 Optix denoise 选项。</p><h3 id="BatchRenderinginBlender-BlenderBatchAOVs">Blender Batch AOVs（Blender Batch AOV）</h3><p>仅适用于 Blender Batch 样式，并且 Use Blender Compositor 已开启。启用后，AOVs（AOV）也会写入磁盘（如果使用 RenderMan Displays，AOVs 会作为 EXR 文件写出）。</p><h3 id="BatchRenderinginBlender-EnableRecovery">Enable Recovery（启用恢复）</h3><p>这只在 Spool Style 设置为 RIB 时适用。用于决定是否尝试 recovery render（恢复渲染）。更多信息请参见 <a href="https://rmanwiki-26.pixar.com/space/REN26/19661833/Checkpointing+and+Recovery" data-linked-resource-id="19661833" data-linked-resource-version="3" data-linked-resource-type="page">Checkpointing and Recovery（检查点与恢复）</a>。checkpoint 设置可在 Sampling panel（采样面板）下找到。</p><h3 id="BatchRenderinginBlender-CustomRenderCommands">Custom Render Commands（自定义渲染命令）</h3><p>允许你向 render command（渲染命令）添加任何其他所需参数</p><h3 id="BatchRenderinginBlender-RIBFormat">RIB Format（RIB 格式）</h3><p>如果 Spool Style 设置为 RIB，此项控制 RIB 是以 ASCII 还是 Binary 格式写出。Binary 可以节省磁盘空间，但无法用文本编辑器检查。</p><h3 id="BatchRenderinginBlender-RIBCompression">RIB Compression（RIB 压缩）</h3><p>如果 Spool Style 设置为 RIB，此项控制是否还要对 RIB 文件进行 GZip 压缩，以节省更多磁盘空间。<br/><br/></p><p><br/></p>
+  </article>
+</main>
+</body>
+</html>

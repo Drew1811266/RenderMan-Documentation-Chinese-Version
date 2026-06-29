@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Initial Configuration</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Initial Configuration</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/TRA/22184326/Initial+Configuration">https://rmanwiki-27.pixar.com/space/TRA/22184326/Initial+Configuration</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="document"><p>Tractor 的灵活性和强大能力来自它可被 customized（自定义）的能力。虽然有几十个 tuning parameters，也有编写 custom plug-ins 的机会，但 Tractor 被设计为无需编辑 configuration files 即可投入运行。</p><p>如果需要 customizations，则首先 <em>必须创建一个目录</em> 用于存放 configuration files，并且该目录需要可被 engine 的 process owner 读取。因为 engine 使用 /var/spool/tractor 作为默认 data directory，所以 /var/spool/tractor/config 会是 configuration directory 的合理选择。</p><p>Configuration files 采用 JSON 编写。</p><p> </p><div class="section"><h3 id="InitialConfiguration-KeyParameters">Key Parameters（关键参数）</h3><p>在设置新系统时，administrators 应检查几个关键参数，以确保默认设置符合预期。以下所有参数都可以在你站点自己的 tractor.config 副本中覆盖。 <strong>NOTE：对大多数 studios 而言，默认值通常是正确的。</strong></p><p><a href="22184316-Engine.html#engineowner" data-linked-resource-id="22184316" data-linked-resource-version="10" data-linked-resource-type="page">EngineOwner</a> 指定 engine process 的特定 run-time owner。System services 会以 root 启动 tractor-engine，以便获取 port 80 等 protected ports；但随后该 process 会把 privilege level 降低到 EngineOwner。建议 studios 为此创建一个专门的 tractor user。</p><p><a href="22184316-Engine.html#listener" data-linked-resource-id="22184316" data-linked-resource-version="10" data-linked-resource-type="page">ListenerPort</a> 指定 engine 监听 blade、dashboard 和其他 client connections 的 port。engine 是一种 web server，默认监听常规 HTTP port 80；这对用户和 site administration 来说是最简单的配置。通常只有在 port 80 上已经运行另一个 web server，或者 engine 不是以 root 启动、无法获取 80 时，才需要 alternate port number。</p><p><a href="22184316-Engine.html#enginediscovery" data-linked-resource-id="22184316" data-linked-resource-version="10" data-linked-resource-type="page">EngineDiscovery</a> 指定 blades 和其他 client programs 应如何发现 engine。默认情况下，clients 会尝试连接 hostname tractor-engine，或者连接由 TRACTOR_ENGINE environment variable 或每个 tool 的 --engine=NAME command line parameter 给出的 alternate hostname。当该 hostname 无法解析时，会尝试 EngineDiscovery scheme。</p><p><a href="22184316-Engine.html#licenselocation" data-linked-resource-id="22184316" data-linked-resource-version="10" data-linked-resource-type="page">LicenseLocation</a> 指定 license file 的 path，或 license server name。此设置 <em>通常不需要</em>，因为 Tractor 会读取 Tractor installation 父目录中的 thepixar.license 文件，而该文件由所有 Pixar applications 共享。</p><p><a href="22184316-Engine.html#maxconcurrentdispatch" data-linked-resource-id="22184316" data-linked-resource-version="10" data-linked-resource-type="page">MaxConcurrentDispatch</a> 指定 engine process 将消耗的 Tractor license seats 最大数量。当多个 test engines 从同一个 license server 运行时，custom setting 可能很有用。使用默认值 zero 会使 tractor-engine 在 start-up 时获取 <em>所有</em> 可用 seats。</p><p><a href="22184316-Engine.html#tractordatadirectory" data-linked-resource-id="22184316" data-linked-resource-version="10" data-linked-resource-type="page">TractorDataDirectory</a> 指定一个 EngineOwner 可写的位置，用于存储 job 和 user data。默认位置是 /var/spool/tractor。出于测试、file system permissions 限制，或指向更大/更快 storage volumes 的需要，可以选择其他位置。通常最好选择 engine host 上的某个本地位置。请确保 data directory 先被创建，并可由 EngineOwner 读写；如果 configuration directory 要作为其子目录（例如 /var/spool/tractor/config），这一步无论如何都是必要的。</p><p> </p></div><div class="section"><h3 id="InitialConfiguration-Example">Example（示例）</h3><p>下面展示的是一个示例 tractor.config 文件，它将存储在站点决定的 configuration directory 中。在此示例中，站点设置了名为 tractor 的 user，使用其 home directory 存储 data，并监听较高的 port。这里使用 in-house license server，并且 engine 只允许 10 个 concurrent dispatches。</p><pre style="margin-left: 25.0px;" class="literal-block">{
+  &quot;LicenseLocation&quot;: &quot;my-license-server@9010&quot;,
+  &quot;EngineOwner&quot;: &quot;tractor&quot;,
+  &quot;ListenerPort&quot;: 8000,
+  &quot;MaxConcurrentDispatch&quot;: 10,
+  &quot;TractorDataDirectory&quot;: &quot;/ssd/tractor/data&quot;
+}
+</pre></div><div class="section"><h3 id="InitialConfiguration-FurtherReading">Further Reading（进一步阅读）</h3><p>完整的 engine-specific configuration parameters 集合在 <a href="22184316-Engine.html" data-linked-resource-id="22184316" data-linked-resource-version="10" data-linked-resource-type="page">Engine Configuration</a> 部分中说明。此内容以及其他 site customization documentation 可以在一般性的 <a href="22184210-Configuration.html" data-linked-resource-id="22184210" data-linked-resource-version="8" data-linked-resource-type="page">Configuration</a> 部分中找到。</p></div></div>
+  </article>
+</main>
+</body>
+</html>

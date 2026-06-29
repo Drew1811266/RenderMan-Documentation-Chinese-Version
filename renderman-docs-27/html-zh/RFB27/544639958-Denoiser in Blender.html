@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Denoiser in Blender</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Denoiser in Blender</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFB27/544639958/Denoiser+in+Blender">https://rmanwiki-27.pixar.com/space/RFB27/544639958/Denoiser+in+Blender</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Blender_denoiser_VS.gif" width="1200" loading="lazy" src="../../attachments/544639958/Blender_denoiser_VS.gif" data-image-src="../../attachments/544639958/Blender_denoiser_VS.gif" data-height="540" data-width="1200" data-unresolved-comment-count="0" data-linked-resource-id="544639978" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Blender_denoiser_VS.gif" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/gif" data-linked-resource-container-id="544639958" data-linked-resource-container-version="3" data-media-id="fbe0f265-8137-4845-9d0f-80faeba1427d" data-media-type="file"></span><p /><p>RenderMan for Blender 包含两种不同的降噪器：来自 Disney Research 的 RenderMan AI Denoiser（参见 <a href="https://rmanwiki-25.pixar.com/space/REN25/20420808/Denoiser" data-linked-resource-id="20420808" data-linked-resource-version="34" data-linked-resource-type="page">Denoiser（降噪器）</a>）以及 <a class="external-link" href="https://developer.nvidia.com/optix-denoiser" rel="nofollow">Nvidia's AI Denoising（Nvidia AI 降噪）</a><span class="legacy-color-text-default"> 方案。 </span></p><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="f3a39527-3d44-48c9-963a-9343a8e2dddd" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>Nvidia AI 降噪不适用于 macOS。</p></div></div><h2 id="DenoiserinBlender-InteractiveRendering">Interactive Rendering（交互式渲染）</h2><p><span class="legacy-color-text-default">有关在 "it" 中使用 Nvidia 降噪器的更多信息，请参阅 </span><a href="https://rmanwiki-23.pixar.com/space/REN23/19038407/Image+Tool" data-linked-resource-id="19038407" data-linked-resource-version="3" data-linked-resource-type="page"><span style="color: rgb(0,0,0);">Image Tool（图像工具）</span></a><span class="legacy-color-text-default">中的 “AI Denoise” 小节。</span></p><p>对于交互式渲染（viewport render、IPR 到 "it"），可以进入 viewport preferences（视口首选项），并在 IPR Denoiser 下选择一种降噪器来启用。Optix 指的是 Nvidia 降噪器。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="viewport_options-2.png" width="600" loading="lazy" src="../../attachments/544639958/viewport_options-2.png" data-image-src="../../attachments/544639958/viewport_options-2.png" data-height="326" data-width="316" data-unresolved-comment-count="0" data-linked-resource-id="544639999" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="viewport_options-2.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544639958" data-linked-resource-container-version="3" data-media-id="0a9097d3-560a-4f26-a908-873df05bb3d7" data-media-type="file"></span><p /><p><span class="legacy-color-text-default">使用 Nvidia AI 降噪器时，应该会立即看到如下结果：</span></p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="900" loading="lazy" src="../../attachments/544639958/rman_viewport_snapshot_0001_1.jpg" data-image-src="../../attachments/544639958/rman_viewport_snapshot_0001_1.jpg" data-height="791" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="544640008" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_viewport_snapshot_0001_1.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544639958" data-linked-resource-container-version="3" data-media-id="0687b1e2-6c5b-4ba7-9a5a-a72429eda68a" data-media-type="file"></span><p /><p><span class="legacy-color-text-default">这是 RenderMan AI Denoiser 在两个 pass（遍）之后的结果：</span></p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="900" loading="lazy" src="../../attachments/544639958/viewport_renderman_denoiser.jpg" data-image-src="../../attachments/544639958/viewport_renderman_denoiser.jpg" data-height="769" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="544640002" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="viewport_renderman_denoiser.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544639958" data-linked-resource-container-version="3" data-media-id="82f2afe8-2a3e-4a71-9a3d-05740f0ed17f" data-media-type="file"></span><p /><p><span class="legacy-color-text-default">RenderMan AI Denoiser 还有一些额外控制项：</span></p><ul><li><p>Cheap First Pass：如果勾选，第一次 denoise pass（降噪遍）会使用成本更低的启发式方法（稍快但质量较低）。如果渲染内容收敛很快，并且你希望优先更快得到降噪结果，这会很有用。</p></li><li><p>Min Samples：交互式降噪首次运行前，每个 bucket（区块）所需的最小平均采样数。</p></li><li><p>Interval：两次降噪运行之间的时间间隔（秒）。</p></li></ul><p /><p>对于 preview renders（预览渲染，例如按 F12 或 Render→Render Image），如果渲染到 Blender 渲染窗口，可以在 Render Properties 选项卡中选择要使用的降噪器。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="preview_denoiser.png" width="409" loading="lazy" src="../../attachments/544639958/preview_denoiser.png" data-image-src="../../attachments/544639958/preview_denoiser.png" data-height="340" data-width="409" data-unresolved-comment-count="0" data-linked-resource-id="546996298" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="preview_denoiser.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544639958" data-linked-resource-container-version="3" data-media-id="cca2ed41-8a38-4fbf-9689-22b2a0ab656c" data-media-type="file"></span><p /><p /><p>对于 Nvidia AI 降噪器，应该会立即在渲染窗口中看到降噪后的结果。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="preview_render_window.png" width="600" loading="lazy" src="../../attachments/544639958/preview_render_window.png" data-image-src="../../attachments/544639958/preview_render_window.png" data-height="1112" data-width="1062" data-unresolved-comment-count="0" data-linked-resource-id="544639993" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="preview_render_window.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544639958" data-linked-resource-container-version="3" data-media-id="18fbd482-9431-4ef1-9fe6-2666b574ef15" data-media-type="file"></span><p>对于 RenderMan Denoiser，降噪器会在初始渲染完成后启动。渲染窗口中应该会出现一条消息，提示 denoising（降噪）已开始。</p><p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="blender_denoising.png" width="600" loading="lazy" src="../../attachments/544639958/blender_denoising.png" data-image-src="../../attachments/544639958/blender_denoising.png" data-height="1114" data-width="1056" data-unresolved-comment-count="0" data-linked-resource-id="546897967" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="blender_denoising.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544639958" data-linked-resource-container-version="3" data-media-id="ef61b059-7332-4b53-afc9-5cfd62962581" data-media-type="file"></span><p>这里是降噪后的最终结果（16 sample render，16 采样渲染）。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="blender_post_denoising.png" width="600" loading="lazy" src="../../attachments/544639958/blender_post_denoising.png" data-image-src="../../attachments/544639958/blender_post_denoising.png" data-height="1111" data-width="1047" data-unresolved-comment-count="0" data-linked-resource-id="546930756" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="blender_post_denoising.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544639958" data-linked-resource-container-version="3" data-media-id="624523f9-544f-43c1-8ee7-466ca096d744" data-media-type="file"></span><h4 id="DenoiserinBlender-Options">Options（选项）</h4><ul><li><p><strong>Use Color Pass</strong>：未勾选时，beauty pass（beauty 通道）会通过合并已降噪的 diffuse pass 和 denoise specular pass 来完成降噪。这可以得到稍好一些的结果。不过，如果场景使用了任何 Display Filters 或 Sample Filters，可能会出现问题。遇到这种情况时，请勾选此框。</p></li><li><p><strong>Asymmetry（不对称性）</strong>：控制 asymmetry（不对称性）值，0 表示最佳质量；较高值会促使降噪器避免过度模糊，从而产生较弱的降噪效果。</p></li></ul><h2 id="DenoiserinBlender-BatchRendering">Batch Rendering（批量渲染）</h2><p>有关 RenderMan for Blender 中 batch render（批量渲染）的更多通用信息，请参见 <a href="544639612-Batch Rendering in Blender.html" data-linked-resource-id="544639612" data-linked-resource-version="1" data-linked-resource-type="page">Blender 中的批量渲染</a> 。</p><p>请注意，如果使用 Blender Batch，并且启用了 Use Blender Compositor 选项，那么渲染属性选项卡中 Display 区段下的降噪器设置会被采用。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="preview_denoiser.png" width="409" loading="lazy" src="../../attachments/544639958/preview_denoiser.png" data-image-src="../../attachments/544639958/preview_denoiser.png" data-height="340" data-width="409" data-unresolved-comment-count="0" data-linked-resource-id="546996298" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="preview_denoiser.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544639958" data-linked-resource-container-version="3" data-media-id="cca2ed41-8a38-4fbf-9689-22b2a0ab656c" data-media-type="file"></span><p /><p /><p>如果使用 RIB batch render style（RIB 批量渲染样式），或关闭了 Use Blender Compositor，可以在 View Layer Properties 选项卡中启用降噪器。 </p><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="2437ad45-e9ec-4e57-8a58-23ed05f9e8c2" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>在此批量渲染工作流中，只能使用 RenderMan Denoiser。Nvidia Optix 降噪器不是可用选项</p></div></div><p /><p>你需要切换到 RenderMan Displays（有关在 Blender 中使用 AOV 的更多详细信息， <a href="https://renderman.atlassian.net/wiki/display/RFB25/AOVs+in+Blender" rel="nofollow">链接在这里！</a>)</p><p /><ol start="1"><li><p>前往 View Layer Properties 并点击 <strong>Switch to RenderMan Displays</strong></p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="RenderMan_Blender_Denoiser1.jpg" width="900" loading="lazy" src="../../attachments/544639958/RenderMan_Blender_Denoiser1.jpg" data-image-src="../../attachments/544639958/RenderMan_Blender_Denoiser1.jpg" data-height="437" data-width="960" data-unresolved-comment-count="0" data-linked-resource-id="544639990" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Blender_Denoiser1.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544639958" data-linked-resource-container-version="3" data-media-id="0220930c-f8a1-48b1-8e5a-aa7bd6a49e90" data-media-type="file"></span><p /></li><li><p>在 RenderMan Display 中，选择 beauty AOV 并启用 <strong>Denoise（降噪）</strong></p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="RenderMan_Blender_Denoiser2.jpg" width="900" loading="lazy" src="../../attachments/544639958/RenderMan_Blender_Denoiser2.jpg" data-image-src="../../attachments/544639958/RenderMan_Blender_Denoiser2.jpg" data-height="697" data-width="958" data-unresolved-comment-count="0" data-linked-resource-id="544639987" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Blender_Denoiser2.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544639958" data-linked-resource-container-version="3" data-media-id="1f97b921-5e8d-4f60-b8e1-fce29396d589" data-media-type="file"></span><p /></li><li><p>设置所需的降噪器参数，就可以开始了。 </p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="RenderMan_Blender_Denoiser3.jpg" width="693" loading="lazy" src="../../attachments/544639958/RenderMan_Blender_Denoiser3.jpg" data-image-src="../../attachments/544639958/RenderMan_Blender_Denoiser3.jpg" data-height="601" data-width="959" data-unresolved-comment-count="0" data-linked-resource-id="544639984" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Blender_Denoiser3.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544639958" data-linked-resource-container-version="3" data-media-id="7953183f-66f7-412c-9454-50ac7656ba19" data-media-type="file"></span><p /></li></ol><p><br/></p>
+  </article>
+</main>
+</body>
+</html>

@@ -1,0 +1,28 @@
+{"id":"9c24426ab0d25f39b17a776375399debb27bd65722b6051580dddaa3b6ed36e7","item_id":"f3dd32eaa8:0","text":"RenderMan XPU 不支持隐式曲面。"}
+{"id":"65cd2a4d45ea1c6365495e10c4374834e2d0d5070cf42a945a7a26d3ad61d8d4","item_id":"f3dd32eaa8:2","text":"RenderMan 能够渲染"}
+{"id":"be7393acc8f6e42679904c294958e8f20a30382d09a2bf185168f2be34b551ca","text":"隐式曲面"}
+{"id":"ea06985e81b03926b316e6160198262d9fa256ec09afb31bf2a943a7e221ba3c","item_id":"f3dd32eaa8:4","text":"（在 RenderMan 中有时称为“RiBlobby”或 blobby 曲面）。RenderMan 中大多数几何类型都有显式控制网格：几何体由一组位于表面上或表面附近的顶点指定。隐式曲面则不同：它们由以"}
+{"id":"5b9f798170b26398f946a56fbc623a067a32f0dc0f1203b0e7ec1ad06a6b738c","item_id":"f3dd32eaa8:5","text":"隐式方式"}
+{"id":"153b6591fad93b7f5f3f725bb0654c2f12641c100a2294829e5159a361caa1c2","item_id":"f3dd32eaa8:6","text":"定义的图元构建，也就是使用一个数学函数，使其在表面上的每一点都等于某个阈值。渲染器会隐藏这些复杂数学细节，但这种表示方式在某些场景中能非常高效地建模几何体：用户想创建无定形形状，并愿意牺牲对形状细节的精细控制，以换取对大体特征的易建模性。"}
+{"id":"41ef5f0a5f5fb72adec9ef07fe2137584d6f4f20ec8e09e1d0872ee9ff8b71ec","item_id":"f3dd32eaa8:7","text":"内置图元"}
+{"id":"155af73da2657baa508e655307cd33ca9763234acde41e0395252e708ba66432","item_id":"f3dd32eaa8:8","text":"在 RenderMan 中构建隐式曲面的一种方式，是组合简单的内置图元形状：椭球体。这里，隐式曲面最重要的特性是"}
+{"id":"678883039f0d65d320f1807580bd2bac0dd08cf99ba03b7e1901fa8133c4da74","item_id":"f3dd32eaa8:9","text":"自动混合"}
+{"id":"970183d7d589db0e9f96e762d4b42eea88ff7d098e28beb788ea998856bca271","item_id":"f3dd32eaa8:10","text":"：相邻图元会融合成圆润、厚实的球状团块。当图元彼此足够接近时，这种混合会自动发生（或按建模师的意愿不发生），无需构造显式的圆形或圆角面片来连接它们。下面展示了六个多色球体，它们一开始彼此相隔一段距离；在这个距离下，它们不会相互作用。不过，当它们逐渐靠近时，就会开始拉伸并混合在一起，平滑地融合成一个更大的团块。这种混合会在渲染器中自动且高效地发生，不会产生额外内存成本；与在建模程序中创建等价的多边形镶嵌细分相比，隐式曲面的内存效率通常高得多。"}
+{"id":"0cbe9ed0b99c8c1210e0821cc93be1b2a9df72205eb1b6cdaecfe9c5e8ff1161","item_id":"f3dd32eaa8:11","text":"使用内置椭球体图元形状时，其底层数学函数会使混合后的曲面体积大致等于组成它的各个图元的总体积。这让该工作流非常适合建模粘性流体等对象，因为这种体积保持属性非常理想。不过，如上所述，形状如何混合在一起并没有精细控制：图元要么相互作用并混合，要么不相互作用。它们开始混合的阈值可以在整个曲面范围内全局设置（这会使整个隐式曲面“膨胀”或“收缩”），但不能逐个球体设置阈值。"}
+{"id":"e75d144634c1e4b13ab5407a13fc4a858e9afec6aed639fa33bc25a7d662ca7c","item_id":"f3dd32eaa8:12","text":"隐式场插件"}
+{"id":"caaf1b1c8ab6bdd492454cb3fb3f03169e8f82dd489ecfb4f8ba45efa62e4060","item_id":"f3dd32eaa8:13","text":"RenderMan 允许用户把内置图元形状扩展到其他数学描述，并让它们可以与内置图元无缝参与自动混合。这种扩展需要使用"}
+{"id":"6ee15eb021587900b10c4caea1df7ca99055dc791b40e649ce584dfe57cabc8a","item_id":"f3dd32eaa8:14","text":"隐式场插件"}
+{"id":"a232fe7b890fa4ac3686e8d9538a4fa2ba191f783d3747b27fb8d94305b6efc4","item_id":"f3dd32eaa8:15","text":"，它们是由渲染器加载的 C++ 共享库。渲染器随附了几个插件，用来为立方体和线段形状的图元提供支持；这里的线段指带有圆头、类似香肠的圆柱体。"}
+{"id":"0333bcb9f7eb78fa7cb305e8cc94b2bec6fa54ae00f8fb301c745370fcbbf539","item_id":"f3dd32eaa8:16","text":"不过，隐式场插件也适用于另一种截然不同的隐式曲面使用方式：把另一个程序生成的隐式场表示作为输入。隐式场是表示流体和体积效果的一种自然且高效的方式，并且可由 Maya Fluids、输出 OpenVDB 文件的程序或 Bifrost 等程序直接输出。可以编写隐式场插件来弥合这些第三方隐式数据文件格式与 RenderMan 隐式图元之间的差距，从而让流体模拟的输出可以直接且高效地在 RenderMan 内渲染。通常在这种情况下，隐式曲面由单个图元组成；从概念上说，这个图元就是隐式场插件本身，并带有对该插件具有特殊含义的参数。与其他图元混合通常既不是关注点，也不是期望行为。渲染器随附了两个这类插件：一个用于读取 Maya fluid cache 文件，另一个用于"}
+{"id":"7eeb5a0653a703e3f281daf2e875926034327d33399202fa4549fa4b390659b7","item_id":"f3dd32eaa8:17","text":"读取 OpenVDB 文件"}
+{"id":"46bb225fa4dc6b9835628eb8469a4536b38bddd55877f202f06eb5a46b121057","item_id":"f3dd32eaa8:19","text":"某些隐式场插件（例如"}
+{"id":"924844cf73dac3c6932b6532baa84c587c8cefaf8cd3ec17e6d4bbdb9233d09d","item_id":"f3dd32eaa8:20","text":"OpenVDB 插件"}
+{"id":"ed4d87ab1fa55c87fc69f8dcde4315dfc4ef2c375211f33922641b351098e96e","item_id":"f3dd32eaa8:21","text":"）可以"}
+{"id":"ff7772053abf7d817d6eec229a09e14f0d1552f1cb0aeedb2ac73784ac2d2e39","item_id":"f3dd32eaa8:22","text":"同时"}
+{"id":"0b52ef42e4c97adf925bb9bc27cb6836beeb9e0d28dc0fc28d599c68ff4f8828","item_id":"f3dd32eaa8:23","text":"用于隐式曲面"}
+{"id":"6201111b83a0cb5b0922cb37cc442b9a40e24e3b1ce100a4bb204f4c63fd2ac0","item_id":"f3dd32eaa8:24","text":"，也可以"}
+{"id":"0f549f8b37f516a2214280d1c79e7531da324ffcf430d387007659651db00a8c","item_id":"f3dd32eaa8:25","text":"用于"}
+{"id":"d00d54adc04f53e929d8d19d6cb3702d93204a44b92b0bee66ab8770b372b903","item_id":"f3dd32eaa8:26","text":"体积图元。"}
+{"id":"0033a213dae8c7dec1a918511f7ed283d0a7e598f8319b7a7b72b7b81a090afa","item_id":"f3dd32eaa8:27","text":"这反映了一个事实：隐式场同样也是表示体积的好方法。对于 OpenVDB，选择使用哪种图元取决于所用 OpenVDB 文件的类型（“levelset”还是“fogvolume”）。"}
+{"id": "b605350bc00209520b7cd8f546322663356ba630708f71bbf30aead6b3dd608e", "item_id": "f3dd32eaa8:1", "text": "简介"}
+{"id": "cdb4ee2aea69cc6a83331bbe96dc2caa9a299d21329efb0336fc02a82e1839a8", "item_id": "f3dd32eaa8:18", "text": "。"}

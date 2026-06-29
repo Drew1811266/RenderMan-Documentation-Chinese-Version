@@ -1,0 +1,167 @@
+{"item_id":"8f6115cd4e:0","text":"PxrMultiTexture 用于引用最多 10 张纹理，以多种方式混合它们，并支持多种贴图选择方法。"}
+{"item_id":"8f6115cd4e:1","text":"和所有 texture style nodes 一样，此节点接收一个 manifold，用它描述要将纹理应用到的 2D domain。默认行为是：如果没有连接 manifold，则应用到几何体上定义的 s,t domain。"}
+{"item_id":"8f6115cd4e:2","text":"PxrMultiTexture 仅兼容"}
+{"item_id":"8f6115cd4e:3","text":"PxrRoundCube"}
+{"item_id":"8f6115cd4e:4","text":"PxrTileManifold"}
+{"item_id":"8f6115cd4e:5","text":"PxrRandomTextureManifold"}
+{"item_id":"8f6115cd4e:6","text":"，以及"}
+{"item_id":"8f6115cd4e:7","text":"PxrHexTileManifold"}
+{"item_id":"8f6115cd4e:8","text":"。其他 manifolds 不能用于此 pattern。"}
+{"item_id":"8f6115cd4e:9","text":"PxrMultiTexture 不支持 Texture atlas 格式文件：这对它的用法没有意义。不过，此插件支持 RTX procedural texture plugins。"}
+{"item_id":"8f6115cd4e:10","text":"Input Parameters"}
+{"item_id":"8f6115cd4e:11","text":"Multi Manifold"}
+{"item_id":"8f6115cd4e:12","text":"通过以下节点提供应用纹理的 domain："}
+{"item_id":"8f6115cd4e:13","text":"PxrRoundCube"}
+{"item_id":"8f6115cd4e:14","text":"或"}
+{"item_id":"8f6115cd4e:15","text":"PxrTileManifold"}
+{"item_id":"8f6115cd4e:16","text":"。如果未连接，则默认使用 s,t。"}
+{"item_id":"8f6115cd4e:17","text":"此输入仅兼容提供 \"resultMulti\" 输出的节点，例如"}
+{"item_id":"8f6115cd4e:18","text":"PxrRoundCube"}
+{"item_id":"8f6115cd4e:19","text":"PxrTileManifold"}
+{"item_id":"8f6115cd4e:20","text":"PxrRandomTextureManifold"}
+{"item_id":"8f6115cd4e:21","text":"，以及"}
+{"item_id":"8f6115cd4e:22","text":"PxrHexTileManifold"}
+{"item_id":"8f6115cd4e:23","text":"。"}
+{"item_id":"8f6115cd4e:24","text":"注意：使用 PxrHexTileManifold 时，不支持多张纹理。"}
+{"item_id":"8f6115cd4e:25","text":"Textures"}
+{"item_id":"8f6115cd4e:26","text":"Filename (0 to 9)"}
+{"item_id":"8f6115cd4e:27","text":"纹理的文件名。你至少应在 slot 0 中放置一张纹理。"}
+{"item_id":"8f6115cd4e:28","text":"Texture Parameters"}
+{"item_id":"8f6115cd4e:29","text":"这些参数对所有纹理（0 到 9）都有效。"}
+{"item_id":"8f6115cd4e:30","text":"First Channel Offset"}
+{"item_id":"8f6115cd4e:31","text":"Offsets（偏移）要查找的第一个通道。"}
+{"item_id":"8f6115cd4e:32","text":"通常你会从通道 0 开始（RGBA 纹理的 RGB），但如果使用多通道 OpenEXR 纹理，可能需要指向正确的通道。"}
+{"item_id":"8f6115cd4e:33","text":"假设有一张包含 9 个通道的纹理，并组织为 3 个 RGB 组（diff.r、diff.g、diff.b、spec.r、spec.g、spec.b、ior.r、ior.g、ior.b）。如果要读取 \"spec\" RGB 通道，就必须将 firstChannel 设置为 3。"}
+{"item_id":"8f6115cd4e:34","text":"Invert T"}
+{"item_id":"8f6115cd4e:35","text":"为纹理查找反转 t 参数。"}
+{"item_id":"8f6115cd4e:36","text":"Filter"}
+{"item_id":"8f6115cd4e:37","text":"选择纹理查找期间可使用的不同重建滤波器。PxrTexture 可用的滤波器包括："}
+{"item_id":"8f6115cd4e:38","text":"Value"}
+{"item_id":"8f6115cd4e:39","text":"Filter"}
+{"item_id":"8f6115cd4e:40","text":"Nearest"}
+{"item_id":"8f6115cd4e:41","text":"Box"}
+{"item_id":"8f6115cd4e:42","text":"Bilinear"}
+{"item_id":"8f6115cd4e:43","text":"Bspline"}
+{"item_id":"8f6115cd4e:44","text":"Gaussian"}
+{"item_id":"8f6115cd4e:45","text":"Lagrangian"}
+{"item_id":"8f6115cd4e:46","text":"Blur"}
+{"item_id":"8f6115cd4e:47","text":"指定从纹理文件取回的图像要模糊多少。"}
+{"item_id":"8f6115cd4e:48","text":"Mip Interpolate"}
+{"item_id":"8f6115cd4e:49","text":"选择是否在多分辨率纹理的相邻分辨率之间插值，从而让层级之间的过渡更平滑。"}
+{"item_id":"8f6115cd4e:50","text":"Missing Color"}
+{"item_id":"8f6115cd4e:51","text":"如果打开纹理出错，则使用此颜色。"}
+{"item_id":"8f6115cd4e:52","text":"Missing Alpha"}
+{"item_id":"8f6115cd4e:53","text":"如果打开纹理出错，则使用此 alpha。"}
+{"item_id":"8f6115cd4e:54","text":"Linearize"}
+{"item_id":"8f6115cd4e:55","text":"对纹理应用反向 sRGB 变换。如果你在 sRGB space 中绘制纹理（大多数绘制软件的默认设置），但在 data linear space 中查看数据，纹理会显得发灰。此选项会对纹理应用 sRGB 变换，使其再次呈现为 visually linear。"}
+{"item_id":"8f6115cd4e:56","text":"Advanced Settings"}
+{"item_id":"8f6115cd4e:57","text":"MipBias"}
+{"item_id":"8f6115cd4e:58","text":"对渲染时选择的 mip selection 施加 Bias（偏置），可偏向更高分辨率（负整数）或更低分辨率（正整数）。"}
+{"item_id":"8f6115cd4e:59","text":"MaxResolution"}
+{"item_id":"8f6115cd4e:60","text":"将 mip selection Clamp 到首选的最高层级。根据你的选择，这可能会阻止最高分辨率被渲染。"}
+{"item_id":"8f6115cd4e:61","text":"OptimizeIndirect"}
+{"item_id":"8f6115cd4e:62","text":"在 indirect hits 上将纹理 filter 设置为 Box（开销较低），而不是使用其他可见效果所选的 filter。"}
+{"item_id":"8f6115cd4e:63","text":"Randomize"}
+{"item_id":"8f6115cd4e:64","text":"输出 multi manifold 的 Manifold patterns 会用 2D coordinate system 编码应使用哪张纹理。PxrMultiTexture 可以利用这些坐标计算 random seed，以驱动局部变化。"}
+{"item_id":"8f6115cd4e:65","text":"Random Source"}
+{"item_id":"8f6115cd4e:66","text":"为了让每个对象获得不同变化，需要选择对象上某个唯一的信息来创建唯一 seed。你可以在对象的 id 和对象名称之间选择。"}
+{"item_id":"8f6115cd4e:67","text":"这些属性由输出 RIB 的软件创建；根据宿主软件不同，其中一种可能比另一种更适用。"}
+{"item_id":"8f6115cd4e:68","text":"Value"}
+{"item_id":"8f6115cd4e:69","text":"Source"}
+{"item_id":"8f6115cd4e:70","text":"Depends on"}
+{"item_id":"8f6115cd4e:71","text":"Object id"}
+{"item_id":"8f6115cd4e:72","text":"Object Name"}
+{"item_id":"8f6115cd4e:73","text":"Seed"}
+{"item_id":"8f6115cd4e:74","text":"设为零时，所有使用同一 manifold 的 PxrMultiTexture patterns 都会计算出相同的 random seed。如果希望其中某个 pattern 计算不同变化，请将 randomSeed 设为非零值："}
+{"item_id":"8f6115cd4e:75","text":"Hue"}
+{"item_id":"8f6115cd4e:76","text":"限制随机 hue shift。范围从 0（无变化）到 1（完整变化）。"}
+{"item_id":"8f6115cd4e:77","text":"Saturation"}
+{"item_id":"8f6115cd4e:78","text":"限制随机 saturation scale。范围从 0（无变化）到 1（完整变化）。"}
+{"item_id":"8f6115cd4e:79","text":"Luminance"}
+{"item_id":"8f6115cd4e:80","text":"限制随机 luminance scale。范围从 0（无变化）到 1（完整变化）。"}
+{"item_id":"8f6115cd4e:81","text":"Gamma"}
+{"item_id":"8f6115cd4e:82","text":"限制随机 gamma variation。范围从 0（无变化）到 1（完整变化）。"}
+{"item_id":"8f6115cd4e:83","text":"Hue Mode"}
+{"item_id":"8f6115cd4e:84","text":"颜色 hue 的随机化方式："}
+{"item_id":"8f6115cd4e:85","text":"Value"}
+{"item_id":"8f6115cd4e:86","text":"Mode"}
+{"item_id":"8f6115cd4e:87","text":"Description"}
+{"item_id":"8f6115cd4e:88","text":"Centered"}
+{"item_id":"8f6115cd4e:89","text":"变化会以当前值为中心"}
+{"item_id":"8f6115cd4e:90","text":"Additive"}
+{"item_id":"8f6115cd4e:91","text":"变化会加到当前值上"}
+{"item_id":"8f6115cd4e:92","text":"Substractive"}
+{"item_id":"8f6115cd4e:93","text":"变化会从当前值中减去"}
+{"item_id":"8f6115cd4e:94","text":"Saturation Mode"}
+{"item_id":"8f6115cd4e:95","text":"颜色 saturation 的随机化方式："}
+{"item_id":"8f6115cd4e:96","text":"Value"}
+{"item_id":"8f6115cd4e:97","text":"Mode"}
+{"item_id":"8f6115cd4e:98","text":"Description"}
+{"item_id":"8f6115cd4e:99","text":"Centered"}
+{"item_id":"8f6115cd4e:100","text":"变化会以当前值为中心"}
+{"item_id":"8f6115cd4e:101","text":"Additive"}
+{"item_id":"8f6115cd4e:102","text":"变化会加到当前值上"}
+{"item_id":"8f6115cd4e:103","text":"Substractive"}
+{"item_id":"8f6115cd4e:104","text":"变化会从当前值中减去"}
+{"item_id":"8f6115cd4e:105","text":"Luminance Mode"}
+{"item_id":"8f6115cd4e:106","text":"颜色 luminance 的随机化方式："}
+{"item_id":"8f6115cd4e:107","text":"Value"}
+{"item_id":"8f6115cd4e:108","text":"Mode"}
+{"item_id":"8f6115cd4e:109","text":"Description"}
+{"item_id":"8f6115cd4e:110","text":"Centered"}
+{"item_id":"8f6115cd4e:111","text":"变化会以当前值为中心"}
+{"item_id":"8f6115cd4e:112","text":"Additive"}
+{"item_id":"8f6115cd4e:113","text":"变化会加到当前值上"}
+{"item_id":"8f6115cd4e:114","text":"Substractive"}
+{"item_id":"8f6115cd4e:115","text":"变化会从当前值中减去"}
+{"item_id":"8f6115cd4e:116","text":"Gamma Mode"}
+{"item_id":"8f6115cd4e:117","text":"颜色 gamma 的变化方式："}
+{"item_id":"8f6115cd4e:118","text":"Value"}
+{"item_id":"8f6115cd4e:119","text":"Mode"}
+{"item_id":"8f6115cd4e:120","text":"Description"}
+{"item_id":"8f6115cd4e:121","text":"Centered"}
+{"item_id":"8f6115cd4e:122","text":"变化会以当前值为中心"}
+{"item_id":"8f6115cd4e:123","text":"Additive"}
+{"item_id":"8f6115cd4e:124","text":"变化会加到当前值上"}
+{"item_id":"8f6115cd4e:125","text":"Substractive"}
+{"item_id":"8f6115cd4e:126","text":"变化会从当前值中减去"}
+{"item_id":"8f6115cd4e:127","text":"Bump Output"}
+{"item_id":"8f6115cd4e:128","text":"Textures are Normal Maps"}
+{"item_id":"8f6115cd4e:129","text":"将输入纹理设置为 Normal Maps"}
+{"item_id":"8f6115cd4e:130","text":"Orientation"}
+{"item_id":"8f6115cd4e:131","text":"某些纹理应用提供不同的 orientation。你也可以手动调整，以尝试修正 normal maps 的外观。"}
+{"item_id":"8f6115cd4e:132","text":"Flip X"}
+{"item_id":"8f6115cd4e:133","text":"Invert（反转）bump orientation：凹面变凸面，反之亦然"}
+{"item_id":"8f6115cd4e:134","text":"Flip Y"}
+{"item_id":"8f6115cd4e:135","text":"Invert（反转）bump orientation：凹面变凸面，反之亦然"}
+{"item_id":"8f6115cd4e:136","text":"Adjust Output"}
+{"item_id":"8f6115cd4e:137","text":"Color Scale"}
+{"item_id":"8f6115cd4e:138","text":"纹理中颜色值的乘数，可用于调整亮度或操控单个颜色通道"}
+{"item_id":"8f6115cd4e:139","text":"Color Offset"}
+{"item_id":"8f6115cd4e:140","text":"对结果应用 offset，移动结果的颜色"}
+{"item_id":"8f6115cd4e:141","text":"Saturation"}
+{"item_id":"8f6115cd4e:142","text":"提高（大于 1）或降低（小于 1）纹理结果的 saturation"}
+{"item_id":"8f6115cd4e:143","text":"Alpha Scale"}
+{"item_id":"8f6115cd4e:144","text":"alpha channel 的乘数，在 alpha 用于驱动参数时很有用"}
+{"item_id":"8f6115cd4e:145","text":"Alpha Offset"}
+{"item_id":"8f6115cd4e:146","text":"alpha channel 的 offset，在 alpha 用于驱动参数时很有用"}
+{"item_id":"8f6115cd4e:147","text":"Hexagonal Tiling"}
+{"item_id":"8f6115cd4e:148","text":"Show Grid"}
+{"item_id":"8f6115cd4e:149","text":"显示当前 HexTile grid"}
+{"item_id":"8f6115cd4e:150","text":"Grid Color"}
+{"item_id":"8f6115cd4e:151","text":"设置显示的 HexTile grid 的颜色"}
+{"item_id":"8f6115cd4e:152","text":"Match C++ patterns"}
+{"item_id":"8f6115cd4e:153","text":"匹配 RenderMan 23 C++ scenes，但可能降低渲染速度。仅在必要时使用"}
+{"item_id":"8f6115cd4e:154","text":"Output Parameters（输出参数）"}
+{"item_id":"8f6115cd4e:155","text":"resultRGB"}
+{"item_id":"8f6115cd4e:156","text":"过滤后的颜色结果。请注意，所有结果都会从"}
+{"item_id":"8f6115cd4e:157","text":"startChannel offset 开始查找。"}
+{"item_id":"8f6115cd4e:158","text":"resultR"}
+{"item_id":"8f6115cd4e:159","text":"R 通道结果"}
+{"item_id":"8f6115cd4e:160","text":"resultG"}
+{"item_id":"8f6115cd4e:161","text":"G 通道结果"}
+{"item_id":"8f6115cd4e:162","text":"resultB"}
+{"item_id":"8f6115cd4e:163","text":"B 通道结果"}
+{"item_id":"8f6115cd4e:164","text":"resultA"}
+{"item_id":"8f6115cd4e:165","text":"如果存在 alpha 且连接了 resultRGB，它会返回"}
+{"item_id":"8f6115cd4e:166","text":"RGB 之后的通道。如果未连接 RGB，则返回第一个通道。"}

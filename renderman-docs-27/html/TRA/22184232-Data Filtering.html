@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Data Filtering</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Data Filtering</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/TRA/22184232/Data+Filtering">https://rmanwiki-27.pixar.com/space/TRA/22184232/Data+Filtering</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="section"><h3 id="DataFiltering-TooMuchData">Too Much Data</h3><div class="figure align-left"><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/22184232/filter_limited.jpg" data-image-src="../../attachments/22184232/filter_limited.jpg" data-unresolved-comment-count="0" data-linked-resource-id="22195889" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="filter_limited.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="22184232" data-linked-resource-container-version="3" data-media-id="ca60074f-0efe-49dc-b4c6-4ed5b7de9b48" data-media-type="file"></span></div><p>The Joblist pane and the ServerList pane both allow filters to be defined which limit the amount of information returned from the monitor to the UI.</p><p>Custom filter definitions can be created and saved for personal use, and administrators can also create generally useful filters that can be placed in a shared area for use by everyone at the site (see below).</p><p>These filters can be important because the UI is an application running within the web browser in javascript. The amount of data that can be sent from the monitor to the UI must be limited to prevent the browser from crashing.</p><p>Normally the joblist or the bladelist will show a count of the number of entries in their pane. When the data limit has been reached and filtering is limiting the total amount of records, the count will be followed by <em>+</em> as shown in the picture above. This indicates that the current query has produced more data than can be displayed in the UI.</p><p>Because the Joblist pane subscribes to events and jobs are constantly being added or removed from the pane, the UI will take it's own precautions to prevent data overflow.</p><ul class="simple"><li>The UI will implement a rolling window of the the list of jobs. As new jobs come into the joblist, they will bump older jobs off the list, keeping the displayed jobs at the maximum list size.</li><li>If jobs are deleted and the list of jobs now falls below the threshold, then the UI will do an automatic request of the job data from the engine to assure that as many jobs as possible are always displayed<br/> </li></ul></div><div class="section"><h3 id="DataFiltering-EditingFilters">Editing Filters</h3><p>Tractor uses filters to limit the amount of data that is sent from the monitor to the UI, to prevent data overrun. The Filter Lister dialog provides the user with a list of available filters, and buttons to edit the existing filters. The Filter Rule editor allows you to create or edit filters by building a list rules which are understood by the tractor monitor.</p><div class="figure align-left"><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/22184232/filter_lister.jpg" data-image-src="../../attachments/22184232/filter_lister.jpg" data-unresolved-comment-count="0" data-linked-resource-id="22195893" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="filter_lister.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="22184232" data-linked-resource-container-version="3" data-media-id="3c0e0b33-e46d-4782-a219-8e0447cab75b" data-media-type="file"></span></div><p>When the pull-down filter menu is selected, a Filter Lister dialog is displayed (as seen above). If there are currently defined filters of the correct type (joblist or bladelist), then they will be displayed.</p><p>There are several options in operating with the filters:</p><ul class="simple"><li>New - opens the filter editor dialog to construct a new filter</li><li>Edit - opens the filter editor dialog to edit the selected filter</li><li>Copy - opens a copy of the selected filter in the filter manager</li><li>Delete - deletes the selected filter from the UI, and tells the engine to remove the filter from the users filter directory.</li><li>Apply - Sets the currently selected filter as the <cite>Active</cite> filter.</li><li>None - Removes the currently selected filter.</li><li>Cancel - Closes the dialog without action.</li></ul><p>The Filter Editor dialog is opened whe selecting <em>New</em>, <em>Edit</em> or <em>Copy</em>. The Filter Editor allows you to dynamically construct a new filter, or edit an existing filter, using a set of defined filter rules, appropriate to the current pane (Jobs or Blades).</p><div class="figure align-left"><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/22184232/filter_editor.jpg" data-image-src="../../attachments/22184232/filter_editor.jpg" data-unresolved-comment-count="0" data-linked-resource-id="22195894" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="filter_editor.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="22184232" data-linked-resource-container-version="3" data-media-id="1493ad0a-8e4d-469e-86c8-fdc57fc57750" data-media-type="file"></span></div><ul class="simple"><li>Any/All Pulldown - When multiple rules are used in a single filter, this control defines whether ANY one of the rules need be met to allow the data to be included, or whether ALL of the rules need to be met.</li><li>+ Button - This button adds a new rule to the current filter.</li><li>- Button - This button removes the associated rule from the filter.</li><li>First Column Pulldown - contains the name of the rule. By changing this pulldown the remainder of the rule definition changes. Select the rule desired, and then set the appropriate values in the other entries. Note, some of the rule definitions require typing a value. For example, the<em>Spool Time</em> and <em>Finish Time</em> rules above both have a type-in value for duration (currently selected in minutes)</li><li>Cancel - Aborts the current filter edit session, and returns to the main UI.</li><li>Save - Saves the current ruleset as a filter using the name defined under <em>Filter Name</em>. If a name hasn't been specified, an alert will show, and the save will be cancelled.</li></ul><p>Once you have defined any filters, they will be available in the pulldown on the job or server panes.<br/> </p></div><div class="section"><h3 id="DataFiltering-Site-wideSharedFilters">Site-wide Shared Filters</h3><p>Administrators can copy useful common filters to a shared area in the tractor spool area where they will become available when people reload their Dashboard sessions. This copy is currently a manual operation. Here is an example of copying a filter named &quot;NoDarkSide&quot; created by the user &quot;yoda&quot; into the shared area. This example assumes that the tractor spool area is in the default /var/spool/tractor location, it may be somewhere else at your site.</p><ul class="simple"><li>cd /var/spool/tractor/users</li><li>mkdir -p _shared_/filters</li><li>cp yoda/filters/NoDarkSide.joblist _shared_/filters/</li></ul></div>
+  </article>
+</main>
+</body>
+</html>

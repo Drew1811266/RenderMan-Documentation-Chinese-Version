@@ -1,0 +1,64 @@
+{"item_id":"d098e108c0:0","text":"安装前，请选择 Tractor Engine host"}
+{"item_id":"d098e108c0:1","text":"选择一台 host 来运行 Tractor engine。该 host 需要运行 Linux 或 macOS；支持的版本列在 RenderMan Products download page 上。Blade hosts 可以是 Linux、macOS 或 Windows。"}
+{"item_id":"d098e108c0:2","text":"具有更快 CPUs、更多 cores 和更快 storage 的 hosts 能够更快 schedule，并处理更多 throughput。"}
+{"item_id":"d098e108c0:3","text":"更大的 disks 往往很重要，因为可以保存更多已完成 jobs 用于 analysis。"}
+{"item_id":"d098e108c0:4","text":"对于大型 queues，普通 commodity drives 已经足够；1 GB 约可存储 200,000 tasks。不过，如果 jobs 会永久 archived 用于历史分析，则可能需要更大的 drives。另外，默认配置下还需要 disk space 来存储 log files。"}
+{"item_id":"d098e108c0:5","text":"通常不建议在 virtual machines 上运行 tractor-engine，除非仔细分配 CPU、disk 和 network resources，使其性能接近 bare metal。"}
+{"item_id":"d098e108c0:6","text":"为简单起见，engine host 不应运行 web server 或其他使用 port 80 的 server。Engine 可以配置为使用不同 port，但使用默认 80 会"}
+{"item_id":"d098e108c0:7","text":"极大"}
+{"item_id":"d098e108c0:8","text":"简化 configuration 配置和 web-browser UI access 浏览器访问。"}
+{"item_id":"d098e108c0:9","text":"在 Tractor Engine host 上下载并运行 installer"}
+{"item_id":"d098e108c0:10","text":"要下载 tractor installer(s)，请登录"}
+{"item_id":"d098e108c0:11","text":"https://renderman.pixar.com/forum/"}
+{"item_id":"d098e108c0:12","text":"并点击页面顶部蓝色的 Downloads link，然后从列表中选择 Tractor entry 查看可用 downloads。"}
+{"item_id":"d098e108c0:13","text":"在所有情况下都需要"}
+{"item_id":"d098e108c0:14","text":"full installer"}
+{"item_id":"d098e108c0:15","text":"来安装 Tractor Engine，并且它也包含所有其他 tools。"}
+{"item_id":"d098e108c0:16","text":"注意：对于其他 roles，也有几个小得多的 packages，包含 Python-only engine-client components，可以按需"}
+{"item_id":"d098e108c0:17","text":"单独下载"}
+{"item_id":"d098e108c0:18","text":"。这些包括用于 tractor-blade 和 scripting APIs 的 python wheels，适合通过 pip 在给定 host 或 container 的 Python virtual environment 中安装其中一个或两个组件。还有一个 python zipapp，包含连接到 engine 的 Python clients 集合。Zipapp 可以在 stand-alone mode 中使用，而不改变现有本地 stock Python。"}
+{"item_id":"d098e108c0:19","text":"有关这些 Python sub-packages 的详细信息，请参阅 clients download archive 中的 README"}
+{"item_id":"d098e108c0:20","text":"。这些 lightweight python-only packages 对其他非 engine host types 是可选的，full installer 也可以用于这些 host。"}
+{"item_id":"d098e108c0:21","text":"Full installer（rpm、msi 或 pkg）必须以 system administrator privileges 运行（例如在 Linux 上使用 sudo）。Installation directory 为："}
+{"item_id":"d098e108c0:22","text":"Linux 上为 /opt/pixar/Tractor-VERSION，"}
+{"item_id":"d098e108c0:23","text":"macOS 上为 /Appications/Pixar/Tractor-VERSION，"}
+{"item_id":"d098e108c0:24","text":"Windows 上为 C:\\Program Files\\Pixar\\Tractor-VERSION。"}
+{"item_id":"d098e108c0:25","text":"本文档中会将该 path 称为 INSTALL_DIR。"}
+{"item_id":"d098e108c0:26","text":"NOTE"}
+{"item_id":"d098e108c0:27","text":"："}
+{"item_id":"d098e108c0:28","text":"Full installer 完整安装程序包含"}
+{"item_id":"d098e108c0:29","text":"全部"}
+{"item_id":"d098e108c0:30","text":"Tractor components，但"}
+{"item_id":"d098e108c0:31","text":"只有一个子集"}
+{"item_id":"d098e108c0:32","text":"在每种机器类型上需要：engine host、render nodes 和 user workstations。请参阅上面关于小得多的 Python-only client downloads 的说明；某些情况下它们可能更合适。"}
+{"item_id":"d098e108c0:33","text":"中央 tractor-engine service（唯一的一个）比任何其他 component 都需要 full install 中更多内容。"}
+{"item_id":"d098e108c0:34","text":"可以把 full package 和较小的 python packages 安装到 fileserver 上，让许多 hosts 和 users 访问。但如上所述，每种 machine type 上只需要其中一部分。"}
+{"item_id":"d098e108c0:35","text":"获取 license。"}
+{"item_id":"d098e108c0:36","text":"在 full installation process 接近结束时，LicenseApp program 会启动以获取 license file。License"}
+{"item_id":"d098e108c0:37","text":"只需要在 engine host 上使用"}
+{"item_id":"d098e108c0:38","text":"，并且只在之前尚未安装 license 时需要。如果你已有 license，或只是安装到 blade hosts，那么可以直接"}
+{"item_id":"d098e108c0:39","text":"关闭 license dialog 许可证对话框"}
+{"item_id":"d098e108c0:40","text":"，使用 close button。如果确实需要下载 license，则应输入 RenderMan forum login、password 以及购买时收到的 serial number；随后 application 会连接到 Pixar 并获取 license。"}
+{"item_id":"d098e108c0:41","text":"如果在 engine 安装后需要下载 license file，只需运行位于 INSTALL_DIR/bin 中的 LicenseApp application。"}
+{"item_id":"d098e108c0:42","text":"默认情况下，license file pixar.license 会下载到 installation directory 的 parent（/opt/pixar 或 /Applications/Pixar）。也可以通过设置 PIXAR_LICENSE_FILE environment variable，或在 tractor.config file 中设置 LicenseLocation 来 override license location。因为 Tractor 通常与 floating license server 配合运行，pixar.license file 将是 stub 或 redirector license，只是指向 license server machine。"}
+{"item_id":"d098e108c0:43","text":"Engine 管理可用的 Tractor seats；总 seat count 表示 farm 中可并发运行的最大 tasks 数量。Blades 启动不需要 license，idle 时也不会消耗 seats。Dashboard 不消耗 license。"}
+{"item_id":"d098e108c0:44","text":"创建 tractor-engine hostname alias 主机名别名"}
+{"item_id":"d098e108c0:45","text":"Dashboard、blade 和 command line tools 需要能够找到 engine 才能与其通信。因此，创建名为 tractor-engine 的 hostname alias 很有用，该 alias 指向 engine host 的真实 hostname，尤其是在 production environments 中。所有这些 tools 默认都会尝试连接到 tractor-engine，因此使用该名称而不是应用 overrides，可以极大简化日常使用。Engine 可选地使用简单 multicast protocol 广播其 network address，这适合某些"}
+{"item_id":"d098e108c0:46","text":"小型"}
+{"item_id":"d098e108c0:47","text":"installations。（更多信息请参阅"}
+{"item_id":"d098e108c0:48","text":"engine discovery"}
+{"item_id":"d098e108c0:49","text":"使用 tractor-engine alias 还允许通过切换 alias 来使用新的底层 host 作为 engine host，而不必在所有 tool use cases 中更新 override options。请咨询 system administrator，选择创建 hostname alias"}
+{"item_id":"d098e108c0:50","text":"tractor-engine"}
+{"item_id":"d098e108c0:51","text":"以将 connections 重定向到所选 engine host 的最佳方法。这可能包括："}
+{"item_id":"d098e108c0:52","text":"添加 DNS CNAME record，将 tractor-engine 指向站点的 engine hostname，或"}
+{"item_id":"d098e108c0:53","text":"向 engine hostname 的 LDAP entry 添加 cn entry，或"}
+{"item_id":"d098e108c0:54","text":"向 /etc/hosts 添加 hostname alias（不可扩展）"}
+{"item_id":"d098e108c0:55","text":"可以在 user/blade hosts 上使用几个 command-line tools 来验证它们是否能通过 hostname alias 到达 engine host 本身："}
+{"item_id":"d098e108c0:56","text":"Engine 运行后（见下文），web browsers 也可以通过浏览该 hostname 来测试 tractor-engine alias。"}
+{"item_id":"d098e108c0:57","text":"tractor-blade、tractor-spool 和 tq 等 command-line components 可以通过设置 TRACTOR_ENGINE environment variable，或添加 option"}
+{"item_id":"d098e108c0:58","text":"--engine=HOSTNAME:PORT"}
+{"item_id":"d098e108c0:59","text":"来指向不同 engine，以匹配你的 engine installation。Configuration files 中对 tractor-engine 的 references 也可能需要更改。"}
+{"item_id":"d098e108c0:60","text":"安装 blade services 服务组件"}
+{"item_id":"d098e108c0:61","text":"每台将执行 Tractor tasks 的机器（通常是 render farm nodes）都必须运行 tractor-blade python program。具体内容请参阅"}
+{"item_id":"d098e108c0:62","text":"Setting Up Services"}
+{"item_id":"d098e108c0:63","text":"。"}

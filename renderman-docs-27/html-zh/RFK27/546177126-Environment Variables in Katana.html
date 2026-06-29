@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Environment Variables in Katana</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Environment Variables in Katana</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFK27/546177126/Environment+Variables+in+Katana">https://rmanwiki-27.pixar.com/space/RFK27/546177126/Environment+Variables+in+Katana</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<h3 id="EnvironmentVariablesinKatana-InstallationPathVariables">Installation Path Variables（安装路径变量）</h3><p>你需要设置几个环境变量，才能让 RfK 与 PRMan 和 Katana 一起正常运行。RfK 会通过 $RMANTREE 环境变量查找 RenderMan。只要 $RMANTREE 设置正确，RfK 就会找到相应的 PRMan 库和命令。Katana 查找 RfK 的方式与查找任何其他插件相同，即通过 $KATANA_RESOURCES 环境变量。这些环境变量的路径取决于你是否将 RfK/PRMan 安装在默认位置。  </p><div class="table-wrap"><table data-table-width="955" data-layout="center" data-local-id="9b00ffba-4caf-4e18-a743-0d1a5cdd02b4" class="confluenceTable"><colgroup><col style="width: 335.0px;"/><col style="width: 620.0px;"/></colgroup><tbody><tr><th class="confluenceTh"><p><strong>Environment Variable（环境变量）</strong></p></th><th class="confluenceTh"><p><strong>默认安装路径</strong></p></th></tr><tr><td class="confluenceTd"><p><strong> </strong><code>RMANTREE</code><strong> </strong></p></td><td class="confluenceTd"><p><code>/opt/pixar/RenderManProServer-27.0</code></p></td></tr><tr><td class="confluenceTd"><p><strong> </strong><code>KATANA_RESOURCES</code><strong> </strong></p></td><td class="confluenceTd"><p><code>/opt/pixar/RenderManForKatana-27.0/plugins/katana8.0</code></p></td></tr></tbody></table></div><p>RenderMan 的默认着色器搜索路径与 rendermn.ini 文件中的默认路径一致。如果需要额外搜索路径，则需要设置 <code>RMAN_SHADERPATH</code> 和/或 <code>RMAN_RIXPLUGINPATH</code> 环境变量以包含你的特定路径。这些环境变量会替换默认路径，而不是追加到默认路径，因此你还需要同时包含默认路径。</p><h3 id="EnvironmentVariablesinKatana-OutputPathVariable">Output Path Variable（输出路径变量）</h3><p>如有必要，可以使用以下环境变量将渲染日志输出定向到其他位置： <code>RFK_REDIRECT_OUTPUT</code></p><h3 id="EnvironmentVariablesinKatana-ShaderDiscovery">着色器发现</h3><p>启动期间，RenderMan for Katana 会自动加载所有“可发现”的着色器。如果着色器位于搜索路径中，并且（对于 non-OSL shaders，即非 OSL 着色器）有关联的 Args 文件，则该着色器就是可发现的。在指定的环境变量搜索路径中搜索着色器时，会使用标准着色器搜索路径机制：</p><div class="table-wrap"><table data-table-width="1800" data-layout="default" data-local-id="6a8a0e33-619d-49bf-8612-e44e9d207561" class="confluenceTable"><tbody><tr><th class="confluenceTh"><p><strong>ShaderType（着色器类型）</strong></p></th><th class="confluenceTh"><p><strong>Environment Variable（环境变量）</strong></p></th><th class="confluenceTh"><p><strong>Default Path（默认路径）</strong></p></th></tr><tr><td class="confluenceTd"><p><strong>OSL</strong></p></td><td class="confluenceTd"><p><code>RMAN_SHADERPATH</code></p></td><td class="confluenceTd"><p><code>$RMANTREE/lib/shaders</code></p></td></tr><tr><td class="confluenceTd"><p><strong>Plugin (C++)（插件）</strong></p></td><td class="confluenceTd"><p><code>RMAN_RIXPLUGINPATH</code></p></td><td class="confluenceTd"><p><code>$RMANTREE/lib/plugins</code></p></td></tr></tbody></table></div><p>如果同时设置了环境变量和 PrmanGlobalStatements 中的搜索路径属性，最终搜索路径将是这两个字符串的并集，并且环境变量优先。</p><h3 id="EnvironmentVariablesinKatana-Recursion">递归</h3><p>RfK 会自动沿着着色器路径递归查找子目录中的着色器。默认情况下，它会向下递归 3 层子目录。可使用 <code>shaderPathRecursionLimit</code> RfK 配置文件中的设置 <code>config.xml</code>。</p><h3 id="EnvironmentVariablesinKatana-ArgsFiles">Args 文件</h3><p>args 文件需要放在 Args 目录中。可参考 RMANTREE/lib/plugins 中的设置示例。大致如下：</p><div class="table-wrap"><table data-table-width="1800" data-layout="default" data-local-id="5676f103-6dfb-4c5b-9ad2-4aa0f15d612e" class="confluenceTable"><tbody><tr><td class="confluenceTd"><p><code>$RMAN_RIXPLUGINPATH/pattern_remap.so</code></p></td></tr><tr><td class="confluenceTd"><p><code>$RMAN_RIXPLUGINPATH/Args/pattern_remap.args</code></p></td></tr></tbody></table></div><p>可以在开发者文档中了解更多 Args 文件信息 <a href="https://rmanwiki-24.pixar.com/space/REN24/21758047/Developers+Guide" data-linked-resource-id="21758047" data-linked-resource-version="6" data-linked-resource-type="page">下载</a>。</p>
+  </article>
+</main>
+</body>
+</html>

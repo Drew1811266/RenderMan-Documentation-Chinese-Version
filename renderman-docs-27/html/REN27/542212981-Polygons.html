@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Polygons</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Polygons</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/REN27/542212981/Polygons">https://rmanwiki-27.pixar.com/space/REN27/542212981/Polygons</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<h3 id="Polygons-Introduction">Introduction</h3><p>Polygons (and collections of adjoining polygons that form polyhedra or poly meshes) are by far the most common type of geometry used in computer graphics. While they suffer from a number of drawbacks when compared to other surfaces like subdivision meshes, they are also extremely efficient to render. This consideration often outweighs the drawbacks.</p><p>Polygons come in many forms, and renderers often impose arbitrary constraints upon their representation (such as supporting only triangles or quadrilaterals, or requiring that all faces be planar). RenderMan has no such constraints: it supports all forms of polygons ranging from simple convex planar polygons to complicated non-planar concave polygons with many sides and even with interior holes. Concave polygons that support holes are referred to in RenderMan as <strong>general polygons; </strong>they have no constraints but are slightly less optimal in terms of rendering. The choice of whether to emit polygons as general polygons or regular polygons is usually automatically determined by the bridge application, like Maya, in cooperation with the modeling program; often, it may be preferable for the modeling program to tessellate general polygons to simpler polygons before sending them to RenderMan to ensure consistency.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="600" loading="lazy" src="../../attachments/542212981/buddha.jpg" data-image-src="../../attachments/542212981/buddha.jpg" data-height="960" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="542213002" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="buddha.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542212981" data-linked-resource-container-version="1" data-media-id="af033dac-0592-43c0-9425-ee12807f6a8c" data-media-type="file"></span><h3 id="Polygons-Considerations">Considerations</h3><p>Polygons are very efficient in RenderMan, particularly when using polyhedron representations where vertices are shared by multiple polygons. By the use of compression techniques, the renderer can render billions upon billions of polygons in a reasonable amount of memory. Because of this efficiency, polygons are an excellent choice for very detailed surfaces, particularly hard geometry with sharp angles such as buildings.</p><p><strong>Smooth Surfaces</strong></p><p>However, when rendering smooth, organic surfaces such as human characters, one may require a large number of polygons in order to create a smooth surface; otherwise, undesirable artifacts such as faceting may be visible. This problem may be improved by using smoothed normals, which reduce the appearance of facets. Unfortunately, smoothed normals will not help silhouette edges; if the profile of the geometry has an angular appearance, only the addition of more polygons will smooth out the edge. In such cases, the use of <a href="542213016-Subdivision Surfaces.html" rel="nofollow">subdivision surfaces</a> may be preferable because they always have a smooth appearance; however, subdivision surfaces come at an additional cost in memory and time. Polygonal meshes that obey a few constraints can be easily converted into subdivision surfaces.</p><p><strong>Texturing</strong></p><p>Polygonal meshes, by their nature, do not have a well-defined default parameterization; without additional UV or texture coordinates, texturing a raw polygon mesh can be difficult. Workflows to create UV coordinates for polygonal meshes using UV editors are well established; other workflows for texturing polygons that do not require UV coordinates, including 3D projections, or the use of <a href="542224432-PxrPtexture.html" rel="nofollow">PTex</a> or <a href="542225070-PxrTexture.html" rel="nofollow">UDIM</a> textures, also exist.</p><p><strong>Interpolation of variables</strong></p><p>The interpolation of variables attached to polygonal geometry is inherently ill-defined when dealing with polygons that have more than four sides. RenderMan tries to use interpolation schemes that are &quot;least surprising&quot;, but these schemes are still arbitrary and may also vary depending on whether the polygons are non-planar, concave, or have holes. These schemes may not be the same as those used by modeling or texture paint programs, so disagreements between the rendered result and texture preview may result. Generally, if these problematic polygons are large enough that the choice of interpolation leads to visual artifacts, it may be advisable to avoid them and ensure that the polygons sent to RenderMan have no more than four sides. Even on three or four-sided surfaces, the interpolation of smoothed normals on a large polygon face is a poor approximation of the actual behavior of normals on a smooth surface. For small polygon faces (coming from very detailed geometry), this problem is usually negligible.</p><p><strong>Displacement</strong></p><p>Special care must be taken when applying displacement to polygonal geometry. Without the use of smoothed normals, displacement in the direction of the surface normal will unavoidably tear the geometry at the faces leading to visible holes and cracks. Even with smoothed normals, care must be taken to ensure that the displacement function is consistent at face boundaries, especially when using large texture filter sizes. Specialized programs like ZBrush or Mudbox that generate texture maps for displacement on polygons take this into account.</p>
+  </article>
+</main>
+</body>
+</html>

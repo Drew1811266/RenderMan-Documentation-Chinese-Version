@@ -1,0 +1,86 @@
+{"item_id":"4f394728a7:0","text":"Dimensions"}
+{"item_id":"4f394728a7:1","text":"noise 的维度决定我们如何对发射 phasor waves 的 kernels 网格进行采样。对于地面平面或屏幕空间效果，选择 2D Flat。"}
+{"item_id":"4f394728a7:2","text":"inputManifold"}
+{"item_id":"4f394728a7:3","text":"右键插入一个 manifold，用于控制 PxrPhasorNoise"}
+{"item_id":"4f394728a7:4","text":"Dimensions"}
+{"item_id":"4f394728a7:5","text":"noise 的维度决定我们如何对发射 phasor waves 的 kernels 网格进行采样。对于地面平面或屏幕空间效果，选择 2D Flat。"}
+{"item_id":"4f394728a7:6","text":"Align Mode"}
+{"item_id":"4f394728a7:7","text":"使用 phaseAlign 或 directionAlign 参数时，alignMode 会设置 phasor alignment 的取向方式。例如，Cylindrical Z 会围绕 Z axis 创建环。"}
+{"item_id":"4f394728a7:8","text":"Frequency"}
+{"item_id":"4f394728a7:9","text":"phasor waves 的主 frequency。此 input 可连接。"}
+{"item_id":"4f394728a7:10","text":"Frequency Flatten"}
+{"item_id":"4f394728a7:11","text":"将 frequency 相对于 surface normal flatten（展平）。在 3D mode 下，phasor wave orientation 有时可能会以斜角穿过表面，导致感知到的 noise frequency 降低。此滑块会在 noise direction 与 surface normal 对齐时提高 frequency，以尝试补偿这种情况。"}
+{"item_id":"4f394728a7:12","text":"Shaping"}
+{"item_id":"4f394728a7:13","text":"Shaping Mode"}
+{"item_id":"4f394728a7:14","text":"Shaping Mode 选择应用到 phasor result 的 profile。Sine 和 cosine 会生成平滑的周期波。Pulse 和 pulse centered 会分别在周期中心的末端按 input width 生成实心阶跃函数。Gabor modes 表示此 noise 的 Gabor 版本，在 wave interference 区域的对比度低得多。Spline mode 允许使用 spline 控制 shaping。"}
+{"item_id":"4f394728a7:15","text":"Shaping Soften"}
+{"item_id":"4f394728a7:16","text":"使用此控制项尝试柔化 phasor wave interference 很多时出现的尖锐区域。增加 softening 会混入所选 shaping mode 的解析平均值。"}
+{"item_id":"4f394728a7:17","text":"Direction"}
+{"item_id":"4f394728a7:18","text":"Direction"}
+{"item_id":"4f394728a7:19","text":"设置 phasor waves 的初始 direction。此 input 可连接。如果 direction 在一个 phasor wave kernel 的尺寸范围内快速变化，可能会引入 warping artifacts。可尝试让 direction 变化更慢，或减小 kernels 之间的间距。"}
+{"item_id":"4f394728a7:20","text":"Direction Align"}
+{"item_id":"4f394728a7:21","text":"按 alignMode 设置的方式对齐 phasor waves 的 direction。可用它在 phasor wave noise 中创建 linear、cylindrical 或 spherical patterns。"}
+{"item_id":"4f394728a7:22","text":"Direction Jitter"}
+{"item_id":"4f394728a7:23","text":"对 phasor waves 的 direction 加入 jitter。此 jitter 是内置的，因此我们可以在 phasor wave kernel 和 impulse centers 处评估 noise，从而防止 warping artifacts。"}
+{"item_id":"4f394728a7:24","text":"Direction Jitter Frequency"}
+{"item_id":"4f394728a7:25","text":"directionJitter noise 的 frequency。"}
+{"item_id":"4f394728a7:26","text":"Direction Jitter Scale"}
+{"item_id":"4f394728a7:27","text":"directionJitter noise 在 XYZ 上的 scale。"}
+{"item_id":"4f394728a7:28","text":"Direction Rotate"}
+{"item_id":"4f394728a7:29","text":"用它围绕 surface normal 旋转 phasor noise direction。phasor noise 的 direction 有些反直觉：它定义的是 wave motion 的 direction，也就是与 wave crest 顶部正交的方向。此控制项允许以任意角度围绕 normal 摆动该 direction。"}
+{"item_id":"4f394728a7:30","text":"Direction Flatten"}
+{"item_id":"4f394728a7:31","text":"将 direction 相对于 surface normal flatten（展平）。在 3D mode 下，phasor wave orientation 有时可能会以斜角穿过表面，导致感知到的 noise frequency 降低。此滑块会将 direction 推向 tangents，以尝试补偿这种情况。"}
+{"item_id":"4f394728a7:32","text":"Phase Offset"}
+{"item_id":"4f394728a7:33","text":"Offset（偏移）phasor waves 的 phase。接入 time value 可以制作 flow effect 动画。"}
+{"item_id":"4f394728a7:34","text":"Phase Align"}
+{"item_id":"4f394728a7:35","text":"按 alignMode 设置的方式对齐 phasor waves 的 phase。可用它尝试减少 noise result 中的 perturbation amount。如果 wave direction 也在变化，或与 alignMode 差异很大，对齐 phase 可能没有帮助。"}
+{"item_id":"4f394728a7:36","text":"Kernel"}
+{"item_id":"4f394728a7:37","text":"Kernel Frequency"}
+{"item_id":"4f394728a7:38","text":"phasor wave kernel positions 的 base frequency。"}
+{"item_id":"4f394728a7:39","text":"Kernel Scale"}
+{"item_id":"4f394728a7:40","text":"phasor wave kernel positions 在 XYZ 上的 scale。"}
+{"item_id":"4f394728a7:41","text":"Kernel Neighbors"}
+{"item_id":"4f394728a7:42","text":"为卷积 phasor waves 而采样的近邻 kernel neighbors 数量。在 2D 中，会访问 (2n+1)^2 个相邻 kernels。在 3D 中，会访问 (2n+1)^3 个相邻 kernels。默认值为 2 时，2D 是 25 个 kernels，3D 是 125 个 kernels！更多 kernels 成本更高，但可能给出更平滑的结果。"}
+{"item_id":"4f394728a7:43","text":"Kernel Impulses"}
+{"item_id":"4f394728a7:44","text":"每个 phasor wave kernel 要采样的 impulses 数量。它们会随机散布在每个 phasor wave kernel grid cell 内，但 phase offsets 采用 uniform（均匀）分布。更多 impulses 成本更高。"}
+{"item_id":"4f394728a7:45","text":"Kernel Falloff"}
+{"item_id":"4f394728a7:46","text":"每个 phasor wave kernel 都有从中心开始的 cosine shaped falloff。此控制项是作用在 falloff 上的幂函数；减小会展平影响区域，增大会锐化影响区域。"}
+{"item_id":"4f394728a7:47","text":"Kernel Error"}
+{"item_id":"4f394728a7:48","text":"设置采样 kernels 时允许的 error 和 discontinuity 数量。为零时使用 cosine falloff，以确保没有 discontinuities；但当 kernel neighbors 较少且 kernel scale 被拉伸时，可能出现填满灰色的区域。增大到零以上会切换到 Gaussian falloff 来填补这些区域，但也可能沿 kernel cell grid 引入 discontinuities。"}
+{"item_id":"4f394728a7:49","text":"Octaves"}
+{"item_id":"4f394728a7:50","text":"Phasor Octaves"}
+{"item_id":"4f394728a7:51","text":"增加 phasor octaves 会在不同 frequencies 上添加 phasor wave impulses。使用此控制项可以在不影响 contrast 的情况下向 noise result 添加 texture。"}
+{"item_id":"4f394728a7:52","text":"Phasor Octave Scale"}
+{"item_id":"4f394728a7:53","text":"每个后续 phasor octave 的 frequency scale。"}
+{"item_id":"4f394728a7:54","text":"Phasor Octave Weight"}
+{"item_id":"4f394728a7:55","text":"每个后续 phasor octave 的 weight。"}
+{"item_id":"4f394728a7:56","text":"Phasor Octave Offset"}
+{"item_id":"4f394728a7:57","text":"每个后续 phasor octave 的 phase offset。"}
+{"item_id":"4f394728a7:58","text":"Phasor Octave Rotate"}
+{"item_id":"4f394728a7:59","text":"每个后续 phasor octave 围绕 surface normal 的 rotation。"}
+{"item_id":"4f394728a7:60","text":"Fractal Harmonic Mode"}
+{"item_id":"4f394728a7:61","text":"每个 fractal octave 和 harmonic octave 的组合 mode。这些 octaves 会在 phasor result 评估完成后于 amplitude space 中组合。"}
+{"item_id":"4f394728a7:62","text":"Fractal Octaves"}
+{"item_id":"4f394728a7:63","text":"增加 fractal octaves 会在不同 frequencies 上计算 phasor results，然后在 amplitude space 中组合。这些 octaves 很可能不会彼此对齐。"}
+{"item_id":"4f394728a7:64","text":"Fractal Octave Scale"}
+{"item_id":"4f394728a7:65","text":"每个后续 fractal octave 的 frequency scale。"}
+{"item_id":"4f394728a7:66","text":"Fractal Octave Weight"}
+{"item_id":"4f394728a7:67","text":"每个后续 fractal octave 的 weight。"}
+{"item_id":"4f394728a7:68","text":"Fractal Octave Offset"}
+{"item_id":"4f394728a7:69","text":"每个后续 fractal octave 的 phase offset。"}
+{"item_id":"4f394728a7:70","text":"Fractal Octave Rotate"}
+{"item_id":"4f394728a7:71","text":"每个后续 fractal octave 围绕 surface normal 的 rotation。"}
+{"item_id":"4f394728a7:72","text":"Harmonic Octaves"}
+{"item_id":"4f394728a7:73","text":"增加 harmonic octaves 会以精确的 2x、4x 等 frequency 计算 phasor results，然后在 amplitude space 中组合。这些 octaves 会彼此对齐。"}
+{"item_id":"4f394728a7:74","text":"Harmonic Octave Weight"}
+{"item_id":"4f394728a7:75","text":"每个后续 harmonic octave 的 weight。"}
+{"item_id":"4f394728a7:76","text":"Harmonic Octave Offset"}
+{"item_id":"4f394728a7:77","text":"每个后续 harmonic octave 的 phase offset。"}
+{"item_id":"4f394728a7:78","text":"Advanced"}
+{"item_id":"4f394728a7:79","text":"Filter Scale"}
+{"item_id":"4f394728a7:80","text":"此 noise 中的 filtering 基于每个 phasor wave impulse 的最终 frequency 和 direction，并会计算后应用到每个 fractal 与 harmonic octave。我们不能跳过进入 kernel loop 来节省计算时间，但 filtering 对 convergence 很有帮助。降低 filterScale 可以恢复 detail，代价是需要更多 iterations。"}
+{"item_id":"4f394728a7:81","text":"Adjust Output"}
+{"item_id":"4f394728a7:82","text":"Color Min"}
+{"item_id":"4f394728a7:83","text":"Color Max"}
+{"item_id":"4f394728a7:84","text":"Float Min"}
+{"item_id":"4f394728a7:85","text":"Float Max"}

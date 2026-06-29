@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>tractor-blade</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>tractor-blade</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/TRA/22184274/tractor-blade">https://rmanwiki-27.pixar.com/space/TRA/22184274/tractor-blade</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="document"><p>Tractor Blade is the remote execution server process that runs on each renderfarm host. The tractor-blade process on each host tracks basic system health metrics and previously launched Tractor tasks. It determines when it has capacity to accept new work, and then fetches a task definition from the central job queue and launches the specified commands. Tractor Blade then tracks the status of each launched app, there may be several running concurrently, and reports status and results. The Tractor system requires tractor-blade to be running on each compute server in order to distribute work to the farm.Usage:tractor-blade [options]</p><p><strong>Options:</strong></p><div class="table-wrap"><table class="confluenceTable"><thead><tr><th style="text-align: left;" class="confluenceTh">Option</th><th style="text-align: left;" class="confluenceTh">Description</th></tr></thead><tbody><tr><td class="confluenceTd">--version</td><td class="confluenceTd">show program's version information, then exit.</td></tr><tr><td class="confluenceTd"><span class="pre">-h,</span> <span class="pre">--help</span></td><td class="confluenceTd">show usage summary, then exit.</td></tr><tr><td class="confluenceTd">--engine=HOST[:port]</td><td class="confluenceTd">hostname[:port] where tractor-engine is running, default is tractor-engine - usually a DNS alias; default port is 80. If this option is not given, then the blade will also look for an environment variable named TRACTOR_ENGINE for a host:port specification. If neither explicit setting is given, then the blade will attempt to resolve the hostname &quot;tractor-engine&quot; through the local nameserver. If that name is <em>not</em> registered then the blade will make an <a class="external-link" href="https://renderman.pixar.com/resources/current/tractor/tractor_engine_configuration.html#engine-discovery" rel="nofollow" style="text-decoration: underline;">engine discovery</a> broadcast on the LAN to search for an available engine.</td></tr><tr><td class="confluenceTd"><span class="pre">-L</span> BPORT</td><td class="confluenceTd">port on which this blade listens for admin queries, default is 9005; use the value 0 (zero) to let the operating system pick an open port. The blade will regist the given port with the engine. Note that the port must be open through whatever firewall may be present on the blade host, so a fixed value like 9005 is better than a random value when firewalls are in use. A specific local network interface can selected by using '--listen=addr:port'</td></tr><tr><td class="confluenceTd">--hname=HOSTNAME</td><td class="confluenceTd">alternate name for the blade host, to be registered with the engine, and also sent to peers who may need to connect back. The default is the hostname derived from a reverse look up of the blade's address as seen by the engine. Use the special form --hname=. to cause the blade to use only the blade's own locally derived hostname.</td></tr><tr><td class="confluenceTd"><span class="pre">-v,</span> <span class="pre">--verbose</span></td><td class="confluenceTd">log level INFO and above.</td></tr><tr><td class="confluenceTd">--debug</td><td class="confluenceTd">log level DEBUG and above.</td></tr><tr><td class="confluenceTd">--trace</td><td class="confluenceTd">log level TRACE and above.</td></tr><tr><td class="confluenceTd">--warning</td><td class="confluenceTd">log level WARNING and above, the default.</td></tr><tr><td class="confluenceTd"><span class="pre">-q,</span> <span class="pre">--quiet</span></td><td class="confluenceTd">log level CRITICAL only.</td></tr><tr><td class="confluenceTd">--log=LOGFILE</td><td class="confluenceTd">tractor-blade activity log file, auto-rotated at 25MB.</td></tr><tr><td class="confluenceTd">--logrotate=NNN</td><td class="confluenceTd">specifies the log-rotation threshold, in megabytes</td></tr><tr><td class="confluenceTd">--logconfig=LOGCONFIG</td><td class="confluenceTd">external configuration file for the Python <a class="external-link" href="http://docs.python.org/library/logging.html#configuration-file-format" rel="nofollow" style="text-decoration: underline;">logging-module</a>, which is used internally by the blade for status about itself. Note that output from each Cmd launched by this blade is handled according to the <em>CmdOutputLogging</em>setting in blade.config - usually written to a network share.</td></tr><tr><td class="confluenceTd">--logenv</td><td class="confluenceTd">log the as-launched command line and environment for every command launched by the blade.</td></tr><tr><td class="confluenceTd">--cmdtee</td><td class="confluenceTd">copy the output of each launched command to the blade's own log, as well as writing to the per-task logs; typically only used for debugging blade actions.</td></tr><tr><td class="confluenceTd">--zone=ZONE</td><td class="confluenceTd">zone name for 'dirmap' indexing</td></tr><tr><td class="confluenceTd">--nimby=NAME</td><td class="confluenceTd">restrict jobs that this blade will execute; give a user name to accept only that user's jobs, or '1' to accept any job spooled from this blade's host.</td></tr><tr><td class="confluenceTd">--slots=SLOTS</td><td class="confluenceTd">max concurrent slot count; overrides the usual Capacity parameterMaxSlots set in blade.config; use '0' to set the slot count to the number of system CPU cores.</td></tr><tr><td class="confluenceTd">--daemon</td><td class="confluenceTd">(unix only) disconnects the blade process from the controlling terminal session and auto-backgrounds the blade process so it can run as a system daemon.</td></tr><tr><td class="confluenceTd">--supersede</td><td class="confluenceTd">allows a newly started blade process to gracefully take over from a still-running previous blade. The new blade sends a &quot;drain and exit&quot; message to the old blade, if one is still running on the same port, then it waits for the old one to exit before proceeding to become the new blade service. In drain mode, the old blade stops requesting new work from the engine and then exits when all tasks that it previously launched are complete.</td></tr><tr><td class="confluenceTd">--profile=NAME</td><td class="confluenceTd">specify a blade profile name from blade.config to use, skipping the usual matching criteria; intended for testing scenarios only.</td></tr><tr><td class="confluenceTd">--env=ENVFILE</td><td class="confluenceTd">filename of override environment settings for applications (e.g captured from printenv). Note: environment settings are usually defined using named EnvKeys collections in blade.config.</td></tr><tr><td class="confluenceTd">--pythonhome=PYTHONHOME</td><td class="confluenceTd">sets PYTHONHOME for Python programs launched by Tractor.</td></tr><tr><td class="confluenceTd">--ld_library_path=LDPATH</td><td class="confluenceTd">sets LD_LIBRARY_PATH for programs launched by Tractor.</td></tr><tr><td class="confluenceTd">--dyld_framework_path=PATH</td><td class="confluenceTd">sets LD_FRAMEWORK_PATH for programs launched by Tractor.</td></tr><tr><td class="confluenceTd">--no-sigint</td><td class="confluenceTd">begin task termination attempts with SIGTERM rather than SIGINT when interrupting active tasks (unix only)</td></tr><tr><td class="confluenceTd">--killdelay=SECS</td><td class="confluenceTd">time in seconds between escalation from SIGNINT to SIGTERM to SIGKILL, when sweeping active subprocesses (unix only)</td></tr><tr><td class="confluenceTd">--progresslimit=NSECS</td><td class="confluenceTd">throttle percent-done updates, waiting at least NSECS seconds between sends.</td></tr><tr><td class="confluenceTd">--startupdelay=SECS</td><td class="confluenceTd">delay before proceeding to blade startup actions, after service boot</td></tr><tr><td class="confluenceTd">--minsleep=MINSLEEP</td><td class="confluenceTd">minimum idle sleep interval, in seconds.</td></tr><tr><td class="confluenceTd">--maxsleep=MAXSLEEP</td><td class="confluenceTd">max idle sleep interval, in seconds.</td></tr></tbody></table></div></div>
+  </article>
+</main>
+</body>
+</html>

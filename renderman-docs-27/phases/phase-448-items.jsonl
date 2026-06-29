@@ -1,0 +1,52 @@
+{"id": "5c36dd59b761c3258965c2c211065a1cb86a1709519e979bb7c5396265ce957b", "item_id": "8e5ae75aad:0", "text": "Basic Setup in Katana"}
+{"id": "e21f0c2d445ca8dbe770b14cac70617d3f0697f36f9bb7bcee8ef3a048e278df", "item_id": "8e5ae75aad:1", "text": "Step 1:"}
+{"id": "394ad457e01d9636e3fbc61306dc68b117fa18d3bf7d8dea99dd136cd04b6466", "item_id": "8e5ae75aad:6", "text": "Add a"}
+{"id": "acf004f025e51a42a06aa267b18f6b3344ce604aaa27a5f4f3dcd617dc3cd59c", "item_id": "8e5ae75aad:26", "text": "PrmanDenoiseChannelDefine"}
+{"id": "66ca4fed5873396744642f091e42aeb189f2f6facda5091af4c81f242993d297", "item_id": "8e5ae75aad:4", "text": "node to create all the DisplayChannels required for the denoiser."}
+{"id": "e1005ce6127453db997d913f3c972acce0e8e747db681704b56e2419f236dc1f", "item_id": "8e5ae75aad:5", "text": "Step 2:"}
+{"id": "1f5256f7912482dc6493ddb7f3004276351de4d9d66351e303a6273a05403405", "item_id": "8e5ae75aad:23", "text": "PrmanDenoiseRenderOutputDefine"}
+{"id": "96ba6eeb3b793f1707f60f6896b6ed14e951cdabe15f961401f1296acc0dbe41", "item_id": "8e5ae75aad:8", "text": "node to output a multichannel OpenEXR file for the beauty pass. The file contains all the required denoise channels."}
+{"id": "d047c4de7067e5e6bef6f73c43eea2b4744f30eb91d113329b592d3205f695d2", "item_id": "8e5ae75aad:9", "text": "Set the renderLocation parameter to the location of your output image. The denoiser expects images to be in the form"}
+{"id": "e2154e3194a138f6242c78039a5f01898554c3535f0ba4bccf4fad796f87b0b9", "item_id": "8e5ae75aad:10", "text": "(ex."}
+{"id": "1d004c4e3652a94b579f2f01a41c29bcf8aef2e3642f10f4e2ce1aabfe8272b6", "item_id": "8e5ae75aad:11", "text": "). In Katana you can specify the number of digits in the frame number by the number of #s in the filename (ex."}
+{"id": "23b3f020b5d96e122105b17f73bd109158882e69fd5af5d9fed536503ab0ef7e", "item_id": "8e5ae75aad:12", "text": "would result in"}
+{"id": "4f47bbe8198b05880409b72ee6a9b26592d1b2380f286b2008b1622389a2587c", "item_id": "8e5ae75aad:13", "text": "Step 3:"}
+{"id": "b6f6f3ad07b3c05fa0bbbbf2e3d257ff1e3e31a83efbe2c9369cd008594f94e0", "item_id": "8e5ae75aad:14", "text": "Set"}
+{"id": "f3cf37f788b5c831402af2b44dd94e914f249d816c8f63cd75e5501c4b253f36", "item_id": "8e5ae75aad:15", "text": "pixelfiltermode"}
+{"id": "663ea1bfffe5038f3f0cf667f14c4257eff52d77ce7f2a218f72e9286616ea39", "item_id": "8e5ae75aad:16", "text": "to"}
+{"id": "d1ec49df3bf4c283a28f628b2d5770086702025a8932d72f43f1db527c1082ce", "item_id": "8e5ae75aad:17", "text": "importance"}
+{"id": "3884152e38087e84965007ab69407621bf375ef4c3a6c3ebc3e78e69c2e49867", "item_id": "8e5ae75aad:18", "text": "if you changed it from the default. This is done in PrmanGlobalStatements."}
+{"id": "34ca6eead60bfe40b40c1f839801cb6b087e56d3db9626310e43bb8a7a45dc11", "item_id": "8e5ae75aad:19", "text": "Custom setup in Katana"}
+{"id": "86802e037e1371dca7c0e164d8a2c99b06dd41a8d5010b185a2b5cc97e7d94b7", "item_id": "8e5ae75aad:20", "text": "Both the"}
+{"id": "79d6f69d938bf5a8aab652ffe7232e609e73263ea2b2e6a76ac774eab3f8bf7a", "item_id": "8e5ae75aad:24", "text": "nodes are macros. You can command-click to see inside these macros and change settings if necessary."}
+{"id": "31bc3945f7bcb9b5bd85148d33e94186e3c531ba1156d644d228e80353165f13", "item_id": "8e5ae75aad:25", "text": "If your pipeline does not support multichannel EXRs, you can use separate RenderOutputDefine nodes to create an output for each channel defined in"}
+{"id": "26351b82985c47131a1704f3a04210350523e5fa61596e87a288cdc43e9901fa", "item_id": "8e5ae75aad:27", "text": ". Then use"}
+{"id": "a8a4933735440a4d6b8a4de4170e21806279ea2cea7c357ba69b0c73dcc8935a", "item_id": "8e5ae75aad:28", "text": "to combine the AOVs into a multichannel EXR. Use this merged multichannel EXR for the denoiser. Combined EXRs created with Katana's RenderOutputDefine merge will not work with the denoiser."}
+{"id": "32d35bbe3a3244c7c651982723c246a6a45a8f318f6f0e4d9c1997cac3bbf690", "item_id": "8e5ae75aad:29", "text": "On any RenderOutputDefine nodes you create for denoising, the type should be set to \"raw\" to avoid any post-processing by Katana. Then make sure"}
+{"id": "0f40de731e90ed6e9e90a0212b93d94027cdc7c65d26a13371835c5528499faf", "item_id": "8e5ae75aad:30", "text": "asrgba"}
+{"id": "b2dffe0540db46d924203d6a1b19b3b87367567096aeed5b147abec5ebb8a908", "item_id": "8e5ae75aad:31", "text": "is set off so that the channel names align with what the denoiser expects."}
+{"id": "dd888ff94e2899317c9b736dd33c202a16fefde2467205481d6fcd6aa530fd1a", "item_id": "8e5ae75aad:33", "text": "denoise_teapots.katana"}
+{"id": "ef420c69a3747e294d38ad2528b393dab5ac6fc8e406d0201a34a4479579c358", "item_id": "8e5ae75aad:34", "text": "example file in RfK's Examples directory to see how to set up denoising."}
+{"id": "c7165bdacf9aedea7f27696e9c5f2d5f3849ba7b13f026703f863089c119533d", "item_id": "8e5ae75aad:35", "text": "Running the Denoiser:"}
+{"id": "d2abf7a316ca669b3ab531493ece19bf7a2acddf2ad860e6e76c3af7b9a33af3", "item_id": "8e5ae75aad:36", "text": "There are several options available to denoise your Katana renders. RenderMan provides both a command line denoise tool called denoise_batch and a Denoise UI."}
+{"id": "b725b9381fb7bcea11e8388f1d1d617077a6fc693b50289f37c57e5eb8b34a01", "item_id": "8e5ae75aad:37", "text": "Option 1: RenderOutputDefine Script (Single Frame)"}
+{"id": "bf2a31f2f6afe7daa7573a5596cc0cacc2dc2a4a725e67fb8c6b827ce1515f60", "item_id": "8e5ae75aad:38", "text": "Create a RenderOutputDefine."}
+{"id": "66c259f6bff62d6af12ff8150165ac48c395ed480c568f277783c285d80da4d5", "item_id": "8e5ae75aad:39", "text": "Wire this node to the previous RenderOutputDefine node."}
+{"id": "7f3dba30ff220c0f0283a054c1d03da67b886d3fd9fc824306c181c63b8bf0b8", "item_id": "8e5ae75aad:40", "text": "Set the outputName to denoise_primary by typing that in."}
+{"id": "38b907cfad7c16a10d9ddf8a6c079e1654dd31a0abdb382b677a061e4570e6a1", "item_id": "8e5ae75aad:41", "text": "Set the type to script by selecting that option. This will cause the scriptInput parameter to show an error. Ignore that and move on to the next step."}
+{"id": "309a9a28a585258f9e29db2b795676caac15056acae4ec689a49542eb073c380", "item_id": "8e5ae75aad:42", "text": "Set the scriptInput to primary by selecting that option."}
+{"id": "9b6983cf1127280f2cba00fa0316ee80633617056fe52112a529e6dd775fd17f", "item_id": "8e5ae75aad:43", "text": "Set the scriptCommand to an expression."}
+{"id": "f780c4cc3278eaf90bdd5d66faf09b54c22d04145b1ca9c4b1a70b8949dcde56", "item_id": "8e5ae75aad:44", "text": "Then enter the expression"}
+{"id": "357afb64df4e855fa8fdf638d701987f3ad8e0fc358764311c1fb951a8fc75f0", "item_id": "8e5ae75aad:45", "text": "At this point, the Render node that comes after this should have two outputs: primary (raw) and denoise_primary (script - runs on primary)."}
+{"id": "3ec1ee95963576b28f2820b60c12fa485be18857d4a7056a3bd26f5ae8bf6ce8", "item_id": "8e5ae75aad:46", "text": "When a Disk Render is done, the original image will be in /tmp/katana/image.1.exr and the denoised image will be in /tmp/katana/denoised/image.1.exr."}
+{"id": "c164163bd2a087b3fc0f6ccac6d4382e34da6ae476c4af7372ec0deb2cd699da", "item_id": "8e5ae75aad:47", "text": "Option 2: command line (Crossframe or Single Frame)"}
+{"id": "6d238782cc3ded3e3fefc109641cfb5f0fd98f3d189f0bba8ad24126c54b9a23", "item_id": "8e5ae75aad:48", "text": "Render out your images with katana --batch or katana queue. Then run the following command:"}
+{"id": "d1031aa7894159bd9cfebebb0f25132783ce83b3bb287e8721cec88dd8306b3a", "item_id": "8e5ae75aad:50", "text": "Denoiser Command Line"}
+{"id": "52c39d24becfdf6b340725431bba96e6ce12a53b0d2d7733f449a8d219c28955", "item_id": "8e5ae75aad:60", "text": "documentation for more information on the settings available."}
+{"id": "1416df0275930bbc0b2c7a7bdd6ce4ea1922918c17852bf358ede1e4ee0f842a", "item_id": "8e5ae75aad:52", "text": "Option 3: Denoise UI (Crossframe or Single Frame)"}
+{"id": "62e6c5cd15bd94e858171124fcb186739e63182ffaacd9a035f4323270b19221", "item_id": "8e5ae75aad:53", "text": "Render your images out of Katana as a disk or batch render."}
+{"id": "a18f16a7c8e3a74e5e6bff65bf589f286cfcf26b8a380de5689bdad225de7d48", "item_id": "8e5ae75aad:54", "text": "The PRMan 25 shelf has a script called RenderMan Denoiser. Run this script to launch the Denoise UI. You can also access the UI directly from"}
+{"id": "22bbbf0a9c704c5aa9e9feeaf6e61b06b569287d69ac221451543acccaee04d6", "item_id": "8e5ae75aad:55", "text": "In the UI, select \"Add Directory...\" and choose the directory containing the images you have rendered out of Katana."}
+{"id": "8554fed93be7c99cf4dc83e7597c86dcd497458ec9def2b70118f58d7e80f7dc", "item_id": "8e5ae75aad:56", "text": "Next select folder icon next to choose the directory your denoised images will be saved in."}
+{"id": "afeba61b74327f86e1cce0a8f1400c08de6a2105921cbb660a186d1c550d2e3f", "item_id": "8e5ae75aad:57", "text": "Hit \"start\" to begin denoising."}
+{"id": "b2f3e19ab63c6d6127691c954da873d942d1ac50d86eccd1bd8f855e04fe4e62", "item_id": "8e5ae75aad:59", "text": "Denoiser UI"}

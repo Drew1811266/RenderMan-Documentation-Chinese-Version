@@ -1,0 +1,93 @@
+{
+  "phase": 672,
+  "file": "RU/657162522-RazorBack Displacement.html",
+  "file_id": "995567e991",
+  "source_items": 6,
+  "translation_rows": 6,
+  "source_items_match_translation_rows": true,
+  "duplicate_rows": [],
+  "missing_item_ids": [],
+  "extra_item_ids": [],
+  "tag_fingerprint_identical": true,
+  "rendered_markup_matches_target_markup": true,
+  "glossary_violations": [],
+  "direct_placement_missing": [],
+  "actionable_long_source_residuals": [],
+  "accepted_long_source_residuals": [],
+  "actionable_ascii_heavy_residuals": [],
+  "accepted_ascii_heavy_residuals": [
+    {
+      "item_id": "995567e991:0",
+      "text": "Lookdev 中第一个关键步骤，是设置从 ZBrush 到 RenderMan 的 displacement output，以最小化 ZBrush 与 RenderMan 之间的 frequency loss。细致的 displacement setup 会将每张 map 的 levels of detail 分类为 primary、secondary 和 tertiary。",
+      "ascii_letters": 126,
+      "cjk_chars": 34
+    },
+    {
+      "item_id": "995567e991:1",
+      "text": "每张 map 都以 average gray value 0.5 导出，然后在 RenderMan 的 PxrDispTransform node 中居中，以防止 model distortion。这确保 0.5 的 value 不会发生 displacement。",
+      "ascii_letters": 80,
+      "cjk_chars": 24
+    },
+    {
+      "item_id": "995567e991:2",
+      "text": "PxrDispScalarLayer 可以对每张 map 进行 precise control，并根据 PxrDisplace 的 intensity 做调整。",
+      "ascii_letters": 55,
+      "cjk_chars": 14
+    },
+    {
+      "item_id": "995567e991:3",
+      "text": "此外，使用低 value 的 PxrBump 会叠加 displacement maps，从而恢复 map exports 期间丢失的一些 volume frequencies。",
+      "ascii_letters": 55,
+      "cjk_chars": 20
+    },
+    {
+      "item_id": "995567e991:4",
+      "text": "primary displacement map 从 Kurtis model 的 ZBrush Subdiv 3 导出，在 topology 中保留必要 bake information，以准确转写所有 displacement data。secondary map 从 Mari 导出，通过 color variations 显示 volume 的变化。",
+      "ascii_letters": 121,
+      "cjk_chars": 27
+    },
+    {
+      "item_id": "995567e991:5",
+      "text": "最后，tertiary map 使用在 Substance Painter 中创建的 mask 生成，然后导入 Nuke 进行 blending，并创建额外 volume variations。这个 process 包括使用 High-pass filter 增强 map，并利用 expression nodes 引入 dead skin 和 minor breaks 等 small details。",
+      "ascii_letters": 129,
+      "cjk_chars": 37
+    }
+  ],
+  "required_phrase_missing": [],
+  "section_order_positions": [
+    {
+      "pattern": "Lookdev",
+      "position": 1909
+    },
+    {
+      "pattern": "ZBrush",
+      "position": 1931
+    },
+    {
+      "pattern": "PxrDispTransform",
+      "position": 2158
+    },
+    {
+      "pattern": "PxrDispScalarLayer",
+      "position": 2246
+    },
+    {
+      "pattern": "PxrBump",
+      "position": 2349
+    },
+    {
+      "pattern": "ZBrush Subdiv 3",
+      "position": 2472
+    },
+    {
+      "pattern": "Substance Painter",
+      "position": 2637
+    },
+    {
+      "pattern": "High-pass filter",
+      "position": 2730
+    }
+  ],
+  "section_order_ok": true,
+  "passed": true
+}

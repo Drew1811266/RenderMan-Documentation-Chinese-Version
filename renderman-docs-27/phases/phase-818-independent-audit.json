@@ -1,0 +1,623 @@
+{
+  "phase": 818,
+  "file": "TRA/22184316-Engine.html",
+  "file_id": "86300096cd",
+  "source_items": 106,
+  "translation_rows": 106,
+  "source_items_match_translation_rows": true,
+  "duplicate_rows": [],
+  "missing_item_ids": [],
+  "extra_item_ids": [],
+  "tag_fingerprint_identical": true,
+  "rendered_markup_matches_target_markup": true,
+  "glossary_violations": [],
+  "direct_placement_missing": [],
+  "actionable_long_source_residuals": [],
+  "accepted_long_source_residuals": [
+    {
+      "item_id": "86300096cd:1",
+      "source": "site override directory"
+    },
+    {
+      "item_id": "86300096cd:20",
+      "source": "MaxConcurrentDispatch"
+    },
+    {
+      "item_id": "86300096cd:22",
+      "source": "EngineWorkerThreads"
+    },
+    {
+      "item_id": "86300096cd:24",
+      "source": "TractorDataDirectory"
+    },
+    {
+      "item_id": "86300096cd:30",
+      "source": "EngineLogVerbosity"
+    },
+    {
+      "item_id": "86300096cd:39",
+      "source": "SiteCmdLogServerStartup"
+    },
+    {
+      "item_id": "86300096cd:41",
+      "source": "SiteCmdLogRetrievalURL"
+    },
+    {
+      "item_id": "86300096cd:51",
+      "source": "Order is important"
+    },
+    {
+      "item_id": "86300096cd:53",
+      "source": "SiteContentTypeMap"
+    },
+    {
+      "item_id": "86300096cd:55",
+      "source": "SiteMaxListReplyCount"
+    },
+    {
+      "item_id": "86300096cd:57",
+      "source": "JobScriptQuotingMode"
+    },
+    {
+      "item_id": "86300096cd:64",
+      "source": "Active Task Count Leveling"
+    },
+    {
+      "item_id": "86300096cd:76",
+      "source": "SiteHttpOriginAccess"
+    },
+    {
+      "item_id": "86300096cd:88",
+      "source": "InitialJobLoadProgressLog"
+    },
+    {
+      "item_id": "86300096cd:90",
+      "source": "LogLongRunningRequests"
+    },
+    {
+      "item_id": "86300096cd:103",
+      "source": "eve@buyandlarge.com"
+    }
+  ],
+  "actionable_ascii_heavy_residuals": [],
+  "accepted_ascii_heavy_residuals": [
+    {
+      "item_id": "86300096cd:0",
+      "text": "tractor.config 文件包含 configuration parameters，用于控制中央 tractor-engine process 本身的 basic start-up behavior，以及许多 basic scheduling policy settings。通常，此文件只需要极少数 override changes，而且只需要把这些少量 changes 作为一个小型 tractor.config file 复制到",
+      "ascii_letters": 144,
+      "cjk_chars": 47
+    },
+    {
+      "item_id": "86300096cd:1",
+      "text": "site override directory",
+      "ascii_letters": 21,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "86300096cd:3",
+      "text": "EngineOwner",
+      "ascii_letters": 11,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "86300096cd:4",
+      "text": "EngineOwner 是 login name，会成为 tractor-engine process、其 data files 以及其 child processes（例如 job database server）的 owner。如果该 parameter 缺失或设置为空 string，那么 tractor-engine 会以启动它的 user-id 运行。这种 inherited user mode 对 testing 很有用；当 engine 作为 system service 运行且 login identity 预期通过 service definition 从外部设置时，这种方式也合理。如果这里给出 non-empty value，则必须由该 user 启动 engine，或者由 root 启动 engine，并在获取 listener ports 后由 engine setuid 到给定 owner name。出于 security reasons，这里给出的 value 不能是 root；如果 setting 为空，engine 也不会继续以 root 身份运行（database server 也会单独强制执行此 policy）。建议 studios 专门创建一个 login account，用作 engine process 的 owner ID，主要用于封装所需 permissions model。某些情况下也可以使用已有 \"service\" accounts 或 nobody，但应避免这样做，以免产生 conflicts 和 confusion。",
+      "ascii_letters": 414,
+      "cjk_chars": 164
+    },
+    {
+      "item_id": "86300096cd:5",
+      "text": "ListenerPort",
+      "ascii_letters": 12,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "86300096cd:6",
+      "text": "ListenerPort 是 engine 用于接受来自 web-browsers、blades 和 spoolers 的 client requests 的 TCP/UDP service port。指定的 port value 不得被其他 application（例如 webserver）占用，必须能被 site network 上其他 hosts 访问，并且 engine process 的 owner 必须有权限使用它。",
+      "ascii_letters": 137,
+      "cjk_chars": 42
+    },
+    {
+      "item_id": "86300096cd:7",
+      "text": "80 是 clients 连接 engine 时使用的 built-in default value。如果你在这里选择不同 value，则你",
+      "ascii_letters": 37,
+      "cjk_chars": 19
+    },
+    {
+      "item_id": "86300096cd:9",
+      "text": "同时在 TRACTOR_ENGINE environment variable 或 blades 和 spoolers 的 --engine parameter、tq sessions，以及 Dashboard browsers 和 admin scripts 的每个 URL connection 中提供该 value。关于 small networks 上的替代方式，另请参见下面关于 EngineDiscovery 的 comments；关于 large networks，请参见 ListenBacklog setting。",
+      "ascii_letters": 187,
+      "cjk_chars": 38
+    },
+    {
+      "item_id": "86300096cd:10",
+      "text": "通常，ListenerPort 是一个简单 integer port number，例如 80。",
+      "ascii_letters": 29,
+      "cjk_chars": 9
+    },
+    {
+      "item_id": "86300096cd:11",
+      "text": "或者，也可以指定完整的 \"interface and port\" pair，使 engine 只监听给定 network interface，而不是监听所有 interfaces。使用 quoted string（例如 localhost:8181 或 10.0.0.1:80）指定 interface+port pair。interface 部分可用 dotted-quad notation，也可以是可解析 hostname。",
+      "ascii_letters": 125,
+      "cjk_chars": 41
+    },
+    {
+      "item_id": "86300096cd:12",
+      "text": "EngineDiscovery",
+      "ascii_letters": 15,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "86300096cd:13",
+      "text": "EngineDiscovery 控制 engine 在 LAN 上对其 listener address 的 advertisement，用于替代可用 DNS 或其他 nameserver。Tractor components 可以使用 lightweight multicast discovery scheme（UPnP SSDP functionality 的一个 subset）相互发现。可能的 settings 包括：",
+      "ascii_letters": 152,
+      "cjk_chars": 32
+    },
+    {
+      "item_id": "86300096cd:14",
+      "text": "empty json string \"\" 会告诉 engine disable multicast announcements；对于希望减少 network chatter 的 large sites，这可能是理想设置。",
+      "ascii_letters": 74,
+      "cjk_chars": 18
+    },
+    {
+      "item_id": "86300096cd:15",
+      "text": "@ 会告诉 engine 始终 multicast，并广告 engine 自己通过 command-line parameters 和 introspection 获得的 IP address 与 port；此 setting 适合希望尽量减少 configuration efforts，并确保 discovery services 始终开启的 small studios。",
+      "ascii_letters": 124,
+      "cjk_chars": 34
+    },
+    {
+      "item_id": "86300096cd:16",
+      "text": "tractor-engine 或其他 hostname 会启用 \"multicast if unknown\" mode。只有在给定 hostname UNKNOWN 时，engine 才会发送 announcements。也就是说，如果你的 nameserver（DNS、AD、LDAP、/etc/hosts）已经能 resolve 给定 name，就不会使用这些 multicast discovery packets。此 setting 会为已经有 \"tractor-engine\" hostname alias 的 studios 避免 multicast traffic，同时为没有其他 configuration changes 的 small sites 提供 discovery。",
+      "ascii_letters": 235,
+      "cjk_chars": 55
+    },
+    {
+      "item_id": "86300096cd:18",
+      "text": "LicenseLocation",
+      "ascii_letters": 15,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "86300096cd:19",
+      "text": "Tractor 会通过检查与其他 Pixar applications 相同的 license file locations 来查找 licensing information。它期望在 main Pixar application directory 的 root 中找到 file pixar.license，该 directory 被假定为 app-specific install location 的 parent directory。如果 site 需要除此之外的 special behavior，administrators 可以使用 environment variable PIXAR_LICENSE_FILE 指定 license information，或使用 LicenseLocation 显式命名 file 或 license server。只有当 shared locations 不可用时，才使用这里的某个 setting。",
+      "ascii_letters": 303,
+      "cjk_chars": 66
+    },
+    {
+      "item_id": "86300096cd:20",
+      "text": "MaxConcurrentDispatch",
+      "ascii_letters": 21,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "86300096cd:21",
+      "text": "默认情况下，engine 会消耗所有 available Tractor license seats，并用该 value 决定 render farm 上可启动的 concurrent processes 数量。你可以在这里指定 maximum，限制给定 tractor-engine 使用的 concurrent dispatches 数量（以及 license seats 数量）。这通常只在 testing 时有用，例如 test engine 应相对于 main production engine 限制 license usage。使用 number zero 表示 \"use all available\" seats。",
+      "ascii_letters": 199,
+      "cjk_chars": 63
+    },
+    {
+      "item_id": "86300096cd:22",
+      "text": "EngineWorkerThreads",
+      "ascii_letters": 19,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "86300096cd:23",
+      "text": "EngineWorkerThreads 设置 thread 总数，这些 threads 会在 engine process 内的若干 roles 之间分配。它们通常用于 high-latency I/O operations，例如写入 client transaction sockets。Thread parallelism 允许 dispatching 和 UI operations 在对先前 requests 的 replies 送达期间继续进行。由于这些 threads 主要用于 latency-hiding，它们通常不会消耗大量 CPU。注意，除了这里给出的 \"worker\" pool count，engine 还会分配若干其他必需 subsystem threads。这个 count 会预先分配给几个主要 internal worker thread pools，典型 operating value 为 10 + (number_of_blades / 100)。使用 value zero 可让 engine 只根据 engine core count 选择 default。",
+      "ascii_letters": 307,
+      "cjk_chars": 103
+    },
+    {
+      "item_id": "86300096cd:24",
+      "text": "TractorDataDirectory",
+      "ascii_letters": 20,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "86300096cd:25",
+      "text": "Tractor data directory 至少包含两类不同 subdirectories。psql/ subdirectory 保存 users spool 进来的 jobs，以及有关其 progress 的 checkpointed information。user/ subdirectory 保存与每个 Tractor user 相关的 files，主要是 dashboard configuration settings。",
+      "ascii_letters": 157,
+      "cjk_chars": 30
+    },
+    {
+      "item_id": "86300096cd:26",
+      "text": "data directory 中的所有 files 都应视为 important assets。它们应纳入 regular back-ups。tractor engine 在能以 high-bandwidth、low-latency 访问该 directory 中 files 时性能最好。",
+      "ascii_letters": 97,
+      "cjk_chars": 25
+    },
+    {
+      "item_id": "86300096cd:27",
+      "text": "默认 value 是 /var/spool/tractor。",
+      "ascii_letters": 20,
+      "cjk_chars": 3
+    },
+    {
+      "item_id": "86300096cd:28",
+      "text": "EngineLogFile",
+      "ascii_letters": 13,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "86300096cd:29",
+      "text": "EngineLogFile`` 指定 engine 自身 diagnostic logs 使用的 log filename。使用 empty string \"\" 可让 logging 打印到 terminal。默认是记录到 data directory 中的 ``engine.log。${TractorDataDirectory} 用于指定 data directory path；如果 data directory changed，它也会相应调整。",
+      "ascii_letters": 149,
+      "cjk_chars": 35
+    },
+    {
+      "item_id": "86300096cd:30",
+      "text": "EngineLogVerbosity",
+      "ascii_letters": 18,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "86300096cd:31",
+      "text": "EngineLogVerbosity 指定 log severity level threshold。Recognized values 按 verbosity 递增顺序为：SEVERE、NOTICE、INFO、DEBUG 和 TRACE。默认 value 为 NOTICE。",
+      "ascii_letters": 105,
+      "cjk_chars": 12
+    },
+    {
+      "item_id": "86300096cd:32",
+      "text": "Command Logging（命令输出日志）",
+      "ascii_letters": 14,
+      "cjk_chars": 6
+    },
+    {
+      "item_id": "86300096cd:33",
+      "text": "下面的一些 parameters 用于存储和检索 tractor 启动的 commands 的 output。某些 values 可以指定一个",
+      "ascii_letters": 37,
+      "cjk_chars": 24
+    },
+    {
+      "item_id": "86300096cd:34",
+      "text": "template string（模板字符串）",
+      "ascii_letters": 14,
+      "cjk_chars": 5
+    },
+    {
+      "item_id": "86300096cd:35",
+      "text": "，其中可包含如下 substitution patterns：",
+      "ascii_letters": 20,
+      "cjk_chars": 7
+    },
+    {
+      "item_id": "86300096cd:36",
+      "text": "%u 表示 job owner 作业所有者的 login 登录名（userid，string）",
+      "ascii_letters": 26,
+      "cjk_chars": 11
+    },
+    {
+      "item_id": "86300096cd:37",
+      "text": "%j 表示 job id 作业编号（integer）",
+      "ascii_letters": 13,
+      "cjk_chars": 6
+    },
+    {
+      "item_id": "86300096cd:38",
+      "text": "%t 表示 task id 任务编号（integer）",
+      "ascii_letters": 14,
+      "cjk_chars": 6
+    },
+    {
+      "item_id": "86300096cd:39",
+      "text": "SiteCmdLogServerStartup",
+      "ascii_letters": 23,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "86300096cd:40",
+      "text": "SiteCmdLogServerStartup 指定 engine 启动时应如何自动启动 python logging server。使用 empty string 表示 engine 不应启动 log server。默认 value 为 empty string。",
+      "ascii_letters": 90,
+      "cjk_chars": 23
+    },
+    {
+      "item_id": "86300096cd:41",
+      "text": "SiteCmdLogRetrievalURL",
+      "ascii_letters": 22,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "86300096cd:42",
+      "text": "SiteCmdLogRetrievalURL 会发送给 UIs，为它们提供一个用于 retrieve command output logs 的 URL。",
+      "ascii_letters": 53,
+      "cjk_chars": 14
+    },
+    {
+      "item_id": "86300096cd:43",
+      "text": "某些 site configurations 允许 UIs 直接从存储 logs 的 fileserver fetch 这些 logs，例如另一个 webserver（如 Apache）可直接访问 log files 时。默认情况下，tractor-engine 本身充当 webserver，把 log text 交付给 UI browser，前提是它能访问 actual output logs。blades 在 blade.config 中被告知 logs 放在哪里。默认情况下，engine 会启动一个简单 python log-receiver subprocess（见上面的 SiteCmdLogServerStartup），默认 blade.config 会指示 blades 连接到它进行 logging。在这种 scenario 中，如果 engine 提供 logs，则下面给出的",
+      "ascii_letters": 240,
+      "cjk_chars": 94
+    },
+    {
+      "item_id": "86300096cd:45",
+      "text": "URL 就足够；该 URL 不提及 host。已经连接到 engine 进行 UI service 的 UI 会获得该 URL，并使用同一个被 query 的 host 来 fetch URL。",
+      "ascii_letters": 47,
+      "cjk_chars": 28
+    },
+    {
+      "item_id": "86300096cd:47",
+      "text": "http://HOST",
+      "ascii_letters": 8,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "86300096cd:48",
+      "text": "prefix 来显式指定不同 host。默认 value 为 /tractor/cmd-logs/%u/J%j/T%t.log。",
+      "ascii_letters": 37,
+      "cjk_chars": 10
+    },
+    {
+      "item_id": "86300096cd:49",
+      "text": "SiteURLMap",
+      "ascii_letters": 10,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "86300096cd:50",
+      "text": "SiteURLMap 是 inbound URL resource prefixes 到 on-disk assets 的 mapping。这是一个简单 json list，由 string pairs 组成；每个 pair 的 first item 是 prefix，second item 是 location。",
+      "ascii_letters": 111,
+      "cjk_chars": 17
+    },
+    {
+      "item_id": "86300096cd:51",
+      "text": "Order is important（顺序很重要）",
+      "ascii_letters": 16,
+      "cjk_chars": 5
+    },
+    {
+      "item_id": "86300096cd:52",
+      "text": "，因为 prefixes 会按给定 order 测试，并使用第一个 matching prefix。未列出 prefixes 的 assets 会被假定在 /tractor/ 下面。",
+      "ascii_letters": 48,
+      "cjk_chars": 25
+    },
+    {
+      "item_id": "86300096cd:53",
+      "text": "SiteContentTypeMap",
+      "ascii_letters": 18,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "86300096cd:54",
+      "text": "SiteContentTypeMap 定义当加载 non-tractor files（如 image previews 或 log files）时，tractor 发送给 web browsers 的 HTTP Content-Type header。某些 sites 可能有 special browser plug-ins 或 registered helper applications；如果 Content-Type header 设置恰当，它们会自动显示特定 filetype。反之，如果 type 设置为 browser 不识别的内容，通常会允许 user 在下载 file 或启动自己选择的 application 之间选择。Tractor 还内置一个用于 common types 的 mappings table；如果 file extension 没有在这里显式列出，就会使用它。",
+      "ascii_letters": 246,
+      "cjk_chars": 90
+    },
+    {
+      "item_id": "86300096cd:55",
+      "text": "SiteMaxListReplyCount",
+      "ascii_letters": 21,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "86300096cd:56",
+      "text": "SiteMaxListReplyCount 会 truncate 发送给 dashboard 的 jobs 或 blades 数量，以限制 engine 创建 replies 所花 processing time，并避免某些 web browsers 在 parsing very large reply lists 时可能发生 javascript crashes。默认 value 为 2500。",
+      "ascii_letters": 134,
+      "cjk_chars": 29
+    },
+    {
+      "item_id": "86300096cd:57",
+      "text": "JobScriptQuotingMode",
+      "ascii_letters": 20,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "86300096cd:58",
+      "text": "Tractor 可以接受 Alfred job script format 的 job descriptions。Alfred 对 job script 中 nested strings 要求某些 quoting 和 escaping conventions（需要额外一层 escape characters）。Tractor 可以为了 legacy job generators 而遵循相同 conventions，也可以为 newer jobs 接受更简单 quoting style。使用 value alfred 表示 alfred compatibility，使用 value tractor 表示 simpler scheme。默认 value 为 tractor。",
+      "ascii_letters": 238,
+      "cjk_chars": 47
+    },
+    {
+      "item_id": "86300096cd:59",
+      "text": "JobSchedulingMode",
+      "ascii_letters": 17,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "86300096cd:60",
+      "text": "JobSchedulingMode 决定给 blade assignment 时考虑 tasks 的 order。",
+      "ascii_letters": 42,
+      "cjk_chars": 7
+    },
+    {
+      "item_id": "86300096cd:61",
+      "text": "P+FIFO 是把 available blades 分配给 jobs 的 default scheme；它总是选择 priority value 最高的 job，如果多个 jobs 具有相同 priority，则选择最早 spool 的那个。如果 available blades 多于第一个 job 中 runnable tasks 的数量，就会考虑下一个 job。",
+      "ascii_letters": 104,
+      "cjk_chars": 48
+    },
+    {
+      "item_id": "86300096cd:62",
+      "text": "P+RR 是一种简单的 \"Round-Robin\" scheme，用于考虑相同 priority 的 jobs。多个具有许多 ready tasks 的 jobs 可以 concurrently running，不过它倾向于 favor 带有 long-running tasks 的 jobs，因为这些 jobs 会在每个 subsequent turn 中 \"collect\" additional blades。production settings 中通常更推荐 \"ATCL\" modes。",
+      "ascii_letters": 157,
+      "cjk_chars": 46
+    },
+    {
+      "item_id": "86300096cd:64",
+      "text": "Active Task Count Leveling",
+      "ascii_letters": 23,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "86300096cd:65",
+      "text": "，首先按 strict priority 对 jobs 排序，然后在具有相同 priority 的 jobs block 内，优先把 available blades 分配给 active tasks 最少的 jobs。此 mode 倾向于给每个 job 分配大致相同数量的 blades，同时 favor older jobs 而不是 newly spooled ones。由于它保持大致 equal blade counts，带有 short-running tasks 的 jobs 会比拥有相同数量 long-running tasks 的 jobs 更早完成。",
+      "ascii_letters": 165,
+      "cjk_chars": 68
+    },
+    {
+      "item_id": "86300096cd:68",
+      "text": "类似，但当 waiting tasks 多于 blades 时，它处理 jobs 之间 blades \"even\" distribution 的方式不同。它添加了一种 round-robin component，倾向于随时间在 priority block 中的",
+      "ascii_letters": 76,
+      "cjk_chars": 32
+    },
+    {
+      "item_id": "86300096cd:70",
+      "text": "jobs 之间 equalize blade count。通常，P+ATCL favor oldest jobs，P+ATCL+RR favor 等待 blades 时间最长的 jobs。",
+      "ascii_letters": 64,
+      "cjk_chars": 11
+    },
+    {
+      "item_id": "86300096cd:71",
+      "text": "NOTE: 除 P+FIFO 以外的任何 scheduling mode 都会在 blade assignment 期间产生额外 computational expense，因此会在一定程度上降低 system throughput。observed effect 的 magnitude 会随 overall job load、farm size、task mix 和 engine host 而变化。默认 mode 为 P+FIFO。",
+      "ascii_letters": 145,
+      "cjk_chars": 36
+    },
+    {
+      "item_id": "86300096cd:72",
+      "text": "DispatchTiers",
+      "ascii_letters": 13,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "86300096cd:73",
+      "text": "queue 上的每个 job 都关联到一个 dispatching tier，通常只是 default tier。除了通常的 job priorities 和 current scheduling policy mode 之外，tiers 提供了一个额外 layer of control，用于控制 jobs dispatch 到 farm 的 order。具体来说，来自 high-valued tiers 的 jobs 会先于 low-valued tiers 的 jobs 被考虑。这种 abstract categorization 和 ordering 在若干情况下可能有用，但 tiers 通常在某种 wrangling \"crisis\"（无论大小）期间最有帮助。例如，可以把几个 important jobs 移到 higher tier，同时保持其 job priorities 不变，从而保留其 relative sorting。每个 tier 也可以在 Dashboard 中单独",
+      "ascii_letters": 265,
+      "cjk_chars": 108
+    },
+    {
+      "item_id": "86300096cd:75",
+      "text": "，因此可临时 suspend 或 enable 整组 jobs 的 dispatching。例如，可以暂停 general dispatching，同时允许一系列 administrative jobs 继续执行。目前 configurable tier attributes 非常简单，只有 group name 以及相对于其他 tiers 的 priority。future releases 中可能会提供 additional attributes 和 behaviors。Dashboard 也提供一些 controls，用于基于 tiers filtering 和 sorting jobs。下面显示 default tier configuration。",
+      "ascii_letters": 221,
+      "cjk_chars": 63
+    },
+    {
+      "item_id": "86300096cd:76",
+      "text": "SiteHttpOriginAccess",
+      "ascii_letters": 20,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "86300096cd:77",
+      "text": "SiteHttpOriginAccess 控制 Access-Control-Allow-Origin header line 的 outbound HTTP protocol reply value。此 setting 允许 engine-as-webserver 在 site 的 CORS policy restrictions 内工作。为方便使用，默认 value 是 *（asterisk）。使用 empty string 可 disable CORS-style sharing。此 setting 主要影响 Tractor Dashboard 在指定 log server hostname 与加载 Dashboard 本身所用 URL 中的 hostname 不同时 fetch command log files 的能力。默认值是 *。",
+      "ascii_letters": 261,
+      "cjk_chars": 49
+    },
+    {
+      "item_id": "86300096cd:78",
+      "text": "CmdAutoRetryAttempts 和 CmdRetryrcRetryAttempts",
+      "ascii_letters": 43,
+      "cjk_chars": 1
+    },
+    {
+      "item_id": "86300096cd:79",
+      "text": "CmdAutoRetryAttempts 和 CmdRetryrcRetryAttempts 控制 tractor-engine 对以 non-zero exit status 退出的 commands 自动 retry 的 attempts 数量。这些 automatic retries",
+      "ascii_letters": 110,
+      "cjk_chars": 15
+    },
+    {
+      "item_id": "86300096cd:81",
+      "text": "对经常因 temporary transient conditions 遇到 command failures 的 sites 是有用 workaround。",
+      "ascii_letters": 58,
+      "cjk_chars": 10
+    },
+    {
+      "item_id": "86300096cd:82",
+      "text": "在某些 job scripts 中，某些 RemoteCmds 会用 -retryc {5 17 84} option 标注，其中给出的 actual numbers 代表 launched app 的 known exit codes，这些 conditions warrant a retry。此情况下 retry attempts 的数量由下面的 CmdRetryrcRetryAttempts 控制。设置为 zero 可 disable retryrc retries，或设置为小 integer 以允许这些 retry attempts。",
+      "ascii_letters": 174,
+      "cjk_chars": 47
+    },
+    {
+      "item_id": "86300096cd:83",
+      "text": "CmdAutoRetryAttempts 用于控制未列在 Cmd 的 -retryrc option 中的 exit codes 的 automatic retries，或者在未指定 -retryrc 时，对任何 non-zero exit 的 automatic retries。设置为 zero 可 disable 这些 automatic retries，或设置为小 integer 以 globally force 这些 retries。",
+      "ascii_letters": 149,
+      "cjk_chars": 36
+    },
+    {
+      "item_id": "86300096cd:84",
+      "text": "在 unix-style platforms 上，因 SIGINT、SIGTERM 或 SIGKILL 而退出的 commands",
+      "ascii_letters": 46,
+      "cjk_chars": 8
+    },
+    {
+      "item_id": "86300096cd:86",
+      "text": "retry，因为这些 signals 几乎总是 deliberate external actions，意在实际 stop 给定 task 继续执行。在 Windows 上，中断 running subprocesses 的 requests 由 TerminateProcess call 处理；Windows blade 会使用 code \"-15\" 报告这些 exits，它类似于 SIGTERM，即不会触发 engine 中的 auto-retry。",
+      "ascii_letters": 142,
+      "cjk_chars": 44
+    },
+    {
+      "item_id": "86300096cd:87",
+      "text": "Default settings 默认设置如下所示。",
+      "ascii_letters": 15,
+      "cjk_chars": 8
+    },
+    {
+      "item_id": "86300096cd:88",
+      "text": "InitialJobLoadProgressLog",
+      "ascii_letters": 25,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "86300096cd:89",
+      "text": "initial start-up 时，engine 会从 job database 加载 previously spooled jobs，以继续 dispatch unfinished ones。加载这些 jobs 时，engine 可以在每加载 N 个 jobs 后向其 log 打印一条 DEBUG-level diagnostic。InitialJobLoadProgressLog 控制报告该 diagnostic 的 jobs 数量。将此 value 设置为 0 可 suppress 这些 log entries。默认 value 为 1000。",
+      "ascii_letters": 179,
+      "cjk_chars": 46
+    },
+    {
+      "item_id": "86300096cd:90",
+      "text": "LogLongRunningRequests",
+      "ascii_letters": 22,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "86300096cd:91",
+      "text": "此 setting 控制一些 additional engine debug-level diagnostics，相关对象是 long-waiting 和 long-running http requests。两个 parameter values 是 thresholds [WAIT, RUN]，当 inbound（或 internal）http request 超过给定 wait time 或 run time（单位 seconds）时，会触发 engine log 中的 diagnostic entries。使用 zero 可 disable 任一 check。",
+      "ascii_letters": 200,
+      "cjk_chars": 34
+    },
+    {
+      "item_id": "86300096cd:92",
+      "text": "ListenBacklog",
+      "ascii_letters": 13,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "86300096cd:93",
+      "text": "此 setting 是 connection count，用于控制为保存来自 TCP clients 的 unprocessed inbound \"connect\" requests 而分配的 storage amount。这些通常是来自 tractor-blades 和 Dashboards 的 HTTP requests。传统 SOMAXCONN compile-time value 对负载下的 modern web servers 来说太小，因此需要 run-time control。使用 value 0（zero）会使 tractor-engine 向 operating system 查询当前 configured maximum listen backlog。",
+      "ascii_letters": 235,
+      "cjk_chars": 49
+    },
+    {
+      "item_id": "86300096cd:94",
+      "text": "这些 operating system values 通常由 system administrators 在针对特定 studio usage case 仔细 tuning engine host 时配置。例如，",
+      "ascii_letters": 72,
+      "cjk_chars": 17
+    },
+    {
+      "item_id": "86300096cd:97",
+      "text": "注意，必须 restart engine 才能获取此 file 中 value 的 changes，或 changed system config values。此外，通常还需要其他 coordinated operating system tuning changes，例如 Linux 上的 /etc/sysctl.conf：",
+      "ascii_letters": 111,
+      "cjk_chars": 25
+    },
+    {
+      "item_id": "86300096cd:99",
+      "text": "SiteSMTPServer 和 SiteDefaultMainDomain",
+      "ascii_letters": 35,
+      "cjk_chars": 1
+    },
+    {
+      "item_id": "86300096cd:100",
+      "text": "site SMTP server 可供 Tractor 用于向你 site 的 administrators 发送 important messages，或在某些情况下完成 user account creation。它会通过 smtp protocol 连接到 SiteSMPTServer 指定的 host 来 deliver messages。它会把 SiteDefaultMainDomain 用作简单 usernames 的 email address suffix。例如，给定 userid 为 eve 且 domain 为 default empty string，则 mail delivery 会简单尝试在 smtp server 上使用 eve；如果 domain 指定为",
+      "ascii_letters": 232,
+      "cjk_chars": 59
+    },
+    {
+      "item_id": "86300096cd:101",
+      "text": "buyandlarge.com",
+      "ascii_letters": 14,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "86300096cd:102",
+      "text": "，则 recipient 将指定为",
+      "ascii_letters": 9,
+      "cjk_chars": 5
+    },
+    {
+      "item_id": "86300096cd:103",
+      "text": "eve@buyandlarge.com",
+      "ascii_letters": 17,
+      "cjk_chars": 0
+    }
+  ],
+  "required_phrase_missing": [],
+  "section_order_positions": [],
+  "section_order_ok": true,
+  "passed": true
+}

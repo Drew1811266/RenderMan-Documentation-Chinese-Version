@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lighting in Houdini</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Lighting in Houdini</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFH27/544644982/Lighting+in+Houdini">https://rmanwiki-27.pixar.com/space/RFH27/544644982/Lighting+in+Houdini</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<span class="confluence-embedded-file-wrapper image-left-wrapper"><img class="confluence-embedded-image image-left" loading="lazy" src="../../attachments/544644982/RenderMan_Bloom.jpg" data-image-src="../../attachments/544644982/RenderMan_Bloom.jpg" data-height="720" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="544644999" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Bloom.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544644982" data-linked-resource-container-version="1" data-media-id="cf1343e6-4aa6-417d-87da-ab8f67d54db6" data-media-type="file"></span><p><br/></p><p>Pixar Animation Studios 强大的灯光已经进入 Houdini；若要查看具体参数信息，请参阅 RenderMan <a class="external-link" href="https://renderman-26.refined.site/space/REN26/19661727/Lighting" rel="nofollow">文档</a>。</p><p><br/></p><p>为场景布光主要有三种方式：</p><ul><li><p>Analytic Lights（解析灯光） - 这是首选方式。它们在内存使用、灵活性和速度方面表现更好。它们的可见性只是针对 camera visibility（摄影机可见性）的简单开关。</p></li><li><p>Mesh Lights（网格灯） - 它们很适合使用任意形状进行 lighting（照明）。由于它们是 geometry（几何体），会占用更多内存，复杂形状也可能增加 noise（噪声）。它们可以像其他对象一样使用 visibility（可见性）：camera（摄影机）、shadow/transmission（阴影/透射）以及 indirect visibility（间接可见性）。</p></li><li><p>Emissive Surfaces（自发光表面） - 这类方式通常使用 constant bxdf 或 “glow” 参数来间接照亮场景。它效率较低，通常应避免使用，但对于把纹理贴图形式的 “lights”（灯）映射到未来风格对象和面板上，可能会有用！</p></li></ul>
+  </article>
+</main>
+</body>
+</html>

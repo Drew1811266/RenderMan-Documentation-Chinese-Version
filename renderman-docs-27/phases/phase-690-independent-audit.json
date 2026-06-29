@@ -1,0 +1,157 @@
+{
+  "phase": 690,
+  "file": "RU/657424439-Bakery Rendering.html",
+  "file_id": "ab222fe2a4",
+  "source_items": 17,
+  "translation_rows": 17,
+  "source_items_match_translation_rows": true,
+  "duplicate_rows": [],
+  "missing_item_ids": [],
+  "extra_item_ids": [],
+  "tag_fingerprint_identical": true,
+  "rendered_markup_matches_target_markup": true,
+  "glossary_violations": [],
+  "direct_placement_missing": [],
+  "actionable_long_source_residuals": [],
+  "accepted_long_source_residuals": [],
+  "actionable_ascii_heavy_residuals": [],
+  "accepted_ascii_heavy_residuals": [
+    {
+      "item_id": "ab222fe2a4:0",
+      "text": "Bakery 烘焙坊场景渲染流程（Rendering）",
+      "ascii_letters": 15,
+      "cjk_chars": 9
+    },
+    {
+      "item_id": "ab222fe2a4:1",
+      "text": "在 render settings 中定义 frame range、aspect ratio 和 render camera 后，就该判断哪种 sampling 能在 calculation time 与 image quality 之间提供最佳 compromise。也要记住，RenderMan Machine Learning Denoiser 会帮助减少 sampling noise。",
+      "ascii_letters": 137,
+      "cjk_chars": 30
+    },
+    {
+      "item_id": "ab222fe2a4:2",
+      "text": "在 Render Settings > RenderMan > AOVs tab 中，我们可以选择 compositing 所需的 settings。对于这个 scene，我创建了五个 main outputs：",
+      "ascii_letters": 65,
+      "cjk_chars": 21
+    },
+    {
+      "item_id": "ab222fe2a4:4",
+      "text": "- 用于 Denoise，并恢复 image 中各 layers 的 alpha。",
+      "ascii_letters": 23,
+      "cjk_chars": 8
+    },
+    {
+      "item_id": "ab222fe2a4:6",
+      "text": "- 包含与 asset materials 相关的 information。",
+      "ascii_letters": 25,
+      "cjk_chars": 6
+    },
+    {
+      "item_id": "ab222fe2a4:7",
+      "text": "灯光分组（Light Groups）",
+      "ascii_letters": 11,
+      "cjk_chars": 4
+    },
+    {
+      "item_id": "ab222fe2a4:8",
+      "text": "- 分别对应主光 Key light、天空 dome light 和门后 door light 这三类灯光。",
+      "ascii_letters": 26,
+      "cjk_chars": 16
+    },
+    {
+      "item_id": "ab222fe2a4:9",
+      "text": "数据输出（Data Outputs）",
+      "ascii_letters": 11,
+      "cjk_chars": 4
+    },
+    {
+      "item_id": "ab222fe2a4:10",
+      "text": "- Utility passes，用于在 post 中创建轻微 depth of field。",
+      "ascii_letters": 29,
+      "cjk_chars": 8
+    },
+    {
+      "item_id": "ab222fe2a4:11",
+      "text": "遮罩选择通道（Cryptomatte）",
+      "ascii_letters": 11,
+      "cjk_chars": 6
+    },
+    {
+      "item_id": "ab222fe2a4:12",
+      "text": "- 帮助选择 assets，以便在 Nuke 中修改。这通过 Sample Filters 实现，而不是通过 AOVs tab。",
+      "ascii_letters": 30,
+      "cjk_chars": 20
+    },
+    {
+      "item_id": "ab222fe2a4:13",
+      "text": "Optimization 还涉及创建 render layers。对于这张 image，glass windows 需要更多 samples 和 Max Specular Depths，才能让 light 正确 travel 并 sample 它们后方的 assets。因此，我把两个 windows 从 main set 中分离出来，以便 override Max Samples、Pixel Variance 和 Max Specular Depth。",
+      "ascii_letters": 149,
+      "cjk_chars": 40
+    },
+    {
+      "item_id": "ab222fe2a4:14",
+      "text": "最后，把 volumes 隔离到自己的 “FOG” layer 中，并将 set 制作成 matte object，会让 compositing 中的 integration 和修改更容易。Sampling 应该向下 override，始终以 optimization 为目标。",
+      "ascii_letters": 79,
+      "cjk_chars": 35
+    },
+    {
+      "item_id": "ab222fe2a4:16",
+      "text": "Tip：阅读 XMLs（位于 “project name, renderman, rib”）可以指导 optimization search。",
+      "ascii_letters": 48,
+      "cjk_chars": 8
+    }
+  ],
+  "required_phrase_missing": [],
+  "section_order_positions": [
+    {
+      "pattern": "Bakery 烘焙坊场景渲染流程",
+      "position": 1917
+    },
+    {
+      "pattern": "RenderMan Machine Learning Denoiser",
+      "position": 2092
+    },
+    {
+      "pattern": "Render Settings",
+      "position": 2158
+    },
+    {
+      "pattern": "美丽通道",
+      "position": 2291
+    },
+    {
+      "pattern": "光路表达式",
+      "position": 2378
+    },
+    {
+      "pattern": "灯光分组",
+      "position": 2461
+    },
+    {
+      "pattern": "数据输出",
+      "position": 2567
+    },
+    {
+      "pattern": "遮罩选择通道",
+      "position": 2666
+    },
+    {
+      "pattern": "render layers",
+      "position": 3644
+    },
+    {
+      "pattern": "FOG",
+      "position": 4738
+    },
+    {
+      "pattern": "batch render button",
+      "position": 4881
+    },
+    {
+      "pattern": "XMLs",
+      "position": 6008
+    }
+  ],
+  "section_order_ok": true,
+  "passed": true
+}

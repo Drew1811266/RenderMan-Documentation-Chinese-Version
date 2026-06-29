@@ -1,0 +1,34 @@
+{
+  "parentType": "page",
+  "parentId": "546177143",
+  "ownerId": "62462b56699649006ae7453f",
+  "lastOwnerId": null,
+  "createdAt": "2025-08-07T01:51:58.607Z",
+  "authorId": "62462b56699649006ae7453f",
+  "position": 4,
+  "version": {
+    "number": 4,
+    "message": "",
+    "minorEdit": false,
+    "authorId": "712020:a163a1ff-c9c1-4e30-8c12-91021183fde1",
+    "createdAt": "2025-10-30T21:03:12.959Z",
+    "ncsStepVersion": "2"
+  },
+  "spaceId": "544342019",
+  "status": "current",
+  "body": {
+    "view": {
+      "representation": "view",
+      "value": "<p>There were a few changes in RenderMan 25 that may affect backward compatibility rendering old scenes. Here is an overview of how to upgrade your scenes.</p><h3 id=\"UpgradingscenesfromRenderMan24to27-OutputPortNamingConvention\">Output Port Naming Convention</h3><p>In older versions of RfK, the output port on RenderMan plugins - bxdfs, lights, displacement, etc - were all named &quot;out&quot;.  In RenderMan 25, we standardized the output port names across different DCCs to make sure that USD materials could be imported and exported across DCC without any additional conversion.  So the names have changed to PLUGINTYPE_out - bxdf_out, displace_out, light_out, etc.  </p><h3 id=\"UpgradingscenesfromRenderMan24to27-LamaParameterNameChanges\">Lama Parameter Name Changes</h3><p>Some parameters on Lama nodes were changed in RenderMan 25. The parameters &quot;color&quot; and &quot;normal&quot; have been changed to be node-specific. For example, color is now diffuseColor on LamaDiffuse. This was done in preparation for making the nodes compatible with XPU in the future. </p><h3 id=\"UpgradingscenesfromRenderMan24to27-PxrSurfacesubsurfaceTypeDefault\">PxrSurface subsurfaceType Default</h3><p>The default value for PxrSurface parameter &quot;subsurfaceType&quot; changed from 0 (Jensen dipole diffusion) to 5 (expontial path-traced). </p><h3 id=\"UpgradingscenesfromRenderMan24to27-UpgradingMaterials\">Upgrading Materials</h3><p>To upgrade materials created within a katana file via NetworkMaterialCreate or PrmanShadingNode, you can run the shelf script from the PRMan 25 shelf called <strong>Update Shading Networks (24 → 25)</strong>. </p><p>Materials coming in via USD are upgraded on ingestion into katana via a RfK op that runs in UsdIn.  This op runs automatically. Once all usd files are updated to the new conventions, this op can be disabled via an environment variable  - RFK_DISABLE_USDIN_MATERIAL_OP.</p><p>For backwards compatibility with the PxrSurface default change, there is a new Option to preserve the old &quot;subsurfaceType&quot; default value: Option &quot;shade&quot; &quot;int subsurfaceTypeDefaultFromVersion24&quot; [0|1] This default is 0, ie. off -- that is, use the new &quot;subsurfaceType&quot; default by default.  In Katana, this parameter is not in PrmanGlobalStatements, but can be added via OpScript or AttributeSet.  The attribute name is &quot;prmanGlobalStatements.options.shade.subsurfaceTypeDefaultFromVersion24&quot; and it is an IntAttribute.</p>"
+    }
+  },
+  "title": "Upgrading scenes from RenderMan 24 to 27",
+  "id": "546177369",
+  "_links": {
+    "editui": "/pages/resumedraft.action?draftId=546177369",
+    "webui": "/spaces/RFK27/pages/546177369/Upgrading+scenes+from+RenderMan+24+to+27",
+    "edituiv2": "/spaces/RFK27/pages/edit-v2/546177369",
+    "tinyui": "/x/WQGOI",
+    "base": "https://renderman.atlassian.net/wiki"
+  }
+}

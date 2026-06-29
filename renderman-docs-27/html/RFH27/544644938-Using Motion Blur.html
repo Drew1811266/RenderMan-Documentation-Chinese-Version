@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Using Motion Blur</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Using Motion Blur</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFH27/544644938/Using+Motion+Blur">https://rmanwiki-27.pixar.com/space/RFH27/544644938/Using+Motion+Blur</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p local-id="958d806ff491" /><div class="confluence-information-macro confluence-information-macro-tip conf-macro output-block" data-hasbody="true" data-local-id="904471c269c7" data-macro-id="66ba899d-fe5a-4fb6-8501-5e5b89dc6fe6" data-macro-name="tip"><span class="aui-icon aui-icon-small aui-iconfont-approve confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p local-id="0e702e88d342">See Houdin's <a class="external-link" href="https://www.sidefx.com/docs/houdini/render/blur.html" rel="nofollow">Motion Blur</a> page for more information.</p></div></div><p local-id="f19371921287">To turn on motion blur, enable the RenderMan ROP's <strong>Properties | Motion Blur: Allow Motion Blur</strong>.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rfh_motionblur.png" width="776" loading="lazy" src="../../attachments/544644938/rfh_motionblur.png" data-image-src="../../attachments/544644938/rfh_motionblur.png" data-height="488" data-width="776" data-unresolved-comment-count="0" data-linked-resource-id="931659783" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfh_motionblur.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544644938" data-linked-resource-container-version="2" data-media-id="3da2af26-8e12-432c-8ae9-de2e1585927e" data-media-type="file"></span><p local-id="4888fc19cddb"><strong>Motion Blur Type</strong>: This option toggles the sampling of motion-blurred micropolygon in the hider, and is thus only meaningful if motion blur is being used in your scene. By default, this hider option is enabled (set to 1), meaning that micropolygons will be blurred and sampled in the hider. When disabled (set to 0), micropolygons will no longer be blurred before sampling; however, the dPdtime variable will still be computed for all objects. This variable can be output into a separate image using an arbitrary output variable (aov) and used to perform motion blur as a postprocess.</p><p local-id="8bfdd403732f"><strong>Xform Time Samples</strong>: Number of transformation blur motion samples for this object. When set to 0, the global parameter is used. Dial this up to output more motion segments for objects in order to create a smooth blur/motion path in the render. This would help curving motions stay curved as opposed to linear from one point to another, with enough samples</p><p local-id="33c8cdeb896f"><strong>Geo Time Samples</strong>:  Number of deformation blur motion samples for this object. When set to 0, the global parameter is used. Dial this up to output more samples for objects that deform in order to create a smooth motion path in the render. This would help curving motions stay curved as opposed to linear from one point to another, with enough samples</p><p local-id="95edcc54b6f0"><strong>Shutter Offset</strong>: An offset to be added to the global motion blur times.</p><p local-id="25c494e52610">If you need to render motion blur for simulated objects (breaking, falling, bouncing, particles, etc), you need to enable <strong>Geometry Velocity Blur</strong> on the object node. This provides the correct data to render motion blur and deformation blur in RenderMan for these objects. This is because changing topology requires special consideration for motion blur to work.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="900" loading="lazy" src="../../attachments/544644938/geometryvelblur.png" data-image-src="../../attachments/544644938/geometryvelblur.png" data-height="289" data-width="799" data-unresolved-comment-count="0" data-linked-resource-id="544644957" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="geometryvelblur.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544644938" data-linked-resource-container-version="2" data-media-id="76d19360-405a-4b1a-9dd4-36b9bb4c808a" data-media-type="file"></span><p local-id="1c0396497bf4" />
+  </article>
+</main>
+</body>
+</html>

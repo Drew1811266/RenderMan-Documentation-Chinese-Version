@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Windows License Server</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Windows License Server</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/REN27/542212629/Windows+License+Server">https://rmanwiki-27.pixar.com/space/REN27/542212629/Windows+License+Server</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>If you installed the License Server using the RenderMan Installer then you already have the pixar.license file you need in</p><p><sup>C:\Program Files\Pixar\pixar.license</sup></p><p>If you installed by downloading and running the .msi installer then after the installation run the Pixar LicenseApp, which is normally located here:</p><p><sup>C:\Program Files\Pixar\PixarLicense-LA-23.0\LicenseApp\bin\LicenseApp.exe</sup></p><p>This will help you download and install the license file for the license server. When LicenseApp discovers there is no license file it will look like:</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="600" loading="lazy" src="../../attachments/542212629/win_licapp_nolicense.png" data-image-src="../../attachments/542212629/win_licapp_nolicense.png" data-height="432" data-width="452" data-unresolved-comment-count="0" data-linked-resource-id="542212643" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="win_licapp_nolicense.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542212629" data-linked-resource-container-version="1" data-media-id="8ebcfd99-05fa-4133-a293-65009b6cb0b8" data-media-type="file"></span><p /><p>Click the &quot;Get License&quot; button to download a new license file for the license server. It will place this license file in:</p><p>C:\Program Files\Pixar\pixar.license</p><p /><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="d1eb22e8-112c-45df-8cb0-c0ebe9567840" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>Note that the default port used by the license server on Windows is 9010. Your administrator should be sure this port is not blocked/firewalled.</p></div></div><p /><p>If you do have a license, but the license server has not yet been started, RenderMan will report a license error:</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="3c512cbf-77eb-43a6-8e05-abf15987cfb5" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">R50005 {SEVERE}  License error - code 111:  connect Connection refused
+R50005 {CONTINUED} license source: 9010@mylicserver</pre>
+</div></div><p>If you then run the LicenseApp, it will likewise report that it was not able to run contact the license server.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="600" loading="lazy" src="../../attachments/542212557/licenseAppServerDown.png" data-image-src="../../attachments/542212557/licenseAppServerDown.png" data-height="521" data-width="529" data-unresolved-comment-count="0" data-linked-resource-id="542212575" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="licenseAppServerDown.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542212557" data-linked-resource-container-version="1" data-media-id="f7579382-b6cc-40cb-95c0-b5385aa7a728" data-media-type="file"></span><p>The LicenseApp is a useful tool for indicating the current state of your license server, it can be run on the client machines as well and will remotely query the server for the status.</p><p>When installing on Windows, the service is automatically installed and started by the installer.</p><h3 id="WindowsLicenseServer-StartingandStoppingtheLicenseServer">Starting and Stopping the License Server</h3><p>To start the license service, open the <strong>Start Menu</strong>, type <strong>Services</strong> and select the control panel for <strong>Services</strong>:</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="600" loading="lazy" src="../../attachments/542212629/ServicesWindows10.png" data-image-src="../../attachments/542212629/ServicesWindows10.png" data-height="520" data-width="392" data-unresolved-comment-count="0" data-linked-resource-id="542212649" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="ServicesWindows10.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542212629" data-linked-resource-container-version="1" data-media-id="51c9da3d-2684-49c2-8047-d52380c57f91" data-media-type="file"></span><p>The <strong>Services</strong> control panel will show all the services on Windows, find the one for the Pixar License Server 23.0:</p><p style="text-align: center;"> <span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/542212629/ServicesWindow.png" data-image-src="../../attachments/542212629/ServicesWindow.png" data-unresolved-comment-count="0" data-linked-resource-id="542212652" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="ServicesWindow.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542212629" data-linked-resource-container-version="1" data-media-id="c1902603-4d9f-4960-bb96-c789671e4459" data-media-type="file"></span></p><p>From this window you can start, stop, pause and restart the license service.</p><p>When the License Server is running correctly, the LicenseApp program will display information about license features and the counts:</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="600" loading="lazy" src="../../attachments/542212557/lin_licapp_withlicense.png" data-image-src="../../attachments/542212557/lin_licapp_withlicense.png" data-height="430" data-width="454" data-unresolved-comment-count="0" data-linked-resource-id="542212572" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="lin_licapp_withlicense.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542212557" data-linked-resource-container-version="1" data-media-id="5f02e820-c2b2-440e-ac3d-830687db15d4" data-media-type="file"></span><p>RenderMan and other plugins should then run as expected.</p><p /><p>The license server is installed, by default, in C:\Program Files\Pixar\PixarLicense-LA-&lt;version&gt; and contains the following components and scripts:</p><ol start="1"><li><p /><ul><li><p><strong>PixarLicenseServer </strong>- the license server program</p></li><li><p><strong>LicenseApp\bin\LicenseApp.exe </strong>- the license status application</p></li><li><p>queryPRMan.py - <span class="legacy-color-text-default">an example python script for querying the license server</span><br/><br/></p></li></ul></li></ol><p />
+  </article>
+</main>
+</body>
+</html>

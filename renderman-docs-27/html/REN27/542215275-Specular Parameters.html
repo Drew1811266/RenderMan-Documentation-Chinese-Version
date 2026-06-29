@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Specular Parameters</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Specular Parameters</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/REN27/542215275/Specular+Parameters">https://rmanwiki-27.pixar.com/space/REN27/542215275/Specular+Parameters</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="contentLayout2">
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="084cf294-be0b-4cf1-b151-676896ffc5ab" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>In the parameters below, some of them can be overridden by a <a href="/wiki/spaces/REN27/pages/542217837/PxrLayer" data-linked-resource-id="542217837" data-linked-resource-version="1" data-linked-resource-type="page">PxrLayer</a> when connected to the <strong>Input Material </strong>or through a <a href="/wiki/spaces/REN27/pages/542218974/PxrLayerMixer" data-linked-resource-id="542218974" data-linked-resource-version="1" data-linked-resource-type="page">PxrLayerMixer</a>. <a href="/wiki/spaces/REN27/pages/542216714/PxrLayerSurface" data-linked-resource-id="542216714" data-linked-resource-version="1" data-linked-resource-type="page">PxrLayerSurface</a> is designed to better illustrate which parameters are not able to be overridden in a layer by including only parameters that are global. We recommend this material when you know you will be layering. The results of these settings are unchanged.</p><ul><li><p><strong>Bold Face</strong> parameters are layerable, able to be overridden per layer.</p></li><li><p><em>Italicized</em> parameters are not able to be layered or overridden. These are globally obeyed for all layers. For example: Choosing GGX as a specular model will mean all layers will be GGX for that parameter.</p></li></ul></div></div><p><br/></p><p><span class="confluence-anchor-link conf-macro output-inline" data-hasbody="false" data-local-id="aa83d042-96b1-4998-81a1-d4c33fa6e9d7" data-macro-id="cd4c2fc4-2ca3-41bd-9c5d-d2f50ff481f4" data-macro-name="anchor" id="SpecularParameters-top"><span class="confluence-anchor-link" id="top"> </span></span></p><h3 id="SpecularParameters-SpecularandRoughSpecularParameters">Specular and Rough Specular Parameters </h3><p>The specular parameters control specular reflection. This is where you might define how shiny or reflective an object is. Is it plastic, a polished marble table, or  is it a mirror? The <strong>Rough Specular</strong> lobe below this has identical settings and effects.</p><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="683830d7-d5fa-49ba-996a-67656f52bfb2" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>There's also the option for <strong>Artistic</strong> and <strong>Physical</strong> controls. The Artistic controls allows you to manually alter the properties of the reflection to match your tastes. Using Physical (with provided presets) can provide you with a matching real-world response for those looking to duplicate reality without endless tweaking.</p></div></div><p><br/></p><p><em>Specular Model</em></p><p>Select which specular model to use: Beckmann or Ggx. Beckmann is useful for perfect mirrors and chrome-like materials. Ggx may be preferred for its &quot;tail&quot;, or how the highlight has a soft fade from the center reflection of a lightsource. Left is Beckmann and Right is GGX with roughness 0.25.</p><p><br/></p></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rman_pxrsurf_Beckmann.jpg" width="384" loading="lazy" src="../../attachments/542215275/rman_pxrsurf_Beckmann.jpg" data-image-src="../../attachments/542215275/rman_pxrsurf_Beckmann.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215388" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_Beckmann.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215275" data-linked-resource-container-version="1" data-media-id="ac1a9871-b632-4dac-91df-f17f86a1e7eb" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rman_pxrsurf_GGX.jpg" width="384" loading="lazy" src="../../attachments/542215275/rman_pxrsurf_GGX.jpg" data-image-src="../../attachments/542215275/rman_pxrsurf_GGX.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215385" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_GGX.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215275" data-linked-resource-container-version="1" data-media-id="38268526-c921-4501-bfd1-8506797c4351" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p style="text-align: center;"><br/></p><p><em>Specular Fresnel Mode</em></p><p>InArtisticmode, specular fresnel response will be controlled by its Face Color, Edge Color, and Fresnel Exponent.</p><p>InPhysicalmode, specular fresnel response will be controlled by its Refractive Index, Extinction Coefficient, and Edge Color.</p><p><strong> </strong><br/></p><p><strong>Face Color </strong> <em>(Artistic Mode)</em></p><p>Specular color at facing angle (0 degree incidence). Note that there is no separate gain control. To control the specular &quot;gain&quot;, simply adjust the color value or connect it to a PxrExposure node. Below are different choices including textured at roughness 0.25.</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rman_pxrsurf_specFaceBlue.jpg" width="384" loading="lazy" src="../../attachments/542215275/rman_pxrsurf_specFaceBlue.jpg" data-image-src="../../attachments/542215275/rman_pxrsurf_specFaceBlue.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215382" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_specFaceBlue.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215275" data-linked-resource-container-version="1" data-media-id="207dc143-67da-4a54-8129-c83da0c73fae" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rman_pxrsurf_specFaceRed.jpg" width="384" loading="lazy" src="../../attachments/542215275/rman_pxrsurf_specFaceRed.jpg" data-image-src="../../attachments/542215275/rman_pxrsurf_specFaceRed.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215379" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_specFaceRed.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215275" data-linked-resource-container-version="1" data-media-id="da1d94fc-bf58-402a-be98-80cc9035b8bc" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rman_pxrsurf_specFaceTex.jpg" width="384" loading="lazy" src="../../attachments/542215275/rman_pxrsurf_specFaceTex.jpg" data-image-src="../../attachments/542215275/rman_pxrsurf_specFaceTex.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215376" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_specFaceTex.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215275" data-linked-resource-container-version="1" data-media-id="757e9a4b-0038-467f-b174-14db548c2016" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><br/></p><p><strong>Edge Color</strong></p><p>Specular color at the glancing angle (90-degree incidence). To control the edge specular &quot;gain&quot;, simply adjust the color value or connect it to a PxrExposure node. Below are different choices including textured at roughness 0.25. The Fresnel Exponent is also reduced here to make it more obvious.</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rman_pxrsurf_specEdgeBlue.jpg" width="384" loading="lazy" src="../../attachments/542215275/rman_pxrsurf_specEdgeBlue.jpg" data-image-src="../../attachments/542215275/rman_pxrsurf_specEdgeBlue.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215373" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_specEdgeBlue.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215275" data-linked-resource-container-version="1" data-media-id="316ee67f-82e7-4310-b0a7-9aed42ef4e7d" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rman_pxrsurf_specEdgeRed.jpg" width="384" loading="lazy" src="../../attachments/542215275/rman_pxrsurf_specEdgeRed.jpg" data-image-src="../../attachments/542215275/rman_pxrsurf_specEdgeRed.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215370" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_specEdgeRed.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215275" data-linked-resource-container-version="1" data-media-id="6048f839-fd4c-45b6-acf5-fa3112fe9b96" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rman_pxrsurf_specEdgeTex.jpg" width="384" loading="lazy" src="../../attachments/542215275/rman_pxrsurf_specEdgeTex.jpg" data-image-src="../../attachments/542215275/rman_pxrsurf_specEdgeTex.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215367" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_specEdgeTex.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215275" data-linked-resource-container-version="1" data-media-id="fbade696-7819-42d2-afaa-1723a56f31d1" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><br/></p><p>Understand that this control changes meaning in the <strong>Physical</strong> <strong>Mode</strong> and operates as a multiplier for the reflection result in Physical mode. You can control reflection intensity and even tint the result using this parameter in Physical Mode. Below we used black, 50% gray, and white.</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rman_pxrsurf_primSpecPhysEdge00.jpg" width="384" loading="lazy" src="../../attachments/542215275/rman_pxrsurf_primSpecPhysEdge00.jpg" data-image-src="../../attachments/542215275/rman_pxrsurf_primSpecPhysEdge00.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215364" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_primSpecPhysEdge00.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215275" data-linked-resource-container-version="1" data-media-id="f5e48709-5585-4bbd-a2e7-27e133a6bd54" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rman_pxrsurf_primSpecPhysEdge05.jpg" width="384" loading="lazy" src="../../attachments/542215275/rman_pxrsurf_primSpecPhysEdge05.jpg" data-image-src="../../attachments/542215275/rman_pxrsurf_primSpecPhysEdge05.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215361" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_primSpecPhysEdge05.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215275" data-linked-resource-container-version="1" data-media-id="d6151e9e-3f98-4dcb-bf8b-e6e000235ede" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rman_pxrsurf_primSpecPhysEdge10.jpg" width="384" loading="lazy" src="../../attachments/542215275/rman_pxrsurf_primSpecPhysEdge10.jpg" data-image-src="../../attachments/542215275/rman_pxrsurf_primSpecPhysEdge10.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215358" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_primSpecPhysEdge10.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215275" data-linked-resource-container-version="1" data-media-id="850ec52c-2e0d-4d15-8915-bdab56a6a486" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><br/></p><p><br/><em>Fresnel Exponent</em> <em>(Artistic Mode)</em></p><p>Specular fresnel curve exponent. Lower numbers reducesthe effect of <strong>Face Color</strong> while increasing the effect of <strong>Edge Color</strong>. Higher numbers reverse this. If your face and edge colors are the same, then there is no visible effect. Below we use a <em>red</em> Face Color and <em>green</em> Edge Color and increase the Fresnel Exponent from 0.1 to 1.5 and finally 5.0 with a small roughness.</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rman_pxrsurf_specFres01.jpg" width="384" loading="lazy" src="../../attachments/542215275/rman_pxrsurf_specFres01.jpg" data-image-src="../../attachments/542215275/rman_pxrsurf_specFres01.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215355" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_specFres01.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215275" data-linked-resource-container-version="1" data-media-id="61daf2b9-4667-433d-96b1-62676ec77394" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rman_pxrsurf_specFres15.jpg" width="384" loading="lazy" src="../../attachments/542215275/rman_pxrsurf_specFres15.jpg" data-image-src="../../attachments/542215275/rman_pxrsurf_specFres15.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215352" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_specFres15.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215275" data-linked-resource-container-version="1" data-media-id="1e12ca37-9292-4770-9f03-6b527a6bec9a" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rman_pxrsurf_specFres50.jpg" width="384" loading="lazy" src="../../attachments/542215275/rman_pxrsurf_specFres50.jpg" data-image-src="../../attachments/542215275/rman_pxrsurf_specFres50.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215349" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_specFres50.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215275" data-linked-resource-container-version="1" data-media-id="757724cb-f15f-4220-8d78-9ac770f2a9a7" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><br/></p><p><strong>Refractive Index (Physical Mode)</strong></p><p>This is a parameter meant to describe a physical refractive Index; the <em>dielectric</em> index of refraction for the material. Channel values for this parameter typically lie in the range 1 - 3. Since we support 3 color values to capture the spectral effect presets may be preferred over color pickers to avoid lots of tweaking.</p><p><br/></p><p><strong>Extinction Coefficient (Physical Mode)</strong></p><p>Extinction Coefficient is a second refractive index for the material useful for characterizing metallic behaviors. Channel values for this parameter typically lie in the range 1 - 3. Since we support 3 color values to capture the spectral effect presets may be preferred over color pickers. When 0, the material reacts as a dielectric (glass, clearcoat). When non-zero, the material responds as a conductor would. Since this is based on physical values you should the presets more helpful than manual tweaking of settings. Below are presets for Copper, Gold, and Nickel.</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rman_pxrsurf_primSpecPhysCopper.jpg" width="384" loading="lazy" src="../../attachments/542215275/rman_pxrsurf_primSpecPhysCopper.jpg" data-image-src="../../attachments/542215275/rman_pxrsurf_primSpecPhysCopper.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215346" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_primSpecPhysCopper.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215275" data-linked-resource-container-version="1" data-media-id="4440d4fb-536f-4171-ba64-4ecd370dbe4b" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rman_pxrsurf_primSpecPhysGold.jpg" width="384" loading="lazy" src="../../attachments/542215275/rman_pxrsurf_primSpecPhysGold.jpg" data-image-src="../../attachments/542215275/rman_pxrsurf_primSpecPhysGold.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215343" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_primSpecPhysGold.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215275" data-linked-resource-container-version="1" data-media-id="3c3bc8f5-8317-417c-8d91-3038a684786a" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rman_pxrsurf_primSpecPhysNickel.jpg" width="384" loading="lazy" src="../../attachments/542215275/rman_pxrsurf_primSpecPhysNickel.jpg" data-image-src="../../attachments/542215275/rman_pxrsurf_primSpecPhysNickel.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215340" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_primSpecPhysNickel.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215275" data-linked-resource-container-version="1" data-media-id="254aa83e-31cb-4fa7-a29f-da72b1ab4ecf" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><strong> </strong><br/></p><p><strong>Roughness</strong></p><p>Specular roughness. A greater value produces rougher or &quot;blurry&quot; specular reflection. At 1.0 it resembles a diffuse surface and at 0.0 it's a perfectly clear reflection. Most objects will be realistic somewhere in between these values. Texturing this value may give you interesting effects like smudges, greasy fingerprints, and worn surfaces. Below are examples from 0.0 to 0.5 and finally 1.0 (diffuse).</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rman_pxrsurf_specGloss01.jpg" width="384" loading="lazy" src="../../attachments/542215275/rman_pxrsurf_specGloss01.jpg" data-image-src="../../attachments/542215275/rman_pxrsurf_specGloss01.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215337" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_specGloss01.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215275" data-linked-resource-container-version="1" data-media-id="a59b4bc3-c1b4-4b27-9737-0331531985e8" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rman_pxrsurf_specGloss05.jpg" width="384" loading="lazy" src="../../attachments/542215275/rman_pxrsurf_specGloss05.jpg" data-image-src="../../attachments/542215275/rman_pxrsurf_specGloss05.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215334" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_specGloss05.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215275" data-linked-resource-container-version="1" data-media-id="2748f59a-beee-45af-a9cf-bb164ab9278e" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rman_pxrsurf_specGloss10.jpg" width="384" loading="lazy" src="../../attachments/542215275/rman_pxrsurf_specGloss10.jpg" data-image-src="../../attachments/542215275/rman_pxrsurf_specGloss10.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215331" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_specGloss10.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215275" data-linked-resource-container-version="1" data-media-id="a18bd86c-1748-4ddb-857f-6655c38d5c5f" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><br/></p><p><strong>Anisotropy</strong></p><p>Controls the shape of the specular highlights and reflections. 0 means isotropic which produces the regular circular specular highlight. Values from -1.0 to 1.0 produce the range of ellipses (stretching) from wide to tall.</p><p>By default, the direction of anisotropy is controlled by the model texture parameters. If the Shading Tangent is specified, it is used instead. Below are examples of -1.0, 0.0, and 1.0.</p><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="3bbe2e68-359b-40d8-a87b-8670127fd79b" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>It's recommended that the anisotropy value be set as low as possible to achieve your desired look. Extreme values (beyond -1.0 or 1.0) may generate noise that will not resolve effectively. This can be made worse with low roughness values.</p></div></div></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rman_pxrsurf_specAniso1.jpg" width="384" loading="lazy" src="../../attachments/542215275/rman_pxrsurf_specAniso1.jpg" data-image-src="../../attachments/542215275/rman_pxrsurf_specAniso1.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215328" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_specAniso1.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215275" data-linked-resource-container-version="1" data-media-id="d4699656-b4ca-4867-b913-9d673caeea94" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rman_pxrsurf_specAniso2.jpg" width="384" loading="lazy" src="../../attachments/542215275/rman_pxrsurf_specAniso2.jpg" data-image-src="../../attachments/542215275/rman_pxrsurf_specAniso2.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215325" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_specAniso2.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215275" data-linked-resource-container-version="1" data-media-id="35697c28-b8f8-4f2a-b8e1-ddda49eca7d4" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rman_pxrsurf_specAniso3.jpg" width="384" loading="lazy" src="../../attachments/542215275/rman_pxrsurf_specAniso3.jpg" data-image-src="../../attachments/542215275/rman_pxrsurf_specAniso3.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215322" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_specAniso3.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215275" data-linked-resource-container-version="1" data-media-id="e9c5730f-1885-43a5-9639-975e3c314a29" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><br/></p><p><em>Shading Tangent</em></p><p>Controls the anisotropy direction. Only valid when it is connected to a pattern. This is useful for making brushed metals. Below are three examples using textures and an <strong>Anisotropy</strong> of -10</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rman_pxrsurf_specAnisoTan1.jpg" width="384" loading="lazy" src="../../attachments/542215275/rman_pxrsurf_specAnisoTan1.jpg" data-image-src="../../attachments/542215275/rman_pxrsurf_specAnisoTan1.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215319" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_specAnisoTan1.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215275" data-linked-resource-container-version="1" data-media-id="1e89af39-29d1-443a-9a65-12611f3a47c0" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rman_pxrsurf_specAnisoTan2.jpg" width="384" loading="lazy" src="../../attachments/542215275/rman_pxrsurf_specAnisoTan2.jpg" data-image-src="../../attachments/542215275/rman_pxrsurf_specAnisoTan2.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215316" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_specAnisoTan2.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215275" data-linked-resource-container-version="1" data-media-id="5b177872-b3bb-4e67-970d-f383f8948316" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rman_pxrsurf_specAnisoTan3.jpg" width="384" loading="lazy" src="../../attachments/542215275/rman_pxrsurf_specAnisoTan3.jpg" data-image-src="../../attachments/542215275/rman_pxrsurf_specAnisoTan3.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215313" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_specAnisoTan3.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215275" data-linked-resource-container-version="1" data-media-id="93c7b427-12d7-465e-b94c-5eabc0647478" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><br/></p><p><strong>Bump</strong></p><p>Normal to use for the specular illumination. If this is not set, it will use the global bump normal specified in the Properties near the bottom of this page.</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rman_pxrsurf_specBmp1.jpg" width="384" loading="lazy" src="../../attachments/542215275/rman_pxrsurf_specBmp1.jpg" data-image-src="../../attachments/542215275/rman_pxrsurf_specBmp1.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215310" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_specBmp1.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215275" data-linked-resource-container-version="1" data-media-id="0ea12610-f92c-4298-afeb-cfa3c7ea9b77" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rman_pxrsurf_specBmp2.jpg" width="384" loading="lazy" src="../../attachments/542215275/rman_pxrsurf_specBmp2.jpg" data-image-src="../../attachments/542215275/rman_pxrsurf_specBmp2.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215307" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_specBmp2.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215275" data-linked-resource-container-version="1" data-media-id="bab49021-a1cd-4123-9330-4f70852cf25b" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rman_pxrsurf_specBmp3.jpg" width="384" loading="lazy" src="../../attachments/542215275/rman_pxrsurf_specBmp3.jpg" data-image-src="../../attachments/542215275/rman_pxrsurf_specBmp3.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215304" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_specBmp3.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215275" data-linked-resource-container-version="1" data-media-id="d8e61689-f4bd-4ae6-af31-6468638131ba" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><br/></p><p><em>Double Sided</em></p><p>If on, illuminate on both sides of the surface for this specular lobe, that is, this will illuminate the surface whose normal is pointing away from the camera as well. This is off by default to improve performance.</p><p><br/></p><p><br/></p><p><strong>Rough Specular</strong></p><p>Identical Specular parameters except it has a larger default roughness which is 0.6. This layer is intended for use with higher roughness settings than the Specular lobe above. Below from left to right: Rough Specular, Specular, both lobes combined.</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rman_pxrsurf_Spec.jpg" width="384" loading="lazy" src="../../attachments/542215275/rman_pxrsurf_Spec.jpg" data-image-src="../../attachments/542215275/rman_pxrsurf_Spec.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215301" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_Spec.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215275" data-linked-resource-container-version="1" data-media-id="129ec06a-2762-4867-be4b-f8ad32a0edb7" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rman_pxrsurf_SpecCombo.jpg" width="384" loading="lazy" src="../../attachments/542215275/rman_pxrsurf_SpecCombo.jpg" data-image-src="../../attachments/542215275/rman_pxrsurf_SpecCombo.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215298" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_SpecCombo.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215275" data-linked-resource-container-version="1" data-media-id="801a9b34-bf53-414a-80cf-be8e4c85f894" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rman_pxrsurf_SpecRghSpec.jpg" width="384" loading="lazy" src="../../attachments/542215275/rman_pxrsurf_SpecRghSpec.jpg" data-image-src="../../attachments/542215275/rman_pxrsurf_SpecRghSpec.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215295" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_SpecRghSpec.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215275" data-linked-resource-container-version="1" data-media-id="b5aac148-2d4e-46c5-99b5-1c9a02b10387" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<hr/><p><span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image" height="64" loading="lazy" src="../../attachments/542215275/RenderManFundamentals_logo.png" data-image-src="../../attachments/542215275/RenderManFundamentals_logo.png" data-unresolved-comment-count="0" data-linked-resource-id="542215391" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderManFundamentals_logo.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542215275" data-linked-resource-container-version="1" data-media-id="fc6bea67-71f3-42dc-8f1f-3cf90beb9861" data-media-type="file"></span><br/><strong>RenderMan Fundamentals</strong></p><iframe align="middle" allowfullscreen="" class="conf-macro output-block" data-hasbody="false" data-layout="default" data-local-id="8033af4f-ec6a-473c-803b-1c82a621406b" data-macro-id="e2023ea819c4df5306b7792079ccd639f3bf8888e373c177054dea6a2e7b402b" data-macro-name="iframe" frameborder="0" height="600" sandbox="allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-popups-to-escape-sandbox allow-presentation allow-same-origin allow-scripts allow-top-navigation-by-user-activation" scrolling="yes" src="https://player.vimeo.com/video/471506695?h=d9fe405f6b&amp;title=0&amp;byline=0&amp;portrait=0" width="960">
+    
+</iframe>
+<p /><p /><iframe align="middle" allowfullscreen="" class="conf-macro output-block" data-hasbody="false" data-layout="default" data-local-id="112e8fe4-e607-4224-9732-ce4eccbe2778" data-macro-id="e134b53ccd3453b31bd757d503e1f8e5a13880ad94900c1a75b10e29f0f4dbc2" data-macro-name="iframe" frameborder="0" height="600" sandbox="allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-popups-to-escape-sandbox allow-presentation allow-same-origin allow-scripts allow-top-navigation-by-user-activation" scrolling="yes" src="https://player.vimeo.com/video/471550179?h=d9fe405f6b&amp;title=0&amp;byline=0&amp;portrait=0" width="960">
+    
+</iframe>
+<p /><p /><iframe align="middle" allowfullscreen="" class="conf-macro output-block" data-hasbody="false" data-layout="default" data-local-id="b353eeb4-103b-49d3-bae0-67db96c21a2c" data-macro-id="3c1c25afd5488519e1bd090e8073737a85a5873ba2e0c7c0573bed1f81ec091e" data-macro-name="iframe" frameborder="0" height="600" sandbox="allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-popups-to-escape-sandbox allow-presentation allow-same-origin allow-scripts allow-top-navigation-by-user-activation" scrolling="yes" src="https://player.vimeo.com/video/471505659?h=d9fe405f6b&amp;title=0&amp;byline=0&amp;portrait=0" width="960">
+    
+</iframe>
+<p /><p /><p /><p><a href="/wiki/spaces/REN/pages/19859072" data-linked-resource-id="19859072" data-linked-resource-version="3" data-linked-resource-type="page">/wiki/spaces/REN/pages/19859072</a></p></div>
+</div>
+</div>
+</div>
+  </article>
+</main>
+</body>
+</html>

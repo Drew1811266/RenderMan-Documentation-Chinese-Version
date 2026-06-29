@@ -1,0 +1,21 @@
+{"item_id": "b7a699cd39:0", "source": "In production, it's desirable to create and add your own patterns and C++ plugins (materials, lights, patterns, and more) to the user interface in Maya, having them load when RenderMan is loaded. This gives artists access to these nodes in a Maya session. Users wanting to do this must obtain a Maya Node ID from Autodesk (these are often assigned in blocks). This allows Maya to assign unique IDs and identify nodes."}
+{"item_id": "b7a699cd39:1", "source": "Since we do not recommend changing the shipped rfm.json files, you may use a system environment variable,"}
+{"item_id": "b7a699cd39:2", "source": "RFM_SHOW_PATH or RFM_SITE_PATH,"}
+{"item_id": "b7a699cd39:3", "source": "to source your custom versions."}
+{"item_id": "b7a699cd39:4", "source": "RenderMan for Maya will search in the following order and merge/override in the same order."}
+{"item_id": "b7a699cd39:5", "source": "Note"}
+{"item_id": "b7a699cd39:6", "source": ": This hierarchical process is valid for the other config files: shelf.json, aovs.json, menu.json, etc."}
+{"item_id": "b7a699cd39:7", "source": "rfm will read RFMTREE/config/rfm.json. This is the base configuration and should NEVER be altered by you, please make a custom version."}
+{"item_id": "b7a699cd39:8", "source": "rfm looks for RFM_SITE_PATH and RFM_SHOW_PATH. These can either be environment variables or values in the main rfm.json (prefer the Environment Variable route)."}
+{"item_id": "b7a699cd39:9", "source": "rfm looks for RFM_SITE_PATH/config/rfm.json. if found, it's contents will be merged with the base config."}
+{"item_id": "b7a699cd39:10", "source": "rfm looks for RFM_SHOW_PATH/config/rfm.json. if found, it's contents will be merged/override the base config and the site config."}
+{"item_id": "b7a699cd39:11", "source": "rfm looks for ~/rfm/config/rfm.json. if found, it's contents will be merged/override the base config, the site and show config."}
+{"item_id": "b7a699cd39:12", "source": "override.json can be used to override default values of RfM nodes both standard and custom."}
+{"item_id": "b7a699cd39:13", "source": "To add extra nodes (patterns, bxdfs, integrators, etc), resources/user/nodes/search_paths should be extended. rfm always expects the same directory structure:"}
+{"item_id": "b7a699cd39:14", "source": "OSL Shaders"}
+{"item_id": "b7a699cd39:15", "source": "Node IDs for Patterns are embedded in the metadata. Below is an example from the"}
+{"item_id": "b7a699cd39:16", "source": "PxrLayer"}
+{"item_id": "b7a699cd39:17", "source": "OSL shader."}
+{"item_id": "b7a699cd39:18", "source": "C++ Plug-ins"}
+{"item_id": "b7a699cd39:19", "source": "In your custom rfm.json file, you can load your files like the below example:"}
+{"item_id": "b7a699cd39:20", "source": "Node IDs for these are included in the .args file. The order doesn't matter but it must be in the first level of the tags. The below example is for a light."}

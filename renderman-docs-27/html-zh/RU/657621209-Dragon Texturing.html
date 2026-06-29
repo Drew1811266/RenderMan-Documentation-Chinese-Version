@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dragon Texturing</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Dragon Texturing</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RU/657621209/Dragon+Texturing">https://rmanwiki-27.pixar.com/space/RU/657621209/Dragon+Texturing</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="contentLayout2">
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h3 id="DragonTexturing-Texturing">Dragon 角色贴图制作流程（Texturing）</h3><p>对于 secondary displacement details，我使用了 <a class="external-link" href="https://texturing.xyz/" rel="nofollow">texturing.xyz</a> textures，并为 dragon 的 hard surface sections 添加了 tileable textures。完成这一步后，我的第一件事是在 RenderMan for Houdini 中 test setup，确保到目前为止的选择是成功的。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Disp.gif" width="760" loading="lazy" src="../../attachments/657621209/Disp.gif" data-image-src="../../attachments/657621209/Disp.gif" data-height="1800" data-width="1500" data-unresolved-comment-count="0" data-linked-resource-id="657228009" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Disp.gif" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/gif" data-linked-resource-container-id="657621209" data-linked-resource-container-version="1" data-media-id="93a1ab13-ed6e-44da-9b3b-5ace0e6e3dc7" data-media-type="file"></span><p>我非常喜欢用 pxrDisplacementLayer node 开始 displacement network，因为它让 displacement maps 的 layering 变得非常高效且直接。</p><p>之后我回到 Mari，从大面积 colors 开始；随着工作推进，我借助 geometry bakes 加入更细的 details 和 breakups。最后，我用 high resolution tileable textures 和一些 hand painting 完成了整体。</p><p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Dirty.jpg" width="760" loading="lazy" src="../../attachments/604635137/Dirty.jpg" data-image-src="../../attachments/604635137/Dirty.jpg" data-height="1800" data-width="1500" data-unresolved-comment-count="0" data-linked-resource-id="604242107" data-linked-resource-version="2" data-linked-resource-type="attachment" data-linked-resource-default-alias="Dirty.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="604635137" data-linked-resource-container-version="5" data-media-id="2c43f47c-080c-4c14-b667-1ad885c70ef6" data-media-type="file"></span><p>在这个阶段，再进行一轮 RenderMan testing 很有用，它让我能以可管理的 steps 构建 material networks。当我对进度满意后，我制作了 supporting material texture maps，例如 Roughness 和 SSS scale，再加上一些 arbitrary masks，以便后续 look development process 中进行 control。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="texture-masks.jpg" width="760" loading="lazy" src="../../attachments/657621209/texture-masks.jpg" data-image-src="../../attachments/657621209/texture-masks.jpg" data-height="918" data-width="2000" data-unresolved-comment-count="0" data-linked-resource-id="657228016" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="texture-masks.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="657621209" data-linked-resource-container-version="1" data-media-id="19ad23a5-f5c2-45e8-bafd-6a76ed4429dc" data-media-type="file"></span><div class="panel conf-macro output-block" data-hasbody="true" data-macro-id="" data-macro-name="panel" style="background-color: #EAE6FF;border-color: #998DD9;border-width: 1px;"><div class="panelContent" style="background-color: #EAE6FF;">
+<p>Tip 1：Start simple，从简单开始，并在查看 references、理解 asset 如何着色的过程中逐步 layer in detail。</p>
+</div></div><div class="panel conf-macro output-block" data-hasbody="true" data-macro-id="" data-macro-name="panel" style="background-color: #EAE6FF;border-color: #998DD9;border-width: 1px;"><div class="panelContent" style="background-color: #EAE6FF;">
+<p>Tip 2：借助 geometry bakes，你可以快速把许多部位带入 textures，同时支撑 shape，并保持 procedural。</p>
+</div></div><p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="sss-clay.jpg" width="760" loading="lazy" src="../../attachments/657621209/sss-clay.jpg" data-image-src="../../attachments/657621209/sss-clay.jpg" data-height="1200" data-width="2000" data-unresolved-comment-count="0" data-linked-resource-id="657228022" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="sss-clay.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="657621209" data-linked-resource-container-version="1" data-media-id="94bb4333-b7c5-4515-8bb8-9e3467a17bdf" data-media-type="file"></span><p>借助 arbitrary texture masks，我使用 pxrLayeredBlend nodes 为不同 parts 做 color corrections。我还对 Roughness map 做了 grade，以便完全控制不同 values 和 areas，因为自然界中的 animals 往往会用 body 上更硬的 surfaces 进行防御，因此 wear and tear 需要在这个思路下表达。</p><p /></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Clean.jpg" width="356" loading="lazy" src="../../attachments/657621209/Clean.jpg" data-image-src="../../attachments/657621209/Clean.jpg" data-height="1800" data-width="1500" data-unresolved-comment-count="0" data-linked-resource-id="657228028" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Clean.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="657621209" data-linked-resource-container-version="1" data-media-id="91a5c001-a65d-4732-b692-7cdfeb7dda5e" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Dirty.jpg" width="356" loading="lazy" src="../../attachments/657621209/Dirty.jpg" data-image-src="../../attachments/657621209/Dirty.jpg" data-height="1800" data-width="1500" data-unresolved-comment-count="0" data-linked-resource-id="657228034" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Dirty.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="657621209" data-linked-resource-container-version="1" data-media-id="f80181b0-f16f-491c-bba2-146b6ce1661f" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p>这一 layer 非常重要，因为它常常把 asset “glues” 在一起，创建具有共同 value 和 design language 的 textural areas。即使对于这只 dragon 这样的 creature，这种 effect 可能很 subtle；在 hard surfaces 上，dirt textures 则可能明显得多。</p><div class="panel conf-macro output-block" data-hasbody="true" data-macro-id="" data-macro-name="panel" style="background-color: #EAE6FF;border-color: #998DD9;border-width: 1px;"><div class="panelContent" style="background-color: #EAE6FF;">
+<p>Tip 1：先制作 displacement，并使用 gray shader 判断 displacement details 和 SSS，以免被 color details 分散注意力。</p>
+</div></div><div class="panel conf-macro output-block" data-hasbody="true" data-macro-id="" data-macro-name="panel" style="background-color: #EAE6FF;border-color: #998DD9;border-width: 1px;"><div class="panelContent" style="background-color: #EAE6FF;">
+<p>Tip 2：思考现实中不同 materials 如何相互覆盖，并尝试以 digital 且 non-destructive 的方式重建这一点。</p>
+</div></div><p /><hr/></div>
+</div>
+</div>
+</div>
+  </article>
+</main>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>UDIMs in Blender</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>UDIMs in Blender</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFB27/544638640/UDIMs+in+Blender">https://rmanwiki-27.pixar.com/space/RFB27/544638640/UDIMs+in+Blender</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p><style>[data-colorid=cy951cm7cd]{color:#3d90b3} html[data-color-mode=dark] [data-colorid=cy951cm7cd]{color:#4c9fc2}[data-colorid=ht9231dmgy]{color:#3d90b3} html[data-color-mode=dark] [data-colorid=ht9231dmgy]{color:#4c9fc2}</style>在 Blender 中使用 UDIM 非常直接。<br /><br />如果你的纹理使用 Mari UDIM 样式，且文件名为：&nbsp;<strong>Diffuse.1001.tex</strong>，则需要将 <span data-colorid="ht9231dmgy">Atlas Style（图集样式）</span> 设置为 UDIM (Mari)，并在 Filename（文件名）参数中使用&nbsp;<strong>Diffuse.&lt;UDIM&gt;.tex&nbsp;</strong>这样纹理才能加载到正确的 UDIM 中。&nbsp;&nbsp;<br /><br />注意：&lt;UDIM&gt; 可以使用大写，也可以使用小写 &lt;udim&gt;。</p><p><br /><br /><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/544638640/RenderMan_Blender_UDIMS.JPG" data-image-src="../../attachments/544638640/RenderMan_Blender_UDIMS.JPG" data-unresolved-comment-count="0" data-linked-resource-id="544638654" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Blender_UDIMS.JPG" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544638640" data-linked-resource-container-version="1" data-media-id="3cdcf2db-74ec-49a5-a523-dd230c93b196" data-media-type="file" /></span><br /><br /><br /></p><p>第一个 UV tile 的 Mari UDIM 示例为&nbsp;<span data-colorid="cy951cm7cd">Diffuse.1001.tex</span>&nbsp;其中 "1001" 会替换纹理文件名中的 &lt;UDIM&gt;。&nbsp;</p><p><br /></p><div class="table-wrap"><table class="fixed-table wrapped confluenceTable"><colgroup><col style="width: 69.0px;" /><col style="width: 162.0px;" /><col style="width: 205.0px;" /><col style="width: 180.0px;" /><col style="width: 168.0px;" /></colgroup><thead><tr><th colspan="1" class="confluenceTh"><p>Value（值）</p></th><th class="confluenceTh"><p>Filename（文件名）</p></th><th class="confluenceTh"><p>Atlas Style（图集样式）</p></th><th class="confluenceTh"><p>Use in path（路径中使用）</p></th><th colspan="1" class="confluenceTh"><p>Alternative（替代写法）</p></th></tr></thead><tbody><tr><td colspan="1" class="confluenceTd">0</td><td class="confluenceTd">Diffuse.1001.tex</td><td class="confluenceTd">UDIM (Mari)</td><td class="confluenceTd">Diffuse.&lt;UDIM&gt;.tex</td><td colspan="1" class="confluenceTd">Diffuse.&lt;udim&gt;.tex</td></tr><tr><td colspan="1" class="confluenceTd">1</td><td class="confluenceTd">Diffuse.U1_V1.tex</td><td class="confluenceTd">UV Tile Base-1 (Mudbox)</td><td class="confluenceTd">Diffuse.&lt;U&gt;_&lt;V&gt;.tex</td><td colspan="1" class="confluenceTd"><br /></td></tr><tr><td colspan="1" class="confluenceTd">2</td><td class="confluenceTd">Diffuse.u0_v0.tex</td><td class="confluenceTd">UV Tile Base-0 (ZBrush)</td><td class="confluenceTd">Diffuse.&lt;u&gt;_&lt;v&gt;.tex</td><td colspan="1" class="confluenceTd"><br /></td></tr></tbody></table></div><p><br /></p><p><br />请参阅完整的 <a href="https://rmanwiki-24.pixar.com/space/REN24/21759808/PxrTexture" data-linked-resource-id="21759808" data-linked-resource-version="11" data-linked-resource-type="page">PxrTexture </a>页面了解更多信息。</p><p><br /></p>
+  </article>
+</main>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PxrFacingRatio</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>PxrFacingRatio</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/REN27/542223459/PxrFacingRatio">https://rmanwiki-27.pixar.com/space/REN27/542223459/PxrFacingRatio</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>计算几何体的朝向比：即摄像机向量或方向与表面法线之间的简单点积。请注意，某些场景实体没有已定义法线，例如体积。</p><h3 id="PxrFacingRatio-InputParameters">Input Parameters（输入参数）</h3><h4 id="PxrFacingRatio-Use">使用</h4><p>选择渲染摄像机方向或一个预定义方向</p><h4 id="PxrFacingRatio-Direction">Direction</h4><p>不使用摄像机方向时，在此提供方向向量</p><h4 id="PxrFacingRatio-CoordinateSystem">Coordinate System</h4><p>提供一个有用的坐标系统：object、world、camera 或其他已定义空间。</p><h4 id="PxrFacingRatio-FaceForward">Face Forward</h4><p>如果法线背向摄像机，朝向比可能为负。此选项会翻转法线，使结果始终为正。</p><h4 id="PxrFacingRatio-Clamp">Clamp</h4><p>将结果 Clamp（钳制）到 0 到 1 范围</p><h4 id="PxrFacingRatio-Invert">Invert</h4><p>反转朝向比：黑色变为白色，白色反之变为黑色。</p><h4 id="PxrFacingRatio-Mode">Mode</h4><p>选择指定 Ior 还是 Gamma</p><h4 id="PxrFacingRatio-Ior">Ior</h4><p>使用上方设置的 Ior 模式时，选择一个折射率值，通常为 1.0 到 3.0，可用于模拟电介质表面。</p><h4 id="PxrFacingRatio-Gamma">Gamma</h4><p>使用上方设置的 gamma 节点时，通过一个简单的 gamma 函数塑造朝向比。值 1.0 为中性</p><h4 id="PxrFacingRatio-BumpNormal">Bump Normal</h4><p>如果表面应用了 bump mapping，请在此输入凹凸法线。如果未连接，节点会使用此着色法线。</p><h3 id="PxrFacingRatio-OutputParameters">Output Parameters（输出参数）</h3><h4 id="PxrFacingRatio-resultF">resultF</h4><p>由朝向比计算产生的单分量（float）值。</p>
+  </article>
+</main>
+</body>
+</html>

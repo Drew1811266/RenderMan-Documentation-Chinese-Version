@@ -1,0 +1,29 @@
+{"item_id":"72a4ad71c9:0","text":"这个场景使用三种不同类型的 light。"}
+{"item_id":"72a4ad71c9:1","text":"我们有一个 globe light bulb、一个 fairground light bulb，以及 neon signs 本身。"}
+{"item_id":"72a4ad71c9:2","text":"我会在本课中展示这两种 lightbulbs 的制作方式。如果你想进一步了解如何用 Mesh Lights 制作 Neons，有一节完整课程在"}
+{"item_id":"72a4ad71c9:3","text":"这里"}
+{"item_id":"72a4ad71c9:4","text":"游乐场灯泡（Fairground Bulb）"}
+{"item_id":"72a4ad71c9:5","text":"这个 bulb 的设置相当简单。glass shader 已应用到 bulb geometry 上，并且 refraction color 设置为蓝色。稍后会随机化这个 refraction color，为每个 instanced bulbs 增加颜色变化。"}
+{"item_id":"72a4ad71c9:6","text":"在 geometry 内部，有一个很小的 sphere light，radius 设置为 0.002，intensity 和 exposure 都设置为 10。"}
+{"item_id":"72a4ad71c9:7","text":"同样，intensity 和 exposure 这些 light values 稍后会被随机化，用来创建 light bulbs 的闪烁和追逐效果；但目前这是一个很好的起始设置。"}
+{"item_id":"72a4ad71c9:8","text":"球形灯泡设置（Globe Bulb）"}
+{"item_id":"72a4ad71c9:9","text":"globe bulb 比 fairground bulb 稍微复杂一些。"}
+{"item_id":"72a4ad71c9:10","text":"下面是分配给 bulb glass geometry 的整体 shader。"}
+{"item_id":"72a4ad71c9:11","text":"我们来分解一下。"}
+{"item_id":"72a4ad71c9:12","text":"在 shader graph 的上半部分，有一个简单的 triplanar grunge texture setup，叠加在一个"}
+{"item_id":"72a4ad71c9:13","text":"PxrFractal"}
+{"item_id":"72a4ad71c9:14","text":"节点上方，然后用作 specular roughness。这会为玻璃反射增加细微的不完美。"}
+{"item_id":"72a4ad71c9:15","text":"bulb shader graph 的下半部分才是真正产生魔法的地方。"}
+{"item_id":"72a4ad71c9:16","text":"这里有两个"}
+{"item_id":"72a4ad71c9:17","text":"PxrPrimVar"}
+{"item_id":"72a4ad71c9:18","text":"节点。一个名为 Bulb_COL，另一个名为 Bulb_INT"}
+{"item_id":"72a4ad71c9:19","text":"Bulb_COL"}
+{"item_id":"72a4ad71c9:20","text":"这个 primvar 设置并控制 bulb 的基础 glow color。"}
+{"item_id":"72a4ad71c9:21","text":"我们还使用这个 primvar 驱动 glass refraction color"}
+{"item_id":"72a4ad71c9:22","text":"开始为 bulbs 制作动画时，这个 primvar value 将被随机化"}
+{"item_id":"72a4ad71c9:23","text":"Bulb_INT"}
+{"item_id":"72a4ad71c9:24","text":"这个 primvar 设置并控制 bulb glow gain 的初始 intensity。"}
+{"item_id":"72a4ad71c9:25","text":"开始为 bulbs 制作动画时，这个 primvar value 将被随机化"}
+{"item_id":"72a4ad71c9:26","text":"如果我们取 Bulb_COL primvar 的 RGB output，并将它 blend 到一个略微降低饱和度的 Bulb_COL color 上，就可以用一个"}
+{"item_id":"72a4ad71c9:27","text":"pxrfacingratio"}
+{"item_id":"72a4ad71c9:28","text":"节点来驱动 blending。这样就能像下图那样，对 bulb 的 emissive look 进行创意控制。"}

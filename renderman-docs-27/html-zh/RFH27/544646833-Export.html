@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Export</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Export</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFH27/544646833/Export">https://rmanwiki-27.pixar.com/space/RFH27/544646833/Export</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/544646833/KaBoomBox_Crate_Render2.jpg" data-image-src="../../attachments/544646833/KaBoomBox_Crate_Render2.jpg" data-unresolved-comment-count="0" data-linked-resource-id="544646851" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="KaBoomBox_Crate_Render2.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544646833" data-linked-resource-container-version="1" data-media-id="d1df9b1d-e250-4254-8c3d-efb5579d2508" data-media-type="file"></span><br/><br/>如果用户希望利用 Houdini SOPs networks 原生的 VEX/VDB 流程，推荐的着色工作流是使用 KaBoom Box HDA 的各项功能；但如果确实想在 Houdini 之外渲染体积，也可以先用 HDA 处理 VDB 序列，再把它们导入另一个 DCC，并使用 PxrVolume presets，而不是在 Houdini 中继续使用 HDA。<br/><br/>对于使用 viewport（视口）进行 look-development，这也可能是更理想的工作流。将 shading calculation data（着色计算数据）缓存到 VDB 中，也可以为高分辨率或数据量很大的体积节省渲染时间。<br/><br/>默认情况下，为了在 Houdini 中完整使用所有功能，这些选项会保持关闭。<br/><br/>如果要导出到其他软件，并使用 RenderMan Preset Manager 中的 volume shaders 进行渲染，请将所有这些选项勾选为 <strong>ON（开启）</strong> 以移除 Houdini 使用的额外 attributes，并为模拟生成的 volumes 做好 OpenVDB sequence export（OpenVDB 序列导出）准备。 <br/><br/>勾选 Export Prepped Sim Fields 参数时，会跳过生成 diffuse 和 emission color fields，因为这些字段会改由其他 DCCs 中的 preset shaders 生成。</p><p>也可以选择使用你从 KaBoom Box HDA 生成的 volume fields：保持此选项未勾选，然后在其他第三方软件中应用的 shader 里，在 Smoke、Scatter 和/或 Fire 选项卡中勾选 “Use Binding Field Only”，并在 Bindings 选项卡中输入这些字段的 string name（字符串名称）。</p>
+  </article>
+</main>
+</body>
+</html>

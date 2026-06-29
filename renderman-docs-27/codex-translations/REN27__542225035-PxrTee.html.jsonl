@@ -1,0 +1,28 @@
+{"item_id":"28e5367ebc:0","text":"PxrTee 接收 inputRGB 或 inputF 的值，并将未改变的值输出到 AOV。其 resultRGB 或 resultF 需要连接到 shading network 中的某个位置。当着色摄像机可见 primary ray 时，它会把这些值发送到 AOV。"}
+{"item_id":"28e5367ebc:1","text":"这是将 shading network 的任意部分导出为磁盘上任意 AOV 文件的最佳方式，可帮助 look development 艺术家或合成师在 viewer 中调试，或在 compositing 中迭代工作。"}
+{"item_id":"28e5367ebc:2","text":"请注意，inputRGB 或 inputF 二者只能连接其一，不能同时连接。如果 inputRGB 和 inputF 都有连接，PxrTee 将输出错误消息。另外，由于让 inputRGB 或 inputF 使用 uniform values（均一值）没有实际意义，这些参数只能接受连接。"}
+{"item_id":"28e5367ebc:3","text":"顾名思义，它就像一个分流 tee："}
+{"item_id":"28e5367ebc:4","text":"这也有助于调试 shading network。例如，如果某个 pattern 的工作结果不太符合预期，可以在 network 中插入一个 PxrTee 节点，查看该位置产生的值。"}
+{"item_id":"28e5367ebc:5","text":"请注意，PxrTee 节点必须接入 shading network 的 active 部分才能工作。如果其 result 最终没有传入下游 active Bxdf，则 PxrTee 节点不会被调用，也不会向其 AOV 写入任何内容。"}
+{"item_id":"28e5367ebc:6","text":"Input Parameters"}
+{"item_id":"28e5367ebc:7","text":"Input RGB"}
+{"item_id":"28e5367ebc:8","text":"要直通到 resultRGB 并写入 color AOV 的三元值。它可以是以下类型：color、vector、normal 和 point。它只会评估一个连接。"}
+{"item_id":"28e5367ebc:9","text":"Input Float"}
+{"item_id":"28e5367ebc:10","text":"要直通到 resultF 并写入 float AOV 的 float。它只会评估一个连接。"}
+{"item_id":"28e5367ebc:11","text":"AOV Name"}
+{"item_id":"28e5367ebc:12","text":"要写入的 AOV 名称。"}
+{"item_id":"28e5367ebc:13","text":"Verbosity"}
+{"item_id":"28e5367ebc:14","text":"Outputs（输出）各种 infos，帮助你调试场景。"}
+{"item_id":"28e5367ebc:15","text":"0: Silent -- 只会输出错误消息。"}
+{"item_id":"28e5367ebc:16","text":"1: Warnings -- 会报告错误和缺失属性。"}
+{"item_id":"28e5367ebc:17","text":"2: Infos -- 与上面相同，另外还会输出属性值。"}
+{"item_id":"28e5367ebc:18","text":"Output Parameters"}
+{"item_id":"28e5367ebc:19","text":"resultRGB"}
+{"item_id":"28e5367ebc:20","text":"Output triple（输出三元值：color、vector、normal 和 point）。"}
+{"item_id":"28e5367ebc:21","text":"resultF"}
+{"item_id":"28e5367ebc:22","text":"Output float（输出 float）。"}
+{"item_id":"28e5367ebc:23","text":"示例"}
+{"item_id":"28e5367ebc:24","text":"在此示例中，我们希望将 rotationAngleVector_PxrTexture 的 resultRGB 输出到名为 \"myColor\" 的 AOV。因此我们在它所连接的节点之前插入一个 PxrTee 节点。"}
+{"item_id":"28e5367ebc:25","text":"PxrTee Parameters"}
+{"item_id":"28e5367ebc:26","text":"The Shading Graph"}
+{"item_id":"28e5367ebc:27","text":"RIB 示例："}

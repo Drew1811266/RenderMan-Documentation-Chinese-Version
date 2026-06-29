@@ -1,0 +1,97 @@
+{"item_id":"515b7f14fc:0","text":"许多位于"}
+{"item_id":"515b7f14fc:1","text":"Advanced Tab"}
+{"item_id":"515b7f14fc:2","text":"中的 settings 你可能永远不需要编辑。不过，对于想要精细控制 RenderMan for Maya 的 advanced user，这些选项都在这里。"}
+{"item_id":"515b7f14fc:3","text":"Render Options"}
+{"item_id":"515b7f14fc:4","text":"Output All Shaders:"}
+{"item_id":"515b7f14fc:5","text":"通常我们只 export 附加到 objects 的 material networks，但如果你在 shading 一个 procedural，它可能没有以可 export 的方式连接。此选项会无论如何 export all networks。"}
+{"item_id":"515b7f14fc:6","text":"Reentrant Procedural:"}
+{"item_id":"515b7f14fc:7","text":"允许 procedurals 在多个 threads 中同时运行，并显著加快包含 procedurals（hair）的 renders。你很可能应保持开启。"}
+{"item_id":"515b7f14fc:8","text":"Output Holdout Matte:"}
+{"item_id":"515b7f14fc:9","text":"使用"}
+{"item_id":"515b7f14fc:10","text":"Holdout"}
+{"item_id":"515b7f14fc:11","text":"workflow 时，将 Shadow AOV output 到此指定 buffer。"}
+{"item_id":"515b7f14fc:12","text":"Enable Image Plane Filter:"}
+{"item_id":"515b7f14fc:13","text":"使用 Pixar Image Plane Filter render image plane（Maya 使用实际 geometric plane）"}
+{"item_id":"515b7f14fc:14","text":"Learn Light Results:"}
+{"item_id":"515b7f14fc:15","text":"这是适用于 many lights 场景的新选项。renderer 会 refine light selection process 以改进 sampling。它尤其适合有许多 occluded lights 的场景，可避免在 shadowed surfaces 上浪费 samples。此版本不是 deterministic；如果同一场景 re-render 时没有充分 converge，可能看到 small differences。"}
+{"item_id":"515b7f14fc:16","text":"Bucket Order:"}
+{"item_id":"515b7f14fc:17","text":"RenderMan 将 output image 细分为称为 buckets 的小 rectangular regions，并一次 render 一个 bucket。这允许任意时刻只有 image 的一小部分在 memory 中。drop-down list 允许用户选择 buckets 在 \"it\" 或 Render View 中显示的 order。默认是 Spiral。请注意，只有部分 bucket orders 支持"}
+{"item_id":"515b7f14fc:18","text":"checkpointing"}
+{"item_id":"515b7f14fc:19","text":"以及 recovery 相关机制。"}
+{"item_id":"515b7f14fc:20","text":"Bucket Size:"}
+{"item_id":"515b7f14fc:21","text":"指定 buckets 的 size。较大的 buckets 需要更多 memory 才能 render。相反，较小的 buckets 对 shading 效率较低，但 rendering 期间会使用更少 memory。如果场景使用大量 memory，可以尝试将此字段降到 8 by 8，甚至 4 by 4 buckets，但你很可能不会更改此项。"}
+{"item_id":"515b7f14fc:22","text":"Opacity Threshold:"}
+{"item_id":"515b7f14fc:23","text":"控制 Opacity Threshold；如果设置得过低，可能会在 semi-opaque objects 上提前 terminate rays。Object 的 opacity 由 material Presence parameter 以及受支持 integrators 中的 depth 控制。"}
+{"item_id":"515b7f14fc:24","text":"Reference Frame:"}
+{"item_id":"515b7f14fc:25","text":"Once per job passes 以及下面的"}
+{"item_id":"515b7f14fc:26","text":"static"}
+{"item_id":"515b7f14fc:27","text":"objects 会在这里指定的 frame 进行 evaluation。"}
+{"item_id":"515b7f14fc:28","text":"Adaptive Sampler"}
+{"item_id":"515b7f14fc:29","text":"Adaptive Metric:"}
+{"item_id":"515b7f14fc:30","text":"默认使用改进的 Variance sampling algorithm。你可以使用 Contrast-V22 metric 作为旧技术，以匹配之前的 renders。新技术改进了 frame-to-frame noise 的一致性。每种选择可能会显示额外 options。"}
+{"item_id":"515b7f14fc:31","text":"Contrast-V22：基于 samples 之间 contrast threshold 的 older metric；会匹配最近旧版本的 sampling"}
+{"item_id":"515b7f14fc:32","text":"Darkfalloff：用于防止 image 中可能不重要的 dark areas 被 oversampling"}
+{"item_id":"515b7f14fc:33","text":"Variance：改进的 perceptual variance scheme，应能提供 frame-to-frame consistent noise"}
+{"item_id":"515b7f14fc:34","text":"Exposure：用于提示 renderer 基于此 exposure bracket 进行 sampling（假定 compositing process 保持在该 range 内，以免 reveal expected range 之外未采样的 noise）"}
+{"item_id":"515b7f14fc:35","text":"Adapt All:"}
+{"item_id":"515b7f14fc:36","text":"将 sampling quality criteria（pixel variance）应用到所有 color/illumination AOVs。这可能增加 render time，因为某些 AOVs 可能比 Beauty 有更多 noise，并触发所有 AOVs 产生更多 samples。"}
+{"item_id":"515b7f14fc:37","text":"Dicing"}
+{"item_id":"515b7f14fc:38","text":"Micropolygon Lenth:"}
+{"item_id":"515b7f14fc:39","text":"控制 displacement 的 tessellation rate。默认设置 1 会将 displacements dice 到 1 pixel size（从 dicing camera 视角看，通常是 render camera）。较小数值会产生更细的 geometric detail，但会创建更多 geometry。"}
+{"item_id":"515b7f14fc:40","text":"Watertight Dicing:"}
+{"item_id":"515b7f14fc:41","text":"关闭 diced geometry 中的 pinholes，或尝试关闭 displacement 中的 gaps。如果 solid object alpha 中有 holes，此项很有用。"}
+{"item_id":"515b7f14fc:42","text":"Dicing Camera:"}
+{"item_id":"515b7f14fc:43","text":"启用 reference camera 进行 dicing。可以全局使用，也可以通过将其作为 per-object attribute 附加，限制到特定 objects（例如带有 displacements 且会随 camera 移动而 \"sparkle\" 的 objects）。"}
+{"item_id":"515b7f14fc:44","text":"Reference Camera:"}
+{"item_id":"515b7f14fc:45","text":"在这里指定用作 dicing camera 的 camera。点击 widget 创建 new camera，或在字段中右键选择 existing camera。请注意，Reference Camera 需要不同于 render camera。"}
+{"item_id":"515b7f14fc:46","text":"Hair"}
+{"item_id":"515b7f14fc:47","text":"Min Hair Width:"}
+{"item_id":"515b7f14fc:48","text":"设置 hairs/RiCurves 的 minimum width。更窄的 hairs 会被 clamp 到此值，并降低 opacity 以补偿 visual weight 差异。如果数值不太小，这可能改善 anti-aliasing quality。"}
+{"item_id":"515b7f14fc:49","text":"Trace"}
+{"item_id":"515b7f14fc:50","text":"Trace Auto Bias and Trace Bias:"}
+{"item_id":"515b7f14fc:51","text":"RenderMan 会自动计算 trace bias，用于将 ray origins 从命中 surface 上偏移。不过，如果你希望关闭 auto bias，可以在这里手动设置 bias。Per-object settings 应关闭 Auto Bias。缓慢增大该值，直到 artifact（self-shadowing、dark lines 等）消失。"}
+{"item_id":"515b7f14fc:52","text":"Trace World Origin:"}
+{"item_id":"515b7f14fc:53","text":"移动 world origin，以提高 raytracing 的 floating point precision。有时在 rendering very large scenes 时，camera 会移动到距离 origin 很远的位置。根据 scene units，这可能引入 precision issues；在这些情况下，export 到 renderer 的 values 会非常大。可能的 values 为："}
+{"item_id":"515b7f14fc:54","text":"\"world\"（默认）使用真实 world origin"}
+{"item_id":"515b7f14fc:55","text":"\"worldoffset\" 使用用户提供的 trace:worldoffset 作为 raytrace world origin（该 control 会显示 XYZ coordinate field）"}
+{"item_id":"515b7f14fc:56","text":"\"camera\" 使用 camera position 作为 raytrace world origin；在有多个 camera positions 的 large scenes 中，你可能希望将其作为默认。"}
+{"item_id":"515b7f14fc:57","text":"Open Shading Language"}
+{"item_id":"515b7f14fc:58","text":"Enable Batched OSL:"}
+{"item_id":"515b7f14fc:59","text":"通过 supported hardware 上的 vectorized instructions，为 batched shading points 启用 performance improvements。（在至少支持 Advanced Vector Extensions (AVX) 的机器上可用。此外，它可以利用支持 Advanced Vector Extensions 512 (AVX-512) 的机器上的 512-bit wide datapaths。此项默认"}
+{"item_id":"515b7f14fc:60","text":"开启"}
+{"item_id":"515b7f14fc:61","text":"。）"}
+{"item_id":"515b7f14fc:62","text":"OSL Verbosity:"}
+{"item_id":"515b7f14fc:63","text":"有效范围为 0 到 5，其中 5 输出最多 messages。更多信息请参阅"}
+{"item_id":"515b7f14fc:64","text":"OSL documentation"}
+{"item_id":"515b7f14fc:65","text":"。"}
+{"item_id":"515b7f14fc:66","text":"OSL Statistics Level:"}
+{"item_id":"515b7f14fc:67","text":"同上，有效范围为 0 到 5，其中 5 输出最多 messages。"}
+{"item_id":"515b7f14fc:68","text":"Deep Rendering"}
+{"item_id":"515b7f14fc:69","text":"Quality:"}
+{"item_id":"515b7f14fc:70","text":"控制 merging samples 的 decimation rate。设置为 1.0 表示不进行 samples merging，并会生成 huge files。默认值 0.75 映射到 Deepshadow Error 0.01；设为 0 时映射到 Deepshadow Error 0.16。请注意，这不是 linear mapping。"}
+{"item_id":"515b7f14fc:71","text":"Crop Window"}
+{"item_id":"515b7f14fc:72","text":"Enable:"}
+{"item_id":"515b7f14fc:73","text":"使用 crop window；off（默认）会根据 camera settings render 完整 frame"}
+{"item_id":"515b7f14fc:74","text":"Top Left/Bottom Right:"}
+{"item_id":"515b7f14fc:75","text":"指定要 render 的 crop window 的 coordinates（x 和 Y）。当进行许多 debugging 或 lookdev iterations 且只关注特定 region 时，这很有用。你也可以用它移动 rendered region，将一个 very large render（可能用于 print）tile 在一起，并把不同 regions 发送到不同 render node。请注意，在 PxrVCM renderer 中使用 crop windows 可能会生成不同于 full frame 的结果，因为作为优化，我们只为正在 render 的 region 生成 photons。"}
+{"item_id":"515b7f14fc:76","text":"IES Profiles"}
+{"item_id":"515b7f14fc:77","text":"Scene units to meters:"}
+{"item_id":"515b7f14fc:78","text":"虽然 scenes 会以 \"unitless\" 方式 export 到 renderers，但 IES files 会指定 unit measure。使用此设置指定 scene unit 到 meter 的 conversion factor。例如，如果 1 unit = 1 meter，使用 1。如果 1 unit = 1cm，使用 100。"}
+{"item_id":"515b7f14fc:79","text":"Ignore Watts:"}
+{"item_id":"515b7f14fc:80","text":"忽略 profile 中的 internal watts measurement 数值"}
+{"item_id":"515b7f14fc:81","text":"Cache Sizes"}
+{"item_id":"515b7f14fc:82","text":"允许用户自定义 various assets 的 cache sizes，包括 textures、ray-traced geometry（特别是 tessellation cache）和 opacity（作为 materials 中 Presence 的函数）。这些 values 以 megabytes 为单位；当达到这里指定的 limits 时，renderer 会自动从 cache 中 unload data。这些 values 可能会基于机器可用 resources 而偏保守。如果 render stats 显示许多 cache misses（reloading 和 re-reading），且 overall usage 低于 available memory，你可能希望增大这些 values 以改善 performance，但要保持合理并处于 memory budget 内。"}
+{"item_id":"515b7f14fc:83","text":"Statistics"}
+{"item_id":"515b7f14fc:84","text":"Level:"}
+{"item_id":"515b7f14fc:85","text":"启用此项可从 render jobs 输出"}
+{"item_id":"515b7f14fc:86","text":"diagnostic information"}
+{"item_id":"515b7f14fc:87","text":"。可用于 timing、debugging，以及查看 RenderMan 正在做什么。数字越高 verbosity 越高。请注意，这可能造成 performance impact，因为 renderer 需要 lookup 这些 strings，累积起来会有开销。"}
+{"item_id":"515b7f14fc:88","text":"XML File:"}
+{"item_id":"515b7f14fc:89","text":"你可以为 \"Old School\" 和 XML statistics 指定 target destination。"}
+{"item_id":"515b7f14fc:90","text":"LPE Lobe Mappings"}
+{"item_id":"515b7f14fc:91","text":"此 section 将指定 lobes 映射到 output。你会在"}
+{"item_id":"515b7f14fc:92","text":"Light Path Expression"}
+{"item_id":"515b7f14fc:93","text":"documentation 中注意到，per-lobe outputs 依赖这些映射正确，因此建议保持默认。你可以在 custom C++ BxDFs 中使用 User Lobes。"}
+{"item_id":"515b7f14fc:94","text":"示例：你会注意到 defaults 中 Diffuse 3 Lobe ID 是 Subsurface。对应 LPE 是："}
+{"item_id":"515b7f14fc:95","text":"注意指定的 D3 lobe。它与这里分配的 IDs 匹配。"}
+{"item_id":"515b7f14fc:96","text":"没有 D1、S1 或 U1 lobes，因为未指定内容时它们会 \"fallthrough\"。User 2 Lobe 是 collective Albedo results（texture data）。"}

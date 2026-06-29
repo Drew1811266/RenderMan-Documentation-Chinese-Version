@@ -1,0 +1,30 @@
+{"item_id":"ad19a0126f:0","text":"Assigning（分配）"}
+{"item_id":"ad19a0126f:1","text":"Matte IDs"}
+{"item_id":"ad19a0126f:2","text":"给 rendered objects 分配 Matte IDs，并将它们作为 AOVs 的一部分 output，对于后续 compositing 很有用，因为这可以让 compositors isolate objects 或 materials。"}
+{"item_id":"ad19a0126f:3","text":"最基本的做法可以分几步完成。在本 tutorial 中，我们会完成设置 Matte IDs 的 process，用于在 compositing 中分离具有不同 materials 的 objects。本 tutorial 使用的 scene 可在 RfK Examples directory 中找到 - matteid.katana。"}
+{"item_id":"ad19a0126f:4","text":"下面是一个包含四种不同 materials 的简单 example。每个 MatteID output 允许三个 mattes，因为 color output 有三个 channels -- Red、Green 和 Blue。由于此 scene 中有四个 materials，因此需要使用两个 MatteID outputs。"}
+{"item_id":"ad19a0126f:5","text":"可以在此找到 example file 以便跟随操作："}
+{"item_id":"ad19a0126f:6","text":"matteid.zip"}
+{"item_id":"ad19a0126f:7","text":"Part 1: Set the MatteID attribute（第 1 部分：设置 MatteID attribute）"}
+{"item_id":"ad19a0126f:8","text":"首先，我们会为 sphere 分配 Green MatteID。这通过在 sphere 上设置 user attribute 完成。以下是可用于设置此 attribute 的 OpScript："}
+{"item_id":"ad19a0126f:9","text":"MatteID OpScript"}
+{"item_id":"ad19a0126f:10","text":"在 cube 和 cone 上创建相同的 user attribute，但将 value 设置为剩余两个 color channels - blue 和 red。对于 ground plane，需要设置下一个可用 MatteID：MatteID1："}
+{"item_id":"ad19a0126f:11","text":"MatteID OpScript"}
+{"item_id":"ad19a0126f:12","text":"Part 2: Associate the ID in two ways（第 2 部分：用两种方式关联 ID）"}
+{"item_id":"ad19a0126f:13","text":"要将 object 或 shader 关联到 MatteIDx，需要向该 object 添加一个 special attribute："}
+{"item_id":"ad19a0126f:14","text":"在每个 location 上设置 prmanStatements.attributes.user.MatteIDx attribute，用于在 MatteIDx AOV 中为该 object assign color。"}
+{"item_id":"ad19a0126f:15","text":"每个 MatteIDx aov 可以包含 3 组 objects，分别对应每个 RGB channel。在此 example 中有 4 个 objects，因此前三个在 MatteID0 aov 上，最后的 plane 在 MatteID1 aov 上。"}
+{"item_id":"ad19a0126f:16","text":"如果你觉得通过 material location 分配 MatteID user attributes 比在 objects 上分配更方便，可以使用 material.underlayAttrs attribute。"}
+{"item_id":"ad19a0126f:17","text":"在每个 location 上设置 material.underlayAttrs.prmanStatements.attributes.user.MatteIDx attribute，用于在 MatteIDx AOV 中为该 object assign color。"}
+{"item_id":"ad19a0126f:18","text":"Part 3: Connect PxrMatteID to your material（第 3 部分：将 PxrMatteID 连接到 material）"}
+{"item_id":"ad19a0126f:19","text":"如果此时 render，即使添加了正确的 render pass，也不会生效。需要将 PxrMatteID pattern 连接到 material。具体做法是把 PxrMatteID 的 resultAOV output 连接到 PxrSurface material 的 Utility Pattern connection。可以将同一个 PxrMatteID pattern 连接到每个 object 上的 PxrSurface："}
+{"item_id":"ad19a0126f:20","text":"Part 4: Create the MatteID AOVs（第 4 部分：创建 MatteID AOVs）"}
+{"item_id":"ad19a0126f:21","text":"现在添加适当的 MatteID AOVs。PrmanOutputChannelDefine node 中的 name 应与 user attribute name（MatteID0、MatteID1 等）匹配："}
+{"item_id":"ad19a0126f:22","text":"生成的 MatteID0 pass 如下所示："}
+{"item_id":"ad19a0126f:23","text":"生成的 MatteID1 pass 如下所示："}
+{"item_id":"ad19a0126f:24","text":"Part 5: Separate materials with MatteID Textures（第 5 部分：使用 MatteID Textures 分离 materials）"}
+{"item_id":"ad19a0126f:25","text":"如果 scene 中每个 object 都有不同 material，或者只想 isolate scene 中的每个 object，我们可以在 Part 3 停止。但由于 sphere 有两个 materials，并且我们要 isolate 不同 materials，因此需要使用 PxrMatteID 的 Matte Texture parameter。Matte Texture parameters 允许将 colors 或 patterns assign 为每个 matte 的 output。目标是得到一个 matte AOV，其中 sphere 的 purple 部分为 green，gold 部分为 blue，以匹配 cube 的 matte。"}
+{"item_id":"ad19a0126f:26","text":"如果还记得，我们在 Part 2 中没有对 PxrMatteID node 做任何更改，它保持 default。我们会保留这个 node 不变，但将它从分配给 sphere 的 PxrSurface 上 disconnect。这样做是为了只影响一个 object，而不是全部三个。"}
+{"item_id":"ad19a0126f:27","text":"创建新的 PxrMatteID，并将它连接到 sphere 的 PxrSurface。在这种情况下，sphere 有一个 unique material，以及一个与 cube 相同的 material，因此仍可以使用 MatteID0 和 Matte Texture 0。将 PxrChecker pattern 连接到 PxrMatteID 的 Matte Texture 0 parameter。将 checker colors 设置为 blue 和 green。"}
+{"item_id":"ad19a0126f:28","text":"好了，这算是起作用了，但 sphere 中本应为 blue 的部分变成了 black。这是因为 MatteID color 会与连接到 PxrMatteID 的 pattern 相乘。为了得到正确的 blue/green checker output，需要更改之前在 sphere 上设置的 MatteID0 user attribute。将该 value 设置为 white，然后再次 render。"}
+{"item_id":"ad19a0126f:29","text":"任务完成！现在可以添加额外的 PxrMatteIDs，并 chain together 更多 patterns，在 renders 中获得不同 results。你的 compositor 会感谢你。"}

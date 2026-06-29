@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Job Info Pane</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Job Info Pane</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/TRA/22184216/Job+Info+Pane">https://rmanwiki-27.pixar.com/space/TRA/22184216/Job+Info+Pane</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="figure align-left"><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/22184216/jobinfo_pane.png" data-image-src="../../attachments/22184216/jobinfo_pane.png" data-unresolved-comment-count="0" data-linked-resource-id="22195908" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="jobinfo_pane.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="22184216" data-linked-resource-container-version="5" data-media-id="a8e85908-05a7-49eb-b422-bfa11c009bb7" data-media-type="file"></span></div><p>The Job Info pane displays information specific to the jobs that are currently selected in the Job List pane.</p><p>The job attributes in blue are editable and can be used to affect the dispatching of a job's tasks after the job has been submitted. To edit a field with an existing value, simply click and edit. Pressing return ends the edit, and will optionally prompt you to confirm the edit. To edit an empty field, simply click in the empty area and type a new value. When fields are edited, the dashboard validates the field prior to sending to the engine.</p><p>Note that multiple jobs can be selected, and the edit will be applied to all selected jobs. If all the selected jobs have the same values for a field, that value will be displayed; otherwise, <em>&lt;various&gt;</em> will be shown.<br/> </p><div class="section"><h3 id="JobInfoPane-EditableFields">Editable Fields</h3><ul class="simple"><li><strong>Tier</strong> - This field is a string representing the dispatching tier under which the job is to be scheduled. Invalid tier names will result in the job being dispatched under the default tier.</li><li><strong>Priority</strong> - This field is a floating point number, generally positive. A negative priority indicates that the job is to be paused.</li><li><strong>Projects</strong> - This field is a comma-separated list of strings representing the projects associated with the job. Projects are used to divide an Adaptive Farm Allocation into different shares. See <a href="/wiki/spaces/TRA/pages/22184308/Limits+Configuration#li" data-linked-resource-id="22184308" data-linked-resource-version="9" data-linked-resource-type="page">Adaptive Farm Allocations</a> for more information.</li><li><strong>Crews</strong> - The crews field is a comma-separated list of crew names. The data can be entered as comma separated or space separated. Crews are used to define the combination of users and machines that are allowed to process the selected job. The crew value should match a crew defined in the crews.config file. The crew defines a list of users. A profile in the blade.config file will optionally have an <em>Access</em> entry defined for a crew.</li><li><strong>Max Active</strong> - This is an integer representing the maximum number of concurrently active tasks that the job may have.</li><li><strong>Limit Tags</strong> - The limit tags field is a comma-separated list of strings representing the tags to be associated with every command of the job. For example, an entry like &quot;maya, shake&quot; would cause both &quot;maya&quot; and &quot;shake&quot; limit counters to be incremented for every active command of the job.</li><li><strong>Env Key</strong> - The keys field is also a list. The list contains envkeys specifying environment handlers that are added to the launch chain.</li><li><strong>Service Key Expr</strong> - This service key expression is a string describing the resources required for every command of the job. More information can be found in <a href="/wiki/spaces/TRA/pages/22184256/Job+Scripting+Operators" data-linked-resource-id="22184256" data-linked-resource-version="25" data-linked-resource-type="page">Job Scripting Operators</a>.</li><li><strong>Metadata</strong> - The metadata is a string. This value does not affect job processing, but simply provides additional information, visible in the Job Info pane.</li><li><strong>Comment</strong> - The comment field is a string. This value does not affect job processing, but simply provides additional information, visible in the Job Info pane.</li><li><strong>After Jobs</strong> - This is a comma-separated list of job ids which represent the jobs that must be completed before the selected job can be considered for dispatching.</li><li><strong>After Time</strong> - This is a timestamp string in the format MM/DD HH:MM:SS that represents the time <em>after</em> which the job may be considered for dispatching.<br/> </li></ul></div><div class="section"><h3 id="JobInfoPane-JobNotes">Job Notes</h3><p>The Notes box to the right of the job attributes displays user comments and system events for the selected job. If a user has permission to add a note to a job, &quot;click to add note&quot; will appear below the notes area. The notes area can be resized by dragging the lower left corner of the notes box.</p><p>The system event notes are useful to show the history of the job, such as when the priority was changed or when a job was restarted.</p><p>The user generated notes could be used as a communication channel between job owners and wranglers to advise on the importance or status of a job or to exchange debugging guidance.</p></div>
+  </article>
+</main>
+</body>
+</html>

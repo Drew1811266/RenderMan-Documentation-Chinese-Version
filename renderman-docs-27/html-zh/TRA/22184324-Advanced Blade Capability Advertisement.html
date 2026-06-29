@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Advanced Blade Capability Advertisement</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Advanced Blade Capability Advertisement</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/TRA/22184324/Advanced+Blade+Capability+Advertisement">https://rmanwiki-27.pixar.com/space/TRA/22184324/Advanced+Blade+Capability+Advertisement</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<h3 id="AdvancedBladeCapabilityAdvertisement-ServiceKeyIntroduction">Service Key 简介（服务键概念）</h3><p>Tractor 使用一种简单的 abstract keyword matching system，把 job requirements 与 blade capabilities 进行匹配，这个系统称为 <strong>service keys（服务键机制）。</strong></p><p>在 job 中，requirements 通过 RemoteCmd -service "keys" statement 指定，其中 <em>&quot;keys&quot;</em> 可以是简单 keyword，也可以是更复杂的 <a href="https://renderman.atlassian.net/wiki/display/TRA/Job+Scripting#JobScripting-servicekeys" rel="nofollow">expression（复杂表达式）。</a></p><p>在 blade profiles 中，capabilities 会列举在 <em>Provides &lt;tractor_profiles.html#provides-svckeys&gt;</em> list 中。list 里的 names 表示这些 blades 的 attributes：它们运行某个特定 OS，或安装了某个 software package，或具有快速 network connections，等等。key names 是任意的，只有在它们与需要这些 blade attributes 的 jobs 中放入的 -service names 匹配时，才具有 site-defined meaning。</p><p>因此，一个 <strong>blade profile</strong>（在 blade.config 中）可能包含这个 entry：</p><p><code>&quot;Provides&quot;: [&quot;PixarRender&quot;, &quot;RfMRender&quot;, &quot;Linux&quot;]
+</code></p><p>而一个 <strong>job</strong> 可能具有如下 commands：</p><p><code>RemoteCmd {prman test.rib} -service &quot;RfMRender&quot;
+RemoteCmd {prman test.rib} -service &quot;PixarRender &amp;&amp; Linux&quot;</code><br/><sup>
+</sup></p><h3 id="AdvancedBladeCapabilityAdvertisement-AdvancedCapabilityAnnotations">Advanced Capability Annotations（高级能力注解）</h3><p>已添加几种高级 blade profile <em>&quot;Provides&quot;</em> modes，用来支持一些不常见的 usage cases。注意，这些 annotations 应放在 <em>blade.config</em> <strong>不是</strong> job scripts 作业脚本中！</p><h4 id="AdvancedBladeCapabilityAdvertisement-CountedServiceKeys">Counted Service Keys（计数型 Service Keys 资源键）</h4><p>The <strong>(max:NN)</strong> suffix。</p><p>有时，把 "Provides" list 视为每台 blade host 上的一组 counted resources 会很有用。Tractor keys 可以添加 annotation，表示 blade 应跟踪它们的 usage，并且 blade 只应对仍有 unused capacity 的这些 keys 广告 service availability。</p><p>注意，这个 "counted key" feature 较为微妙，通常只在一些不常见场景中有用。它既与常规 <strong>limits</strong>processing 重叠，也与通用 blade <strong>slot count</strong> concept 重叠。只有当单个 blade host 被允许并发运行多个 command 时，计数这一面才有意义；也就是说，当 blade 的 <em>slot count</em> 大于 1 时。</p><p>这个想法是给 blade 上的每种 service key type "allocate" 一个固定的 maximum concurrency count。有时，当已知使用某个特定 key 的 commands 具有较大的 resource usage "footprint"，而使用其他 keys 的 programs 较轻量时，就会产生这种需求。例如，studio 可能有 resource-intensive 的典型 prman jobs，同时也有 lightweight 的简单 nuke jobs。</p><p><code>&quot;Provides&quot;: [&quot;PixarRender(max:2)&quot;, &quot;NukeRender(max:4)&quot;, &quot;Linux&quot;],
+&quot;Slots&quot;: 4,
+...</code><sup>
+</sup></p><p>在此示例中，使用此 profile 的 blades 一开始会接受任何需要 PixarRender 或 NukeRender service 的 job work。它们总共有四个 concurrency slots。在任何给定时间，PixerRender processes 不能超过两个，NukeRender processes 不能超过四个。因此，blade 可能运行 1 个 prman 和 3 个 nukes，或 2 个 prman 和 2 个 nukes，或 4 个 nukes。</p><p>因此，此 feature 允许 blades 根据哪些 keys 已被先前启动的 commands "consumed"，动态广告不同的 service key capabilities 集合。</p><p><strong>NOTE:</strong> 这些 counted service keys 跟踪的是 <em>blade capabilities</em>，它们在概念上独立于 global Limit counts 以及 <em>project or licensing</em> level 的 resource sharing allocations。这些 counted keys 决定给定的 <strong>blade 是否仍有 remaining capacity（剩余容量）</strong> 可用于 work，而 Limits 则在确定哪些 jobs（如果有）可以分配给那些 available blades 时应用。</p><h4 id="AdvancedBladeCapabilityAdvertisement-ContingentServiceAdvertisement">Contingent Service Advertisement（条件式 Service 广告）</h4><p>The <strong>(after:KEY) 条件式后置键</strong> suffix。</p><p>这个 blade profile "Provides" key annotation 与上文的 Counted Service Keys concept 相关。在这种变体中，blade 上的 slots 被指示为先只分配给一种 job，然后才允许其他 "filler" types 用掉可能剩余的 capacity。一个例子是：一组 many-core machines 应各自保留给两个 8-thread prman invocations，剩余 capacity 再由 nuke jobs 填充。目标是在 idle 时始终留下一个较大的 prman 空位，而不是让 lightweight jobs 一点点占用 available slots，导致永远没有足够大的空位让 prman task 被 scheduled。</p><p><code>&quot;Provides&quot;: [&quot;PixarRender(max:2)&quot;, &quot;NukeRender(after:PixarRender)&quot;],
+&quot;Slots&quot;: 6,
+...</code><sup>
+</sup></p><p>在此示例中，NukeRender service capability 要等到两个 PixarRender processes 正在运行后才会被广告。"after" annotation 表示给定 key 只有在命名 key 已达到其 maximum count 后才可用。如果某个正在运行的 prman process 退出，那么 PixarRender 会低于其 max 2，直到另一个 prman 落到该 blade 上之前，都不会分配新的 nuke process。这些情况下的典型假设是，"after" key 与 lightweight、fast-running programs 相关。</p><p>同样，此 feature 用于根据当前正在运行的 commands，控制某个 blade capability 是否完全被视为 available。它独立于 Limits，但可以影响某一特定 type 的 running programs 总数。<br/> </p><h4 id="AdvancedBladeCapabilityAdvertisement-RequiredKeys:EnforcingMandatoryJobServiceTypes">Required Keys: 强制 Job Service Types</h4><p>The <strong>(R)</strong> suffix。</p><p>在 profile "Provides" list 的 names 中添加可选 "keyname(R)" suffix，会以一种细微方式改变通常的 blade assignment logic。该 key 会变成 <em>mandatory（强制必需条件），</em> jobs <em>必须</em> 在其他 keys 之中请求该 key，才能匹配 blade。</p><p>blde "Provides" list 中 names 的通常处理方式是：只要匹配 list 中的 <em>ANY</em> key，就足以允许匹配的 command 在该 blade 上运行。"(R)" suffix 则指定 commands <strong>REQUIRED</strong> 至少请求给定 key，才能使用该 blade。</p><p>下面是使用该 annotation 的 Provides list 示例：</p><p><code>&quot;Provides&quot;: [&quot;PixarRender&quot;, &quot;RfMRender&quot;, &quot;DebugEnv(R)&quot;]
+</code></p><p>给定使用该 profile 的 blades，则只使用 "-service PixarRender" 的 RemoteCmds 将 <em>不再</em> 在这些 blades 上运行，但 "-service PixarRender,DebugEnv" <em>会</em> 在那里运行。区别在于，给定 blades 不会接受只请求 "PixarRender" 的其他 regular jobs 的 commands。Provides list 中的 "DebugEnv(R)" item 会让该 key 成为 mandatory。</p><p>这种细微限制可用于允许 wranglers 将 jobs "steer" 到一组特定 blades 上，这些 blades 可能为特殊情况而 "reserved"。如果某个 job 在 regular farm machines 上行为异常，wrangler 可以把 "DebugEnv"（在此示例中）添加到该 job 的 job-level service keys（例如在 Dashboard 的 type-in field 中）。该 job 重启后的 tasks 随后会去往广告 "DebugEnv" capability 的 machines。</p><p>这里的 "(R)" 会阻止 regular jobs 也落到 debug machines 上。即使某些 regular jobs 会匹配 <em>某些</em> blade keys，它们并没有请求该 blade 所 <em>required</em> 的 key。</p><p>注意，仅仅把 additional key 添加到 <em>job</em> 确实 <strong>不会</strong> 改变通常的 assignment logic：new key 会像往常一样成为 match 所必需的条件，因此该 job 仍像往常一样只匹配提供该 key 的 blades。不过，把 "DebugEnv(R)" 添加到 blade <em>profile</em> 意味着这些 blades 将不再匹配只请求 <em>其他</em> Provides list 中 keys 的 jobs -- 相反，这些 blades 将 <em>只</em>匹配 service request 至少包含 "DebugEnv" 的 jobs。</p>
+  </article>
+</main>
+</body>
+</html>

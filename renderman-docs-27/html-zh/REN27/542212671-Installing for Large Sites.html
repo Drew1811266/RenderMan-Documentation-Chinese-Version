@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Installing for Large Sites</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Installing for Large Sites</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/REN27/542212671/Installing+for+Large+Sites">https://rmanwiki-27.pixar.com/space/REN27/542212671/Installing+for+Large+Sites</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>集成在单个 GUI 程序中的 RenderMan Installer，并不适合在中大型数量的机器上安装 RenderMan。RenderMan Installer 会下载并安装各个组件安装器，但这些单独的组件安装器也可以单独从 <a class="external-link" href="https://renderman.pixar.com/forum/download.php" rel="nofollow">论坛网站</a> 获取（需要论坛登录）。</p><h2 id="InstallingforLargeSites-ObtainingaLicenseFile">获取许可证文件</h2><p>如果不使用 RenderMan Installer，有两种获取许可证文件的方法：</p><ol start="1"><li><p>运行 LicenseApp 工具并点击 "Get License" 按钮。它会提示你输入论坛用户名、密码和序列号，并下载许可证文件。 </p></li><li><p>前往 <a class="external-link" href="https://renderman.pixar.com/forum/entitlement.php" rel="nofollow">论坛网页</a> 并输入你的论坛用户名、密码、序列号、hostname 和 hostid。hostid 可以通过使用 LicenseApp 工具确定，也可以通过使用特殊标志运行许可证服务器来确定：</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="7f2d5dff-3f43-4a05-aa54-e9358b210912" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: bash; gutter: false; theme: Confluence" data-theme="Confluence">./PixarLicenseServer -hostid</pre>
+</div></div><p /></li></ol><p>如果使用节点锁定许可证，则每台机器都需要单独的许可证文件。如果使用浮动许可证，只需要一个文件，可按需复制。</p><h2 id="InstallingforLargeSites-LicenseFileLocation">许可证文件位置</h2><p>许可证文件名为 pixar.license，通常放在发行版目录旁边。例如，如果在每个操作系统上使用默认安装位置，许可证文件应为：</p><ul><li><p>Linux</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="96190380-ef53-4c3d-80c7-b583df3281ee" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">/opt/pixar/pixar.license</pre>
+</div></div><p /></li><li><p>Windows</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="5ec38cf8-27c5-4ae5-b13c-2889c45f0b83" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">C:\Program Files\Pixar\pixar.license</pre>
+</div></div><p /></li><li><p>macOS</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="97e22e7e-cae9-49c9-8845-743bb055e3e5" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">/Applications/Pixar/pixar.license</pre>
+</div></div><p /></li></ul><h2 id="InstallingforLargeSites-FloatingLicenseConsiderations">浮动许可证注意事项</h2><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="4a16a4be-1175-4ae9-91b9-5b207d13890a" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>请参阅 <a href="542212504-Installing The License Server.html" rel="nofollow">安装许可证服务器</a> 以获取有关如何设置浮动许可证服务，以及如何启动、停止和配置这些服务的更详细信息。</p></div></div><p>在浮动许可证安装中，网络中需要有一台机器安装并运行 PixarLicenseServer。每台需要使用许可证的工作站都必须持续保持到该机器的网络连接。可以通过几种方式将每台工作站指向许可证服务器机器。请选择最适合你环境的方法：</p><ol start="1"><li><p>每台工作站都可以像上文所述，在发行版旁边的默认位置简单地放置一份 pixar.license 文件。该许可证文件包含足够的信息，使软件（prman 或 RenderMan for Maya 等）能够确定这是网络许可证，以及许可证服务器的地址。如果不希望将 pixar.license 文件安装在默认位置，可以将环境变量 PIXAR_LICENSE_FILE 设置为许可证文件的完整路径名。</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="22d4597b-0c93-4ca4-87c0-a4eff0666e13" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: text; gutter: false; theme: Confluence" data-theme="Confluence">PIXAR_LICENSE_FILE=/this/is/a/nonstandard/pixar.license</pre>
+</div></div><p /></li><li><p>可以设置工作站，使环境变量 PIXAR_LICENSE_FILE 包含端口号和主机名值，从而无需在客户端工作站上放置任何文件。</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="a9003277-5054-470a-be97-a71d231ec581" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: text; gutter: false; theme: Confluence" data-theme="Confluence">PIXAR_LICENSE_FILE=9010@license-server </pre>
+</div></div><p /></li><li><p> 可以将 rendermn.ini 文件中的 /licenseserver 值设置为该位置</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="c2216af0-c350-46e9-99d0-5d0ac4f316e4" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: text; gutter: false; theme: Confluence" data-theme="Confluence">/licenseserver 9010@license-server</pre>
+</div></div><p /></li></ol><p>如果没有对应的 DNS 服务器条目，许可证服务器地址可能需要采用 hostname.company.com 这样的形式，或者类似 10.0.0.2 的地址，甚至是 localhost。</p><p>LicenseApp 工具了解所有这些查找许可证服务器的方法，因此它适合从任意工作站测试和监控许可证状态。它也有助于诊断诸如 PIXAR_LICENSE_FILE 已设置但指向不可读文件，或无法通过网络访问许可证服务器等情况。</p><p />
+  </article>
+</main>
+</body>
+</html>

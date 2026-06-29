@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RenderMan for Katana Release Notes</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>RenderMan for Katana Release Notes</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFK27/546179753/RenderMan+for+Katana+Release+Notes">https://rmanwiki-27.pixar.com/space/RFK27/546179753/RenderMan+for+Katana+Release+Notes</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<h3 local-id="653ac13b-4485-40f3-b370-7f2a4e94d3da" id="RenderManforKatanaReleaseNotes-WelcometoRenderManforKatana!"><style>[data-colorid=b7brxvuad2]{color:#808284} html[data-color-mode=dark] [data-colorid=b7brxvuad2]{color:#7b7d7f}</style>欢迎使用 RenderMan for Katana！</h3><p local-id="6ae3c49e-c280-401b-b5c9-a5bf18bac16d">RenderMan for Katana (RfK) 利用了新版 Katana 中的改动，并继续完整支持最新的 RenderMan。有关更多细节，请参阅 <a class="external-link" href="../REN27/542238759-542238759.html" rel="nofollow">RenderMan Release Notes（RenderMan 发布说明）</a>。</p><p local-id="f7895944-81bf-43ab-9284-5a7599cfdf95">当前版本支持：</p><ul local-id="5e691401-8a3b-4579-bf0d-d39051112cde"><li local-id="9ca9e924-2bd7-4bc9-8f58-77a7550dabbd"><p local-id="9b68bd0b-0075-40b1-8af7-2ea35c8cef6c">Katana 8.0</p></li><li local-id="9eac1a07-9682-4743-823e-01c828fec63a"><p local-id="fbea8deb-27ce-4f9b-85bc-a2e57e262ac5">Katana 7.5</p></li><li local-id="0fb6dc4e-ea44-4c8a-a288-61fb54931a52"><p local-id="457e6cc6-6023-4095-bc12-aba5b3383951">Katana 7.0</p></li></ul><h4 local-id="14e7a4d6-c57a-4e52-a6d6-becdd21929eb" id="RenderManforKatanaReleaseNotes-KatanaLimitation">Katana 限制</h4><ul local-id="ef0dc6b7-da3c-4f33-af2e-734f25834ec6"><li local-id="c6999044-99ad-43ef-965b-7c8a33a6b09b"><p local-id="1acba637-30b6-4f4d-b046-2dd06c7e84d1">如果使用 ROI 与 overscan 或 cropWindow，在编辑分辨率后，需要稍微调整 ROI，才能在 live render 期间获得正确值</p></li><li local-id="0522af8f-4aae-425d-a77c-84b3a19e25e6"><p local-id="a9a1ce6b-55be-4064-b695-d9b15f9c58f5">使用 "Light Filter" coordsys 的带 filter instanced lights 会产生不正确的 transform。解决方法是使用 light filter reference 将该 light filter 提升为 shared light filter。</p></li><li local-id="42335b07-4a79-4eb8-a230-50d026844223"><p local-id="a774f84e-cb9e-41bc-8739-bef87c33ecaf">对于添加在 node graph 末尾、正好位于 Render node 上方的 nodes，我们不会从 Katana 接收到 live render edits。如果在 Render node 上方插入一个 no-op node（例如 Merge），然后把该 node 添加在它上方，则可以接收到 edit。</p></li><li local-id="373e6f34-6ead-4243-8b98-32b722115d67"><p local-id="63af5d68-2327-4c7a-b014-2c6f3bd51337">任何 live updates 都会导致 interactive motion blur 被禁用。必须重新启动 render 才能看到 motion blur。</p></li></ul><p local-id="e53afdb3-be2e-4a68-b136-5f33818ab17e" /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="300" loading="lazy" src="../../attachments/546179753/inside-out-2-fear-01.png" data-image-src="../../attachments/546179753/inside-out-2-fear-01.png" data-height="1024" data-width="524" data-unresolved-comment-count="0" data-linked-resource-id="546179767" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="inside-out-2-fear-01.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="546179753" data-linked-resource-container-version="3" data-media-id="10107872-8cbc-4053-af88-f9e3fef280d0" data-media-type="file" /></span><p local-id="a774be03-0c85-4c03-870a-4873062bde5f" style="text-align: center;"><span data-colorid="b7brxvuad2">《Inside Out 2》© Disney/Pixar</span></p>
+  </article>
+</main>
+</body>
+</html>

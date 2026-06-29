@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PxrLayerMixer</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>PxrLayerMixer</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/REN27/542218974/PxrLayerMixer">https://rmanwiki-27.pixar.com/space/REN27/542218974/PxrLayerMixer</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p> </p><p><strong>PxrLayerMixer</strong> is an OSL pattern which mixes the input <a href="/wiki/spaces/REN27/pages/542217837/PxrLayer" data-linked-resource-id="542217837" data-linked-resource-version="1" data-linked-resource-type="page">PxrLayer</a> nodes.</p><p>Each PxrLayerMixer supports up to 4 optional layers in addition to the base layer which is always required. Note that its result can be connected to another PxrLayerMixer node. So there is no limit to the total number of layers.</p><p>The layered output will be connected to the input of <a href="/wiki/spaces/REN27/pages/542213836/PxrSurface" data-linked-resource-id="542213836" data-linked-resource-version="2" data-linked-resource-type="page">PxrSurface</a> or its simpler versions such as PxrStandardSurface's inputMaterial.</p><p>By default, only the base layer and layer1 are enabled.</p><p> </p><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="4434bddd-80aa-453b-a916-910015c05001" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p><span> A Base Material is <em>required</em>. But the next layer does not need to be in sequence. In other words, you could connect a layer to Layer 2 without connecting to Layer 1. This adds flexibility for the look development workflow should you need to add/remove or re-order layers.</span></p></div></div><p> </p><p> </p><div class="section"><h3 id="PxrLayerMixer-Parameters">Parameters</h3><h4 id="PxrLayerMixer-BaseMaterial">Base Material</h4><p>Connect a PxrLayer that is for the base layer. This is your base or bottom layer like glass, metal, skin, wood, etc. Other layers are on top of this base layer.</p><p> </p><div class="section"><h4 id="PxrLayerMixer-LayerControls">Layer Controls</h4><p><strong>Enabled</strong></p><p>This turns the layer on and off. If off, this layer will not render.</p><p> </p><p><strong>Layer 1</strong></p><p>Connection to a PxrLayer that is for layer 1. This is where you connect your material layer like glass, label, dirt, etc.</p><p> </p><p><strong>Layer 1 Mask</strong></p><p>Mask for this layer 1. Values closer to zero will apply less of this layer. A value of 0.0 is off or invisible while 1.0 is on or completely visible.</p><p> </p></div><div class="section"><h4 id="PxrLayerMixer-Layers2to4">Layers 2 to 4</h4><p>These use the same controls as described above.</p></div></div>
+  </article>
+</main>
+</body>
+</html>

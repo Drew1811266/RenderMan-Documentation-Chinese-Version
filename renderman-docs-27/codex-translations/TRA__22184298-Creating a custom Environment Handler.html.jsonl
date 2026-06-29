@@ -1,0 +1,34 @@
+{"item_id":"bf53932e38:0","text":"要跟随学习，Project X Handler 的完整 code listing 可在"}
+{"item_id":"bf53932e38:1","text":"这里"}
+{"item_id":"bf53932e38:2","text":"找到。"}
+{"item_id":"bf53932e38:3","text":"让我们逐段查看代码，了解这个 handler 会做什么。"}
+{"item_id":"bf53932e38:4","text":"首先，看一下 handler initialization："}
+{"item_id":"bf53932e38:5","text":"initialization 非常直接。首先导入 TrEnvHandler（base class），以及 logging module。"}
+{"item_id":"bf53932e38:6","text":"__init__ routine 设置 logger，然后调用 superclass initialization。"}
+{"item_id":"bf53932e38:7","text":"environment handler 中的主要处理发生在两个 methods 中。"}
+{"item_id":"bf53932e38:8","text":"环境更新方法说明（updateEnvironment method()）："}
+{"item_id":"bf53932e38:9","text":"updateEnvironment method 对每个 handler 调用一次，参数是 pending command 中与该 handler 处理的 envkeys 匹配的 envkeys 列表。在我们的示例中，如上方 dictionary 所示，当 envkey key 包含 “ProjectX”、“SHOT=somevalue” 或 “SCENE=”somevalue” 时，会调用这个 handler。"}
+{"item_id":"bf53932e38:10","text":"假设 command envkey definition 通常大致如下："}
+{"item_id":"bf53932e38:11","text":"updateEnvironment() method 的主要职责，是定义放入 handler 自身 environment 中的 values。它最后通常会调用 base class 的 updateEnvironment() method，将 handler environment 与 blade 提供的 launching command environment 合并。"}
+{"item_id":"bf53932e38:12","text":"这个 handler 中的 code 会遍历与 launching command 关联的所有 envkeys。然后它设置一些 internal variables，供后续使用，并在 handler 的 local environment dictionary 中设置多个 environment variables。"}
+{"item_id":"bf53932e38:13","text":"在上面的 Project X handler environment dictionary 中，你会找到以下内容："}
+{"item_id":"bf53932e38:14","text":"CURRENT_SHOT 和 CURRENT_SCENE environment variables 基于处理 dictionary 时预期存在的 variables。因此，在 handler code 中，你会看到 self.environmentdict[\"SCENE\"] 和 self.environmentdict[\"SHOT\"] 在 handler 的 updateEnvironment() method 中定义。当调用 base class updateEnvironment() method 时，该 dictionary 会合并到 launching command 的 environment 中，从而正确定义 CURRENT_SHOT 和 CURRENT_SCENE。"}
+{"item_id":"bf53932e38:15","text":"我们还看到一个 environment 内部 flattening 的示例：RMANTREE 被定义为指向该 show 的特定 RPS version，并且 $RMANTREE/bin 被加载到 PATH environment variable 的开头。"}
+{"item_id":"bf53932e38:16","text":"调用 updateEnvironment() method 后，blade 接着调用 handler 的 remapCmdArgs() method。此 method 的目的是允许 handler 在 command 启动之前重写原始 command。"}
+{"item_id":"bf53932e38:17","text":"rewrite method 重写方法如下："}
+{"item_id":"bf53932e38:18","text":"handlers 通常做的第一件事，是调用 base class remapCmdArgs() method。base class 处理所有软件都会使用的通用 remapping。它处理 alfred scripting language 允许的标准 remapping，例如 “%h, %H”。它还会查找任何 command line 中的 $val。随后预期从 launch environment 中提供这个 $val。例如"}
+{"item_id":"bf53932e38:19","text":"$render"}
+{"item_id":"bf53932e38:20","text":"可能会被 remapped 为"}
+{"item_id":"bf53932e38:21","text":"prman"}
+{"item_id":"bf53932e38:22","text":"。"}
+{"item_id":"bf53932e38:23","text":"调用 base class 后，handler 可以提供它需要的任何 custom remapping。在我们的示例 handler 中，它执行以下操作："}
+{"item_id":"bf53932e38:24","text":"它将 environment variable TRACTOR 设置为 1，让 downstream scripts 知道这是一个由 tractor launched job。"}
+{"item_id":"bf53932e38:25","text":"它检查要启动的 application 是否为"}
+{"item_id":"bf53932e38:26","text":"render"}
+{"item_id":"bf53932e38:27","text":"，并检查 RMANTREE 是否在 environment 中。如果是，它会把 launch command 改为（实际上）"}
+{"item_id":"bf53932e38:28","text":"$RMANTREE/bin/prman"}
+{"item_id":"bf53932e38:29","text":"，并通过添加基于 current scene 和 shot values 的 output stats file 来扩展 command。"}
+{"item_id":"bf53932e38:30","text":"随后这个 handler 会检查 current blade 的 platform。如果确定是 windows platform，它会把 Visual Studio INCLUDE 和 LIBS values 添加到 launch environment 中。"}
+{"item_id":"bf53932e38:31","text":"根据为 command 提供的 envkeys 数量，可能会有多个 environment handlers 处理该 command。"}
+{"item_id":"bf53932e38:32","text":"default"}
+{"item_id":"bf53932e38:33","text":"handler 总是最先被调用，然后其他 handlers 会级联执行。当最后一个 handler 处理完 environment 和 launch command 后，blade 才会启动修改后的 command。"}

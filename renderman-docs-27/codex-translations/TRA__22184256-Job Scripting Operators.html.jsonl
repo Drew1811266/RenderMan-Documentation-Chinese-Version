@@ -1,0 +1,213 @@
+{"item_id":"864456a1e6:0","text":"概要"}
+{"item_id":"864456a1e6:1","text":"Tractor 和 Alfred 共享一种通用脚本语言。二者的输入脚本都由使用以下操作符的表达式组成："}
+{"item_id":"864456a1e6:2","text":"有关通用概念和示例，请参见"}
+{"item_id":"864456a1e6:3","text":"Scripting（脚本）"}
+{"item_id":"864456a1e6:4","text":"文档。"}
+{"item_id":"864456a1e6:5","text":"操作符详情"}
+{"item_id":"864456a1e6:6","text":"下面列出的"}
+{"item_id":"864456a1e6:7","text":"options（选项）"}
+{"item_id":"864456a1e6:8","text":"采用 \""}
+{"item_id":"864456a1e6:9","text":"-optionName optionValue"}
+{"item_id":"864456a1e6:10","text":"\" 形式，并且所有 options 都必须与操作符位于同一个逻辑输入行上。可以在行尾使用 Backslash (\\) 来显式"}
+{"item_id":"864456a1e6:11","text":"escape（转义）"}
+{"item_id":"864456a1e6:12","text":"换行符，并在脚本文件的下一行继续输入。花括号中的换行会被视为空格，并且可以提升可读性，尤其适用于嵌套树结构。"}
+{"item_id":"864456a1e6:13","text":"例如："}
+{"item_id":"864456a1e6:14","text":"也可以写成："}
+{"item_id":"864456a1e6:15","text":"Job"}
+{"item_id":"864456a1e6:16","text":"[options]"}
+{"item_id":"864456a1e6:17","text":"此字符串用作 job-queue 窗口中的标签文本。"}
+{"item_id":"864456a1e6:18","text":"将作业处理的开始时间延迟到给定时间；作业会被 spooled 并放入队列，但在指定日期之后才会开始处理；日期形式为"}
+{"item_id":"864456a1e6:19","text":"作业日期格式：{month day hour:minute}"}
+{"item_id":"864456a1e6:20","text":"或者，对于当天稍后的时间，使用"}
+{"item_id":"864456a1e6:21","text":"当天时间格式：{hour:minute}"}
+{"item_id":"864456a1e6:22","text":"（直到午夜）。小时应按 24 小时制给出。例如，要把作业延迟到 6 月 23 日下午 1:45，请使用：Job -after {6 23 13:45} ..."}
+{"item_id":"864456a1e6:23","text":"将作业处理的开始时间延迟到指定作业完成之后；多个 job id 必须用空格分隔。例如 -afterjids {123 124 130}"}
+{"item_id":"864456a1e6:24","text":"嵌套的"}
+{"item_id":"864456a1e6:25","text":"Tasks"}
+{"item_id":"864456a1e6:26","text":"在这里定义作业的结构。"}
+{"item_id":"864456a1e6:27","text":"在作业终止时要执行的 Cmd 列表。"}
+{"item_id":"864456a1e6:28","text":"为没有显式"}
+{"item_id":"864456a1e6:29","text":"-atleast"}
+{"item_id":"864456a1e6:30","text":"option 的 RemoteCmd 设置默认值。"}
+{"item_id":"864456a1e6:31","text":"为没有显式"}
+{"item_id":"864456a1e6:32","text":"-atmost"}
+{"item_id":"864456a1e6:33","text":"option 的 RemoteCmd 设置默认值。"}
+{"item_id":"864456a1e6:34","text":"指定该作业最多允许有"}
+{"item_id":"864456a1e6:35","text":"max_commands"}
+{"item_id":"864456a1e6:36","text":"个并发活动命令。"}
+{"item_id":"864456a1e6:37","text":"要添加到每个 RemoteCmd 现有 tag 列表中的 limit-tags。"}
+{"item_id":"864456a1e6:38","text":"此作业所属项目的名称列表，用于与"}
+{"item_id":"864456a1e6:39","text":"Share Names"}
+{"item_id":"864456a1e6:40","text":"在 limit.config 中的站点级 limit sharing 定义进行匹配。通常，这是该作业所 spool 的 show、部门或其内部简称的名称。"}
+{"item_id":"864456a1e6:41","text":"有效的站点级 tier 列表定义在 tractor.config 中，每个 tier 表示一种特定的全局作业优先级和调度规则。默认情况下，作业会被 spooled 到名为 \"default\" 的 tier 中，之后管理员可以把它们移动到其他 tier。"}
+{"item_id":"864456a1e6:42","text":"要与每个 RemoteCmd 现有 service 表达式进行 AND 组合的附加 service key 表达式。"}
+{"item_id":"864456a1e6:43","text":"指定一个任意 key（名称或数字），它会被传递给远程 tractor-blade。当单个 RemoteCmd 未指定自己的逐命令值时，这个 Job option 会作为默认 RemoteCmd -envkey option 应用。更多细节见下面 RemoteCmd -envkey option 的说明。"}
+{"item_id":"864456a1e6:44","text":"指定中央作业队列上作业的排序条件。数值较大的 priority 作业会先于较低值的作业被考虑。平局会根据当前 dispatching policy 调度策略打破，但通常会考虑 spool time，因此更早 spooled 的作业会先于稍后加入队列的作业被 dispatch，也就是默认采用 FIFO 顺序。请注意，旧 Alfred 的 \"-pbias\" 参数会在 Tractor 中直接转换为简单 priority。"}
+{"item_id":"864456a1e6:45","text":"指定在确定远程服务器访问权限时要使用的 Crews 列表；适用于属于多个 crew、但希望某个特定作业使用"}
+{"item_id":"864456a1e6:46","text":"更受限制的"}
+{"item_id":"864456a1e6:47","text":"服务器访问权限集合的用户。这里列出但不适用于该用户的 Crews 会被忽略。如果列表为空，则默认列表会从 crews.config 和 blade.config 派生。"}
+{"item_id":"864456a1e6:48","text":"这是指定应在任务分配期间排除考虑的 hostname 或其他 service key 类型列表的另一种方式。该 key 列表会作为逻辑 \"AND NOT (keys)\" 子句追加到每个 RemoteCmd 自己的 -service 表达式中。"}
+{"item_id":"864456a1e6:49","text":"指定应使用 Task 树深度层级的第"}
+{"item_id":"864456a1e6:50","text":"层来计算作业的预计完成时间值。作业脚本中最外层的 Tasks 为第 0 层，其 subtask 为第 1 层，依此类推。默认估计值基于剩余第 0 层节点数量乘以每个已完成第 0 层节点所需的平均时间（即它的所有 subtask 以及自身 Cmd 的耗时）。"}
+{"item_id":"864456a1e6:51","text":"指定一个随作业存储的任意字符串，主要供 job-generator 程序记录其版本信息以及创建作业时的上下文（用户名、项目信息）。"}
+{"item_id":"864456a1e6:52","text":"指定一个随作业存储的任意字符串。metadata 内容由工作室决定，Tractor 本身会忽略它。这些值可用于 tq 搜索或 Dashboard 作业列表过滤器。"}
+{"item_id":"864456a1e6:53","text":"指定 crews.config 中定义的某个 JobEditAccessPolicies 名称；默认使用名为 \"defaultPolicy\" 的 policy。请注意，考虑到生产 wrangling 的现实情况，如果作业在此处指定的 policy 名称尚未在 crews.config 中定义，那么在该 policy 定义完成并由 engine 重新加载 crews.config 之前，该作业会 fallback 到 \"defaultPolicy\"。在所有情况下，\"Administrators\" crew 中的用户都拥有完整的作业编辑访问权限。"}
+{"item_id":"864456a1e6:54","text":"指定给定 zone 下从一个路径到另一个路径的映射。详情可参见"}
+{"item_id":"864456a1e6:55","text":"这里"}
+{"item_id":"864456a1e6:56","text":"。"}
+{"item_id":"864456a1e6:57","text":"可选的 \"-postscript\" 子句可以添加到作业脚本的主 \"Job\" 关键字上。此子句会添加将在以下情况下执行的 Cmd 或 RemoteCmd："}
+{"item_id":"864456a1e6:58","text":"after（之后）"}
+{"item_id":"864456a1e6:59","text":"主作业本身中的命令，在以下情形执行：（1）主作业任务全部成功完成之后；以及（2）主作业因错误而停滞，并且所有其他剩余任务都被 subtask 中的错误阻塞之后。这些命令在精神上类似于 Python 异常处理器中的 \"finally\" 块。此子句的结构与 task 中的 \"-cmds\" 块相同："}
+{"item_id":"864456a1e6:60","text":"旧 alfred 脚本构造 \"-whendone\" 和 \"-whenerror\" 在 Tractor 中作为 -postscript 子句的特殊情况实现。出于兼容性原因，它们会被转换为"}
+{"item_id":"864456a1e6:61","text":"local（本地）"}
+{"item_id":"864456a1e6:62","text":"Cmd（要求用户 spool 主机上有 tractor-blade），除非给出了 tractor-spool option \"--remotecleankeys=kkkk\"。这些命令会通过 \"system shell\" 启动给定的 \"when\" 命令，以适配旧语法允许的 shell 表达式。建议改用较新的 postscript 语法，即 \"RemoteCmd {...} -when {...}\"。"}
+{"item_id":"864456a1e6:63","text":"Task"}
+{"item_id":"864456a1e6:64","text":"Task 标题和选项语法：{title} [options]"}
+{"item_id":"864456a1e6:65","text":"此字符串既用作用户界面中的标签文本，也用作 Instance 节点引用其 target 目标时使用的名称。"}
+{"item_id":"864456a1e6:66","text":"task 按分组层级排列；子 task 定义在当前 task 的 subtask 列表中，这些是当前 task 可以继续之前必须完成的依赖项。"}
+{"item_id":"864456a1e6:67","text":"与此 Task 节点关联的可选 RemoteCmd 列表。当此 Task 的所有 subtask 都成功完成后，这些命令会按顺序启动（随着资源可用）。如果 Task 只是任务层级中的分组节点，则不需要指定任何命令。"}
+{"item_id":"864456a1e6:68","text":"此节点的 clean-up Cmd 操作符；这些命令会在"}
+{"item_id":"864456a1e6:69","text":"-cmds"}
+{"item_id":"864456a1e6:70","text":"section（如果有）中的命令之后执行，或在作业删除期间、当该节点处于活动路径上时执行（某个子节点已 dispatch 了命令）；如果此 task 或其某个父级已 checkout 一个 Task-level（shared）服务器，它们也会在 task-restart 期间运行。"}
+{"item_id":"864456a1e6:71","text":"由用户从 UI 启动的外部应用程序，通常用于查看已渲染帧；只有在此 task 的常规命令成功完成后，UI 才会激活启动按钮。当连接的是 Web 浏览器时，chaser 命令会有特殊处理。具体来说，命名的 \"imagefile\" 将可供浏览器下载。有关启用此功能的详细信息，请参见站点配置文件（httpImgRoot）。"}
+{"item_id":"864456a1e6:72","text":"以与"}
+{"item_id":"864456a1e6:73","text":"-chaser"}
+{"item_id":"864456a1e6:74","text":"相同的方式启动外部应用程序，不过这个版本会在命令完成之前激活启动按钮。"}
+{"item_id":"864456a1e6:75","text":"（高级）在某些不常见情况下，为 Task 层级范围内的所有 subtask 和命令持续 checkout 一个远程服务器可能很有用。一个 service specification 服务规格"}
+{"item_id":"864456a1e6:76","text":"位于 Task 级别"}
+{"item_id":"864456a1e6:77","text":"即可完成这一点；当 Task 完成或不再有对该 Task 关联"}
+{"item_id":"864456a1e6:78","text":"id 的引用时，blade assignment 会被 check back in。"}
+{"item_id":"864456a1e6:79","text":"NOTE：更常见的做法是把 -service 指定为 RemoteCmd option。"}
+{"item_id":"864456a1e6:80","text":"此 option 会改变应用于该 task 的依赖子 task 的并行执行策略，也就是在该 task 的 \"-subtasks {...}\" 块中指定的那些子 task。通常情况下，允许同级 task 并行执行是可取的；也就是说，一个 task 及其所有 subtask 被假定与其 sibling 同级无关，因此以这些 sibling 为根的子树可以并行 dispatch。\"-serialsubtasks\" option 允许改变这种方案，使 \"-subtasks {...}\" 块中的顶层 sibling task 以链式方式处理：每个 task 都要等待前一个 sibling 完成，然后才评估自己的更深层 subtask 和命令。这种调度变体可以简化具有明确顺序 \"chapters\" 章节或 action phase 阶段的作业脚本编写，例如 \"prepare\"、\"render\" 和 \"clean-up\" 阶段，每个阶段又包含若干 subtask。类似效果也可以通过复杂的"}
+{"item_id":"864456a1e6:81","text":"Instance"}
+{"item_id":"864456a1e6:82","text":"node 引用，或有时通过大量"}
+{"item_id":"864456a1e6:83","text":"Cmds"}
+{"item_id":"864456a1e6:84","text":"组成的深层线性单一 \"phase\" task 嵌套来实现。serialsubtasks 序列化只应用于此 task 的 \"-subtasks {...}\" 块中的直接子 task；它们下面的嵌套子 task 仍会像通常一样并行调度，除非层级更深处又指定了另一个 \"-serialsubtasks\"。"}
+{"item_id":"864456a1e6:85","text":"task 的 identifier 标识符；供 Cmd 在运行时进行"}
+{"item_id":"864456a1e6:86","text":"运行时 substitution（替换）名称"}
+{"item_id":"864456a1e6:87","text":"task-level（shared）远程服务器名称；该 id 在此 Task 的范围内有效（即它的 subtask 和命令）。"}
+{"item_id":"864456a1e6:88","text":"此 option 与 RemoteCmd option -resumewhile（如下）协同工作，用于在作业中实现一种简单的增量 checkpoint-resume 循环形式。带有此 option 的 Task 标记循环范围的 \"top\"，也就是由此 task 的 -subtask 依赖项及其依赖项表示的 task-tree 层级。"}
+{"item_id":"864456a1e6:89","text":"如果此 Task 下方的任何 RemoteCmd 在其命令退出时遇到 True 的 \"resumewhile\" 条件，那么从该 RemoteCmd 到此 \"resumeblock\" Task 路径上的所有 Tasks 都会自动反复重新启动，直到所有 \"while\" 条件都为 False。"}
+{"item_id":"864456a1e6:90","text":"此方案的目标是允许一系列相关命令执行到合理的 checkpoint 条件，并很可能留下可供 review 的中间结果。随后整个 task 链会再次执行，对中间结果应用额外的增量工作。"}
+{"item_id":"864456a1e6:91","text":"RemoteCmd"}
+{"item_id":"864456a1e6:92","text":"RemoteCmd 语法：{appname [app_args]}  -service  {expr} [options]"}
+{"item_id":"864456a1e6:93","text":"RemoteCmd 指定 Tractor 将在计算 farm 上某个 tractor-blade 主机启动的命令行程序名称。\"-service\" 表达式指定适合运行给定命令的主机类型。其他 options 包括环境配置 key，以及稀缺资源的 tracking controls。例如："}
+{"item_id":"864456a1e6:94","text":"prman 可执行文件将会在一个 Tractor blade 服务器上启动，该服务器"}
+{"item_id":"864456a1e6:95","text":"provides（提供）该服务"}
+{"item_id":"864456a1e6:96","text":"PixarRender service。简单来说，这意味着当命令的 service keyword 与某个可用 blade 匹配时，该命令就会被 dispatch。"}
+{"item_id":"864456a1e6:97","text":"这些 key 可由站点管理员任意选择，用来抽象表示不同类型主机的能力；它们可能表示已安装软件、操作系统、CPU 架构或图形硬件。每类 tractor blade"}
+{"item_id":"864456a1e6:98","text":"profile"}
+{"item_id":"864456a1e6:99","text":"都会列出这些 keyword 的不同组合。每个作业，或作业中的单个命令，随后会列出主机必须具备哪些 key 才能正确运行。按照惯例，\"PixarRender\" keyword 用于描述安装了 Pixar RenderMan 软件的主机。"}
+{"item_id":"864456a1e6:100","text":"参数详情："}
+{"item_id":"864456a1e6:101","text":"要启动的应用程序名称及其参数。有关"}
+{"item_id":"864456a1e6:102","text":"runtime substitution variables（运行时替换变量）"}
+{"item_id":"864456a1e6:103","text":"以及限制（尤其是 shell 风格命令"}
+{"item_id":"864456a1e6:104","text":"命令 pipelines（管线）机制"}
+{"item_id":"864456a1e6:105","text":"）的细节，请参见 launch expression 的讨论。这必须是正确 tokenized 并转义的 Tcl list；对于简单命令，空白分隔列表已经足够，但通常应使用嵌套花括号来清楚地区分可能包含空格等内容的 token。例如："}
+{"item_id":"864456a1e6:106","text":"请参见"}
+{"item_id":"864456a1e6:107","text":"parameter substitution（参数替换）列表"}
+{"item_id":"864456a1e6:108","text":"列表，了解 tractor-blade 在启动命令前会添加的运行时值。对于参与"}
+{"item_id":"864456a1e6:109","text":"resume block"}
+{"item_id":"864456a1e6:110","text":"循环的命令，substitution pattern \"%r\" 尤其有用，因为当计算从 checkpoint 恢复时它会是 \"1\"。类似地，pattern \"%R\" 将是递增整数，给出当前 continuation pass 计数，从 0 开始。当某个 task 因其依赖的 subtask 的最终质量运行而执行时，pattern %q 的值为 1.0；如果某个 subtask 在此 resumewhile 循环期间只达到 checkpoint，则它会小于 1.0。"}
+{"item_id":"864456a1e6:111","text":"指定一个 keyword search expression，用于把远程服务器与此命令关联；语法见"}
+{"item_id":"864456a1e6:112","text":"service keys"}
+{"item_id":"864456a1e6:113","text":"讨论。服务器查找由 tractor-engine 根据 blade.config 文件中定义的 service 和 access 定义执行。命令启动会阻塞，直到合适的服务器可用并被 checked out。启动的应用程序退出时，例如 render 完成时，该服务器会被 checked back in。"}
+{"item_id":"864456a1e6:114","text":"指定一个词列表（空白分隔的 limit names），它们会由 tractor-engine 计数。Limit tag 计数会与 limits.config 中定义的 limit 约束比较，以确定此命令现在是否可以启动，或是否必须等待使用相同 tag 的其他命令完成、使计数低于约束 limit。Limit tag 常用于确保某个 app 的并发启动不会超过可用 license 数量。"}
+{"item_id":"864456a1e6:115","text":"Task Elapsed Time Bounds -- 指定给定已启动命令可接受的 elapsed time 耗时范围，单位为秒。耗时超出可接受范围的命令会被标记为 error。运行超过最大时间边界的命令会被 kill。两个参数都是可选的。minrunsecs 的默认值为 0.0，maxrunsecs 的默认值为无限制。作业脚本语法示例："}
+{"item_id":"864456a1e6:116","text":"blade 匹配条件，指定 tractor-blade 上必须至少有多少个空闲 \"slots\" 才能启动此命令。blade 由管理员在 blade.config 中划分为抽象 slot，每次命令启动都会消耗一个或多个 slot。slot 可表示 CPU、内存或资源组合，具体由各工作室定义。作业编写工具在用此 option 和下面的 \"-atmost\" 指定命令利用率 \"footprint\" 时，应遵循匹配约定。"}
+{"item_id":"864456a1e6:117","text":"blade 匹配条件，与上面的 \"-atleast\" 配合使用，指定此命令启动时最多会消耗多少个空闲 \"slots\"。blade 由管理员在 blade.config 中划分为抽象 slot，每次命令启动都会消耗一个或多个 slot。slot 可表示 CPU、内存或资源组合，具体由各工作室定义。作业编写工具在用此 option 和上面的 \"-atleast\" 指定命令利用率 \"footprint\" 时，应遵循匹配约定。这两个参数可以设为相同的值。"}
+{"item_id":"864456a1e6:118","text":"指定将传递给 tractor-blade 的任意 key 或 key 列表（名称、名称列表或其他字符串）。如果未指定此 option，则命令继承 Job 级别给出的设置。根据每个 envkey 字符串以及用户名等其他属性，tractor-blade 会调用一系列"}
+{"item_id":"864456a1e6:119","text":"environment handlers（环境处理器）"}
+{"item_id":"864456a1e6:120","text":"这些 handler 会在启动每个命令之前准备路径等环境变量和其他设置。系统内置了若干 key handler，也可以添加 custom（自定义）handler。每种 blade 类型可用的 handler 由 blade.config 中的 \"EnvHandler\" 设置指定。一个使用场景是解决制作项目经常需要锁定各种路径和其他 pipeline env 设置的需求。这些设置可以整洁地封装在单个 handler 定义中，然后每个作业只需指定 -envkey=NAME，就能把给定设置集合应用到其命令上。由于单个 tractor-blade 可能会从许多不同作业启动命令，有时还是并发启动，并且每个作业可能需要其 show 的独特 env 设置，因此 blade 会把 env handler 设置作为每个命令启动过程的一部分来应用。"}
+{"item_id":"864456a1e6:121","text":"可使用特殊 key setenv 来设置特定环境变量。例如，{setenv SRC=/src/path DST=/dst/path} 可以与 cp $SRC $DST 这样的命令配合使用。"}
+{"item_id":"864456a1e6:122","text":"命令级 envkey 设置会导致作业级 envkey 设置被忽略。"}
+{"item_id":"864456a1e6:123","text":"当前命令的 identifier 名称，供作业中随后其他 RemoteCmd 请求在与当前命令相同的 blade 主机上执行，而不是在可能更早可用的其他 blade 上执行。有关使用 \"-id\" 和匹配的 -refersto option 的示例，请参见"}
+{"item_id":"864456a1e6:124","text":"remote server names substitution（远程服务器名称替换）"}
+{"item_id":"864456a1e6:125","text":"。"}
+{"item_id":"864456a1e6:126","text":"命令可以通过引用另一个命令的 \"id\" 名称来请求复用与该命令相同的 blade，而不是指定自己的 \"-service\" 选择条件。在某些不常见情况下，给定 id 会引用一个 Task，该 Task 会承载第一个引用它并成功解析的命令所绑定的 blade 名称（参见"}
+{"item_id":"864456a1e6:127","text":"shared servers"}
+{"item_id":"864456a1e6:128","text":"讨论）。"}
+{"item_id":"864456a1e6:129","text":"将 option 值设为 1 表示此命令会生成"}
+{"item_id":"864456a1e6:130","text":"新的 Tractor task descriptions"}
+{"item_id":"864456a1e6:131","text":"作为其输出。这是一种在作业执行期间动态增长 job task hierarchy 的机制。启动的 app 写入 stdout 的所有内容都会在命令完成时收集，并被假定为语法有效的 Task descriptions。这些新 task 将成为当前 Task 的新 subtask。此功能主要由偏好 just-in-time 处理风格的 processing pipeline 使用，即命令基于先前结果按程序生成 asset，而不是在作业编写时就 \"unrolling\" 所有处理步骤。"}
+{"item_id":"864456a1e6:132","text":"Tractor 1.7 还支持把该值设为文件名（string）。在这种情况下，正在运行的应用程序应被编码或参数化为把 task descriptions 写入命名文件，而不是写入 stdout。随后 tractor-blade 会把文件内容发送到 engine，以插入父作业。内容送达后，tractor-blade 会删除该文件。请注意，由于同一 blade 上可能同时运行多个此类命令，因此为临时 expand 文件选择唯一名称很重要。"}
+{"item_id":"864456a1e6:133","text":"Tractor 2.1 还引入了一个 expand 变体，面向会生成一系列结果的长时间运行应用程序，例如 simulation。在这种情况下，应用程序可能希望注入可"}
+{"item_id":"864456a1e6:134","text":"以 in parallel（并行）方式"}
+{"item_id":"864456a1e6:135","text":"运行的新 task，与正在运行的应用程序本身并行执行；这不同于其他 expand 用例，在那些用例中 expand text 会在应用程序完全退出后发送。要使用这种并发方式，应用程序应把新的 task descriptions 写入临时文件；然后它应向 stdout 输出如下形式的一行："}
+{"item_id":"864456a1e6:136","text":"到 stdout。请注意文件名外必需的双引号。Tractor-blade 会检测到该行，然后把该文件的内容发送给 engine。传送完成后，tractor-blade 会删除临时文件。"}
+{"item_id":"864456a1e6:137","text":"要 pipe 到已启动 app 的 stdin 的文本字符串，通常表示请求某项操作的消息。有关使用 system shell 的示例，请参见"}
+{"item_id":"864456a1e6:138","text":"launch expression"}
+{"item_id":"864456a1e6:139","text":"讨论。"}
+{"item_id":"864456a1e6:140","text":"指定后，给定值会与已执行命令的 numeric exit status 数值退出状态进行比较。如果发生匹配，则该命令会被重置为 \"Ready\" 状态，并 dispatch 到下一个可用的匹配 blade。其思路是提供一种方式来绕过已知是 transient 暂时性的失败。参见 tractor.config 中的 \"CmdAutoRetryAttempts\" 设置，了解一种会影响所有以非零状态退出命令的更全局机制。"}
+{"item_id":"864456a1e6:141","text":"此 option 是实现简单 checkpoint-resume 增量处理形式的机制的一部分。只有与 Task option \"-resumeblock\" 以及符合此 continuation model 的应用程序组合使用时，它才有意义。"}
+{"item_id":"864456a1e6:142","text":"给出此 option 时，正在启动的命令预期会"}
+{"item_id":"864456a1e6:143","text":"exit（退出）"}
+{"item_id":"864456a1e6:144","text":"在执行一段"}
+{"item_id":"864456a1e6:145","text":"incremental（增量）工作量"}
+{"item_id":"864456a1e6:146","text":"工作量之后。此 option 请求 Tractor 反复重新启动同一命令，直到该命令确定其整体工作最终完成。换句话说：该命令会消耗固定数量的 CPU 时间，然后"}
+{"item_id":"864456a1e6:147","text":"yield（让出）"}
+{"item_id":"864456a1e6:148","text":"blade 给另一个命令，并预期 Tractor 之后会重新启动它，使其可以恢复处理。这个简单 continuation 机制需要多个组件协同："}
+{"item_id":"864456a1e6:149","text":"这个"}
+{"item_id":"864456a1e6:150","text":"condition（条件）表达式"}
+{"item_id":"864456a1e6:151","text":"expression 由 tractor-blade 用于判断命令进程退出是表示中间 checkpoint，还是表示该特定 task 最终完成。支持两种表达式："}
+{"item_id":"864456a1e6:152","text":"{exitcode NNN} -- 关键字 \"exitcode\" 会让 tractor-blade 检查进程退出状态码。如果 numeric code 数值码"}
+{"item_id":"864456a1e6:153","text":"matches（匹配）"}
+{"item_id":"864456a1e6:154","text":"给定值，则表示已达到 checkpoint，该命令稍后会被重新启动。这个 condition 可以理解为 \"当 exitcode 为 NNN 时 resume 此命令\"；否则，如果退出码为零，则该命令应被视为最终完成；如果是任何其他值，则视为遇到错误。"}
+{"item_id":"864456a1e6:155","text":"{testcheckpoint TYPE VALUE} -- 关键字"}
+{"item_id":"864456a1e6:156","text":"testcheckpoint"}
+{"item_id":"864456a1e6:157","text":"会让 tractor-blade 执行若干内置命令完成测试之一。目前，唯一支持的 TYPE 是关键字 \"exr\"，指 OpenEXR 图像格式；VALUE 是输出图像文件名。tractor-blade 会检查指定图像，查看其中是否包含表示它是不完整 checkpoint image 的 auxiliary data 辅助数据。如果图像是 checkpoint，则 Tractor 会调度该命令的另一次增量执行。如果图像不是 checkpoint image，则根据进程退出状态，将该渲染视为完成或错误。"}
+{"item_id":"864456a1e6:158","text":"控制 \"resumewhile\" continuation 是否必须在初始 pass 就发生在同一个 blade 上；也就是说，这一系列 continuation 是否 \"pinned\" 到同一个 blade。默认值为 \"0\"，表示 resume 可以发生在任何可用 blade（只要 service criteria 匹配）上。"}
+{"item_id":"864456a1e6:159","text":"Cmd"}
+{"item_id":"864456a1e6:160","text":"命令语法如下：{appname [app args]} [options]"}
+{"item_id":"864456a1e6:161","text":"此操作符也称为 \"local Cmd\"，只在少数受限情况下使用，并接受与"}
+{"item_id":"864456a1e6:162","text":"RemoteCmd"}
+{"item_id":"864456a1e6:163","text":"相同的 options，如上所述。两者有两个重要区别："}
+{"item_id":"864456a1e6:164","text":"指定的应用程序受限为"}
+{"item_id":"864456a1e6:165","text":"在 spool 该作业的同一用户桌面主机上执行。"}
+{"item_id":"864456a1e6:166","text":"如果该命令会显示 UI 或图像，或者必须访问只存在于那台机器上的文件，这可能很有价值。因此，用户的桌面机器也必须"}
+{"item_id":"864456a1e6:167","text":"同样运行 tractor-blade 服务"}
+{"item_id":"864456a1e6:168","text":"以便 tractor-engine 可以把命令 dispatch 回该机器。"}
+{"item_id":"864456a1e6:169","text":"对于"}
+{"item_id":"864456a1e6:170","text":"netrender"}
+{"item_id":"864456a1e6:171","text":"（或类似的少见应用程序），Tractor 可以收集多个可用远程 blade，与用户桌面本地 blade 协同使用。参见下面的 \"-atleast\" 说明。"}
+{"item_id":"864456a1e6:172","text":"在一种不常见情形中，如果要在用户本地桌面启动 Pixar"}
+{"item_id":"864456a1e6:173","text":"netrender"}
+{"item_id":"864456a1e6:174","text":"client program，netrender 命令必须在其自己的命令行上给出额外的 tractor-blade 名称。"}
+{"item_id":"864456a1e6:175","text":"local（本地）"}
+{"item_id":"864456a1e6:176","text":"Cmd 上的 atleast/atmost 变体会请求 Tractor 分配这些额外 blade。当至少"}
+{"item_id":"864456a1e6:177","text":"min_servers"}
+{"item_id":"864456a1e6:178","text":"个远程服务器已分配，并且不超过"}
+{"item_id":"864456a1e6:179","text":"max_servers"}
+{"item_id":"864456a1e6:180","text":"时，netrender client 会启动。local Cmd 上的这些 options 只有在同时给出 -service 以指定应绑定的 blade 类型时才有意义。有关把已绑定 hostname 替换到 commandline argument list 中的方法，请参见 \"%h\" 和 \"%H\""}
+{"item_id":"864456a1e6:181","text":"这些 substitution patterns（替换模式）"}
+{"item_id":"864456a1e6:182","text":"。"}
+{"item_id":"864456a1e6:183","text":"把 multislot checkout（使用 atleast/atmost）约束为所有 slot 都位于同一台物理主机。这是多线程应用程序的需求，因为线程属于单个进程。有关把实际找到的 slot 数插入应用程序参数列表的有用机制，请参见 \"%n\""}
+{"item_id":"864456a1e6:184","text":"这个 substitution pattern（替换模式）"}
+{"item_id":"864456a1e6:185","text":"。"}
+{"item_id":"864456a1e6:186","text":"Instance"}
+{"item_id":"864456a1e6:187","text":"{taskref}"}
+{"item_id":"864456a1e6:188","text":"Instance 节点引用其 target 目标时使用的名称。Instance 本质上是指向树中其他位置 Task 的指针，并且在依赖关系方案中像 Task 一样工作；也就是说，如果某个 Task 的 subtask 列表中包含 Instance，它会阻塞，直到该 Instance 指向的真实 Task 完成。Instance 最常用于表示共享前置条件，例如多个独立/并行帧渲染可能都依赖于先前生成的 environment map。被引用的 Task 由其 title 字符串标识，该字符串必须与此处给出的字符串完全匹配。"}
+{"item_id":"864456a1e6:189","text":"Assign"}
+{"item_id":"864456a1e6:190","text":"varname {value_string}"}
+{"item_id":"864456a1e6:191","text":"NOTE：Assign 操作符已弃用，在 Tractor 中不会像在 Alfred 中那样工作。具体而言，已存储的值在后续 \"expand\" task 中不可用，并且 job parsing 和 substitution modes 可能会影响 substitution 是否发生。这类 Variable substitution（变量替换）通常更适合放在创建作业脚本的 scripting environment 中，例如"}
+{"item_id":"864456a1e6:192","text":"Tractor job authoring API for Python。"}
+{"item_id":"864456a1e6:193","text":"将在作业 Tasks 中引用的 job global variable 名称"}
+{"item_id":"864456a1e6:194","text":"Iterate"}
+{"item_id":"864456a1e6:195","text":"varname"}
+{"item_id":"864456a1e6:196","text":"-from"}
+{"item_id":"864456a1e6:197","text":"-to"}
+{"item_id":"864456a1e6:198","text":"-by"}
+{"item_id":"864456a1e6:199","text":"-template"}
+{"item_id":"864456a1e6:200","text":"脚本模板语法：{script} [options]"}
+{"item_id":"864456a1e6:201","text":"将在作业过程中迭代的变量名称。"}
+{"item_id":"864456a1e6:202","text":"被迭代变量的初始值。可以是整数或实数。"}
+{"item_id":"864456a1e6:203","text":"被迭代变量的最终值（注意：这是包含端点的；只要变量小于或等于此值，iterate 就会继续运行。如果"}
+{"item_id":"864456a1e6:204","text":"to"}
+{"item_id":"864456a1e6:205","text":"小于"}
+{"item_id":"864456a1e6:206","text":"from"}
+{"item_id":"864456a1e6:207","text":"值，则预期为递减 iteration，并且终止测试会使用 \"greater than or equal to\" 大于或等于）。可以是整数或实数。"}
+{"item_id":"864456a1e6:208","text":"要应用到迭代变量的增量，可以是整数或实数。特殊写法 -by binary 会让变量使用非线性的所谓 \"binary\" 序列在其取值之间循环，这对于以渐进细节生成动画帧很有用。"}
+{"item_id":"864456a1e6:209","text":"与 Tasks 一样，subtasks 是 Iterate 进入第一次循环之前必须完成的依赖项。"}
+{"item_id":"864456a1e6:210","text":"定义一个脚本块，每次 Iterate 操作符循环时都会复制该块。在每个循环中，当前的"}
+{"item_id":"864456a1e6:211","text":"varname"}
+{"item_id":"864456a1e6:212","text":"值会替换 template script 中每个 $varname 出现的位置，然后生成的 subscript 会插入到 job tree 中，位置就在 Iterate 节点当前位置之前。"}

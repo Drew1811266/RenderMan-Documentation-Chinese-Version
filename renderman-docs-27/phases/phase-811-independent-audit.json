@@ -1,0 +1,389 @@
+{
+  "phase": 811,
+  "file": "TRA/22184290-Blade Environment Configuration- Keys and Handlers.html",
+  "file_id": "e3bccb3e23",
+  "source_items": 80,
+  "translation_rows": 80,
+  "source_items_match_translation_rows": true,
+  "duplicate_rows": [],
+  "missing_item_ids": [],
+  "extra_item_ids": [],
+  "tag_fingerprint_identical": true,
+  "rendered_markup_matches_target_markup": true,
+  "glossary_violations": [],
+  "direct_placement_missing": [],
+  "actionable_long_source_residuals": [],
+  "accepted_long_source_residuals": [
+    {
+      "item_id": "e3bccb3e23:7",
+      "source": "Environment Variable Dictionaries"
+    },
+    {
+      "item_id": "e3bccb3e23:12",
+      "source": "Environment Handlers"
+    },
+    {
+      "item_id": "e3bccb3e23:13",
+      "source": "Default Environment Handlers"
+    },
+    {
+      "item_id": "e3bccb3e23:79",
+      "source": "creating custom environment handlers"
+    }
+  ],
+  "actionable_ascii_heavy_residuals": [],
+  "accepted_ascii_heavy_residuals": [
+    {
+      "item_id": "e3bccb3e23:0",
+      "text": "概述（Overview）",
+      "ascii_letters": 8,
+      "cjk_chars": 2
+    },
+    {
+      "item_id": "e3bccb3e23:1",
+      "text": "当 tractor-blade 启动一个新 command（例如一次 render）时，它会为该 subprocess 设置一组唯一的 environment variables。定义这些 environment variables 及其值有几种机制。",
+      "ascii_letters": 75,
+      "cjk_chars": 34
+    },
+    {
+      "item_id": "e3bccb3e23:3",
+      "text": "custom environment configuration 最简单的做法，是在 blade.config 文件里的 environment dictionary 中添加 name-value pairs（见下文）。这通常已经完全足够，而且非常直接。有一个 \"default\" dictionary，也可以有若干独立 dictionary，对应 job 中 commands 传入的 EnvKey 值。以这种方式指定的 environment variables 会作为新增项和 overrides 应用到传入的 inherited environment 上。",
+      "ascii_letters": 169,
+      "cjk_chars": 73
+    },
+    {
+      "item_id": "e3bccb3e23:5",
+      "text": "envhandlers",
+      "ascii_letters": 11,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "e3bccb3e23:6",
+      "text": "是 Python objects，可对 tractor-blade 启动的每个 command 应用动态的、site-specific 的设置。它们最常用于根据传入的 EnvKey 或 job owner 配置一组特定 environment variables。这些 handlers 也可以重写实际要调用的 command，这有助于处理某些使用非标准 application installation location 的机器，或其他特殊情况。",
+      "ascii_letters": 124,
+      "cjk_chars": 70
+    },
+    {
+      "item_id": "e3bccb3e23:7",
+      "text": "Environment Variable Dictionaries（环境变量字典）",
+      "ascii_letters": 31,
+      "cjk_chars": 6
+    },
+    {
+      "item_id": "e3bccb3e23:8",
+      "text": "可以把对 inherited external environment 的 additions 和 overrides 添加到一个或多个 Python dictionaries 中，blade 会加载这些 dictionaries。它们可以加入 \"default\" EnvKey definition，以影响所有 commands；也可以加入某个特定 EnvKey value 的 settings。同样，definitions 可以加入 ProfileDefaults，也可以专门加入单个 profile。",
+      "ascii_letters": 164,
+      "cjk_chars": 56
+    },
+    {
+      "item_id": "e3bccb3e23:9",
+      "text": "这些 environment dictionaries 要么定义在 blade.config 文件中，要么包含在一个外部文件里，并通过 blade.config 文件中的",
+      "ascii_letters": 45,
+      "cjk_chars": 29
+    },
+    {
+      "item_id": "e3bccb3e23:10",
+      "text": "@merge directive",
+      "ascii_letters": 14,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "e3bccb3e23:11",
+      "text": "引用。默认安装包含三个外部文件，它们提供默认 environment dictionary setup。这些文件是 shared.linux.envkeys、shared.macosx.envkeys 和 shared.windows.envkeys。",
+      "ascii_letters": 83,
+      "cjk_chars": 26
+    },
+    {
+      "item_id": "e3bccb3e23:12",
+      "text": "Environment Handlers（环境处理器）",
+      "ascii_letters": 19,
+      "cjk_chars": 5
+    },
+    {
+      "item_id": "e3bccb3e23:13",
+      "text": "Default Environment Handlers（默认环境处理器）",
+      "ascii_letters": 26,
+      "cjk_chars": 7
+    },
+    {
+      "item_id": "e3bccb3e23:14",
+      "text": "Tractor 自带一组默认 environment handlers。当传入的 envkey 与 environment key dictionary 中的",
+      "ascii_letters": 56,
+      "cjk_chars": 13
+    },
+    {
+      "item_id": "e3bccb3e23:16",
+      "text": "definition 匹配时，就会调用这些 handlers。tractor script 中的 envkey parameter 实际上可以是由多个 envkey entries 组成的 list。在这种情况下，每个 handler 会按顺序被调用，以修改 launch environment。",
+      "ascii_letters": 87,
+      "cjk_chars": 41
+    },
+    {
+      "item_id": "e3bccb3e23:18",
+      "text": "SiteModulesPath",
+      "ascii_letters": 15,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "e3bccb3e23:20",
+      "text": "- default handler 会在每个 command 上运行。它最先运行，environment key dictionary 应该设置好预期的 default environment，而不是依赖已启动 blade 的 environment。",
+      "ascii_letters": 79,
+      "cjk_chars": 29
+    },
+    {
+      "item_id": "e3bccb3e23:21",
+      "text": "按提供的默认行为，default handler 只是把 spooling host 设置进 launch environment，变量名为",
+      "ascii_letters": 43,
+      "cjk_chars": 18
+    },
+    {
+      "item_id": "e3bccb3e23:22",
+      "text": "REMOTEHOST",
+      "ascii_letters": 10,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "e3bccb3e23:23",
+      "text": "。Default environment variables 和 paths 应在这里设置。",
+      "ascii_letters": 32,
+      "cjk_chars": 7
+    },
+    {
+      "item_id": "e3bccb3e23:24",
+      "text": "rmshandler",
+      "ascii_letters": 10,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "e3bccb3e23:25",
+      "text": "- rmshandler 会响应格式为 rms-*-maya-* 的传入 key。* 表示会应用 globbing。此 handler 会匹配如下传入 keys：rms-3.0.0-maya-2011。",
+      "ascii_letters": 46,
+      "cjk_chars": 22
+    },
+    {
+      "item_id": "e3bccb3e23:26",
+      "text": "此 handler 会提取 RMS version 和 MAYA version，并设置多个 environment variables，包括",
+      "ascii_letters": 48,
+      "cjk_chars": 12
+    },
+    {
+      "item_id": "e3bccb3e23:28",
+      "text": "MAYA_LOCATION",
+      "ascii_letters": 12,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "e3bccb3e23:29",
+      "text": "MAYA_MODULE_PATH",
+      "ascii_letters": 14,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "e3bccb3e23:31",
+      "text": "RMSTREE/bin",
+      "ascii_letters": 10,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "e3bccb3e23:33",
+      "text": "MAYA_LOCATION/bin",
+      "ascii_letters": 15,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "e3bccb3e23:34",
+      "text": "加入 path。这些 locations 通过了解这些 products 在特定 platform 上的 default install locations 来确定。handler 会在设置这些 variables 之前尝试验证 RMS 和 Maya 是否已安装。",
+      "ascii_letters": 75,
+      "cjk_chars": 36
+    },
+    {
+      "item_id": "e3bccb3e23:35",
+      "text": "mayahandler",
+      "ascii_letters": 11,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "e3bccb3e23:36",
+      "text": "- mayahandler 会响应格式为 maya* 的传入 key。* 表示会应用 globbing。此 handler 会匹配如下传入 keys：maya2011。",
+      "ascii_letters": 41,
+      "cjk_chars": 22
+    },
+    {
+      "item_id": "e3bccb3e23:37",
+      "text": "mayahandler 提供与 rmshandler 类似的功能，但面向未安装 RMS、却执行 Maya batch rendering 的 Maya users。此 handler 会提取 MAYA version，并设置多个 environment variables，包括",
+      "ascii_letters": 89,
+      "cjk_chars": 29
+    },
+    {
+      "item_id": "e3bccb3e23:38",
+      "text": "MAYA_LOCATION",
+      "ascii_letters": 12,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "e3bccb3e23:39",
+      "text": "MAYA_MODULE_PATH",
+      "ascii_letters": 14,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "e3bccb3e23:41",
+      "text": "MAYA_LOCATION/bin",
+      "ascii_letters": 15,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "e3bccb3e23:42",
+      "text": "加入 path。Maya location 通过了解 Maya 在特定 platform 上的 default install location 来确定。handler 会在设置这些 variables 之前尝试验证 Maya 是否已安装。",
+      "ascii_letters": 70,
+      "cjk_chars": 31
+    },
+    {
+      "item_id": "e3bccb3e23:43",
+      "text": "rmanhandler",
+      "ascii_letters": 11,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "e3bccb3e23:44",
+      "text": "- rmanhandler 会响应格式为 prman-* 的传入 key。此 key 用于定义要使用的 prman version，并且经常与上面的 rmshandler key 一起使用。",
+      "ascii_letters": 47,
+      "cjk_chars": 30
+    },
+    {
+      "item_id": "e3bccb3e23:45",
+      "text": "此 handler 会匹配类似 prman-15.2 的传入 key。匹配后，handler 会设置 environment variable",
+      "ascii_letters": 41,
+      "cjk_chars": 15
+    },
+    {
+      "item_id": "e3bccb3e23:46",
+      "text": "RMANTREE",
+      "ascii_letters": 8,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "e3bccb3e23:48",
+      "text": "RMANTREE/bin",
+      "ascii_letters": 11,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "e3bccb3e23:49",
+      "text": "加入 path。RMANTREE 的 location 通过了解特定 platform 上的 default install location 来确定。handler 实际上会在设置该 prman version 的",
+      "ascii_letters": 69,
+      "cjk_chars": 23
+    },
+    {
+      "item_id": "e3bccb3e23:50",
+      "text": "RMANTREE",
+      "ascii_letters": 8,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "e3bccb3e23:51",
+      "text": "environment variable 之前，尝试判断该 prman version 是否已安装。",
+      "ascii_letters": 31,
+      "cjk_chars": 12
+    },
+    {
+      "item_id": "e3bccb3e23:52",
+      "text": "rmantreehandler",
+      "ascii_letters": 15,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "e3bccb3e23:53",
+      "text": "- rmantreehandler 是一个特殊 handler，customers 通常不会使用。此 handler 响应格式为 rmantree=* 的 key。它的工作方式类似上面的 rmanhandler，但该 key 会提供指向非标准 RMANTREE installation 的完整 path。例如，传入 key 可能类似：rmantree=/opt/software/pixar/RenderManProServer-15.2。key 中定义的完整 path 会被设置为",
+      "ascii_letters": 139,
+      "cjk_chars": 61
+    },
+    {
+      "item_id": "e3bccb3e23:54",
+      "text": "RMANTREE",
+      "ascii_letters": 8,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "e3bccb3e23:56",
+      "text": "RMANTREE/bin",
+      "ascii_letters": 11,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "e3bccb3e23:58",
+      "text": "rmstreehandler",
+      "ascii_letters": 14,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "e3bccb3e23:59",
+      "text": "- rmstreehandler 与上面的 rmantreehandler 类似，但它设计用于指向非标准 RMSTREE location。handler 响应格式为 rmstree=* 的传入 key。典型用法可能是 rmstree=/opt/software/pixar/RenderManStudio-3.0.0-Maya-2011。此 handler 会设置",
+      "ascii_letters": 110,
+      "cjk_chars": 36
+    },
+    {
+      "item_id": "e3bccb3e23:62",
+      "text": "RMSTREE/bin",
+      "ascii_letters": 10,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "e3bccb3e23:64",
+      "text": "默认 handler source code 可用，位于 blade installation 的 blade-modules directory 中的 TrEnvHandlers.py 文件。",
+      "ascii_letters": 70,
+      "cjk_chars": 11
+    },
+    {
+      "item_id": "e3bccb3e23:65",
+      "text": "添加 Custom Environment Handler（自定义环境处理器）",
+      "ascii_letters": 24,
+      "cjk_chars": 10
+    },
+    {
+      "item_id": "e3bccb3e23:67",
+      "text": "- 它应该能大致描述所处理 EnvKeys 的类型。在下面的 examples 中，假设有一个名为 \"ProjectX\" 的 inbound EnvKey，因此我们把 handler 称为 \"projxhandler\"。",
+      "ascii_letters": 55,
+      "cjk_chars": 34
+    },
+    {
+      "item_id": "e3bccb3e23:69",
+      "text": "- 这通常是 central fileserver 上的某个 location，所有 blade hosts 都可以访问。此 location 将由",
+      "ascii_letters": 43,
+      "cjk_chars": 18
+    },
+    {
+      "item_id": "e3bccb3e23:70",
+      "text": "SiteModulesPath",
+      "ascii_letters": 15,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "e3bccb3e23:73",
+      "text": "blade.config 中的 SiteModulesPath - 如果所有 hosts 都使用相同 path 挂载 shared location，就可以把它放在 ProfileDefaults section；否则按需给每个 profile 添加 customized variants（如下所示）。",
+      "ascii_letters": 96,
+      "cjk_chars": 33
+    },
+    {
+      "item_id": "e3bccb3e23:76",
+      "text": "entry，用于你的新 key",
+      "ascii_letters": 8,
+      "cjk_chars": 5
+    },
+    {
+      "item_id": "e3bccb3e23:77",
+      "text": "- 同时在 dictionary 中保留名为 \"default\" 的 key。然后把你的 module name 添加为 envhandler value。",
+      "ascii_letters": 45,
+      "cjk_chars": 17
+    },
+    {
+      "item_id": "e3bccb3e23:79",
+      "text": "creating custom environment handlers",
+      "ascii_letters": 33,
+      "cjk_chars": 0
+    }
+  ],
+  "required_phrase_missing": [],
+  "section_order_positions": [],
+  "section_order_ok": true,
+  "passed": true
+}

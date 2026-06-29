@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Using Displacement</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Using Displacement</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFM27/544540663/Using+Displacement">https://rmanwiki-27.pixar.com/space/RFM27/544540663/Using+Displacement</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>以下章节介绍 RenderMan for Maya（RfM）中的 displacement workflow（位移工作流），该流程基于 Mudbox 和 ZBrush 工作流。如有必要，你也可以将此工作流适配到自己的工具。</p><ul><li><p><a href="544540737-Mudbox Vector Displacement.html" data-linked-resource-id="544540737" data-linked-resource-version="1" data-linked-resource-type="page">Mudbox Displacement Maps（Mudbox 位移贴图）</a></p></li><li><p><a href="544540797-ZBrush Vector Displacement.html" data-linked-resource-id="544540797" data-linked-resource-version="2" data-linked-resource-type="page">ZBrush Displacement Maps（ZBrush 位移贴图）</a></p></li></ul><p><br/></p><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="b31a173e-61ed-4a53-af93-87c910f5e070" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>若要匹配旧版 RenderMan 中的 Displacement（位移），以下换算可能有用：</p><p>若要获得类似的 tessellation level（细分镶嵌级别），shading rate（已弃用）值 X 可换算为使用 sqrt(X) 的 micropolygonlength 值：</p><p>shading rate = 0.25, micropolygonlength = 0.5<br />shading rate = 1, micropolygonlength = 1<br />shading rate = 4, micropolygonlength = 2</p></div></div><p><br/></p><h2 id="UsingDisplacement-Avoidingcracksonpolygonalmeshes">Avoiding cracks on polygonal meshes（避免多边形网格裂缝）</h2><p>对具有 hard normals（硬法线）的 mesh（网格）进行 displacement（位移）时，面可能会分离并产生 cracks（裂缝）。Displacement 会沿顶点法线方向移动顶点，但 hard edge（硬边）两侧的相邻顶点具有不同法线，会向不同方向移动，从而产生 gaps（间隙）或 cracks（裂缝）。</p><p>RenderMan 有一个 "<code>polygon:smoothdisplacement</code>" attribute（属性），它会创建一份完全 smoothed（平滑）的 normals（法线）副本，并使用它代替原始法线。</p><p>在 RenderMan for Maya 中，此 attribute（属性）通过名为 "Prevent polygon cracking" 的复选框启用；其内部属性名为 rman_preventPolyCracks。 </p><p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="smoothdisplacement.gif" width="1024" loading="lazy" src="../../attachments/544540663/smoothdisplacement.gif" data-image-src="../../attachments/544540663/smoothdisplacement.gif" data-height="512" data-width="1024" data-unresolved-comment-count="0" data-linked-resource-id="544540685" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="smoothdisplacement.gif" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/gif" data-linked-resource-container-id="544540663" data-linked-resource-container-version="1" data-media-id="7369ac6b-1a52-4eab-aeec-b2013f9da6e3" data-media-type="file"></span><p /><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="c9daccd5-567a-4d32-b77e-6b76bcaaf5c9" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>"Prevent polygon cracking" 只应在必要时启用，因为它会使用稍多一些内存。使用量与 mesh（网格）中的 vertices（顶点）数量成正比。</p></div></div><p><br/></p><p>请注意，使用 smoothed normals（平滑法线）会如何扭曲 cube（立方体）的 displacement pattern（位移图案）并改变其外观：</p><p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="smoothdisplacement_topo.gif" width="1024" loading="lazy" src="../../attachments/544540663/smoothdisplacement_topo.gif" data-image-src="../../attachments/544540663/smoothdisplacement_topo.gif" data-height="512" data-width="1024" data-unresolved-comment-count="0" data-linked-resource-id="544540682" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="smoothdisplacement_topo.gif" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/gif" data-linked-resource-container-id="544540663" data-linked-resource-container-version="1" data-media-id="19a4e170-4b91-4afc-b8b2-4e6246db5490" data-media-type="file"></span><p /><p>你可以通过在 sharp edges（尖锐边）附近插入额外边来避免这种效果。这会将 normal interpolation（法线插值）限制在边缘附近区域，并通常保留原始外观。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="smoothdisplacement_topo_2.gif" width="1024" loading="lazy" src="../../attachments/544540663/smoothdisplacement_topo_2.gif" data-image-src="../../attachments/544540663/smoothdisplacement_topo_2.gif" data-height="512" data-width="1024" data-unresolved-comment-count="0" data-linked-resource-id="544540679" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="smoothdisplacement_topo_2.gif" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/gif" data-linked-resource-container-id="544540663" data-linked-resource-container-version="1" data-media-id="269ce4b1-bdb0-4fd2-9152-7e8df1add241" data-media-type="file"></span><p> <br/></p><p><br/></p>
+  </article>
+</main>
+</body>
+</html>

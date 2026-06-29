@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Stirling Lighting</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Stirling Lighting</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RU/656998424/Stirling+Lighting">https://rmanwiki-27.pixar.com/space/RU/656998424/Stirling+Lighting</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<h3 id="StirlingLighting-Lighting">灯光设置阶段（Lighting）</h3><p>由于这是一个由 sun 照亮的 outdoor scene，我们会使用 distant lights，因为它们最适合均匀照亮 large environments，并提供像太阳一样的 parallel shadows。 </p><p>不过，使用 HDRI 需要更多 trial and error。</p><p>要捕获高质量的 High Dynamic Range Image（HDRI），请确保 camera 设置为 multi-exposure mode。你捕获的 exposure levels 越多，尤其是在 brightness 和 darkness 两端的 extreme ends，最终结果就越好。在我的例子中，我拍摄了 12 个不同 exposures，把 shutter settings 推到极限，以获得尽可能宽的 dynamic range。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image12.jpg" width="760" loading="lazy" src="../../attachments/656998424/image12.jpg" data-image-src="../../attachments/656998424/image12.jpg" data-height="640" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="657555482" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image12.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="656998424" data-linked-resource-container-version="1" data-media-id="cb537ac1-d741-4592-ba10-92db4ab7f1e7" data-media-type="file"></span><p>捕获所有 images 后，可以使用 Photoshop 等 software 轻松合并。只要确保以 32-bit format（例如 .exr）导出 final image，以保留完整 dynamic range 并避免 detail 损失。</p>
+  </article>
+</main>
+</body>
+</html>

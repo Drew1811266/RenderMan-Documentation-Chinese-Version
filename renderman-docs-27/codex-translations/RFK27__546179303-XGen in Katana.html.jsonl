@@ -1,0 +1,61 @@
+{"item_id":"678d80b660:0","text":"许多使用 Maya 的 studios 会用 XGen 创建 hair and fur。RenderMan for Maya 支持 rendering XGen hair。许多人不知道的是，也可以通过 Katana render XGen hair。"}
+{"item_id":"678d80b660:1","text":"作为 RenderMan for Maya 的一部分，我们提供 RenderMan Procedural，可用于在 Katana 内 render XGen hair。本页说明如何 via Katana render XGen 的 details，并提供让 Katana render XGen 的 step-by-step instructions。我还包含了用于生成本页末尾图像的 files。下面是我们将使用的 example render。"}
+{"item_id":"678d80b660:2","text":"Preparation within Maya（Maya 内准备）"}
+{"item_id":"678d80b660:3","text":"在此 example 中，我根据 texture 中的 values 为每根 hair 分配一组 per-hair colors。为了让 RenderMan 实现这一点，需要从 XGen output scalpS 和 scalpT primitive variable。在 shading network 中，读取 texture 时会引用这些 primvars。下面的 Katana section 会详细说明如何操作。以下 screen snapshot 展示了 XGen attributes 的 Preview/Output tab 为启用此功能应呈现的状态："}
+{"item_id":"678d80b660:4","text":"Important: Update the XGen Preview（重要：更新 XGen Preview）"}
+{"item_id":"678d80b660:5","text":"无论你打算如何 shade hair，都必须点击 XGen window 左上角的 eye icon，执行 Update the XGen Preview。这会让 XGen 处理 RenderMan 在 render 期间通过 procedural 调用它时所需的信息。"}
+{"item_id":"678d80b660:6","text":"Process in Katana（Katana 中的流程）"}
+{"item_id":"678d80b660:7","text":"由于我们提供了一个与 XGen interfacing 的 RenderMan procedural，可在 render-time 动态 create 并 pass curves 给 RenderMan，因此让 XGen 从 Katana rendering 的工作主要是向 scene 中添加 RenderMan procedural 并配置其所需 arguments。"}
+{"item_id":"678d80b660:8","text":"你需要执行以下 steps："}
+{"item_id":"678d80b660:9","text":"通过 Node Graph 中的 PrimitiveCreate node 添加一个 \"renderer procedural\""}
+{"item_id":"678d80b660:10","text":"设置 procedural 的 arguments"}
+{"item_id":"678d80b660:11","text":"创建 material 并将其 assign 给 renderer procedural"}
+{"item_id":"678d80b660:12","text":"Add a \"renderer procedural\"（添加 \"renderer procedural\"）"}
+{"item_id":"678d80b660:13","text":"第一步是通过 Node Graph 中的 PrimitiveCreate node 向 scene graph 添加两个 \"renderer procedural\" locations。我包含了一张 screen snapshot，展示你应如何设置 parameters。第一个向 XGen 指定 groom，第二个向 XGen 指定与之关联的 geometry。在此 example 中，groom 是从 plane 生成的，因此我相应命名了 scene graph locations。"}
+{"item_id":"678d80b660:14","text":"Setting up arguments to the procedural（设置 procedural arguments）"}
+{"item_id":"678d80b660:15","text":"为正确设置 procedural，需要传入几个 parameters 以让 XGen render。我们分几步完成。每个 procedural 使用两个 AttributeSet nodes（总共四个），并使用一个 OpScript node 设置 XGen 在 scene 中需要的其他 parameters。"}
+{"item_id":"678d80b660:16","text":"第一组 AttributeSet nodes 会告诉 renderer procedural shared library 的位置，其中包含知道如何调用 XGen 以动态创建 curves 或 geometry 的 code。必须为 groom procedural 创建一个，也为 plane procedural 创建一个。下面两张 screen snapshots 展示 AttributeSet nodes 应有的样子。注意，该 path 引用 RenderMan for Maya，"}
+{"item_id":"678d80b660:17","text":"不是"}
+{"item_id":"678d80b660:18","text":"RenderMan for Katana。这是因为 XGen RenderMan procedural 是随 RenderMan for Maya distribution 提供的。"}
+{"item_id":"678d80b660:19","text":"设置 renderer procedural 的 path 后，下一步是向 procedural 传递 parameters，使其知道要查看哪些 files 以及如何 build curves。你要使用另外两个 AttributeSet nodes 来完成，一个用于 groom procedural，一个用于 plane procedural。下面包含两张 screen snapshots。"}
+{"item_id":"678d80b660:20","text":"因为上方 images 中的 arguments 被截断，我也在下面列出它们。"}
+{"item_id":"678d80b660:21","text":"groom procedural： -frame 1 -file /data/work/samples/rfm/XGenWithTexture__MyCollection.xgen -palette MyCollection -geom /data/work/samples/rfm/XGenWithTexture__MyCollection.abc -patch groom -description MyDescription -fps 24"}
+{"item_id":"678d80b660:22","text":"plane procedural： -frame 1 -file /data/work/samples/rfm/XGenWithTexture__MyCollection.xgen -palette MyCollection -geom /data/work/samples/rfm/XGenWithTexture__MyCollection.abc -patch pPlane1 -description MyDescription -fps 24"}
+{"item_id":"678d80b660:23","text":"这里传入的 parameters 对正确 render scene 至关重要。你必须："}
+{"item_id":"678d80b660:24","text":"确保 frame number 正确 - 在 production Katana setup 中，通常会用 expression 驱动它"}
+{"item_id":"678d80b660:25","text":"确保 .xgen 和 .abc files 的 paths 正确。若没有这些 files，请确认已在 Maya 内的 XGen window 中点击 \"Update the XGen Preview\" button"}
+{"item_id":"678d80b660:26","text":"-palette argument 需要引用你的 XGen collection"}
+{"item_id":"678d80b660:27","text":"-description argument 需要引用包含 groom 的 XGen description"}
+{"item_id":"678d80b660:28","text":"plane procedural 的 -patch 必须匹配 Maya 中生成 XGen groom 的 node name"}
+{"item_id":"678d80b660:29","text":"Autodesk 的"}
+{"item_id":"678d80b660:30","text":"XGen Technical Documentation 中的 RenderMan DSO page"}
+{"item_id":"678d80b660:31","text":"记录了 procedural 支持的所有 arguments。"}
+{"item_id":"678d80b660:32","text":"添加所有 AttributeSet nodes 后，还需要继续操作。必须添加一个 OpScript node，用于设置 XGen 执行工作所需的几个额外 parameters。下面是该 node 的 screen snapshot。"}
+{"item_id":"678d80b660:33","text":"node 中的 code 如下："}
+{"item_id":"678d80b660:34","text":"这些 parameters 已由 Autodesk 在其"}
+{"item_id":"678d80b660:35","text":"XGen Technical Documentation 中的 RenderMan DSO page"}
+{"item_id":"678d80b660:36","text":"中完整记录。"}
+{"item_id":"678d80b660:37","text":"需要特别注意以下几点："}
+{"item_id":"678d80b660:38","text":"你告诉 XGen 的 field of view"}
+{"item_id":"678d80b660:39","text":"必须"}
+{"item_id":"678d80b660:40","text":"与 Katana 中使用的 camera 的 field of view 匹配"}
+{"item_id":"678d80b660:41","text":"irRenderCam attribute"}
+{"item_id":"678d80b660:42","text":"必须"}
+{"item_id":"678d80b660:43","text":"与 Katana 中使用的 camera position 匹配"}
+{"item_id":"678d80b660:44","text":"irRenderCamXForm"}
+{"item_id":"678d80b660:45","text":"必须"}
+{"item_id":"678d80b660:46","text":"与 Katana 中使用的 camera matrix 匹配。"}
+{"item_id":"678d80b660:47","text":"在 production scene 中，你通常会使用 script 或其他 programmatic method 来确保所有这些 parameters 与 camera 匹配，因为手动完成很容易出错。"}
+{"item_id":"678d80b660:48","text":"Shading your XGen groom（为 XGen groom 着色）"}
+{"item_id":"678d80b660:49","text":"配置 procedurals 及其 arguments 后，下一步是给 groom 添加 shading。如上所述，我们会基于 texture 为每根 hair 分配不同 color。为此，我们让 XGen 在其工作过程中 output scalpS 和 scalpT primitive variable。我们将使用此 primitive variable 为属于 groom 的 curves shading。"}
+{"item_id":"678d80b660:50","text":"下面是我用于生成 material 的 node graph。"}
+{"item_id":"678d80b660:51","text":"如上所述，让这个特定 material 生效的关键，是从 XGen emits to RenderMan 的 curves 中提取 scalpS 和 scalpT primitive variables，并将它们作为 indexing texture 的 basis。PxrManifold2D node 完成这件事，因为它 wired into PxrTexture node。下面包含 PxrManifold2D 和 PxrTexture nodes 的 screen snapshots。"}
+{"item_id":"678d80b660:52","text":"最后一步是将 PxrTexture wire 到 PxrMarschnerHair Bxdf 的 diffuse 和 transmit specular colors。"}
+{"item_id":"678d80b660:53","text":"Sample Files（示例文件）"}
+{"item_id":"678d80b660:54","text":"Other References（其他参考）"}
+{"item_id":"678d80b660:55","text":"XGen Technical Documentation 中的 RenderMan DSO page"}
+{"item_id":"678d80b660:56","text":"Procedurals in Katana"}
+{"item_id":"678d80b660:57","text":"PxrManifold2D"}
+{"item_id":"678d80b660:58","text":"PxrTexture"}
+{"item_id":"678d80b660:59","text":"PxrMarschnerHair"}
+{"item_id":"678d80b660:60","text":"另请参阅 The Foundry 的 Katana User Guide，可通过 Katana 内的 Help menu 访问。"}

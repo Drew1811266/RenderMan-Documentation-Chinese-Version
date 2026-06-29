@@ -1,0 +1,23 @@
+{"item_id":"8ae16b89ea:0","text":"贴图与 UVs（Texturing and UVs）"}
+{"item_id":"8ae16b89ea:1","text":"这一部分的难点之一，是 elements 数量很多，以及如何最好地优化它们，避免浪费太多时间。"}
+{"item_id":"8ae16b89ea:2","text":"第一个关键点是考虑 duplication。正如 Céline 在 modeling section 中提到的，很多 scenery 都是 duplicated，因此在复制之前，必须先在 basic models 上完成 UVs。一些 duplicated elements 随后会被 deformed；要调整这一点，只需选择 UV Shells，并根据 deformation 调整它们的 scale，或者更简单地点击 “Unfold”，正确重绘 UV。"}
+{"item_id":"8ae16b89ea:3","text":"Tip：让 UVs 与 grooves 保持同一方向。这会避免你在 texturing 时为了调整每块 plank 上的 texture 而创建不同 masks。"}
+{"item_id":"8ae16b89ea:4","text":"然后是如何排列 UVs 的问题。因为我们有很多 elements，也就有很多 different materials，按 material 分类似乎并不明智。因此，我们选择按 object 或 object group 来组织 UVs。这让我们更容易找到对应内容。"}
+{"item_id":"8ae16b89ea:5","text":"使用 UDIMs，还是不使用 UDIMs"}
+{"item_id":"8ae16b89ea:6","text":"由于 final image 中大多数 objects 都很小或距离较远，从 resolution 角度看，单张 1024 或 512px map 已经绰绰有余。只有像绿色木制家具这样的大型 pieces 才需要多个 UDIM 来保持 detail。"}
+{"item_id":"8ae16b89ea:7","text":"贴图制作阶段（Texturing）"}
+{"item_id":"8ae16b89ea:8","text":"开始任何 texture work 之前，建立 references 并仔细分析它们很重要。这会让你更清楚自己想要的 rendering 类型，从而更高效。"}
+{"item_id":"8ae16b89ea:9","text":"在我们的案例中，主要 references 之一是 Pixar 电影"}
+{"item_id":"8ae16b89ea:10","text":"Luca"}
+{"item_id":"8ae16b89ea:11","text":"（幸运的是！）。这部电影有趣之处在于，Pixar 并不是用传统 dirt maps 把 sets “弄脏”来让它们鲜活起来，而是使用一种 graphic aesthetic，强化漂亮、如画村庄中天然存在的 variation。这种 variation 更像是环境中数百年人类选择造成的效果，而不只是 decay。"}
+{"item_id":"8ae16b89ea:12","text":"分析完成后，就可以进入 texturing。在 Substance 中有许多 texturing 方法，其中最简单的一种是使用 fill，并给它应用 base color。然后我们叠加其他带有不同 mask generators 的 fills 来修改它。这提供了很高 flexibility，因为 color 和 masks 仍然可以修改，不像直接绘制的 layer 那样具有破坏性。"}
+{"item_id":"8ae16b89ea:13","text":"从这些 fills 中，我们最终生成其他 maps（Normal、Displacement、Roughness），并逐步调整以获得想要的 material。"}
+{"item_id":"8ae16b89ea:14","text":"Variations, Variations, and Variations...（变化、变化、还是变化）"}
+{"item_id":"8ae16b89ea:15","text":"以 wood 为例。这里我们试图再现随时间磨损的 painted wood。因此，我从 Substance 的 database 中取一个 wood base 开始，并快速调整 color。随后为 paint 应用一个 initial fill，再用其他 shades 进行 variation，每次略微改变 roughness 来增加 relief（damaged paint = rougher）。这些 fills 被放在一个 group 中，并应用 mask 来模拟 damaged paint，尤其是 edges 周围。然后我逐渐添加之前识别出的 details，以丰富 texture。"}
+{"item_id":"8ae16b89ea:16","text":"Tip：通常做 variations 时，我们倾向于只改变 value 或 saturation，但不要犹豫，也可以改变 hue；这会给 texture 增加更有趣的维度！"}
+{"item_id":"8ae16b89ea:17","text":"外观开发阶段的降噪处理（Look Development）"}
+{"item_id":"8ae16b89ea:18","text":"我大量使用了 RenderMan machine learning Denoiser。当我需要快速 turnaround 时，它给了我很大帮助"}
+{"item_id":"8ae16b89ea:19","text":"在 look development 期间。项目早期使用它非常关键，因为这有助于减少 final render times，并让我们理解 image 在 Denoiser 能清理之前需要 converged 到什么程度。"}
+{"item_id":"8ae16b89ea:20","text":"使用 Substance 的优势之一，是你可以创建自己的 materials，并直接添加到 smart materials（basic materials database）中。因此，创建一个好的 base（wood、paint、metal……）很重要；之后你可以选择自己的 group，并点击 “Create smart material”。"}
+{"item_id":"8ae16b89ea:21","text":"剩下要做的，就是把它们应用到不同 models 上，然后相应地修改 sliders。这会节省你大量时间！"}
+{"item_id":"8ae16b89ea:22","text":"我在 Substance 中完成工作后，导出了 texture maps，最后进入 shading！"}

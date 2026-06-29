@@ -1,0 +1,39 @@
+{"id": "8df0be20e19aead393b238abf2540a737355b7c99b239d21fb5e86dc22457a38", "item_id": "152f5d2724:0", "text": "Shadows in an image convey a lot of information. Everything from time of day to how many lights there are can be inferred from shadows. Soft shadows from indirect lighting and shadows from objects off-screen can also be pleasing and realistic. The below guide explains how shadowing works in RenderMan as well as types of shadowing and quality."}
+{"id": "926171d651c1def04ce974a5917d769882ce0aa6806e57159db2ee5c15ffb75d", "item_id": "152f5d2724:1", "text": "The type of shadowing produced in RenderMan is based on controls in the"}
+{"id": "6fe6c35728c65f0351ca3e4f151b8010215afec63174941e71755ea1d8440475", "item_id": "152f5d2724:2", "text": "lights"}
+{"id": "cbde3e7b4804ece4a0f19dbeab89cccc81b43a81e4606f90aecc3e26c508bd9b", "item_id": "152f5d2724:3", "text": "as well as what's available to the"}
+{"id": "168196d133817ed25c3fe0bf9a5254309ab899daa622e81d3ead0daf0eb33def", "item_id": "152f5d2724:4", "text": "integrator"}
+{"id": "ad388581b90f26950572c640195486df8d86dd668262d621477dfd61d0ee2e96", "item_id": "152f5d2724:5", "text": ". Beyond the descriptions below, it's important to know that shadow softness is controlled by the size (or apparent size in an HDRI) of the light source. Larger light sources create softer shadows."}
+{"id": "f7e6b4609d11deced33efb392b2e874f7e2a88d1420a583ccee5e06183d80cbb", "item_id": "152f5d2724:11", "text": "Thin Shadows"}
+{"id": "4eab9253e288a88764c086e39bf2ed25fdb801bdf214e809151ba1a82ab01811", "item_id": "152f5d2724:7", "text": "Typically users render with the"}
+{"id": "c66c3367fc146e7ab68fcb67ccdd75c3909cd0bca2343b35b4f46f0cbc0a6a52", "item_id": "152f5d2724:8", "text": "PxrPathTracer"}
+{"id": "8853fc60b659d84a86269bfe6afbc9d68191956ddb7e8505312c84838b286add", "item_id": "152f5d2724:9", "text": "Integrator and the default light settings of \"Thin Shadow\". This combination produces a quick and somewhat plausible image for transparent/refractive objects. It also obeys the object color such as transparent red glass or maybe green emeralds, etc. You can manipulate the shadow for art direction including shadow color, distance, falloff and gamma (see each light's page for examples)."}
+{"id": "c8fc911a912f5d187d26bdc988ab2e7b2571b6447c7fa1ac8c47e539b225adbf", "item_id": "152f5d2724:10", "text": "If you were to disable"}
+{"id": "36ec56371a46c74050786929b9aac500342c22e99c97394b25bafd03b5fc0c3b", "item_id": "152f5d2724:12", "text": "on the light by selecting"}
+{"id": "f4d3a2f271156e6358087cfb3ac2512cab7e39689c1f0484ba02c936081ea73c", "item_id": "152f5d2724:20", "text": "Trace Light Paths"}
+{"id": "1016ddec605860931177cb2cebef74c005b3fde41ecc7d1009b77ddbd02f42ff", "item_id": "152f5d2724:14", "text": ", and render with the PxrPathTracer, you would see a solid shadow."}
+{"id": "bc74a738b28c237b76935250a8ae541d52bf894027b3c2fb3298fb4d7ff173af", "item_id": "152f5d2724:15", "text": "The integrator would render a physically correct shadow now, but the PxrPathTracer doesn't generate photons by default and would make this very difficult to resolve using"}
+{"id": "fbac1b8fdfbf43baac181827259a3305d7a4e048a208d88bc36a9e03cb5d9820", "item_id": "152f5d2724:16", "text": "Allow Caustics"}
+{"id": "450257a9efe58ffedf617ef1a5b260ac4e197070ea0b1fb1f64917e072bfeb5b", "item_id": "152f5d2724:17", "text": "as seen below."}
+{"id": "f24d6e7ecaa31e610a3adc8db4af4975fdda31f1cf0ed75f2a67a41d9fa622f4", "item_id": "152f5d2724:19", "text": "If using"}
+{"id": "87a9333a16767f49f9fbdc432306deb7cb205a2d8181aa3584992f61c7a6abde", "item_id": "152f5d2724:21", "text": "on the light, you should combine this with the"}
+{"id": "874d0edd45efa704af4a7becb26edb90d093166fde4d9d18de82a41d5dbe4408", "item_id": "152f5d2724:22", "text": "PxrVCM"}
+{"id": "0c17a35264b89e09984cb0bc005cb7880f03cdbaec9617aa56d1b74715e1a990", "item_id": "152f5d2724:23", "text": "or PxrUnified integrators and selectively enable this parameter to generate photons for realistic shadows. Below the dome light is using Trace Light Paths."}
+{"id": "8c2cddc61c5c4e81d21e508e3596f28fc223bbbf5c30adc7b7377ea7b1a14843", "item_id": "152f5d2724:24", "text": "Tracing photons for caustics can be very expensive and difficult to art direct. In some cases your hero object may not get enough photons as they are scattered around the scene. Other times it may come into the path of a very bright light and suddenly there are caustics scattered all over the scene which may be a distraction. By selectively choosing which lights use Trace Light Paths, the artist can better direct where they want photons and at what intensity."}
+{"id": "03867102f436751df15f1954824edaf6df8bdd8e9d49bcc32a5f4db8bc5711ee", "item_id": "152f5d2724:25", "text": "The PxrVCM and PxrUnified integrators also have a"}
+{"id": "81854c522c2bae2388f5ad041d844d9e4106accd16bad0f22be6ac8ae1746ef7", "item_id": "152f5d2724:26", "text": "Guiding"}
+{"id": "aef3cb50d838b522aa67b9724115fa41ee92560758370df1afb67eac36d1c465", "item_id": "152f5d2724:27", "text": "parameters that allows artists to direct where they want to concentrate the photons in the scene. This parameter can"}
+{"id": "fa4824e83746480e1029c47ad659fdc3854195c0fa76c9209807cef32e29243e", "item_id": "152f5d2724:28", "text": "bias"}
+{"id": "8cbda3a360d52cea0ea56563a5010fbbde2cceb9858c7e215d9f95f1f109026f", "item_id": "152f5d2724:29", "text": "the render (make it incorrect physically) if driven with high values, but for art direction purposes it can greatly improve convergence. Below are two images, both with 32 samples. Notice the image on the left is much less converged, Photon Guiding was set to 0.00 while the right image used the glass bounding box information as the Photon Guiding BBox and Photon Guiding set to 0.900."}
+{"id": "3bc50fa1e23d37f9e83afdbe041a06db3fd4976a0fafa84dc9d5164de49332ca", "item_id": "152f5d2724:30", "text": "Scene courtesy of Julien Duval."}
+{"id": "99054cee7648da32eea028d3ef5d96f1da645925c16b6e776f11a3fc6b7d0a96", "item_id": "152f5d2724:31", "text": "The Manifold Walk"}
+{"id": "0b18295672a1507ac796141e376f6f4b8532ddc27ca709c727ccd160a90bdafa", "item_id": "152f5d2724:32", "text": "PxrUnified has a novel way to generate caustics selectively using the"}
+{"id": "75f6369479e4700694fe684f0e46559e7d1e8c2e9496265fc78f5b7cb9cacbec", "item_id": "152f5d2724:33", "text": "Manifold Walk"}
+{"id": "1d7eca705bf909016d40ac4dba8fbfbd779f75e69bcbbb5183caed995f681474", "item_id": "152f5d2724:34", "text": "technique."}
+{"id": "c3ce699805263181c8d93b2f1c28d69c6683bae959f5995324d00aea3d0f4365", "item_id": "152f5d2724:35", "text": "Shadow Falloff Trickery"}
+{"id": "ee7c6700de17f21036026ef145c8e4847c438ab51c2f7e311284d58cb4069980", "item_id": "152f5d2724:36", "text": "When using some lights, you may be tempted to alter the shadow falloff parameter. In many cases it's pure artistry, but for the"}
+{"id": "1212e2ab64a08ec5ced8175eb4e0b702d7cfc550ede4593bd2ead1444ee69a02", "item_id": "152f5d2724:37", "text": "PxrDomeLight"}
+{"id": "1dfa778fcd6af2bad21615ead349ddf20bb37cfa0b7e3df00c88a992ca43047a", "item_id": "152f5d2724:38", "text": "it can be a useful hack for quick interior renderings. Since this operates as an overall environment light, you can reduce the shadow falloff (based on your scene extent) to get more light into an interior in a way that might resemble ambient occlusion. Below are some examples. Note how the shadowing on the right side of the image simply goes away."}
+{"id": "2d686193a8badb669eb448752b45584b04516ba900046fdfc3821dcc1b8dd1ed", "item_id": "152f5d2724:39", "text": "Typical render at default with no falloff or portal lights"}
+{"id": "ea54aedf1fe7229b82edf65017954ccb149db8514763484fd616306796965257", "item_id": "152f5d2724:40", "text": "Shadow falloff set to 500 units"}
+{"id": "db08de3a7acbeed8b46279691776798ef8f44fe51573a6555012ef0bf0b058d5", "item_id": "152f5d2724:41", "text": "Shadow falloff set to 50 units"}

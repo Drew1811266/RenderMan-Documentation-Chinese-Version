@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The Viewing Transformation</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>The Viewing Transformation</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/REN27/542231325/The+Viewing+Transformation">https://rmanwiki-27.pixar.com/space/REN27/542231325/The+Viewing+Transformation</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>viewing transformation（观察变换）可以拆分为两个部分：camera-to-screen projection（摄影机到屏幕投影）和 screen-to-raster projection（屏幕到栅格投影）。camera-to-screen projection 会把 3D 世界压平到 2D 屏幕上。screen-to-raster projection 会把屏幕上的每个点映射到某个输出像素。</p><h2 id="TheViewingTransformation-Screen-To-RasterControls">Screen-To-Raster 控制</h2><p>本节讨论 screen-to-raster projection（屏幕到栅格投影），它的任务是确定如何把该屏幕矩形放到栅格上。</p><p><span class="confluence-embedded-file-wrapper image-center-wrapper"><img class="confluence-embedded-image image-center" alt="Screen-to-raster geometry" loading="lazy" src="../../attachments/542231325/figure.1.gif" data-image-src="../../attachments/542231325/figure.1.gif" data-unresolved-comment-count="0" data-linked-resource-id="542231345" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="figure.1.gif" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/gif" data-linked-resource-container-id="542231325" data-linked-resource-container-version="1" data-media-id="66ea2e69-74ed-438c-8ca7-0257beb3ae2e" data-media-type="file" title="Screen-to-raster geometry"></span></p><p style="text-align: center;"><strong><br/></strong>Screen-to-raster 几何</p><p><strong>Resolution（分辨率）</strong></p><p>你可能首先、也最明显想改变的是图像分辨率。分辨率的默认值由输出设备决定。每个输出设备都有默认分辨率，而默认输出设备 TIFF 图像的默认分辨率为 512 x 384。使用 RiDisplay 调用可以更改输出设备，这会决定新的默认分辨率。如果想严格控制分辨率，可以使用 RiFormat 调用设置显式的输出分辨率。</p><p><strong>像素宽高比</strong></p><p>Pixel aspect ratio（像素宽高比）定义设备上单个像素的宽度与高度之比。许多显示器使用方形像素，比率为 1.0；其他显示器的像素可能比高度更宽，或相反。TIFF 的 pixel aspect ratio 默认值为 1.0，每个 framebuffer 设备都针对其显示器设置了正确默认值。很少需要更改这个值，但如果需要（例如，你在一个设备上渲染，稍后在另一个设备上显示），可以用 RiFormat 完成。如果想用 RiFormat 设置分辨率，但不想改变 pixel aspect ratio（或反过来），对不想修改的 RiFormat 参数使用小于或等于 0.0 的值。这样它会保留默认值。</p><p><strong>画幅宽高比</strong></p><p>RenderMan 中可用的另一个 aspect ratio 是 frame aspect ratio（画幅宽高比）。它用于强制整个输出图像的宽高（形状）精确比例。例如，NTSC 视频的宽高比为 4:3，而 70mm 胶片的宽高比为 1.85。可以用 RiFrameAspectRatio 设置所需的 frame aspect ratio。如果不设置，它会默认为输出设备的完整尺寸，而这通常正是你想要的。</p><p>分辨率和 pixel aspect ratio 的组合已经定义了 frame aspect ratio，这一点应该很明显；再次指定它要么多余，要么不一致。那么它为什么还在接口中？如果你明确知道需要哪个比例，那么无论使用什么分辨率或 pixel aspect ratio，你都总是想要那个精确比例。特别是，只指定 frame aspect ratio 就可以让渲染请求与设备无关。这样设备可以设置“默认”（实际是“设备最大”）分辨率和 pixel aspect ratio，而你的图像会使用其中合适的子集，从而生成仍然具有正确 frame aspect ratio 的最大图像。</p><p>如果同时冗余地设置 format 和 frame aspect ratio 会怎样？你会得到比指定 format 更小、且形状正确的最大图像。注意，如果让 pixel aspect ratio 使用默认值，那么 frame aspect ratio 其实并不冗余，因为切换到另一个具有不同 pixel aspect ratio 的设备时，即使分辨率相同，也会得到形状不同的图像。</p><p><strong>Crop Windows（裁剪窗口）</strong></p><p>有时你只想生成图像的一小部分，而不是渲染整张图。你可以移动摄影机、放大到想要的区域并调整分辨率，但那会相当复杂。相反，用 RiCropWindow 可以很容易做到。设置 crop window 不会改变摄影机位置或 viewing 参数。它唯一做的是指出你实际希望渲染到设备上的常规输出像素子集。crop window 以整张图像的比例指定，而不是以像素编号指定，因此它是与分辨率无关的值。默认值是在 x 和 y 两个方向上都从 0.0 到 1.0。</p><h2 id="TheViewingTransformation-Camera-To-ScreenControls">Camera-To-Screen 控制</h2><p>screen coordinate system（屏幕坐标系）在概念上与摄影机的胶片平面相同。正如摄影机镜头把光聚焦到胶片平面上一样，camera-to-screen transformation（摄影机到屏幕变换）会把场景中的对象投影到 screen coordinates（屏幕坐标）中。注意，screen coordinate system 并不是胶片本身，而是胶片所在的无界二维平面。真实摄影机的设计可以选择胶片有多大、它如何在胶片平面上居中，甚至胶片平面是否垂直于镜头系统。camera-to-screen transformation 控制 RenderMan 虚拟摄影机中的所有这些参数。</p><p><strong>投影</strong></p><p>camera-to-screen transformation 的第一步是设置摄影机投影。RenderMan 为用户创建的投影提供了 plugin 接口。内置投影包括：orthographic、perspective、sphere、cylinder 和 torus。投影使用 RiProjection 设置，默认是正交投影。</p><p>透视投影用地平线上的消失点模拟人类感知，物体越远看起来越小。通常可以把它想象成从一个金字塔顶端看出去，顶端位于 camera point（摄影机点），而 screen（film）plane 正好位于摄影机前方一个单位处。对象会沿着在摄影机处相交、并随距离增大而彼此分开的直线投影到屏幕平面上。</p><p>正交（或平行）投影会沿着垂直于屏幕的平行线把对象投影到屏幕平面上。它没有透视缩短。无论对象距离摄影机多远，在屏幕上看起来都一样大。</p><p>sphere、cylinder 和 torus 投影用于创建环境贴图和全景图像。</p><p><a class="external-link" href="http://www-seattle/liveDocs/RenderMan_21/PxrCamera.html" rel="nofollow" style="text-decoration: underline;">PxrCamera</a> 是一个 projection plugin（投影插件），支持带有多种物理效果的透视投影，包括移轴景深、色差、镜头畸变、暗角和 rolling shutter（卷帘快门）。</p><p style="text-align: center;"><span class="confluence-embedded-file-wrapper image-center-wrapper"><img class="confluence-embedded-image image-center" confluence-query-params="effects=drop-shadow" loading="lazy" src="../../attachments/542231325/camera_image2.gif" data-image-src="../../attachments/542231325/camera_image2.gif" data-unresolved-comment-count="0" data-linked-resource-id="542231342" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="camera_image2.gif" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/gif" data-linked-resource-container-id="542231325" data-linked-resource-container-version="1" data-media-id="d057521f-3347-4298-bea6-c2ba12da2765" data-media-type="file"></span><em>透视（左）和正交（右）</em></p><p><br/></p><p><strong>Screen Window（屏幕窗口）</strong></p><p>screen window（屏幕窗口）是一个矩形，由透视 viewing pyramid（观察金字塔）或正交 viewing box（观察盒）与屏幕平面相交形成，并且可以为每个摄影机设置。随后 screen-to-raster transformation 会把这个矩形投影到显示设备上。</p><p>screen window 由 RiScreenWindow 过程设置。通常 screen window 以原点为中心。这样，正对摄影机的对象会出现在输出图像中央。通常 screen window 还会与显示设备具有相同形状（frame aspect ratio）。如果不是这样，世界中对象的形状出现在图像中时会被扭曲。screen window 的默认值遵循这两个约定。它围绕原点居中，其形状设置为与 frame aspect ratio 相同。整体尺寸的选择方式是：在较小方向上范围为 -1 到 1。因此，如果 frame aspect ratio 比较宽，默认值会在 y 方向为 -1 到 1，并在 x 方向更宽；如果 frame aspect ratio 比较高，默认值会在 x 方向为 -1 到 1，并在 y 方向更高。</p><p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Camera-to-screen geometry" height="233" width="375" confluence-query-params="effects=drop-shadow" loading="lazy" src="../../attachments/542231325/camera_image3.gif" data-image-src="../../attachments/542231325/camera_image3.gif" data-unresolved-comment-count="0" data-linked-resource-id="542231339" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="camera_image3.gif" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/gif" data-linked-resource-container-id="542231325" data-linked-resource-container-version="1" data-media-id="23d25d62-6613-4454-9f4b-cd2c291ee73c" data-media-type="file" title="Camera-to-screen geometry"></span></p><p style="text-align: center;">Camera-to-screen 几何</p><p>screen window 可用于放大或缩小。缩小 screen window（保持相同形状）等价于缩小 viewing pyramid，这意味着世界中更小的一部分会被投影到同一个栅格上：也就是 zoom（缩放）。screen window 也可以用来创建偏心投影，只需指定一个不关于原点对称的窗口即可。另外，如前所述，如果 screen window 与 frame aspect ratio 的形状不同，就会得到一个在某个方向上拉伸的图像（anamorphic，变形宽银幕），类似使用 Panavision 摄影机镜头得到的图像。偏移的 screen window 也可用于呈现立体图像。</p><p><strong>Field of View（视场角）</strong></p><p>透视投影接受一个可选参数，即 field of view（视场角）。透影视场角会把屏幕平面朝向或远离摄影机移动，使 screen coordinates（屏幕坐标）中落在 (-1,1,-1,1) 之间的正方形覆盖从摄影机看到的指定角度。例如，field of view 默认是 90 度，借助三角函数可知，这意味着屏幕平面位于摄影机前方 1.0 个单位。如果指定 20 度 field of view，屏幕平面会后移到 5.6713 个单位远（1.0/tan(20.0°/2)）。</p><p>常见做法是只使用 field of view 来控制 viewing pyramid，方式类似使用物理摄影机。在这种方案中，screen window 会在“较小”方向上使用 (-1,1) 的正常默认值，而 field of view 控制通过这个 screen window 可以看到多少内容。因此 field of view 控制可以理解为水平或垂直 field of view 中的较小者，因为在“较大”方向上会看到更宽的角度。这个方案不如使用 RiScreenWindow 通用，因为它只能得到未失真的居中透视视图，但这通常正是你想要的。</p><p>同时使用 field of view 和 screen window 时要小心。field of view 指定的不是通过所给 screen window 的 viewing angle（观察角），而是通过 (-1,1,-1,1) 窗口的 viewing angle，具体方式是移动屏幕平面。然后 screen window 会相对于这个已移动的屏幕平面进行计算。在实践中，这很难控制，并且只在少数情况下使用。</p><p style="text-align: center;"><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" confluence-query-params="effects=drop-shadow" loading="lazy" src="../../attachments/542231325/figure.4.gif" data-image-src="../../attachments/542231325/figure.4.gif" data-unresolved-comment-count="0" data-linked-resource-id="542231348" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="figure.4.gif" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/gif" data-linked-resource-container-id="542231325" data-linked-resource-container-version="1" data-media-id="3440f750-e6eb-4102-b9b9-a95c2ae21de1" data-media-type="file"></span></p><p style="text-align: center;">Field of view 几何 </p><p style="text-align: center;"><br/></p><h2 id="TheViewingTransformation-Conclusion">结论</h2><p>viewing transformation（观察变换）有很多控制项，但通常不会全部一起使用。更常见的是设置几个重要控制项，其余保持默认值。调整 viewing transformation 时可遵循几条简单规则：</p><p>设备知道自己的最大分辨率和 pixel aspect ratio，这些可以用 RiFormat 覆盖。</p><p>所选分辨率和 pixel aspect ratio 决定 frame aspect ratio，而 frame aspect ratio 可以用 RiFrameAspectRatio 覆盖。如果覆盖它，就不会使用设备上的全部像素。</p><p>frame aspect ratio 决定默认 screen window，它居中并包围 -1 到 +1 的正方形。可以用 RiScreenWindow 覆盖它，以实现缩放，或提供偏心视图或 anamorphic（变形宽银幕）视图。</p><p>也可以使用 RiProjection ("perspective", "fov", ...) 设置水平或垂直 field-of-view 中的较小者来进行缩放。另一个方向会相应满足 frame aspect ratio。最好不要同时使用这种方式和 RiScreenWindow。</p><p>记住这些规则后，应该很容易把你想要的确切视图放到你想要的确切像素上。</p><p><em style="text-align: center;"><br/></em></p>
+  </article>
+</main>
+</body>
+</html>

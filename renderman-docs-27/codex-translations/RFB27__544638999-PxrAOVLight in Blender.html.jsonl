@@ -1,0 +1,44 @@
+{"id":"b344d80e24a3679999fa964450b34bc24d1578a35509f934c1418b0a20d21a67","item_id":"573eebcf04:0","text":"这个"}
+{"id":"9023eaf38852e88f3195c6df547ee2b4e846f0045efd7c0329708a3db5975550","item_id":"573eebcf04:1","text":"PxrAovLight"}
+{"id":"cb2d678922f1b3dcdffd0bbbf4b6d24542bd7e0309e0e620b6d0d382fda8afa7","item_id":"573eebcf04:2","text":"是一个方便的 utility light（实用灯光），允许 lighting artist（灯光艺术家）输出 shot-specific AOV mask（镜头特定 AOV 遮罩），而不需要向 shading artists（着色艺术家）请求。"}
+{"id":"06004712bb45ea7159ccd91218254313642b09755ae28f477ffd468453df1b8d","item_id":"573eebcf04:3","text":"在此示例中，我们将拆解一个常见需求：为角色眼睛获取 refraction AOV（折射 AOV）"}
+{"id":"74cbbba3833fa3cc1fb190a933856e021877339ec34cdcb2954aa7be55a49ce0","item_id":"573eebcf04:4","text":"（位于 cornea（角膜）内部的 sclera（巩膜）或 iris（虹膜））。"}
+{"id":"f2c6a237f988942ed0ca73d67b2fc50cd15a139bebd24a42c87dd98d0fd52190","item_id":"573eebcf04:5","text":"Creating the PxrAOVLight（创建 PxrAOVLight）"}
+{"id":"146acfff1637fbfe6f1ce90bf5e831ac75df47b25e32e7248923b4858d050dd6","item_id":"573eebcf04:6","text":"首先需要创建一个 PxrAovLight，可以在 RenderMan viewport panel（视口面板）的 Add Light → PxrAovLight 下找到它。"}
+{"id":"d3f965d71f4a511857235368e5b07166e114a3cc07738480143eace37cd987b7","item_id":"573eebcf04:7","text":"创建后，我们需要设置 PxrAOVLight。"}
+{"id":"34a94b6f450432fb08179c54ab32914a0b9a1566cc38ad29b3ac424829aea819","item_id":"573eebcf04:8","text":"为你的 AOV 命名，这里我们使用了"}
+{"id":"00e13f74228509bc522c3ede5e55cc9c856ec3e71296e393ae5016a501fcf831","item_id":"573eebcf04:9","text":"irisMask"}
+{"id":"3a00209d11d3f692421cfe1d9640b8f0424ed89aceaa3bda945348631f8e98ab","item_id":"573eebcf04:10","text":"将 “Use Color” attribute（属性）设为 on（开启），因为我们要写入 color AOV（颜色 AOV）。"}
+{"id":"0d8d695e3eb3327b23369517483ada320be5255d8845d12336daa3d10af00249","item_id":"573eebcf04:11","text":"由于 PxrAOVLight 严格来说不是用于照亮场景的灯光，因此可以关闭 “primary visibility” attribute（属性）。"}
+{"id":"dc2956fcc8ee7cf248fae4bfa5f266c5ff344b8c7477fd9f9368a99077bc0efa","item_id":"573eebcf04:12","text":"打开 “In Refraction” attribute（属性），因为我们需要 rays（光线）穿过 cornea（角膜）并击中 iris geometry（虹膜几何体）。"}
+{"id":"8560c07a7f710bdc51678b8be40daafb9d6f96e1ace9168ba04e7e98a531c635","item_id":"573eebcf04:13","text":"Light Linking（灯光链接）"}
+{"id":"f9edb78967ff02fe99543c6ab2795677c5c79be02707834f1ac5f13292956a1a","item_id":"573eebcf04:14","text":"接下来，打开 Light Linking tool（灯光链接工具）；它同样可以在 RenderMan tool panel（工具面板）中找到。"}
+{"id":"f07f38e48a196903e189132b1c870b6a9313913c3cc9cb57608cb259c66e75e3","item_id":"573eebcf04:15","text":"我们使用"}
+{"id":"e4d6c6c6a8648d0569570eb899692426f8244ac25a26d1e38251b804df05f821","item_id":"573eebcf04:16","text":"light linking（灯光链接）"}
+{"id":"7c34eac1ffa15210c0ea9bdcab564c6016e90e845fa3dac7ac01815444ec7234","item_id":"573eebcf04:17","text":"在 AOV 中 include/exclude（包含/排除）几何体片段。"}
+{"id":"2a5454897c686de5bc0b624f8c7b1ff8069be2c4967dcb73ce239df71457f646","item_id":"573eebcf04:18","text":"在此示例中，PxrAovLight 对 Iris_GEO 开启，而对眼球的其他部分关闭。"}
+{"id":"9eb750ea7cf0bd5fefd7e75ec788db69668bd29fb779f38f35f247111fe96e52","item_id":"573eebcf04:19","text":"此 linking setup（链接设置）会为 refractive cornea（折射角膜）内部的 Iris（虹膜）创建一个 mask（遮罩）。"}
+{"id":"97d984b5682ac855430c01e327c689b0dc52090b30469e8f626210e66b6862c3","item_id":"573eebcf04:20","text":"Defining the Output AOV（定义输出 AOV）"}
+{"id":"9fc032b01db01413dcdefc1f0f9ead40570ed232cb4b35d063170b57e83d74aa","item_id":"573eebcf04:21","text":"在 PxrAOVLight attributes（属性）中设置 AOV Name 后，使用"}
+{"id":"98a48372216c172881b41b778aa1b1e23a92fcde0e7910ca3ce5cbad63696612","item_id":"573eebcf04:22","text":"AOVs Manager"}
+{"id":"924159b4d352674e274d0c80b0825f3c19a152171c0df02e4d0886fc21e9480f","item_id":"573eebcf04:23","text":"定义一个新的 display（显示），PxrAovLight 会将数据写入其中。"}
+{"id":"b2c2d8d5f659baf6ac022a68ba390cc81cb779aaac99392a628348f7fc5b0e00","item_id":"573eebcf04:24","text":"Note（注意）：确保名称匹配，如下所示："}
+{"id":"fe5c837bc1312943444e33b94d85912089afbdb83a44af0d9da05c80be4ae58d","item_id":"573eebcf04:25","text":"PxrAOVLight"}
+{"id":"6c09a9748823ee6fcac3354a4ed6a898a5341be774ff5090321dd8a03bbebd24","item_id":"573eebcf04:26","text":"MyAOVName"}
+{"id":"14e1cd12439ddd7b0d78de403d0bc1934cd3778064ef3d60b33cec6ed23e28b9","item_id":"573eebcf04:27","text":"Channel Source"}
+{"id":"6c09a9748823ee6fcac3354a4ed6a898a5341be774ff5090321dd8a03bbebd24","item_id":"573eebcf04:28","text":"MyAOVName"}
+{"id":"01b1f0947abd49ac71074a74d2f78197ad3f520766e3b1c09ecc8c2bdf120bdf","item_id":"573eebcf04:29","text":"在此示例中，我们使用"}
+{"id":"00e13f74228509bc522c3ede5e55cc9c856ec3e71296e393ae5016a501fcf831","item_id":"573eebcf04:30","text":"irisMask"}
+{"id":"a2621a31e90452ffbbbfc67cfc224626d89a2135be7f3f086e8929c444ecf592","item_id":"573eebcf04:31","text":"作为 PxrAOVLight 的 AOV name（AOV 名称）和 Channel Source name（通道源名称）。"}
+{"id":"bf4348761dac99af751b23df298eee43fec3822e7ec55429db33b5092f6d6855","item_id":"573eebcf04:32","text":"这里，我们创建了一个名为"}
+{"id":"65003c7a186430e894caa11372a179dbdcac2cbf99724dacc1455efe1c2582a9","item_id":"573eebcf04:33","text":"Iris"}
+{"id":"cdb4ee2aea69cc6a83331bbe96dc2caa9a299d21329efb0336fc02a82e1839a8","item_id":"573eebcf04:34","text":" 的新 display（显示）。"}
+{"id":"80e4ad056bd7eb907b42aac6795f2295df87a1bd9a196ea0ff1dd3eb11fabf8b","item_id":"573eebcf04:35","text":"在"}
+{"id":"65003c7a186430e894caa11372a179dbdcac2cbf99724dacc1455efe1c2582a9","item_id":"573eebcf04:36","text":"Iris"}
+{"id":"e1329e66535c418a583c5dd4788d19989c26915a1caf5150c39fa38830fc9d68","item_id":"573eebcf04:37","text":" 下，我们创建了一个名为"}
+{"id":"00e13f74228509bc522c3ede5e55cc9c856ec3e71296e393ae5016a501fcf831","item_id":"573eebcf04:38","text":"irisMask"}
+{"id":"9969e5d4e561b674a6feed69df1660af0151d28c795245f48c8562ceba8ad4b9","item_id":"573eebcf04:39","text":"的新 channel（通道），它必须与之前为 PxrAOVLight 选择的 AOV name（AOV 名称）相同。"}
+{"id":"9b2fe42be71dd3aa92b25f68937c06160d4a491a9639053b8a87dd7a6887247f","item_id":"573eebcf04:40","text":"AOVs Manager 设置大致如下："}
+{"id":"f21e81f63aec18481eb958fb23a71a9c78121a7250fe5125a0a4722087d2d7ee","item_id":"573eebcf04:41","text":"这是 irisMask AOV 的渲染结果……很神奇吧？！"}
+{"id":"ee3c039a8f7061f54aab919448a80e54d4f91524fbaa276fa0e9324953d25964","item_id":"573eebcf04:42","text":"Compositing（合成）"}
+{"id":"5fb594b05b5a7d19ebe2e490fca9660b1087df4f8152df8953961d895e896080","item_id":"573eebcf04:43","text":"现在可以在 compositing software（合成软件）中使用此 mask（遮罩）进行进一步后期调整。在 Nuke 中，我们将 irisMask AOV shuffle out（分离）到 alpha（Alpha 通道）中，并把它用作 HueShift node（HueShift 节点）的 mask input（遮罩输入），从而重新着色 iris（虹膜）。"}

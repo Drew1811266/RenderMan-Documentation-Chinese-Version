@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Specular Parameters</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Specular Parameters</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/REN27/542215275/Specular+Parameters">https://rmanwiki-27.pixar.com/space/REN27/542215275/Specular+Parameters</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="contentLayout2">
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="084cf294-be0b-4cf1-b151-676896ffc5ab" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>在下方参数中，有些参数可在连接到 <a href="542217837-PxrLayer.html" data-linked-resource-id="542217837" data-linked-resource-version="1" data-linked-resource-type="page">PxrLayer</a> 后，通过 <strong>Input Material </strong>被覆盖，或通过 <a href="542218974-PxrLayerMixer.html" data-linked-resource-id="542218974" data-linked-resource-version="1" data-linked-resource-type="page">PxrLayerMixer</a>覆盖。 <a href="542216714-PxrLayerSurface.html" data-linked-resource-id="542216714" data-linked-resource-version="1" data-linked-resource-type="page">PxrLayerSurface</a> 设计用于更清楚地展示哪些参数不能在层中被覆盖：它只包含全局参数。当你确定要进行分层时，建议使用这种材质。这些设置的结果保持不变。</p><ul><li><p><strong>Bold Face</strong> 参数是可分层的，可以按层覆盖。</p></li><li><p><em>Italicized</em> 参数不能分层或覆盖。所有层都会全局遵循这些参数。例如：选择 GGX 作为 Specular 模型时，所有层在该参数上都会使用 GGX。</p></li></ul></div></div><p><br/></p><p><span class="confluence-anchor-link conf-macro output-inline" data-hasbody="false" data-local-id="aa83d042-96b1-4998-81a1-d4c33fa6e9d7" data-macro-id="cd4c2fc4-2ca3-41bd-9c5d-d2f50ff481f4" data-macro-name="anchor" id="SpecularParameters-top"><span class="confluence-anchor-link" id="top"> </span></span></p><h3 id="SpecularParameters-SpecularandRoughSpecularParameters">Specular and Rough Specular Parameters </h3><p>Specular 参数控制镜面反射。这里可以定义对象有多么有光泽或反射性：它是塑料、抛光大理石桌，还是镜子？下面的 <strong>Rough Specular</strong> 波瓣具有相同的设置和效果。</p><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="683830d7-d5fa-49ba-996a-67656f52bfb2" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>还可以选择 <strong>Artistic</strong> 和 <strong>Physical</strong> 控制项。Artistic 控制项允许你手动调整反射属性，以匹配想要的效果。使用 Physical（带有提供的预设）可以为希望复现实物、又不想无休止微调的人提供匹配真实世界的响应。</p></div></div><p><br/></p><p><em>Specular Model</em></p><p>选择要使用的 Specular 模型：Beckmann 或 Ggx。Beckmann 适用于完美镜面和类似铬的材质。Ggx 可能因其“尾部”而更合适，也就是高光从光源中心反射向外柔和衰减的方式。左侧为 Beckmann，右侧为 GGX，Roughness 为 0.25。</p><p><br/></p></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rman_pxrsurf_Beckmann.jpg" width="384" loading="lazy" src="../../attachments/542215275/rman_pxrsurf_Beckmann.jpg" data-image-src="../../attachments/542215275/rman_pxrsurf_Beckmann.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215388" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_Beckmann.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215275" data-linked-resource-container-version="1" data-media-id="ac1a9871-b632-4dac-91df-f17f86a1e7eb" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rman_pxrsurf_GGX.jpg" width="384" loading="lazy" src="../../attachments/542215275/rman_pxrsurf_GGX.jpg" data-image-src="../../attachments/542215275/rman_pxrsurf_GGX.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215385" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_GGX.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215275" data-linked-resource-container-version="1" data-media-id="38268526-c921-4501-bfd1-8506797c4351" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p style="text-align: center;"><br/></p><p><em>Specular Fresnel Mode</em></p><p>在 Artistic 模式下，Specular Fresnel 响应由 Face Color、Edge Color 和 Fresnel Exponent 控制。</p><p>在 Physical 模式下，Specular Fresnel 响应由 Refractive Index、Extinction Coefficient 和 Edge Color 控制。</p><p><strong> </strong><br/></p><p><strong>Face Color </strong> <em>(Artistic Mode)</em></p><p>面向角（0 度入射）处的 Specular 颜色。请注意这里没有单独的 Gain 控制。要控制 Specular 的“Gain”，只需调整颜色值，或连接到 PxrExposure 节点。下面是在 Roughness 0.25 下的不同选择，包括纹理驱动的选择。</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rman_pxrsurf_specFaceBlue.jpg" width="384" loading="lazy" src="../../attachments/542215275/rman_pxrsurf_specFaceBlue.jpg" data-image-src="../../attachments/542215275/rman_pxrsurf_specFaceBlue.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215382" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_specFaceBlue.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215275" data-linked-resource-container-version="1" data-media-id="207dc143-67da-4a54-8129-c83da0c73fae" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rman_pxrsurf_specFaceRed.jpg" width="384" loading="lazy" src="../../attachments/542215275/rman_pxrsurf_specFaceRed.jpg" data-image-src="../../attachments/542215275/rman_pxrsurf_specFaceRed.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215379" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_specFaceRed.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215275" data-linked-resource-container-version="1" data-media-id="da1d94fc-bf58-402a-be98-80cc9035b8bc" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rman_pxrsurf_specFaceTex.jpg" width="384" loading="lazy" src="../../attachments/542215275/rman_pxrsurf_specFaceTex.jpg" data-image-src="../../attachments/542215275/rman_pxrsurf_specFaceTex.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215376" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_specFaceTex.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215275" data-linked-resource-container-version="1" data-media-id="757e9a4b-0038-467f-b174-14db548c2016" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><br/></p><p><strong>Edge Color</strong></p><p>掠射角（90 度入射）处的 Specular 颜色。要控制边缘 Specular 的“Gain”，只需调整颜色值，或连接到 PxrExposure 节点。下面是在 Roughness 0.25 下的不同选择，包括纹理驱动的选择。这里还降低了 Fresnel Exponent，使效果更明显。</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rman_pxrsurf_specEdgeBlue.jpg" width="384" loading="lazy" src="../../attachments/542215275/rman_pxrsurf_specEdgeBlue.jpg" data-image-src="../../attachments/542215275/rman_pxrsurf_specEdgeBlue.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215373" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_specEdgeBlue.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215275" data-linked-resource-container-version="1" data-media-id="316ee67f-82e7-4310-b0a7-9aed42ef4e7d" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rman_pxrsurf_specEdgeRed.jpg" width="384" loading="lazy" src="../../attachments/542215275/rman_pxrsurf_specEdgeRed.jpg" data-image-src="../../attachments/542215275/rman_pxrsurf_specEdgeRed.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215370" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_specEdgeRed.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215275" data-linked-resource-container-version="1" data-media-id="6048f839-fd4c-45b6-acf5-fa3112fe9b96" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rman_pxrsurf_specEdgeTex.jpg" width="384" loading="lazy" src="../../attachments/542215275/rman_pxrsurf_specEdgeTex.jpg" data-image-src="../../attachments/542215275/rman_pxrsurf_specEdgeTex.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215367" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_specEdgeTex.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215275" data-linked-resource-container-version="1" data-media-id="fbade696-7819-42d2-afaa-1723a56f31d1" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><br/></p><p>请注意，此控制项在 <strong>Physical</strong> <strong>Mode</strong> 中含义会改变，并作为 Physical Mode 下反射结果的乘数。你可以用这个参数控制反射强度，甚至给结果着色。在下面示例中，我们使用了黑色、50% 灰色和白色。</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rman_pxrsurf_primSpecPhysEdge00.jpg" width="384" loading="lazy" src="../../attachments/542215275/rman_pxrsurf_primSpecPhysEdge00.jpg" data-image-src="../../attachments/542215275/rman_pxrsurf_primSpecPhysEdge00.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215364" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_primSpecPhysEdge00.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215275" data-linked-resource-container-version="1" data-media-id="f5e48709-5585-4bbd-a2e7-27e133a6bd54" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rman_pxrsurf_primSpecPhysEdge05.jpg" width="384" loading="lazy" src="../../attachments/542215275/rman_pxrsurf_primSpecPhysEdge05.jpg" data-image-src="../../attachments/542215275/rman_pxrsurf_primSpecPhysEdge05.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215361" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_primSpecPhysEdge05.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215275" data-linked-resource-container-version="1" data-media-id="d6151e9e-3f98-4dcb-bf8b-e6e000235ede" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rman_pxrsurf_primSpecPhysEdge10.jpg" width="384" loading="lazy" src="../../attachments/542215275/rman_pxrsurf_primSpecPhysEdge10.jpg" data-image-src="../../attachments/542215275/rman_pxrsurf_primSpecPhysEdge10.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215358" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_primSpecPhysEdge10.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215275" data-linked-resource-container-version="1" data-media-id="850ec52c-2e0d-4d15-8915-bdab56a6a486" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><br/></p><p><br/><em>Fresnel Exponent</em> <em>(Artistic Mode)</em></p><p>Specular Fresnel 曲线的指数。较低的数值会减弱 <strong>Face Color</strong> 的效果，同时增强 <strong>Edge Color</strong>的效果。较高的数值则相反。如果 Face Color 和 Edge Color 相同，就不会有可见效果。下面我们使用 <em>红色</em> Face Color 和 <em>绿色</em> Edge Color，并在较小 Roughness 下将 Fresnel Exponent 从 0.1 增加到 1.5，最后增加到 5.0。</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rman_pxrsurf_specFres01.jpg" width="384" loading="lazy" src="../../attachments/542215275/rman_pxrsurf_specFres01.jpg" data-image-src="../../attachments/542215275/rman_pxrsurf_specFres01.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215355" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_specFres01.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215275" data-linked-resource-container-version="1" data-media-id="61daf2b9-4667-433d-96b1-62676ec77394" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rman_pxrsurf_specFres15.jpg" width="384" loading="lazy" src="../../attachments/542215275/rman_pxrsurf_specFres15.jpg" data-image-src="../../attachments/542215275/rman_pxrsurf_specFres15.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215352" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_specFres15.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215275" data-linked-resource-container-version="1" data-media-id="1e12ca37-9292-4770-9f03-6b527a6bec9a" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rman_pxrsurf_specFres50.jpg" width="384" loading="lazy" src="../../attachments/542215275/rman_pxrsurf_specFres50.jpg" data-image-src="../../attachments/542215275/rman_pxrsurf_specFres50.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215349" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_specFres50.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215275" data-linked-resource-container-version="1" data-media-id="757724cb-f15f-4220-8d78-9ac770f2a9a7" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><br/></p><p><strong>Refractive Index (Physical Mode)</strong></p><p>这是用于描述物理折射率的参数；即材质的 <em>电介质</em> 折射率。此参数的通道值通常在 1 到 3 范围内。由于我们支持 3 个颜色值来捕捉光谱效应，使用预设可能比拾色器更适合，以避免大量调试。</p><p><br/></p><p><strong>Extinction Coefficient (Physical Mode)</strong></p><p>Extinction Coefficient 是材质的第二个折射率，用于表征金属行为。此参数的通道值通常在 1 到 3 范围内。由于我们支持 3 个颜色值来捕捉光谱效应，使用预设可能比拾色器更适合。当它为 0 时，材质会像电介质（玻璃、Clearcoat）一样响应；非零时，材质会像导体一样响应。由于这是基于物理值的控制，你通常会发现预设比手动微调设置更有用。下面是 Copper、Gold 和 Nickel 的预设。</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rman_pxrsurf_primSpecPhysCopper.jpg" width="384" loading="lazy" src="../../attachments/542215275/rman_pxrsurf_primSpecPhysCopper.jpg" data-image-src="../../attachments/542215275/rman_pxrsurf_primSpecPhysCopper.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215346" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_primSpecPhysCopper.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215275" data-linked-resource-container-version="1" data-media-id="4440d4fb-536f-4171-ba64-4ecd370dbe4b" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rman_pxrsurf_primSpecPhysGold.jpg" width="384" loading="lazy" src="../../attachments/542215275/rman_pxrsurf_primSpecPhysGold.jpg" data-image-src="../../attachments/542215275/rman_pxrsurf_primSpecPhysGold.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215343" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_primSpecPhysGold.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215275" data-linked-resource-container-version="1" data-media-id="3c3bc8f5-8317-417c-8d91-3038a684786a" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rman_pxrsurf_primSpecPhysNickel.jpg" width="384" loading="lazy" src="../../attachments/542215275/rman_pxrsurf_primSpecPhysNickel.jpg" data-image-src="../../attachments/542215275/rman_pxrsurf_primSpecPhysNickel.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215340" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_primSpecPhysNickel.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215275" data-linked-resource-container-version="1" data-media-id="254aa83e-31cb-4fa7-a29f-da72b1ab4ecf" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><strong> </strong><br/></p><p><strong>Roughness</strong></p><p>Specular roughness（镜面粗糙度）。值越大，镜面反射越粗糙或“模糊”。1.0 时类似 Diffuse 表面，0.0 时则是完全清晰的反射。大多数对象在这些值之间会更真实。为该值添加纹理可能产生有趣的效果，例如污迹、油腻指纹和磨损表面。下面示例从 0.0 到 0.5，最后到 1.0（Diffuse）。</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rman_pxrsurf_specGloss01.jpg" width="384" loading="lazy" src="../../attachments/542215275/rman_pxrsurf_specGloss01.jpg" data-image-src="../../attachments/542215275/rman_pxrsurf_specGloss01.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215337" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_specGloss01.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215275" data-linked-resource-container-version="1" data-media-id="a59b4bc3-c1b4-4b27-9737-0331531985e8" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rman_pxrsurf_specGloss05.jpg" width="384" loading="lazy" src="../../attachments/542215275/rman_pxrsurf_specGloss05.jpg" data-image-src="../../attachments/542215275/rman_pxrsurf_specGloss05.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215334" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_specGloss05.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215275" data-linked-resource-container-version="1" data-media-id="2748f59a-beee-45af-a9cf-bb164ab9278e" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rman_pxrsurf_specGloss10.jpg" width="384" loading="lazy" src="../../attachments/542215275/rman_pxrsurf_specGloss10.jpg" data-image-src="../../attachments/542215275/rman_pxrsurf_specGloss10.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215331" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_specGloss10.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215275" data-linked-resource-container-version="1" data-media-id="a18bd86c-1748-4ddb-857f-6655c38d5c5f" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><br/></p><p><strong>Anisotropy</strong></p><p>控制 Specular 高光和反射的形状。0 表示各向同性，会产生常规的圆形 Specular 高光。从 -1.0 到 1.0 的值会产生从宽到高的一系列椭圆（拉伸）。</p><p>默认情况下，各向异性的方向由模型纹理参数控制。如果指定了 Shading Tangent，则改用它。下面是 -1.0、0.0 和 1.0 的示例。</p><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="3bbe2e68-359b-40d8-a87b-8670127fd79b" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>建议将 Anisotropy 值设得尽可能低，只要能达到所需外观即可。极端值（超过 -1.0 或 1.0）可能产生难以有效收敛的噪声。Roughness 值较低时，这种情况会更糟。</p></div></div></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rman_pxrsurf_specAniso1.jpg" width="384" loading="lazy" src="../../attachments/542215275/rman_pxrsurf_specAniso1.jpg" data-image-src="../../attachments/542215275/rman_pxrsurf_specAniso1.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215328" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_specAniso1.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215275" data-linked-resource-container-version="1" data-media-id="d4699656-b4ca-4867-b913-9d673caeea94" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rman_pxrsurf_specAniso2.jpg" width="384" loading="lazy" src="../../attachments/542215275/rman_pxrsurf_specAniso2.jpg" data-image-src="../../attachments/542215275/rman_pxrsurf_specAniso2.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215325" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_specAniso2.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215275" data-linked-resource-container-version="1" data-media-id="35697c28-b8f8-4f2a-b8e1-ddda49eca7d4" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rman_pxrsurf_specAniso3.jpg" width="384" loading="lazy" src="../../attachments/542215275/rman_pxrsurf_specAniso3.jpg" data-image-src="../../attachments/542215275/rman_pxrsurf_specAniso3.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215322" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_specAniso3.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215275" data-linked-resource-container-version="1" data-media-id="e9c5730f-1885-43a5-9639-975e3c314a29" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><br/></p><p><em>Shading Tangent</em></p><p>控制各向异性方向。只有连接到 pattern 时才有效。这对于制作拉丝金属很有用。下面三个示例使用纹理，并将 <strong>Anisotropy</strong> 设为 -10。</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rman_pxrsurf_specAnisoTan1.jpg" width="384" loading="lazy" src="../../attachments/542215275/rman_pxrsurf_specAnisoTan1.jpg" data-image-src="../../attachments/542215275/rman_pxrsurf_specAnisoTan1.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215319" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_specAnisoTan1.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215275" data-linked-resource-container-version="1" data-media-id="1e89af39-29d1-443a-9a65-12611f3a47c0" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rman_pxrsurf_specAnisoTan2.jpg" width="384" loading="lazy" src="../../attachments/542215275/rman_pxrsurf_specAnisoTan2.jpg" data-image-src="../../attachments/542215275/rman_pxrsurf_specAnisoTan2.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215316" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_specAnisoTan2.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215275" data-linked-resource-container-version="1" data-media-id="5b177872-b3bb-4e67-970d-f383f8948316" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rman_pxrsurf_specAnisoTan3.jpg" width="384" loading="lazy" src="../../attachments/542215275/rman_pxrsurf_specAnisoTan3.jpg" data-image-src="../../attachments/542215275/rman_pxrsurf_specAnisoTan3.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215313" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_specAnisoTan3.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215275" data-linked-resource-container-version="1" data-media-id="93c7b427-12d7-465e-b94c-5eabc0647478" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><br/></p><p><strong>Bump</strong></p><p>用于 Specular 照明的法线。如果未设置，它会使用本页底部 Properties 中指定的全局 bump normal（凹凸法线）。</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rman_pxrsurf_specBmp1.jpg" width="384" loading="lazy" src="../../attachments/542215275/rman_pxrsurf_specBmp1.jpg" data-image-src="../../attachments/542215275/rman_pxrsurf_specBmp1.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215310" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_specBmp1.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215275" data-linked-resource-container-version="1" data-media-id="0ea12610-f92c-4298-afeb-cfa3c7ea9b77" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rman_pxrsurf_specBmp2.jpg" width="384" loading="lazy" src="../../attachments/542215275/rman_pxrsurf_specBmp2.jpg" data-image-src="../../attachments/542215275/rman_pxrsurf_specBmp2.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215307" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_specBmp2.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215275" data-linked-resource-container-version="1" data-media-id="bab49021-a1cd-4123-9330-4f70852cf25b" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rman_pxrsurf_specBmp3.jpg" width="384" loading="lazy" src="../../attachments/542215275/rman_pxrsurf_specBmp3.jpg" data-image-src="../../attachments/542215275/rman_pxrsurf_specBmp3.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215304" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_specBmp3.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215275" data-linked-resource-container-version="1" data-media-id="d8e61689-f4bd-4ae6-af31-6468638131ba" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><br/></p><p><em>Double Sided</em></p><p>如果开启，该 Specular 波瓣会照亮表面的两侧，也就是说，法线背向相机的表面也会被照亮。该选项默认关闭，以提升性能。</p><p><br/></p><p><br/></p><p><strong>Rough Specular</strong></p><p>与 Specular 参数相同，但默认 Roughness 更大，为 0.6。该层适用于比上方 Specular 波瓣更高的 Roughness 设置。下面从左到右依次为：Rough Specular、Specular、两个波瓣组合。</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rman_pxrsurf_Spec.jpg" width="384" loading="lazy" src="../../attachments/542215275/rman_pxrsurf_Spec.jpg" data-image-src="../../attachments/542215275/rman_pxrsurf_Spec.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215301" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_Spec.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215275" data-linked-resource-container-version="1" data-media-id="129ec06a-2762-4867-be4b-f8ad32a0edb7" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rman_pxrsurf_SpecCombo.jpg" width="384" loading="lazy" src="../../attachments/542215275/rman_pxrsurf_SpecCombo.jpg" data-image-src="../../attachments/542215275/rman_pxrsurf_SpecCombo.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215298" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_SpecCombo.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215275" data-linked-resource-container-version="1" data-media-id="801a9b34-bf53-414a-80cf-be8e4c85f894" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rman_pxrsurf_SpecRghSpec.jpg" width="384" loading="lazy" src="../../attachments/542215275/rman_pxrsurf_SpecRghSpec.jpg" data-image-src="../../attachments/542215275/rman_pxrsurf_SpecRghSpec.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215295" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_SpecRghSpec.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215275" data-linked-resource-container-version="1" data-media-id="b5aac148-2d4e-46c5-99b5-1c9a02b10387" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<hr/><p><span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image" height="64" loading="lazy" src="../../attachments/542215275/RenderManFundamentals_logo.png" data-image-src="../../attachments/542215275/RenderManFundamentals_logo.png" data-unresolved-comment-count="0" data-linked-resource-id="542215391" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderManFundamentals_logo.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542215275" data-linked-resource-container-version="1" data-media-id="fc6bea67-71f3-42dc-8f1f-3cf90beb9861" data-media-type="file"></span><br/><strong>RenderMan Fundamentals</strong></p><iframe align="middle" allowfullscreen="" class="conf-macro output-block" data-hasbody="false" data-layout="default" data-local-id="8033af4f-ec6a-473c-803b-1c82a621406b" data-macro-id="e2023ea819c4df5306b7792079ccd639f3bf8888e373c177054dea6a2e7b402b" data-macro-name="iframe" frameborder="0" height="600" sandbox="allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-popups-to-escape-sandbox allow-presentation allow-same-origin allow-scripts allow-top-navigation-by-user-activation" scrolling="yes" src="https://player.vimeo.com/video/471506695?h=d9fe405f6b&amp;title=0&amp;byline=0&amp;portrait=0" width="960">
+    
+</iframe>
+<p /><p /><iframe align="middle" allowfullscreen="" class="conf-macro output-block" data-hasbody="false" data-layout="default" data-local-id="112e8fe4-e607-4224-9732-ce4eccbe2778" data-macro-id="e134b53ccd3453b31bd757d503e1f8e5a13880ad94900c1a75b10e29f0f4dbc2" data-macro-name="iframe" frameborder="0" height="600" sandbox="allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-popups-to-escape-sandbox allow-presentation allow-same-origin allow-scripts allow-top-navigation-by-user-activation" scrolling="yes" src="https://player.vimeo.com/video/471550179?h=d9fe405f6b&amp;title=0&amp;byline=0&amp;portrait=0" width="960">
+    
+</iframe>
+<p /><p /><iframe align="middle" allowfullscreen="" class="conf-macro output-block" data-hasbody="false" data-layout="default" data-local-id="b353eeb4-103b-49d3-bae0-67db96c21a2c" data-macro-id="3c1c25afd5488519e1bd090e8073737a85a5873ba2e0c7c0573bed1f81ec091e" data-macro-name="iframe" frameborder="0" height="600" sandbox="allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-popups-to-escape-sandbox allow-presentation allow-same-origin allow-scripts allow-top-navigation-by-user-activation" scrolling="yes" src="https://player.vimeo.com/video/471505659?h=d9fe405f6b&amp;title=0&amp;byline=0&amp;portrait=0" width="960">
+    
+</iframe>
+<p /><p /><p /><p><a href="https://renderman.atlassian.net/wiki/spaces/REN/pages/19859072" data-linked-resource-id="19859072" data-linked-resource-version="3" data-linked-resource-type="page">/wiki/spaces/REN/pages/19859072</a></p></div>
+</div>
+</div>
+</div>
+  </article>
+</main>
+</body>
+</html>

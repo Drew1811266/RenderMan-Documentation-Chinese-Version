@@ -1,0 +1,97 @@
+{"item_id": "515b7f14fc:0", "text": "Many of the settings in the"}
+{"item_id": "515b7f14fc:1", "text": "Advanced Tab"}
+{"item_id": "515b7f14fc:2", "text": "you will never need to edit.  However, for the more advanced user who wants fine tuned control over RenderMan for Maya, they are here."}
+{"item_id": "515b7f14fc:3", "text": "Render Options"}
+{"item_id": "515b7f14fc:4", "text": "Output All Shaders:"}
+{"item_id": "515b7f14fc:5", "text": "Typically we export only material networks attached to objects, but if you're shading a procedural it may not be connected in a way that is exported. This option will export all networks regardless."}
+{"item_id": "515b7f14fc:6", "text": "Reentrant Procedural:"}
+{"item_id": "515b7f14fc:7", "text": "This allows procedurals to run simultaneously in multiple threads and greatly speed up renders with procedurals (hair). You most likely want to leave this on."}
+{"item_id": "515b7f14fc:8", "text": "Output Holdout Matte:"}
+{"item_id": "515b7f14fc:9", "text": "When using the"}
+{"item_id": "515b7f14fc:10", "text": "Holdout"}
+{"item_id": "515b7f14fc:11", "text": "workflow, output the Shadow AOV to this specified buffer."}
+{"item_id": "515b7f14fc:12", "text": "Enable Image Plane Filter:"}
+{"item_id": "515b7f14fc:13", "text": "Render the image plane using the Pixar Image Plane Filter (Maya uses an actual geometric plane)"}
+{"item_id": "515b7f14fc:14", "text": "Learn Light Results:"}
+{"item_id": "515b7f14fc:15", "text": "This a new option for scenes with many lights. The renderer will refine the light selection process to improve sampling. This is especially useful in scenes with many occluded lights to avoid wasting samples from shadowed surfaces. This version is not deterministic and small differences can be seen if not well converged on re-renders of the same scene."}
+{"item_id": "515b7f14fc:16", "text": "Bucket Order:"}
+{"item_id": "515b7f14fc:17", "text": "RenderMan subdivides the output image into small rectangular regions called buckets, and renders a single bucket at a time. This allows a small portion of the image to be in memory at any one time. The drop-down list allows users to choose the order in which buckets are displayed in \"it\" or the Render View. The default is Spiral. Note that only some bucket orders are supported for"}
+{"item_id": "515b7f14fc:18", "text": "checkpointing"}
+{"item_id": "515b7f14fc:19", "text": "and recovery."}
+{"item_id": "515b7f14fc:20", "text": "Bucket Size:"}
+{"item_id": "515b7f14fc:21", "text": "Specify the size of the buckets. Larger buckets will require more memory to render. Conversely, smaller buckets are less efficient for shading, but will use less memory during rendering. If your scene is using a lot of memory, you may want to try setting this field down to 8 by 8 or even 4 by 4 buckets, but most likely you will not change this."}
+{"item_id": "515b7f14fc:22", "text": "Opacity Threshold:"}
+{"item_id": "515b7f14fc:23", "text": "Controls the Opacity Threshold, if set too low, it may terminate rays early on semi-opaque objects. An objects opacity is controlled by the material Presence parameter and depth in supported integrators."}
+{"item_id": "515b7f14fc:24", "text": "Reference Frame:"}
+{"item_id": "515b7f14fc:25", "text": "Once per job passes and"}
+{"item_id": "515b7f14fc:26", "text": "static"}
+{"item_id": "515b7f14fc:27", "text": "objects are evaluated at the frame designated here."}
+{"item_id": "515b7f14fc:28", "text": "Adaptive Sampler"}
+{"item_id": "515b7f14fc:29", "text": "Adaptive Metric:"}
+{"item_id": "515b7f14fc:30", "text": "Make use of the improved Variance sampling algorithm as the default. You can use the Contrast-V22 metric as the older technique to match previous renders. The new technique improves the consistency of noise frame to frame. Extra options may be visible for each selection."}
+{"item_id": "515b7f14fc:31", "text": "Contrast-V22: An older metric based on the contrast threshold between samples, this will match sampling from recent previous versions"}
+{"item_id": "515b7f14fc:32", "text": "Darkfalloff: used to prevent oversampling in dark areas of an image that may not be important"}
+{"item_id": "515b7f14fc:33", "text": "Variance: An improved perceptual variance scheme that should provide consistent noise frame to frame"}
+{"item_id": "515b7f14fc:34", "text": "Exposure: used to give a hint to the renderer that it should sample based on this exposure bracket (assuming the compositing process stays within that range as not to reveal unsampled noise beyond the expected range)"}
+{"item_id": "515b7f14fc:35", "text": "Adapt All:"}
+{"item_id": "515b7f14fc:36", "text": "Apply the sampling quality criteria (pixel variance) to all color/illumination AOVs. This can increase render time as some AOVs may have more noise than the Beauty and trigger more samples through all the AOVs."}
+{"item_id": "515b7f14fc:37", "text": "Dicing"}
+{"item_id": "515b7f14fc:38", "text": "Micropolygon Lenth:"}
+{"item_id": "515b7f14fc:39", "text": "Controls the tessellation rate for displacement.  The default setting of 1 will dice displacements to 1 pixel's size.  (As seen from the dicing camera, typically the render camera). Smaller numbers are finer geometric detail at the cost of creating more geometry."}
+{"item_id": "515b7f14fc:40", "text": "Watertight Dicing:"}
+{"item_id": "515b7f14fc:41", "text": "Closes pinholes in diced geometry or attempts to close gaps in displacement. Useful if you have holes in your solid object alpha."}
+{"item_id": "515b7f14fc:42", "text": "Dicing Camera:"}
+{"item_id": "515b7f14fc:43", "text": "Enables the use of a reference camera for dicing. This can be done globally, or restricted to specific objects (e.g. objects with displacements that \"sparkle\" as the camera moves) by also attaching this as a per-object attribute."}
+{"item_id": "515b7f14fc:44", "text": "Reference Camera:"}
+{"item_id": "515b7f14fc:45", "text": "Specify the camera to be used as your dicing camera here. Click on the widget to create a new camera, or right click in the field to select an existing camera. Note that the Reference Camera needs to be different from the render camera."}
+{"item_id": "515b7f14fc:46", "text": "Hair"}
+{"item_id": "515b7f14fc:47", "text": "Min Hair Width:"}
+{"item_id": "515b7f14fc:48", "text": "Sets a minimum width for hairs/RiCurves. Narrower hairs will be clamped to this value and their opacity will be reduced to compensate for the difference in visual weight. This may improve anti-aliasing quality if not too small."}
+{"item_id": "515b7f14fc:49", "text": "Trace"}
+{"item_id": "515b7f14fc:50", "text": "Trace Auto Bias and Trace Bias:"}
+{"item_id": "515b7f14fc:51", "text": "RenderMan will automatically compute a trace bias for displacing ray origins off a hit surface.  However, if you wish to turn off the auto bias, you can set the bias manually here. Per-object settings should have Auto Bias turned off. Increase the value slowly until the artifact (self-shadowing, dark lines, etc.) disappears."}
+{"item_id": "515b7f14fc:52", "text": "Trace World Origin:"}
+{"item_id": "515b7f14fc:53", "text": "Move the world origin for increased floating point precision for raytracing. Sometimes when rendering very large scenes, the camera is moved to a position quite far from the origin. This may introduce precision issues depending on your scene units, values exported to the renderer are very large in these cases. Possible values are:"}
+{"item_id": "515b7f14fc:54", "text": "\"world\" (default) uses the true world origin"}
+{"item_id": "515b7f14fc:55", "text": "\"worldoffset\" use user provided trace:worldoffset as the raytrace world origin ( the control will expose an XYZ coordinate field)"}
+{"item_id": "515b7f14fc:56", "text": "\"camera\" use the camera position as the raytrace world origin, you may wish to use this in large scenes with multiple camera positions as the default."}
+{"item_id": "515b7f14fc:57", "text": "Open Shading Language"}
+{"item_id": "515b7f14fc:58", "text": "Enable Batched OSL:"}
+{"item_id": "515b7f14fc:59", "text": "Enable performance improvements on batched shading points through vectorized instructions on supported hardware. (Available on machines with a minimum of support for Advanced Vector Extensions (AVX). Additionally, it can take advantage of the 512-bit wide datapaths on machines that support Advance Vector Extensions 512 (AVX-512). This is"}
+{"item_id": "515b7f14fc:60", "text": "on"}
+{"item_id": "515b7f14fc:61", "text": "by default"}
+{"item_id": "515b7f14fc:62", "text": "OSL Verbosity:"}
+{"item_id": "515b7f14fc:63", "text": "Valid in ranges of 0 to 5 with 5 having the most messages. See the"}
+{"item_id": "515b7f14fc:64", "text": "OSL documentation"}
+{"item_id": "515b7f14fc:65", "text": "for more information."}
+{"item_id": "515b7f14fc:66", "text": "OSL Statistics Level:"}
+{"item_id": "515b7f14fc:67", "text": "As above, valid in ranges of 0 to 5 with 5 having the most messages."}
+{"item_id": "515b7f14fc:68", "text": "Deep Rendering"}
+{"item_id": "515b7f14fc:69", "text": "Quality:"}
+{"item_id": "515b7f14fc:70", "text": "Controls the decimation rate of merging samples. A setting of 1.0 has no merging of samples and will generate huge files. The default of 0.75 maps to Deepshadow Error 0.01 and when set to 0 maps to Deepshadow Error 0.16. Note this is not a linear mapping."}
+{"item_id": "515b7f14fc:71", "text": "Crop Window"}
+{"item_id": "515b7f14fc:72", "text": "Enable:"}
+{"item_id": "515b7f14fc:73", "text": "Use the crop window, off (default) renders the complete frame based on camera settings"}
+{"item_id": "515b7f14fc:74", "text": "Top Left/Bottom Right:"}
+{"item_id": "515b7f14fc:75", "text": "Specify the coordinates (x and Y) for a crop window to render. This can be useful when rendering many iterations for debugging or lookdev when only a specific region is under consideration. You may also use this to shift around the rendered region to tile together a very large render (possibly for print) and send the different regions to a different render node. Please note using crop windows with the PxrVCM renderer may generate different results than a full frame since we only generate photons for the region being rendered as an optimization."}
+{"item_id": "515b7f14fc:76", "text": "IES Profiles"}
+{"item_id": "515b7f14fc:77", "text": "Scene units to meters:"}
+{"item_id": "515b7f14fc:78", "text": "While scenes are exported to renderers \"unitless\", IES files specify a unit measure.  Use this setting to specify the scene unit to meter conversion factor.  For instance, if 1 unit = 1 meter, use 1.  If 1 unit = 1cm use 100."}
+{"item_id": "515b7f14fc:79", "text": "Ignore Watts:"}
+{"item_id": "515b7f14fc:80", "text": "Ignore the internal watts measurement in the profile"}
+{"item_id": "515b7f14fc:81", "text": "Cache Sizes"}
+{"item_id": "515b7f14fc:82", "text": "Allows users to customize the cache sizes for various assets, including textures, ray-traced geometry (specifically the tessellation cache), and opacity (as a function of Presence in materials). The values are in megabytes, and the renderer will automatically unload data from the cache when the limits specified here are reached. These values may be conservative based on your machine's available resources. If your render stats show many cache misses (reloading and re-reading) and your overall usage is below your available memory, you may want to increase these values to improve performance, keeping them reasonable and within your memory budget."}
+{"item_id": "515b7f14fc:83", "text": "Statistics"}
+{"item_id": "515b7f14fc:84", "text": "Level:"}
+{"item_id": "515b7f14fc:85", "text": "Enable this to output"}
+{"item_id": "515b7f14fc:86", "text": "diagnostic information"}
+{"item_id": "515b7f14fc:87", "text": "from render jobs. Useful for timing, debugging, and seeing what RenderMan is doing. Higher numbers are more verbosity. Note there can be a performance impact that adds up by requiring the renderer to lookup these strings."}
+{"item_id": "515b7f14fc:88", "text": "XML File:"}
+{"item_id": "515b7f14fc:89", "text": "You can specify a target destination for both \"Old School\" and XML statistics."}
+{"item_id": "515b7f14fc:90", "text": "LPE Lobe Mappings"}
+{"item_id": "515b7f14fc:91", "text": "This section maps the specified lobes to an output. You will notice in the"}
+{"item_id": "515b7f14fc:92", "text": "Light Path Expression"}
+{"item_id": "515b7f14fc:93", "text": "documentation that per-lobe outputs rely on these being correct so we recommend leaving them at their default. You may use User Lobes in custom C++ BxDFs."}
+{"item_id": "515b7f14fc:94", "text": "Example: You will note in the defaults that Diffuse 3 Lobe ID is Subsurface. The corresponding LPE is:"}
+{"item_id": "515b7f14fc:95", "text": "Note the D3 lobe specified. This matches the IDs assigned here."}
+{"item_id": "515b7f14fc:96", "text": "There are no D1, S1, or U1 lobes as these are \"fallthrough\" when something is unspecified. User 2 Lobe are the collective Albedo results (texture data)."}

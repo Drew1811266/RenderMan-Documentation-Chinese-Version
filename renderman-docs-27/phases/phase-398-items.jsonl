@@ -1,0 +1,42 @@
+{"id": "c41684f6a2da040700e3128222f2e42b69ac13c9043b857b5fdf235ebade416b", "item_id": "b5e06749b3:0", "text": "Once you have RenderMan for Katana (RfK) installed, there is minimal setup that you need in order to start generating renders!  Before running Katana itself, you'll need to set up your environment correctly, after which Katana will automatically load the RfK plugin.  Once in Katana, you'll need to set up your scene with a camera and geometry, add RenderMan (PRMan) lights and materials, then you're reading to render."}
+{"id": "1ef2f4197e66697e535d6141ebe7fa88836a33b603586a825eff1ec8c4379ce0", "item_id": "b5e06749b3:1", "text": "If multiple renderers are installed, to render with RenderMan, please set your DEFAULT_RENDERER environment variable to \"prman\""}
+{"id": "b8e6e8caea7043c105f2a754ba94afe840bf99c39905058b5c4a5cf9a0cd6918", "item_id": "b5e06749b3:2", "text": "Set Up Environment"}
+{"id": "479a2c614e54089407ef0fa68131d037997053f396ec0832975baeb54dce949c", "item_id": "b5e06749b3:3", "text": "In order to use RenderMan for Katana, the path to the RfK plugin must be added to your"}
+{"id": "a625e6d98e57d543a1b06e25e506261449fa9c14fe97b9172936f81cf7b0326b", "item_id": "b5e06749b3:4", "text": "search path:"}
+{"id": "b48111c10c65fc119368edafb19f97451759ee90b3f44647368135ca47aa4753", "item_id": "b5e06749b3:5", "text": "where"}
+{"id": "a4043141f36523941df7b3f2f0ec2badcaf2b2dc2b25e504748698bc83bc4e35", "item_id": "b5e06749b3:6", "text": "is the install location for the package, and the katana version suffix is set to the"}
+{"id": "9eacdb78c3a9d1820a7f4bb5be1fb24dee57a4ec41f92a9fcc50d9239dbd266e", "item_id": "b5e06749b3:7", "text": "string of one of the supported Katana versions.  This tells Katana where to find the RfK plugin as well as the supporting modules needed for rendering and managing scenes."}
+{"id": "36fea89ca2d60fbcc4f81cdb14a4e1baf25dfeecae646d3328141c143a0a8454", "item_id": "b5e06749b3:8", "text": "RenderMan Nodes and Macros"}
+{"id": "419c85a00dc38fb5b6724aa58b26727613a0abaf9bea8afa98fb10711fb127b5", "item_id": "b5e06749b3:9", "text": "The purpose of any Katana renderer plugin is to enable an artist to generate images using the full power of the given renderer. In order to start taking advantage of the RenderMan capabilities with the RenderMan plugin for Katana, we need to start with a discussion of the PRMan-specific nodes and parameters:"}
+{"id": "3ebfb4f38e8a77319ae48ce1d66b682d5f890ffb74b5ea3abecdf12e7aefdcec", "item_id": "b5e06749b3:10", "text": "PrmanGlobalStatements"}
+{"id": "4737b4928fcde4da32e68b6dea59aa3f9197873c423add3c2265be11827802e9", "item_id": "b5e06749b3:11", "text": "This node contains most of the PRMan world state options. This is where you'll find settings such as"}
+{"id": "429942d3b9f4d19a55ab824f547f1a5e51fb2f44d37f24bc2667fe90c658c91a", "item_id": "b5e06749b3:12", "text": "pixelVariance"}
+{"id": "62fed4e58556a64a430969e01ed748232f9ddeceec1a0541182afd42aa5fed4d", "item_id": "b5e06749b3:13", "text": "maxsamples"}
+{"id": "aa35cefd3dc9fc5b3bf9d6bbd22fe7f206653a0a93a5b21fd74125efd9d51c40", "item_id": "b5e06749b3:15", "text": "PrmanObjectStatements"}
+{"id": "d84d695a45de3073cf6c32c1c9aa15ad33814fac8565490209464fae3832e7ae", "item_id": "b5e06749b3:16", "text": "This is where object-specific PRMan attributes are set. Look here for"}
+{"id": "7d2fb3da93a013ce41e4eb531e0bb78e245939e05984a6a8dea49113becc347c", "item_id": "b5e06749b3:17", "text": "visibility"}
+{"id": "eafe895eb8119e6e5d06463590b2ef81b3651c157d5c8e18f1889186c7fd0ac0", "item_id": "b5e06749b3:19", "text": "trace"}
+{"id": "1566e8cd53807f1a4f62191dcab29e86bd63c71a92d6a313940d37eaacf8e63c", "item_id": "b5e06749b3:20", "text": "attributes, among others."}
+{"id": "26ccc3396414e73063793dbe99fe371aa83502af68298c0fbbbf99162540eed0", "item_id": "b5e06749b3:21", "text": "PrmanIntegratorSettings"}
+{"id": "fd1241036aa7a96c047cd1c537b7c1a8fbfd32357c140a9256ae019a6af7f04c", "item_id": "b5e06749b3:22", "text": "This node controls settings relevant to each integrator. The separation of these controls allows for easier integration of your own custom integrator."}
+{"id": "354862148913357f8a9a58852939c7019391ee736040a8604762e41f11d42592", "item_id": "b5e06749b3:23", "text": "PrmanCameraSettings"}
+{"id": "16792b9ef8e52dec64f6bc108a001cde4117b6abdb256959faf7a756e062bd5c", "item_id": "b5e06749b3:24", "text": "This node controls per-camera settings, such as depth of field and field of view."}
+{"id": "acf004f025e51a42a06aa267b18f6b3344ce604aaa27a5f4f3dcd617dc3cd59c", "item_id": "b5e06749b3:25", "text": "PrmanDenoiseChannelDefine"}
+{"id": "9f382bea1f29f4fcae9e4659449bb770b9c7d227a2bfeb816a1b6604a7c8c69b", "item_id": "b5e06749b3:26", "text": "This macro creates all the DisplayChannels required for the"}
+{"id": "bc56bb075d0cd5f5f26ccd7626d9c56da3a685ad4f4fc60bda9eee978f744d4f", "item_id": "b5e06749b3:27", "text": "denoise"}
+{"id": "94ab1e699e68a7724741b7eb33443aad7e88e1fc4a2b5e892f990c118e9ca427", "item_id": "b5e06749b3:28", "text": "utility."}
+{"id": "1f5256f7912482dc6493ddb7f3004276351de4d9d66351e303a6273a05403405", "item_id": "b5e06749b3:29", "text": "PrmanDenoiseRenderOutputDefine"}
+{"id": "3afd4dd75ff223a53f370248dece8281ce4082e00d88bbb49494503534fe27aa", "item_id": "b5e06749b3:30", "text": "This macro is used for defining the outputs required by the multichannel OpenEXR that is used by the denoiser."}
+{"id": "88930fdcc79b3b4e7b01f96a76a9e27d04cd84bf5f2f57cc80c908fba72cd81b", "item_id": "b5e06749b3:31", "text": "PrmanHoldoutCreate"}
+{"id": "3f2ff05daa0671f5ad4d4112045109814abced4c20b4da4c7b9549fec72de356", "item_id": "b5e06749b3:32", "text": "This macro automates the process of setting up the AOVs and Sample Filters required for holdouts."}
+{"id": "ad09299d2f06f89f233357dcd6c97d0729375dda94f9da4fb965762c7045d570", "item_id": "b5e06749b3:33", "text": "PrmanOutputChannelDefine"}
+{"id": "5904c69505a5597dfef40cadca0ea2696a7a263eccfe02ba011695f1fdf5d3db", "item_id": "b5e06749b3:34", "text": "This node is used for defining arbitrary output variables (AOVs) used for outputting extra data from the shader or renderer during render calculations."}
+{"id": "6c3d5da63b0e0a7c2110ab6b76ace36cf059a1aeaca1e2137aece780fe0958cf", "item_id": "b5e06749b3:35", "text": "PrmanShadingNode"}
+{"id": "487b80ce82c75b960d25c5043bb315ff19dbc234852a76abd5b29052cce3b10a", "item_id": "b5e06749b3:36", "text": "This shading node is used to add PRMan shaders (Bxdfs and Patterns) to a wider shading network (along with the NetworkMaterial node)."}
+{"id": "6b7299f09f3ce35ca354ad17e34575ab34b631e30cdd924a58680baa01c8e161", "item_id": "b5e06749b3:37", "text": "PrmanVolume"}
+{"id": "2dcb098f5e366b33c31d04e1452bcaedf4671bf4e2880d87e9d688c67120cd71", "item_id": "b5e06749b3:38", "text": "This node provides a simple interface to create either a volume box or import a VDB file."}
+{"id": "6eed26a8a16882ee4cc75c2d0f12946aef1d67bb22bac218671c7036ab1d49b5", "item_id": "b5e06749b3:39", "text": "PrmanOpDebug"}
+{"id": "ecc6b64fa24f68a95ac425031ce952187acd95b64b6d6b7c2808bc30021dba81", "item_id": "b5e06749b3:40", "text": "This node provides a way to inspect the effect of certain Ops on the attribute state"}
+{"id": "57f74610e3648d502781457fb28f5561bd1d2cb1d75e797a886b0ffd6a0f7daa", "item_id": "b5e06749b3:41", "text": "PrmanSignalVisualizer"}
+{"id": "9abfb536cc47042d751ca4f2d9827d605f6c51340745375631a66ed99705afc9", "item_id": "b5e06749b3:42", "text": "This macro lets you isolate and visualize shading pattern outputs"}
+{"id": "c73632f643c16286c9f09674e291358e58f0abb199dffb0b23a88706375be224", "item_id": "b5e06749b3:43", "text": "PRMan-specific Nodes"}

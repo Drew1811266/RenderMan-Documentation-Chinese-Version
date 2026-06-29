@@ -1,0 +1,74 @@
+{"item_id":"464a7b0d32:0","text":"Overview（概述）"}
+{"item_id":"464a7b0d32:1","text":"此模式实际会 bake integrator 的 outputs。它主要用于 bake diffuse global illumination，但也可以 bake 任意 light path expression。"}
+{"item_id":"464a7b0d32:2","text":"How does it work?（它如何工作？）"}
+{"item_id":"464a7b0d32:3","text":"Scene objects 场景对象会逐个 baked。"}
+{"item_id":"464a7b0d32:4","text":"integrator 会在每个 point 上以 single increment 运行（Max Samples = 1）。"}
+{"item_id":"464a7b0d32:5","text":"结果会 output 到一个或多个 AOVs，每个 AOV 只包含一个 display channel。"}
+{"item_id":"464a7b0d32:6","text":"Settings（相关设置选项）"}
+{"item_id":"464a7b0d32:7","text":"illumination baking settings 只会 override 你的 scene render globals 中的一部分 parameters。如果当前 scene 的 render 符合预期，那么这些就是 bake 所需的全部 settings。"}
+{"item_id":"464a7b0d32:8","text":"Bake Mode（烘焙模式）"}
+{"item_id":"464a7b0d32:9","text":"此 menu 的主要用途是在 rendering 前 validate 你的 setup，并在检测到 incorrect setup 时发出 warning。"}
+{"item_id":"464a7b0d32:10","text":"2D Maps（2D 贴图）"}
+{"item_id":"464a7b0d32:11","text":"为每个 object 生成 1 张 image。"}
+{"item_id":"464a7b0d32:12","text":"所有 baked objects 都必须具有用于 baking 的 valid uvs 有效 UVs"}
+{"item_id":"464a7b0d32:13","text":"3D Point Cloud（3D 点云）"}
+{"item_id":"464a7b0d32:14","text":"根据 file naming format，生成一个或多个 point clouds。"}
+{"item_id":"464a7b0d32:15","text":"在 world space 中 bake"}
+{"item_id":"464a7b0d32:16","text":"Baking Image File Format（烘焙图像文件格式）"}
+{"item_id":"464a7b0d32:17","text":"通常，你会用 tokens 创建一个 pattern 来生成 named AOVs，但这里有一点不同。默认 file pattern 为："}
+{"item_id":"464a7b0d32:18","text":"是一个 new attribute，可在 Attribute Editor 的 RenderMan section 中所有 bake-able shapes 上找到："}
+{"item_id":"464a7b0d32:19","text":"它的默认值为"}
+{"item_id":"464a7b0d32:20","text":"因此每个 object 都会获得唯一 file name，其中 \"|\" character 会被 \"_\" 替换；当你 bake 到 2D images 时，这正是所需行为。"}
+{"item_id":"464a7b0d32:21","text":"如果想 bake 到单个 3D point cloud，应从 file name pattern 中移除"}
+{"item_id":"464a7b0d32:22","text":"。"}
+{"item_id":"464a7b0d32:23","text":"Bake to Maps (2D baking)（烘焙到贴图，2D 烘焙）"}
+{"item_id":"464a7b0d32:24","text":"选择 global baking resolution。更大的 resolutions 会需要更长 render 时间。"}
+{"item_id":"464a7b0d32:25","text":"Limitation（限制说明事项）"}
+{"item_id":"464a7b0d32:26","text":"所有 objects 都会以相同 resolution baked。这是当前 implementation 的 limitation。"}
+{"item_id":"464a7b0d32:27","text":"Bake to Point Cloud (3D baking)（烘焙到点云，3D 烘焙）"}
+{"item_id":"464a7b0d32:28","text":"Point clouds 会在 world space 中 baked，其 density 取决于 shape 的 dicing density。在此为 scene 选择 global dicing density。"}
+{"item_id":"464a7b0d32:29","text":"你可以通过将 Dicing Strategy 设置为 worlddistance 并输入不同的 Dicing Distance Length，按 shape override dicing density。较小 values 会创建更多 points。"}
+{"item_id":"464a7b0d32:30","text":"Integrator（积分器）"}
+{"item_id":"464a7b0d32:31","text":"选择一个 integrator 及其 settings。我们推荐 PxrPathTracer。"}
+{"item_id":"464a7b0d32:32","text":"Limitation（限制说明事项）"}
+{"item_id":"464a7b0d32:33","text":"某些 integrators（如 PxrVCM 和 PxrUnified）"}
+{"item_id":"464a7b0d32:34","text":"incompatible 不兼容状态"}
+{"item_id":"464a7b0d32:35","text":"，因为它们完全依赖 incremental rendering 来 accumulate samples，并随时间 resolve illumination。"}
+{"item_id":"464a7b0d32:36","text":"Baking 会运行 integrator"}
+{"item_id":"464a7b0d32:37","text":"每个 point 一次"}
+{"item_id":"464a7b0d32:38","text":"（Max Samples = 1），并且它必须设置为"}
+{"item_id":"464a7b0d32:39","text":"在 single increment 中提供良好结果"}
+{"item_id":"464a7b0d32:40","text":"。"}
+{"item_id":"464a7b0d32:41","text":"为获得最佳结果，需要充分增加 direct samples（light samples 和 BXDFs samples）以及 indirect samples 的数量，以得到 reasonably clean results。最佳 settings 高度依赖 scene，需要通过 experimentation 确定。"}
+{"item_id":"464a7b0d32:42","text":"Limitation（限制说明事项）"}
+{"item_id":"464a7b0d32:43","text":"Baking 是"}
+{"item_id":"464a7b0d32:44","text":"not adaptive 非自适应采样模式"}
+{"item_id":"464a7b0d32:45","text":"（即 brute-force），因此无论 convergence 如何，都会计算所有 samples。"}
+{"item_id":"464a7b0d32:46","text":"Illumination baking 可能非常慢：请确保你"}
+{"item_id":"464a7b0d32:47","text":"选择最小必要 samples 数量"}
+{"item_id":"464a7b0d32:48","text":"，并记住 baked illumination 中少量 noise 几乎不可见。"}
+{"item_id":"464a7b0d32:49","text":"请注意，bake view-dependent illumination（如 specular）没有意义；应始终尽量 bake diffuse、albedo 等 view-independent signals。"}
+{"item_id":"464a7b0d32:50","text":"Limitation（限制说明事项）"}
+{"item_id":"464a7b0d32:51","text":"目前无法在 baked 2D images 上运行 denoiser。"}
+{"item_id":"464a7b0d32:52","text":"Default Ray Depth（默认射线深度）"}
+{"item_id":"464a7b0d32:53","text":"照常可以设置 max diffuse depth 和 specular depth。这会在 baking 期间 override 常规 scene settings。"}
+{"item_id":"464a7b0d32:54","text":"AOVs"}
+{"item_id":"464a7b0d32:55","text":"AOV section 的工作方式与 render globals 中完全相同。"}
+{"item_id":"464a7b0d32:56","text":"默认情况下，我们会 bake diffuse illumination，包括 direct 和 indirect。"}
+{"item_id":"464a7b0d32:57","text":"如果需要 bake raw illumination，还需要同时 bake albedo，并将 illumination 除以 albedo（在 compositing package 或 shader 中），以获得 raw illumination（也称为 irradiance）。"}
+{"item_id":"464a7b0d32:58","text":"Limitation（限制说明事项）"}
+{"item_id":"464a7b0d32:59","text":"每个 AOV（也称为 Display）只能包含一个 display channel，最多 output 4 个 channels（RGBA）。"}
+{"item_id":"464a7b0d32:60","text":"添加更多 displays 可 bake 更多 channels。"}
+{"item_id":"464a7b0d32:61","text":"Bake 2D"}
+{"item_id":"464a7b0d32:62","text":"任何 non-deep image format 都可用于 bake 到 images。推荐使用 OpenEXR，以避免 clamped results。"}
+{"item_id":"464a7b0d32:63","text":"Bake 3D"}
+{"item_id":"464a7b0d32:64","text":"请确保选择"}
+{"item_id":"464a7b0d32:65","text":"display driver 显示驱动来 bake point clouds。"}
+{"item_id":"464a7b0d32:66","text":"如果忘记这样做，preflight checks 应会 warning 并 cancel bake render。"}
+{"item_id":"464a7b0d32:67","text":"Launching a bake render（启动 bake render 渲染任务）"}
+{"item_id":"464a7b0d32:68","text":"bake render 本质上是一个只有一项 setting 不同的 batch render。它使用 bake Hider，而不是 raytrace Hider。"}
+{"item_id":"464a7b0d32:69","text":"要启动 bake render，只需选择"}
+{"item_id":"464a7b0d32:70","text":"Bake Render: Illumination"}
+{"item_id":"464a7b0d32:71","text":"，而不是 RenderMan menu 中的 Batch Render。所有常规"}
+{"item_id":"464a7b0d32:72","text":"batch render preferences 批量渲染首选项"}
+{"item_id":"464a7b0d32:73","text":"都会应用到 bake render。"}

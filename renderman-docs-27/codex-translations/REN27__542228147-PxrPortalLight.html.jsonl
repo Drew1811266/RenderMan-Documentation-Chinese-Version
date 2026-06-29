@@ -1,0 +1,105 @@
+{"item_id":"5b15bfaf6a:0","text":"虽然门户灯是矩形形状，但它不能与"}
+{"item_id":"5b15bfaf6a:1","text":"PxrRectLight"}
+{"item_id":"5b15bfaf6a:2","text":"互换，也不能由它替代；因为我们是使用"}
+{"item_id":"5b15bfaf6a:3","text":"PxrDomeLight"}
+{"item_id":"5b15bfaf6a:5","text":"PxrPortalLight 是"}
+{"item_id":"5b15bfaf6a:6","text":"单面的"}
+{"item_id":"5b15bfaf6a:7","text":"。也就是说，portal 背面没有照明。如果需要照亮背面，可以创建另一个朝相反方向的 portal。"}
+{"item_id":"5b15bfaf6a:8","text":"我们可以像对其他灯光一样为门户灯添加灯光滤镜。事实上，PxrBarnLightFilter 非常适合这种灯光。"}
+{"item_id":"5b15bfaf6a:9","text":"更多信息可参阅技术论文："}
+{"item_id":"5b15bfaf6a:10","text":"Benedikt Bitterli, Jan Novák"}
+{"item_id":"5b15bfaf6a:11","text":"Wojciech Jarosz."}
+{"item_id":"5b15bfaf6a:12","text":"Portal-Masked Environment Map Sampling"}
+{"item_id":"5b15bfaf6a:13","text":"。Eurographics Symposium on Rendering (EGSR), 2015"}
+{"item_id":"5b15bfaf6a:14","text":"Portal Lights 不适用于 PxrEnvDayLight 系统。请使用带有合适 HDRI 或 HDRI 序列的 PxrDomeLight。"}
+{"item_id":"5b15bfaf6a:15","text":"与同一个父 dome light 和同一个 portal 名称关联的所有门户灯"}
+{"item_id":"5b15bfaf6a:16","text":"必须具有相同旋转"}
+{"item_id":"5b15bfaf6a:17","text":"。如果需要更改某个门户灯的旋转，就需要使用新的 portal 名称。不过，不同的平移和缩放可以共享同一个 portal 名称。"}
+{"item_id":"5b15bfaf6a:18","text":"“为什么要使用门户灯？”"}
+{"item_id":"5b15bfaf6a:19","text":"由于带有少量或没有直接照明的室内照明对渲染器来说很难解析，门户灯会帮助把渲染器的注意力引导到外部光源。RenderMan 可以很好地利用 PxrPortalLight，如下方经典 Classroom scene 所示。两张图像都使用相同的 32 samples per pixel 渲染。但你可以清楚看到，右侧使用门户灯的结果比左侧不使用门户灯有效得多。"}
+{"item_id":"5b15bfaf6a:22","text":"Intensity Multiplier"}
+{"item_id":"5b15bfaf6a:23","text":"相对于父 dome light 强度的 Intensity 调整。它会与父 dome light 的强度和功率相乘。"}
+{"item_id":"5b15bfaf6a:24","text":"Color Tint"}
+{"item_id":"5b15bfaf6a:25","text":"此参数会对 dome 纹理中的颜色进行 tint。下方每个 portal 都指定了不同颜色，以获得漂亮的彩虹效果。"}
+{"item_id":"5b15bfaf6a:26","text":"此参数会对 dome 纹理中的颜色进行 tint。下方每个 portal 都指定了不同颜色，以获得漂亮的彩虹效果。"}
+{"item_id":"5b15bfaf6a:27","text":"Map Gamma"}
+{"item_id":"5b15bfaf6a:28","text":"对纹理进行 gamma 校正。每个通道（RGB）都可独立调整。如果此 map gamma 保持默认值未变，它会继承父 dome light 的 map gamma。"}
+{"item_id":"5b15bfaf6a:29","text":"Map Saturation"}
+{"item_id":"5b15bfaf6a:30","text":"调整纹理饱和度。如果此 map saturation 保持默认值未变，它会继承父 dome light 的 map saturation。"}
+{"item_id":"5b15bfaf6a:31","text":"Enable Temperature"}
+{"item_id":"5b15bfaf6a:32","text":"开启或关闭色温。"}
+{"item_id":"5b15bfaf6a:33","text":"Color Temperature"}
+{"item_id":"5b15bfaf6a:34","text":"允许用户选择灯光的色温，单位为 Kelvin。不同于基础灯光颜色，这让用户可以根据标准温度测量轻松选择可信的灯光颜色。此控制的作用类似灯光前方的 filter 或 gel（一层带 tint 的透明表面）。如果灯光为白色，你会得到所选色温。如果灯光已有颜色，色温会使它更冷（高于 6500K）或更暖（低于 6500K）。"}
+{"item_id":"5b15bfaf6a:35","text":"该效果在完全饱和的单色灯光上不太明显。默认值为 6500K，在大多数显示器上应非常接近白色（sRGB 和 Rec 709 使用的 D65 illuminant）。"}
+{"item_id":"5b15bfaf6a:36","text":"Primary Visibility"}
+{"item_id":"5b15bfaf6a:37","text":"默认情况下，灯光不会直接对 camera 可见。开启此项会使其可见，并且可使用 emission token 'O' 写入 LPE"}
+{"item_id":"5b15bfaf6a:38","text":"Refine"}
+{"item_id":"5b15bfaf6a:42","text":"Specular Amount"}
+{"item_id":"5b15bfaf6a:40","text":"发出的 specular light（镜面反射光）数量。这是一个非物理控制。"}
+{"item_id":"5b15bfaf6a:41","text":"你可以使用一个"}
+{"item_id":"5b15bfaf6a:46","text":"你可以使用一个"}
+{"item_id":"5b15bfaf6a:43","text":"为 0.0 的灯光，作为场景对象的纯 diffuse light（漫反射光）来源，并避免添加高光。注意，场景仍会收集房间内其他对象产生的间接反射。"}
+{"item_id":"5b15bfaf6a:47","text":"Diffuse Amount"}
+{"item_id":"5b15bfaf6a:45","text":"发出的 diffuse light（漫反射光）数量。这是一个非物理控制。"}
+{"item_id":"5b15bfaf6a:48","text":"为 0.0 的灯光，作为场景对象的纯高光来源。"}
+{"item_id":"5b15bfaf6a:50","text":"如果灯光的"}
+{"item_id":"5b15bfaf6a:85","text":"Trace Light Paths"}
+{"item_id":"5b15bfaf6a:52","text":"在 Advanced 中启用，则所有 shadow 参数都会被忽略。下面的选项在脱离默认状态使用时都是非物理控制。如果"}
+{"item_id":"5b15bfaf6a:54","text":"启用，则会强制执行其物理属性。"}
+{"item_id":"5b15bfaf6a:55","text":"Enable Shadows"}
+{"item_id":"5b15bfaf6a:56","text":"启用光线追踪阴影。下图分别为开启（默认）和关闭。"}
+{"item_id":"5b15bfaf6a:58","text":"发出光所投射阴影的颜色。下方显示来自不同门户灯的 Red、Green 和 Blue。"}
+{"item_id":"5b15bfaf6a:59","text":"发出光所投射阴影的颜色。下方显示来自不同门户灯的 Red、Green 和 Blue。"}
+{"item_id":"5b15bfaf6a:70","text":"Shadow Max Distance"}
+{"item_id":"5b15bfaf6a:61","text":"从被着色点位置开始计算的最大阴影距离。-1.0 表示未设置，此时使用被着色点与灯光上点之间的距离。你可以使用此控制人为缩短阴影投射距离。它也可能通过不计算该距离之外的阴影来提高渲染速度。请注意椅子和桌腿的阴影在一段距离后被截断，以及教室前方墙面上的阴影。"}
+{"item_id":"5b15bfaf6a:72","text":"Shadow Falloff"}
+{"item_id":"5b15bfaf6a:63","text":"从灯光处开始发生阴影衰减的距离。-1.0 会关闭阴影衰减。它与"}
+{"item_id":"5b15bfaf6a:65","text":"一起使用，为被"}
+{"item_id":"5b15bfaf6a:67","text":"参数削弱或截断的阴影创建伪淡出。下面是两个参数一起使用且 falloff 增加的示例。注意，此参数可能影响复杂灯光设置中的性能。"}
+{"item_id":"5b15bfaf6a:68","text":"Shadow Falloff Gamma"}
+{"item_id":"5b15bfaf6a:69","text":"衰减区域中阴影强度的 gamma。这需要使用"}
+{"item_id":"5b15bfaf6a:74","text":"Trace Subset"}
+{"item_id":"5b15bfaf6a:75","text":"要纳入追踪阴影求交的 geometry 集合。如果未指定，则所有 geometry 都会纳入追踪阴影求交。"}
+{"item_id":"5b15bfaf6a:76","text":"Don't Trace Subset"}
+{"item_id":"5b15bfaf6a:77","text":"要忽略追踪阴影求交的 geometry 集合。如果未指定，则所有 geometry 都会用于追踪阴影求交。"}
+{"item_id":"5b15bfaf6a:80","text":"启用此灯光的光照和光子追踪。此值会强制使用基于物理的灯光，并且副作用是禁用上方的"}
+{"item_id":"5b15bfaf6a:82","text":"控制。用户在使用 PxrVCM 或 PxrUnified Integrators 时，可以利用此功能选择哪些灯光发射光子。"}
+{"item_id":"5b15bfaf6a:83","text":"Thin Shadow"}
+{"item_id":"5b15bfaf6a:84","text":"为此灯光启用 thin shadow 并禁用折射焦散。如果"}
+{"item_id":"5b15bfaf6a:86","text":"已启用，此参数将被忽略。这是一个非物理控制，它会为透射对象创建“伪造的”彩色阴影，而不需要为焦散生成光子。下面从 On（默认）变为 Off（不透明阴影）。请注意，选择 Off 会失去彩色阴影和内部彩色反射，但会换来一些渲染速度提升。"}
+{"item_id":"5b15bfaf6a:87","text":"Visible in Refraction"}
+{"item_id":"5b15bfaf6a:88","text":"开启此项后，可让灯光通过玻璃和窗户等透射效果可见。"}
+{"item_id":"5b15bfaf6a:89","text":"Manifold Walk"}
+{"item_id":"5b15bfaf6a:90","text":"与 PxrUnified Integrator 配合使用，并启用"}
+{"item_id":"5b15bfaf6a:94","text":"与 PxrUnified Integrator 配合使用，并启用"}
+{"item_id":"5b15bfaf6a:91","text":"Enable Manifold Walk"}
+{"item_id":"5b15bfaf6a:92","text":"以创建低成本焦散。注意：你必须禁用 Thin Shadows"}
+{"item_id":"5b15bfaf6a:93","text":"Manifold Walk Exclude Group"}
+{"item_id":"5b15bfaf6a:95","text":"Enable Manifold Walk,"}
+{"item_id":"5b15bfaf6a:96","text":"此 trace set 会在 manifold exploration（manifold 探索）期间被忽略，以避免阻挡 manifold exploration rays（manifold 探索光线）或为其投射阴影"}
+{"item_id":"5b15bfaf6a:97","text":"Light Samples"}
+{"item_id":"5b15bfaf6a:98","text":"指定覆盖此光源要采用的灯光采样数量。如果设置为非零值，它会覆盖积分器执行的采样。如果此灯光产生难以解决的噪声并需要更多样本，你可能会用到它。"}
+{"item_id":"5b15bfaf6a:99","text":"Light Group"}
+{"item_id":"5b15bfaf6a:100","text":"指定用于 light group LPEs 的灯光组名称。这对于生成 per-light AOVs，供后续在合成中调整很有用。"}
+{"item_id":"5b15bfaf6a:101","text":"Importance Multiplier"}
+{"item_id":"5b15bfaf6a:102","text":"用户无需设置显式的 Light Samples，而可以通过更改此值来改变该灯光在内部被分配的样本数量。RenderMan 会在渲染时为场景中的所有灯光创建一组样本；更改此值会在各灯光之间重新平衡样本。注意，提高此值会使"}
+{"item_id":"5b15bfaf6a:103","text":"更多"}
+{"item_id":"5b15bfaf6a:104","text":"样本从此灯光中被选择，同时减少场景中其他灯光的样本。低于默认值则会"}
+{"item_id":"5b15bfaf6a:105","text":"减少"}
+{"item_id":"5b15bfaf6a:106","text":"此灯光的样本，并把更多样本分配给场景中的其他灯光。"}
+{"item_id":"5b15bfaf6a:107","text":"Application Interface"}
+{"item_id":"5b15bfaf6a:108","text":"RenderMan for Maya 或 Katana 等桥接应用提供了便捷界面，用于创建门户灯并将其链接到父 dome light。它还会为与父 dome light 旋转不同的门户灯自动分配唯一的 portal 名称。默认情况下，门户灯会继承其父 dome light 的所有参数。如果在门户灯中修改了某个参数，则会改用本地覆盖参数。有两个例外："}
+{"item_id":"5b15bfaf6a:109","text":"intensity 和 color 会与父 dome 的 intensity 和 color 相乘"}
+{"item_id":"5b15bfaf6a:111","text":"桥接产品会把所有修改过的参数作为 PxrPortalLight 写入 RIB。注意，PxrDomeLight 不会被写出。"}
+{"id": "cdb4ee2aea69cc6a83331bbe96dc2caa9a299d21329efb0336fc02a82e1839a8", "item_id": "5b15bfaf6a:4", "text": "。"}
+{"id": "e68b36b17cbd990802f57741cb75cf3a73fa66a61999b0cd70e3cf7d26cfb25f", "item_id": "5b15bfaf6a:20", "text": "Parameters（参数）"}
+{"id": "0e35f6e9742e074dfd62e874de3c242c6d9b64c21bf9afbaf3d11f05579b4495", "item_id": "5b15bfaf6a:21", "text": "Basic"}
+{"id": "e444834d64a4a3fd087a67df3468ccacca520875122124d0d195e8b8e006e101", "item_id": "5b15bfaf6a:39", "text": "Specular Amount"}
+{"id": "9afefd5c02c99d5aad7e8dd8c7adb15934039c880d30638d4d649768f1458856", "item_id": "5b15bfaf6a:44", "text": "Diffuse Amount"}
+{"id": "2a19bdc09aa3bd9d5ba8c9707687136c2825da0e2af28b7c5de7c65b9c50f365", "item_id": "5b15bfaf6a:49", "text": "Shadows"}
+{"id": "f4d3a2f271156e6358087cfb3ac2512cab7e39689c1f0484ba02c936081ea73c", "item_id": "5b15bfaf6a:51", "text": "Trace Light Paths"}
+{"id": "6946fd2382957f0655d0fd423e1699825089519d5bf4903df891d5d5f327a146", "item_id": "5b15bfaf6a:57", "text": "Shadow Color"}
+{"id": "51bf2649416c6d8f0d023ce582f0d8d65b25d81bac519b57ae585a4770f276f2", "item_id": "5b15bfaf6a:60", "text": "Shadow Max Distance"}
+{"id": "ca6a1f4bade57a14da1dc6abfd08b3ff6b65ad156ae60b4b116e99ce980a730d", "item_id": "5b15bfaf6a:62", "text": "Shadow Falloff"}
+{"id": "6201111b83a0cb5b0922cb37cc442b9a40e24e3b1ce100a4bb204f4c63fd2ac0", "item_id": "5b15bfaf6a:71", "text": "和"}
+{"id": "9f088dbebd6c3c70a5ddbc2c943b11e4ca9acea5757b0b4f2b32479f0dbb747e", "item_id": "5b15bfaf6a:78", "text": "Advanced"}

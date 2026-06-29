@@ -1,0 +1,50 @@
+{"item_id":"b81c65718b:0","text":"RenderMan 中的照明灵活，同时对用户来说也非常直观。"}
+{"item_id":"b81c65718b:1","text":"RenderMan 内置了一组基础几何灯光。这些专用形状 -"}
+{"item_id":"b81c65718b:2","text":"DomeLight, DistantLight, RectLight,"}
+{"item_id":"b81c65718b:3","text":"以及"}
+{"item_id":"b81c65718b:4","text":"SphereLight"}
+{"item_id":"b81c65718b:5","text":"（尤其是后两者）与任意 geometry（即附加了 light Bxdf 的标准 geometric primitives）相比，可以提供更好的采样行为。此外还有"}
+{"item_id":"b81c65718b:6","text":"PortalLight"}
+{"item_id":"b81c65718b:7","text":"可用于改善通过窗户、天窗等开口间接照亮的室内场景照明，以及"}
+{"item_id":"b81c65718b:8","text":"Daylight"}
+{"item_id":"b81c65718b:9","text":"模拟。"}
+{"item_id":"b81c65718b:10","text":"Light Filters"}
+{"item_id":"b81c65718b:11","text":"还可以修改并引导照明，提供更多控制和艺术选项。你可以找到 real-world（真实世界）中常见的"}
+{"item_id":"b81c65718b:12","text":"Gobos"}
+{"item_id":"b81c65718b:13","text":"和"}
+{"item_id":"b81c65718b:14","text":"Cookies"}
+{"item_id":"b81c65718b:15","text":"等方式，也可以使用更高级的方式来链接并控制结果，例如来自单个灯光的 object-specific"}
+{"item_id":"b81c65718b:16","text":"intensities（强度）"}
+{"item_id":"b81c65718b:17","text":"。"}
+{"item_id":"b81c65718b:18","text":"请注意，由于这些优化，spherelight 要求所有缩放变换都是 uniform，例如 X、Y 和 Z 的 scale 必须完全相同，以免把球体形状歪斜成椭圆或其他形态。"}
+{"item_id":"b81c65718b:19","text":"默认情况下，灯光在折射/透射中不可见。可以在 light visibility settings 中启用。"}
+{"item_id":"b81c65718b:20","text":"请注意，给场景打光主要有三种方式："}
+{"item_id":"b81c65718b:21","text":"Analytic Lights - 这是首选方式。它们提供更好的内存使用、灵活性和速度。对于 camera visibility，其可见性只是简单的开/关。"}
+{"item_id":"b81c65718b:22","text":"Mesh Lights - 适合在照明中使用任意形状。由于它们是 geometry，会消耗更多内存，复杂形状可能会增加 noise。它们可以像任何其他 object 一样使用 visibility：camera、shadow/transmission 和 indirect visibility。"}
+{"item_id":"b81c65718b:23","text":"Emissive Surfaces - 通常使用 constant bxdf 或 \"glow\" 参数来间接照亮场景。这种方式效率较低，通常应避免使用；但对于把 \"lights\" 纹理映射到未来感 objects 和 panels 上，可能很有帮助！"}
+{"item_id":"b81c65718b:24","text":"Analytic Light Types"}
+{"item_id":"b81c65718b:25","text":"PxrDomeLight"}
+{"item_id":"b81c65718b:26","text":"- domelight（穹顶灯）充当场景的环境光，通常会映射高动态范围图像（HDRI）。"}
+{"item_id":"b81c65718b:27","text":"PxrRectLight"}
+{"item_id":"b81c65718b:28","text":"- 此灯光通常用于矩形面积光。"}
+{"item_id":"b81c65718b:29","text":"PxrDistantLight"}
+{"item_id":"b81c65718b:30","text":"- 此灯光非常适合作为 Sunlight 或其他远距离光源，此时光线几乎平行并覆盖整个场景。"}
+{"item_id":"b81c65718b:31","text":"PxrDiskLight"}
+{"item_id":"b81c65718b:32","text":"- 适合作为面积光使用，或与 filters 组合来制作 spotlight。"}
+{"item_id":"b81c65718b:33","text":"PxrSphereLight"}
+{"item_id":"b81c65718b:34","text":"- 对于怀念 point light 的用户，此灯光可用于向所有方向照明。"}
+{"item_id":"b81c65718b:35","text":"PxrEnvDaylight"}
+{"item_id":"b81c65718b:36","text":"- 这是一个 daylight simulation shader（日光模拟 shader），你可以提供地球上任意时间和位置，或直接把 sunlight 放在你想要的位置。"}
+{"item_id":"b81c65718b:37","text":"PxrPortalLight"}
+{"item_id":"b81c65718b:38","text":"- 对于间接照明的室内等困难照明情况，此灯光可与 PxrDomeLight 一起使用，以提升渲染质量和速度。"}
+{"item_id":"b81c65718b:39","text":"Geometric Light Types"}
+{"item_id":"b81c65718b:40","text":"PxrMeshLight"}
+{"item_id":"b81c65718b:41","text":"- mesh light 使用一块 geometry 并将其转换为光源。这比从 bxdf 使用 glow 或 emission 高效得多。它非常适合霓虹灯之类的对象！"}
+{"item_id":"b81c65718b:42","text":"Utility Light Types"}
+{"item_id":"b81c65718b:43","text":"PxrAOVLight"}
+{"item_id":"b81c65718b:44","text":"- 这是一个被识别为 light type 的 utility，但它"}
+{"item_id":"b81c65718b:45","text":"不会"}
+{"item_id":"b81c65718b:46","text":"照亮任何东西。它是通过灯光链接为 objects 创建快速 masks 的实用工具。"}
+{"item_id":"b81c65718b:47","text":"灯光还有一些关于 shadows 和双向路径追踪的特殊参数，这由 PxrVCM 和 PxrUnified integrators 提供。可参考技术备忘录："}
+{"item_id":"b81c65718b:48","text":"Christophe Hery, Ryusuke Villemin, Florian Hecht."}
+{"item_id":"b81c65718b:49","text":"Towards Bidirectional Pathtracing at Pixar"}

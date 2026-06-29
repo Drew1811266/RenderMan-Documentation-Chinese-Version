@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Preview Rendering in Maya</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Preview Rendering in Maya</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFM27/544542770/Preview+Rendering+in+Maya">https://rmanwiki-27.pixar.com/space/RFM27/544542770/Preview+Rendering+in+Maya</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p><div class="toc-macro client-side-toc-macro  conf-macro output-block" data-hasbody="false" data-headerelements="H3" data-macro-id="03b1f20f-af00-4b14-bd24-5791908868e3" data-macro-name="toc"> </div></p><h3 id="PreviewRenderinginMaya-StartingPreviewRendering">Starting Preview Rendering</h3><p>Preview Rendering（也称为 Render Current Frame）可以通过点击 RenderMan shelf 中的 render button 启动。默认会弹出 <a href="544543137-Image Tool or -it- in Maya.html" data-linked-resource-id="544543137" data-linked-resource-version="1" data-linked-resource-type="page">Image Tool (it) 图像工具窗口</a>。</p><p><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/544542770/rfmShelfPreview.png" data-image-src="../../attachments/544542770/rfmShelfPreview.png" data-unresolved-comment-count="0" data-linked-resource-id="544542788" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfmShelfPreview.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544542770" data-linked-resource-container-version="1" data-media-id="397cd159-2263-4a8e-a738-2b56625bc5f7" data-media-type="file"></span></p><p>Maya 中用于 rendering current frame 的常规方法也可使用。唯一不同是，RenderMan shelf 中的 button 在开始 render 前总会先切换到 RenderMan。</p><h3 id="PreviewRenderinginMaya-StoppingPreviewRendering">Stopping Preview Rendering</h3><p>Preview renders 会一直 render 到 image converged。这可能需要一些时间，因此你通常会希望在 preview render 仍显得 noisy 时停止它。对于 non-spooled renders，请在 Maya 中按 <strong>Esc</strong> key 在 Maya 中停止 render。</p><p>'It' 中的 cancel button 也可以停止 renders，无论是否 spooled。</p><p><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/544542770/rfmItCancel.png" data-image-src="../../attachments/544542770/rfmItCancel.png" data-unresolved-comment-count="0" data-linked-resource-id="544542791" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfmItCancel.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544542770" data-linked-resource-container-version="1" data-media-id="c74366ef-b79e-421f-b065-401e1d876fb4" data-media-type="file"></span></p><h3 id="PreviewRenderinginMaya-PreviewThreads">Preview Threads</h3><p>在 <a href="544539308-RenderMan Preferences.html" data-linked-resource-id="544539308" data-linked-resource-version="1" data-linked-resource-type="page">RenderMan Preferences</a>的 threads section 中，Rendering Threads setting 同时用于 Preview 和 IPR renders。默认值 -1 表示除一个 CPU 外其余都将用于 rendering。建议至少保留一个 thread，以便 rendering 进行时 Maya 仍保持 interactivity。Zero threads 表示所有 processors 都将用于 rendering。你也可以选择 specific number。</p><p><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/544542770/rfmRenderThreadsPref.png" data-image-src="../../attachments/544542770/rfmRenderThreadsPref.png" data-unresolved-comment-count="0" data-linked-resource-id="544542800" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfmRenderThreadsPref.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544542770" data-linked-resource-container-version="1" data-media-id="994cba0f-8289-4ba8-8b57-8362ed0201c1" data-media-type="file"></span></p><h3 id="PreviewRenderinginMaya-PreviewDisplay">Preview Display</h3><p>preview renders 的 pixels 默认显示在 "It" 中。在 Maya Preferences window 的 RenderMan section 中，可以在 "It"、"Render View" 或 "Use Global Image Format" 之间选择。请注意，Render View 只有在 spooling 未启用时才可用。</p><p><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/544542770/rfmRenderDisplayPref.png" data-image-src="../../attachments/544542770/rfmRenderDisplayPref.png" data-unresolved-comment-count="0" data-linked-resource-id="544542797" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfmRenderDisplayPref.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544542770" data-linked-resource-container-version="1" data-media-id="73a1c9c9-4c29-4411-a7b7-4b824fcbeffc" data-media-type="file"></span></p><h3 id="PreviewRenderinginMaya-PreviewQueuing">Preview Queuing</h3><p>默认情况下，Preview renders 会直接从 Maya 启动。也可以 spool preview renders，也就是将 job 传递给 queuing system：LocalQueue 或 <a href="../TRA/22183944-Tractor 2.html" data-linked-resource-id="22183944" data-linked-resource-version="12" data-linked-resource-type="page">Tractor</a>。这些 applications 会管理 rendering jobs 列表。你可以在 RenderMan <a href="544539308-RenderMan Preferences.html#RenderManPreferences-PreviewQueuingPreferences" data-linked-resource-id="544539308" data-linked-resource-version="1" data-linked-resource-type="page">Preview Queuing</a> section of the Maya Preferences window 中启用 spooling。</p>
+  </article>
+</main>
+</body>
+</html>

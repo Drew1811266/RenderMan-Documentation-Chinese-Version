@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RenderMan Fundamentals</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>RenderMan Fundamentals</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RU/599162914/RenderMan+Fundamentals">https://rmanwiki-27.pixar.com/space/RU/599162914/RenderMan+Fundamentals</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="contentLayout2"><style>[data-colorid=ykc4criveg]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=ykc4criveg]{color:#004eb3}[data-colorid=luvkuov1wp]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=luvkuov1wp]{color:#004eb3}[data-colorid=gjrq2shskj]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=gjrq2shskj]{color:#004eb3}[data-colorid=qs9ktqosll]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=qs9ktqosll]{color:#004eb3}[data-colorid=fo4rllg77g]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=fo4rllg77g]{color:#004eb3}[data-colorid=qsc92xxrlw]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=qsc92xxrlw]{color:#004eb3}[data-colorid=nntudsn67p]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=nntudsn67p]{color:#004eb3}[data-colorid=i5u5hu3n4x]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=i5u5hu3n4x]{color:#004eb3}[data-colorid=f3euwry8gy]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=f3euwry8gy]{color:#004eb3}[data-colorid=qnooizmfy3]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=qnooizmfy3]{color:#004eb3}</style>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="RenderMan_Fundamentals_Header.jpg" width="760" loading="lazy" src="../../attachments/599162914/RenderMan_Fundamentals_Header.jpg" data-image-src="../../attachments/599162914/RenderMan_Fundamentals_Header.jpg" data-height="611" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="598933687" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Fundamentals_Header.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="599162914" data-linked-resource-container-version="16" data-media-id="826076e3-7fbe-4490-9e54-4da6c03d1bad" data-media-type="file" /></span><h1 id="RenderManFundamentals-WelcometoTheRenderManFundamentals"><span data-colorid="nntudsn67p">欢迎来到 The RenderMan Fundamentals</span></h1><p>The RenderMan Fundamentals 围绕动手项目设计，帮助你开启创作旅程。</p><p>通过持续更新的课程以及有趣的提示和技巧，RenderMan Fundamentals 被设计为帮助你快速上手的入门内容。每个部分都有自己的可下载项目，帮助你跟随每节课程练习。</p><iframe allowfullscreen="" allowtransparency="true" class="fullscreen-video-iframe conf-macro output-block" data-hasbody="false" data-layout="wide" data-local-id="9db8b4f5-9849-48da-8ec7-4e1fcb571b84" data-macro-id="7a7cb3ece8d03db149614e21d6f304604ac5f055e05ba8ad8f07091ca04463ea" data-macro-name="widget" frameborder="0" height="300" mozallowfullscreen="" src="https://player.vimeo.com/video/958538528" style="border:none; margin:1em 0em;" webkitallowfullscreen="" width="1280">
+</iframe>
+
+<hr /><p /></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h3 id="RenderManFundamentals-CreativityFirst"><span data-colorid="qnooizmfy3">创意优先</span></h3><p>RenderMan Fundamentals 由 Pixar 艺术家 Eugene Riecansky 主讲；他是一位获奖艺术家和导演，其制作经验会为你的学习过程提供应有的创意语境。</p></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="36abc317-e9ce-4747-b598-fd23cffbb694.jpg" width="396" loading="lazy" src="../../attachments/599162914/36abc317-e9ce-4747-b598-fd23cffbb694.jpg" data-image-src="../../attachments/599162914/36abc317-e9ce-4747-b598-fd23cffbb694.jpg" data-height="500" data-width="500" data-unresolved-comment-count="0" data-linked-resource-id="598933696" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="36abc317-e9ce-4747-b598-fd23cffbb694.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="599162914" data-linked-resource-container-version="16" data-media-id="6049e22b-c578-44df-83e1-b8d537a13970" data-media-type="file" /></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<hr /><h2 id="RenderManFundamentals-RenderManFundamentalsLearningPath"><span data-colorid="qsc92xxrlw">RenderMan Fundamentals Learning Path（RenderMan Fundamentals 学习路径）</span></h2><p /></div>
+</div>
+</div>
+<div class="columnLayout two-right-sidebar" data-layout="two-right-sidebar">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<a class="external-link" href="599228438-R.F. - Getting Started.html" rel="nofollow"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="RF_GettingStarted.jpg" width="586" loading="lazy" src="../../attachments/599162914/RF_GettingStarted.jpg" data-image-src="../../attachments/599162914/RF_GettingStarted.jpg" data-height="255" data-width="586" data-unresolved-comment-count="0" data-linked-resource-id="599228512" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RF_GettingStarted.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="599162914" data-linked-resource-container-version="16" data-media-id="505168cd-3e67-469a-9cc8-efbd9436fc38" data-media-type="file" /></span></a></div>
+</div>
+<div class="cell aside" data-type="aside">
+<div class="innerCell">
+<h1 id="RenderManFundamentals-GettingStarted"><span data-colorid="gjrq2shskj">Getting Started（入门）</span></h1><p>欢迎，新手！ </p><p>从安装到第一次渲染，这个入门内容正是为你准备的。</p><p /></div>
+</div>
+</div>
+<div class="columnLayout two-right-sidebar" data-layout="two-right-sidebar">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<a class="external-link" href="599425025-R.F. - Color Management.html" rel="nofollow"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="RF_ocio2.jpg" width="586" loading="lazy" src="../../attachments/599162914/RF_ocio2.jpg" data-image-src="../../attachments/599162914/RF_ocio2.jpg" data-height="255" data-width="586" data-unresolved-comment-count="0" data-linked-resource-id="598933703" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RF_ocio2.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="599162914" data-linked-resource-container-version="16" data-media-id="120f7b40-c5c8-41e5-992e-e671604c834e" data-media-type="file" /></span></a></div>
+</div>
+<div class="cell aside" data-type="aside">
+<div class="innerCell">
+<h1 id="RenderManFundamentals-ColorManagement"><span data-colorid="i5u5hu3n4x">Color Management（色彩管理课程）</span></h1><p>让我们揭开 ACES 色彩管理的神秘面纱，它是 Academy OCIO 系统的一部分。</p><p /></div>
+</div>
+</div>
+<div class="columnLayout two-right-sidebar" data-layout="two-right-sidebar">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<a class="external-link" href="599523329-R.F. - Materials - PxrSurface.html" rel="nofollow"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="RF_materials.jpg" width="586" loading="lazy" src="../../attachments/599162914/RF_materials.jpg" data-image-src="../../attachments/599162914/RF_materials.jpg" data-height="255" data-width="586" data-unresolved-comment-count="0" data-linked-resource-id="599228526" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RF_materials.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="599162914" data-linked-resource-container-version="16" data-media-id="e0cbc191-d836-4ddc-ad30-6c72132dd6c7" data-media-type="file" /></span></a></div>
+</div>
+<div class="cell aside" data-type="aside">
+<div class="innerCell">
+<h1 id="RenderManFundamentals-Materials-PxrSurface"><span data-colorid="f3euwry8gy">Materials - PxrSurface（材质 - PxrSurface）</span></h1><p>学习如何使用出色的 PxrSurface 制作照片级真实材质。</p><p /></div>
+</div>
+</div>
+<div class="columnLayout two-right-sidebar" data-layout="two-right-sidebar">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<a class="external-link" href="600113153-R.F. - Materials - Lama.html" rel="nofollow"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="RF_lama.jpg" width="586" loading="lazy" src="../../attachments/599162914/RF_lama.jpg" data-image-src="../../attachments/599162914/RF_lama.jpg" data-height="255" data-width="586" data-unresolved-comment-count="0" data-linked-resource-id="599163105" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RF_lama.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="599162914" data-linked-resource-container-version="16" data-media-id="ff7b3f63-d3a8-47a2-b10c-3bca80d7196e" data-media-type="file" /></span></a></div>
+</div>
+<div class="cell aside" data-type="aside">
+<div class="innerCell">
+<h1 id="RenderManFundamentals-Materials-Lama"><span data-colorid="luvkuov1wp">Materials - Lama（材质 - Lama）</span></h1><p>向 ILM 的团队学习出色的分层着色系统 Lama 的基础知识。</p></div>
+</div>
+</div>
+<div class="columnLayout two-right-sidebar" data-layout="two-right-sidebar">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<a class="external-link" href="599523361-R.F. - Patterns.html" rel="nofollow"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="RF_patterns.jpg" width="586" loading="lazy" src="../../attachments/599162914/RF_patterns.jpg" data-image-src="../../attachments/599162914/RF_patterns.jpg" data-height="255" data-width="586" data-unresolved-comment-count="0" data-linked-resource-id="599097468" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RF_patterns.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="599162914" data-linked-resource-container-version="16" data-media-id="c4267303-5a22-4c4c-973b-699cd8246c52" data-media-type="file" /></span></a></div>
+</div>
+<div class="cell aside" data-type="aside">
+<div class="innerCell">
+<h1 id="RenderManFundamentals-Patterns"><span data-colorid="qs9ktqosll">Patterns（图案）</span></h1><p>通过使用程序化节点和纹理扩展照片级真实感。</p><p /></div>
+</div>
+</div>
+<div class="columnLayout two-right-sidebar" data-layout="two-right-sidebar">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<a class="external-link" href="599523393-R.F. - Lighting.html" rel="nofollow"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="RF_ocio.jpg" width="586" loading="lazy" src="../../attachments/599162914/RF_ocio.jpg" data-image-src="../../attachments/599162914/RF_ocio.jpg" data-height="255" data-width="586" data-unresolved-comment-count="0" data-linked-resource-id="599228519" data-linked-resource-version="2" data-linked-resource-type="attachment" data-linked-resource-default-alias="RF_ocio.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="599162914" data-linked-resource-container-version="16" data-media-id="c70458ab-a50a-4031-8895-256352bd9f3e" data-media-type="file" /></span></a></div>
+</div>
+<div class="cell aside" data-type="aside">
+<div class="innerCell">
+<h1 id="RenderManFundamentals-Lighting"><span data-colorid="fo4rllg77g">灯光</span></h1><p>让我们在 Solaris 中扮演摄影指导，学习 Pixar 的灯光工具集。</p><p /></div>
+</div>
+</div>
+<div class="columnLayout two-right-sidebar" data-layout="two-right-sidebar">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<a class="external-link" href="568754187-568754187.html" rel="nofollow"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="STRONGIMAGE.jpg" width="586" loading="lazy" src="../../attachments/599162914/STRONGIMAGE.jpg" data-image-src="../../attachments/599162914/STRONGIMAGE.jpg" data-height="255" data-width="586" data-unresolved-comment-count="0" data-linked-resource-id="598933680" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="STRONGIMAGE.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="599162914" data-linked-resource-container-version="16" data-media-id="7b632fa5-d16d-4905-b94e-4b87c8f0f908" data-media-type="file" /></span></a></div>
+</div>
+<div class="cell aside" data-type="aside">
+<div class="innerCell">
+<h1 id="RenderManFundamentals-Rendering"><span data-colorid="ykc4criveg">渲染</span></h1><p>即将推出……</p></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<hr /><h2 id="RenderManFundamentals-&quot;TheRenderManfundamentalvideosareagoodbasistogetanoverviewofPixar'sownrenderengineandhelptodiscovermoreofthispowerfulrenderer.&quot;"><em>“RenderMan Fundamentals 视频是了解 Pixar 自有渲染引擎的良好基础，也有助于进一步探索这个强大的渲染器。”</em><br /></h2><p><em>Johnny Fehr，Texture &amp; Lookdev Artist（纹理与 Lookdev 艺术家）</em></p><p /></div>
+</div>
+</div>
+</div>
+  </article>
+</main>
+</body>
+</html>

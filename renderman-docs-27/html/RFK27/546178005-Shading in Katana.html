@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shading in Katana</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Shading in Katana</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFK27/546178005/Shading+in+Katana">https://rmanwiki-27.pixar.com/space/RFK27/546178005/Shading+in+Katana</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<span class="confluence-embedded-file-wrapper image-center-wrapper"><img class="confluence-embedded-image image-center" loading="lazy" src="../../attachments/546178005/rfkShading3Teapots.png" data-image-src="../../attachments/546178005/rfkShading3Teapots.png" data-height="538" data-width="1023" data-unresolved-comment-count="0" data-linked-resource-id="546178035" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfkShading3Teapots.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="546178005" data-linked-resource-container-version="1" data-media-id="6561b6ca-5cfc-4de1-9157-0a3866e9b329" data-media-type="file"></span><p>Shading and Look Development in RfK combines Katana's built in look development tools with Pixar's powerful material systems. By combining Pixar's built-in <a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661433" rel="nofollow">Bxdfs</a> (materials) and <a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661575" rel="nofollow">Patterns</a> (material modifiers) nearly any look could be achieved.</p><p>Adding shaders to geometry is a matter of:</p><ol start="1"><li><p>creating a shader or shading network</p></li><li><p>attaching that shader to one or more objects</p></li></ol><p>A single material can be added to the Material node. Many types of shading effects can be created using only PRMan's <a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661415" rel="nofollow">PxrSurface</a>. PxrDiffuse is a good fast and simple option, and there are also the specialty materials: <a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661555" rel="nofollow">PxrVolume</a> and <a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661553" rel="nofollow">PxrMarschnerHair</a>. More complex materials can be built with a collection of PrmanShadingNodes which feed into a NetworkMaterial node. The table below has a breakdown of these two scenarios with small Node Graph examples:</p><div class="table-wrap"><table data-table-width="1232" data-layout="default" data-local-id="fc2a7307-48a8-482c-9748-601aa30c835d" class="confluenceTable"><tbody><tr><th class="confluenceTh"><p>Material Type</p></th><th class="confluenceTh"><p>Node Type</p></th><th class="confluenceTh"><p>Example</p></th><th class="confluenceTh"><p /></th></tr><tr><td class="confluenceTd"><p>Single</p></td><td class="confluenceTd"><p>Material</p></td><td colspan="2" class="confluenceTd"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rfkShadingSingleMaterial.png" width="250" loading="lazy" src="../../attachments/546178005/rfkShadingSingleMaterial.png" data-image-src="../../attachments/546178005/rfkShadingSingleMaterial.png" data-height="248" data-width="183" data-unresolved-comment-count="0" data-linked-resource-id="546178029" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfkShadingSingleMaterial.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="546178005" data-linked-resource-container-version="1" data-media-id="624e96ea-d7bb-4011-9334-9f085b33d7eb" data-media-type="file"></span><p style="text-align: center;">    </p></td></tr><tr><td class="confluenceTd"><p>Complex or Layered</p></td><td class="confluenceTd"><p>PrmanShadingNode(s) + NetworkMaterial</p></td><td colspan="2" class="confluenceTd"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rfkShadingNetworkMaterial.png" width="400" loading="lazy" src="../../attachments/546178005/rfkShadingNetworkMaterial.png" data-image-src="../../attachments/546178005/rfkShadingNetworkMaterial.png" data-height="248" data-width="405" data-unresolved-comment-count="0" data-linked-resource-id="546178032" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfkShadingNetworkMaterial.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="546178005" data-linked-resource-container-version="1" data-media-id="8233abf2-84ad-45c9-9376-241c63f019c8" data-media-type="file"></span><p style="text-align: center;">     </p></td></tr></tbody></table></div><p /><p>In both cases the material (Material or NetworkMaterial) is attached to object(s) using the MaterialAssign node. In the simplest case the material is assigned to a single object. A more common case would be to assign the material to multiple locations either all grouped together (e.g. the parent in a hierarchy) or distributed through the scene and identified through a defined commonality (e.g. a &quot;collection&quot;). Details of complex assignments are outside our scope but explained in detail in the Katana documentation for <em>Collections and CEL</em>.</p><p>In the table above we've broken down the material types into &quot;Single&quot;, &quot;Complex&quot;, or &quot;Layered&quot;. The difference between Single and Complex/Layered is the ability to add pattern inputs to the bxdf shader. A Material node can only be used with a single bxdf. If additional material modifications such as texture are needed you must use a PrmanShadingNode bxdf with a NetworkMaterial node. The difference between Complex and Layered is, as the name implies, the ability to layer materials. The teapot image at the top of the page is a rendering of these three workflows. The chrome teapot in the center is shaded with simply a PxrSurface Material node. The red teapot is assigned a NetworkMaterial with a PxrSurface bxdf whose <strong>Global Bump</strong> attribute is fed by PxrBump and PxrWorley. On the right is a NetworkMaterial with a PxrLayerSurface bxdf. <a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661463" rel="nofollow">PxrLayerSurface</a> is a specialized version of PxrSurface set up for layering with PxrLayer and PxrLayerMixer.</p><p><br/></p><h3 id="ShadinginKatana-SeeAlso">See Also</h3><ul class="childpages-macro conf-macro output-block" data-hasbody="false" data-layout="default" data-local-id="7874cd4e-4fae-4711-b2cd-2e3577b39a7c" data-macro-id="5f5b4fbf-2afe-4a52-9e28-d62b9bb93485" data-macro-name="children"><li><a href="/wiki/spaces/RFK27/pages/546178051/PrmanSignalVisualizer" data-linked-resource-id="546178051" data-linked-resource-version="1" data-linked-resource-type="page">PrmanSignalVisualizer</a></li><li><a href="/wiki/spaces/RFK27/pages/546178105/Using+Displacement" data-linked-resource-id="546178105" data-linked-resource-version="3" data-linked-resource-type="page">Using Displacement</a></li><li><a href="/wiki/spaces/RFK27/pages/546178139/Material+Layers+in+Katana" data-linked-resource-id="546178139" data-linked-resource-version="4" data-linked-resource-type="page">Material Layers in Katana</a></li><li><a href="/wiki/spaces/RFK27/pages/546178221/Surface+Orientation" data-linked-resource-id="546178221" data-linked-resource-version="1" data-linked-resource-type="page">Surface Orientation</a></li></ul><p><br/></p><p><br/></p>
+  </article>
+</main>
+</body>
+</html>

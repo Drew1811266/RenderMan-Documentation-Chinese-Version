@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Query Pane</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Query Pane</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/TRA/22184230/Query+Pane">https://rmanwiki-27.pixar.com/space/TRA/22184230/Query+Pane</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>Query pane 是用于搜索和显示 Tractor entity 的通用工具。<br/> </p><div class="section"><h3 id="QueryPane-Layout">布局</h3><p>header 的布局由 drop-down entity menu、refresh button、search clause text entry 和 bookmark drop-down menu 组成。pane 的其余部分用于显示匹配的 entity。<br/> </p></div><div class="section"><h3 id="QueryPane-Usage">用法（Usage）</h3><p>使用搜索页面通常包含三个步骤。</p><p>首先，如果所需 entity 尚未选中，则从 drop-down menu 中选择它。可选 entity 包括 job、task、command、invocation 和 blade。 <em>在搜索中包含归档项</em> checkbutton 可以按需选中，以便同时显示匹配的已删除 job。</p><p>其次，从同一个 drop-down menu 中选择所需 attribute。鼠标 hover 到 attribute 上时会显示其描述。对于某些 entity，可以选择关联 entity 的 attribute。例如，搜索 task 时可以选择 job owner。可以通过 shift-select 来切换某个 entity 的所有 attribute。如果没有为要查询的 entity 选择任何 attribute，则会检索全部 attribute。</p><p>最后，输入 search clause。search clause 必须遵循 <a href="22184262-Search Clauses.html" data-linked-resource-id="22184262" data-linked-resource-version="5" data-linked-resource-type="page">Tractor search clause syntax</a>。如果没有输入 search clause，则返回所有 entity。</p><p>可以通过按 refresh button，或在 search clause text entry 中按 Enter 来执行搜索。</p><p>query 执行后，entity 和 attribute 会显示在 pane body 的 row 和 column 中。选择某个 attribute 的 column header，可按该 attribute 对 entity 排序。拖动 header 可以重新排列 column，拖动 header 之间的 divider 可以调整 column 大小。<br/> </p></div><div class="section"><h3 id="QueryPane-Bookmarks">书签</h3><p>可以选择 bookmark icon 来显示 drop-down menu，用于创建新 bookmark 或执行已有 bookmark。bookmark 会保存 search string、entity、attribute、column order 和 column width。bookmark 有名称，并会出现在以相关 entity 命名的 section 下。</p><p>要添加 bookmark，请按带加号的 bookmark icon。随后会出现提示，要求输入 bookmark title，该 title 会用于在 menu 中表示此 bookmark。</p><p>要移除 bookmark，请按带减号的 bookmark icon。该 icon 会变为红色，表示选择某个 bookmark 会将其移除。<br/> </p></div><div class="section"><h3 id="QueryPane-HyperlinktoJobsandTasks">到 Job 和 Task 的超链接</h3><p>双击某个 job 会在 job pane 中显示该 job 及其 graph。Dashboard 必须能看到 jid 这个 displayed attribute，才能推断要显示哪个 job。</p><p>双击 task、command 或 invocation，也会在 job pane 中显示该 job，并同时选中相关 task。Dashboard 必须能看到 jid 和 tid 这两个 displayed attribute，才能推断要显示哪个 job 和 task。<br/> </p></div><div class="section"><h3 id="QueryPane-TruncatedResultSets">截断的结果集（Result Sets）</h3><p>注意，为避免 Dashboard 和 engine 出现性能问题，任何搜索返回的 entity 数量都有一个站点可配置的上限，因为在大型数据集中，不受限制的 query result 可能包含数百万 row。</p></div>
+  </article>
+</main>
+</body>
+</html>

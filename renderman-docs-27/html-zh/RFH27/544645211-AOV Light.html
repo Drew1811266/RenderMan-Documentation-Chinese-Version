@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AOV Light</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>AOV Light</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFH27/544645211/AOV+Light">https://rmanwiki-27.pixar.com/space/RFH27/544645211/AOV+Light</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="contentLayout2">
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661731" rel="nofollow">PxrAOVLight（AOV 灯）</a>，是一种方便的 utility light（实用灯光），允许 lighting artist（灯光艺术家）输出 shot-specific AOV mask（镜头专用 AOV 遮罩），无需向 shading artists（着色艺术家）请求创建，也无需生成 <a href="https://rmanwiki-26.pixar.com/space/REN26/19662011" data-linked-resource-id="19662011" data-linked-resource-version="1" data-linked-resource-type="page">Light Path Expression（光路表达式）</a>（LPE）。</p><h3 id="AOVLight-LightLinkingwithPxrAovLight">使用 PxrAovLight 进行 Light Linking（灯光链接）</h3><p>使用 <a href="544645013-Light Linking.html" rel="nofollow">Light Linking（灯光链接）</a> 在 AOV 中包含/排除部分 geometry（几何体）。在此示例中，PxrAovLight 在全局范围为 "off"，在场景中的树上为 "on"。这个 linking setup（链接设置）会创建树的 mask（遮罩）。</p></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="485" loading="lazy" src="../../attachments/544645211/aovLight_primary.png" data-image-src="../../attachments/544645211/aovLight_primary.png" data-height="512" data-width="512" data-unresolved-comment-count="0" data-linked-resource-id="544645231" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="aovLight_primary.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544645211" data-linked-resource-container-version="1" data-media-id="83b6ac96-f26b-405d-95d7-ffa57c315904" data-media-type="file"></span><p /></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="485" loading="lazy" src="../../attachments/544645211/aovLight_mask.png" data-image-src="../../attachments/544645211/aovLight_mask.png" data-height="512" data-width="512" data-unresolved-comment-count="0" data-linked-resource-id="544645234" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="aovLight_mask.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544645211" data-linked-resource-container-version="1" data-media-id="f6c58556-1719-4fc2-a837-2a6a6ccba4cd" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h3 id="AOVLight-LightFiltersandPxrAovLight">Light Filters（灯光滤镜）与 PxrAovLight</h3><p>由于 PxrAovLight 是一种 "light"（灯光），我们可以添加 light filters（灯光滤镜）来修改输出 AOV。在此示例中， <a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661767" rel="nofollow">PxrIntMultLightFilter（强度倍增灯光滤镜）</a> 连接到 PxrAovLight。Light Filter（灯光滤镜）只链接到树干，因此树干 mask（遮罩）会得到一个灰度值。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="680" loading="lazy" src="../../attachments/544645211/image2019-1-4_10-47-13.png" data-image-src="../../attachments/544645211/image2019-1-4_10-47-13.png" data-height="412" data-width="1160" data-unresolved-comment-count="0" data-linked-resource-id="544645243" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image2019-1-4_10-47-13.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544645211" data-linked-resource-container-version="1" data-media-id="5052ff46-baf1-49db-ad0a-c9182c4bbda7" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p /><span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="485" loading="lazy" src="../../attachments/544645211/aovLight_primary.png" data-image-src="../../attachments/544645211/aovLight_primary.png" data-height="512" data-width="512" data-unresolved-comment-count="0" data-linked-resource-id="544645231" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="aovLight_primary.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544645211" data-linked-resource-container-version="1" data-media-id="83b6ac96-f26b-405d-95d7-ffa57c315904" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p /><span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="485" loading="lazy" src="../../attachments/544645211/aovLight_filteredMask.png" data-image-src="../../attachments/544645211/aovLight_filteredMask.png" data-height="512" data-width="512" data-unresolved-comment-count="0" data-linked-resource-id="544645237" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="aovLight_filteredMask.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544645211" data-linked-resource-container-version="1" data-media-id="2acd8ee0-83c5-45f8-a4b1-873c3e05bcf9" data-media-type="file"></span></div>
+</div>
+</div>
+</div>
+  </article>
+</main>
+</body>
+</html>

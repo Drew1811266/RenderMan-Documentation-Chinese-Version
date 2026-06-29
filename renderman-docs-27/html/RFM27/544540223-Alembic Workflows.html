@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Alembic Workflows</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Alembic Workflows</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFM27/544540223/Alembic+Workflows">https://rmanwiki-27.pixar.com/space/RFM27/544540223/Alembic+Workflows</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="contentLayout2">
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p>RenderMan for Maya improves <a class="external-link" href="http://www.alembic.io" rel="nofollow">Alembic</a> rendering workflows by consolidating existing functionalities.</p><p>There are now different ways to render Alembic archives in RFM. We will review them one by one.</p><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="b9662353-3660-4fde-a3fd-54b9df2c3821" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>This documentation uses an Alembic archive of the <strong>Rolling Teapot</strong> model from <strong>Brice Laville Saint Martin</strong>.</p><p>You can download it here, <a href="../../attachments/21037380/Rolling_Teapot.abc.zip" rel="nofollow">here</a></p></div></div></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<div class="toc-macro client-side-toc-macro  conf-macro output-block" data-csslistindent="16px" data-hasbody="false" data-headerelements="H1,H2,H3,H4,H5" data-layout="default" data-local-id="4eafce22-8336-4d04-8b5d-40a8afa1c776" data-macro-id="7850438f-6bf3-4998-b37c-ebfa132fe41a" data-macro-name="toc"> </div></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h2 id="AlembicWorkflows-ExportinggeometrytoalembicfromMaya">Exporting geometry to alembic from Maya</h2><p>First, you need to export your geometry so that RenderMan may render it correctly.</p><p>To make it easier, we have added a few export functions in RFM to guarantee correct results, but you can roll out your own based on our work if you need to customize it.</p><p>You can find it in the Archive section of the RenderMan menu...</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="600" loading="lazy" src="../../attachments/544540223/rfm_ABCArchiveExport.png" data-image-src="../../attachments/544540223/rfm_ABCArchiveExport.png" data-height="869" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="544540336" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfm_ABCArchiveExport.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544540223" data-linked-resource-container-version="1" data-media-id="fa0c9ed1-63f4-4f7c-98bc-839879219aa7" data-media-type="file"></span><p>...or by right-clicking the archive icon in the RenderMan shelf.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="600" loading="lazy" src="../../attachments/544540223/rfm_RIBShelfArchiveExport.png" data-image-src="../../attachments/544540223/rfm_RIBShelfArchiveExport.png" data-height="343" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="544540339" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfm_RIBShelfArchiveExport.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544540223" data-linked-resource-container-version="1" data-media-id="77428a22-1065-4fe6-b62d-a25419c371a7" data-media-type="file"></span><p>We export many geometric options <em>using our menu selection</em> to provide enough data for other bridge products, such as:</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="2b2308e7-b573-47cd-9708-436236fb334f" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">    Constant real32 rman_micropolygonlength
+    Constant int16 rman_watertight
+    Constant uint8 rman_traceDisplacements
+    Constant int16 rman_autoBias
+    Constant real32 rman_traceBias
+    Constant real32 rman_displacementBound
+    Constant string rman_displacementCoordSys
+    Constant uint8 rman_emitPref
+    Constant uint8 rman_emitWPref
+    Constant int16 rman_subdivScheme
+    Constant int16 rman_subdivInterp
+    Constant int16 rman_subdivFacevaryingInterp
+    Constant uint8 rman_outputColorSets
+    Constant uint8 rman_emitFaceIDs
+    Constant uint8 rman_emitNref
+    Constant uint8 rman_emitWNref
+    Constant uint8 rman_preventPolyCracks
+    Constant int32 rman_motionSamples</pre>
+</div></div><p /><p>As you can see, there are different options depending on how the archive will be rendered:</p><h3 id="AlembicWorkflows-ExportforthegpuCachenode">Export for the gpuCache node</h3><p>When exporting for the gpuCache node, the alembic archive will be sent directly to the renderer, without being processed by RfM. If your scene contains polygon meshes that are either smoothed (using the Smooth Mesh controls) or carry RenderMan's subdivision surface attributes, we need to make sure they will be exported as subdivision surfaces instead of poly meshes. This menu includes a pre-processing step before calling the usual Alembic export dialog.</p><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="98a2acf0-e897-4672-971d-5fca4fc5e6f8" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>We use the <strong>gpuCache</strong> node to reference, display and render regular, high quality Alembic archives.</p><p>It is different from Maya's GPU cache workflow where you save a simplified version of your scene, simply to keep large scenes more interactive.</p><p>Always use our Alembic Export menus for best results. If you try to render alembic files saved via the Cache &gt; GPU Cache &gt; Export... menu, we can not guarantee the results.</p></div></div><h3 id="AlembicWorkflows-Exportforimported/referencedarchives">Export for imported/referenced archives</h3><p>When an alembic node is imported or referenced in a Maya scene, the archive's nodes will be rebuilt as Maya shapes and must carry their original RenderMan attributes to render as expected. Our export menus include a setup step to make sure all relevant attributes will be saved in the alembic cache, as well as uv sets and subdivision surface creases and corners.</p><h2 id="AlembicWorkflows-RenderingImportedorReferencedCaches">Rendering Imported or Referenced Caches</h2><p>Alembic archives can either be imported or referenced in Maya. You can attach materials to them and they will render exactly like any other piece of Maya geometry.</p><p>They are great to light and shade animated characters without the burden of evaluating complex rigs. They are not so great when the archive contains a large number of nodes with heavy geometry, in which case you might consider rendering a GPU cache instead.</p><h2 id="AlembicWorkflows-RenderinggpuCachenodes">Rendering gpuCache nodes</h2><h3 id="AlembicWorkflows-CreatinganewgpuCachenode">Creating a new gpuCache node</h3><h4 id="AlembicWorkflows-Theeasyway">The easy way</h4><p>Right-click the archive icon in the RenderMan shelf and select &quot;Import GPU Cache...&quot;. A file picker will open, the node will be created and made visible to indirect rays. </p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="600" loading="lazy" src="../../attachments/544540223/rfm_easyImportGPUCache.png" data-image-src="../../attachments/544540223/rfm_easyImportGPUCache.png" data-height="364" data-width="1146" data-unresolved-comment-count="0" data-linked-resource-id="544540342" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfm_easyImportGPUCache.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544540223" data-linked-resource-container-version="1" data-media-id="81f59ae6-4194-418d-8165-c4ec2ef6840b" data-media-type="file"></span><h4 id="AlembicWorkflows-Thehardway">The hard way</h4><p>Start by importing your alembic file via the <strong>GPU Cache</strong> menu. If the menu doesn't appear in your Maya, go to the <strong>Plug-in Manager</strong> window to enable it.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="600" loading="lazy" src="../../attachments/544540223/abc_import_gpu_cache.png" data-image-src="../../attachments/544540223/abc_import_gpu_cache.png" data-height="432" data-width="858" data-unresolved-comment-count="0" data-linked-resource-id="544540294" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="abc_import_gpu_cache.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544540223" data-linked-resource-container-version="1" data-media-id="c2e47555-10eb-46de-b490-daff11cbf47a" data-media-type="file"></span><div class="confluence-information-macro confluence-information-macro-warning conf-macro output-block" data-hasbody="true" data-macro-id="e7327843-d540-4ce6-91d3-ae8177a32d04" data-macro-name="warning"><span class="aui-icon aui-icon-small aui-iconfont-error confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>For animated GPU caches please select: <strong>Use Global Time</strong></p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="600" loading="lazy" src="../../attachments/544540223/rfm_GPUcacheTime.png" data-image-src="../../attachments/544540223/rfm_GPUcacheTime.png" data-height="862" data-width="918" data-unresolved-comment-count="0" data-linked-resource-id="544540258" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfm_GPUcacheTime.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544540223" data-linked-resource-container-version="1" data-media-id="414deef8-bed6-45b1-92eb-da66224f9501" data-media-type="file" /></span></div></div><p /><p>In this example, I imported the Rolling Teapot model. Note that the whole model is now a single node in Maya, which by default will be rendered by RenderMan.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="900" loading="lazy" src="../../attachments/544540223/rfm_GPUcacheDisplay.png" data-image-src="../../attachments/544540223/rfm_GPUcacheDisplay.png" data-height="800" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="544540255" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfm_GPUcacheDisplay.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544540223" data-linked-resource-container-version="1" data-media-id="3f958368-d6a1-4c36-b001-e0ae505595e5" data-media-type="file"></span><p /><p>The default attributes will appear in the RenderMan section:</p><ul><li><p><strong>Render Alembic Cache</strong></p><ul><li><p>MUST be enabled to render.</p></li></ul></li><li><p><strong>RLF File Name</strong></p><ul><li><p>The full path to a RenderMan Look File that will be applied to the Alembic file. You can use the editor described further down the page to create and save RLF files.</p></li></ul></li><li><p><strong>Edit RLF File</strong></p><ul><li><p>Open a standalone RLF editor to modify the file referenced in <strong>RLF File Name</strong>. See <a href="544540421-Assign materials.html" rel="nofollow">Assign materials</a> for details.</p></li></ul></li><li><p><strong>Edit objects</strong></p><ul><li><p>Open the shape editor to modify the contents of the alembic file. See <a href="544540480-Geometric edits.html" rel="nofollow">Geometric edits</a> for details.</p></li></ul></li><li><p><strong>Inspect Alembic section</strong></p></li></ul><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rfm_GPUcacheInspect.png" width="600" loading="lazy" src="../../attachments/544540223/rfm_GPUcacheInspect.png" data-image-src="../../attachments/544540223/rfm_GPUcacheInspect.png" data-height="1071" data-width="591" data-unresolved-comment-count="0" data-linked-resource-id="544540246" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfm_GPUcacheInspect.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544540223" data-linked-resource-container-version="1" data-media-id="38014a31-567f-4941-990d-29e546e26387" data-media-type="file"></span><ul><li><p><strong>Read archive contents</strong></p><ul><li><p>Click this button to parse the contents of the archive and display its contents in the node lists.</p></li></ul></li></ul><div class="confluence-information-macro confluence-information-macro-warning conf-macro output-block" data-hasbody="true" data-macro-id="61902e79-ae2e-4a6b-be45-03358c34b03b" data-macro-name="warning"><span class="aui-icon aui-icon-small aui-iconfont-error confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>Large alembic archives may take many seconds to parse. Be patient... <img class="emoticon emoticon-smile" data-emoji-id="1f642" data-emoji-shortname=":slight_smile:" data-emoji-fallback="🙂" src="/wiki/s/-1224781331/6452/48b4cb858f2d877fc110d28cdd2482f8e4b5ef5f/_/images/icons/emoticons/smile.png" width="16" height="16" data-emoticon-name="smile" alt="(smile)" /></p><p>The node list may incorrectly display large number of deeply nested nodes. To work around this Maya bug, we only expand the first 3 levels by default and suggest using the filter field to explore the archive.</p></div></div><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="9a6cf11c-34f5-4db9-a19e-aac5148a5ef7" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>The parsed data is saved on the node so it may be displayed quickly without having to re-parse the file, but you will have to re-parse the archive if anything has changed in it.</p></div></div><div class="confluence-information-macro confluence-information-macro-tip conf-macro output-block" data-hasbody="true" data-macro-id="28d68fc7-9bc4-4a22-a303-9fde03e5037f" data-macro-name="tip"><span class="aui-icon aui-icon-small aui-iconfont-approve confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>You can &quot;solo&quot; any point in the hierarchy (display only the selection) by double-clicking in the list. To display everything again, double-click the top node (ABC). This has no impact on the final render.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="ABC_geoSolo.gif" width="900" loading="lazy" src="../../attachments/544540223/ABC_geoSolo.gif" data-image-src="../../attachments/544540223/ABC_geoSolo.gif" data-height="398" data-width="760" data-unresolved-comment-count="0" data-linked-resource-id="544540243" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="ABC_geoSolo.gif" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/gif" data-linked-resource-container-id="544540223" data-linked-resource-container-version="1" data-media-id="b12d27f4-0435-4b5e-803c-6c0d8fdc4b95" data-media-type="file" /></span></div></div><ul><li><p>Filter</p><ul><li><p>The contents of the node list can be filtered using a glob expression.</p></li></ul></li></ul><div class="table-wrap"><table data-table-width="1800" data-layout="align-start" data-local-id="68cd089d-cfce-44e5-9d92-77c1cb2d7214" class="confluenceTable"><tbody><tr><th class="confluenceTh"><p>Pattern</p></th><th class="confluenceTh"><p>Meaning</p></th></tr><tr><td class="confluenceTd"><p><code>*</code></p></td><td class="confluenceTd"><p>matches everything</p></td></tr><tr><td class="confluenceTd"><p><code>?</code></p></td><td class="confluenceTd"><p>?matches any single character</p></td></tr><tr><td class="confluenceTd"><p><code>[seq]</code></p></td><td class="confluenceTd"><p>matches any character in  <em>seq</em></p></td></tr><tr><td class="confluenceTd"><p><code>[!seq]</code></p></td><td class="confluenceTd"><p>matches any character not in  <em>seq</em></p></td></tr></tbody></table></div><ul><li><p>Node list</p><ul><li><p>A hierarchical view of the archive's contents.</p></li><li><p>Each node will display its properties as an annotation. This is useful to check if your archive contains the properties you need. <br/>This can be toggled with the <strong>View node annotations</strong> check box under the node list.</p></li></ul></li></ul><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="600" loading="lazy" src="../../attachments/544540223/abc_view_properties.png" data-image-src="../../attachments/544540223/abc_view_properties.png" data-height="806" data-width="892" data-unresolved-comment-count="0" data-linked-resource-id="544540252" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="abc_view_properties.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544540223" data-linked-resource-container-version="1" data-media-id="b8752aac-0fcd-400a-9a07-0dfc97dc7c2e" data-media-type="file"></span><h2 id="AlembicWorkflows-BatchRendering">Batch Rendering</h2><p>For efficiency, RenderMan for Maya does not export all shaders, it only exports materials which are attached to geometry. This will lead to issues when batch rendering GPU Caches.</p><p>To workaround this issue, Please <strong>Enable &quot;Output All Shaders&quot;</strong> in the advanced menu of the RenderMan Render Settings.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="600" loading="lazy" src="../../attachments/544540223/output-all-shaders.jpg" data-image-src="../../attachments/544540223/output-all-shaders.jpg" data-height="286" data-width="482" data-unresolved-comment-count="0" data-linked-resource-id="544540249" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="output-all-shaders.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544540223" data-linked-resource-container-version="1" data-media-id="e79068c2-e10f-4f6e-99bf-6a68617b77f4" data-media-type="file"></span><h2 id="AlembicWorkflows-Debugging">Debugging</h2><p>As of RFM 24.4, it is possible to define the <code>RFM_RLF_DEBUG </code>environment variable (its value doesn't matter) before launching RFM to get debugging output at render-time.</p></div>
+</div>
+</div>
+</div>
+  </article>
+</main>
+</body>
+</html>

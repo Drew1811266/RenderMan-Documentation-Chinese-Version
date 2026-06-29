@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Getting Started</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Getting Started</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/TRA/22184334/Getting+Started">https://rmanwiki-27.pixar.com/space/TRA/22184334/Getting+Started</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p><span>This section covers the basics of installing and running Tractor.</span></p><p><span><br/></span></p><div class="line"><a href="/wiki/spaces/TRA/pages/22184362/System+Requirements" data-linked-resource-id="22184362" data-linked-resource-version="10" data-linked-resource-type="page"><span>S</span>ystem Requirements</a></div><div class="line"><a href="/wiki/spaces/TRA/pages/22184336/Installation" data-linked-resource-id="22184336" data-linked-resource-version="16" data-linked-resource-type="page">Installation</a></div><div class="line"><a href="/wiki/spaces/TRA/pages/22184326/Initial+Configuration" data-linked-resource-id="22184326" data-linked-resource-version="5" data-linked-resource-type="page">Initial Configuration</a></div><div class="line"><a href="/wiki/spaces/TRA/pages/22184328/Setting+Up+Services" data-linked-resource-id="22184328" data-linked-resource-version="8" data-linked-resource-type="page">Setting Up Services</a></div><div class="line"><a href="/wiki/spaces/TRA/pages/22184278/Your+First+Job" data-linked-resource-id="22184278" data-linked-resource-version="6" data-linked-resource-type="page">Your First Job</a></div><div class="line"><hr/></div><h2 class="line" id="GettingStarted-Initialoverviewandproblemavoidance">Initial overview and problem avoidance</h2><h3 id="GettingStarted-TRACTORINSTALLATIONLOCATIONandSERVICES">TRACTOR INSTALLATION LOCATION and SERVICES</h3><p>Tractor is most often used at studios where the various components are running as system services, intended to restart automatically when their hosts are rebooted.</p><p>Where is the software installed? If you run the Tractor installer locally on the engine host and again on each render blade node, then on Linux it will appear in /opt/pixar/Tractor-2.x. If instead you are running Tractor from a shared fileserver install, then that must be mounted before the services automatically restart. Refer to the <a href="/wiki/spaces/TRA/pages/22184336/Installation" data-linked-resource-id="22184336" data-linked-resource-version="16" data-linked-resource-type="page">installation</a> and admin docs for the typical service setup and steps.</p><p>You can use the command line command &quot;ps -eaf | fgrep -i tractor&quot; to confirm that Tractor processes are running on your various machines. You will need <em>one</em> instance of the &quot;tractor-engine&quot; executable running on the engine host, and one instance of the &quot;tractor-blade&quot; process running on each of the blade nodes (it will appear as &quot;rmanpy -m tractor.apps.blade&quot;).</p><h3 id="GettingStarted-LICENSING">LICENSING</h3><p>Tractor itself requires licenses to dispatch jobs, but not to start up. Licenses govern the number of concurrent tasks that tractor-engine will dispatch at once. The engine log will show the number of licenses found. You can also see this number in the Dashboard, click on the small tractor icon in the upper left, one of the text entries shown will be &quot;# Licenses&quot; which is the count of Tractor licenses that the engine was able to acquire. If that is zero then no dispatching will occur. If you have a valid license, check the engine log for messages about connection problems to the <a href="/wiki/spaces/TRA/pages/22184326/Initial+Configuration" data-linked-resource-id="22184326" data-linked-resource-version="5" data-linked-resource-type="page">license server</a>.</p><h3 id="GettingStarted-CONNECTIVITYTOTHEENGINE">CONNECTIVITY TO THE ENGINE</h3><p>The first thing to confirm is that you actually have a route and firewall clearance to connect to the named engine host from your various clients, including the blades.</p><p>Usually the first thing to check is to connect a web browser to the engine, type in a url pointing to the engine &quot;web server&quot; something like &quot;http://tractor-engine.yoursite.com/tractor/&quot;</p><p>The dashboard, blade hosts, and other Tractor clients need to know the name of the engine host in order to connect. So you either need to specify what name you are using in each case, or you need to set up a name server alias (e.g. in DNS) for the default name that the blades will attempt to use, namely &quot;tractor-engine&quot;. It is easier in the long run to set up the DNS alias because so many of the Tractor utilities will default to trying that name. An alias also allows you to change the engine host to a different machine or different address without having to update all of the blades, dashboards, and other clients. The blades and other clients also need to know what port the engine is listening on, again configurable, but it is easier to go with the default when you set up the engine: port 80.</p><p>If you have the DNS entry and the engine is listening on port 80, then the dashboard test above should be working. On blade hosts another simple network sanity test is to run:</p><p><code>/bin/tq ping</code></p><p>That will attempt to connect to the tractor-engine process and perform a connectivity sanity check. You can run that from the command line on blade nodes or user desktops to confirm connectivity. It will generate various error messages for different types of failure. &quot;Unknown host&quot; means that &quot;tractor-engine&quot; is not resolvable as a host name, for example.</p><p>If you have not set up the &quot;tractor-engine&quot; alias, then you'll need to run your test with a parameter naming the engine host and port. You can use a hostname or address if necessary. For example: (non-working example!)</p><p><code>tq --engine=my-other-host:80 ping</code> <br/> <code>tq --engine=192.168.0.2:8888 ping</code></p><h3 id="GettingStarted-MATCHINGBLADESTOJOBS"><br/>MATCHING BLADES TO JOBS</h3><p>The basic mechanism for sending Tractor work (commands) to blades is based on <a href="/wiki/spaces/TRA/pages/22184278/Your+First+Job" data-linked-resource-id="22184278" data-linked-resource-version="6" data-linked-resource-type="page">Service Key matching</a>. Tractor allows different blade nodes to advertise different capabilities - not all tasks can run on all machines. For example some tasks may not run on Windows, or some tasks require some application software to be installed, like RenderMan!</p><p>Studios can develop their own conventions for keywords that represent these capabilities. Jobs are submitted into the Tractor queue with keywords representing their requirements, and blades are started on render nodes using keywords that represent their capabilities. Tractor assigns a command to a blade when there is a match. By default jobs look for a keyword named &quot;PixarRender&quot; and all blades advertise that service by default.</p><p>Different Service Keys can be specified at job authoring time (on a per command basis if needed), and blade capabilities are specified in the blade.config file, via the &quot;Provides&quot; entries. If there are no blades advertising the service that your job needs, then no dispatching will occur.</p><p>If you have jobs sitting in the queue and visible in the Dashboard, then you can right-click on a given job and select &quot;Trace Job&quot; from the menu. Text will appear in the lower right output pane describing the matching tests applied to the next blade that happens to ask for work. Often this diagnostic is enough to determine typical dispatching issues.</p>
+  </article>
+</main>
+</body>
+</html>

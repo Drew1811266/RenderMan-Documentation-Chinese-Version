@@ -1,0 +1,226 @@
+{
+  "phase": 574,
+  "file": "RU/567083091-The Hunted Lighting.html",
+  "file_id": "9e77a051e5",
+  "source_items": 24,
+  "translation_rows": 24,
+  "source_items_match_translation_rows": true,
+  "duplicate_rows": [],
+  "missing_item_ids": [],
+  "extra_item_ids": [],
+  "tag_fingerprint_identical": true,
+  "rendered_markup_matches_target_markup": true,
+  "glossary_violations": [],
+  "direct_placement_missing": [],
+  "actionable_long_source_residuals": [],
+  "accepted_long_source_residuals": [
+    {
+      "item_id": "9e77a051e5:17",
+      "source": "Headlights / Search Lights"
+    }
+  ],
+  "actionable_ascii_heavy_residuals": [],
+  "accepted_ascii_heavy_residuals": [
+    {
+      "item_id": "9e77a051e5:0",
+      "text": "FC_Layers.mov",
+      "ascii_letters": 11,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "9e77a051e5:1",
+      "text": "Basic Environment（基础环境）",
+      "ascii_letters": 16,
+      "cjk_chars": 4
+    },
+    {
+      "item_id": "9e77a051e5:2",
+      "text": "我使用的 main environment light 是一张应用到 PxrDomeLight 上的 ramp texture。这提供了初始的 night sky fill light。",
+      "ascii_letters": 60,
+      "cjk_chars": 19
+    },
+    {
+      "item_id": "9e77a051e5:3",
+      "text": "在 Photoshop 中把 ramp 制作为 32-bit EXR file，是完成这件事的最佳方式。你也可以向 ramp 添加额外的 moon 或 sunlight source。如果你选择不在 ramp texture 本身加入强 light source，也可以在 RenderMan 中使用 PxrDistantLight、PxrRectLight 或 PxrDiscLight 来复现 moon 或 sun lighting。",
+      "ascii_letters": 130,
+      "cjk_chars": 52
+    },
+    {
+      "item_id": "9e77a051e5:4",
+      "text": "选择实际上取决于你想匹配的 mood、palette 和 lighting references。基于 lighting 或 mood reference 创建 ramp，是制作 initial ramp 的好方法。",
+      "ascii_letters": 65,
+      "cjk_chars": 26
+    },
+    {
+      "item_id": "9e77a051e5:6",
+      "text": "制作 UFO beams 时，有两个 essential factors（关键因素）。",
+      "ascii_letters": 24,
+      "cjk_chars": 10
+    },
+    {
+      "item_id": "9e77a051e5:7",
+      "text": "第一个是 light beam 本身；为此我使用了 PxrDiscLight。",
+      "ascii_letters": 21,
+      "cjk_chars": 12
+    },
+    {
+      "item_id": "9e77a051e5:8",
+      "text": "对 beams 来说，第二个非常重要的因素是 environmental fog volume。没有这个 volume，你会看到发出的 light，但看不到任何 beams。我在 Houdini 中创建了一个 volume VDB，并把它作为 volume 使用，同时连接了 PxrVolume shader。把 Primary Anisotropy 调整到高于 0 的值，也会改善 beams 的外观。我使用的值是 0.7。",
+      "ascii_letters": 102,
+      "cjk_chars": 72
+    },
+    {
+      "item_id": "9e77a051e5:11",
+      "text": "因此，main UFO beam light 本身是一个 PxrDiscLight。",
+      "ascii_letters": 28,
+      "cjk_chars": 7
+    },
+    {
+      "item_id": "9e77a051e5:13",
+      "text": "我给 light 添加了一个 IES profile，用来增加额外 shape。",
+      "ascii_letters": 20,
+      "cjk_chars": 13
+    },
+    {
+      "item_id": "9e77a051e5:14",
+      "text": "然后我使用 PxrBarnFilter 控制 light 的 cone shape，并使用 PxrRodFilter 阻止 light 向 scene 中 spill 得太远。我只想要一束不会扩散太远的 beam。",
+      "ascii_letters": 58,
+      "cjk_chars": 31
+    },
+    {
+      "item_id": "9e77a051e5:15",
+      "text": "Tip：你也可以通过 PxrCookieLightFilter 给 beams 添加 cookie image，以增加更多 visual shape，尤其是在 beams 照射到某些 geometry 上时。",
+      "ascii_letters": 63,
+      "cjk_chars": 25
+    },
+    {
+      "item_id": "9e77a051e5:16",
+      "text": "ufo light.mov",
+      "ascii_letters": 11,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "9e77a051e5:17",
+      "text": "Headlights / Search Lights（车灯 / 搜索灯）",
+      "ascii_letters": 22,
+      "cjk_chars": 5
+    },
+    {
+      "item_id": "9e77a051e5:18",
+      "text": "headlights 由三种 lights 组成。",
+      "ascii_letters": 16,
+      "cjk_chars": 5
+    },
+    {
+      "item_id": "9e77a051e5:19",
+      "text": "第一种是一个 tiny PxrSphereLight，作为 headlight housing 内部的 bulb source。",
+      "ascii_letters": 44,
+      "cjk_chars": 11
+    },
+    {
+      "item_id": "9e77a051e5:20",
+      "text": "第二种是一个 PxrDiscLight，用来创建 main headlight beams。我给 headlight 添加了 IES profile 以获得更多 shaping，并用 PxrBarnDoorFilter 进一步引导 beams。",
+      "ascii_letters": 78,
+      "cjk_chars": 27
+    },
+    {
+      "item_id": "9e77a051e5:21",
+      "text": "为了完成 headlight glass 本身的效果，我把它们转换成 intensity 非常低的 Mesh Lights。",
+      "ascii_letters": 33,
+      "cjk_chars": 20
+    },
+    {
+      "item_id": "9e77a051e5:22",
+      "text": "有了这两个 main lights 和 mesh light 后，我就可以对 headlights 进行 lookdev，创建我想要的 look。",
+      "ascii_letters": 40,
+      "cjk_chars": 20
+    },
+    {
+      "item_id": "9e77a051e5:23",
+      "text": "headlights.mov",
+      "ascii_letters": 13,
+      "cjk_chars": 0
+    }
+  ],
+  "required_phrase_missing": [],
+  "section_order_positions": [
+    {
+      "pattern": "Basic Environment",
+      "position": 2479
+    },
+    {
+      "pattern": "PxrDomeLight",
+      "position": 2573
+    },
+    {
+      "pattern": "32-bit EXR",
+      "position": 3496
+    },
+    {
+      "pattern": "PxrDistantLight",
+      "position": 3623
+    },
+    {
+      "pattern": "PxrRectLight",
+      "position": 3639
+    },
+    {
+      "pattern": "PxrDiscLight",
+      "position": 3654
+    },
+    {
+      "pattern": "UFO Beams",
+      "position": 4123
+    },
+    {
+      "pattern": "Houdini",
+      "position": 5184
+    },
+    {
+      "pattern": "VDB",
+      "position": 5206
+    },
+    {
+      "pattern": "PxrVolume",
+      "position": 5232
+    },
+    {
+      "pattern": "Primary Anisotropy",
+      "position": 5251
+    },
+    {
+      "pattern": "IES profile",
+      "position": 5649
+    },
+    {
+      "pattern": "PxrBarnFilter",
+      "position": 5687
+    },
+    {
+      "pattern": "PxrRodFilter",
+      "position": 5727
+    },
+    {
+      "pattern": "PxrCookieLightFilter",
+      "position": 6159
+    },
+    {
+      "pattern": "Headlights / Search Lights",
+      "position": 6861
+    },
+    {
+      "pattern": "PxrSphereLight",
+      "position": 6977
+    },
+    {
+      "pattern": "PxrBarnDoorFilter",
+      "position": 7128
+    },
+    {
+      "pattern": "Mesh Lights",
+      "position": 7215
+    }
+  ],
+  "section_order_ok": true,
+  "passed": true
+}

@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PDG Support</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>PDG Support</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFH27/544645764/PDG+Support">https://rmanwiki-27.pixar.com/space/RFH27/544645764/PDG+Support</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>TOP networks（TOP 网络）用于调度任务，从运行 simulations（模拟）到 rendering（渲染）都可以。Read（阅读） <a class="external-link" href="https://www.sidefx.com/products/houdini/pdg/" rel="nofollow">此处，了解更多关于 PDG 的内容</a>。RenderMan 现在已通过用于 rendering（渲染）、converting textures（转换纹理）、denoising（降噪）和 generating RIB（生成 RIB）的各类节点集成到 PDG 中。请注意，除非用户另行 Set（设置），"Do Nothing" 选择会使用 RenderMan 默认值。</p><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="7c250957-7008-4c71-96fe-1cebd741a4f6" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>目前有一个 bug：即使没有生成 rib 文件，RenderMan render TOPs（RenderMan 渲染 TOP）的输出也会是 rib 文件路径。</p></div></div><h3 id="PDGSupport-ROPFetch"><br/>ROP Fetch（ROP 获取）</h3><p>最简单的 render node（渲染节点）是 ROP Fetch。将 ROP Path（ROP 路径）设置为 OUT context（OUT 上下文）中的渲染节点。</p><h3 id="PDGSupport-RenderManRender">RenderMan Render（RenderMan 渲染）</h3><p>RenderMan TOP 的功能类似于 ROP Fetch，不同之处在于 ROP node（ROP 节点）位于网络内部，并且所有 RenderMan ROP options（RenderMan ROP 选项）都会作为该节点上的 parameters（参数）暴露出来。</p><h3 id="PDGSupport-GenerateRIB">Generate RIB（生成 RIB）</h3><p>这个 TOP node（TOP 节点）是 RenderMan Render TOP 的 clone（克隆），区别是启用了 "Write RIB" parameter（参数）。</p><h3 id="PDGSupport-RenderManDenoise">RenderMan Denoise（RenderMan 降噪）</h3><p>除非设置了 Image parameter（Image 参数），否则 parent node（父节点）的输出会被 denoised（降噪）。该图像需要适用于降噪的 proper AOVs（正确 AOV）。请参阅这些参数的说明 <a href="https://rmanwiki-24.pixar.com/space/REN24/21758154/Denoise" data-linked-resource-id="21758154" data-linked-resource-version="4" data-linked-resource-type="page">此处</a>。 </p><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="9e8c2f44-d6e7-4fde-a360-f2280ffc3c75" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>尚不支持 Crossframe denoising（跨帧降噪）。</p></div></div><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="900" loading="lazy" src="../../attachments/544645764/rfh_pdg_denoise.PNG" data-image-src="../../attachments/544645764/rfh_pdg_denoise.PNG" data-height="397" data-width="716" data-unresolved-comment-count="0" data-linked-resource-id="544645787" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfh_pdg_denoise.PNG" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544645764" data-linked-resource-container-version="1" data-media-id="42c7c1b6-ca49-4e98-9f64-480121063a7d" data-media-type="file"></span><h3 id="PDGSupport-RenderRIB">Render RIB（渲染 RIB）</h3><p>连接一个 generate rib node（生成 rib 节点）作为输入，或提供 RIB path（RIB 路径）。此节点是 prman executable（prman 可执行文件）的 wrapper（包装器），所有可用 command line arguments（命令行参数）都会作为 parameters（参数）提供。请参阅这些参数的说明 <a href="https://rmanwiki-26.pixar.com/space/REN26/19661967/prman" data-linked-resource-id="19661967" data-linked-resource-version="12" data-linked-resource-type="page">此处</a>。 </p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="900" loading="lazy" src="../../attachments/544645764/rfh_pdg_renderrib.PNG" data-image-src="../../attachments/544645764/rfh_pdg_renderrib.PNG" data-height="619" data-width="720" data-unresolved-comment-count="0" data-linked-resource-id="544645790" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfh_pdg_renderrib.PNG" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544645764" data-linked-resource-container-version="1" data-media-id="3d1f6329-731a-4ba3-b2fa-c558cdf818e6" data-media-type="file"></span><h3 id="PDGSupport-TextureMaker">Texture Maker（纹理生成器）</h3><p>此节点会调用 txmake，并使用设定的 parameters（参数），将输入图像或提供的 image parameter（图像参数）转换为 texture（纹理）。请参阅这些参数的说明 <a href="https://rmanwiki-26.pixar.com/space/REN26/19661963/txmake" data-linked-resource-id="19661963" data-linked-resource-version="4" data-linked-resource-type="page">此处</a>。 </p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="900" loading="lazy" src="../../attachments/544645764/rfh_pdg_texturemake.PNG" data-image-src="../../attachments/544645764/rfh_pdg_texturemake.PNG" data-height="340" data-width="718" data-unresolved-comment-count="0" data-linked-resource-id="544645784" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfh_pdg_texturemake.PNG" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544645764" data-linked-resource-container-version="1" data-media-id="4025ee65-7a64-4635-9088-19bbac2d280f" data-media-type="file"></span>
+  </article>
+</main>
+</body>
+</html>

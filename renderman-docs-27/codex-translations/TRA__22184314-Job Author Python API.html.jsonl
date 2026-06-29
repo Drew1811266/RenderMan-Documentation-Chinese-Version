@@ -1,0 +1,46 @@
+{"item_id":"2cc83af7cb:0","text":"tractor.api.author 是用于构建 Tractor jobs 的 Python API。"}
+{"item_id":"2cc83af7cb:1","text":"此 module 随 Tractor 附带的 Python interpreter rmanpy 一起安装。它也可以与其他 Python interpreters 一起使用，但需要 site-specific configuration 来定位或安装所需的 Tractor Python modules。"}
+{"item_id":"2cc83af7cb:2","text":"以下 examples 假定 query module 已按如下方式 import："}
+{"item_id":"2cc83af7cb:3","text":"Overview（概览）"}
+{"item_id":"2cc83af7cb:4","text":"job 使用 Job、Task、Instance 和 Command classes 构建。随后可以使用 Job.spool() method 将其 spooled，或使用 Job.asTcl() method 显示。下面是一个 simple example："}
+{"item_id":"2cc83af7cb:5","text":"提交作业流程（Spooling a Job）"}
+{"item_id":"2cc83af7cb:6","text":"要 spool job，请调用该 job 的 spool() method。new job 的 job id 将被返回。"}
+{"item_id":"2cc83af7cb:7","text":"如果与 engine 通信出现问题，会 raise exception。如果 job 成功 spools，它会出现在 Dashboard 或 tq jobs 中。否则，engine 会记录 diagnostic information，说明该 job 为什么无法 spooled。"}
+{"item_id":"2cc83af7cb:8","text":"Spooling 可以选择以 blocking mode 执行：spool(block=True) 在 job submission 完全处理完之前不会返回。如果发生 error，会 raise exception。block=True option 有助于向 client 提供更多 diagnostic information。不过它需要更长时间才能完成，当还有许多其他 jobs 同时 being spooled 时尤其如此。因此，blocking 最适合用于 debug authoring scripts 或开发新 scripts。"}
+{"item_id":"2cc83af7cb:9","text":"owner keyword argument 可用于指定 job owner。默认 job owner 是 script 的 process owner。"}
+{"item_id":"2cc83af7cb:10","text":"Setting Attributes（设置属性）"}
+{"item_id":"2cc83af7cb:11","text":"Attributes 可以使用 keyword arguments（如上所示）设置，也可以通过 attribute assignment 设置。上面的 job 也可以按如下方式指定："}
+{"item_id":"2cc83af7cb:12","text":"添加任务流程（Adding Tasks）"}
+{"item_id":"2cc83af7cb:13","text":"向 job 添加 task 可以像上面那样使用 Job.newTask() 完成，也可以分成独立步骤：先创建 task，再将其作为 job 的 child 添加。"}
+{"item_id":"2cc83af7cb:14","text":"如果 tasks 需要 serially 运行，使一个 task 完成后另一个 task 才开始，则先运行的 task 会声明为第二个 task 的 child。"}
+{"item_id":"2cc83af7cb:15","text":"默认情况下，sibling tasks 允许 parallel 运行。"}
+{"item_id":"2cc83af7cb:16","text":"Serialsubtasks（串行子任务）"}
+{"item_id":"2cc83af7cb:17","text":"将 task 的 serialsubttasks attribute 设置为 1，会使其 children serially 运行。"}
+{"item_id":"2cc83af7cb:18","text":"当 parent task 设置了 serialsubtasks 时，某个 child task 的整个 subtree 必须完全完成后，它的 sibling task 才允许运行。"}
+{"item_id":"2cc83af7cb:19","text":"添加命令流程（Adding Commands）"}
+{"item_id":"2cc83af7cb:20","text":"Tasks 通常包含一个或多个 commands。向 task 添加 command 可以使用 Task.newCommand()，也可以分成独立步骤：创建 new command，然后将其作为 task 的 child 添加。下面的 examples 会构建等价的 task。"}
+{"item_id":"2cc83af7cb:21","text":"此外，还有一种 shortcut：创建 task 时，可以通过设置 argv attribute 实例化 command 并自动将其与 task 关联。此方法也适用于 author.newTask() method。"}
+{"item_id":"2cc83af7cb:22","text":"因为每个 command 都需要 service key，所以使用此 shortcut 时，API 会把 service attribute assignment 推送到 command 上。"}
+{"item_id":"2cc83af7cb:23","text":"如果需要设置 command 的其他 attributes，例如 envkey，则必须使用 author.Command() 或 author.Task.newCommand() 显式构建 commands，而不是使用此 shortcut。"}
+{"item_id":"2cc83af7cb:24","text":"task 可以没有 commands。例如，task 可以用来 group 一个 tasks subtree，即使该 task 本身没有 commands 要执行。"}
+{"item_id":"2cc83af7cb:25","text":"Multi-command Tasks（多命令任务）"}
+{"item_id":"2cc83af7cb:26","text":"当 task 有多个 commands 时，它们会 serially 执行。可以连续调用 author.Task.addCommand() 或 author.Task.newCommand() methods，将多个 commands 与一个 task 关联。"}
+{"item_id":"2cc83af7cb:27","text":"异常处理说明（Exceptions）"}
+{"item_id":"2cc83af7cb:28","text":"向 element 的 attribute 赋值时，如果该值无效，会 raise exception。"}
+{"item_id":"2cc83af7cb:29","text":"目录映射说明（Directory Mapping）"}
+{"item_id":"2cc83af7cb:30","text":"directory map 是在不同 operating systems 之间转换 file system paths 的一种方式。Directory maps 按如下方式指定："}
+{"item_id":"2cc83af7cb:31","text":"关于 directory mapping 和此 example 的更多信息可在"}
+{"item_id":"2cc83af7cb:32","text":"这里"}
+{"item_id":"2cc83af7cb:33","text":"找到。"}
+{"item_id":"2cc83af7cb:34","text":"Engine 连接设置说明（Engine Connectivity）"}
+{"item_id":"2cc83af7cb:35","text":"spool job 时，author module 会处理与 engine 的 connectivity。可以使用 setEngineClientParam() 更改 engine hostname、port、connected user、password 和 debug flag。"}
+{"item_id":"2cc83af7cb:36","text":"默认 target engine 根据 TRACTOR_ENGINE environment variable 设置；否则使用 tractor-engine:80。根据是否已配置"}
+{"item_id":"2cc83af7cb:37","text":"EngineDiscovery"}
+{"item_id":"2cc83af7cb:38","text":"，也可能使用不同的 default engine。"}
+{"item_id":"2cc83af7cb:39","text":"默认 user 根据 USER environment variable 设置；否则为 root。"}
+{"item_id":"2cc83af7cb:40","text":"默认 password 根据 TRACTOR_PASSWORD environment variable 设置；否则不设置。"}
+{"item_id":"2cc83af7cb:41","text":"默认 debug flag 根据 TRACTOR_DEBUG environment variable 设置；否则为 False。"}
+{"item_id":"2cc83af7cb:42","text":"下面的 example 演示如何 override 某些 connection values。请注意，应在 spool 任何 jobs 之前调用 setEngineClientParam()，connection parameters 才会生效。"}
+{"item_id":"2cc83af7cb:43","text":"可以通过调用 closeEngineClient() 终止 session。这有助于减少 engine 维护的 sessions 数量。"}
+{"item_id":"2cc83af7cb:44","text":"More Help（更多帮助）"}
+{"item_id":"2cc83af7cb:45","text":"文件 <TractorInstallDir>/lib/python2.7/site-packages/tractor/api/author/test.py 包含更多 API usage examples。"}

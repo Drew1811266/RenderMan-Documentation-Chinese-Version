@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pixar Patterns</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Pixar Patterns</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFM27/544540645/Pixar+Patterns">https://rmanwiki-27.pixar.com/space/RFM27/544540645/Pixar+Patterns</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p><div class="contentLayout2 conf-macro output-block" data-hasbody="false" data-macro-id="e326e33e-e633-43ba-8086-0156ca15e533" data-macro-name="include">
+<div class="columnLayout single" data-layout="single">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p style="text-align: center;"><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/19661575/RenderMan_Patterns.jpg" data-image-src="../../attachments/19661575/RenderMan_Patterns.jpg" data-unresolved-comment-count="0" data-linked-resource-id="19669095" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Patterns.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="19661575" data-linked-resource-container-version="2" data-media-id="85972330-03e5-4b28-a50e-624145cb5419" data-media-type="file" /></span></p><p><br /></p><p>Materials（材质）控制对象的外观，而 patterns（图案节点）通过在曲面上改变材质 Bxdf 的 parameters（参数）来控制细节。这类似于 texture artists（纹理艺术家）使用 textures（纹理）控制材质外观的方式。RenderMan 随附一组 patterns，可用于 texturing（纹理处理）、color correction（颜色校正）、bumping（凹凸）以及各种 utility shading systems（实用着色系统）。</p><p>这些 patterns（图案节点）可分为以下类别：</p></div>
+</div>
+</div>
+<div class="columnLayout single" data-layout="single">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<hr /><h3 id="PixarPatterns-ImageTexture">Image Texture（图像纹理）</h3><p class="confluence-link">使用 texture images（纹理图像）驱动 patterns（图案节点）。</p><ul><li><a href="https://rmanwiki-26.pixar.com/space/REN26/19661659/PxrMultiTexture" data-linked-resource-id="19661659" data-linked-resource-version="2" data-linked-resource-type="page">PxrMultiTexture</a></li><li><a href="https://rmanwiki-26.pixar.com/space/REN26/19661663/PxrProjectionLayer" data-linked-resource-id="19661663" data-linked-resource-version="1" data-linked-resource-type="page">PxrProjectionLayer</a></li><li><a href="https://rmanwiki-26.pixar.com/space/REN26/19661679/PxrPtexture" data-linked-resource-id="19661679" data-linked-resource-version="1" data-linked-resource-type="page">PxrPtexture</a></li><li><a href="https://rmanwiki-26.pixar.com/space/REN26/19661707/PxrTexture" data-linked-resource-id="19661707" data-linked-resource-version="4" data-linked-resource-type="page">PxrTexture</a></li></ul><p><br /></p></div>
+</div>
+</div>
+<div class="columnLayout single" data-layout="single">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h3 id="PixarPatterns-ProceduralTexture">Procedural Texture（程序化纹理）</h3><p>以 procedural（程序化）方式创建 noise（噪声）和 patterns（图案）。</p><ul><li><a href="https://rmanwiki-26.pixar.com/space/REN26/19661609/PxrChecker" data-linked-resource-id="19661609" data-linked-resource-version="2" data-linked-resource-type="page">PxrChecker</a></li><li><a href="https://rmanwiki-26.pixar.com/space/REN26/19661611/PxrCurvature" data-linked-resource-id="19661611" data-linked-resource-version="2" data-linked-resource-type="page">PxrCurvature</a></li><li><a href="https://rmanwiki-26.pixar.com/space/REN26/19662131/PxrFractal" data-linked-resource-id="19662131" data-linked-resource-version="1" data-linked-resource-type="page">PxrFractal</a></li><li><a href="https://rmanwiki-26.pixar.com/space/REN26/19661723/PxrVoronoise" data-linked-resource-id="19661723" data-linked-resource-version="1" data-linked-resource-type="page">PxrVoronoise</a></li><li><a href="https://rmanwiki-26.pixar.com/space/REN26/19661725/PxrWorley" data-linked-resource-id="19661725" data-linked-resource-version="4" data-linked-resource-type="page">PxrWorley</a></li><li><a href="https://rmanwiki-26.pixar.com/space/REN26/19661675/PxrPhasorNoise" data-linked-resource-id="19661675" data-linked-resource-version="1" data-linked-resource-type="page">PxrPhasorNoise</a></li></ul><p><br /></p></div>
+</div>
+</div>
+<div class="columnLayout single" data-layout="single">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h3 id="PixarPatterns-Manifolds">Manifolds（流形）</h3><p>Manifolds（流形）会告诉渲染器如何在曲面上应用 patterns（图案节点）。这会控制 repetition（重复）、placement（放置）和 size（大小）等特性。</p><ul><li><a href="https://rmanwiki-26.pixar.com/space/REN26/19662133/PxrManifold2D" data-linked-resource-id="19662133" data-linked-resource-version="1" data-linked-resource-type="page">PxrManifold2D</a></li><li><a href="https://rmanwiki-26.pixar.com/space/REN26/19661589/PxrBumpManifold2D" data-linked-resource-id="19661589" data-linked-resource-version="1" data-linked-resource-type="page">PxrBumpManifold2D</a></li><li><a href="https://rmanwiki-26.pixar.com/space/REN26/19661647/PxrManifold3D" data-linked-resource-id="19661647" data-linked-resource-version="5" data-linked-resource-type="page">PxrManifold3D</a></li><li><a href="https://rmanwiki-26.pixar.com/space/REN26/19661689/PxrProjector" data-linked-resource-id="19661689" data-linked-resource-version="1" data-linked-resource-type="page">PxrProjector</a></li><li><a href="https://rmanwiki-26.pixar.com/space/REN26/19661687/PxrRandomTextureManifold" data-linked-resource-id="19661687" data-linked-resource-version="1" data-linked-resource-type="page">PxrRandomTextureManifold</a></li><li><a href="https://rmanwiki-26.pixar.com/space/REN26/19661693/PxrRoundCube" data-linked-resource-id="19661693" data-linked-resource-version="9" data-linked-resource-type="page">PxrRoundCube</a></li><li><a href="https://rmanwiki-26.pixar.com/space/REN26/19661717/PxrTileManifold" data-linked-resource-id="19661717" data-linked-resource-version="5" data-linked-resource-type="page">PxrTileManifold</a></li><li><a href="https://rmanwiki-26.pixar.com/space/REN26/19661631/PxrHexTileManifold" data-linked-resource-id="19661631" data-linked-resource-version="1" data-linked-resource-type="page">PxrHexTileManifold</a></li></ul><p><br /></p></div>
+</div>
+</div>
+<div class="columnLayout single" data-layout="single">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h3 id="PixarPatterns-Color">Color（颜色）</h3><p>在 shading network（着色网络）中创建或修改颜色。</p><ul><li><a href="https://rmanwiki-26.pixar.com/space/REN26/19661583/PxrBlackBody" data-linked-resource-id="19661583" data-linked-resource-version="1" data-linked-resource-type="page">PxrBlackBody</a></li><li><a href="https://rmanwiki-26.pixar.com/space/REN26/19661585/PxrBlend" data-linked-resource-id="19661585" data-linked-resource-version="1" data-linked-resource-type="page">PxrBlend</a></li><li><a href="https://rmanwiki-26.pixar.com/space/REN26/19661597/PxrClamp" data-linked-resource-id="19661597" data-linked-resource-version="1" data-linked-resource-type="page">PxrClamp</a></li><li><a href="https://rmanwiki-26.pixar.com/space/REN26/19661599/PxrColorCorrect" data-linked-resource-id="19661599" data-linked-resource-version="1" data-linked-resource-type="page">PxrColorCorrect</a></li><li><a href="https://rmanwiki-26.pixar.com/space/REN26/19661603/PxrColorSpace" data-linked-resource-id="19661603" data-linked-resource-version="1" data-linked-resource-type="page">PxrColorSpace</a></li><li><a href="https://rmanwiki-26.pixar.com/space/REN26/19661619/PxrExposure" data-linked-resource-id="19661619" data-linked-resource-version="1" data-linked-resource-type="page">PxrExposure</a></li><li><a href="https://rmanwiki-26.pixar.com/space/REN26/19661627/PxrGamma" data-linked-resource-id="19661627" data-linked-resource-version="1" data-linked-resource-type="page">PxrGamma</a></li><li><a href="https://rmanwiki-26.pixar.com/space/REN26/19661641/PxrHairColor" data-linked-resource-id="19661641" data-linked-resource-version="6" data-linked-resource-type="page">PxrHairColor</a></li><li><a href="https://rmanwiki-26.pixar.com/space/REN26/19661635/PxrHSL" data-linked-resource-id="19661635" data-linked-resource-version="1" data-linked-resource-type="page">PxrHSL</a></li><li><a href="https://rmanwiki-26.pixar.com/space/REN26/19661643/PxrInvert" data-linked-resource-id="19661643" data-linked-resource-version="1" data-linked-resource-type="page">PxrInvert</a></li><li><a href="https://rmanwiki-26.pixar.com/space/REN26/19661655/PxrLayeredBlend" data-linked-resource-id="19661655" data-linked-resource-version="1" data-linked-resource-type="page">PxrLayeredBlend</a></li><li><a href="https://rmanwiki-26.pixar.com/space/REN26/19661661/PxrMix" data-linked-resource-id="19661661" data-linked-resource-version="3" data-linked-resource-type="page">PxrMix</a></li><li><a href="https://rmanwiki-26.pixar.com/space/REN26/19661677/PxrProjectionStack" data-linked-resource-id="19661677" data-linked-resource-version="1" data-linked-resource-type="page">PxrProjectionStack</a></li><li><a href="https://rmanwiki-26.pixar.com/space/REN26/19661691/PxrRamp" data-linked-resource-id="19661691" data-linked-resource-version="3" data-linked-resource-type="page">PxrRamp</a></li><li><a href="https://rmanwiki-26.pixar.com/space/REN26/19661685/PxrRemap" data-linked-resource-id="19661685" data-linked-resource-version="2" data-linked-resource-type="page">PxrRemap</a></li><li><a href="https://rmanwiki-26.pixar.com/space/REN26/19661709/PxrThinFilm" data-linked-resource-id="19661709" data-linked-resource-version="1" data-linked-resource-type="page">PxrThinFilm</a></li><li><a href="https://rmanwiki-26.pixar.com/space/REN26/19661711/PxrThreshold" data-linked-resource-id="19661711" data-linked-resource-version="1" data-linked-resource-type="page">PxrThreshold</a></li><li><a href="https://rmanwiki-26.pixar.com/space/REN26/19661737/PxrVary" data-linked-resource-id="19661737" data-linked-resource-version="1" data-linked-resource-type="page">PxrVary</a></li></ul><p><br /></p></div>
+</div>
+</div>
+<div class="columnLayout single" data-layout="single">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h3 id="PixarPatterns-Bump">Bump（凹凸）</h3><p>创建低幅度 embossing effects（浮雕效果）。</p><ul><li><a href="https://rmanwiki-26.pixar.com/space/REN26/19661593/PxrBump" data-linked-resource-id="19661593" data-linked-resource-version="1" data-linked-resource-type="page">PxrBump</a></li><li><a href="https://rmanwiki-26.pixar.com/space/REN26/19661587/PxrBumpMixer" data-linked-resource-id="19661587" data-linked-resource-version="1" data-linked-resource-type="page">PxrBumpMixer</a></li><li><a href="https://rmanwiki-26.pixar.com/space/REN26/19661671/PxrNormalMap" data-linked-resource-id="19661671" data-linked-resource-version="1" data-linked-resource-type="page">PxrNormalMap</a></li><li><a href="https://rmanwiki-26.pixar.com/space/REN26/19661629/PxrFlakes" data-linked-resource-id="19661629" data-linked-resource-version="2" data-linked-resource-type="page">PxrFlakes</a></li><li><a href="https://rmanwiki-26.pixar.com/space/REN26/19661569/aaOceanPrmanShader" data-linked-resource-id="19661569" data-linked-resource-version="3" data-linked-resource-type="page">aaOceanPrmanShader</a></li></ul><p><br /></p></div>
+</div>
+</div>
+<div class="columnLayout single" data-layout="single">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h3 id="PixarPatterns-GeometryNodes">Geometry Nodes（几何节点）</h3><p>你可以使用这些节点计算 geometric properties（几何属性）和 vectors（向量）。</p><ul><li><a href="https://rmanwiki-26.pixar.com/space/REN26/19661607/PxrDirt" data-linked-resource-id="19661607" data-linked-resource-version="2" data-linked-resource-type="page">PxrDirt</a></li><li><a href="https://rmanwiki-26.pixar.com/space/REN26/19661613/PxrDispScalarLayer" data-linked-resource-id="19661613" data-linked-resource-version="1" data-linked-resource-type="page">PxrDispScalarLayer</a></li><li><a href="https://rmanwiki-26.pixar.com/space/REN26/19661615/PxrDispTransform" data-linked-resource-id="19661615" data-linked-resource-version="1" data-linked-resource-type="page">PxrDispTransform</a></li><li><a href="https://rmanwiki-26.pixar.com/space/REN26/19662123/PxrDispVectorLayer" data-linked-resource-id="19662123" data-linked-resource-version="1" data-linked-resource-type="page">PxrDispVectorLayer</a></li><li><a href="https://rmanwiki-26.pixar.com/space/REN26/19661617/PxrDot" data-linked-resource-id="19661617" data-linked-resource-version="1" data-linked-resource-type="page">PxrDot</a></li><li><a href="https://rmanwiki-26.pixar.com/space/REN26/19661605/PxrCross" data-linked-resource-id="19661605" data-linked-resource-version="1" data-linked-resource-type="page">PxrCross</a></li><li><a href="https://rmanwiki-26.pixar.com/space/REN26/19661623/PxrFacingRatio" data-linked-resource-id="19661623" data-linked-resource-version="1" data-linked-resource-type="page">PxrFacingRatio</a></li><li><a href="https://rmanwiki-26.pixar.com/space/REN26/19661705/PxrTangentField" data-linked-resource-id="19661705" data-linked-resource-version="1" data-linked-resource-type="page">PxrTangentField</a></li></ul><p><br /></p></div>
+</div>
+</div>
+<div class="columnLayout single" data-layout="single">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h3 id="PixarPatterns-Script">Script（脚本）</h3><ul><li><a href="https://rmanwiki-26.pixar.com/space/REN26/19661571/OSL+Patterns" data-linked-resource-id="19661571" data-linked-resource-version="5" data-linked-resource-type="page">OSL Patterns（OSL 图案节点）</a></li></ul><p><br /></p></div>
+</div>
+</div>
+<div class="columnLayout single" data-layout="single">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h3 id="PixarPatterns-Utility">Utility（实用工具）</h3><ul><li><a href="https://rmanwiki-26.pixar.com/space/REN26/19661579/PxrAttribute" data-linked-resource-id="19661579" data-linked-resource-version="1" data-linked-resource-type="page">PxrAttribute</a></li><li><a href="https://rmanwiki-26.pixar.com/space/REN26/19662119/PxrMatteID" data-linked-resource-id="19662119" data-linked-resource-version="1" data-linked-resource-type="page">PxrMatteID</a></li><li><a href="https://rmanwiki-26.pixar.com/space/REN26/19661665/PxrPrimvar" data-linked-resource-id="19661665" data-linked-resource-version="1" data-linked-resource-type="page">PxrPrimvar</a></li><li><a href="https://rmanwiki-26.pixar.com/space/REN26/19661719/PxrVariable" data-linked-resource-id="19661719" data-linked-resource-version="1" data-linked-resource-type="page">PxrVariable</a></li><li><a href="https://rmanwiki-26.pixar.com/space/REN26/19661713/PxrToFloat" data-linked-resource-id="19661713" data-linked-resource-version="1" data-linked-resource-type="page">PxrToFloat</a></li><li><a href="https://rmanwiki-26.pixar.com/space/REN26/19661715/PxrToFloat3" data-linked-resource-id="19661715" data-linked-resource-version="1" data-linked-resource-type="page">PxrToFloat3</a></li><li><a href="https://rmanwiki-26.pixar.com/space/REN26/19662137/PxrTee" data-linked-resource-id="19662137" data-linked-resource-version="4" data-linked-resource-type="page">PxrTee</a></li><li><a href="https://rmanwiki-26.pixar.com/space/REN26/19661695/PxrShadedSide" data-linked-resource-id="19661695" data-linked-resource-version="1" data-linked-resource-type="page">PxrShadedSide</a></li></ul><p><br /></p></div>
+</div>
+</div>
+<div class="columnLayout single" data-layout="single">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h3 id="PixarPatterns-Baking"><span>Baking（烘焙）</span></h3><p>这些 passthrough patterns（直通图案节点）旨在让用户能够 bake（烘焙）任意 pattern networks（图案网络）。</p><ul><li><a href="https://rmanwiki-26.pixar.com/space/REN26/19661581/PxrBakeTexture" data-linked-resource-id="19661581" data-linked-resource-version="4" data-linked-resource-type="page">PxrBakeTexture</a></li><li><a href="https://rmanwiki-26.pixar.com/space/REN26/19662125/PxrBakePointCloud" data-linked-resource-id="19662125" data-linked-resource-version="1" data-linked-resource-type="page">PxrBakePointCloud</a></li></ul><p><br /></p></div>
+</div>
+</div>
+<div class="columnLayout single" data-layout="single">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h3 id="PixarPatterns-GuidanceforWritingYourOwnPatterns">Guidance for Writing Your Own Patterns（编写自定义图案节点的指南）</h3><p>你不必局限于 RenderMan 提供的 patterns（图案节点）。如果遵循 <a href="https://rmanwiki-26.pixar.com/space/REN26/19661571/OSL+Patterns" data-linked-resource-id="19661571" data-linked-resource-version="5" data-linked-resource-type="page">OSL Patterns（OSL 图案节点）</a> 中的指南，就可以构建自己的 patterns。XPU 只运行 OSL patterns，而 RIS 同时运行 C++ 和 OSL patterns。 </p><p><br /></p></div>
+</div>
+</div>
+</div></p>
+  </article>
+</main>
+</body>
+</html>

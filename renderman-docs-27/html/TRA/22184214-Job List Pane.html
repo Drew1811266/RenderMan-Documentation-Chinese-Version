@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Job List Pane</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Job List Pane</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/TRA/22184214/Job+List+Pane">https://rmanwiki-27.pixar.com/space/TRA/22184214/Job+List+Pane</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="figure align-left"><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/22184214/joblist_pane.png" data-image-src="../../attachments/22184214/joblist_pane.png" data-unresolved-comment-count="0" data-linked-resource-id="22195897" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="joblist_pane.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="22184214" data-linked-resource-container-version="6" data-media-id="c61ca46b-9a82-485b-abe6-9454daf98be8" data-media-type="file"></span></div><p>The Job List pane provides the primary interaction for the user to the Tractor jobs. It allows you to visualize which jobs are runing on the farm, sort and repriorize their queue order. You may also select jobs and remove them from the active job queue. Jobs are moved into an archive directory that can be accessed by other software.<br/> </p><div class="section"><h3 id="JobListPane-Selections">Selections</h3><p>The Job List pane will respond to several click and keystroke commands:</p><ul><li><p class="first">Select</p><p>Simply click on a job and it will be selected. The task graph for the selected job will displayed on the right hand side in the Task Graph pane.</p></li><li><p class="first">Multi-select</p><p>Clicking with the <strong>Option</strong> key on Mac or <strong>Control</strong> key on Windows will add the current job to the selection list. If that job is already in the list, it will be removed.</p><p>Clicking with the <strong>Shift</strong> key will select all jobs between the current selection and the last selection.</p><p>The keyboard short cut using Control key with the <strong>A</strong> key will do a <em>Select All</em> operation. Note, depending upon the browser used, you may need to use a keyboard key that is not necessarily normal for the OS. For example, because the Macintosh browsers use <em>Apple-A</em>, you will need to use <em>Control-A</em> or <em>Option-A</em> instead.<br/> </p></li><li><p class="first">Context-sensitive Menu</p><p>Right-clicking will bring up a context sensitive menu that allow you to operate on the selected jobs. A subset of the possible menu items may be displayed, depending on the actions that are appropriate for the selected jobs. Not all menu items will be available in all cases.</p><div class="figure"><br/><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/22184214/joblist_contextmenu.png" data-image-src="../../attachments/22184214/joblist_contextmenu.png" data-unresolved-comment-count="0" data-linked-resource-id="22195898" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="joblist_contextmenu.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="22184214" data-linked-resource-container-version="6" data-media-id="deb2dd73-b75b-43d8-aa8a-9eed43ba07a9" data-media-type="file"></span></div><p class="first"> </p></li><li><p class="first">Skip All Error Tasks</p><p>Tasks that are stopped due to errors (non-zero command exits) will be ignored (forced to be marked as &quot;Done&quot;) so that other tasks that were waiting on them can proceed. Usually errors are important to understand and address of course, but sometimes during testing it is valuable to continue past a known issue.<br/> </p></li><li><p class="first">Retry All Error Tasks</p><p>If a job has stopped due to errors, this command will tell the engine to retry the error tasks, and any other tasks that were blocked due to errors.<br/> </p></li><li><p class="first">Retry Running Tasks</p><p>Currently running tasks in the selected jobs will be cancelled and requeued.<br/> </p></li><li><p class="first">Pause New Task Launches</p><p>Tells the engine to pause the selected jobs. The active tasks will continue to run until complete, but no <em>new</em> tasks will be started.<br/> </p></li><li><p class="first">Unpause &amp; Resume Task Launches</p><p>Tells the engine to unpause the selected jobs. Any previously paused jobs again become candidates for dispatching as blades become available.<br/> </p></li><li><p class="first">Restart Job</p><p>Tells the engine to rerun the job again, as if it had been freshly submitted to the job queue. Any running tasks will be canceled before the restart occurs. Any manual edits to job attributes will be reset to the as-spooled values.<br/> </p></li><li><p class="first">Interrupt Job</p><p>Tells the engine to pause the job and kill all of its active tasks.<br/> </p></li><li><p class="first">Pin &amp; Unpin Job</p><p>Tells the engine that the Dashboard user wishes to pin or unpin the selected jobs. When a job is pinned, it will appear at the top of the job list, regardless of the sort column chosen. The selected sort column is effectively the secondary sort criteria, with the pin/unpin status of jobs being the primary. Pinning of jobs does not affect the display of jobs in other users' Dashboards.<br/> </p></li><li><p class="first">Lock &amp; Unlock Job</p><p>Tells the engine to lock or unlock the selected Jobs. When a job is locked, only the user who locked the job is able to edit attributes of the job or perform operations on it. A wranagler may lock a job to prevent the job owner from deleting the job while a job is being debugged. Administrators may wish to lock critical jobs to ensure that they are not accidentally deleted.<br/> </p></li><li><p class="first">Archive Job</p><p>Tells the engine to remove selected jobs from the queue. Historical job information such as task execution history, command statistics, and job notes, will be accessible through the dashboard when the archived button is activated at the top of the job list.<br/> </p></li><li><p class="first">Delete Job</p><p>Tells the engine to remove selected jobs from the queue. Historical job information will be lost.<br/> </p></li><li><p class="first">Shuffle Job To Top</p><p>Tells the engine to rotate the &quot;place in line&quot; of the selected job with jobs of the same priority and same owner that were submitted earlier, causing the selected job to run sooner than it would in the default submission order. This rotation does not affect the ordering of other jobs on the queue that are of a different priority or owned by a different user.<br/> </p></li><li><p class="first">Trace Job</p><p>Requests a report from the engine describing how the job has been considered for scheduling. The results are displayed in a dedicated pane that appears over the job list pane. The tracer output pane can be closed by clicking on the 'x' icon in the top right corner or by pressing 'Esc'.<br/> </p></li></ul></div><div class="section"><h3 id="JobListPane-KeyboardShortcuts">Keyboard Shortcuts</h3><p>There are several keyboard shortcuts for managing the selected jobs:</p><ul><li><p class="first">Delete or Backspace</p><p>Kills all active tasks of the selected jobs and remove those jobs from the queue. Deleted jobs cannot be viewed in the Dashboard in the job list, however, they can be seen in the Query Page by selecting <em>include archives in search</em> in the search menu.</p><p> </p></li><li><p>R</p><p>Retries all errored tasks of the selected jobs.<br/><br/></p></li><li><p class="first">Ctrl/Command-A</p><p>Selects all jobs.<br/> </p></li><li><p class="first">Return/Enter</p><p>Invokes 'yes' in dialogs.<br/> </p></li><li><p class="first">Esc</p><p>Invokes 'no' in dialogs. Closes the task log pane and tracer pane.<br/> </p></li><li><p class="first">F5</p><p>Refreshes the job list.<br/> </p></li><li><p class="first">L</p><p>Toggles the log view of the selected task.<br/> </p></li><li><p class="first">A, B, D, E</p><p>Selects the next active, blocked, done, or errored task in the job graph.<br/> </p></li><li><p class="first">Shift + A, B, D, E</p><p>Selects the previous active, blocked, done, or errored task in the job graph.<br/> </p></li><li><p class="first">P</p><p>Selects the parent task of the currently selected task in the job graph.<br/> </p></li><li><p class="first">C</p><p>Selects the first child task of currently selected task in the job graph.<br/> </p></li><li><p class="first">S</p><p>Selects the next sibling task of currently selected task in the job graph.<br/> </p></li><li><p class="first">Shift + S</p><p>Selects the previous sibling task of currently selected task in the job graph.<br/> </p></li><li><p class="first">X</p><p>Toggles the collapsing and expansion of the selected nodes in the job graph.<br/> </p></li></ul></div><div class="section"><h3 id="JobListPane-ArchivedJobs">Archived Jobs</h3><div class="figure align-left"><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/22184214/archive_toggle.png" data-image-src="../../attachments/22184214/archive_toggle.png" data-unresolved-comment-count="0" data-linked-resource-id="22195907" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="archive_toggle.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="22184214" data-linked-resource-container-version="6" data-media-id="9b1d35ca-9534-4afe-817b-edd60b2fb05b" data-media-type="file"></span></div><p>If the system has been configured to archive jobs, the job context menu will show <em>Archive Job</em> instead of <em>Delete Job</em>. To view archive jobs, press the current/archived button at the top of the job list so that archived is highlighted. The only operation that can be performed on an archived job is restore, which unarchives the job, moving it back to the current set of jobs.</p><p>Archiving or deleting jobs can help the system perform optimially, particularly for sites with hundreds of thousands of jobs.</p><p>When a job is archived, the historical job information such as task execution history, command statistics, and job notes are available for inspection.<br/> </p></div><div class="section"><h3 id="JobListPane-OtherUIHints">Other UI Hints</h3><ul><li><p class="first">Progress Bar</p><p>The first column of the display contains a mini progress bar that indicates how far along the job is. The progress bar will display active jobs in green, and error jobs in red. Tasks waiting to execute are displayed in gray.<br/> </p></li><li><p class="first">Selected Jobs</p><p>When jobs are selected, the background color for that job will change to indicate that it has been selected.<br/> </p></li><li><p class="first">Reload Timer</p><p>The preferences panel contains an entry that defines the automatic reload interval, which by default is set to 600 seconds (10 minutes). An automatic refresh of the job data will occur at regular intervals defined by the value in the pull-down selector. The automatic refresh is advantageous when viewing the job list using a filter. Filters are applied by the engine, and the automatic reload keeps the job list synchronized more effectively.</p><p>At large sites the amount of data returned from this query can be quite large, so a reload interval should be selected with care to avoid network bottlenecks.</p></li></ul></div>
+  </article>
+</main>
+</body>
+</html>

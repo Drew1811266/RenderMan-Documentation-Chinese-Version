@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Advanced Blade Capability Advertisement</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Advanced Blade Capability Advertisement</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/TRA/22184324/Advanced+Blade+Capability+Advertisement">https://rmanwiki-27.pixar.com/space/TRA/22184324/Advanced+Blade+Capability+Advertisement</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<h3 id="AdvancedBladeCapabilityAdvertisement-ServiceKeyIntroduction">Service Key Introduction</h3><p>Tractor matches job requirements to blade capabilities using a simple abstract keyword matching system called <strong>service keys.</strong></p><p>In a job, requirements are specified with the RemoteCmd -service &quot;keys&quot; statement, where <em>&quot;keys&quot;</em> can be a simple keyword, or a more complex <a href="https://renderman.atlassian.net/wiki/display/TRA/Job+Scripting#JobScripting-servicekeys" rel="nofollow">expression.</a></p><p>In blade profiles, capabilities are enumerated in the <em>Provides &lt;tractor_profiles.html#provides-svckeys&gt;</em> list. The names in the list represent attributes of those blades: they are running a particular OS, or have some software package installed, or have fast network connections, etc. The key names are arbitrary and only have a site-defined meaning in as much as they match the -service names placed into jobs that require those blade attributes.</p><p>So a <strong>blade profile</strong> (in blade.config) might contain this entry:</p><p><code>&quot;Provides&quot;: [&quot;PixarRender&quot;, &quot;RfMRender&quot;, &quot;Linux&quot;]
+</code></p><p>and a <strong>job</strong> might have commands like:</p><p><code>RemoteCmd {prman test.rib} -service &quot;RfMRender&quot;
+RemoteCmd {prman test.rib} -service &quot;PixarRender &amp;&amp; Linux&quot;</code><br/><sup>
+</sup></p><h3 id="AdvancedBladeCapabilityAdvertisement-AdvancedCapabilityAnnotations">Advanced Capability Annotations</h3><p>Several advanced blade profile <em>&quot;Provides&quot;</em> modes have been added to support some unusual usage cases. Note that these annotations go in <em>blade.config</em> <strong>not</strong> in job scripts!</p><h4 id="AdvancedBladeCapabilityAdvertisement-CountedServiceKeys">Counted Service Keys</h4><p>The <strong>(max:NN)</strong> suffix.</p><p>It can sometimes be useful to treat the &quot;Provides&quot; list as a set of counted resources on each blade host. Tractor keys can be annotated to indicate that their usage should be tracked by the blade and that the blade should only advertise service availability for those keys that still have unused capacity.</p><p>Note that this &quot;counted key&quot; feature is subtle and typically only useful in some unusual cases. It overlaps with both regular <strong>limits</strong>processing and also the generic blade <strong>slot count</strong> concept. The counting aspect is only meaningful when a single blade host is allowed to run more than one command concurrently; that is: when the blade's <em>slot count</em> is greater than one.</p><p>The idea is to &quot;allocate&quot; a fixed maximum concurrency count to each service key type on a blade. Sometimes this need arises when commands using a particular key are known to have a large resource usage &quot;footprint&quot; while programs using other keys are lightweight. For example, a studio may have typical prman jobs that are resource-intensive, but also have simple nuke jobs that are lightweight.</p><p><code>&quot;Provides&quot;: [&quot;PixarRender(max:2)&quot;, &quot;NukeRender(max:4)&quot;, &quot;Linux&quot;],
+&quot;Slots&quot;: 4,
+...</code><sup>
+</sup></p><p>In this example, blades using this profile begin by accepting work from any job requiring the PixarRender or NukeRender service. They have four total concurrency slots. At any given time there can be no more than two PixerRender processes and four NukeRender processes. As a result the blade may be 1 prman and 3 nukes, or two prman and 2 nukes, or 4 nukes.</p><p>So this feature allows blades to dynamically advertise a different set of service key capabilities depending on which keys have already been &quot;consumed&quot; by previously launched commands.</p><p><strong>NOTE:</strong> these counted service keys are tracking <em>blade capabilities</em> which are conceptually independent of global Limit counts and resource sharing allocations at the <em>project or licensing</em> level. These counted keys determine whether a given <strong>blade has remaining capacity</strong> for work, whereas Limits are applied when determining which jobs, if any, can be assigned to those available blades.</p><h4 id="AdvancedBladeCapabilityAdvertisement-ContingentServiceAdvertisement">Contingent Service Advertisement</h4><p>The <strong>(after:KEY)</strong> suffix.</p><p>This blade profile &quot;Provides&quot; key annotation is related to the Counted Service Keys concept described above. In this variation, the slots on a blade are directed to be assigned to only one kind of job before allowing other &quot;filler&quot; types to use up possible remaining capacity. An example might be that a group of many-core machines should each be reserved for two 8-thread prman invocations, with remaining capacity to be filled by nuke jobs. The goal is to always leave a large prman opening available when idle, rather than allowing lightweight jobs to nibble away at the available slots never leaving a large enough vacancy for the prman task to get scheduled.</p><p><code>&quot;Provides&quot;: [&quot;PixarRender(max:2)&quot;, &quot;NukeRender(after:PixarRender)&quot;],
+&quot;Slots&quot;: 6,
+...</code><sup>
+</sup></p><p>In this example the NukeRender service capability will not even be advertised until two PixarRender processes are running. The &quot;after&quot; annotation indicates that the given key is only available after the named key has reached its maximum count. If one of the running prman processes exits, then PixarRender will fall below its max 2 and no new nuke process will be assigned until another prman lands. A typical assumption in these cases is that the &quot;after&quot; key is associated with lightweight, fast-running programs.</p><p>Again, this feature is used to control whether a blade capability is considered available at all based on currently running commands. It is independent of Limits but can affect the total count of running programs of a particular type.<br/> </p><h4 id="AdvancedBladeCapabilityAdvertisement-RequiredKeys:EnforcingMandatoryJobServiceTypes">Required Keys: Enforcing Mandatory Job Service Types</h4><p>The <strong>(R)</strong> suffix.</p><p>Adding the optional &quot;keyname(R)&quot; suffix to names in profile &quot;Provides&quot; list changes the usual blade assignment logic in a subtle way. The key becomes <em>mandatory,</em> jobs are <em>required</em> to ask for that key amongst others to match the blade.</p><p>The usual handling of names in a blde &quot;Provides&quot; list is that a match to <em>ANY</em> key in the list is sufficient to allow the matching command to run on that blade. The &quot;(R)&quot; suffix specifies instead that commands are <strong>REQUIRED</strong> to request at least the given key in order to use that blade.</p><p>Here is an example Provides list using the annotation:</p><p><code>&quot;Provides&quot;: [&quot;PixarRender&quot;, &quot;RfMRender&quot;, &quot;DebugEnv(R)&quot;]
+</code></p><p>Given blades using that profile, then RemoteCmds using &quot;-service PixarRender&quot; alone would <em>no longer</em> run on those blades, but &quot;-service PixarRender,DebugEnv&quot; <em>would</em> run there. The difference is that the given blades will not accept commands from other regular jobs that only request &quot;PixarRender&quot;. The &quot;DebugEnv(R)&quot; item in the Provides list causes that key to become mandatory.</p><p>This subtle restriction can be used to allow wranglers to &quot;steer&quot; jobs to a particular set of blades that may be &quot;reserved&quot; for special circumstances. If a job is misbehaving on the regular farm machines, a wrangler might add &quot;DebugEnv&quot; (in this example) to that job's job-level service keys (e.g. in the Dashboard's type-in field). Restarted tasks from that job would then go to machines advertising the &quot;DebugEnv&quot; capability.</p><p>The &quot;(R)&quot; here prevents regular jobs from also landing on the debug machines. Even though some regular jobs will match <em>some</em> of the blade keys they do not request the key <em>required</em> by that blade.</p><p>Note that merely adding the additional key to the <em>job</em> does <strong>not</strong> change the usual assignment logic: the new key becomes necessary for a match as usual, so the job only they matches blades that provide that key, as usual. However, the addition of &quot;DebugEnv(R)&quot; to the blade <em>profile</em> means that those blades will no longer match jobs requesting only <em>other</em> keys in the Provides list -- instead those blades will <em>only</em>match jobs whose service request includes &quot;DebugEnv&quot; at a minimum.</p>
+  </article>
+</main>
+</body>
+</html>

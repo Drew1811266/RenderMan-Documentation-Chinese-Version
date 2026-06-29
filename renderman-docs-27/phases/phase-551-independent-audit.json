@@ -1,0 +1,190 @@
+{
+  "phase": 551,
+  "file": "RU/392265765-Procedural Ground Dirt.html",
+  "file_id": "515f81087c",
+  "source_items": 40,
+  "translation_rows": 40,
+  "source_items_match_translation_rows": true,
+  "duplicate_rows": [],
+  "missing_item_ids": [],
+  "extra_item_ids": [],
+  "tag_fingerprint_identical": true,
+  "rendered_markup_matches_target_markup": true,
+  "glossary_violations": [],
+  "direct_placement_missing": [],
+  "actionable_long_source_residuals": [],
+  "accepted_long_source_residuals": [
+    {
+      "item_id": "515f81087c:27",
+      "source": "GroundDirt_MoveAxis.mp4"
+    }
+  ],
+  "actionable_ascii_heavy_residuals": [],
+  "accepted_ascii_heavy_residuals": [
+    {
+      "item_id": "515f81087c:2",
+      "text": "当然，你可以使用 Mari 或 Substance Painter 绘制 dirt ground mask，但在这个例子中，我们想看看如何使用 RenderMan 的 shading toolkit，以 procedural（程序化）方式实现同样的效果。",
+      "ascii_letters": 67,
+      "cjk_chars": 40
+    },
+    {
+      "item_id": "515f81087c:7",
+      "text": "然后将它作为 mask，用于叠加 dirt diffuse layer。",
+      "ascii_letters": 20,
+      "cjk_chars": 10
+    },
+    {
+      "item_id": "515f81087c:11",
+      "text": "如果把 PxrRamp 连接到 PxrConstant 的 EmitColor，就会得到这样的结果。",
+      "ascii_letters": 27,
+      "cjk_chars": 16
+    },
+    {
+      "item_id": "515f81087c:13",
+      "text": "下一步是创建一个 PxrManifold3D node，并将它连接到刚才创建的 PxrRamp node 的 manifold input。",
+      "ascii_letters": 40,
+      "cjk_chars": 20
+    },
+    {
+      "item_id": "515f81087c:14",
+      "text": "接下来，在 PxrRamp node 中，将 Ramp Type 改为 T Ramp。",
+      "ascii_letters": 24,
+      "cjk_chars": 8
+    },
+    {
+      "item_id": "515f81087c:16",
+      "text": "创建 Empty-> Plain Axis",
+      "ascii_letters": 14,
+      "cjk_chars": 2
+    },
+    {
+      "item_id": "515f81087c:17",
+      "text": "给 Plain Axis node 起一个有意义的名字，例如 GroundDirt",
+      "ascii_letters": 23,
+      "cjk_chars": 12
+    },
+    {
+      "item_id": "515f81087c:18",
+      "text": "在 RenderMan Geometry 下，开启 Export as CoordSys",
+      "ascii_letters": 33,
+      "cjk_chars": 4
+    },
+    {
+      "item_id": "515f81087c:20",
+      "text": "3D Placement",
+      "ascii_letters": 10,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "515f81087c:21",
+      "text": "node 来创建 coordinate system（坐标系）",
+      "ascii_letters": 20,
+      "cjk_chars": 6
+    },
+    {
+      "item_id": "515f81087c:22",
+      "text": "完成后，我们需要告诉 PxrManifold3D node：我们希望使用这个 Axis controller 作为 coordinate system。",
+      "ascii_letters": 46,
+      "cjk_chars": 19
+    },
+    {
+      "item_id": "515f81087c:23",
+      "text": "在 PxrManifold3D node 的 Coordinate System 下，输入你新建的 Axis Node 名称。在本例中，它叫 GroundDirt",
+      "ascii_letters": 50,
+      "cjk_chars": 17
+    },
+    {
+      "item_id": "515f81087c:26",
+      "text": "还可以通过上下移动 GroundDirt Axis 来进一步精调 placement。",
+      "ascii_letters": 23,
+      "cjk_chars": 15
+    },
+    {
+      "item_id": "515f81087c:27",
+      "text": "GroundDirt_MoveAxis.mp4",
+      "ascii_letters": 20,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "515f81087c:29",
+      "text": "可以用很多不同方式使用这个 texture map 来 breakup 我们的 ramp，其中一种方法是使用 PxrBlend node，将上方的 dirt spots texture 与 ground dirt ramp 进行 Blend。",
+      "ascii_letters": 68,
+      "cjk_chars": 33
+    },
+    {
+      "item_id": "515f81087c:30",
+      "text": "由于我们希望尽可能保持 procedural，因此会使用 PxrRoundCube & PxrMultiTexture setup，把 dirt spot texture 以 tri-planar 方式投射到 prop 上。这个方法允许我们把 dirt spots 随机 offset、rotate 和 tile 到其他 instances 上。",
+      "ascii_letters": 104,
+      "cjk_chars": 40
+    },
+    {
+      "item_id": "515f81087c:31",
+      "text": "使用 PxrBlend node 后，我们用 Multiply ink mode，把 tri-planar dirt spot texture 叠在 ground dirt ramp 上进行 Blend。你也可以尝试不同的 ink modes，以获得不同结果。",
+      "ascii_letters": 78,
+      "cjk_chars": 28
+    },
+    {
+      "item_id": "515f81087c:34",
+      "text": "现在，我们可以把这个 mask 用作 procedural Lama 或 PxrSurfaceLayer shading setup 的 layer mix。",
+      "ascii_letters": 53,
+      "cjk_chars": 13
+    },
+    {
+      "item_id": "515f81087c:36",
+      "text": "Further Practice（进一步练习）",
+      "ascii_letters": 15,
+      "cjk_chars": 5
+    },
+    {
+      "item_id": "515f81087c:37",
+      "text": "尝试使用其他 textures 或 PxrFractal node，进一步打散 ground dirt gradient",
+      "ascii_letters": 40,
+      "cjk_chars": 12
+    },
+    {
+      "item_id": "515f81087c:38",
+      "text": "使用 PxrDirt node 向 mask 中添加 crevice dirt（如上面的 setup 所示）",
+      "ascii_letters": 31,
+      "cjk_chars": 12
+    },
+    {
+      "item_id": "515f81087c:39",
+      "text": "使用 PxrDirt node，从那些不一定总会受到 ground dirt 影响的 objects 内部移除 crevice dirt。",
+      "ascii_letters": 39,
+      "cjk_chars": 19
+    }
+  ],
+  "required_phrase_missing": [],
+  "section_order_positions": [
+    {
+      "pattern": "Goal（目标）",
+      "position": 3579
+    },
+    {
+      "pattern": "Steps（步骤）",
+      "position": 4022
+    },
+    {
+      "pattern": "PxrManifold3D",
+      "position": 4178
+    },
+    {
+      "pattern": "GroundDirt_MoveAxis.mp4",
+      "position": 10265
+    },
+    {
+      "pattern": "PxrBlend node",
+      "position": 11460
+    },
+    {
+      "pattern": "Multiply ink mode",
+      "position": 12652
+    },
+    {
+      "pattern": "Further Practice（进一步练习）",
+      "position": 16068
+    }
+  ],
+  "section_order_ok": true,
+  "passed": true
+}

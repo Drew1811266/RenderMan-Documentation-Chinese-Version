@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Blade Environment Configuration: Keys and Handlers</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Blade Environment Configuration: Keys and Handlers</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/TRA/22184290/Blade+Environment+Configuration%3A+Keys+and+Handlers">https://rmanwiki-27.pixar.com/space/TRA/22184290/Blade+Environment+Configuration%3A+Keys+and+Handlers</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<h3 id="BladeEnvironmentConfiguration:KeysandHandlers-Overview">概述（Overview）</h3><p>当 tractor-blade 启动一个新 command（例如一次 render）时，它会为该 subprocess 设置一组唯一的 environment variables。定义这些 environment variables 及其值有几种机制。</p><p>默认做法是直接允许每个 command 克隆 tractor-blade 启动时继承进来的 environment。不过，这通常是专门化的 "daemon" environment，因此并不太有用。</p><p>custom environment configuration 最简单的做法，是在 blade.config 文件里的 environment dictionary 中添加 name-value pairs（见下文）。这通常已经完全足够，而且非常直接。有一个 "default" dictionary，也可以有若干独立 dictionary，对应 job 中 commands 传入的 EnvKey 值。以这种方式指定的 environment variables 会作为新增项和 overrides 应用到传入的 inherited environment 上。</p><p>Tractor <em>envhandlers</em> 是 Python objects，可对 tractor-blade 启动的每个 command 应用动态的、site-specific 的设置。它们最常用于根据传入的 EnvKey 或 job owner 配置一组特定 environment variables。这些 handlers 也可以重写实际要调用的 command，这有助于处理某些使用非标准 application installation location 的机器，或其他特殊情况。</p><h3 id="BladeEnvironmentConfiguration:KeysandHandlers-EnvironmentVariableDictionaries"><br/>Environment Variable Dictionaries（环境变量字典）</h3><p>可以把对 inherited external environment 的 additions 和 overrides 添加到一个或多个 Python dictionaries 中，blade 会加载这些 dictionaries。它们可以加入 "default" EnvKey definition，以影响所有 commands；也可以加入某个特定 EnvKey value 的 settings。同样，definitions 可以加入 ProfileDefaults，也可以专门加入单个 profile。</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="6ced08db-32f4-450b-bd1f-58bff2caa98a" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">{
+    &quot;ProfileDefaults&quot;:
+    {   &quot;ProfileName&quot;: &quot;default&quot;,
+        ...
+        &quot;EnvKeys&quot;: [
+            {
+                &quot;keys&quot;: [&quot;default&quot;],
+                &quot;environment&quot;: {
+                    &quot;SOME_VAR&quot;: &quot;xyzzy&quot;,
+                    &quot;CURRENT_SHOW&quot;: &quot;(not_set)&quot;
+                },
+                &quot;envhandler&quot;: &quot;default&quot;
+            },
+        ]
+    },
+
+    &quot;BladeProfiles&quot;:
+    [...]
+}</pre>
+</div></div><p>这些 environment dictionaries 要么定义在 blade.config 文件中，要么包含在一个外部文件里，并通过 blade.config 文件中的 <a class="external-link" href="https://renderman.pixar.com/resources/current/tractor/tractor_configuration.html#mergestring" rel="nofollow">@merge directive</a> 引用。默认安装包含三个外部文件，它们提供默认 environment dictionary setup。这些文件是 shared.linux.envkeys、shared.macosx.envkeys 和 shared.windows.envkeys。</p><p><br/>Environment Handlers（环境处理器）<br/><br/></p><h4 id="BladeEnvironmentConfiguration:KeysandHandlers-DefaultEnvironmentHandlers">Default Environment Handlers（默认环境处理器）</h4><p>Tractor 自带一组默认 environment handlers。当传入的 envkey 与 environment key dictionary 中的 <strong>keys</strong> definition 匹配时，就会调用这些 handlers。tractor script 中的 envkey parameter 实际上可以是由多个 envkey entries 组成的 list。在这种情况下，每个 handler 会按顺序被调用，以修改 launch environment。</p><p>每个默认 handler 都有特定用途。</p><ul><li><p><sup>SiteModulesPath</sup></p><p><strong>default</strong> - default handler 会在每个 command 上运行。它最先运行，environment key dictionary 应该设置好预期的 default environment，而不是依赖已启动 blade 的 environment。</p><p>按提供的默认行为，default handler 只是把 spooling host 设置进 launch environment，变量名为 <strong>REMOTEHOST</strong>。Default environment variables 和 paths 应在这里设置。</p></li><li><p><strong>rmshandler</strong> - rmshandler 会响应格式为 rms-*-maya-* 的传入 key。* 表示会应用 globbing。此 handler 会匹配如下传入 keys：rms-3.0.0-maya-2011。</p><p>此 handler 会提取 RMS version 和 MAYA version，并设置多个 environment variables，包括 <strong>RMSTREE</strong>, <strong>MAYA_LOCATION</strong>, <strong>MAYA_MODULE_PATH</strong>。它还会把 <strong>RMSTREE/bin</strong> 和 <strong>MAYA_LOCATION/bin</strong> 加入 path。这些 locations 通过了解这些 products 在特定 platform 上的 default install locations 来确定。handler 会在设置这些 variables 之前尝试验证 RMS 和 Maya 是否已安装。</p></li><li><p><strong>mayahandler</strong> - mayahandler 会响应格式为 maya* 的传入 key。* 表示会应用 globbing。此 handler 会匹配如下传入 keys：maya2011。</p><p>mayahandler 提供与 rmshandler 类似的功能，但面向未安装 RMS、却执行 Maya batch rendering 的 Maya users。此 handler 会提取 MAYA version，并设置多个 environment variables，包括 <strong>MAYA_LOCATION</strong>, <strong>MAYA_MODULE_PATH</strong>。它还会把 <strong>MAYA_LOCATION/bin</strong> 加入 path。Maya location 通过了解 Maya 在特定 platform 上的 default install location 来确定。handler 会在设置这些 variables 之前尝试验证 Maya 是否已安装。</p></li><li><p><strong>rmanhandler</strong> - rmanhandler 会响应格式为 prman-* 的传入 key。此 key 用于定义要使用的 prman version，并且经常与上面的 rmshandler key 一起使用。</p><p>此 handler 会匹配类似 prman-15.2 的传入 key。匹配后，handler 会设置 environment variable <strong>RMANTREE</strong>，并把 <strong>RMANTREE/bin</strong> 加入 path。RMANTREE 的 location 通过了解特定 platform 上的 default install location 来确定。handler 实际上会在设置该 prman version 的 <strong>RMANTREE</strong> environment variable 之前，尝试判断该 prman version 是否已安装。</p></li><li><p><strong>rmantreehandler</strong> - rmantreehandler 是一个特殊 handler，customers 通常不会使用。此 handler 响应格式为 rmantree=* 的 key。它的工作方式类似上面的 rmanhandler，但该 key 会提供指向非标准 RMANTREE installation 的完整 path。例如，传入 key 可能类似：rmantree=/opt/software/pixar/RenderManProServer-15.2。key 中定义的完整 path 会被设置为 <strong>RMANTREE</strong> 变量，并且 <strong>RMANTREE/bin</strong> 会加入 path。</p></li><li><p><strong>rmstreehandler</strong> - rmstreehandler 与上面的 rmantreehandler 类似，但它设计用于指向非标准 RMSTREE location。handler 响应格式为 rmstree=* 的传入 key。典型用法可能是 rmstree=/opt/software/pixar/RenderManStudio-3.0.0-Maya-2011。此 handler 会设置 <strong>RMSTREE</strong> 环境变量，并把 <strong>RMSTREE/bin</strong> 加入 path。</p></li></ul><p>默认 handler source code 可用，位于 blade installation 的 blade-modules directory 中的 TrEnvHandlers.py 文件。</p><h4 id="BladeEnvironmentConfiguration:KeysandHandlers-AddingACustomEnvironmentHandler"><br/>添加 Custom Environment Handler（自定义环境处理器）</h4><ul><li><p><strong>为你的 handler 选择一个名称</strong> - 它应该能大致描述所处理 EnvKeys 的类型。在下面的 examples 中，假设有一个名为 "ProjectX" 的 inbound EnvKey，因此我们把 handler 称为 "projxhandler"。</p></li><li><p><strong>选择一个用于保存 Python modules 的目录</strong> - 这通常是 central fileserver 上的某个 location，所有 blade hosts 都可以访问。此 location 将由 <strong>SiteModulesPath</strong>指定。</p></li><li><p><strong>把选定目录添加到</strong> blade.config 中的 SiteModulesPath - 如果所有 hosts 都使用相同 path 挂载 shared location，就可以把它放在 ProfileDefaults section；否则按需给每个 profile 添加 customized variants（如下所示）。</p></li><li><p><strong>还要添加一个</strong> EnvKeys <strong>entry，用于你的新 key</strong> - 同时在 dictionary 中保留名为 "default" 的 key。然后把你的 module name 添加为 envhandler value。</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="85dc08b8-0167-4967-99a1-55438127d134" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">{
+    &quot;ProfileDefaults&quot;:
+    {   &quot;ProfileName&quot;: &quot;default&quot;,
+        ...
+        &quot;SiteModulesPath&quot;: &quot;/net/yourserver/tractor_extensions&quot;,
+        &quot;EnvKeys&quot;: [
+            {
+                &quot;keys&quot;: [&quot;default&quot;],
+                &quot;environment&quot;: {
+                    &quot;SOME_VAR&quot;: &quot;xyzzy&quot;,
+                    &quot;CURRENT_SHOW&quot;: &quot;(not_set)&quot;
+                },
+                &quot;envhandler&quot;: &quot;default&quot;
+            },
+            {
+                &quot;keys: [&quot;ProjectX&quot;, &quot;SHOT=*&quot;, &quot;SCENE=*&quot;],
+                &quot;environment&quot;: {
+                    &quot;CURRENT_SHOW&quot;: &quot;Project X, Venture of Mystery&quot;,
+                    &quot;CURRENT_SHOT&quot;: &quot;$SHOT&quot;,
+                    &quot;CURRENT_SCENE&quot;: &quot;$SCENE&quot;,
+                    &quot;RMANTREE&quot;: &quot;/opt/pixar/RenderManProServer-15.2&quot;,
+                    &quot;PATH&quot;: &quot;$RMANTREE:/bin;$PATH&quot;
+                },
+                &quot;envhandler&quot;: &quot;projxhandler&quot;
+            },
+        ]
+    },
+
+    &quot;BladeProfiles&quot;:
+    [...]
+}</pre>
+</div></div></li><li><p><strong>另请参阅关于</strong> <a href="22184298-Creating a custom Environment Handler.html" rel="nofollow">creating custom environment handlers</a></p></li></ul>
+  </article>
+</main>
+</body>
+</html>

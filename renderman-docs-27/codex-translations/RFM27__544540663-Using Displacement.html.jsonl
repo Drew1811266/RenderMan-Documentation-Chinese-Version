@@ -1,0 +1,16 @@
+{"item_id":"9bc870e295:0","text":"以下章节介绍 RenderMan for Maya（RfM）中的 displacement workflow（位移工作流），该流程基于 Mudbox 和 ZBrush 工作流。如有必要，你也可以将此工作流适配到自己的工具。"}
+{"item_id":"9bc870e295:1","text":"Mudbox Displacement Maps（Mudbox 位移贴图）"}
+{"item_id":"9bc870e295:2","text":"ZBrush Displacement Maps（ZBrush 位移贴图）"}
+{"item_id":"9bc870e295:3","text":"若要匹配旧版 RenderMan 中的 Displacement（位移），以下换算可能有用："}
+{"item_id":"9bc870e295:4","text":"若要获得类似的 tessellation level（细分镶嵌级别），shading rate（已弃用）值 X 可换算为使用 sqrt(X) 的 micropolygonlength 值："}
+{"item_id":"9bc870e295:5","text":"shading rate = 0.25, micropolygonlength = 0.5"}
+{"item_id":"9bc870e295:6","text":"shading rate = 1, micropolygonlength = 1"}
+{"item_id":"9bc870e295:7","text":"shading rate = 4, micropolygonlength = 2"}
+{"item_id":"9bc870e295:8","text":"Avoiding cracks on polygonal meshes（避免多边形网格裂缝）"}
+{"item_id":"9bc870e295:9","text":"对具有 hard normals（硬法线）的 mesh（网格）进行 displacement（位移）时，面可能会分离并产生 cracks（裂缝）。Displacement 会沿顶点法线方向移动顶点，但 hard edge（硬边）两侧的相邻顶点具有不同法线，会向不同方向移动，从而产生 gaps（间隙）或 cracks（裂缝）。"}
+{"item_id":"9bc870e295:10","text":"RenderMan 有一个 \""}
+{"item_id":"9bc870e295:11","text":"\" attribute（属性），它会创建一份完全 smoothed（平滑）的 normals（法线）副本，并使用它代替原始法线。"}
+{"item_id":"9bc870e295:12","text":"在 RenderMan for Maya 中，此 attribute（属性）通过名为 \"Prevent polygon cracking\" 的复选框启用；其内部属性名为 rman_preventPolyCracks。"}
+{"item_id":"9bc870e295:13","text":"\"Prevent polygon cracking\" 只应在必要时启用，因为它会使用稍多一些内存。使用量与 mesh（网格）中的 vertices（顶点）数量成正比。"}
+{"item_id":"9bc870e295:14","text":"请注意，使用 smoothed normals（平滑法线）会如何扭曲 cube（立方体）的 displacement pattern（位移图案）并改变其外观："}
+{"item_id":"9bc870e295:15","text":"你可以通过在 sharp edges（尖锐边）附近插入额外边来避免这种效果。这会将 normal interpolation（法线插值）限制在边缘附近区域，并通常保留原始外观。"}

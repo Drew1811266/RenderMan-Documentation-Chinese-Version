@@ -1,0 +1,34 @@
+{"id":"2a5c7f2a4cc7a9d9dc05550341b621e3246a8e1070bcb5adb3b1f09c96cca9ec","item_id":"e0afb68d27:0","text":"渲染非常复杂的场景时，场景中很大一部分往往由完全相同或几乎相同的对象组成。例如，建筑外立面可能由许多相同的窗户或砖块构成。RenderMan 提供了强大的"}
+{"id":"c589f69f966ce075443b6859a65c5aed6aeeb130987479c60c896350aa1b8d2b","item_id":"e0afb68d27:1","text":"对象实例化"}
+{"id":"4b52dcd502769a124e9990c278d035b282d38dbbde06dffff9f9207ead54bb8e","item_id":"e0afb68d27:2","text":"功能，允许渲染器在几乎相同的副本之间共享和复用几何表示，从而利用这种重复性。下图由超过 75,000 个细分网格茶壶组成；不使用实例渲染时，即使使用尽可能粗略的镶嵌细分设置，也需要超过 12.5 GB 的内存占用；使用对象实例渲染时，内存占用不到 400 MB！这让你可以渲染更多对象，而不会触及机器限制。"}
+{"id":"b098f9955a4b84e16e1d166d297316d97e786f463487d50ea053ea98a07d37ca","item_id":"e0afb68d27:3","text":"几何体由原型和实例表示。原型几何表示由所有实例共享，并包含所有相关几何细节（顶点、面、图元变量等）。每个实例都有自己的变换、BxDF 指派、灯光链接和属性状态，但除此之外都是原型的相同克隆。渲染器会为每个实例复用与原型关联的大部分内存。"}
+{"id":"2467ebc7e7ca5d1430a2c950fcb7f548d34482f84fcba4695caf5703bc4d9085","item_id":"e0afb68d27:4","text":"可以通过应用属性来更改实例上的 Dicing Strategy，但渲染实例并不要求这样做。"}
+{"id":"6545da859e01594b0fccc7a9b4704d47ce8bad4b80e6eebd7b88566ce725a58a","text":"Prototype Attributes（原型属性）"}
+{"id":"54916c4d729da024a21e10c084dcb3d4625aa3fa77b54d2f818133eb46e50bd2","item_id":"e0afb68d27:6","text":"Prototype Attributes（原型属性）通常是出于效率原因最适合共享的重量级几何数据，例如法线、顶点等。请注意，这些属性"}
+{"id":"0d974ae00c405a5eb20f49db4e65502960cb77f8ec773814315e4910509d8655","item_id":"e0afb68d27:7","text":"只能用于"}
+{"id":"ae7c8fc3f383353146b0bc37859d43ef2af605ac1cb45b2e10027be34c390725","item_id":"e0afb68d27:8","text":"原型对象。列表可见"}
+{"id":"fcec91509759ad995c2cd14bcb26b2720993faf61c29d379b270d442d92290eb","text":"此处"}
+{"id":"cb13c623deffaaa49ed9a35bd9cfddc045d5871e815fdf6168067809beff3569","text":"Instance Attributes（实例属性）"}
+{"id":"ebee18e0a68172cdc2f525256ec4ce3736aa4b02fd02520be26a40bdf3aeae07","item_id":"e0afb68d27:12","text":"Instance Attributes（实例属性）允许多个不同实例具有变化和更多设置，并且"}
+{"id":"6dd92ff86f70f27e16edb0552b0ea7dc444f81b17ca6fe0e30b1f1d86b7d4537","item_id":"e0afb68d27:13","text":"只可用于"}
+{"id":"4e940db5060d4ee4f2a97eebf725cdf8ecb6abd5848db5a5c1c97c3c4dbc0509","item_id":"e0afb68d27:14","text":"实例，而不是原型。BxDF 指派、灯光链接、trace sets 等内容都可以按实例指定。该列表见"}
+{"id":"6e055113e4f269785aa0f0d6b01a62b92238262046d9a6e5e69a1b3de951d9f4","text":"镶嵌细分"}
+{"id":"49a877c7d5fb38e1abf0a6642cccd8798007c065f23b6d4c04aa9134d64211e3","item_id":"e0afb68d27:18","text":"RenderMan 使用自适应技术对几何体进行镶嵌细分，使生成的微多边形长度以少量像素为单位度量。这通常以最接近相机的实例为准。不过，这种技术并不适用，因为在这种基于屏幕投影的技术下，对于在不同相机距离处实例化的对象原型，无法复用单一镶嵌细分结果。相反，默认镶嵌细分采用基于世界距离的度量：微多边形长度直接以场景中使用的单位来度量，而不投影到相机。"}
+{"id":"20b96914758fbd9476d1d28033292175e54c295c450278c948717a7c95aaf427","item_id":"e0afb68d27:19","text":"嵌套实例与扁平化"}
+{"id":"75c0bc1c02fe2187ba10db5029fb1b805128155c4892b0147fbdedfab0c89194","item_id":"e0afb68d27:20","text":"默认情况下，RenderMan 会尝试扁平化实例，以提升性能，并在应用变化时提供更多选项。不过，有些情况下并不希望这样做。大型场景（例如森林场景）在扁平化后性能可能更差，尤其是在内存使用方面。扁平化实例在嵌套时会相乘，例如 1,000 个实例中的 1,000 个实例会变成 1,000,000 个实例。嵌套实例则相加，例如 1,000 个实例中的 1,000 个实例是 2,000 个实例。因此，我们提供了一个选项，可以通过桥接产品中暴露的 Nested Instancing 来手动禁用这种行为。"}
+{"id":"3aed621c182d4ff55ec8de237ab0c3ad8ac3b2fac46467a59c03e893dbb4af2d","item_id":"e0afb68d27:21","text":"嵌套时不支持的属性包括："}
+{"id":"cc30fdf314a7cd56010a82f3cb1d2b26ce57c79d3871955398697ec838261363","item_id":"e0afb68d27:22","text":"Lighting Subsets and Exclude（灯光链接）"}
+{"id":"915c94aeace94d6c0e11a5c38c3b5e7194bab0d79e6858176a420b5cf674ec55","item_id":"e0afb68d27:23","text":"Lightfilter Subsets"}
+{"id":"008b498067aa111e5a6bc31d34da83322b60b30f4dcc02aace1bd4490fde1ffd","item_id":"e0afb68d27:24","text":"Visibility Flags（camera、indirect、transmission visibility 等）"}
+{"id":"882649f2f373247a17f75a449d8d46f9f4d28e67f9d4d8c8f88843a5c56952d7","item_id":"e0afb68d27:25","text":"请注意，它们会继承父实例、procedural 或 archive 的属性。"}
+{"id":"8fd7f0620c0f5eae0f62a8f677732cffb3a799f548d6e7615edbedbac67be3c8","item_id":"e0afb68d27:26","text":"嵌套实例存在内部限制：超过 4 个层级/父级后，我们会自动扁平化层级结构。"}
+{"id":"c1260a82649012c0817b515d901f66bcbd3b367336bc02582c7b44032da7cd01","item_id":"e0afb68d27:27","text":"着色变化"}
+{"id":"2f8f2971dc3a436fbf1fdf85f1f4634914e1febe6df145eab703899743efd15c","item_id":"e0afb68d27:28","text":"尽管实例化背后的驱动因素是尽量减少副本之间的可变性，以最大化复用并节省内存，但能够为每个变体使用不同着色通常仍然非常有价值。RenderMan 主要通过以下方法支持着色变化："}
+{"id":"1b8dfa11ee5ce6f13bdf3ee3a43e78b5d572669be14f4e84cbc973ad0eb0820c","item_id":"e0afb68d27:29","text":"将不同材质（BxDF 和上游 pattern 图）绑定到每个对象实例。材质只绑定到对象实例。绑定到组或 procedural 实例的材质会绑定到任何未指派的对象，但不会覆盖局部绑定。"}
+{"id":"91a1f4bf5255821aff61095a2e71739d51105279223339c2135fda2ecd342ceb","item_id":"e0afb68d27:30","text":"将不同灯光和灯光滤镜链接到对象实例。"}
+{"id":"f17cfe2b8543c0d915ba765745f0645601a05b82ed36799c4c0b06956b70ed57","item_id":"e0afb68d27:31","text":"为每个对象实例设置不同的用户属性，并使用这些属性驱动 BxDF。RenderMan 支持使用完全任意的用户属性，这些属性可以为场景中的每个对象实例设置为不同值。将这些用户属性与 pattern 节点结合使用，非常适合驱动着色变化，尤其是在这些用户属性的值可以自动派生时。"}
+{"id":"f220ecb6b1fa89d00380f01c16af5374777c6474bb63f6df3accf0e244d37739","item_id":"e0afb68d27:32","text":"在实例之间改变 matte、holdout 和可见性设置等实例属性。"}
+{"id":"06e0ff1b8deb053ea0f224089f30ad7f0f6f6a373931668275a0227183548e12","item_id":"e0afb68d27:33","text":"PxrVolume 允许对 BxDF 参数进行实例覆盖，"}
+{"id":"b11279547bc49510a81a764a59dc2eaba8cd004d95878e3a284fd27427042553","item_id":"e0afb68d27:34","text":"但不包括"}
+{"id":"88fbfc0101ec6332126a27b7a74405ea86112475c3350a2d11078a47209d4f47","item_id":"e0afb68d27:35","text":"density 和运动模糊。这些数据不能按实例操作。"}
+{"id": "cdb4ee2aea69cc6a83331bbe96dc2caa9a299d21329efb0336fc02a82e1839a8", "item_id": "e0afb68d27:10", "text": "。"}

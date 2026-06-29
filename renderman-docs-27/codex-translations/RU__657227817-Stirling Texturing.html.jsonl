@@ -1,0 +1,25 @@
+{"item_id":"509c014761:0","text":"贴图与 UVs（Texturing and UVs）"}
+{"item_id":"509c014761:1","text":"在进入本教程可能最具技术性的部分之前，我想强调正确分层的重要性。如果处理得草率，它很快就会变成令人头疼的问题。我强烈建议花时间阅读专门介绍"}
+{"item_id":"509c014761:2","text":"Holdouts、Layering 和 Trace Sets"}
+{"item_id":"509c014761:3","text":"。"}
+{"item_id":"509c014761:4","text":"在这个 scene 中，我们有两类 objects："}
+{"item_id":"509c014761:5","text":"被反射对象"}
+{"item_id":"509c014761:6","text":"以及"}
+{"item_id":"509c014761:7","text":"反射体"}
+{"item_id":"509c014761:8","text":"（它们充当 holdouts）。首先，我们来看 reflected objects 的 layering 是如何设置的。"}
+{"item_id":"509c014761:9","text":"对于 car 本身（左图），设置相当直接：我让除 car 以外的所有内容都对 camera 的直接和间接可见性不可见。不过你会注意到，我选择隐藏了 glass windows。"}
+{"item_id":"509c014761:10","text":"在做 integration 时，如果想获得准确的 refractions，glass 可能会很棘手。为了简化流程，我把它放到单独的 layer 中，如右图所示。这里的方法是从第一个 layer 取回 visible elements 的选择集（它包含整辆 car，但排除 windows 和 interior），并创建一个 Matte Object collection。这个设置确保我可以在 Nuke 中把 glass 无缝 compositing 回 scene，避免任何 intersection issues。"}
+{"item_id":"509c014761:11","text":"对于 refractions，我创建了一个带 PxrConstant shader 的 plane，并将它约束到 camera。在这个 PxrConstant 中，我只是连接 base plate 的 image sequence，并把它 offset 到足够远的位置，使它始终保持在 car 后方。"}
+{"item_id":"509c014761:12","text":"这个设置让我可以把 windows 无缝合并回 car，同时确保 refractions 正确。如果没有这个调整，来自 HDRI 的 distorted background 会非常抢眼，成为明显干扰。"}
+{"item_id":"509c014761:13","text":"现在，我们继续看 car reflectors 的 layering。"}
+{"item_id":"509c014761:14","text":"我们会使用视频开头出现的 van 所在 layer，因为它提供了最完整的示例。不过，所有 reflector layers 的设置方式都很相似。"}
+{"item_id":"509c014761:15","text":"首先，我们会为 van 创建一个 Holdout override（可以查看专门的"}
+{"item_id":"509c014761:16","text":"Holdouts"}
+{"item_id":"509c014761:17","text":"页面），这个 van 已经被快速 shading，以匹配 footage 中显示的 look。主 object（van）之外的所有内容会再次设置为对 camera 的直接可见性不可见。"}
+{"item_id":"509c014761:18","text":"不过这一次，重点会放在 indirect visibility 上。trace sets 会在这里真正发挥作用。"}
+{"item_id":"509c014761:19","text":"在 footage 中可以看到，car 及其 reflection 的右侧应该接收由 black car 投下的 shadow。不过，为了让 objects 保持分离，使 compositing 更干净、更易管理，我们关闭了 black car proxy 的 indirect visibility。结果是，它投射到 car 上的 shadow 消失了，reflection 的真实感也被破坏。"}
+{"item_id":"509c014761:20","text":"这就是 trace sets 派上用场的地方，让我们可以兼顾两种需求。"}
+{"item_id":"509c014761:21","text":"要创建 trace set，请参考"}
+{"item_id":"509c014761:22","text":"Creating Trace Sets in Maya"}
+{"item_id":"509c014761:23","text":"文档。在这个案例中，我只是创建了一个 set，其中包含所有不希望反射到 holdout 中的 objects，并把它们从 van 的 trace sets 中排除。"}
+{"item_id":"509c014761:24","text":"很高兴你已经看到这里！现在，根据项目需要，对尽可能多的 layers 重复这个流程，最后就可以进入 rendering settings 了。"}

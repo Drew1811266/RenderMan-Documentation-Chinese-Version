@@ -1,0 +1,250 @@
+{"item_id":"029d3a5b7d:0","text":"PxrLayer 是一种 pattern，用于对"}
+{"item_id":"029d3a5b7d:1","text":"PxrSurface"}
+{"item_id":"029d3a5b7d:2","text":"的 shader parameters 进行分层。"}
+{"item_id":"029d3a5b7d:3","text":"该 pattern 由 Pixar Animation Studios 使用 OSL 编写。它只会分层匹配的 shader parameters，并跳过不匹配的参数。建议将 PxrLayer 与"}
+{"item_id":"029d3a5b7d:4","text":"PxrLayerMixer"}
+{"item_id":"029d3a5b7d:5","text":"以及"}
+{"item_id":"029d3a5b7d:6","text":"PxrLayerSurface"}
+{"item_id":"029d3a5b7d:7","text":"材质配合使用。PxrLayer 负责你的结果（最终外观），而 PxrLayerSurface 负责整个分层材质波瓣设置的全局控制，并且必须分配给你的对象。"}
+{"item_id":"029d3a5b7d:8","text":"参数从下方开始。"}
+{"item_id":"029d3a5b7d:9","text":"下方参数可由另一个 PxrLayer 覆盖：当其连接到"}
+{"item_id":"029d3a5b7d:10","text":"Input Material"}
+{"item_id":"029d3a5b7d:11","text":"（属于"}
+{"item_id":"029d3a5b7d:12","text":"PxrSurface"}
+{"item_id":"029d3a5b7d:13","text":"）时，或通过"}
+{"item_id":"029d3a5b7d:14","text":"PxrLayerMixer"}
+{"item_id":"029d3a5b7d:15","text":"覆盖。"}
+{"item_id":"029d3a5b7d:16","text":"PxrLayerSurface"}
+{"item_id":"029d3a5b7d:17","text":"的设计目标是通过只包含全局参数，更清楚地展示哪些参数不能在层中被覆盖。我们建议使用"}
+{"item_id":"029d3a5b7d:18","text":"PxrLayerSurface"}
+{"item_id":"029d3a5b7d:19","text":"材质，适用于明确需要分层的情况。"}
+{"item_id":"029d3a5b7d:20","text":"Diffuse Parameters"}
+{"item_id":"029d3a5b7d:21","text":"Diffuse Parameters"}
+{"item_id":"029d3a5b7d:22","text":"Diffuse 参数控制基础 Diffuse reflection 的外观。它们通常用于定义不透明对象的主要颜色属性；木纹、标签文字、圆点图案等等，都可以连接在这里。该波瓣默认开启。"}
+{"item_id":"029d3a5b7d:23","text":"Enable"}
+{"item_id":"029d3a5b7d:24","text":"默认开启；如果关闭，则使用下一层更低的层（或 base）波瓣。"}
+{"item_id":"029d3a5b7d:25","text":"Gain"}
+{"item_id":"029d3a5b7d:26","text":"Gain 是应用到 Diffuse 参数上的权重。你也可以用另一个 pattern 驱动它，用于表现褪色或潮湿之类的效果（液体会让表面变暗）。下方示例展示 50% 灰色材质在 0.0、0.5 和 1.0 Gain 下的效果。"}
+{"item_id":"029d3a5b7d:27","text":"Color"}
+{"item_id":"029d3a5b7d:28","text":"Color 通常用于连接纹理或 pattern，以创建不透明对象的颜色。例如，木材颜色纹理就会放在这里。"}
+{"item_id":"029d3a5b7d:29","text":"Roughness"}
+{"item_id":"029d3a5b7d:30","text":"Diffuse roughness 可用于模拟干黏土或灰尘这类粉状表面。"}
+{"item_id":"029d3a5b7d:31","text":"Bump"}
+{"item_id":"029d3a5b7d:32","text":"Bump mapping 是一种用 shading 伪造物理细节外观的好方法。如果未设置，它将使用本页底部附近 Properties 部分中指定的全局 bump normal。"}
+{"item_id":"029d3a5b7d:33","text":"Back Color"}
+{"item_id":"029d3a5b7d:34","text":"这仅在"}
+{"item_id":"029d3a5b7d:35","text":"Double Sided"}
+{"item_id":"029d3a5b7d:36","text":"开启时适用。当 Use Diffuse Color 关闭时，此项设置背面颜色（back side 的颜色）。默认情况下，它使用 Diffuse Color，但选择不同颜色可以让 2D 对象的背面呈现不同外观。"}
+{"item_id":"029d3a5b7d:37","text":"Transmit Gain"}
+{"item_id":"029d3a5b7d:38","text":"这仅在"}
+{"item_id":"029d3a5b7d:39","text":"Double Sided"}
+{"item_id":"029d3a5b7d:40","text":"开启时适用。这里不是使用"}
+{"item_id":"029d3a5b7d:41","text":"Diffuse Gain"}
+{"item_id":"029d3a5b7d:42","text":"来控制 Diffuse transmission 的强度，而是使用"}
+{"item_id":"029d3a5b7d:43","text":"Transmit Gain"}
+{"item_id":"029d3a5b7d:44","text":"。如果它为 0.0，则该效果关闭。下方的"}
+{"item_id":"029d3a5b7d:45","text":"Transmit Color"}
+{"item_id":"029d3a5b7d:46","text":"是亮蓝色。"}
+{"item_id":"029d3a5b7d:47","text":"Transmit Color"}
+{"item_id":"029d3a5b7d:48","text":"这仅在"}
+{"item_id":"029d3a5b7d:49","text":"Double Sided"}
+{"item_id":"029d3a5b7d:50","text":"开启时适用。此项设置 transmit color，它可以不同于 Diffuse 或 Back Color。如果"}
+{"item_id":"029d3a5b7d:51","text":"Transmit Gain"}
+{"item_id":"029d3a5b7d:52","text":"为零，则会忽略此项。该效果适合叶片或纸张这类薄物体。下方对象内部放置了一盏灯，随着光线透过表面，可以看到一些内部文字。"}
+{"item_id":"029d3a5b7d:53","text":"Specular Parameters"}
+{"item_id":"029d3a5b7d:54","text":"Specular, Rough Specular, and Clear Coat Parameters"}
+{"item_id":"029d3a5b7d:55","text":"Specular 参数控制 specular reflection。你可以在这里定义对象有多闪亮或多具反射性：它是塑料、抛光大理石桌面，还是一面镜子？下面的"}
+{"item_id":"029d3a5b7d:56","text":"Rough Specular"}
+{"item_id":"029d3a5b7d:57","text":"波瓣具有相同的设置和效果。"}
+{"item_id":"029d3a5b7d:58","text":"还可以选择"}
+{"item_id":"029d3a5b7d:59","text":"Artistic"}
+{"item_id":"029d3a5b7d:60","text":"和"}
+{"item_id":"029d3a5b7d:61","text":"Physical"}
+{"item_id":"029d3a5b7d:62","text":"控制项。Artistic 控制项允许你手动改变 reflection 的属性以符合你的偏好。使用 Physical（配合提供的预设）可以为希望复制真实世界、又不想无休止调整参数的用户提供匹配的真实响应。"}
+{"item_id":"029d3a5b7d:63","text":"Enable"}
+{"item_id":"029d3a5b7d:64","text":"默认关闭；如果开启，除非被遮罩掉，否则这些设置会覆盖其他层。"}
+{"item_id":"029d3a5b7d:65","text":"Face Color"}
+{"item_id":"029d3a5b7d:66","text":"(Artistic Mode)"}
+{"item_id":"029d3a5b7d:67","text":"面向角度（0 度入射）处的 Specular color。请注意，这里没有单独的 Gain 控制。要控制 Specular “gain”，只需调整颜色值，或将其连接到 PxrExposure 节点。下方是在 Roughness 0.25 下的不同选择，包括纹理输入。"}
+{"item_id":"029d3a5b7d:68","text":"Edge Color"}
+{"item_id":"029d3a5b7d:69","text":"掠射角（90 度入射）处的 Specular color。要控制 edge specular “gain”，只需调整颜色值，或将其连接到 PxrExposure 节点。下方是在 Roughness 0.25 下的不同选择，包括纹理输入。这里还降低了 Fresnel Exponent，使效果更明显。"}
+{"item_id":"029d3a5b7d:70","text":"请理解，该控制项在"}
+{"item_id":"029d3a5b7d:71","text":"Physical"}
+{"item_id":"029d3a5b7d:72","text":"Mode"}
+{"item_id":"029d3a5b7d:73","text":"中的含义会发生变化，并作为 Physical mode 中 reflection 结果的乘数。你可以在 Physical Mode 中使用该参数控制 reflection 强度，甚至为结果着色。下方使用了黑色、50% 灰色和白色。"}
+{"item_id":"029d3a5b7d:74","text":"Refractive Index (Physical Mode)"}
+{"item_id":"029d3a5b7d:75","text":"这是一个用于描述物理 Refractive Index 的参数；即材质的"}
+{"item_id":"029d3a5b7d:76","text":"电介质"}
+{"item_id":"029d3a5b7d:77","text":"折射率。该参数的通道值通常位于 1 到 3 范围内。由于我们支持 3 个颜色值来捕捉光谱效果，使用预设可能比颜色选择器更合适，可以避免大量微调。"}
+{"item_id":"029d3a5b7d:78","text":"Extinction Coefficient (Physical Mode, not available for Clearcoat)"}
+{"item_id":"029d3a5b7d:79","text":"Extinction Coefficient 是材质的第二个折射率，用于表征金属行为。该参数的通道值通常位于 1 到 3 范围内。由于我们支持 3 个颜色值来捕捉光谱效果，预设可能比颜色选择器更合适。为 0 时，材质会像电介质（玻璃）一样响应。非零时，材质会像导体一样响应。由于它基于物理值，你会发现预设比手动调参更有帮助。下方是 Copper、Gold 和 Nickel 的预设。"}
+{"item_id":"029d3a5b7d:80","text":"Roughness"}
+{"item_id":"029d3a5b7d:81","text":"Specular roughness。较大的值会产生更粗糙或“模糊”的 specular reflection。1.0 时类似 Diffuse 表面，0.0 时是完全清晰的 reflection。多数对象在这些值之间会显得真实。为该值添加纹理可能产生有趣效果，例如污迹、油腻指纹和磨损表面。下方示例从 0.0 到 0.5，最后到 1.0（Diffuse）。"}
+{"item_id":"029d3a5b7d:82","text":"Anisotropy"}
+{"item_id":"029d3a5b7d:83","text":"控制 specular highlights 和 reflections 的形状。0 表示 isotropic，会产生常规圆形 specular highlight。从 -1.0 到 1.0 的值会产生从横向到纵向的一系列椭圆（拉伸）。"}
+{"item_id":"029d3a5b7d:84","text":"默认情况下，Anisotropy 的方向由模型纹理参数控制。如果指定了 Shading Tangent，则改用它。下方示例为 -1.0、0.0 和 1.0。"}
+{"item_id":"029d3a5b7d:85","text":"Bump"}
+{"item_id":"029d3a5b7d:86","text":"用于 Specular illumination 的 normal。如果未设置，它将使用本页底部附近 Properties 中指定的全局 bump normal。"}
+{"item_id":"029d3a5b7d:87","text":"Rough Specular"}
+{"item_id":"029d3a5b7d:88","text":"与 Specular 参数相同，只是默认 Roughness 更大，为 0.6。该层旨在用于比上方 Specular 波瓣更高的 Roughness 设置。下方从左到右：Rough Specular、Specular，以及两个波瓣组合。"}
+{"item_id":"029d3a5b7d:89","text":"Layer Thickness (Physical Mode)"}
+{"item_id":"029d3a5b7d:90","text":"该控制项模拟材质上的厚涂层或釉层。它也可以通过纹理改变颜色。下方的 shading ball 只在 Diffuse 波瓣上添加了 Bump，使 Thickness 的使用效果更明显。前两张图使用相同的 Absorption Tint，Thickness 分别为 1 和 3，以展示更厚的设置会在物理上吸收更多光。最后一张图是使用棋盘格 pattern 的纹理化 Thickness。"}
+{"item_id":"029d3a5b7d:91","text":"Absorption Tint (Physical Mode)"}
+{"item_id":"029d3a5b7d:92","text":"该参数控制最终 attenuation 或 coating 的颜色。请注意，上方 Thickness 参数可能改变外观：更厚的设置会更饱和或吸收更多光。下方是两种纯色以及一个 ramp，Thickness 保持恒定为 1.0。底层 Diffuse 波瓣应用了 Bump，以帮助模拟“厚度”。"}
+{"item_id":"029d3a5b7d:93","text":"Iridescence Parameters"}
+{"item_id":"029d3a5b7d:94","text":"Iridescence"}
+{"item_id":"029d3a5b7d:95","text":"Iridescence 是一种依赖视角的光散射，会导致颜色偏移。这与肥皂泡、孔雀羽毛或闪亮甲虫上的色彩旋涡是同一种效果。“Holographic” 或变色漆也会使用这种效果。"}
+{"item_id":"029d3a5b7d:96","text":"Enable"}
+{"item_id":"029d3a5b7d:97","text":"默认开启；如果关闭，则使用下一层更低的层（或 base）波瓣。"}
+{"item_id":"029d3a5b7d:98","text":"Face Gain"}
+{"item_id":"029d3a5b7d:99","text":"面向角度（0 度入射）处的 Iridescence Gain。"}
+{"item_id":"029d3a5b7d:100","text":"Edge Gain"}
+{"item_id":"029d3a5b7d:101","text":"掠射角（90 度入射）处的 Iridescence Gain。"}
+{"item_id":"029d3a5b7d:102","text":"Primary Color"}
+{"item_id":"029d3a5b7d:103","text":"这仅适用于"}
+{"item_id":"029d3a5b7d:104","text":"Artistic mode"}
+{"item_id":"029d3a5b7d:105","text":"。"}
+{"item_id":"029d3a5b7d:106","text":"Iridescence 在 hue wheel 上开始的 Primary Color。从这里开始，颜色会在 Primary Color 和 Secondary Color 之间穿过其他可用色相。你在色轮上选择的颜色越接近，渲染出的颜色越少。下方三个示例分别从 Red、Yellow，最后从 Green 开始。色条显示这些选择之间可用的颜色。"}
+{"item_id":"029d3a5b7d:107","text":"Secondary Color"}
+{"item_id":"029d3a5b7d:108","text":"这仅适用于"}
+{"item_id":"029d3a5b7d:109","text":"Artistic mode"}
+{"item_id":"029d3a5b7d:110","text":"。"}
+{"item_id":"029d3a5b7d:111","text":"Iridescence 在 hue wheel 上结束的 Secondary Color。如上所示，你可以用它限制渲染出的颜色。下方三个示例中，Secondary Color 从 Violet 到 Blue，最后到 Green。色相条在一个 ramp 上显示了这种变化。"}
+{"item_id":"029d3a5b7d:112","text":"Roughness"}
+{"item_id":"029d3a5b7d:113","text":"Iridescence roughness，与其他 Roughness 参数类似，可从 0.0 的镜面式 reflection 过渡到 1.0 的 Diffuse reflection。下方示例从左到右为 0.0、0.5 和 1.0。更柔和的外观会让人联想到变色妆容和类似粉末。"}
+{"item_id":"029d3a5b7d:114","text":"Fuzz Parameters"}
+{"item_id":"029d3a5b7d:115","text":"Fuzz Parameters"}
+{"item_id":"029d3a5b7d:116","text":"此参数会引入一点 retroreflection，并帮助模拟织物、Fuzz 和细粉末。"}
+{"item_id":"029d3a5b7d:117","text":"Enable"}
+{"item_id":"029d3a5b7d:118","text":"默认开启；如果关闭，则使用下一层更低的层（或 base）波瓣。"}
+{"item_id":"029d3a5b7d:119","text":"Gain"}
+{"item_id":"029d3a5b7d:120","text":"Fuzz 权重。数值越高，此效果越强。下方的"}
+{"item_id":"029d3a5b7d:121","text":"Cone Angle"}
+{"item_id":"029d3a5b7d:122","text":"设置为 16。"}
+{"item_id":"029d3a5b7d:123","text":"Color"}
+{"item_id":"029d3a5b7d:124","text":"Fuzz 颜色。它模拟柔软、类似天鹅绒的效果。该效果应用在之前的 Specular 波瓣“之上”，可能类似污垢或细尘。下方的"}
+{"item_id":"029d3a5b7d:125","text":"Cone Angle"}
+{"item_id":"029d3a5b7d:126","text":"设置为 16。"}
+{"item_id":"029d3a5b7d:127","text":"Cone Angle"}
+{"item_id":"029d3a5b7d:128","text":"Fuzz roughness（对应 Marschner R cone angle）。请注意，这里使用了 Marschner 毛发模型中的内容，有助于模拟类似 hair/fur 的响应。数值越高，正对角度处的效果越强。下方为 8、16 和 32。"}
+{"item_id":"029d3a5b7d:129","text":"Bump"}
+{"item_id":"029d3a5b7d:130","text":"用于 Fuzz illumination 的 normal。如果未设置，它将使用本页底部附近 Properties 中指定的全局 bump normal。"}
+{"item_id":"029d3a5b7d:131","text":"Subsurface Scattering Parameters"}
+{"item_id":"029d3a5b7d:132","text":"Subsurface Scattering Parameters"}
+{"item_id":"029d3a5b7d:133","text":"Enable"}
+{"item_id":"029d3a5b7d:134","text":"默认开启；如果关闭，则使用下一层更低的层（或 base）波瓣。"}
+{"item_id":"029d3a5b7d:135","text":"Gain"}
+{"item_id":"029d3a5b7d:136","text":"Subsurface Scattering 权重。数值越高，Subsurface Scattering 的可见性越强。"}
+{"item_id":"029d3a5b7d:137","text":"Color"}
+{"item_id":"029d3a5b7d:138","text":"Subsurface Scattering 颜色。"}
+{"item_id":"029d3a5b7d:139","text":"Mean Free Path Distance"}
+{"item_id":"029d3a5b7d:140","text":"Subsurface Scattering 的 Mean Free Path Distance（mfpd）。它指定光线在对象内部传播多远，并因此决定 Subsurface Scattering 有多平滑。该值会乘以 Properties 部分中设置的 unit length。较大的值会让对象显得不那么不透明、更半透明，同时也会增加噪声。较小的值会让表面看起来像 Diffuse，此时如果视觉上不重要，更高效的做法可能是关闭该效果（0.0"}
+{"item_id":"029d3a5b7d:141","text":"Gain"}
+{"item_id":"029d3a5b7d:142","text":"）。下面将数值从 8 改为 16，再改为 32。注意球体和基座会变得“更柔和”且更半透明。高数值时，半透明对象产生的噪声可能会增加渲染时间。"}
+{"item_id":"029d3a5b7d:143","text":"Mean Free Path Color"}
+{"item_id":"029d3a5b7d:144","text":"光线在 Red、Green 和 Blue 光谱中传播的距离。此值会按 Mean Free Path Distance 缩放。不同颜色扩散程度可能不同，并可产生有趣效果，例如皮肤阴影边缘中的红色渗透。RGB 值对应光线在该色带中传播多远。例如，RGB 值 0.8 0.65 0.5 表示 Red 在 0.8 时扩散最远，然后是 Green，最后 Blue 在对象散射结果中传播距离最短。下面我们移除了中心球，并在外球背后用一个明亮的圆盘灯替换。请注意，球体"}
+{"item_id":"029d3a5b7d:145","text":"和"}
+{"item_id":"029d3a5b7d:146","text":"基座共享同一材质，灯光会对结果产生重要影响。"}
+{"item_id":"029d3a5b7d:147","text":"使用"}
+{"item_id":"029d3a5b7d:148","text":"Multiple Mean Free Paths"}
+{"item_id":"029d3a5b7d:149","text":"时该选项不可用，因为它改用 short 到 long color 选项。"}
+{"item_id":"029d3a5b7d:150","text":"Post Tint"}
+{"item_id":"029d3a5b7d:151","text":"在 Subsurface 计算末尾应用的 Tint。下面左侧是普通渲染，右侧添加了非常浅的蓝色 Tint。如果想在 Subsurface 计算之前应用 Tint，请在 Properties 部分设置 Irradiance Tint。"}
+{"item_id":"029d3a5b7d:152","text":"Multiple Mean Free Paths Description"}
+{"item_id":"029d3a5b7d:153","text":"Multiple Mean Free Paths"}
+{"item_id":"029d3a5b7d:154","text":"在几个重要方面与其他模型的工作方式不同。大多数情况下，其他模型的结果已经足够令人满意。不过有些场景中，用户可能希望用非物理方式控制散射颜色。许多模型中的 Mean Free Path Color 会按参数说明使用提供的 RGB 值来决定颜色散射。这意味着结果可能产生不需要的颜色偏移。假设你提供了 RGB 0.51 0.28 0.31 的纹理颜色，也就是一种粉色。散射结果也会包含绿色（0.28）和蓝色（0.31）响应。Multiple Mean Free Paths 模型会保持这种粉色。下面示例使用这一场景来展示差异。纹理连接到 Jensen Dipole 的 Color 和 Mean Free Path Color，同时也连接到 Multiple Mean Free Paths 模型的 Short 和 Long Colors。注意 Jensen 模型（左侧）上的颜色偏移，而 Multiple Mean Free Paths 版本会在所有连接深度上保持纹理颜色。"}
+{"item_id":"029d3a5b7d:155","text":"Short Gain"}
+{"item_id":"029d3a5b7d:156","text":"Short Subsurface Gain 或权重。仅对"}
+{"item_id":"029d3a5b7d:157","text":"Multiple Mean Free Paths"}
+{"item_id":"029d3a5b7d:158","text":"Subsurface 模型有效。"}
+{"item_id":"029d3a5b7d:159","text":"Short Color"}
+{"item_id":"029d3a5b7d:160","text":"Short Subsurface color。仅对"}
+{"item_id":"029d3a5b7d:161","text":"Multiple Mean Free Paths"}
+{"item_id":"029d3a5b7d:162","text":"Subsurface 模型有效。上方使用 Red 作为所选颜色。"}
+{"item_id":"029d3a5b7d:163","text":"Long Gain"}
+{"item_id":"029d3a5b7d:164","text":"Long Subsurface Gain 或权重。仅对"}
+{"item_id":"029d3a5b7d:165","text":"Multiple Mean Free Paths"}
+{"item_id":"029d3a5b7d:166","text":"Subsurface 模型有效。其行为与"}
+{"item_id":"029d3a5b7d:167","text":"Short Gain"}
+{"item_id":"029d3a5b7d:168","text":"相同。"}
+{"item_id":"029d3a5b7d:169","text":"Long Color"}
+{"item_id":"029d3a5b7d:170","text":"Long Subsurface color。仅对"}
+{"item_id":"029d3a5b7d:171","text":"Multiple Mean Free Paths"}
+{"item_id":"029d3a5b7d:172","text":"Subsurface 模型有效。其行为与"}
+{"item_id":"029d3a5b7d:173","text":"Short Color"}
+{"item_id":"029d3a5b7d:174","text":"相同。"}
+{"item_id":"029d3a5b7d:175","text":"Short MFP Distance"}
+{"item_id":"029d3a5b7d:176","text":"Short Subsurface mean free path 标量距离。下面从 16 到 24，最后到 32。"}
+{"item_id":"029d3a5b7d:177","text":"Long MFP Distance"}
+{"item_id":"029d3a5b7d:178","text":"Long Subsurface mean free path 标量距离。下面从 16 到 24，最后到 32。"}
+{"item_id":"029d3a5b7d:179","text":"Transmit Gain"}
+{"item_id":"029d3a5b7d:180","text":"这仅在"}
+{"item_id":"029d3a5b7d:181","text":"Double Sided"}
+{"item_id":"029d3a5b7d:182","text":"开启时适用。这里不是使用"}
+{"item_id":"029d3a5b7d:183","text":"Subsurface Gain"}
+{"item_id":"029d3a5b7d:184","text":"来控制次表面透射的强度，而是使用"}
+{"item_id":"029d3a5b7d:185","text":"Transmit Gain"}
+{"item_id":"029d3a5b7d:186","text":"。如果它为 0.0，则该效果关闭。"}
+{"item_id":"029d3a5b7d:187","text":"Single Scatter Parameters"}
+{"item_id":"029d3a5b7d:188","text":"Single Scattering Parameters"}
+{"item_id":"029d3a5b7d:189","text":"Single scatter 是一种简单且开销较低的散射效果。下方有一个"}
+{"item_id":"029d3a5b7d:190","text":"圆盘灯被放置在模型内部"}
+{"item_id":"029d3a5b7d:191","text":"（所有这些示例都如此），我们先在没有 diffuse color 的情况下渲染，然后再使用默认中灰 diffuse color 渲染。"}
+{"item_id":"029d3a5b7d:192","text":"Enable"}
+{"item_id":"029d3a5b7d:193","text":"默认开启；如果关闭，则使用下一层更低的层（或 base）波瓣。"}
+{"item_id":"029d3a5b7d:194","text":"Gain"}
+{"item_id":"029d3a5b7d:195","text":"Single scatter 的 Gain 或权重。"}
+{"item_id":"029d3a5b7d:196","text":"Color"}
+{"item_id":"029d3a5b7d:197","text":"Single scatter 颜色。"}
+{"item_id":"029d3a5b7d:198","text":"Mean Free Path"}
+{"item_id":"029d3a5b7d:199","text":"Single scattering 的 Mean Free Path 标量距离。它指定光线在对象内部传播多远，并因此决定 single scattering 有多平滑。该值会乘以 Properties 部分中设置的 Unit Length。较大的值会更半透明。此项类似于 Subsurface 控制项。"}
+{"item_id":"029d3a5b7d:200","text":"Mean Free Path Color"}
+{"item_id":"029d3a5b7d:201","text":"光线在 R、G 和 B 光谱中传播的距离。此值会按 Mean Free Path Distance 缩放。"}
+{"item_id":"029d3a5b7d:202","text":"Directionality"}
+{"item_id":"029d3a5b7d:203","text":"Single scatter 的 Directionality："}
+{"item_id":"029d3a5b7d:204","text":"0：各向同性（无效果）。"}
+{"item_id":"029d3a5b7d:205","text":"1：forward scatter，背面获得更多光照。"}
+{"item_id":"029d3a5b7d:206","text":"-1：backward scatter，正面获得更多光照。"}
+{"item_id":"029d3a5b7d:207","text":"Refractive Index"}
+{"item_id":"029d3a5b7d:208","text":"Single scatter 的折射率。下方依次为 1.3、5.0 和 10.0。"}
+{"item_id":"029d3a5b7d:209","text":"Blur"}
+{"item_id":"029d3a5b7d:210","text":"single scatter 的 Blur 强度。这个多边形平面后面有一些文字。增大 Blur 会让文字显得更模糊（并使结果稍微变暗）。你可以把它看作 scatter transmission 的 roughness。"}
+{"item_id":"029d3a5b7d:211","text":"Backside Direct Illum Gain"}
+{"item_id":"029d3a5b7d:212","text":"来自另一侧直接照明的 Gain。这会提高背面照明的影响。"}
+{"item_id":"029d3a5b7d:213","text":"Direction Tint"}
+{"item_id":"029d3a5b7d:214","text":"Backside Direct Illum Gain 的 Tinting color。下方使用不同颜色为第一张图（白色）的结果着色。"}
+{"item_id":"029d3a5b7d:215","text":"Glow Parameters"}
+{"item_id":"029d3a5b7d:216","text":"Glow Parameters"}
+{"item_id":"029d3a5b7d:217","text":"Glow 可让对象"}
+{"item_id":"029d3a5b7d:218","text":"看起来像是"}
+{"item_id":"029d3a5b7d:219","text":"在发光。这在你需要受纹理控制的效果时很有用，例如发光面板、电路、熔岩，或其他在照明中具有局部影响的复杂效果。"}
+{"item_id":"029d3a5b7d:220","text":"这不是给场景打光的高效方式，并且需要 indirect bounces 至少为 2 才会有效。我们建议将其用作纹理效果，而不是实际照明。"}
+{"item_id":"029d3a5b7d:221","text":"Enable"}
+{"item_id":"029d3a5b7d:222","text":"默认开启；如果关闭，则使用下一层更低的层（或 base）波瓣。"}
+{"item_id":"029d3a5b7d:223","text":"Gain"}
+{"item_id":"029d3a5b7d:224","text":"Glow 的 Gain 或权重。下方从默认灰色材质开始，并将 Gain（使用白色 Color）增加到 0.5，然后增加到 1.0。"}
+{"item_id":"029d3a5b7d:225","text":"Color"}
+{"item_id":"029d3a5b7d:226","text":"控制材质的 incandescence color，即 Glow。下方展示了输入到 Color 参数的各种纹理示例。"}
+{"item_id":"029d3a5b7d:227","text":"Glass Parameters"}
+{"item_id":"029d3a5b7d:228","text":"Glass Parameters"}
+{"item_id":"029d3a5b7d:229","text":"Glass 参数旨在提供一个单一位置，用于创建和操作基于物理的 Glass 结果。从清澈玻璃到有色玻璃，以及其间各种 Roughness 和雾化程度都可以实现。"}
+{"item_id":"029d3a5b7d:230","text":"Enable"}
+{"item_id":"029d3a5b7d:231","text":"默认开启；如果关闭，则使用下一层更低的层（或 base）波瓣。"}
+{"item_id":"029d3a5b7d:232","text":"Refraction Gain 和 Reflection Gain 控制项旨在配合使用。单独使用其中之一可能产生有趣效果，但这并非设计意图。还要注意，第一次创建 Glass 时，你会发现 Diffuse 的默认 Gain 1.0 可能干扰你的外观。要制作纯 Glass，请将 Diffuse 的 Gain 调为 0.0。"}
+{"item_id":"029d3a5b7d:233","text":"Refraction Gain"}
+{"item_id":"029d3a5b7d:234","text":"Refraction Gain 是一个乘数。较低数值会让更少光线穿过对象，可能看起来像深色染色玻璃，或在 0.0 时直接变黑。"}
+{"item_id":"029d3a5b7d:235","text":"Reflection Gain"}
+{"item_id":"029d3a5b7d:236","text":"Reflection Gain 是一个乘数。较低数值会降低可见 reflection 结果。设置为 0.0 会产生不真实的外观，如下方第一张图所示。"}
+{"item_id":"029d3a5b7d:237","text":"Refraction Color"}
+{"item_id":"029d3a5b7d:238","text":"Refraction Color。它允许你创建具有真实着色、并像真实透射对象一样投射彩色阴影的对象（请注意，灯光上应启用 Thin Shadows）。"}
+{"item_id":"029d3a5b7d:239","text":"Roughness"}
+{"item_id":"029d3a5b7d:240","text":"Refraction 和 reflection 的 Roughness。你可以在这里模拟磨砂或蚀刻玻璃。"}
+{"item_id":"029d3a5b7d:241","text":"Refractive Index"}
+{"item_id":"029d3a5b7d:242","text":"折射率。默认值为 1.5，这是玻璃的典型值。在线 Ior 值资源可以提供更有用的设置。较高的 Ior 值会比低值更强地弯折光线。如果想避免弯折光线，请使用"}
+{"item_id":"029d3a5b7d:243","text":"Thin"}
+{"item_id":"029d3a5b7d:244","text":"。"}
+{"item_id":"029d3a5b7d:245","text":"Global Properties Parameters"}
+{"item_id":"029d3a5b7d:246","text":"Properties Parameters"}
+{"item_id":"029d3a5b7d:247","text":"本节为整个材质提供全局控制。例如，如果只在这里提供 Bump，它会应用到上面的所有波瓣。Presence 也是一个全局参数，它会遮罩掉或“镂空”所有波瓣，就像遮罩值为 0.0 的位置对象不存在一样。"}
+{"item_id":"029d3a5b7d:248","text":"Bump"}
+{"item_id":"029d3a5b7d:249","text":"用于所有波瓣的 Normal/Bump，除非被单个波瓣的 bump normal 覆盖。"}

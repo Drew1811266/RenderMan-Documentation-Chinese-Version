@@ -1,0 +1,27 @@
+{"id":"72d4a5889cbb7080a925a1a067e848110d7d7efc72aa213421ee4800888a639e","item_id":"50707de8ec:0","text":"PRMan 具备恢复中断渲染的能力。具体方式取决于它运行的 mode（模式）。输出到 TIFF 和 OpenEXR 图像的 Non-incremental renders（非增量渲染）始终可以恢复。"}
+{"id":"4b8eb2e1b5f7dee3ece81a67a648805adbecada04c3dc8dc27028e0e40105906","item_id":"50707de8ec:1","text":"输出到 OpenEXR 图像的 incremental renders（增量渲染）也可以恢复，但前提是使用了 checkpointing（检查点）选项。"}
+{"id":"9796cbb52b9323651677769b65dd427aa57e8f7f7248ce9d31c2c4afe82c658c","item_id":"50707de8ec:2","text":"Checkpointing（检查点）可以在"}
+{"id":"0b888fb68be194d75a46874b49364d72811e0dc4a3e74295221e88b0b31ba102","item_id":"50707de8ec:3","text":"rendermanrendersettings"}
+{"id":"53811f8212be7b5af6eb29d5ca7d7a2db7ab6c5e37214f6980a9b790ac0ef453","item_id":"50707de8ec:4","text":"node 的 Rendering → Render → Checkpoint Render 下找到"}
+{"id":"4ec79ba8535e488618969c7a7dce38c48306e7e70d2a46e0f2bf4d11e12ebe45","item_id":"50707de8ec:5","text":"Checkpoint Exit at"}
+{"id":"63eb776051cd550f68fba42e5597bc5768e28680c3c43eeff26c507cbfc27f4c","item_id":"50707de8ec:6","text":"此方法通过限制总渲染时间来工作（使用与 periodic checkpoints（周期检查点）相同的记法指定）。除非达到时间限制，否则渲染会正常进行；达到限制时，它会完成当前 increment（增量），写出 checkpoint image（检查点图像），然后停止渲染该帧。如果有多帧需要渲染，此时会直接继续下一帧；每帧都可以有自己的时间限制。"}
+{"id":"3b718c5f63fb38f288db6feeb4261a8ad9f603b0efc6263c8f8e9f9a7126a365","item_id":"50707de8ec:7","text":"可以使用此 parameter（参数）设置 renderer（渲染器）退出的 hour / minutes / seconds（小时/分钟/秒）时间。"}
+{"id":"cfa6aed7955ec6e613e77d2d2f2007ace130c8810c55f4dba6cb5b5652e0bcf2","item_id":"50707de8ec:8","text":"下面是所需格式示例"}
+{"id":"a4fb79bda79a4707622f3eecf20f38cec4f6c66ed606ebc1d26e047c277a1571","item_id":"50707de8ec:9","text":"60s - 表示 60 秒"}
+{"id":"b7e716f7e270e2a60e4c23ab9767b136b38e9f62070cba9e1b047b8cef297605","item_id":"50707de8ec:10","text":"60m - 表示 60 分钟"}
+{"id":"54ec268cdcab3870e48060ab7330be8c1b33f3040bb0c9509861036398965e33","item_id":"50707de8ec:11","text":"60h - 表示 60 小时"}
+{"id":"229e335d112d3388a8b162c79fe04c7bd6f33896cc348698d8f0355764981d77","item_id":"50707de8ec:12","text":"60d - 表示 60 天"}
+{"id":"9171efe80f55ee9b21e6da40c0672398e3b7b223af5f2f4b575bdc6a8e97e270","item_id":"50707de8ec:13","text":"下方 image grid（图像网格）展示了 1m、2m、5m、10m 的 checkpointing 效果"}
+{"id":"a126854b17011aa4dd2639771cc58f2ae988f77eb1f8ba780712017b4a07906e","item_id":"50707de8ec:14","text":"Checkpoint Interval（检查点间隔）"}
+{"id":"52fc0dd22e4a70357e6a840c89520ad68eee02e7fdec8ecc38b537959cd06f23","item_id":"50707de8ec:15","text":"这是 periodic checkpoint（周期检查点）。可以用 increment 数量（即 image passes（图像遍历次数））或经过的 wall clock time（墙钟时间）作为间隔来指定。例如，可以要求 renderer 每隔 100i 写出 checkpoint，这意味着每 100 个 increments 更新一次磁盘上图像，分别记录第 100、200、300 个 increment 等时的渲染状态。"}
+{"id":"b5f134b6eef293b74fcf204516b08d9605ffd8ea5fce9f929c5226b46167fade","item_id":"50707de8ec:16","text":"两种生成 checkpoints 的方法可以一起使用。例如，可以请求每 100 个 increments 写出一个 checkpoint，直到经过 15 分钟。此时，已写出的任何 periodic checkpoints 都会在退出时被最终 checkpoint 直接替换。"}
+{"id":"ddd5b5c9898e9393a8177e86d829a336a7ea2021135b6297bf26f79755b3d8b6","item_id":"50707de8ec:17","text":"请注意，checkpointing 是为 batch rendering 到磁盘图像而设计的。渲染到实时 framebuffer（如 \"it\"）时，渲染进行过程中已经会即时更新。在内置 display drivers 中，目前只有 TIFF 和 OpenEXR"}
+{"id":"05c411497fd107c02e3aebb73ef37eabab9ab17ad4485436a80443fac16aa750","item_id":"50707de8ec:18","text":"display drivers（显示驱动）"}
+{"id":"458e9977dbdba9cb211dd01ad2eb21e478f57eeca05198328cf1e7b64ad07527","item_id":"50707de8ec:19","text":"支持 checkpointing（检查点）。RenderMan LOP 上的 \"Output Type\" 必须设为 OpenEXR 或 TIFF，而不是 \"Raster\"，这样才会使用 RenderMan display drivers（显示驱动）。即使 Husk 可以在 Raster 模式中输出 OpenEXR 或 TIFF 图像，这种情况下也不会使用这些显示驱动，因此检查点不会生效。你可能会注意到 RenderMan 生成的图像文件包含标记为 ~w 的通道；这是为从该文件恢复渲染而存储的数据。"}
+{"id":"48f6a8d5688b0cf59fb8109b7903507ed9d2e1580be2ad7ae169df659e1ddeea","item_id":"50707de8ec:20","text":"Recovery（恢复）"}
+{"id":"35620af9b94aa47fb790c331adc125ea8c0eb8ff2c14105c93692737e686880e","item_id":"50707de8ec:21","text":"只要 checkpoint frames（检查点帧）已存在，中断渲染的 Recovery（恢复）就是自动的。"}
+{"id":"0ea508417c20f9fd87838a81d15596dbfe8cda91e075737d022424232f0937c5","item_id":"50707de8ec:22","text":"RenderMan 随后会照常加载 scene（场景），但不会从头开始并覆盖现有图像，而是检查这些图像来确定中断位置。如果成功，它会从接近中断的位置继续。如果图像已经完成、缺失，或由于某种原因与当前 scene 或彼此不匹配，则会静默地从头开始。"}
+{"id":"b412002c4821c037654c1842c69837b7bca0f4f5c2aabef54050cae77e9bea86","item_id":"50707de8ec:23","text":"不必在开始渲染的同一台 render machine（渲染机器）上恢复渲染。只要 RenderMan process（RenderMan 进程）仍能找到 scene file（场景文件）指定的图像，并且这些图像处于一致且可恢复的状态，就可以恢复渲染。"}
+{"id":"e912fd629085bb0915aeee1b7b3d61738d9ff99fb4c6c15706501837cc2b8ce7","item_id":"50707de8ec:24","text":"Recovery 也可以与上述 checkpointing 选项配合使用。在 time limit（时间限制）的情况下，这基本上相当于原始时间限制的延伸。incremental renders 可以用这种方式拆分为任意数量的 time slices（时间片）。不过请注意，每次 recovery 都需要重新加载 scene 及其所有 assets，因此应谨慎使用。此外，此功能仅支持 OpenEXR 文件。"}
+{"id":"64fe82a6497d53669b4b1e6f6f8b1f0082a3b58a62da992a4166867dbd2eef1b","item_id":"50707de8ec:25","text":"有关 Checkpointing & Recovery 的更多信息可见"}
+{"id":"fcec91509759ad995c2cd14bcb26b2720993faf61c29d379b270d442d92290eb","item_id":"50707de8ec:26","text":"此处"}

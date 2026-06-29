@@ -1,0 +1,31 @@
+{"item_id":"ee88ffb36c:0","text":"RenderMan Procedurals（RenderMan 过程程序）使你能够在渲染期间动态创建 geometry（几何体），然后传递给 RenderMan。通过在最后一刻把 geometry 传入 RenderMan，可以节省在 Katana、Maya 或其他应用程序中生成和显示几何体所需的时间和内存。"}
+{"item_id":"ee88ffb36c:1","text":"Procedurals（过程程序）最常用于 fur/hair rendering（毛发/头发渲染）、crowd rendering（群集渲染）、动态生长的植被，或 procedurally created environments（程序化创建的环境）。它们几乎可以用于任何内容。"}
+{"item_id":"ee88ffb36c:2","text":"虽然 procedurals 有很多优点，但其中一个缺点也来自它的优势。由于 geometry（几何体）只在 RenderMan 内部生成，Katana 对该 geometry 一无所知，也无法显示它。如果你用于创建 procedural 的应用程序有某种静态表示，例如 Alembic 文件，我们建议使用 Katana Viewer proxy 功能，这样你在 Viewer 中看到的就不只是 bounding box（包围盒）。有关如何使用 Viewer proxies，请参阅 Katana Help。"}
+{"item_id":"ee88ffb36c:3","text":"Setting Up a Procedural in the Node Graph（在 Node Graph 中设置 Procedural）"}
+{"item_id":"ee88ffb36c:4","text":"要让 Katana 正确地将 procedural 传递给 RenderMan，主要需要执行三个步骤。"}
+{"item_id":"ee88ffb36c:5","text":"设置一个类型为 \"renderer procedural\" 的 Scene Graph 位置。"}
+{"item_id":"ee88ffb36c:6","text":"设置包含 RenderMan 将调用的 procedural code（过程程序代码）的 shared library（共享库）路径。"}
+{"item_id":"ee88ffb36c:7","text":"设置 procedural 执行工作所需的任何额外 arguments（参数）。"}
+{"item_id":"ee88ffb36c:8","text":"下面详细说明每个步骤。"}
+{"item_id":"ee88ffb36c:9","text":"Step 1（步骤 1）:"}
+{"item_id":"ee88ffb36c:10","text":"设置一个类型为 \"renderer procedural\" 的 Scene Graph 位置"}
+{"item_id":"ee88ffb36c:11","text":"在 Scene Graph 中，每个位置的 \"type\" 控制该位置的 Attributes 如何传递给 RenderMan。为了让 RenderMan 在运行时调用 Procedural，必须添加一个类型为 \"renderer procedural\" 的 Scene Graph 位置。"}
+{"item_id":"ee88ffb36c:12","text":"最简单的方法是使用"}
+{"item_id":"ee88ffb36c:13","text":"PrimitiveCreate"}
+{"item_id":"ee88ffb36c:14","text":"节点，并将 type 设置为 \"renderer procedural\"。同时指定名称。在下面的示例中，我将其设置为 /root/world/geo/procedurals/myprocedural"}
+{"item_id":"ee88ffb36c:15","text":"Step 2（步骤 2）:"}
+{"item_id":"ee88ffb36c:16","text":"设置包含 RenderMan 将调用的 procedural code（过程程序代码）的 shared library（共享库）路径"}
+{"item_id":"ee88ffb36c:17","text":"创建 procedural geometry（过程程序几何体）的应用程序开发者会提供 RenderMan Procedural library（RenderMan 过程程序库）。请查阅该应用程序的文档，或咨询你的 pipeline 团队以了解在哪里可以找到此路径。下面我指定了一个假想库的路径。使用"}
+{"item_id":"ee88ffb36c:18","text":"AttributeSet"}
+{"item_id":"ee88ffb36c:19","text":"节点来完成此操作。要使用的 attribute name（属性名称）是：rendererProcedural.procedural"}
+{"item_id":"ee88ffb36c:20","text":"Step 3（步骤 3）:"}
+{"item_id":"ee88ffb36c:21","text":"设置 procedural 执行工作所需的任何额外 arguments（参数）"}
+{"item_id":"ee88ffb36c:22","text":"每个 procedural 都有一组唯一参数，必须传递给它，才能让 procedural 为正在渲染的帧生成正确的 geometry（几何体）。这些参数很可能类似于你会传给 command-line utility（命令行工具）的内容。"}
+{"item_id":"ee88ffb36c:23","text":"下面我使用"}
+{"item_id":"ee88ffb36c:24","text":"AttributeSet"}
+{"item_id":"ee88ffb36c:25","text":"节点指定了一些假想属性，供假想的 Procedural.so 正常执行。要使用的 attribute name 是：rendererProcedural.args.extraArgs"}
+{"item_id":"ee88ffb36c:26","text":"完成上述每个步骤后，你最终会得到类似下面示例的 Node Graph、Scene Graph 和 Attributes。"}
+{"item_id":"ee88ffb36c:27","text":"Going Beyond the Basics（超越基础）"}
+{"item_id":"ee88ffb36c:28","text":"下面的信息只提供将 RenderMan Procedural 插入 Katana 场景的最基本方法。你或 pipeline 团队还可以采用其他更高级的选项。对于下面每种方法，实际效果可能因情况而异。有关每种方法的更多详细信息，请查看 Katana 中 Help 菜单提供的 Katana 文档。"}
+{"item_id":"ee88ffb36c:29","text":"创建并使用 Args files（Args 文件）用于 renderer procedurals，从而更轻松地指定 procedural 执行工作所需的参数。"}
+{"item_id":"ee88ffb36c:30","text":"创建一个包装 procedural 的 custom（自定义）节点 - 这对用户最友好，但需要开发者。"}

@@ -1,0 +1,34 @@
+{
+  "parentType": "page",
+  "parentId": "22184290",
+  "ownerId": "557058:bd93f2ee-e583-43fb-8a78-f4b1519a63bf",
+  "lastOwnerId": null,
+  "createdAt": "2016-12-15T11:22:47.987Z",
+  "authorId": "557058:bd93f2ee-e583-43fb-8a78-f4b1519a63bf",
+  "position": 643956530,
+  "version": {
+    "number": 2,
+    "message": "",
+    "minorEdit": false,
+    "authorId": "61fbe41ee688d6007069f091",
+    "createdAt": "2024-07-05T19:03:52.559Z",
+    "ncsStepVersion": "5"
+  },
+  "spaceId": "22183942",
+  "status": "current",
+  "body": {
+    "view": {
+      "representation": "view",
+      "value": "<div class=\"code panel pdl conf-macro output-block\" data-hasbody=\"true\" data-macro-id=\"8cfbc47c-e533-4f70-b297-fea30272f155\" data-macro-name=\"code\" style=\"border-width: 1px;\"><div class=\"codeContent panelContent pdl\">\n<pre class=\"syntaxhighlighter-pre\" data-syntaxhighlighter-params=\"brush: java; gutter: false; theme: Confluence\" data-theme=\"Confluence\">from TrEnvHandler import TrEnvHandler\nimport logging\n\nclass projxhandler(TrEnvHandler):\n    def __init__(self, name, envkeydict, envkeys):\n        self.logger = logging.getLogger(&quot;tractor-blade&quot;)\n        self.logger.info(&quot;initializing projxhandler: %s&quot; % (name))\n        TrEnvHandler.__init__(self, name, envkeydict, envkeys)\n\n    def initLocalVars(self):\n        self.scene = None\n        self.shot = None\n\n    def updateEnvironment(self, cmd, env, envkeys):\n        self.logger.debug(&quot;projxhandler.updateEnvironment: %s&quot; % repr(envkeys))\n        # Local vars should be initialized in call to updateEnvironment()\n        self.initLocalVars()\n        if envkeys and type(envkeys) == type([]):\n            for envkey in envkeys:\n                key,val = envkey.split(&quot;=&quot;)\n                self.logger.debug(&quot;projxhandler.envkey: %s&quot; % envkey)\n                if key == &quot;SCENE&quot;:\n                    self.scene = envkey\n                    env[&quot;SCENE&quot;] = self.scene\n                elif key == &quot;SHOT&quot;:\n                    self.shot = envkey\n                    env[&quot;SHOT&quot;] = self.shot\n\n        return TrEnvHandler.updateEnvironment(self, cmd, env, envkeys)\n\n    def remapCmdArgs(self, cmdinfo, launchenv, thisHost):\n        self.logger.debug(&quot;projxhandler.remapCmdArgs: %s&quot; % self.name)\n        argv = TrEnvHandler.remapCmdArgs(self, cmdinfo, launchenv, thisHost)\n        self.logger.info(&quot;scene: %s, shot:%s&quot; %\n            (self.scene, self.shot))\n\n        # indicate command was launched by tractor\n        launchenv[&quot;TRACTOR&quot;] = &quot;1&quot;\n\n        if argv[0] == &quot;render&quot; and &quot;RMANTREE&quot; in launchenv:\n            argv[0] = os.path.join(launchenv[&quot;RMANTREE&quot;],&quot;bin&quot;,&quot;prman&quot;))\n            argv.[1:1] = [&quot;-statsfile&quot;, &quot;%s-%s&quot; % (self.scene, self.shot))\n\n        # on windows for add the Visual Studio default libs and includes\n        p = platform.platform()\n        if p.find(&quot;Windows&quot;) != -1:\n            if launchenv.has_key(&quot;INCLUDE&quot;):\n                launchenv[&quot;INCLUDE&quot;] += &quot;;&quot; + launchenv[&quot;VCINCLUDE&quot;]\n            else:\n                launchenv[&quot;INCLUDE&quot;] = launchenv[&quot;VCINCLUDE&quot;]\n\n            if launchenv.has_key(&quot;LIB&quot;):\n                launchenv[&quot;LIB&quot;] += &quot;;&quot; + launchenv[&quot;VCLIB&quot;]\n            else:\n                launchenv[&quot;LIB&quot;] = launchenv[&quot;VCLIB&quot;]\n\n        return argv\n\n    def debug(self):\n        self.logger.debug(&quot;projxhandler.debug: %s&quot; % self.name)\n        TrEnvHandler.debug(self)</pre>\n</div></div>"
+    }
+  },
+  "title": "Example Envrionment Handler",
+  "id": "22184300",
+  "_links": {
+    "editui": "/pages/resumedraft.action?draftId=22184300",
+    "webui": "/spaces/TRA/pages/22184300/Example+Envrionment+Handler",
+    "edituiv2": "/spaces/TRA/pages/edit-v2/22184300",
+    "tinyui": "/x/bIFSAQ",
+    "base": "https://renderman.atlassian.net/wiki"
+  }
+}

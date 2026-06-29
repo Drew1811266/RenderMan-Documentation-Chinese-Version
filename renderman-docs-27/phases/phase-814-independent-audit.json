@@ -1,0 +1,425 @@
+{
+  "phase": 814,
+  "file": "TRA/22184308-Limits Configuration.html",
+  "file_id": "2c25ae7c50",
+  "source_items": 91,
+  "translation_rows": 91,
+  "source_items_match_translation_rows": true,
+  "duplicate_rows": [],
+  "missing_item_ids": [],
+  "extra_item_ids": [],
+  "tag_fingerprint_identical": true,
+  "rendered_markup_matches_target_markup": true,
+  "glossary_violations": [],
+  "direct_placement_missing": [],
+  "actionable_long_source_residuals": [],
+  "accepted_long_source_residuals": [
+    {
+      "item_id": "2c25ae7c50:30",
+      "source": "Adaptive Farm Allocations"
+    },
+    {
+      "item_id": "2c25ae7c50:34",
+      "source": "site override directory"
+    },
+    {
+      "item_id": "2c25ae7c50:43",
+      "source": "Blade Triggered Limit Tags"
+    },
+    {
+      "item_id": "2c25ae7c50:46",
+      "source": "Adaptive Farm Allocations"
+    },
+    {
+      "item_id": "2c25ae7c50:76",
+      "source": "Nominal Allocations"
+    },
+    {
+      "item_id": "2c25ae7c50:81",
+      "source": "Nominal Maximum Utilization"
+    },
+    {
+      "item_id": "2c25ae7c50:89",
+      "source": "Reserved Allocations"
+    }
+  ],
+  "actionable_ascii_heavy_residuals": [],
+  "accepted_ascii_heavy_residuals": [
+    {
+      "item_id": "2c25ae7c50:0",
+      "text": "Limits Overview（限制系统概述）",
+      "ascii_letters": 14,
+      "cjk_chars": 6
+    },
+    {
+      "item_id": "2c25ae7c50:3",
+      "text": "system 可用于监控并强制执行 farm-wide restrictions，以控制某些 limited resources。它的做法很简单：维护与 site 自行选择的 abstract keywords 相关联的 counts。commands 启动时递增这些 counts，commands 退出时递减。Sites 可以指定：只有当前 count 低于给定 threshold 时，才允许启动带有特定 limit keywords 的新 commands。",
+      "ascii_letters": 130,
+      "cjk_chars": 70
+    },
+    {
+      "item_id": "2c25ae7c50:4",
+      "text": "考虑一个 example：我们有一个名为 \"AwesomeUnicorn\" 的 application，已安装在全部 100 个 renderfarm nodes 上。不过，我们只有 15 个 license seats，因此需要避免同时启动超过 15 个 concurrent instances。一旦已有 15 个在运行，就必须等一些退出后才能继续启动，最高不超过 15 的 limit。来自 job queue 的其他类型 commands 可以在剩余 idle farm nodes 上运行。Tractor 会维护 application names 在启动时的 tally，以及其他任意",
+      "ascii_letters": 140,
+      "cjk_chars": 98
+    },
+    {
+      "item_id": "2c25ae7c50:6",
+      "text": "names，这些 names 可由 job script 附加到每个 command。这种计数称为 SiteMax",
+      "ascii_letters": 33,
+      "cjk_chars": 15
+    },
+    {
+      "item_id": "2c25ae7c50:7",
+      "text": "global limit（全局资源限制）",
+      "ascii_letters": 11,
+      "cjk_chars": 6
+    },
+    {
+      "item_id": "2c25ae7c50:9",
+      "text": "基本 limit counting policy 由 limit.config setting SiteMaxCounting 控制。目前它有两个可能 settings；在默认",
+      "ascii_letters": 60,
+      "cjk_chars": 16
+    },
+    {
+      "item_id": "2c25ae7c50:10",
+      "text": "\"perInvocation\"（按调用计数）",
+      "ascii_letters": 13,
+      "cjk_chars": 5
+    },
+    {
+      "item_id": "2c25ae7c50:11",
+      "text": "mode 下，每次 command dispatch 都会递增 limit counts。另有一种名为",
+      "ascii_letters": 30,
+      "cjk_chars": 13
+    },
+    {
+      "item_id": "2c25ae7c50:13",
+      "text": "的 alternate global counting scheme，它只在带有特定 tag 的",
+      "ascii_letters": 32,
+      "cjk_chars": 9
+    },
+    {
+      "item_id": "2c25ae7c50:15",
+      "text": "command 落到给定 farm host 上时递增 count。随后在同一 host 上运行的类似 commands 不会递增该 limit 的 count。这个设计用于支持某些 application licensing scenarios：在这些场景中，一个 license 支持同一 host 上运行 unlimited instances 的 application。",
+      "ascii_letters": 111,
+      "cjk_chars": 51
+    },
+    {
+      "item_id": "2c25ae7c50:16",
+      "text": "Tractor 还会为每个 limit 维护 BladeMax tally，并按",
+      "ascii_letters": 25,
+      "cjk_chars": 9
+    },
+    {
+      "item_id": "2c25ae7c50:17",
+      "text": "blade hostname",
+      "ascii_letters": 13,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "2c25ae7c50:18",
+      "text": "建立索引。此值可用于限制任意单个 blade 上可运行的 concurrent invocations 数量。例如，我们可能判断 AwesomeUnicorn app 非常强大（或 CPU intensive），因此同一时间每个 blade 上只应运行一个 instance。也可以指定 per-blade exceptions。",
+      "ascii_letters": 86,
+      "cjk_chars": 55
+    },
+    {
+      "item_id": "2c25ae7c50:20",
+      "text": "job owner",
+      "ascii_letters": 8,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "2c25ae7c50:21",
+      "text": "name 为每个 limit tag 建立索引。此 OwnerMax value 可用于把 individual users 限制在消耗给定 limit tag 的某个 concurrent invocations 数量内。例如，我们可能希望指定：任何 user 都不应同时使用超过 5 个 AwesomeUnicorn licenses。如下所示，site 可以指定 general owner limit，也可以为特定 users 指定若干 exceptions。",
+      "ascii_letters": 131,
+      "cjk_chars": 65
+    },
+    {
+      "item_id": "2c25ae7c50:22",
+      "text": "limit definition 还可以指定 JobMax value，用于约束每个",
+      "ascii_letters": 26,
+      "cjk_chars": 11
+    },
+    {
+      "item_id": "2c25ae7c50:23",
+      "text": "individual job（单个作业项目）",
+      "ascii_letters": 13,
+      "cjk_chars": 6
+    },
+    {
+      "item_id": "2c25ae7c50:25",
+      "text": "注意：除了 limits.config definitions 中的 JobMax value，",
+      "ascii_letters": 34,
+      "cjk_chars": 6
+    },
+    {
+      "item_id": "2c25ae7c50:27",
+      "text": "maxActive",
+      "ascii_letters": 9,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "2c25ae7c50:28",
+      "text": "attribute",
+      "ascii_letters": 9,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "2c25ae7c50:29",
+      "text": "，它以另一种方式对 job 在 farm 上的 \"footprint\" 提供 per-job control。每个 job 的 maxActive attribute 会指定该 job 同时 active tasks 数量的简单上限。这是一种通用 active task count restriction，独立于 limit policies 或 command type。默认情况下，每个 job 的 maxActive attribute 设置为 zero，表示 \"unconstrained\"，并使用本页描述的常规 site-wide Limit policies 控制 resource usage。maxActive attribute 是额外 constraint，用于进一步减少 job 的 blade usage。",
+      "ascii_letters": 227,
+      "cjk_chars": 75
+    },
+    {
+      "item_id": "2c25ae7c50:30",
+      "text": "Adaptive Farm Allocations（自适应 Farm 分配）",
+      "ascii_letters": 27,
+      "cjk_chars": 5
+    },
+    {
+      "item_id": "2c25ae7c50:31",
+      "text": "是在 Tractor 2.0 中引入的。这个 limit sharing mechanism 提供了一种方式，可把给定 site-wide limit 的 flexible percentages 分配给不同 types of jobs。例如，来自 project \"X\" 的 jobs 获得 farm 的 10%，来自 show \"Y\" 的 jobs 获得 60%，其他 jobs 可以使用剩余部分。下面会更详细描述这种 sharing。",
+      "ascii_letters": 107,
+      "cjk_chars": 58
+    },
+    {
+      "item_id": "2c25ae7c50:32",
+      "text": "limits.config 文件（限制配置文件）",
+      "ascii_letters": 12,
+      "cjk_chars": 8
+    },
+    {
+      "item_id": "2c25ae7c50:33",
+      "text": "limits.config 文件以 JSON notation 指定一个 limit definitions dictionary。每个 limit definition 由必需的 global maximum concurrent count 和 owner maximum concurrent count，以及 optional modifiers 组成。必须在",
+      "ascii_letters": 137,
+      "cjk_chars": 21
+    },
+    {
+      "item_id": "2c25ae7c50:34",
+      "text": "site override directory",
+      "ascii_letters": 21,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "2c25ae7c50:36",
+      "text": "对于 SiteMax、OwnerMax 或 BladeMax，某个值",
+      "ascii_letters": 23,
+      "cjk_chars": 6
+    },
+    {
+      "item_id": "2c25ae7c50:38",
+      "text": "unlimited（无限制数量）",
+      "ascii_letters": 9,
+      "cjk_chars": 5
+    },
+    {
+      "item_id": "2c25ae7c50:39",
+      "text": "数量的 invocations 调用实例。",
+      "ascii_letters": 11,
+      "cjk_chars": 7
+    },
+    {
+      "item_id": "2c25ae7c50:40",
+      "text": "在 Job Scripts 中指定 Limit Tags",
+      "ascii_letters": 19,
+      "cjk_chars": 4
+    },
+    {
+      "item_id": "2c25ae7c50:41",
+      "text": "Tractor jobs 可以显式声明它们会消耗的 limit tags。通常使用 Job 或 RemoteCmd 的 -tags list parameter 指定。若在 job level 指定，这些 tags 会用于扩展每个 command 自己的 list（如果有）。",
+      "ascii_letters": 72,
+      "cjk_chars": 39
+    },
+    {
+      "item_id": "2c25ae7c50:42",
+      "text": "此 example 会递增名为 \"AwesomeUnicorn\"、\"w00t\" 和 \"spoon\" 的 limit tags。",
+      "ascii_letters": 37,
+      "cjk_chars": 8
+    },
+    {
+      "item_id": "2c25ae7c50:43",
+      "text": "Blade Triggered Limit Tags（由 Blade 触发的限制标签）",
+      "ascii_letters": 28,
+      "cjk_chars": 8
+    },
+    {
+      "item_id": "2c25ae7c50:45",
+      "text": "要让 blade assignment 触发 limit increment，请向 limit definition 添加 TaggedBlades value；它接受一个 list，包含应触发 counting 的 profile names 或 host names。",
+      "ascii_letters": 94,
+      "cjk_chars": 20
+    },
+    {
+      "item_id": "2c25ae7c50:46",
+      "text": "Adaptive Farm Allocations（自适应 Farm 分配）",
+      "ascii_letters": 27,
+      "cjk_chars": 5
+    },
+    {
+      "item_id": "2c25ae7c50:47",
+      "text": "Limit Sharing 提供了一种方式，可把给定 limit 的 flexible percentages 分配给不同 types of jobs。",
+      "ascii_letters": 47,
+      "cjk_chars": 17
+    },
+    {
+      "item_id": "2c25ae7c50:48",
+      "text": "默认情况下，limit count 是简单的 \"global\" tally：与任何已启动 command 相关联的 limit tags 会在 launch 时递增，并在 exit 时递减。如果某个 particular limit tally 已达到允许的 maximum count，那么使用该 tag 的 commands 在某些先前 commands 退出之前都不允许启动。",
+      "ascii_letters": 98,
+      "cjk_chars": 60
+    },
+    {
+      "item_id": "2c25ae7c50:49",
+      "text": "limit sharing 变体会使这些 limit counts 被",
+      "ascii_letters": 23,
+      "cjk_chars": 7
+    },
+    {
+      "item_id": "2c25ae7c50:53",
+      "text": "，并由 system 在这些 projects 之间强制执行 usage ratio。",
+      "ascii_letters": 24,
+      "cjk_chars": 11
+    },
+    {
+      "item_id": "2c25ae7c50:54",
+      "text": "因此，sharing 所需的 ingredients 包括：",
+      "ascii_letters": 18,
+      "cjk_chars": 7
+    },
+    {
+      "item_id": "2c25ae7c50:56",
+      "text": "Job -projects",
+      "ascii_letters": 11,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "2c25ae7c50:57",
+      "text": "attribute，用于指定每个 job 的 affiliation。未关联的 jobs 会归属到名为 \"default\" 的 project。",
+      "ascii_letters": 41,
+      "cjk_chars": 18
+    },
+    {
+      "item_id": "2c25ae7c50:60",
+      "text": "dictionary 到 limits.config 中的某个 limit definition，用来描述该 limit 按 project 分配的 allocations。",
+      "ascii_letters": 60,
+      "cjk_chars": 14
+    },
+    {
+      "item_id": "2c25ae7c50:61",
+      "text": "确保 shared limit 在 dispatching 期间生效，方法是把它的",
+      "ascii_letters": 22,
+      "cjk_chars": 13
+    },
+    {
+      "item_id": "2c25ae7c50:62",
+      "text": "limit tag",
+      "ascii_letters": 8,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "2c25ae7c50:63",
+      "text": "name 添加到 job scripts，或者把",
+      "ascii_letters": 14,
+      "cjk_chars": 6
+    },
+    {
+      "item_id": "2c25ae7c50:64",
+      "text": "TaggedBlades",
+      "ascii_letters": 12,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "2c25ae7c50:65",
+      "text": "keyword 添加到 limit definition 本身，使所有分配到具名 blades（profiles）的 assignments 都被 tally。",
+      "ascii_letters": 52,
+      "cjk_chars": 16
+    },
+    {
+      "item_id": "2c25ae7c50:68",
+      "text": "affiliation 的 jobs 会归属到名为",
+      "ascii_letters": 15,
+      "cjk_chars": 7
+    },
+    {
+      "item_id": "2c25ae7c50:70",
+      "text": "的 project。Project affiliation 可以在 Dashboard 中添加或修改。limit definition 中命名的 \"Shares\" 代表该 limit usage 的 100%。如果 fractional named allocations 的总和不是 1.0，则所有剩余 capacity 会自动分配给 \"default\" project。\"Shares\" definition 也可以显式定义 \"default\" allocation 的大小。如果给定 limit definition 中所有 allocations 的总和高于或低于 1.0，则整组 values 会按比例缩放，使新的 total 为 1.0。",
+      "ascii_letters": 183,
+      "cjk_chars": 74
+    },
+    {
+      "item_id": "2c25ae7c50:71",
+      "text": "Sharing Example（共享分配示例）",
+      "ascii_letters": 14,
+      "cjk_chars": 6
+    },
+    {
+      "item_id": "2c25ae7c50:72",
+      "text": "位于 limits.config 中的某处 ...",
+      "ascii_letters": 12,
+      "cjk_chars": 6
+    },
+    {
+      "item_id": "2c25ae7c50:73",
+      "text": "假设我们当前有两个 shows 正在 production 中。我们会使用 annotations spool jobs，为每个 job 给出 project affiliation(s)。",
+      "ascii_letters": 57,
+      "cjk_chars": 22
+    },
+    {
+      "item_id": "2c25ae7c50:74",
+      "text": "Job -projects {Pawns}  -title \"pawn_hair_test1\" ...\nor\nJob -projects {Rocket} -title \"rktpkt\" ...",
+      "ascii_letters": 63,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "2c25ae7c50:75",
+      "text": "参考上面的 example，我们创建了一个名为 \"theWholeFarm\" 的 limit tag name，用来抽象表示所有使用 \"Linux64\" blade profile 的 render farm blades。",
+      "ascii_letters": 64,
+      "cjk_chars": 26
+    },
+    {
+      "item_id": "2c25ae7c50:76",
+      "text": "Nominal Allocations（名义分配）",
+      "ascii_letters": 18,
+      "cjk_chars": 4
+    },
+    {
+      "item_id": "2c25ae7c50:79",
+      "text": "表示把 theWholeFarm 分配给每个 project 的 allocation。Allocations 以 limit 的 SiteMax count 的 fraction 给出。如果 allocations 总和大于 1.0，会发生 rescaling。",
+      "ascii_letters": 85,
+      "cjk_chars": 23
+    },
+    {
+      "item_id": "2c25ae7c50:80",
+      "text": "当 tasks 被分配给 blades 时，每个 project 的 tally 会相应递增。theWholeFarm limit tag 的 usage 始终是其 shares 中 counts 的总和。",
+      "ascii_letters": 60,
+      "cjk_chars": 23
+    },
+    {
+      "item_id": "2c25ae7c50:81",
+      "text": "Nominal Maximum Utilization（名义最大利用率）",
+      "ascii_letters": 25,
+      "cjk_chars": 7
+    },
+    {
+      "item_id": "2c25ae7c50:82",
+      "text": "-- 一旦某个 project 的 count 达到该 share 指定的 maximum，就不会再 dispatch 该 project 的额外 tasks，直到先前的 task 退出。",
+      "ascii_letters": 48,
+      "cjk_chars": 26
+    },
+    {
+      "item_id": "2c25ae7c50:83",
+      "text": "Dynamic Overflow（动态溢出）",
+      "ascii_letters": 15,
+      "cjk_chars": 4
+    },
+    {
+      "item_id": "2c25ae7c50:89",
+      "text": "Reserved Allocations（保留容量分配）",
+      "ascii_letters": 19,
+      "cjk_chars": 6
+    }
+  ],
+  "required_phrase_missing": [],
+  "section_order_positions": [],
+  "section_order_ok": true,
+  "passed": true
+}

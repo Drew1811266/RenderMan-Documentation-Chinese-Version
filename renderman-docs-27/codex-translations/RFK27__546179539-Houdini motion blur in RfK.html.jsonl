@@ -1,0 +1,5 @@
+{"item_id":"59f33fea48:0","text":"从 Houdini render exported Alembic meshes 的 artists 可能会遇到 rendering motion blur 的问题。这通常是因为 mesh topology 经常变化，使 RenderMan 难以 calculate motion blur。解决方法是使用 Houdini ROP node 将 mesh export 为 Alembic。"}
+{"item_id":"59f33fea48:1","text":"现在，为了让 Katana 使用这些 information，需要添加 Velocity Apply node。确保 CEL statement 中的 path 指向从 Houdini export 的 hierarchy 中的 Alembic polymesh。"}
+{"item_id":"59f33fea48:2","text":"在 PrmanGlobalStatements 中启用 motion blur，并且 RenderSettings 中的 shutter interval 不为 0 后，应会自动得到 motion blur。如果没有，请确认 CEL statement 中的 VelocityApply path 正确、motion blur 已启用，并且 mesh 上存在 velocity data。可以选择 mesh，然后查看 Attributes > Geometry > Point > v 来检查 velocity data。在这个区域中应能看到 vertices 的 value table。如果没有显式指定，Katana 会自动在 geometry.point.V、geometry.point.v 和 geometry.arbitrary.v 中查找正确 data。"}
+{"item_id":"59f33fea48:3","text":"No motion blur（无 motion blur）"}
+{"item_id":"59f33fea48:4","text":"With motion blur（有 motion blur）"}

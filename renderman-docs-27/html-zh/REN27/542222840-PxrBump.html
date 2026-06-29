@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PxrBump</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>PxrBump</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/REN27/542222840/PxrBump">https://rmanwiki-27.pixar.com/space/REN27/542222840/PxrBump</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="960" loading="lazy" src="../../attachments/542222840/lmPlasticTiles.png" data-image-src="../../attachments/542222840/lmPlasticTiles.png" data-unresolved-comment-count="0" data-linked-resource-id="542222856" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="lmPlasticTiles.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542222840" data-linked-resource-container-version="1" data-media-id="b4875dca-ff3c-43d5-b15b-f3895e1187c4" data-media-type="file"></span></p><p style="text-align: center;"><em style="text-align: center;">PxrBump 用于为已置换的瓦片提供 secondary bump（次级凹凸）。</em></p><p><br/></p><p><span style="letter-spacing: 0.0px;"><br/>Bump mapping（凹凸贴图）是一种成本较低的方法，可在不建模细节、也不使用 displacement（置换）改变对象形状的情况下为对象添加细节。这是一种 shading “trick”（着色技巧），由提供的 pattern 产生细节错觉。</span></p><p>这会从 bump map（凹凸贴图，即 scalar displacement map（标量置换贴图），因此只使用第一个通道进行置换）生成 bumped normal（凹凸法线）。凹凸会应用在 <em>object（对象）</em> space（空间）中。 <em>object（对象）</em> space（空间）与 <em>current（当前）</em> space（空间）之间的缩放变化会由该节点自动应用。</p><p>Texture atlas format（纹理图集格式）文件可以按 UDIM (Mari) 格式或 Mudbox 格式读取。此插件也支持 Rtx procedural texture plugins（Rtx 程序化纹理插件）。</p><p><br/></p><h3 id="PxrBump-InputParameters">Input Parameters（输入参数）</h3><h4 id="PxrBump-Scale">Scale（缩放）</h4><p>应用到凹凸的 object space（对象空间）Scale（缩放）。</p><h4 id="PxrBump-Disabled">Disabled（禁用）</h4><p>关闭凹凸效果，便于调试。改用 geometric normal（几何法线）。</p><h4 id="PxrBump-InputBump">Input Bump（输入凹凸）</h4><p>如果 <em>Input Bump（输入凹凸）</em> 已连接（并且 <em>Filename（文件名）</em> 未指定），pattern 会执行连接到 <em>Input Bump（输入凹凸）</em> 的上游 pattern network 三次：一次在 shading point（着色点），一次在 <code>P+du</code> 以及 <code>P+dv</code> 处。然后对结果做叉乘，以获得 bump normal（凹凸法线）。</p><p>注意，如果你使用固定 texture（纹理）和 UV，强烈建议使用下面的 <em>Filename（文件名）</em> 参数，因为它会快三倍！</p><p>如果 <em>Filename（文件名）</em> 已指定， <em>Input Bump（输入凹凸）</em> 会被忽略。</p><h4 id="PxrBump-Filename">Filename（文件名）</h4><p>纹理的 filename（文件名）。如果未提供， <em>Input Bump（输入凹凸）</em> 会被改用。</p><p>如果 <em>Filename（文件名）</em> 已指定时，pattern 没有连接上游 graph。它会改为从纹理文件中读取 bump value（凹凸值）。输入文件可以是 color（彩色）或 monochrome（单色）文件；如果文件是 RGB，则只会读取单个通道（由 <em>First Channel Offset（第一通道偏移）</em> 参数指定）。bump pattern（凹凸图案）会在过滤纹理的同时从纹理取得 derivatives（导数），这与使用 <em>Input Bump（输入凹凸）</em>相比具有性能优势。</p><p>PxrBump pattern 目前不允许修改纹理的 manifold（流形）；请使用下面的控制项。</p><h4 id="PxrBump-BumpManifold">Bump Manifold（凹凸流形）</h4><p>此项接受来自 <a href="542222866-PxrBumpManifold2D.html" data-linked-resource-id="542222866" data-linked-resource-version="1" data-linked-resource-type="page">PxrBumpManifold2D</a></p><p><br/></p><h4 id="PxrBump-AdvancedTextureSettings">Advanced Texture Settings（高级纹理设置）</h4><h4 id="PxrBump-MIPBias"><span class="legacy-color-text-default">MIPBias</span></h4><p><span class="legacy-color-text-default">为渲染选择的 MIP selection（MIP 选择）添加偏移，可选择更高分辨率（负整数）或更低分辨率（正整数）。</span></p><h4 id="PxrBump-MaxResolution"><span class="legacy-color-text-default">MaxResolution</span></h4><p><span class="legacy-color-text-default">将 MIP selection（MIP 选择）限制到首选的最高级别。根据你的选择，这可能会阻止最高分辨率被渲染。</span></p><h4 id="PxrBump-"><span class="legacy-color-text-default"> </span></h4><h4 id="PxrBump-Advanced">Advanced（高级）</h4><h4 id="PxrBump-InputNormal">Input Normal（输入法线）</h4><p>要添加到 bump normal（凹凸法线）上的额外法线。</p><h4 id="PxrBump-ReverseNormal">Reverse Normal（反转法线）</h4><p>反转结果法线。</p><h4 id="PxrBump-AdjustAmount">Adjust Amount（调整量）</h4><p>当 geometric normals（几何法线）背向摄像机时，用于调整法线的量。当我们在法线中看到裂缝时，这很有用。你可以在 <a href="542222488-PxrAdjustNormal.html" data-linked-resource-id="542222488" data-linked-resource-version="1" data-linked-resource-type="page">此处</a>找到示例。</p><h4 id="PxrBump-SurfaceNormalMix">Surface Normal Mix（表面法线混合）</h4><p>将结果法线与原始 surface normals（表面法线）混合的量。趋近 1.0 时会混入更多表面法线。你可以在 <a href="542222488-PxrAdjustNormal.html" data-linked-resource-id="542222488" data-linked-resource-version="1" data-linked-resource-type="page">此处</a>找到示例。</p><h3 id="PxrBump-OutputParameters">Output Parameters（输出参数）</h3><h4 id="PxrBump-resultN">resultN</h4><p>bumped normal（凹凸法线）。</p>
+  </article>
+</main>
+</body>
+</html>

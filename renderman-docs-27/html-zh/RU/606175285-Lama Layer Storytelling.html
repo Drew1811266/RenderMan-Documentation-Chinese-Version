@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lama Layer Storytelling</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Lama Layer Storytelling</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RU/606175285/Lama+Layer+Storytelling">https://rmanwiki-27.pixar.com/space/RU/606175285/Lama+Layer+Storytelling</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p><style>[data-colorid=me25zaf38f]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=me25zaf38f]{color:#004eb3}</style></p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Robot_full.png" width="760" loading="lazy" src="../../attachments/606175285/Robot_full.png" data-image-src="../../attachments/606175285/Robot_full.png" data-height="804" data-width="1435" data-unresolved-comment-count="0" data-linked-resource-id="632848960" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Robot_full.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="606175285" data-linked-resource-container-version="9" data-media-id="4768d0d1-fc88-47a8-a739-6dd7c19af23f" data-media-type="file" /></span><p>本课展示如何从 storytelling perspective 来组织你的 shading layers。  </p><p>带着明确目的去 scratch surfaces，思考 dirt 为什么会聚集在特定 crevices，以及 decals 如何为 props 添加 story。</p><p>这个 shader layering 中的每个 stage 都是一个 LamaLayer，mix 由 hand-painted mask 或 procedural mask 控制。</p><p /><p><strong><span data-colorid="me25zaf38f">Meet OTTO!（认识故事主角 OTTO 机器人）</span></strong></p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Robot_Lama_Stage1.png" width="760" loading="lazy" src="../../attachments/606175285/Robot_Lama_Stage1.png" data-image-src="../../attachments/606175285/Robot_Lama_Stage1.png" data-height="1080" data-width="1920" data-unresolved-comment-count="0" data-linked-resource-id="632848998" data-linked-resource-version="2" data-linked-resource-type="attachment" data-linked-resource-default-alias="Robot_Lama_Stage1.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="606175285" data-linked-resource-container-version="9" data-media-id="7c752e64-54ee-4d6c-83a2-fa6fc4f87545" data-media-type="file" /></span><p>从前，有一个名叫 OTTO 的 robot 刚从 production line 下线，闪闪发亮、焕然一新，并准备投入工作。一开始，他干净整洁。</p><p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Robot_Lama_Stage2.png" width="760" loading="lazy" src="../../attachments/606175285/Robot_Lama_Stage2.png" data-image-src="../../attachments/606175285/Robot_Lama_Stage2.png" data-height="1080" data-width="1920" data-unresolved-comment-count="0" data-linked-resource-id="632750611" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Robot_Lama_Stage2.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="606175285" data-linked-resource-container-version="9" data-media-id="861d984a-e562-4baa-bc5b-a89b73e44871" data-media-type="file" /></span><p>直到有一天，他在帮忙修理一台 machine 时，一个 clumsy intern 把一罐 oil 洒满了 OTTO，毁掉了他干净、闪亮的 metal。</p><p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Robot_Lama_Stage3.png" width="760" loading="lazy" src="../../attachments/606175285/Robot_Lama_Stage3.png" data-image-src="../../attachments/606175285/Robot_Lama_Stage3.png" data-height="1080" data-width="1920" data-unresolved-comment-count="0" data-linked-resource-id="632685217" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Robot_Lama_Stage3.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="606175285" data-linked-resource-container-version="9" data-media-id="05181b1a-f726-4c7c-9085-71989a61d4d6" data-media-type="file" /></span><p>浑身 oily 和 greasy 的 OTTO 别无选择，只能去令人畏惧的 re-spray department。没有 robot 想去那里，因为他们总是为自己闪亮的 metal 感到 proud。</p><p>OTTO 不得不在 factory default 下重新喷涂成 grey。</p><p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Robot_Lama_Stage4.png" width="760" loading="lazy" src="../../attachments/606175285/Robot_Lama_Stage4.png" data-image-src="../../attachments/606175285/Robot_Lama_Stage4.png" data-height="1080" data-width="1920" data-unresolved-comment-count="0" data-linked-resource-id="632685223" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Robot_Lama_Stage4.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="606175285" data-linked-resource-container-version="9" data-media-id="8c18a9d0-6074-43ef-b40d-18a54f4d3d47" data-media-type="file" /></span><p>当他等待 new paint 晾干时，一些 vandals 闯了进来，决定在 OTTO 身上到处 graffiti。</p><p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Robot_Lama_Stage5.png" width="760" loading="lazy" src="../../attachments/606175285/Robot_Lama_Stage5.png" data-image-src="../../attachments/606175285/Robot_Lama_Stage5.png" data-height="1080" data-width="1920" data-unresolved-comment-count="0" data-linked-resource-id="632783426" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Robot_Lama_Stage5.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="606175285" data-linked-resource-container-version="9" data-media-id="fa0917bd-abae-46b3-b683-e50c713044df" data-media-type="file" /></span><p>由于 OTTO 现在已经显得 far worse for wear，他被留在 corner 里慢慢 rust。</p><p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Robot_Lama_Stage6.png" width="760" loading="lazy" src="../../attachments/606175285/Robot_Lama_Stage6.png" data-image-src="../../attachments/606175285/Robot_Lama_Stage6.png" data-height="1080" data-width="1920" data-unresolved-comment-count="0" data-linked-resource-id="632783432" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Robot_Lama_Stage6.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="606175285" data-linked-resource-container-version="9" data-media-id="7f0e5424-4a6a-427a-84d7-2b858a6bdc80" data-media-type="file" /></span><p>随着 time 过去，他被遗忘了，只是站在 factory 的 corner 里，不断 gathering dirt and dust。</p><p /><p /><p />
+  </article>
+</main>
+</body>
+</html>

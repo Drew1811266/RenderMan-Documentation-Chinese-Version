@@ -1,0 +1,87 @@
+{"id":"a93428cf539bcb41146cd8ecd06d8cfafe8b24baf9310e88d600915d77807c9f","text":"RenderMan 支持完整范围的几何图元，包括"}
+{"id":"810da493c0fa873cc14ce3b44dbf056613dcd73e8b524d8894a433d60c6fc3dd","text":"多边形"}
+{"id":"537ba225d370e2c98a740ba78a5c9a4e54507081e3ed84341931b38749750d22","text":"NURBS"}
+{"id":"2ae8d7891b0d425296043e79215066922a4450495e4be96659dae5c3dfb684df","text":"、细分曲面"}
+{"id":"ba27dd05387c293ca07c49aaf6583d75f77802ba731aaabdea57773d7de38416","text":"曲线"}
+{"id":"abf37fcdf0a299e50e31101d3ac6dc1aa1077ede694ec28c6692bc8a8dc41f50","text":"、体积"}
+{"id":"4aa9bfd2f175a94ad5a7cb321e1aea9790c73eb366a3415b47a00aeaa9fbf24a","text":"以及"}
+{"id":"be7393acc8f6e42679904c294958e8f20a30382d09a2bf185168f2be34b551ca","text":"隐式曲面"}
+{"id":"25740b50f2d42688d2a68a12f4f532dc8a8e8829e9ac637f512fd323f2542c2b","text":"对象实例化"}
+{"id":"637d0938e27ca548605da29d8b80b15d494ada2a615395c0ca310c3eb1dcf681","text":"也受到完整支持。"}
+{"id":"ef86c8f6d4a2abbbf84bb15fac0d9fdc790b4a8890bb1894bff2ef3b284225a1","text":"选择图元"}
+{"id":"04ae21153093e11a11baaf18a92a8266ce547e68d6f887e52e7b79b9766306bf","text":"多边形"}
+{"id":"d70451f1819e3ad7103a1b2d3fb5bf99ceddb67bc2ce8bcd3b6f40ff895b15ee","text":"简单且单个开销较低，但详细模型和曲面可能需要大量多边形才能达到可接受的质量，因此很快会消耗大量内存（即使 RenderMan 的实现非常高效）。不过，尤其是在渲染建筑或城市等硬表面对象集合时，它们的效率仍然很难被超越。"}
+{"id":"51b831d3ef91b16b6415750b94e7478fe00bd25cef1f69a356ca3ccdbcd71f6e","text":"是真正的曲面，效率高，并且能产生非常平滑的结果。不过，它们要求受限的纯四边形拓扑，建模时可能较为苛刻。"}
+{"id":"a5fef654c08215d02d095b1e1c0b274a3fda1214fb383d82d91b9a755de356eb","text":"细分曲面"}
+{"id":"1f79decac272ef66f4348c143d43b3be5803a06caa01ed736b84fca33bb58bba","text":"通常能以更简单的方式生成平滑曲面，几乎没有建模限制，并且非常适合动画用途。许多多边形网格可以任意转换为细分曲面，并立即获得平滑外观的优势。不过请注意，细分曲面天生具有更高的内存成本；如果几何体细节过密，密集的细分曲面可能不如等价的多边形网格高效。"}
+{"id":"4c2c115ca08db2afa9acf6da0f27fcec1964ee8e0a6769946061e3138e5d792b","text":"曲线"}
+{"id":"95c45714a1ced2b671b0e3ac81bbe1bb0461fa2d0c3971b0861cddf2733ecf7e","text":"是一类专用图元，尤其擅长渲染头发、毛皮或草叶这类细长几何体。"}
+{"id":"6311d2a2d013a31a6f834786e839cd4412588438c87b112e0ecc4c028ecb070e","text":"隐式曲面"}
+{"id":"f4b2ebb2e0b68046c65dc35028daacb47ad4e00afc82ccb805a535b4edc7e3d1","text":"是另一类专用图元，最常用于处理由第三方软件包生成的流体模拟。它们也可以用于直接渲染黏性流体。"}
+{"id":"53a480e304c08274bf58cc0d40777d5cb499841fcc77a4331531611331b49dff","text":"体积"}
+{"id":"28c0bd29dae81639ea204564024935f16ff7e02957a93d9214e538f1f0c83e51","text":"用于渲染具有非均匀密度的参与介质，例如雾、烟或云。"}
+{"id":"6e055113e4f269785aa0f0d6b01a62b92238262046d9a6e5e69a1b3de951d9f4","text":"镶嵌细分"}
+{"id":"b173dd3370ed258b804e3c8b7456a37cca32846c1f686aadf766fac5c856d1e9","text":"在 RenderMan 中，一些图元可能会在运行时进行镶嵌细分。这可能发生在 NURBS 和细分曲面上（为了提供平滑表面），也可能发生在与位移着色器关联的图元上（为了提供可进行位移的详细网格）。"}
+{"id":"ffaaea19379bb05a33c85aaeb2e586510bbd41364f9e9de045021837e9b12b00","text":"请注意，"}
+{"id":"b2d5cb152edc3e1af25cb76c90fe785c13ddcadf1af72f4845a82e21b667e8bb","text":"镶嵌细分不会影响着色发生的频率"}
+{"id":"be521f039038cc4f431f261c503dcd29d8e8d8316b424aa9ceb2ba0660787b99","text":"（因为着色发生在每次光线命中时）。尤其是，较粗的镶嵌细分不应影响任何纹理过滤，也不应产生模糊的图案。"}
+{"id":"f525be826182c25b1c5be8cd2204b70532b091ff3b1371d15affaa6c6cd948ca","text":"但是，"}
+{"id":"2845646882b56d53a9ef9c3fb43cd5522ce4df574809e22451f2f7ebce15fc8e","text":"镶嵌细分会影响位移计算的频率"}
+{"id":"64e5f84c9364f5246dc8d76a18b3a857e1da09ccecdf1756cafe26cbc1174b96","text":"（因为位移发生在镶嵌细分后网格的每个顶点上）。"}
+{"id":"1ddb0d183a988e9025224e2f84374a88310b67b64e39121599b3f27be5693fa3","text":"Micropolygonlength"}
+{"id":"b412f699c564156360c1d74be462c34e0df9e89cdbfc981ff82030deac236873","text":"图元会被镶嵌细分为"}
+{"id":"14dd8a80ff1b63cd36841500375b99d96bf50f45ff8131f5e785483683b4cbda","text":"微多边形"}
+{"id":"c8e54e31d855afc64087401c955b7d7aa0b64ce0ce139c13fe9f825bc8fa1e7a","text":"。镶嵌细分程度由"}
+{"id":"e1e025805cd63af3eaf1de7c010a537df1fa24009c5d332f3a068cd382e46ca7","text":"dice"}
+{"id":"22fe6dc5d63f4b8a672079307c29f6cab4559927f6c8816514778e876383a57b","text":"micropolygonlength"}
+{"id":"3e2d1018e20deafc191b113e08b708efe9fcfa43509fe9dc8f2f49cfcbefc3a3","text":"这是镶嵌细分试图生成的平均"}
+{"id":"d6de3fbe1b43a01ca86a85af1fe8c1ed19cc51623cad08df3bb3a8272634175e","text":"微多边形边长"}
+{"id":"e9f5d017e9c87453ee2ef7deae25a90f06e00b4db2d5e9245d65a4f9c8b83bf5","text":"。"}
+{"id":"5e05cfd83765be47b1dbad475ba0d1564df099c99f525ed3a2032b3bc1d35832","text":"值越大，微多边形越大。"}
+{"id":"4f627c9e32f4ff3e712cf4b7d4513492db82e2a9d3bd96ece682370c32c7c8b3","text":"更大"}
+{"id":"70332d559269a27a08e8292a4582b0a39fc98bf0258f70d94e42a5adac26aebe","text":"意味着"}
+{"id":"8da238a16dfda2392b270f69d748bc2205aabab60ee9bd79b8c2321bc0436107","text":"更粗"}
+{"id":"0cd36fb69ace70d47fc1aadbb9d79bbad613c34777ceb403e2e496ae1b7ac5c0","text":"的镶嵌细分；对象可能显示出分面或锐利边缘，但渲染成本应更低"}
+{"id":"e823da61abfbd317f8fd39727af67cead1a5f82ce52e11be72a1efa1be34c5cf","text":"更小"}
+{"id":"384ede47ade86629b0752c0fe8d39362b89f1f62952a8dcde435a4a14b183348","text":"更细"}
+{"id":"669f71cad0119fe1c563f3f8b4695ad8d8923b012778cafbc66f4448838eb259","text":"的镶嵌细分；对象应更平滑，并以更高渲染成本更好地贴合你的理想形状"}
+{"id":"5744f0c619badabec2f822b24cb026c8e600133cbdef23bf997e9b24da57c61b","text":"默认情况下，micropolygonlength 值以屏幕上的像素为单位表示（即微多边形投影到屏幕上后的像素长度）。这可以通过使用"}
+{"id":"a92bfd02c450af0360dea55f99018b267c91eb4d4dbe50142135af7282c612e6","text":"attribute"}
+{"id":"73dff70e25ad51ca765a584eef93a1cd909527e2ef4860e0b12f0a7e7ae1979a","text":"strategy"}
+{"id":"ff05d8dc6c06de652ade3b698e8ab7bd5860e7fe8e7f94f8fba298917cf2d63a","text":"属性是已弃用"}
+{"id":"198c2a76acdfe61648099637b355c4af3f4d82c2bd4bfc5fe30a4ce1d5a7b5a3","text":"shading rate"}
+{"id":"24c4b42b6331e6501c397d4f2555a699b25a06bbdfa177eff9eeb625414f0d4a","text":"的后继。shading rate 以"}
+{"id":"4a91ee5f0106c2b35c11c168352f0abfbf4fc86165c62d6fb51b5232dfc692e6","text":"面积"}
+{"id":"042fdf9a3752c824e914bbbc17b46e7d735c86f63ca2dbe3847f9092423882ee","text":"表示，而 micropolygonlength（顾名思义）是"}
+{"id":"0f82aca66af91493b1ff401de5f1f7e3e24e14560df3f6f7e465dbc915b9947d","text":"长度"}
+{"id":"d8f658cb47c23e4f32da43dde4bc8f3e5e05783ca4d54fc7256e67d4864dd0a8","text":"这意味着，为了获得类似的镶嵌细分级别，使用"}
+{"id":"7fba68fb7a46485a0ca2215ff692e68baa1734f082b7898a79184a1bd8bfe3e6","text":"X 值就相当于使用"}
+{"id":"745ac2365eb389771aef4305337b94f427e5a44a5cb2c8abcb4b655ae3af96d8","text":"sqrt(X) 值："}
+{"id":"f2872eef0711c369c264aaafb8cf294d662febf113962f649bcb256f135aee62","text":"shading rate = 0.25, micropolygonlength = 0.5"}
+{"id":"c2dea6f299f31448f4e79d3c5303cfcd3c9a1fd92123397a63a8a31bba0df9d1","text":"shading rate = 1, micropolygonlength = 1"}
+{"id":"f139532e3d38874faad6bf582a95b9448b4449c61c1f4aa227e582310a4eeb37","text":"shading rate = 4, micropolygonlength = 2"}
+{"id":"4a35d2c341158f2858ef5e88dfba157ae4c3521fe5a02d10075513921930547a","text":"如果需要匹配以前的镶嵌细分级别，这是一个有用的换算。"}
+{"id":"c5954b1fde4fb9bd7cc91adefd0968da72787a0a76d34542ff9d9c6a3d530738","text":"选择 micropolygonlength 值"}
+{"id":"c8f175c05217f31620e18cb992e1e6b329237da12a866457c85a7bbb0c58888e","text":"大多数情况下，"}
+{"id":"79e0eb8a72cc7f6faed746a4ee044966034494f9f47f058067040bad847fc25c","text":"值为 1（默认值）应能很好地工作。如果表面平滑且没有位移，在看到任何差异之前，你也许可以使用更大的值（2 或 4）。"}
+{"id":"6dddbfc7c01f9520f2c9c56f705f2968768aa558206176102d4d41226bf06ed0","text":"有时，如果几何体非常详细和/或发生了位移，可能需要使用更小的"}
+{"id":"b67155b3a7b31339f84bc67423d602b1d7aa088e975819d67fc1b6a30092869e","text":"值。0.5 常用于更精细的细节。不过，请注意，更小的微多边形会导致更大的内存消耗和更慢的渲染时间。这种增长可能非常快，因为每当你把 Micropolygon Length (ML) 减半时，微多边形数量就会变为四倍。"}
+{"id":"ae43f49aa46dfa36639172c476a93cda9b00eec9254a42071862dfe2cf80227f","text":"ML 1 = 每像素 1 个微多边形（默认）"}
+{"id":"59a57e3718cc75902d95df594ffec423defc83df83a753db414e0f6b7e686b32","text":"ML 0.5 = 每像素 4 个微多边形（适合非常精细的位移）"}
+{"id":"26897f0ae91eda66c1f7b7f1dd2d4d0e69ef82d7164c853e0aaf1f4d59e5bb27","text":"ML 0.25 = 每像素 16 个微多边形（可能微多边形过多且收益递减）"}
+{"id":"f02fc89b35a0fe6c2483f717dc9bdaf58dfa3249bb97caf1dd23d638e04f6ba1","text":"0.125 = 每像素 64 个微多边形"}
+{"id":"c7dd0d4a44ec62553ece279361b553f33bd04cb849cbbb92fd8ff367c47272ac","text":"0.0625 = 每像素 256 个微多边形"}
+{"id":"51a966f5e1c9f3717f11d5fbda491c139f3863173e2172b392920144efcbca63","text":"可以通过查看"}
+{"id":"6545da859e01594b0fccc7a9b4704d47ce8bad4b80e6eebd7b88566ce725a58a","text":"Prototype Attributes"}
+{"id":"e3629d18f3a3fdc4af190a84bdcf70ecec50129fba26e609e7eb8dc61d5c1428","text":"或 RenderMan 提供的 \"PrimVars\" 了解更多几何设置。"}
+{"id":"e68ee04dff59551b7d1ae07a2f8a00dc61d841628948da3d2781630706a05e92","text":"示例"}
+{"id":"1a23bfa3c21d1c120fc7bbbd8c1e8394a47ae3977ac39eda78ee66f91a78f78c","text":"RenderMan 包含示例 RIB 文件和着色插件，用于展示其功能。"}
+{"id":"c19c5855d344264dc74a31d27246821b8561b1d9ac3f943e5eccad1198b3dcd6","text":"这些示例可以在"}
+{"id":"07e4482e146a42c0b7d8ee52a30de5914bda6f4931792c600a9e8a0868aa3122","text":"目录中找到。"}
+{"id":"cdb4ee2aea69cc6a83331bbe96dc2caa9a299d21329efb0336fc02a82e1839a8","item_id":"4864fdeec7:38","text":"控制。"}
+{"id":"cdb4ee2aea69cc6a83331bbe96dc2caa9a299d21329efb0336fc02a82e1839a8","item_id":"4864fdeec7:57","text":"进行修改。"}
+{"id":"198c2a76acdfe61648099637b355c4af3f4d82c2bd4bfc5fe30a4ce1d5a7b5a3","item_id":"4864fdeec7:68","text":"shading rate 值"}
+{"id":"7fba68fb7a46485a0ca2215ff692e68baa1734f082b7898a79184a1bd8bfe3e6","item_id":"4864fdeec7:69","text":"X 就相当于使用"}
+{"id":"22fe6dc5d63f4b8a672079307c29f6cab4559927f6c8816514778e876383a57b","item_id":"4864fdeec7:70","text":"micropolygonlength 值"}
+{"id":"745ac2365eb389771aef4305337b94f427e5a44a5cb2c8abcb4b655ae3af96d8","item_id":"4864fdeec7:71","text":"sqrt(X)："}
+{"id": "b344d80e24a3679999fa964450b34bc24d1578a35509f934c1418b0a20d21a67", "item_id": "4864fdeec7:58", "text": "该"}

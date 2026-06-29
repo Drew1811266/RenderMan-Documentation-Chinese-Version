@@ -1,0 +1,34 @@
+{
+  "parentType": "page",
+  "parentId": "22184292",
+  "spaceId": "22183942",
+  "ownerId": "557058:bd93f2ee-e583-43fb-8a78-f4b1519a63bf",
+  "lastOwnerId": null,
+  "createdAt": "2016-12-15T11:21:12.793Z",
+  "authorId": "557058:bd93f2ee-e583-43fb-8a78-f4b1519a63bf",
+  "position": 548606784,
+  "version": {
+    "number": 3,
+    "message": "",
+    "minorEdit": false,
+    "authorId": "61fbe41ee688d6007069f091",
+    "createdAt": "2024-07-05T19:04:56.421Z",
+    "ncsStepVersion": "13"
+  },
+  "status": "current",
+  "body": {
+    "view": {
+      "representation": "view",
+      "value": "<h3 id=\"SiteStatusFilter-Overview\">Overview</h3><p>Sites can extend the functionality of a blade through a class defined in TractorSiteStatusFilter.py. Customizations include:</p><ul><li><p>addition of metrics to determine a blade's readiness to request more work,</p></li><li><p>responses to events such as command launches, launch failures, completions, and errors, and</p></li><li><p>responses to patterns in command output, such as the suppression of verbose output or the early termination of a command due to an emitted warning.<br/> </p></li></ul><h3 id=\"SiteStatusFilter-Installation\">Installation</h3><p>TractorSiteStatusFilter.py must be installed in a directory visible to a blade, ideally the directory defined by SiteModulesPathin blade.config.</p><p>To start, copy lib/python2.7/site-packages/tractor/apps/blade/TractorSiteStatusFilter.py from the Tractor install directory to the SiteModulesPath directory.</p><p>Note that it will be necessary to reload blade.config for blades to reflect changes to SiteModulesPath or to TractorSiteStatusFilter.py.<br/> </p><h3 id=\"SiteStatusFilter-Scenario:NewMetrics\">Scenario: New Metrics</h3><p>New metrics can be employed to determine the ability of a blade to perform work by overriding the FilterBasicState() andTestBasicState() methods. In the following example, <a class=\"external-link\" href=\"http://www.example.com\" rel=\"nofollow\">www.example.com</a> might represent a resource such as a license server that needs to be reachable before a blade would consider requesting work.</p><div class=\"code panel pdl conf-macro output-block\" data-hasbody=\"true\" data-macro-id=\"6e16ae5c-ccb7-45ce-8b44-ce47ff70e2e9\" data-macro-name=\"code\" style=\"border-width: 1px;\"><div class=\"codeContent panelContent pdl\">\n<pre class=\"syntaxhighlighter-pre\" data-syntaxhighlighter-params=\"brush: java; gutter: false; theme: Confluence\" data-theme=\"Confluence\">def FilterBasicState(self, stateDict, now):\n    if stateDict is not None:\n        rcode = os.system(&quot;ping -q -t 1 -c 1 www.example.com &gt;&amp; /dev/null&quot;)\n        stateDict[&quot;server_reachable&quot;] = (rcode == 0)\n    self.super.FilterBasicState(stateDict, now)\n\ndef TestBasicState(self, stateDict, now):\n    if stateDict is not None and not stateDict.get(&quot;server_reachable&quot;):\n        return False\n    return self.super.TestBasicState(stateDict, now)</pre>\n</div></div><h3 id=\"SiteStatusFilter-Scenario:LoggingErrors\">Scenario: Logging Errors</h3><p>One could maintain a distinct log of errored processes by overriding SubprocessEnded().</p><div class=\"code panel pdl conf-macro output-block\" data-hasbody=\"true\" data-macro-id=\"6bdf526f-b7ac-489d-a47d-28567be46a1e\" data-macro-name=\"code\" style=\"border-width: 1px;\"><div class=\"codeContent panelContent pdl\">\n<pre class=\"syntaxhighlighter-pre\" data-syntaxhighlighter-params=\"brush: java; gutter: false; theme: Confluence\" data-theme=\"Confluence\">def SubprocessEnded(self, cmd):\n    if cmd.exitcode:\n        with open(&quot;/tmp/errors.log&quot;, &quot;a&quot;) as f:\n            f.write(&quot;process %d errored with exit code %d\\n&quot; % (cmd.pid, cmd.exitcode))\n    self.super.SubprocessEnded(cmd)</pre>\n</div></div><p /><h3 id=\"SiteStatusFilter-Scenario:EarlyProcessTermination\">Scenario: Early Process Termination</h3><p>FilterSubprocessOutputLine() is called by the blade for each line of output from a process.</p><p>In this example, any prman process that emits a line starting with R10007 will be immediately terminated. The logic could be modified to examine the output of other applications, look for other patterns, and peform other actions. Note that non-matches should defer to FilterSubprocessOutputLine() of the superclass.</p><div class=\"code panel pdl conf-macro output-block\" data-hasbody=\"true\" data-macro-id=\"cf2688d3-17ea-492d-aaef-f9d5e5c0b8be\" data-macro-name=\"code\" style=\"border-width: 1px;\"><div class=\"codeContent panelContent pdl\">\n<pre class=\"syntaxhighlighter-pre\" data-syntaxhighlighter-params=\"brush: java; gutter: false; theme: Confluence\" data-theme=\"Confluence\">def FilterSubprocessOutputLine (self, cmd, textline):\n    '''\n    Return a 2-tuple giving a disposition code and a value.\n    The pass-through result would be:  (self.TR_LOG_TEXT_EMIT, textline)\n    '''\n    if &quot;prman&quot; == cmd.app and textline.startswith(&quot;R10007&quot;):\n        # example:  immediately fail on prman warning number &quot;R10007&quot;\n        return (self.TR_LOG_FATAL_CODE, 10007, textline)\n    else:\n        # otherwise defer to the usual built-in filters\n        return self.super.FilterSubprocessOutputLine( cmd, textline )</pre>\n</div></div>"
+    }
+  },
+  "title": "Site Status Filter",
+  "id": "22184288",
+  "_links": {
+    "editui": "/pages/resumedraft.action?draftId=22184288",
+    "webui": "/spaces/TRA/pages/22184288/Site+Status+Filter",
+    "edituiv2": "/spaces/TRA/pages/edit-v2/22184288",
+    "tinyui": "/x/YIFSAQ",
+    "base": "https://renderman.atlassian.net/wiki"
+  }
+}

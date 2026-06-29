@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MaterialX</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>MaterialX</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/REN27/542220715/MaterialX">https://rmanwiki-27.pixar.com/space/REN27/542220715/MaterialX</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p><style>[data-colorid=jtufqzi3l6]{color:#4269b8} html[data-color-mode=dark] [data-colorid=jtufqzi3l6]{color:#476ebd}</style><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/542220715/openchessset.jpg" data-image-src="../../attachments/542220715/openchessset.jpg" data-unresolved-comment-count="0" data-linked-resource-id="542220733" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="openchessset.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542220715" data-linked-resource-container-version="1" data-media-id="12f8d0ab-0e13-46d5-9100-72c0d2c24b05" data-media-type="file" /></span></p><p style="text-align: center;"><span class="legacy-color-text-gray2"><span data-colorid="jtufqzi3l6"><strong>The Open Chess Set</strong></span><em> <br />( 由 Moeen and Mujtaba Sayed 创作，由 SideFX 贡献给 MaterialX，并在 Solaris 中通过 RenderMan for Houdini 渲染 </em>)<br /><br /></span></p><p><br />MaterialX 是一个 <a class="external-link" href="https://www.aswf.io/" rel="nofollow">ASWF</a> 标准，用于在渲染器之间定义和交换材质。它提供了一组 Physically Based Shading Nodes 的定义，以及一组 pattern nodes（如 texture nodes、procedural noise 等），可以用来搭建材质。每个支持 MaterialX 的渲染器都会接收这些材质定义，然后直接渲染它们，或将它们转换为内部表示。由于世界上有很多渲染器，并且各自从不同角度处理渲染这一挑战，MaterialX 并不保证不同渲染器之间能做到像素级匹配。&nbsp; <br /><br />MaterialX 只为每个渲染器提供指导，而每个渲染器都会尽力以自己最合适的方式匹配材质意图。</p><p>RenderMan 通过 USD 和 Hydra 支持 <a class="external-link" href="https://materialx.org" rel="nofollow">MaterialX</a> 。USD 和 Hydra 会接收 MaterialX 材质定义，并将它们分配给相关几何体。当材质流经 RenderMan 的 Hydra Renderer Delegate 时，会经过 MaterialX ShaderGen 系统，转换为原生 RenderMan 材质。</p><p>RenderMan 支持 OSL patterns，因此你在 MaterialX networks 中使用的所有 pattern 都会通过 OSL 转换到 RenderMan，并且应当完全按预期运行。</p><p>你在 MaterialX graphs 中使用的 Physically Based Shading Nodes 都会转换为 <a href="542213836-PxrSurface.html" data-linked-resource-id="542213836" data-linked-resource-version="2" data-linked-resource-type="page">PxrSurface</a> ，然后传递给 RenderMan。PxrSurface 可以表示 MaterialX 定义的大部分内容。由于每个渲染器都不同，对于指定的 MaterialX network，RenderMan 得到的图像可能与另一个渲染器使用同一 network 得到的图像不同。目前存在的一个限制是，我们还不支持通过 MaterialX 进行材质分层。</p><p><br /></p><hr /><p><br /></p>
+  </article>
+</main>
+</body>
+</html>

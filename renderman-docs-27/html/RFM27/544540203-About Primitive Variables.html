@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>About Primitive Variables</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>About Primitive Variables</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFM27/544540203/About+Primitive+Variables">https://rmanwiki-27.pixar.com/space/RFM27/544540203/About+Primitive+Variables</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<h3 id="AboutPrimitiveVariables-AboutPrimVarsforMaya">About PrimVars for Maya</h3><p>It is often useful to attach data to the surface of an object. In RenderMan this is done by including the data as a token value pair when a surface primitive is declared. Once data is attached it is available as parameters to the shaders that are assigned to the surface primitive. Parameters that are attached to surface geometry in this way are called primitive variables, or primvars, for short. RenderMan for Maya provides both simple and flexible access to primvars.</p><p><br/>At the simplest level, RfM includes Prim Var nodes, accessible via the Maya Hypershade, that can be attached to Maya nodes as needed. The various tools can then leverage those primvars at shading time. This effectively drives parameters or provides them with the data they need to achieve special effects. One such example could be to supply a color based on vertices locations on the mesh</p><p /><p>Nodes are provided for Color, Float (1, 2, and 3), Normal, Point, and Vector types of primvars.</p><h3 id="AboutPrimitiveVariables-UndertheCovers">Under the Covers</h3><p>RenderMan for Maya infers the request for a primitive variable by combining the Maya attribute type with the naming convention:</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="bb60d529-086e-45b2-8e3d-4416e5a1b0b0" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">rman?[?[?]]primvarname</pre>
+</div></div><p>A special character must be provided to hint at the Ri primvar type. Additional special characters can be provided to request specific detail and array representation. It is up to the user to provide properly sized Maya attributes.</p><p>The three forms for special names are:</p><ol start="1"><li><p>rmanTprimvarName: where T is one of:</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="f575d6b1-2276-4b7c-8cc3-1013d49c5914" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">'F', 'C', 'V', 'N', 'P', 'H', 'M', 'S'</pre>
+</div></div><p /><p>which are interpreted as the RenderMan types:</p><p>float, color, vector, normal, point, hpoint, matrix, string<br/> </p></li><li><p>rmanDTprimvarname: where T is as above and D provides a detail hint:</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="b762e382-c098-4931-8f84-d79fc6b41a38" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">'c', 'u', 'f', 'v', 'x'</pre>
+</div></div><p>indicating standard RenderMan details:</p><p>constant, uniform, facevarying, varying, vertex<br/> </p></li><li><p>rmanaDTprimvarname: where T and D are as above and the letter <em>a</em> indicates that an array of the given type and detail is requested.</p></li></ol><p /><h2 id="AboutPrimitiveVariables-Available(orpossible)PrimVars">Available (or possible) PrimVars</h2><p>Some of these options are automatically provided even if they are empty but some, like radiusPP or Radius Per Particle, must be supplied by the user in any case. Below are some of these settings not included on the <a href="544540480-Geometric edits.html" rel="nofollow">Geometric Settings</a> page since they may already be provided or have limited or special use.</p><h3 id="AboutPrimitiveVariables-Meshes">Meshes</h3><div class="table-wrap"><table data-table-width="1800" data-layout="default" data-local-id="d3e28be7-b308-4fe2-b999-07cdb1c63357" class="confluenceTable"><tbody><tr><td class="confluenceTd"><p>Cs, each color set goes out as a primvar</p></td><td class="confluenceTd"><p>This could be used to provide color based on the mesh data</p></td></tr><tr><td class="confluenceTd"><p>s</p></td><td class="confluenceTd"><p>The one-dimensional S texture value</p></td></tr><tr><td class="confluenceTd"><p>t</p></td><td class="confluenceTd"><p>The one-dimensional T texture value</p></td></tr><tr><td class="confluenceTd"><p>u_uvSet</p></td><td class="confluenceTd"><p>The one-dimensional U texture value if UVsets are defined</p></td></tr><tr><td class="confluenceTd"><p>v_uvSet</p></td><td class="confluenceTd"><p>The one-dimensional V texture value if UVsets are defined</p></td></tr><tr><td class="confluenceTd"><p>tangent</p></td><td class="confluenceTd"><p>Tangent space normals if specified</p></td></tr><tr><td class="confluenceTd"><p>N</p></td><td class="confluenceTd"><p>Shape Normals if supplied by the mesh</p></td></tr></tbody></table></div><p /><h3 id="AboutPrimitiveVariables-NURBS">NURBS</h3><div class="table-wrap"><table data-table-width="1800" data-layout="default" data-local-id="83a864d5-722e-4a2b-b96b-5783be190273" class="confluenceTable"><tbody><tr><td class="confluenceTd"><p>s</p></td><td class="confluenceTd"><p>The one-dimensional S texture value</p></td></tr><tr><td class="confluenceTd"><p>t</p></td><td class="confluenceTd"><p>The one-dimensional T texture value</p></td></tr></tbody></table></div><p /><h3 id="AboutPrimitiveVariables-SubdivisionSurfaces">Subdivision Surfaces</h3><div class="table-wrap"><table data-table-width="1800" data-layout="default" data-local-id="b7ee4d60-8348-4361-b34a-a7e39680e5db" class="confluenceTable"><tbody><tr><td class="confluenceTd"><p>s</p></td><td class="confluenceTd"><p>The one-dimensional S texture value</p></td></tr><tr><td class="confluenceTd"><p>t</p></td><td class="confluenceTd"><p>The one-dimensional T texture value</p></td></tr></tbody></table></div><p /><h3 id="AboutPrimitiveVariables-Hair(doesnotapplytoXgen)">Hair (does not apply to Xgen)</h3><div class="table-wrap"><table data-table-width="1800" data-layout="default" data-local-id="473d461a-b4b6-40fb-9691-2aeb0813cf90" class="confluenceTable"><tbody><tr><td class="confluenceTd"><p>P</p></td><td class="confluenceTd"><p>Position</p></td></tr><tr><td class="confluenceTd"><p>varying color Os</p></td><td class="confluenceTd"><p>Opacity</p></td></tr><tr><td class="confluenceTd"><p>varying color Cs</p></td><td class="confluenceTd"><p>Color</p></td></tr><tr><td class="confluenceTd"><p>varying float width</p></td><td class="confluenceTd"><p>Hair width</p></td></tr><tr><td class="confluenceTd"><p>vertex float t</p></td><td class="confluenceTd"><p>Vertex number</p></td></tr><tr><td class="confluenceTd"><p>constant string linetype</p></td><td class="confluenceTd"><p>Returns the type of PaintFX curve</p></td></tr><tr><td class="confluenceTd"><p>uniform float diffuseRand</p></td><td class="confluenceTd"><p>Diffuse Randomization/Noise</p></td></tr><tr><td class="confluenceTd"><p>uniform float specularRand</p></td><td class="confluenceTd"><p>Specular Randomization/Noise</p></td></tr><tr><td class="confluenceTd"><p>uniform float hueRand</p></td><td class="confluenceTd"><p>Randomized Hue</p></td></tr><tr><td class="confluenceTd"><p>uniform float satRand</p></td><td class="confluenceTd"><p>Randomized Saturation</p></td></tr><tr><td class="confluenceTd"><p>uniform float valRand</p></td><td class="confluenceTd"><p>Randomized Value</p></td></tr><tr><td class="confluenceTd"><p>uniform float scalpS</p></td><td class="confluenceTd"><p>One-dimensional scalp S coordinate</p></td></tr><tr><td class="confluenceTd"><p>uniform float scalpT</p></td><td class="confluenceTd"><p>One-dimensional scalp T coordinate</p></td></tr><tr><td class="confluenceTd"><p>vertex normal N</p></td><td class="confluenceTd"><p>Hair vertex normals</p></td></tr></tbody></table></div><p /><h3 id="AboutPrimitiveVariables-Particles">Particles</h3><div class="table-wrap"><table data-table-width="1800" data-layout="default" data-local-id="9fa5c151-8de6-4b69-a9e9-f8a6b6655f45" class="confluenceTable"><tbody><tr><td class="confluenceTd"><p>P</p></td><td class="confluenceTd"><p>Position</p></td></tr><tr><td class="confluenceTd"><p>varying float width</p></td><td class="confluenceTd"><p>Varying particle width (if they have assigned radii)</p></td></tr><tr><td class="confluenceTd"><p>constant float width</p></td><td class="confluenceTd"><p>If there is no specified radii</p></td></tr><tr><td class="confluenceTd"><p>varying color Cs</p></td><td class="confluenceTd"><p>Varying color if there is colorRed, colorGreen, colorBlue, or rgbPP</p></td></tr><tr><td class="confluenceTd"><p>varying color Os</p></td><td class="confluenceTd"><p>Varying opacity if there is opacity or opacityPP</p></td></tr><tr><td class="confluenceTd"><p>constant float __threshold</p></td><td class="confluenceTd"><p>Specified particle threshold</p></td></tr><tr><td class="confluenceTd"><p>ageNormPP*</p></td><td class="confluenceTd"><p>Particle Age Normalized (0-1) per particle</p></td></tr><tr><td class="confluenceTd"><p>incandescencePP*</p></td><td class="confluenceTd"><p>Incandescence specified per particle</p></td></tr><tr><td class="confluenceTd"><p>spriteNumPP*</p></td><td class="confluenceTd"><p>The assigned sprite number per particle</p></td></tr><tr><td class="confluenceTd"><p>falloffpower</p></td><td class="confluenceTd"><p>Used to create &quot;fuzzy&quot; particles</p></td></tr></tbody></table></div><p /><p>These attributes influence other settings, like Cs, Os, orientation of particle:</p><div class="table-wrap"><table data-table-width="1800" data-layout="default" data-local-id="e6d998d8-a4d7-4e40-af3f-ac4696f76bbf" class="confluenceTable"><tbody><tr><td class="confluenceTd"><p>opacityPP*</p></td><td class="confluenceTd"><p>Opacity specified per particle</p></td></tr><tr><td class="confluenceTd"><p>radiusPP*</p></td><td class="confluenceTd"><p>Radius specified per particle</p></td></tr><tr><td class="confluenceTd"><p>spriteScaleXPP*</p></td><td class="confluenceTd"><p>Sprite scale in X axis</p></td></tr><tr><td class="confluenceTd"><p>spriteScaleYPP*</p></td><td class="confluenceTd"><p>Sprite scale in Y axis</p></td></tr><tr><td class="confluenceTd"><p>spriteTwistPP*</p></td><td class="confluenceTd"><p>Sprite twist if specified</p></td></tr></tbody></table></div><p /><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="94c2d554-ba71-456b-be27-074585788320" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>Attributes marked with an asterisk * must be supplied by the user. An example of this are Per Particle attributes added to Maya particles in the attribute editor.</p></div></div><p /><h3 id="AboutPrimitiveVariables-Fluids">Fluids</h3><div class="table-wrap"><table data-table-width="1800" data-layout="default" data-local-id="dbbfa274-cd1b-49b0-9a35-7e7dd13cdd05" class="confluenceTable"><tbody><tr><td class="confluenceTd"><p>color Cs</p></td><td class="confluenceTd"><p>Fluid color</p></td></tr><tr><td class="confluenceTd"><p>float density</p></td><td class="confluenceTd"><p>Fluid density</p></td></tr><tr><td class="confluenceTd"><p>vector dPdtime</p></td><td class="confluenceTd"><p>Motion vector</p></td></tr><tr><td class="confluenceTd"><p>vector velocity</p></td><td class="confluenceTd"><p>Motion velocity</p></td></tr><tr><td class="confluenceTd"><p>float pressure</p></td><td class="confluenceTd"><p>Fluid pressure</p></td></tr><tr><td class="confluenceTd"><p>float temperature</p></td><td class="confluenceTd"><p>Fluid temperature</p></td></tr><tr><td class="confluenceTd"><p>float fuel</p></td><td class="confluenceTd"><p>Fluid fuel</p></td></tr><tr><td class="confluenceTd"><p>float falloffField</p></td><td class="confluenceTd"><p>Falloff</p></td></tr><tr><td class="confluenceTd"><p>float[3] UVW</p></td><td class="confluenceTd"><p>UVW output</p></td></tr></tbody></table></div><p />
+  </article>
+</main>
+</body>
+</html>

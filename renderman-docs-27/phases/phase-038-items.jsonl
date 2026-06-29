@@ -1,0 +1,187 @@
+{"id": "e71ce402cda02d51e32c50ca4c897e07a62e1faf82c8e5e6467e8540b73ada4c", "item_id": "aac353cecc:0", "text": "PxrLayerSurface is a simplified material that relies on layering"}
+{"id": "1543d66e96e19d476bc59f361ad04207a1a63a2a212195ca316427e5af664ea9", "item_id": "aac353cecc:1", "text": "PxrLayer"}
+{"id": "0695b563acde461fc2f8d9aebccf35c7596ac458b8d8e067c602fb7b4e5f1578", "item_id": "aac353cecc:2", "text": "with"}
+{"id": "244f48b3e1671c5e156f17919f1e85fb70be4f1606f82ff6821b6bf83ff4c6be", "item_id": "aac353cecc:3", "text": "PxrLayerMixer"}
+{"id": "8d12186f3415a893918f5735b0db735219f8ad214617a906b5ba06818e648ecb", "item_id": "aac353cecc:4", "text": ". This is the recommended node for layering in your application. You will notice this node is different than the"}
+{"id": "8608905e6533fb79c29dcbee9e54642763cc7988fd456046ba16656c6564e8fd", "item_id": "aac353cecc:121", "text": "PxrSurface"}
+{"id": "c65e2d796bc93679b9ce6d82bff6becaf30f3e5db9582d7e15c242905bd44da8", "item_id": "aac353cecc:6", "text": "in that many of the parameters you're used to are seemingly missing."}
+{"id": "4a9ed23c3ec3bbc4acedf4f2e3d391f35a138d64c0c63dc47aade7f914454783", "item_id": "aac353cecc:7", "text": "PxrLayerSurface serves as the material to assign to objects in your scene as well as a central node to change global features of all your layered materials. Since parameters are not all able to be overridden on a layered node, this node contains global parameters that apply to all the connected layers. You may remember from PxrSurface that parameters are either bold or italic depending on their nature. PxrLayerSurface only includes those that were italicized."}
+{"id": "843174d332849e079e413bad95bb565e300c803af433a5bfcf9a796c45979494", "item_id": "aac353cecc:8", "text": "As an example: It does not currently make sense to layer different reflection models like Beckmann and GGX, so choosing one model is shared by all of the layers."}
+{"id": "7973cc8a4f73d81aab120449788c941263e97d50cec02b2a427d931ab4d0151e", "item_id": "aac353cecc:9", "text": "Parameters begin below."}
+{"id": "bf967e5500a96fdaf14953c3efe0c2432ba604358c2504d3132f93144a7e2107", "item_id": "aac353cecc:10", "text": "Input Material"}
+{"id": "76dcf3261309468eea3df178f23dca32633db4ed315126e2361e448feae6fcfc", "item_id": "aac353cecc:11", "text": "Connect to a layer pattern that layers the parameters for the Bxdf. This lets users create more complex looks through layered effects. Examples might be dust, scratches, or even labels."}
+{"id": "5b9c357c41b5fc8519f154a7b2501dcf738821fd00ae4c6daca03b6237736a3c", "item_id": "aac353cecc:12", "text": "In the parameters below, they cannot be overridden and will be obeyed for all layers connected."}
+{"id": "28446cddcb7f0385635245c4c2117599c9477e4352250da5ab4ceb9ebec1895d", "item_id": "aac353cecc:14", "text": "Diffuse Parameters"}
+{"id": "cc207af5628fae1b3e7b0c00e013e4c56d407a9ad58e7f1b4866b6ddf61ed2a8", "item_id": "aac353cecc:156", "text": "Double Sided"}
+{"id": "c4e07b82a028dd06c3d90f194a30d6b4450a0b14c1d6a481253a5ff210beefba", "item_id": "aac353cecc:16", "text": "If on, illuminate both sides of the surface for this diffuse lobe, that is, this will illuminate the surface whose normal is pointing away from the camera (2-dimensional objects) as well. This is so the backface will be shaded instead of black. This is off by default."}
+{"id": "bb2e0909268033a9ace6df98ab24849d44ccbd11c66e054625f62b8b3ecf74ea", "item_id": "aac353cecc:17", "text": "Exponent"}
+{"id": "e063a078c27652845040a2ab59bed1748c5d13ad1039d1e13b9603a05d391d2b", "item_id": "aac353cecc:18", "text": "Diffuse exponent controls the diffuse falloff. It is a power exponent. Higher number gives us sharper falloff. For example, on the moon surface, you can set a high exponent to produce a sharper falloff."}
+{"id": "1baf710dd7644f40c50432191655d40b787022ea4cf2c91101cc759af39e7869", "item_id": "aac353cecc:19", "text": "Diffuse exponent only applies to the Lambertian diffuse, that is when roughness is 0.0.   Combining diffuse exponent with Oren-Nayar roughness does not make sense so it will be ignored when roughness is > 0.0."}
+{"id": "9a672a46a43ca87ffc3d76a57da77884128a89e4a114a871bb91b7fae086f45e", "item_id": "aac353cecc:20", "text": "Specular Parameters"}
+{"id": "916d707fa9509addf4cf538009e11a2bf1c51f51463eb42171a7fef17bafca84", "item_id": "aac353cecc:21", "text": "Specular, Rough Specular, and Clear Coat Parameters"}
+{"id": "f24eaa189727d4810b98d845bac88beef6b3c1ff3040d48aecd3005e1c0b04e4", "item_id": "aac353cecc:22", "text": "The specular parameters control specular reflection. This is where you might define how shiny or reflective an object is. Is it plastic, a polished marble table, or  is it a mirror? The"}
+{"id": "ae3caba6eaa25b00ca3d3daef972f3d8fcd9a6bed01a6c83b5a104a646914402", "item_id": "aac353cecc:23", "text": "Rough Specular"}
+{"id": "81dd81e69db87b29fca0455df824e88b6d05f5149a22e2e9f08536443c2def19", "item_id": "aac353cecc:25", "text": "Clear Coat"}
+{"id": "560e7db754b27c6eb7fac3fed9e3c74774472a12d6c585e333d825597bafe071", "item_id": "aac353cecc:26", "text": "lobes below this have identical settings and effects."}
+{"id": "d3397d5bc8945200509922ea800b2a0cc5ed5daa83987f7792d33b850e8d38dc", "item_id": "aac353cecc:27", "text": "Specular Fresnel Mode"}
+{"id": "c163ed21a51faea04b992853022d821d0534946f92987dfc7d7b55b699fdc051", "item_id": "aac353cecc:28", "text": "InArtisticmode, specular fresnel response will be controlled by its Face Color, Edge Color, and Fresnel Exponent."}
+{"id": "56f995d3eca8c7ae3e6a7d5d6f6cdc9f3311cd264279f52a91d3f42304b37291", "item_id": "aac353cecc:29", "text": "InPhysicalmode, specular fresnel response will be controlled by its Refractive Index, Extinction Coefficient, and Edge Color."}
+{"id": "ccd1f9c1e0bd105b9ced6625bcc502808e3f47eb9b628c9b9df879282c00005d", "item_id": "aac353cecc:30", "text": "Specular Model"}
+{"id": "84296ff013da019381fb070068bdcd822ae56e0fcee1c30c751e0216a3fedb13", "item_id": "aac353cecc:31", "text": "Select which specular model to use: Beckmann or Ggx. Beckmann is useful for perfect mirrors and chrome-like materials. Ggx may be preferred for its \"tail\", or how the highlight has a soft fade from the center reflection of a lightsource. Left is Beckmann and Right is GGX with roughness 0.25."}
+{"id": "6d0007c1fbc87d57e8908755a95f7bbad7ce7f38235e1fa9f6c088ce745c0ce1", "item_id": "aac353cecc:85", "text": "Fresnel Exponent"}
+{"id": "8445fe52ad3f30cab8fa01b7f19456b33427cdecc343a307ff8da59b61026515", "item_id": "aac353cecc:33", "text": "(Artistic Mode)"}
+{"id": "3505ae56183f8a79fb39bfa2f6e2bbc5efea1c513fe3a9ecfaf50a289b77a6a5", "item_id": "aac353cecc:34", "text": "Specular fresnel curve exponent. Lower numbers reduces the effect of"}
+{"id": "63a6114ba375fd34e23e8ace8d3381f04ee04b122dc3e96e5d1309296e1f6ee3", "item_id": "aac353cecc:35", "text": "Face Color"}
+{"id": "e38bee43d86ab97061bf4b16d4bd6f7fae926b9cdbc2e0dcaa02044f0b8f459b", "item_id": "aac353cecc:36", "text": "while increasing the effect of"}
+{"id": "ed1c266c7db0cfd690027616c0a95a882401c01e562b56a20e5e44d52c0586ae", "item_id": "aac353cecc:37", "text": "Edge Color"}
+{"id": "fae41af4d7a374bdc57dcb0c9b03111677f4b691a0d944438e4a48307d09dd0b", "item_id": "aac353cecc:38", "text": ". Higher numbers reverse this. If your face and edge colors are the same, then there is no visible effect. Below we use a"}
+{"id": "b1f51a511f1da0cd348b8f8598db32e61cb963e5fc69e2b41485bf99590ed75a", "item_id": "aac353cecc:39", "text": "red"}
+{"id": "9b4833349f114045d1fc576d020ae033221bcf50a19c5ae1a26aed5f1eca2405", "item_id": "aac353cecc:40", "text": "Face Color and"}
+{"id": "ba4788b226aa8dc2e6dc74248bb9f618cfa8c959e0c26c147be48f6839a0b088", "item_id": "aac353cecc:41", "text": "green"}
+{"id": "a31f00fd6d39a2916d506f39104c6cac41acfffd3db33954e84de66a167222c6", "item_id": "aac353cecc:42", "text": "Edge Color and increase the Fresnel Exponent from 0.1 to 1.5 and finally 5.0 with a small roughness."}
+{"id": "ac10cbc16f481db0ca15c669d5b321ba202e935ebc58e950ce8950d4becd3c64", "item_id": "aac353cecc:43", "text": "Shading Tangent"}
+{"id": "bd5b7b3a870bfde85235d8c99432552f63b32cbc1a13c9a8904a61a186d81be1", "item_id": "aac353cecc:44", "text": "Controls the anisotropy direction. Only valid when it is connected to a pattern. This is useful for making brushed metals. Below are three examples using textures and an"}
+{"id": "8d92c2498f5ca083b4554452796bb60e0c21fed9667a057002c36465571d949d", "item_id": "aac353cecc:45", "text": "Anisotropy"}
+{"id": "60ac352f7f3dbecaf518311ceca3c2122e30dd0d14d3c0849cd17fe7432a20b0", "item_id": "aac353cecc:46", "text": "of -10"}
+{"id": "d11ba286ef2903b78b19378527bd1c214cbcc0d9f031fc80097f9da57ba33de5", "item_id": "aac353cecc:48", "text": "If on, illuminate on both sides of the surface for this specular lobe, that is, this will illuminate the surface whose normal is pointing away from the camera as well. This is off by default to improve performance."}
+{"id": "cf6ff7fd8b882fa5703f18b03b81cef48716adc4606dae89b4f9af73c41ff813", "item_id": "aac353cecc:49", "text": "Specular Clearcoat Globals"}
+{"id": "e6ab4d4b56243aa9f146f3e1e7e243090480fc58dbba32047fdedeb014c6c4f9", "item_id": "aac353cecc:50", "text": "Specular Energy Compensation"}
+{"id": "63c8294d3b332f6ff915edb9eb73ef86bf048d00a3ed17b4c2e4594fed8fd67d", "item_id": "aac353cecc:51", "text": "Applies fresnel energy compensation to diffuse and subsurface illumination lobes. A value of 1.0 attempts to fully balance those results by darkening them against the specular and rough specular illumination responses."}
+{"id": "584f6844e0eab3a28b6c2c4665b1305eed79d77c11925f2cbba8fdf70c460a9b", "item_id": "aac353cecc:52", "text": "Specular and Rough Specular roughness are also taken into account. The effect fades off asspecularface or edge color approaches 1.0, so metals can add a diffuse baseline color. Look at Clearcoat Energy Compensation for a visual example."}
+{"id": "3d1233fa35294bdd93727faccf9399d5a77ba08911a5d07e070567bacdcb7419", "item_id": "aac353cecc:53", "text": "Clearcoat Energy Compensation"}
+{"id": "9d1da6d6c61501f1f53407294a8947f12ab4a7b7666415ed7093748f3dd5d165", "item_id": "aac353cecc:54", "text": "Applies fresnel energy compensation to all lobes other than clearcoat itself. A value of 1.0 attempts to fully balance those results by darkening them against the clearcoat illumination response."}
+{"id": "bb1d9807194c5e5fdf26b06d44ef3b4c46dcefa50930f2b93b9876954b35a211", "item_id": "aac353cecc:55", "text": "Clearcoat roughness is also taken into account. The effect fades off as clearcoat face or edge color approaches 1.0, so metals can add a diffuse baseline color. Left is 0.0 (default) Right is 1.0. Notice the darkening (changes in energy conservation) that happens."}
+{"id": "4890dbebb82e0a64c5d6029af8b29fb93b01786236a10c3ecaeccbb4a28b187c", "item_id": "aac353cecc:56", "text": "Iridescence Parameters"}
+{"id": "029c49c49607f9b925ff7eab957e9666943fa45e2d6692024da659a42f69fe78", "item_id": "aac353cecc:57", "text": "Iridescence"}
+{"id": "ff06c9ffc4a91ac4072cc72dafa8da17da90255254a834e5a5293ef3a56dfd48", "item_id": "aac353cecc:58", "text": "Iridescence is a view-dependent scattering of light that causes a color shift. This is the same effect responsible for the color swirl on a soap bubble, peacock feathers, or a shiny beetle. \"Holographic\" or color shifting paint uses this effect as well."}
+{"id": "98fe0c84c5916df36f5db914170c84af72819f40d17efdee4a8bca49e0cb97fc", "item_id": "aac353cecc:59", "text": "Iridescence Mode"}
+{"id": "d4e4a76ac0b5ade7453c5df25eb9cad6282b4b63b7e58f10cb4f2d779a2513b6", "item_id": "aac353cecc:60", "text": "Select which iridescence mode to use:"}
+{"id": "105b2857efc4ab0563b7ad4f1d8218d7504d2067bfb94252ee16c5c103b94976", "item_id": "aac353cecc:79", "text": "Artistic"}
+{"id": "a89383f1a4302676318d7ff58fcce2c8bf4fd46ac48aa55fcbebb6a340ca2c60", "item_id": "aac353cecc:81", "text": "Physical"}
+{"id": "8bc1d53cc57c24b79bf7c260b1f3b29973caab7b8f501c33016b321ebfc274f1", "item_id": "aac353cecc:72", "text": "In"}
+{"id": "6ea8deb464d298e0686e75a7e10baac6a449c51d2b5b4fd3c68d0628fb96493a", "item_id": "aac353cecc:101", "text": "Artistic mode"}
+{"id": "d1b242a1985d9b69c3d625d948d5a442d56bbe8da7fe37e85242cff22895d7c7", "item_id": "aac353cecc:67", "text": ", we just set 2 colors. Depending on the iridescence scale factor, we will see N number of \"rainbows\". The default of red and blue is appropriate to get a maximum color spread but you can reduce the number of colors rendered by changing these defaults. Unless otherwise specified or demonstrating an"}
+{"id": "94bb8e3494b0e4dcfa3401129e49ddeefa7b9f0210373e1dd7ca56d1549bee5b", "item_id": "aac353cecc:76", "text": "Parameter, the examples use"}
+{"id": "ece7a31e9094073a0861306f7fe93f4e6bb97eddf4efb7e5b11078032acb2c77", "item_id": "aac353cecc:71", "text": "mode."}
+{"id": "fa0a1c74c0d661b04afda1983bf4cca488cf51de8ed4136458cc2a67360991a9", "item_id": "aac353cecc:73", "text": "Physical mode"}
+{"id": "30f8ad30e850333c3e5ae49b41fae27f02313906e839f5dc1d51e97df0d4dfc2", "item_id": "aac353cecc:74", "text": ", we pass the thickness of your thin film in nanometers. The iridescence effect happens when the physical thickness is close to the visible spectrum. You can start around 800nm and increase the value to see the effect. This option is great because it reduces parameters to tweak at the cost of flexibility. Unless otherwise specified or demonstrating an"}
+{"id": "e9006367bab2d23a41bb6c877237fa3391e7ec72f6cd066feffcebe3ec801889", "item_id": "aac353cecc:78", "text": "mode. Below are"}
+{"id": "4fcc0f2b1166c9378516b515a5479e73d5a021569456fd3ee93e24f5e5f52f47", "item_id": "aac353cecc:80", "text": "(left) and"}
+{"id": "c28ed42c82b20c3ab0ab868b111d1ed4d72c43146af5e3bb75440b60be0eef92", "item_id": "aac353cecc:82", "text": "(right) modes."}
+{"id": "8c6785ddbce440e9d1b64509ef658485bc92b2edd9a0b3b6a69921cdacba7daa", "item_id": "aac353cecc:84", "text": "This controls the falloff between the face and edge. Similar to the"}
+{"id": "57e6b5c52fb36373c9d42852d71f2660e0039530ab21250ff57bc45507c04790", "item_id": "aac353cecc:86", "text": "of the Specular Lobes. This is typically left at the default of"}
+{"id": "fb9b41a1fe63132c773b96bd6494f962464465c64695e1692805f76319c574b7", "item_id": "aac353cecc:87", "text": "Falloff Speed"}
+{"id": "fce34e40e3349fddf19cb8a2d9f4fa264db4fd3210413883aa94dc0f4404196e", "item_id": "aac353cecc:100", "text": "This is for"}
+{"id": "5c1c6c125272a6c67e1257613ed246ca97558ed73ef08d9dd55c408a606a1d38", "item_id": "aac353cecc:102", "text": "only."}
+{"id": "f33b72f959f122b009e3b51a9b0ce999d289d77c0e708eba5d5f253242cf9ee0", "item_id": "aac353cecc:91", "text": "Falloff speed from Primary Color to Secondary Color. Larger numbers falloff more slowly. Below uses the defaults for"}
+{"id": "f2143d44db8ac414b13d59c58cd49b5698d0d59c3c919705da00e7f07300aed2", "item_id": "aac353cecc:92", "text": "Artistic Mode"}
+{"id": "c17cd54c9f2624d64365073a4fce8965bb5d93c42468bc8daf20d7810c0522b8", "item_id": "aac353cecc:93", "text": "but we change the Falloff Speed from 0.1 to 0.5 to 1.0"}
+{"id": "20286eb044e48ceaee78eb1bfe52dbf779bfcd860e1575bf9246df655391b744", "item_id": "aac353cecc:94", "text": "Falloff Scale"}
+{"id": "62e75d4243727c17289bd8c1fba532b69c9a751d5a7f0c525dfc2c89b3dc051b", "item_id": "aac353cecc:98", "text": "This sets how many times the iridescence \"rainbows\" color repeat. Below we go from 0.5 to 1.0 and finally 3.0. Notice that higher values begin to repeat the rainbow effect. This is useful for simulating oil patterns such as oil on water or soap bubbles."}
+{"id": "adbe30ae83826e9603f2e6a359c9b372342c9cdf56c9be0360fad3215a4759ab", "item_id": "aac353cecc:99", "text": "Flip Hue Direction"}
+{"id": "87c438d03401c171c132646d3a1ac74591f00867aeec3337e180ac06275713aa", "item_id": "aac353cecc:103", "text": "Flip the hue wheel direction between primary and secondary colors. By default, the hue wheel direction is counter clockwise. Left is"}
+{"id": "b4dc66dde806261bdda8607d8707aa727d308cd80272381a5583f63899918467", "item_id": "aac353cecc:104", "text": "off"}
+{"id": "f8be45f57be37f7c973398ea2f64e6360ee529e8ddab2d3ae105dd513e320a89", "item_id": "aac353cecc:105", "text": ", right is"}
+{"id": "b8d31e852725afb1e26d53bab6095b2bff1749c9275be13ed1c05a56ed31ec09", "item_id": "aac353cecc:106", "text": "on"}
+{"id": "66770c150ee7628de08efd2b2797b8a3bfbdb59649d1eec2540c79aefb5fe3ed", "item_id": "aac353cecc:109", "text": "If on, illuminate on both sides of the surface for this iridescence lobe. This is useful forthinopened surfaces such as feathers and leaves that are modeled without thickness."}
+{"id": "db15a400f0a8d32ad695824975f3a3bdab1cc7237dc5d823b4bc86d06a0d7e64", "item_id": "aac353cecc:111", "text": "Fuzz Parameters"}
+{"id": "33c8d201956c090a4362e8d60921e195acf85b5822409a204222d3da8a164215", "item_id": "aac353cecc:112", "text": "This parameter introduces a bit of retroreflection and helps simulate fabrics, fuzz, and fine powder."}
+{"id": "2983ec23def6c23bc47b017c2fde125fccbd91240a133d6856b207590541a134", "item_id": "aac353cecc:113", "text": "Cone Angle"}
+{"id": "d5d0df16a33d8aa7149165b91184abec33673c334422d74ffb1678c8b1ba106b", "item_id": "aac353cecc:114", "text": "Fuzz roughness (corresponding to Marschner R cone angle). Note that we use something from Marschner's hair model here. This helps to simulate a similar response to hair/fur. Higher numbers increase the effect at facing angles. Below are values 8, 16, and 32."}
+{"id": "56b3e2cb8c276594f46c3a8e77a30bd2eea930ef4fd9d54af500de4e4134e2e0", "item_id": "aac353cecc:116", "text": "If on, illuminate on both sides of the surface for this fuzz lobe, that is, this will illuminate the surface whose normal is pointing away from the camera as well."}
+{"id": "249af258f65d3f8b478be2880a9c1fdcb599103b0a133250c4108eac577a36a2", "item_id": "aac353cecc:118", "text": "Subsurface Scattering Parameters"}
+{"id": "57d5a0afe3f84dd38a002d38aab15a1cb9c81a120f944cbcf02cec350171ef27", "item_id": "aac353cecc:119", "text": "Subsurface Model"}
+{"id": "265dc7b24e4cc519aa1c83c10195d74a36189f1fe1c1c72b9c9acd3610e38d49", "item_id": "aac353cecc:120", "text": "Select a subsurface scattering model: Jensen Dipole, d'Eon Better Dipole, Burley Normalized, Multiple Mean Free Paths, and new Path Traced options. The parameters are populated based on the model chosen and are valid for that model. If you change which model you use, your connections may be lost to invalid parameters. You can find out the specifics of these controls and models on the main"}
+{"id": "e8583897746bc8aa565668f4c6546252ac71789ea0a15a9eda18f28b3d1b2421", "item_id": "aac353cecc:123", "text": "Burley Normalized"}
+{"id": "0376930881ea7d7d5643e99dc3e536c5865b2a772f37a9ddfd1b8ecb5073a255", "item_id": "aac353cecc:124", "text": "produces accurate effects while preserving details."}
+{"id": "dc0da0629093a54a3cc4a62eeb3b6e3e6791af61c4ef211881bb3cc72140dc64", "item_id": "aac353cecc:125", "text": "Jensen and d'Eon Dipoles"}
+{"id": "3b4c930ad32c9fc4f868bc533e751dd719930a253e0364bb4492f2e9db7579f0", "item_id": "aac353cecc:126", "text": "are great for very translucent objects like gummies and extended art direction."}
+{"id": "ae074091d4a8c47600e7e25a75844027d0774be36404a6fd366b40d05b8727c2", "item_id": "aac353cecc:127", "text": "Multiple Mean Free Paths"}
+{"id": "ad73860f862ad52aef23264e01682c4b752c5593daa1f62971877d003d85f335", "item_id": "aac353cecc:128", "text": "is great for texturing to produce color bleed intuitively. While not necessarily physically correct, its scattering of textured colors works well for art direction while avoiding color shifting."}
+{"id": "f0c2077611caa92f5cb095de867d990b0d1b6814346e2dc07d77144eac16b636", "item_id": "aac353cecc:129", "text": "Exponential Path Traced is excellent for accurate and detailed subsurface scattering."}
+{"id": "751321551aded2c363b1f8784431c7cb054a32fe24c1491712ac71616ea176ae", "item_id": "aac353cecc:130", "text": "Non-Exponential Path Traced is similar to the above Path Traced solution but allows light to scatter further."}
+{"id": "07fcb7d4ad7202ce5d58fd14ca1085b06c6cba8cc5013b1b8d5a361cbd31ef61", "item_id": "aac353cecc:132", "text": "If on, illuminate on both sides of the surface for this subsurface lobe, that is, this will illuminate the surface whose normal is pointing away from the camera as well. If not on, it will not render on the backside."}
+{"id": "78e9d6ed270828dc54df13f819ac72b565c9d889612f884b633a2d4cce45e879", "item_id": "aac353cecc:133", "text": "Trace Control:"}
+{"id": "3254747d37498cb23ac63ce36ae3f2e911f97258a0388d48e47f5767e46ec059", "item_id": "aac353cecc:159", "text": "Consider Backside"}
+{"id": "601e5b18370f0ab5ec2e4a6698f27d4342085bf729dd089fb9130ebe0b215d59", "item_id": "aac353cecc:135", "text": "Whether subsurface respects surfaces on the other side. This is for the hit side, not the illuminating side (which is subsurfaceDoubleSided):"}
+{"id": "36a1cd030eee67eb06820d49546d28e45f666e71bb37cea1a533c7f7972cb7da", "item_id": "aac353cecc:136", "text": "\"Off\" - It will ignore surfaces on the other side completely. This is useful to make objects appear thicker than they are."}
+{"id": "a6ece9fe8c9e66ce4a19414683983ec638a1485c31a4fe766a3ab4b11f2c2e2b", "item_id": "aac353cecc:162", "text": "\"On\" - Normal mode, where the diffusion happens between the front and the first surfacebehindit."}
+{"id": "89dbed2c038ad56fa1e61922de17656944cd5d0dd537357e6c14b5cef69c10d7", "item_id": "aac353cecc:163", "text": "Continuation Ray Mode"}
+{"id": "1089c41b744f30c10d1faa6eedce08d1079c0dda5ab947b630b2a3f008b8fc98", "item_id": "aac353cecc:139", "text": "This is useful when the user requires scattering to contribute between different objects as well as within an object that may be modeled with a void or space in the interior such as a mouth that is part of the same mesh as the face."}
+{"id": "59b725cd3de0db0088fa60fb35dd978fc0d848dd36c232904a645a205f6bee9e", "item_id": "aac353cecc:171", "text": "Control continuation ray mode:"}
+{"id": "f539a68cadd341afede8563e47b351b0040d71b306755895cf0fd97b017949ea", "item_id": "aac353cecc:165", "text": "\"Off\" - Simply trace out of the object (default)."}
+{"id": "ea4dd76ef366e12fb3927aab5056c663983140fbd4523ffc7a80a1100e984860", "item_id": "aac353cecc:173", "text": "\"Last Hit\" - Ignore internal geometry and jump to the last surface."}
+{"id": "1b400f06d3188fa62fe4549dc85362f5ed21b78f548e64ae2a3f5a3eff304fe1", "item_id": "aac353cecc:174", "text": "\"All Hits\" - Scatter (collect light) on all hits as the ray leaves the object. This can bring additional brightness, at the cost of additional noise."}
+{"id": "f68555b6167f03b37c0db07fafbf179dba5f0768e9744c540b885d5f8133d6d6", "item_id": "aac353cecc:144", "text": "Belowleftwe use \"All Hits\" and you can plainly see the text \"SUBSURFACE\" embedded in the sphere. To therightit's set to \"Off\" which causes the embedded geometry to render incorrectly by clamping that falloff."}
+{"id": "95fbf6386d4b17e1007e7eb4b246e303db011ad1ef35a5119421b907c609fb21", "item_id": "aac353cecc:168", "text": "Max Continuation Hits"}
+{"id": "494bc52ce54243ec9307aaa89d98d333d75bb20cadb495de2d7e696a2a9a31e7", "item_id": "aac353cecc:169", "text": "Maximum numberof hits to test in all hits mode. This is only valid when Continuation Ray Mode equals All Hits"}
+{"id": "daab541f40b6ff0acf475be44f4e0fc21d2b9697cdf4ebbb5ae5e6529c939a81", "item_id": "aac353cecc:147", "text": "Follow Topology"}
+{"id": "e7af30fec95d421bbfcbbdc8e3ad7025b137d8526240823fa4a8ce7b01026b0f", "item_id": "aac353cecc:148", "text": "Controls how strongly normals are considered in the subsurface computation. This may affect visible details created through bump mapping as well."}
+{"id": "1b26903730584e4c1b45d17deede65854378add523b666c14b8d58e0d2eafa33", "item_id": "aac353cecc:175", "text": "Trace Subset"}
+{"id": "314494ddae1c3abd47bde6151848ba2fdd6ffec0c6ae20f8abaa67dd7cd24674", "item_id": "aac353cecc:176", "text": "Specify trace subset for inclusion/exclusion when struck by a ray indirectly."}
+{"id": "8cc7dea25edb7e6a2a98f1ced9b792be38612d7bc09efddcae1e2fcaa1380e93", "item_id": "aac353cecc:151", "text": "Single Scatter Parameters"}
+{"id": "e339262288a952ff3568b388c2e2ffea5752096cacdedfe989721ea8861874d4", "item_id": "aac353cecc:152", "text": "Single Scattering Parameters"}
+{"id": "e373fdf21a9a83a9b1483ee663dbad4dab828ba42f4e724da14f781586a0e5fa", "item_id": "aac353cecc:153", "text": "Single scatter is a simple and inexpensive effect for scattering effects. Below a"}
+{"id": "cfbdbd5e62903ab3eb074d4746b6fcfd0e861a106da810e1f63f9177004cf2a6", "item_id": "aac353cecc:154", "text": "disk light is placed inside the model"}
+{"id": "b066e4c016e81ae611808980004cad5f08a0e2b1cacfb36fd8e8de63a729a79a", "item_id": "aac353cecc:155", "text": "(for all of these examples) and we render using no diffuse color and again with a default middle grey diffuse color."}
+{"id": "fb0b2b983b5f1512e70e51f0c2a65564675ea52504950d3f6a7b86ceb2e1af2b", "item_id": "aac353cecc:157", "text": "If on, illuminate on both sides of the surface for this single scatter lobe, that is, this will illuminate the surface whose normal is pointing away from the camera as well."}
+{"id": "cc5fee4891a0bfdf570a2f005a414557c09aa3456bb8ec452af7bf4b5ccc35ad", "item_id": "aac353cecc:158", "text": "Trace Control Parameters (Operate similarly to Subsurface Controls Shown in their explanation):"}
+{"id": "d2726bef900222422667dfea4ee9e286c251277332eae0b7667956b55d62fd01", "item_id": "aac353cecc:160", "text": "Whether subsurface respects surfaces on the other side. This is for the hit side, not the illuminating side (which is singlescatterDoubleSided):"}
+{"id": "86d0e2c504b295988bcab80a636f664d82a7931ba89d53a01d83de4e7601a527", "item_id": "aac353cecc:161", "text": "\"Off\" - It will ignore surfaces on the other side completely. This is useful to make objectsapearthicker than they are."}
+{"id": "b173724be317822cd0fff29d5a4dc397bab9ca2ebfada1df38d2f7fdb9faa156", "item_id": "aac353cecc:170", "text": "Direct Gain Mode"}
+{"id": "bb7bb4b715d2f5d9daefc19ca839af6ef7e79e8c37aec226362cf1506a5c4ab0", "item_id": "aac353cecc:172", "text": "\"First Hit\" - Simply trace to the next surface (this is tied to considerBackside)."}
+{"id": "30f045520b0aee46e4cceb3c8f0467fcd81cc03edf412ef5d7f317412c9659d3", "item_id": "aac353cecc:177", "text": "Scattering Globals"}
+{"id": "da30429804c57cb702bf18ab390fa9b3ff001c01a2c8a7a4d67d826ab4e913a5", "item_id": "aac353cecc:178", "text": "Irradiance Tint"}
+{"id": "43634e78b53d73747ca825620aac24e231becbac3c32ae79a1bb2fae41c56874", "item_id": "aac353cecc:179", "text": "A tint applied to illumination before being scattered by subsurface or single scatter."}
+{"id": "e2f82deb5e06ec362df18170f0bb21144982e7f015382f7d3de6c441c078bba1", "item_id": "aac353cecc:180", "text": "Irradiance Roughness"}
+{"id": "42130928defc057a9aab03ab76adf9d33a91d94c0485c3078cd9358d846675d4", "item_id": "aac353cecc:181", "text": "Diffuse roughness to be applied for subsurface or single scatter. A value of 0 represents classic Lambertian shading model. Non-zero values increase the microfacet roughness for the Oren-Nayar shading model. A greater value produces rougher diffuse and may appear slightly darker."}
+{"id": "9e583cfa3ff42a60870bcc24cbc4eb95e4634c206b26daf995cdc6de06b06f5b", "item_id": "aac353cecc:182", "text": "Unit Length"}
+{"id": "d39291e1fd326cffd266b53176b702fb6c0a753391a92441c68d41fa138cbd32", "item_id": "aac353cecc:183", "text": "Subsurface and single scatter unit length. It is a multiplier on Mean Free Path Distance. Mean Free Path Distance is often measured in millimeters. If the scene is modeled in some other scale, Unit Length should be set accordingly. The default value of 0.1 is appropriate for scenes modeled in centimeters (the default in Maya) and Mean Free Path Distance measured in millimeters. Small numbers make the object more diffuse (less translucent) while larger numbers increase the scatter effect, making it more translucent."}
+{"id": "e07c56150f7cfc0193ad384d20856afe5e4f95cb2d05468dc1e0bce644f5bb0a", "item_id": "aac353cecc:184", "text": "Glass Parameters"}
+{"id": "d35dfb5b7fcb0465b4d547ada39057b114cde7ede5e3bc530beabba89e8aed22", "item_id": "aac353cecc:185", "text": "Glass Parameters"}
+{"id": "da68daaecfea26bc4c982971d7e39669e66094e1f0c6544d813ce7c80ba624b6", "item_id": "aac353cecc:186", "text": "Thin"}
+{"id": "95e9d28397a7a341b94c0fc5cc36b0a761dd75a7469cb5177e97ac3a4bd2ed4a", "item_id": "aac353cecc:187", "text": "If on, correctly split energy according to Refractive Index between reflection and refraction, but do not bend the ray in refraction (simulating a double pane of glass with a single pane or maybe a hollow glass ornament). The below"}
+{"id": "6b6b85aed8adda90f7a71069f651b0be8cdfcaab56b645a3c065319f6e5d4dcf", "item_id": "aac353cecc:188", "text": "interior"}
+{"id": "21f1c0218f081e6552250edd85a5a472360032cefa9d42d668b71dff8e926fa9", "item_id": "aac353cecc:189", "text": "parameters are not meant to operate in this mode."}
+{"id": "c87efbb0520dc0f246881d65308f0d4964349028e0ba5406781c3cb2cf11ca3d", "item_id": "aac353cecc:190", "text": "Interior Parameters"}
+{"id": "fc97193653d3e80203cd2c8fd8976cd532e4182d82a5c121c2fae3c7abdd369d", "item_id": "aac353cecc:191", "text": "Single Scatter Albedo"}
+{"id": "930d2dd60b225361b0a1c8722494fdf5b271db3122c42ca00b2fbaec2b3ec841", "item_id": "aac353cecc:192", "text": "Single scatter albedo color, this creates a fog in the interior of the glass surface. This would be useful for containers of silty or dirty (homogeneous) water."}
+{"id": "a3070afa0acf4347d1476db1465dbe6cb27369eaa66fd202e402c0fa29f73369", "item_id": "aac353cecc:199", "text": "Extinction"}
+{"id": "4491757e77a1f8bf21c87e846b9ec5eaf3db015524f92ce2376a1e8eb1079abd", "item_id": "aac353cecc:194", "text": "should not be black or 0. Texturing requires a 3D Manifold to work."}
+{"id": "dc84429854f5da112cdcd59ea96fd15ff8218aa7067e0efbe4f701f7ed045920", "item_id": "aac353cecc:195", "text": "Overlapping Volumes"}
+{"id": "83e35f9f78792b1c382b52a8dca4af50e1bcd9f7faf2e546877e74b6e4cec86e", "item_id": "aac353cecc:196", "text": "To enable or disable overlapping volumes within the surface. If turned off, only the interior volume will be visible. If turned on, the interior volume will blend with other volumes inside the surface."}
+{"id": "c4010360549b5caa282344920250da0c6c938e5f2b63d50873622461ec9ae272", "item_id": "aac353cecc:197", "text": "Multiscatter"}
+{"id": "2c25e9410a3b84375686b01667fd28c5fdea93aac7d102ee7d6ef8d48b130bd7", "item_id": "aac353cecc:198", "text": "This parameter will enable indirect bounces in interior volumes when enabled."}
+{"id": "26f940562e1bf55228323ce9ebc73a56dc99fddcc5bb9e008e089af20aa02a16", "item_id": "aac353cecc:200", "text": "Extinction color. This applies to the above Single Scatter Albedo. It should not be black for Single Scatter Albedo to work. This parameter selects the color that is most affected by extinction or combination of colors. Choosing pure red means red goes extinct but green and blue color combinations do not."}
+{"id": "158553aad1ae101a0c8e80bb9a8472922e2123e8aed07500eb5ea6064acd8aec", "item_id": "aac353cecc:201", "text": "Single Directionality"}
+{"id": "4774066d0215a185a22656a941e4d283ac8f21fa53776de5d8670ac0ab19e82d", "item_id": "aac353cecc:202", "text": "Controls the directionality of the scattering."}
+{"id": "1680c8ff3d53ddafec02c9e14e9f12fbc02978693a024f2fb91c09a971d9bfea", "item_id": "aac353cecc:203", "text": "0 :isotropic"}
+{"id": "6b1e042ce5010946dc3987a32a2987a07d49d16aa8ec0db602f6866e07148fbc", "item_id": "aac353cecc:204", "text": "1 :forward"}
+{"id": "380101aad31bfbf9ae2ae163222ba62cea06d99a78ca70e728c692e37586dbbd", "item_id": "aac353cecc:205", "text": "-1 :backward"}
+{"id": "b9aa3382f7e4c90963ff344bb573b609012c72ba5f2b7788e190e550555569e5", "item_id": "aac353cecc:206", "text": "Global Properties Parameters"}
+{"id": "7a4b715754b42100bd1bf57705ba453d5c96bebb873f7333e67c4e11be53f900", "item_id": "aac353cecc:207", "text": "Properties Parameters"}
+{"id": "bcd741cf7d760f9a5a373c824cfae96926021004fb4096b8e218f970ad0fa4a2", "item_id": "aac353cecc:208", "text": "This section provide global controls for the entire material. For example, if a Bump is only supplied here, it applies to all the above lobes. Presence is also a global parameter that will mask out or \"cutout\" all the lobes as if the object isn't present where the mask has a value of 0.0"}
+{"id": "d6b3e8c828d3742089ed59ebbfd89492ec2ce0bc89a19294cae52a6ac233b244", "item_id": "aac353cecc:209", "text": "Presence"}
+{"id": "b72d047ed9d98ac4eb696ccbe363d935355e5688d6ae4de05cc6b48100303f62", "item_id": "aac353cecc:210", "text": "Connect a mask here to apply a cutout pattern to your object. This is useful for cutouts like creating leaves and other thin, complex shapes. It can also be used as opacity for gray values for semi-opaque results when seen directly by the camera."}
+{"id": "22a2e0a3dfe76eefcd0591b91bff1e029fbd25ea0da0a539c44ad638892be9a0", "item_id": "aac353cecc:211", "text": "This is ignored for non-thin glass refraction and \"thick\" style objects where color is attenuation through the interior"}
+{"id": "f765d4d056031d7113707a150f24ef6a3421c8850ca8a3d2c6fb04cd8208ed30", "item_id": "aac353cecc:212", "text": "Presence Cached"}
+{"id": "915119508c21fe6991fe9bd7806fb37580168093dab777618f9ed3bb1b32baa5", "item_id": "aac353cecc:213", "text": "Specify whether presence is cached or not.  When cached is on,  presence will be evaluated"}
+{"id": "e0df7a383b90c0d5ab39eae244b4481680a350466cf968f1ac83a5fb38efcae0", "item_id": "aac353cecc:214", "text": "per micropolygon"}
+{"id": "44da706e45641d113b1c66d691703c6c449b041a1776c06d662944274848d946", "item_id": "aac353cecc:215", "text": "as opposed to"}
+{"id": "01b83298645d4bfbb7fba7620ee8a777dbd8fe1dbe217e87895f7dc237f527a2", "item_id": "aac353cecc:216", "text": "per shading point"}
+{"id": "c434162703c8aedadf61b77bf210ec9a5d892c570f7945d272de1604e2267e2d", "item_id": "aac353cecc:217", "text": "when cached is off."}
+{"id": "86248f955319b534b913cb375fea3474b77072d1623fbf7f91f9f1bb0bd0465f", "item_id": "aac353cecc:218", "text": "Since presence computation can be expensive, if there is a heavy shading network such as texturing, then caching is advantageous for better rendering speed though it increases memory."}
+{"id": "a2c2b1efdfc58d766dfd0b105d4792020af3640103f35be62ecf8196e3e7a27a", "item_id": "aac353cecc:219", "text": "Because caching is essentially stored at the tesselation level, if we need finer render details, uncached presence is recommended since it evaluates per shading point."}
+{"id": "9bf69c138f8ad490f07d84ec95e40fdf6fd9098cd8c581554e4bafcda615f87c", "item_id": "aac353cecc:220", "text": "There is atrade offbetween memory and speed.  If we have a very simple presence such as a constant value, cached and uncached could be almost equally fast and save some memory.  Note that if presence is at constant 1.0 (which is the default), PxrSurface optimizes all of this."}
+{"id": "cc0c2d283487040b0b201fddebaef465d63bd063882e4b9c87334459de29cf9b", "item_id": "aac353cecc:221", "text": "When subsurface or single scattering is on, to avoid artifacts (related to volume tracking), PxrSurface forces uncached presence internally (ignoring the parameter setting of Presence Cached)."}
+{"id": "a12a91633132fa8655297774ee48e21b9ce60be19d5aea586286ed2c4451046a", "item_id": "aac353cecc:222", "text": "For similar reasons, PxrSurface ignores presence, cached or not cached, for non-thin glass refraction."}
+{"id": "dbd27d7ffe9824bf1450f982663cb76b91a854af3d06fdd16c20e390beba66a5", "item_id": "aac353cecc:223", "text": "Shadow Mode"}
+{"id": "e2fc901101e77d7c9104b5dea4115036acd58ea11319220eb502ab90dc27eb4e", "item_id": "aac353cecc:224", "text": "Shadow opacity computation mode:"}
+{"id": "2e9196a3255c181eb925e882c5ceaf27a28ef3f4541034363e5a396642ccb4e8", "item_id": "aac353cecc:225", "text": "Shader and shadow color"}
+{"id": "ef4a850011b81d2b8365155c226687101a15a191a650b7a3636b0208eefd6633", "item_id": "aac353cecc:226", "text": "Shadow color only"}
+{"id": "6946fd2382957f0655d0fd423e1699825089519d5bf4903df891d5d5f327a146", "item_id": "aac353cecc:227", "text": "Shadow Color"}
+{"id": "91a1b9002019aa5106a59f902066a23de90af366403f49881be78e6215908b6e", "item_id": "aac353cecc:228", "text": "Specify shadow color. This parameter is useful for faking a shadow color for art direction purposes."}
+{"id": "580d09e0548c268e55e3977560d8e47d233e14614c0855ba274fda6437adea35", "item_id": "aac353cecc:229", "text": "Utility Pattern"}
+{"id": "d83db541f9bb0c5b531d1ba02c02f6ad4b13c4180ac9bd5e63282df4883bdb70", "item_id": "aac353cecc:230", "text": "Specify a pattern node for output. For example:One can connect a"}
+{"id": "3c8e8c34ad405120c4b97f66134a40884743c8d05dd6d1d2847effd990eb5971", "item_id": "aac353cecc:231", "text": "PxrMatteID"}
+{"id": "a11b67f1354436387249e76b7dd92972b71765346bf3f735b63560734e8b8372", "item_id": "aac353cecc:232", "text": "to this parameter to output an ID AOV. Or another pattern can be output such as a texture."}

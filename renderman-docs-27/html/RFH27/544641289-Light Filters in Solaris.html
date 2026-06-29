@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Light Filters in Solaris</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Light Filters in Solaris</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFH27/544641289/Light+Filters+in+Solaris">https://rmanwiki-27.pixar.com/space/RFH27/544641289/Light+Filters+in+Solaris</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="contentLayout2">
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/544641289/RenderMan_Solaris_LightFilters_Render.jpg" data-image-src="../../attachments/544641289/RenderMan_Solaris_LightFilters_Render.jpg" data-unresolved-comment-count="0" data-linked-resource-id="544641336" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Solaris_LightFilters_Render.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544641289" data-linked-resource-container-version="7" data-media-id="73dcf4cf-7001-4601-8c3d-4752261c6320" data-media-type="file"></span><br/><br/><br/><span class="legacy-color-text-default">Light Filters are used to manipulate lighting results. In the real world, stencils and gels often achieve this by changing the color, quality, and amount of light in a shot. RenderMan's light filters are a powerful and flexible way to do the same (and even more) in lighting your scenes. </span></p><p><span class="legacy-color-text-default">Working with Light Filters in Solaris is simple and will instantly transform your lights and lighting!</span></p><hr/><p>To add a light filter simply add one of the dedicated LOP node to create the corresponding USD light filter primitive.</p><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="de8a6518-546e-400c-9974-8b52ddc2f7ed" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>The previous <em>PxrLightFilter</em> LOP, while still working, is deprecated.</p></div></div><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="lightFilterLOPs.png" width="964" loading="lazy" src="../../attachments/544641289/lightFilterLOPs.png" data-image-src="../../attachments/544641289/lightFilterLOPs.png" data-height="512" data-width="964" data-unresolved-comment-count="0" data-linked-resource-id="665550881" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="lightFilterLOPs.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544641289" data-linked-resource-container-version="7" data-media-id="421bab17-1ca0-41b9-9bdd-514932304418" data-media-type="file"></span><p /><p>Then assign it to a light using one of the following methods:</p><ul><li><p>Use a PxrAssign LOP (or the PxrAssignLightFilter alias). You can use a single PxrAssign LOP to assign multiple light filters to multiple lights.</p></li><li><p>Use a Light Edit LOP and fill the <em>Light Filters</em> parameter on the <em>Base Properties</em> tab</p></li><li><p>Plase a Light Edit LOP after the light filter LOP and fill the <em>Light Filters</em> parameter on the <em>Base Properties</em> tab</p></li></ul><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="assignLighFilter.png" width="916" loading="lazy" src="../../attachments/544641289/assignLighFilter.png" data-image-src="../../attachments/544641289/assignLighFilter.png" data-height="262" data-width="916" data-unresolved-comment-count="0" data-linked-resource-id="663814282" data-linked-resource-version="2" data-linked-resource-type="attachment" data-linked-resource-default-alias="assignLighFilter.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544641289" data-linked-resource-container-version="7" data-media-id="5cd88784-6224-425a-a992-f44f192c3b9c" data-media-type="file"></span><p>If the assignment was properly done, in the Scene Graph, on the light primitive, the light filter primitive should be listed on the light:filters attribute.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="lightFilterAssgined.png" width="1118" loading="lazy" src="../../attachments/544641289/lightFilterAssgined.png" data-image-src="../../attachments/544641289/lightFilterAssgined.png" data-height="265" data-width="1190" data-unresolved-comment-count="0" data-linked-resource-id="663519410" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="lightFilterAssgined.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544641289" data-linked-resource-container-version="7" data-media-id="e86f653e-47cf-435b-997b-9760a897125a" data-media-type="file"></span><p>To parent a light filter to a light (as shown above in the Scene Graph), simply set the <em>Primitive Path</em> parameter on the light filter LOP with the proper path (e.g. ‘/lights/light1/$OS instead of the default '/lightFilters/$OS’).</p><p /><hr/><p><br/></p><p>Example</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="RenderMan_Solaris_LightFilters_Render_2.jpg" width="1389" loading="lazy" src="../../attachments/544641289/RenderMan_Solaris_LightFilters_Render_2.jpg" data-image-src="../../attachments/544641289/RenderMan_Solaris_LightFilters_Render_2.jpg" data-height="1080" data-width="1920" data-unresolved-comment-count="0" data-linked-resource-id="544641309" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Solaris_LightFilters_Render_2.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544641289" data-linked-resource-container-version="7" data-media-id="6dbc3ba7-9f19-4bf5-a584-87b7fcf85f8f" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout two-right-sidebar" data-layout="two-right-sidebar">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" alt="RenderMan_Solaris_LightFilters_Render_3.jpg" width="622" loading="lazy" src="../../attachments/544641289/RenderMan_Solaris_LightFilters_Render_3.jpg" data-image-src="../../attachments/544641289/RenderMan_Solaris_LightFilters_Render_3.jpg" data-height="1080" data-width="1920" data-unresolved-comment-count="0" data-linked-resource-id="544641306" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Solaris_LightFilters_Render_3.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544641289" data-linked-resource-container-version="7" data-media-id="42c8ca08-dbc1-4b4d-baa2-6576ae6764a1" data-media-type="file"></span></div>
+</div>
+<div class="cell aside" data-type="aside">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-right-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-right" alt="wings.jpg" width="350" loading="lazy" src="../../attachments/544641289/wings.jpg" data-image-src="../../attachments/544641289/wings.jpg" data-height="2000" data-width="2000" data-unresolved-comment-count="0" data-linked-resource-id="544641303" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="wings.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544641289" data-linked-resource-container-version="7" data-media-id="e3e6dd4b-d52f-47df-be01-a98331ac8e97" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><br/></p></div>
+</div>
+</div>
+</div>
+  </article>
+</main>
+</body>
+</html>

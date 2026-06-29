@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Using PxrOSL</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Using PxrOSL</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFM27/544541164/Using+PxrOSL">https://rmanwiki-27.pixar.com/space/RFM27/544541164/Using+PxrOSL</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="600" loading="lazy" src="../../attachments/544541164/rfm_PxrOSL.png" data-image-src="../../attachments/544541164/rfm_PxrOSL.png" data-height="655" data-width="481" data-unresolved-comment-count="0" data-linked-resource-id="544541178" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfm_PxrOSL.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544541164" data-linked-resource-container-version="1" data-media-id="85a6b687-6b33-46e0-93d9-33e99663883f" data-media-type="file"></span><p>PxrOSL Pattern node 是一种有用方式，可在 Maya 内部创建 OSL patterns 并进行原型设计。它非常适合试验各种 options 和 controls。</p><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="bbf8afc7-0a03-4352-8916-282a621df42e" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>我们只支持 OSL patterns（用于 shading 的 textures），不支持 closures（materials）。</p></div></div><p>首次打开 node 时，会看到上方所示的表示。如果展开 Source Code rollout，会看到 node 内置的实用示例。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="600" loading="lazy" src="../../attachments/544541164/rfm_PxrOSLexampleSource.png" data-image-src="../../attachments/544541164/rfm_PxrOSLexampleSource.png" data-height="817" data-width="481" data-unresolved-comment-count="0" data-linked-resource-id="544541181" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfm_PxrOSLexampleSource.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544541164" data-linked-resource-container-version="1" data-media-id="b8ca9f77-65ab-4d6f-b952-523f9d0794eb" data-media-type="file"></span><p>可以在 Compile 和 Reload buttons 下看到 source path。</p><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="617bc226-7a03-4508-8447-71e85663279d" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>这里的命名非常重要。</p><ul><li><p><code>shader sample_osl_pattern</code> 在 OSL Code 中定义。</p></li><li><p>OSL Code 中定义的名称 <em>必须匹配</em> .osl Source File Path 的名称</p></li><li><p>file path 必须手动填写，并且也必须与带有编译后 .oso extension 的 OSL Code 名称匹配</p></li></ul><p>如果名称不正确，会收到 warning，并出现异常行为。</p></div></div><p /><p><strong>Compile</strong> - 将当前 code 编译为用于 rendering 的 .oso file</p><ul><li><p>选择此选项时，它会询问是否覆盖你的文件，还是保存为 edit copy；edit copy 的名称中会追加 .edit</p></li><li><p>.oso compiled file 是 rendering 所必需的</p></li></ul><p><br/><strong>Reload Source File</strong> - 可以从已保存/更新的 .osl file 加载对文件的外部 edits</p><p>加号和减号图标用于展开和收缩 editor area。</p><p>只要提供正确的 .oso file，Parameters rollout 就会填充。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="600" loading="lazy" src="../../attachments/544541164/rfm_PxrOSLexampleParameters.png" data-image-src="../../attachments/544541164/rfm_PxrOSLexampleParameters.png" data-height="876" data-width="481" data-unresolved-comment-count="0" data-linked-resource-id="544541184" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfm_PxrOSLexampleParameters.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544541164" data-linked-resource-container-version="1" data-media-id="ae1bb4bc-6fa3-47bf-bd3c-12cb2bd5fbf7" data-media-type="file"></span><h3 id="UsingPxrOSL-UsingCustomOSLPatterns">Using Custom OSL Patterns（使用 Custom OSL Patterns）</h3><p>首先，请查看 <a href="544541146-Installing Custom Nodes.html" rel="nofollow">Installing Custom Nodes（安装 Custom Nodes）</a>。</p><p>定义 RFM_SHOW_PATH environment variable，让它指向你自己的 custom（自定义）configuration directory。</p><p>在这个新位置创建 config directory，并保存一个 custom（自定义）rfm.json 文件（可以复制原始文件后修改）。下面是一个简单版本：</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="21ab706e-9072-4741-a5b4-09d2352ee884" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">{
+    &quot;$schema&quot;: &quot;./rfmSchema.json&quot;,
+    &quot;resources&quot;: {
+        &quot;user&quot;: {
+            &quot;nodes&quot;: {
+                &quot;search_paths&quot;: [&quot;/Users/Artist/Shading/OSL_pkg/shader/myshow&quot;]
+            }
+        }
+    }
+}</pre>
+</div></div><p>你应具有以下结构：</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="19c68605-b227-4298-8bc1-82d8ea8333b8" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">RFM_SHOW_PATH
+   |_ config
+      |_ rfm.json</pre>
+</div></div><p>现在给你的 OSL shaders 添加一些 metadata（下面使用一个简单示例）：</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="5968ab7b-a494-495f-a100-00079967fb0d" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">//
+// AddFloat_1
+//
+shader AddFloat_1
+[[
+    string category = &quot;math&quot;,
+    string help = &quot;Adds two float inputs&quot;,
+    int rfm_nodeid = 1553001,
+    string rfm_classification = &quot;rendernode/RenderMan/pattern/Studio/math&quot;
+]]
+(
+    float input_A = .0,
+    float input_B = .0,
+    output float resultF = .0 [[ string widget=&quot;null&quot; ]],
+)
+{
+    resultF = input_A + input_B;
+}</pre>
+</div></div><p>以下是 Help data 的各个部分：</p><ul><li><p><strong>category </strong>- 我们将它归类为 "math" node category</p></li><li><p><strong>help</strong> - 提供给用户的有用数据，基本上就是 description。</p></li><li><p><strong>rfm_nodeid</strong> - 是 node 的唯一 ID；Autodesk 通常按区块分配这些 ID。这是避免冲突所必需的。</p></li><li><p><strong>rfm_classification</strong> - 是 UI/Viewport 的 classification，'shader' objects 必须使用 'rendernode/RenderMan/pattern/' 下的这个 classification 才能被处理</p></li></ul><p />
+  </article>
+</main>
+</body>
+</html>

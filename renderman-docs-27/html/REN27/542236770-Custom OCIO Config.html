@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Custom OCIO Config</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Custom OCIO Config</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/REN27/542236770/Custom+OCIO+Config">https://rmanwiki-27.pixar.com/space/REN27/542236770/Custom+OCIO+Config</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<h2 local-id="db4e8289940a" id="CustomOCIOConfig-UsingyourownOCIOconfig">Using your own OCIO config</h2><h3 local-id="f16c86d82cc7" id="CustomOCIOConfig-OCIORoles">OCIO Roles</h3><p local-id="840a541a35f2">RenderMan relies on a few OpenColorIO roles that need to be defined in your <strong>config.ocio</strong> file.</p><ul local-id="571b602cb439"><li local-id="0aed40a5b590"><p local-id="28dad50b5370"><strong>rendering</strong>: <span class="status-macro aui-lozenge aui-lozenge-visual-refresh aui-lozenge-current conf-macro output-inline" data-hasbody="false" data-macro-id="ecc02501-6932-4f3f-a0ee-0d2dc5a61cd7" data-macro-name="status">MANDATORY</span></p><ul local-id="b1b1efa771b1"><li local-id="2b7379b3cb09"><p local-id="6958a43cf636">This is the space in which all computations are done by the renderer. </p></li></ul></li><li local-id="21d0c6759420"><p local-id="aa46141ffddf"><strong>data</strong>: <span class="status-macro aui-lozenge aui-lozenge-visual-refresh aui-lozenge-success conf-macro output-inline" data-hasbody="false" data-macro-id="9b373698-39dc-4aa9-af51-a7f1794b04fb" data-macro-name="status">STANDARD</span></p><ul local-id="72a1e46fa159"><li local-id="21f0fb866d5d"><p local-id="efa41dffadb5">An input that doesn't need to be converted because it provides numerical data (normal map, bump map, roughness map, etc). </p></li></ul></li><li local-id="b7cce92ffe75"><p local-id="ff07deae51bc"><strong>srgb_linear</strong>: <span class="status-macro aui-lozenge aui-lozenge-visual-refresh aui-lozenge-current conf-macro output-inline" data-hasbody="false" data-macro-id="0985fa18-4039-4ff4-bb67-c007fb4c45ee" data-macro-name="status">MANDATORY</span></p><ul local-id="79916a9871cd"><li local-id="d884c66b9644"><p local-id="c03aa8d2228b">A linear sRGB/Rec.709 image, like an HDRI environment map. </p></li></ul></li><li local-id="cf134ee7a8f1"><p local-id="ba04485907ab"><strong>srgb_texture</strong>: </p><ul local-id="9547a27ea563"><li local-id="c9cceaa0b293"><p local-id="3d98c9823ea4">A non-linear sRGB image, like a JPEG, PNG, etc.</p><ul local-id="217bb5902f6c"><li local-id="2b2ec88d0afd"><p local-id="83fd59e1ccc3">This role has been added to our basic linear configuration and to the Filmic-Blender configuration.</p></li><li local-id="6788d2974222"><p local-id="6c81140fac4c">In ACES-1.2, this is already an alias to <strong>Utility - sRGB - Texture</strong>.</p></li></ul></li></ul></li></ul><p local-id="5c667354d99d">In practice, these 4 roles will be what most people need to effectively use colour-management. Still it is possible to add more role through the JSON configuration file.</p><h3 local-id="e7679948c17e" id="CustomOCIOConfig-JSONConfigurationfile">JSON Configuration file</h3><p local-id="44ecaa4c5375">Many configurations contains a large number of color spaces, for special cases that are not related to 3D rendering. The only things that matter to 3D artists boil down to a handful of controls.</p><p local-id="a4838c5b4fe6">In order to provide a central configuration point, RenderMan requires a JSON configuration file to provide:</p><ul local-id="0da3760186e0"><li local-id="afab0225ecdb"><p local-id="6e3f66e193b7">A list of Roles/ColorSpaces available in UI controls.</p></li><li local-id="49ad18a4aacb"><p local-id="1c3f4c1b93f1">A list of aliases (shortened forms) that will be inserted in texture names to disambiguate them.</p></li><li local-id="653007ba9318"><p local-id="c78224a9e6c4">A list of help strings that can be displayed in the UI controls.</p></li><li local-id="c810b160f26e"><p local-id="10b608d47955">A set of rules for the Texture Manager to assign initial txmake settings.</p></li></ul><h4 local-id="15b33578a64b" id="CustomOCIOConfig-Filename">File name</h4><p local-id="ec288244c319">The JSON file's name is based on the directory containing the <code>config.ocio</code> file:</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-local-id="52a65f21da49" data-macro-id="334c6131-9ad7-4581-92e6-0a8637c69a11" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: bash; gutter: false; theme: Confluence" data-theme="Confluence">$RMANTREE/lib/ocio/basic/config.ocio  →  rman_color_config_basic.json
+$RMANTREE/lib/ocio/ACES-1.2/config.ocio  →  rman_color_config_ACES-1.2.json
+</pre>
+</div></div><h4 local-id="0bb83ed5965b" id="CustomOCIOConfig-Filelocation">File location</h4><p local-id="feb03f4a5c80">At startup, the files in <code>$RMANTREE/etc</code> will always be read.</p><p local-id="800da7c1e201">If the <code>$RMAN_COLOR_CONFIG_DIR</code> environment variable is defined, all files matching the <code>rman_color_config_*.json</code> pattern in that directory will be loaded. This mechanism can be used to override stock configurations or add support for a custom OpenColorIO configuration.</p><h4 local-id="80b75634b56c" id="CustomOCIOConfig-Samplefile">Sample file</h4><h5 local-id="7cd2c50d23be" id="CustomOCIOConfig-rman_color_config_ACES-1.2.json"><strong>rman_color_config_ACES-1.2.json</strong></h5><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-local-id="4ed5ca6dfe3d" data-macro-id="4accff3b-34de-4eff-95f0-640eb4380fdb" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: js; gutter: false; theme: Confluence" data-theme="Confluence">{
+    &quot;help&quot;: [
+        &quot;This file helps RenderMan and its DCC plugins leverage arbitrary OCIO &quot;,
+        &quot;configurations by providing:&quot;,
+        &quot;  - A subset of relevant Roles/ColorSpaces to be displayed in user &quot;,
+        &quot;    interfaces.&quot;,
+        &quot;  - Their corresponding short forms (aliases) which will be inserted in&quot;,
+        &quot;    the texture names to disambiguate their contents.&quot;,
+        &quot;  - Conversion rules to allow the texture manager to assign reasonnable&quot;,
+        &quot;    defaults to new files.&quot;,
+        &quot;&quot;,
+        &quot;WARNING: the srgb_linear role must ALWAYS be defined&quot;,
+        &quot;&quot;,
+        &quot;This file MUST be named in a specific way:&quot;,
+        &quot;   rman_color_manager_CONFIGNAME.json&quot;,
+        &quot;   where CONFIGNAME is the name of the directory containing the config.ocio&quot;,
+        &quot;   file.&quot;,
+        &quot;This file can be located in:&quot;,
+        &quot;   $RMAN_COLOR_CONFIG_DIR&quot;,
+        &quot;   $RMANTREE/etc&quot;,
+        &quot;Rules are simple python strings that must eval to True or False.&quot;,
+        &quot;They can use the following substitution tokens:&quot;,
+        &quot;        'node_type':  PxrTexture, PxrDomeLight, etc&quot;,
+        &quot;   'classification':  bxdf, pattern, light, lightfilter, etc&quot;,
+        &quot;         'img_name':  The image name without its extension&quot;,
+        &quot;          'img_ext':  The image's extension&quot;,
+        &quot;        'img_atlas':  True if a texture atlas&quot;,
+        &quot;         'img_type':  'int' or 'float'&quot;,
+        &quot;        'img_depth':  8, 16 or 32&quot;,
+        &quot;        'img_nchan':  the number of channels in the image&quot;,
+        &quot;       'ocioconfig':  full path of OCIO config&quot;,
+        &quot;  'ocioconfig_name':  name of OCIO config: 'basic', 'ACES-1.2', etc&quot;
+    ],
+    &quot;ocio_aliases&quot;: {
+        &quot;rendering&quot;: &quot;acescg&quot;,
+        &quot;srgb_texture&quot;: &quot;srgbtex&quot;,
+        &quot;srgb_linear&quot;: &quot;srgblin&quot;,
+        &quot;data&quot;: &quot;data&quot;
+    },
+    &quot;ocio_aliases_help&quot;: {
+        &quot;rendering&quot;: &quot;The image is already in the correct color space for rendering (no conversion).&quot;,
+        &quot;srgb_texture&quot;: &quot;The image is a sRGB texture and needs to be converted to rendering space.&quot;,
+        &quot;srgb_linear&quot;: &quot;The image is a sRGB/Rec.709 linear image (like an HDRI) and needs to be converted to rendering space.&quot;,
+        &quot;data&quot;: &quot;The image contains data that should be used as-is (no conversion).&quot;
+    },
+    &quot;conversion_rules&quot;: {
+        &quot;pattern&quot;: {
+            &quot;args&quot;: {
+                &quot;texture_type&quot;: &quot;regular&quot;,
+                &quot;smode&quot;: &quot;periodic&quot;,
+                &quot;tmode&quot;: &quot;periodic&quot;,
+                &quot;texture_format&quot;: &quot;openexr&quot;,
+                &quot;texture_filter&quot;: &quot;catmull-rom&quot;,
+                &quot;resize&quot;: &quot;round-&quot;,
+                &quot;data_type&quot;: &quot;half&quot;,
+                &quot;compression&quot;: &quot;pxr24&quot;,
+                &quot;compression_level&quot;: null,
+                &quot;ocioconvert&quot;: &quot;srgb_texture&quot;
+            },
+            &quot;rules&quot;: {
+                &quot;'%(img_ext)s' in ('.exr', '.hdr')&quot;: {
+                    &quot;args&quot;: {
+                        &quot;texture_format&quot;: &quot;openexr&quot;,
+                        &quot;data_type&quot;: null,
+                        &quot;ocioconvert&quot;: &quot;srgb_linear&quot;,
+                        &quot;compression&quot;: null
+                    }
+                },
+                &quot;'%(node_type)s' in ('PxrBump', 'PxrNormalMap')&quot;: {
+                    &quot;args&quot;: {
+                        &quot;texture_format&quot;: &quot;pixar&quot;,
+                        &quot;data_type&quot;: null,
+                        &quot;compression&quot;: &quot;lossless&quot;,
+                        &quot;ocioconvert&quot;: &quot;data&quot;
+                    }
+                },
+                &quot;'%(node_type)s' == 'PxrBumpRoughness'&quot;: {
+                    &quot;args&quot;: {
+                        &quot;texture_format&quot;: &quot;openexr&quot;,
+                        &quot;data_type&quot;: &quot;half&quot;,
+                        &quot;texture_filter&quot;: &quot;box&quot;,
+                        &quot;compression&quot;: &quot;pxr24&quot;,
+                        &quot;mipfilter&quot;: &quot;box&quot;,
+                        &quot;resize&quot;: &quot;round-&quot;,
+                        &quot;ocioconvert&quot;: &quot;data&quot;,
+                        &quot;bumprough&quot;: {
+                            &quot;factor&quot;: 2.0,
+                            &quot;normalmap&quot;: 0,
+                            &quot;invert&quot;: 0,
+                            &quot;invertU&quot;: 0,
+                            &quot;invertV&quot;: 0,
+                            &quot;refit&quot;: 1
+                        }
+                    }
+                },
+                &quot;re.search(r'(roughness|rough|anisotropy|aniso|metallic|metalness|normal|bump|height|mask)', '%(img_name)s', flags=re.IGNORECASE) is not None&quot;: {
+                    &quot;args&quot;: {
+                        &quot;texture_format&quot;: &quot;pixar&quot;,
+                        &quot;data_type&quot;: null,
+                        &quot;compression&quot;: &quot;lossless&quot;,
+                        &quot;ocioconvert&quot;: &quot;data&quot;
+                    }
+                },
+                &quot;'%(img_ext)s' is '.exr' and '%(img_name)s'.lower().endswith('_acescg')&quot;: {
+                    &quot;args&quot;: {
+                        &quot;ocioconvert&quot;: &quot;&quot;,
+                        &quot;texture_format&quot;: &quot;openexr&quot;,
+                        &quot;data_type&quot;: null,
+                        &quot;compression&quot;: null
+                    }
+                },
+                &quot;%(img_atlas)d == True&quot;: {
+                    &quot;args&quot;: {
+                        &quot;smode&quot;: &quot;clamp&quot;,
+                        &quot;tmode&quot;: &quot;clamp&quot;
+                    }
+                }
+            }
+        },
+        &quot;light&quot;: {
+            &quot;args&quot;: {
+                &quot;texture_type&quot;: &quot;regular&quot;,
+                &quot;smode&quot;: &quot;black&quot;,
+                &quot;tmode&quot;: &quot;black&quot;,
+                &quot;texture_format&quot;: &quot;openexr&quot;,
+                &quot;texture_filter&quot;: &quot;gaussian&quot;,
+                &quot;resize&quot;: &quot;round-&quot;,
+                &quot;data_type&quot;: null,
+                &quot;compression&quot;: &quot;pxr24&quot;,
+                &quot;compression_level&quot;: null,
+                &quot;ocioconvert&quot;: &quot;srgb_linear&quot;
+            },
+            &quot;rules&quot;: {
+                &quot;'%(node_type)s' == 'PxrDomeLight'&quot;: {
+                    &quot;args&quot;: {
+                        &quot;texture_type&quot;: &quot;envlatl&quot;,
+                        &quot;smode&quot;: &quot;periodic&quot;,
+                        &quot;tmode&quot;: &quot;clamp&quot;
+                    }
+                }
+            }
+        },
+        &quot;lightfilter&quot;: {
+            &quot;args&quot;: {
+                &quot;texture_type&quot;: &quot;regular&quot;,
+                &quot;smode&quot;: &quot;black&quot;,
+                &quot;tmode&quot;: &quot;black&quot;,
+                &quot;texture_format&quot;: &quot;openexr&quot;,
+                &quot;texture_filter&quot;: &quot;gaussian&quot;,
+                &quot;resize&quot;: &quot;round-&quot;,
+                &quot;data_type&quot;: &quot;half&quot;,
+                &quot;compression&quot;: &quot;pxr24&quot;,
+                &quot;compression_level&quot;: null
+            },
+            &quot;rules&quot;: {
+                &quot;'%(img_type)s' == 'int'&quot;:
+                {
+                    &quot;arg&quot;: {
+                        &quot;ocioconvert&quot;: &quot;srgb_texture&quot;
+                    }
+                },
+                &quot;'%(img_type)s' == 'float'&quot;:
+                {
+                    &quot;args&quot;: {
+                        &quot;ocioconvert&quot;: &quot;srgb_linear&quot;
+                    }
+                }
+            }
+        },
+        &quot;imageplane&quot;: {
+            &quot;args&quot;: {
+                &quot;texture_type&quot;: &quot;regular&quot;,
+                &quot;smode&quot;: &quot;black&quot;,
+                &quot;tmode&quot;: &quot;black&quot;,
+                &quot;texture_format&quot;: &quot;openexr&quot;,
+                &quot;texture_filter&quot;: &quot;catmull-rom&quot;,
+                &quot;resize&quot;: &quot;up&quot;,
+                &quot;data_type&quot;: null,
+                &quot;compression&quot;: &quot;pxr24&quot;,
+                &quot;compression_level&quot;: null
+            },
+            &quot;rules&quot;: {
+                &quot;'%(img_type)s' == 'int'&quot;:
+                {
+                    &quot;arg&quot;: {
+                        &quot;ocioconvert&quot;: &quot;srgb_texture&quot;
+                    }
+                },
+                &quot;'%(img_type)s' == 'float'&quot;:
+                {
+                    &quot;args&quot;: {
+                        &quot;ocioconvert&quot;: &quot;srgb_linear&quot;
+                    }
+                }
+            }
+        }
+    }
+}</pre>
+</div></div><h3 local-id="72ac7d54e24c" id="CustomOCIOConfig-Rules">Rules</h3><p local-id="76094b06f97c">Rules allow the Texture Manager to set reasonnable conversion defaults to newly referenced images. If done well, it fully automates texture conversion.</p><p local-id="5e0d6534c802">Rules are defined by node types: pattern, light, lightfilter and imageplane. This allows you to specialize conversion without relying on a complex set of rules.</p><h4 local-id="c9858052a1af" id="CustomOCIOConfig-args">args</h4><p local-id="673e7d744759">This is a dictionnary of txmake flags with their value to define a baseline that can be modified by rules.</p><p local-id="18baf1428a6f">Rules with a <u>null</u> value are disabled.</p><div class="table-wrap"><table data-table-width="1800" data-layout="full-width" data-local-id="6883b540-e1db-4e6f-a79b-374b07c75862" class="confluenceTable"><tbody><tr data-local-id="9a412af25e93"><th data-local-id="5cb90419c2e3" class="confluenceTh"><p local-id="eca2ee2b056f">texture_type</p></th><td data-local-id="64609115f8bd" class="confluenceTd"><p local-id="0084b72baaef">&quot;regular&quot; for generic textures or &quot;envlatl&quot; for environment light textures</p></td></tr><tr data-local-id="123f4c95683f"><th data-local-id="637ee4e5b776" class="confluenceTh"><p local-id="37ca92f6d199">texture_format</p></th><td data-local-id="28d7dd64c861" class="confluenceTd"><p local-id="839108379f5e">The file format of the texture: &quot;pixar&quot;, &quot;tiff&quot;, &quot;openexr&quot;</p></td></tr><tr data-local-id="3c1681b1a9e4"><th data-local-id="28ebad936f56" class="confluenceTh"><p local-id="3050aeed487d">resize</p></th><td data-local-id="b14149a299de" class="confluenceTd"><p local-id="aa7dc4737e52">Resize image to a power of 2 using given mode: &quot;none&quot;, &quot;up&quot;, &quot;up-&quot;, &quot;down&quot;, &quot;down-&quot;, &quot;round&quot;, &quot;round-&quot;.</p></td></tr><tr data-local-id="ac44f29aff6d"><th data-local-id="b87ea7c2797c" class="confluenceTh"><p local-id="f62d8de2dce0">texture_filter</p></th><td data-local-id="794570fe424a" class="confluenceTd"><p local-id="177b6f520570">Filter used for resize: &quot;point&quot;, &quot;box&quot;, &quot;triangle&quot;, &quot;sinc&quot;, &quot;gaussian&quot;, &quot;gaussian-soft&quot;, &quot;catmull-rom&quot;, &quot;mitchell&quot;, &quot;cubic&quot;, &quot;lanczos&quot;, &quot;bessel&quot;, &quot;blackman-harris&quot;</p></td></tr><tr data-local-id="58119bec87df"><th data-local-id="6b8aefc6ef43" class="confluenceTh"><p local-id="592dd089a651">smode</p></th><td data-local-id="16b0baf4bcdc" class="confluenceTd"><p local-id="f22288170c19">Repeat mode in s direction: &quot;black&quot;, &quot;clamp&quot;, &quot;periodic&quot;</p></td></tr><tr data-local-id="a0b1c935c1eb"><th data-local-id="25edccfcb7f8" class="confluenceTh"><p local-id="15236a79bfbf">tmode</p></th><td data-local-id="cbe78a4147ac" class="confluenceTd"><p local-id="bba1502d035c">Repeat mode in t direction: &quot;black&quot;, &quot;clamp&quot;, &quot;periodic&quot;</p></td></tr><tr data-local-id="e5fb9c389aa4"><th data-local-id="e83fda8704b2" class="confluenceTh"><p local-id="18b0786cfaef">data_type</p></th><td data-local-id="6330d5b0a80f" class="confluenceTd"><p local-id="947ed843f404">&quot;float&quot; (float 32), &quot;half&quot; (float 16), &quot;byte&quot; (int 8), &quot;short&quot; (int 16)</p></td></tr><tr data-local-id="40e8ec0b3baa"><th data-local-id="0934f432d5c1" class="confluenceTh"><p local-id="0b7b48eec353">compression</p></th><td data-local-id="c2acd168baa8" class="confluenceTd"><p local-id="5fbef96416fb">Compression used on texture tiles to save disk space. Texture fomat dependend: see txmake help.</p></td></tr><tr data-local-id="8906b29a8234"><th data-local-id="e8fadaeef08f" class="confluenceTh"><p local-id="42cce4afb828">compression_level</p></th><td data-local-id="dbe3a41d7c94" class="confluenceTd"><p local-id="627edde958fa">Compression level for compressors supporting that parameter: see txmake help.</p></td></tr><tr data-local-id="47718997ebfe"><th data-local-id="147ff7c9d276" class="confluenceTh"><p local-id="78bfe0499a10">ociocolorspace</p></th><td data-local-id="74eb756fa242" class="confluenceTd"><p local-id="707229938d57">The destination colorspace, that is the colorspace of the texture</p></td></tr><tr data-local-id="ade3e361492c"><th data-local-id="f3b509536263" class="confluenceTh"><p local-id="3e4e7d06dd12">ocioconvert</p></th><td data-local-id="5af2167aa1b1" class="confluenceTd"><p local-id="5b00da659875">The source colorspace, that is the colorspace of the image</p></td></tr><tr data-local-id="c4f4ca6e3068"><th data-local-id="f277b23caa5e" class="confluenceTh"><p local-id="dc7d830a2ace">ociodither</p></th><td data-local-id="e0383efe0a44" class="confluenceTd"><p local-id="e29b61faeef9">Optionaly dither pixel values when outputing to a non-float texture format. Not recommended.</p></td></tr><tr data-local-id="f278ad7f356d"><th data-local-id="831c005cdf09" class="confluenceTh"><p local-id="375ffeea2502">bumprough</p></th><td data-local-id="bebbc5e45eb7" class="confluenceTd"><p local-id="d209c7e6d2af">A dict containing the bump to roughness conversion values: &quot;factor&quot;, &quot;normalmap&quot;, &quot;invert&quot;, &quot;invertU&quot;, &quot;invertV&quot;, &quot;refit&quot;</p></td></tr><tr data-local-id="71a3f6003eaa"><th data-local-id="46af7fdaa03a" class="confluenceTh"><p local-id="a7ad222ece63">mipfilter</p></th><td data-local-id="1778a62dcff9" class="confluenceTd"><p local-id="e4d053f7cbe6">The resizing filter used to create MIP levels. Same as texture_filter.</p></td></tr></tbody></table></div><h4 local-id="9c323227fc55" id="CustomOCIOConfig-rules">rules</h4><p local-id="a7ac112248dd">Rules are Python strings that should evaluate to True or False.</p><p local-id="b91daf1e96ea"><u>All rules are evaluated in the file's order</u> to modify the args dict. You can add a <code>&quot;break&quot;: true</code> entry in your rule if you want to skip the following rules when the rule is True.</p><p local-id="42757685c1cb">They can the following contain substitution tokens:</p><div class="table-wrap"><table data-table-width="1800" data-layout="full-width" data-local-id="c94e3b01-a4ff-4182-bfbf-b831645bf63f" class="confluenceTable"><tbody><tr data-local-id="493551946ac4"><th data-local-id="c3da1d24119f" class="confluenceTh"><p local-id="1d8f2ff84454">node_type</p></th><td data-local-id="15daf5f128b8" class="confluenceTd"><p local-id="9552a943e0ed">PxrTexture, PxrDomeLight, etc</p></td></tr><tr data-local-id="16c0017fcee6"><th data-local-id="86d391ca309d" class="confluenceTh"><p local-id="4108f2ae9ddf">classification</p></th><td data-local-id="9d3e48991ab2" class="confluenceTd"><p local-id="df0ee49cbd9a">bxdf, pattern, light, lightfilter, etc</p></td></tr><tr data-local-id="21cced33811d"><th data-local-id="614f42ce09fd" class="confluenceTh"><p local-id="5aa3c58c8452">img_name</p></th><td data-local-id="3eebd6c955bd" class="confluenceTd"><p local-id="466e8fa3bc0d">The image name without its extension</p></td></tr><tr data-local-id="ab24e84f02bb"><th data-local-id="a7d8c789c05f" class="confluenceTh"><p local-id="ab606fc7c0b6">img_ext</p></th><td data-local-id="ac005a67ed1a" class="confluenceTd"><p local-id="ce66d8c46dad">The image's extension</p></td></tr><tr data-local-id="ba195838890d"><th data-local-id="905dc8af3c4a" class="confluenceTh"><p local-id="dc081b2298e7">img_atlas</p></th><td data-local-id="3d8bae54faac" class="confluenceTd"><p local-id="ff10af9b90ce">True if a texture atlas</p></td></tr><tr data-local-id="7d58bf422391"><th data-local-id="de83849dffff" class="confluenceTh"><p local-id="f0d872d9b1f8">img_type</p></th><td data-local-id="665ff614d0a7" class="confluenceTd"><p local-id="91eb5a8ee956">'int' or 'float'</p></td></tr><tr data-local-id="9652459fe307"><th data-local-id="fb6da9aaac09" class="confluenceTh"><p local-id="a9fd93ec7ee7">img_depth</p></th><td data-local-id="aefb0d6bfa73" class="confluenceTd"><p local-id="df72b7b6576a">8, 16 or 32</p></td></tr><tr data-local-id="c308a8b8af78"><th data-local-id="a60284011210" class="confluenceTh"><p local-id="5b9a8dc51c59">img_nchan</p></th><td data-local-id="ec1b7215845b" class="confluenceTd"><p local-id="1815acf11bad">the number of channels in the image</p></td></tr><tr data-local-id="91b8d6667460"><th data-local-id="59858780c969" class="confluenceTh"><p local-id="17b84f7c0be9">ocioconfig</p></th><td data-local-id="1e9e852b3984" class="confluenceTd"><p local-id="1d3470785ab4">full path of OCIO config</p></td></tr><tr data-local-id="cf078e9aedbb"><th data-local-id="3d9a1ab772f9" class="confluenceTh"><p local-id="6c63daa13c1e">ocioconfig_name</p></th><td data-local-id="69e5a9083172" class="confluenceTd"><p local-id="787fb5410b84">name of OCIO config: 'basic', 'ACES-1.2', etc</p></td></tr></tbody></table></div><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-local-id="b77c4feaf3a7" data-macro-id="e7f8a8cb-4f63-4e17-80f2-a906a3f63290" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p local-id="bd72bde12e67">For the ACES colorspace to be applied correctly to lights, your rendering role must be named (or aliased) as &quot;ACES - ACEScg&quot; or &quot;ACEScg&quot;. Additionally, RenderMan relies on luma coefficients defined in OCIO configs. These are deprecated in OCIO v2 and may be incorrect in the default ACES config.</p></div></div>
+  </article>
+</main>
+</body>
+</html>

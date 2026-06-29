@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rendering in Houdini</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Rendering in Houdini</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFH27/544645281/Rendering+in+Houdini">https://rmanwiki-27.pixar.com/space/RFH27/544645281/Rendering+in+Houdini</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/544645281/RenderMan_NeonSign_R.jpg" data-image-src="../../attachments/544645281/RenderMan_NeonSign_R.jpg" data-unresolved-comment-count="0" data-linked-resource-id="544645298" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_NeonSign_R.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544645281" data-linked-resource-container-version="1" data-media-id="4bc09781-7518-4ea4-b377-f5a99af45416" data-media-type="file"></span></p><p>Houdini 暴露了用于 render frames（渲染帧）和 sequences（序列）的所有实用功能。下方列出了涵盖的主题，并附有你将看到的功能说明。</p><p><br/><ul class="childpages-macro conf-macro output-block" data-hasbody="false" data-macro-id="0c0e317f-40e1-4a23-b374-aa0e0db737f0" data-macro-name="children"><li><a href="544645311-Denoiser in Houdini.html" data-linked-resource-id="544645311" data-linked-resource-version="1" data-linked-resource-type="page">Denoiser in Houdini（Houdini 中的降噪器）</a></li><li><a href="544645351-Workflows.html" data-linked-resource-id="544645351" data-linked-resource-version="1" data-linked-resource-type="page">Workflows（工作流）</a></li><li><a href="544645844-Display &amp; Sample Filters.html" data-linked-resource-id="544645844" data-linked-resource-version="1" data-linked-resource-type="page">Display &amp; Sample Filters（显示与采样过滤器）</a></li><li><a href="544645926-Output.html" data-linked-resource-id="544645926" data-linked-resource-version="1" data-linked-resource-type="page">Output（输出）</a></li><li><a href="544646093-Options.html" data-linked-resource-id="544646093" data-linked-resource-version="1" data-linked-resource-type="page">Options（选项）</a></li><li><a href="544646266-Setup.html" data-linked-resource-id="544646266" data-linked-resource-version="1" data-linked-resource-type="page">Setup（设置）</a></li></ul></p><p><br/></p><p><div class="conf-macro output-block" data-hasbody="false" data-macro-name="include" data-macro-id="aefd0f70-b1e0-49f7-82f0-5a021082ac2f"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="io2-04.jpg" width="1285" loading="lazy" src="../../attachments/19661807/io2-04.jpg" data-image-src="../../attachments/19661807/io2-04.jpg" data-height="804" data-width="1920" data-unresolved-comment-count="0" data-linked-resource-id="84115468" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="io2-04.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="19661807" data-linked-resource-container-version="6" data-media-id="f04dedc4-6d99-44c5-959b-7846c5743a4c" data-media-type="file"/></span><p>渲染已完成的 scene（场景）包含许多部分。从处理 quality（质量）到为后续 compositing（合成）选择合适的 outputs（输出），本节会涵盖所有这些主题。</p><h3 id="RenderinginHoudini-Quality">Quality（质量）</h3><p>为了理解 noise removal（噪声移除）和 anti-aliasing（抗锯齿）的工作方式，我们为用户介绍 <a href="https://rmanwiki-26.pixar.com/space/REN26/19661831/Sampling+Modes" data-linked-resource-id="19661831" data-linked-resource-version="3" data-linked-resource-type="page">Sampling（采样）</a> 以及 <a href="https://rmanwiki-26.pixar.com/space/REN26/19661819/Filtering" data-linked-resource-id="19661819" data-linked-resource-version="8" data-linked-resource-type="page">Filtering（滤波）</a>。这是你可能进行大部分 tuning（调校）的地方，理解 quality 与 performance（性能）之间的平衡非常重要。</p><h3 id="RenderinginHoudini-TraceDepth">Trace Depth（追踪深度）</h3><p>控制 trace depth（追踪深度）可以改变 scene（场景）的 look（外观）和 performance（性能）。不同 integrators（积分器）对这些设置的处理方式也不同。RenderMan 让这些参数的调校更容易，使你能在 resource constraints（资源约束）内实现所需外观。</p><h3 id="RenderinginHoudini-InteractiveRenderingandCheckpointing">Interactive Rendering（交互式渲染）与 Checkpointing（检查点）</h3><p>Progressive（渐进式）/<a href="https://rmanwiki-26.pixar.com/space/REN26/19661821/Interactive+Rendering" data-linked-resource-id="19661821" data-linked-resource-version="1" data-linked-resource-type="page">Interactive（交互式）</a> Rendering（渲染）可以让 scene materials（场景材质）和 lights（灯光）的调校变得轻松。 <a href="https://rmanwiki-26.pixar.com/space/REN26/19661833/Checkpointing+and+Recovery" data-linked-resource-id="19661833" data-linked-resource-version="3" data-linked-resource-type="page">Checkpointing（检查点）</a> 与 Recovery（恢复）会把这种 progressive（渐进式）功能扩展到 final renders（最终渲染），让你能在 renders 逐步 refine（细化）时创建 save points（保存点）。你可以用它更快批准未完成 frames，并从离开的地方继续，而不会浪费宝贵的 CPU cycles！</p><h3 id="RenderinginHoudini-Diagnostics">Diagnostics（诊断）</h3><p>RenderMan 的 <a href="https://rmanwiki-26.pixar.com/space/REN26/19661835/Statistics+and+Diagnostics" data-linked-resource-id="19661835" data-linked-resource-version="5" data-linked-resource-type="page">diagnostics（诊断）</a> 可以通过易读的 display（显示）帮助你可视化 scene performance（场景性能）。有时并不清楚 scene 在哪里花费了最多 time（时间）或 resources（资源），但我们的 diagnostic output（诊断输出）会帮助你定位甚至非常隐蔽的 performance information（性能信息）。</p><h3 id="RenderinginHoudini-HoldoutsandOutputs">Holdouts and Outputs（遮挡保留与输出）</h3><p><a href="https://rmanwiki-26.pixar.com/space/REN26/19661827/Holdouts" data-linked-resource-id="19661827" data-linked-resource-version="4" data-linked-resource-type="page">Holdout（遮挡保留）</a> workflow（工作流）对于将 CG objects（CG 对象）集成到 live action plates（实拍底板）中至关重要。在某些应用中，这只需要点击一个按钮！为了改进 compositing integration（合成集成），甚至改进完整渲染的 shots（镜头），RenderMan 会使用强大的 <a href="https://rmanwiki-26.pixar.com/space/REN26/19661867/Outputs" data-linked-resource-id="19661867" data-linked-resource-version="4" data-linked-resource-type="page">outputs（输出）</a>，以便在 compositing（合成）中更轻松且更灵活地进行调整。</p><h3 id="RenderinginHoudini-Baking">Baking（烘焙）</h3><p>在 rendering（渲染）中复用某些 data（数据）可以简化 asset management（资产管理），同时提升 rendering efficiency（渲染效率）。 <a href="https://rmanwiki-26.pixar.com/space/REN26/19662127/Baking" data-linked-resource-id="19662127" data-linked-resource-version="1" data-linked-resource-type="page">Baking（烘焙）</a> 提供了 bake（烘焙）到 2D 或 point cloud output（点云输出）的方法。</p><h3 id="RenderinginHoudini-NestedDielectrics">Nested Dielectrics（嵌套电介质）</h3><p>渲染彼此相互作用的 surfaces（曲面）时，尤其是 transparent/refractive（透明/折射）曲面，理解 <a href="https://rmanwiki-26.pixar.com/space/REN26/19661549/Nested+Dielectrics" data-linked-resource-id="19661549" data-linked-resource-version="4" data-linked-resource-type="page">Intersect Priority（相交优先级）</a> settings（设置）很重要。Intersect priority 允许用户只需添加 attributes（属性）即可获得正确 refractions（折射），无需通过繁琐建模来解决问题。</p></div></p>
+  </article>
+</main>
+</body>
+</html>

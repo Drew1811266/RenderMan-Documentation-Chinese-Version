@@ -1,0 +1,49 @@
+{"id": "19b28240556a602e95398b7877282f5b39e77d068840793e9b429e6af32d55db", "item_id": "ddd231987c:0", "text": "Setting Traversal Thread Count"}
+{"id": "ce117217b3325f68734ece02f8d815752f4310c4ce3a3511dce4b7d558163fca", "item_id": "ddd231987c:1", "text": "As RfK converts the Katana scene graph into the Rix scene graph for rendering it will do so in parallel, spawning new threads at location branches. The default is \"all on\" meaning it will fork on every child location in the scene which is unlikely to be ideal for most scenes but allows for deeper control by the author for control of parallelism. There are are varying levels of control which will take some adjustment to come up with a configuration that works with your pipeline and subsequently for individual scenes."}
+{"id": "3687074b3589ccf49789e39049a4950be1ed2ff177bce0b0cc871bb59f0ff3cb", "item_id": "ddd231987c:2", "text": "prmanGlobalStatements.plugin.traversalMethod:"}
+{"id": "213b9f72efd7e3d94701e6dbaec024c548b8f07f99240782bcced9c9ea0d13ec", "item_id": "ddd231987c:3", "text": "The global traversal setting. When set to 'Serial' it will disable parallel scene traversal entirely. Not generally recommended but can be useful for timing comparisons and rentrant diagnostics (i.e. am I seeing this problem in both serial and parallel traversal?)."}
+{"id": "8b46c441b54c4560e06c9f5f5120afec736d918be08467c512f4133129de7b20", "item_id": "ddd231987c:4", "text": "prmanGlobalStatements.plugin.maxTraversalThreads:"}
+{"id": "f02c122efddff5a0414dee7bd2d9af1e99806eaedda7ab56acae2996a5772183", "item_id": "ddd231987c:5", "text": "Number of threads requested for traversal: this is the first place to start tuning. By default the max is set to 4 but depending on your machine configuration and your scene layout you may get double or half the performance at this level. For the technically inclined, this is the value used to initialize RfK's TBB task scheduler. Setting this to the TBB default of '0' is"}
+{"id": "254bb97b57f12e1608fefc4517de768427b2fd6d2cffbbfcbc09f3c818198d5f", "item_id": "ddd231987c:6", "text": "not"}
+{"id": "0747e8fe981f49585a08ad90a7934e902eaf150a30b711677b5ed0d1ceb28b2c", "item_id": "ddd231987c:7", "text": "recommended. Empirically we have seen significant slowdowns when setting this to '0', likely due to conflict with other TBB sessions in play."}
+{"id": "202343290d7263967fdccc3ff2786cd5132901f70e331b5a3df91e96865b4adf", "item_id": "ddd231987c:8", "text": "prmanStatements.traversal.forceSerial:"}
+{"id": "567d54a3131f29c2b8f528d7f6f0c9e4d04bc58b79e133c6e4e0b80d38778927", "item_id": "ddd231987c:9", "text": "Per-location setting for scene or asset fine-tuning. It is highly recommended to set this true at component or group levels such that the traversal does not try to parallelize down to the gprim level. Please see"}
+{"id": "aa35cefd3dc9fc5b3bf9d6bbd22fe7f206653a0a93a5b21fd74125efd9d51c40", "item_id": "ddd231987c:10", "text": "PrmanObjectStatements"}
+{"id": "c83640554affbc4a0e16a979ef76041b33e9ec6f952392e0f72679394a899868", "item_id": "ddd231987c:11", "text": "for more detail on location-level thread tuning."}
+{"id": "2f6e433922ae097b5a80b9007a4fbdee149802dd51b0543cf598ac3c8a7d5e70", "item_id": "ddd231987c:12", "text": "Performance Note"}
+{"id": "27b12c068a3c8b094755d3832d9cd6f39b7ae20b04158c230e33ec89f562ed81", "item_id": "ddd231987c:13", "text": "Understand that some branches processed serially may improve time to first pixel (the time it takes for the render to begin sending pixels) and is very much scene dependent, but important to understand that parallel traversal on everything may be costly."}
+{"id": "f6d08241fc859815df2afcc1c43938a71b27b8ab82409de33cec7ab866c91901", "item_id": "ddd231987c:14", "text": "Setting Render Thread Count"}
+{"id": "f7eb4bf49e8ee221aef4db8060be4ecc7635024677099653a5c605ffc2173732", "item_id": "ddd231987c:15", "text": "Currently there are three ways to set the number of render threads in RfK. The first two will trigger a \""}
+{"id": "474e5a0999a7ed0a2b7f650a1137f10d4ee363cdb2916f39c9858f894e3a55e0", "item_id": "ddd231987c:16", "text": "\" addition to the command line arguments for prman which, by RenderMan definition, will override any thread specification in the RIB (the third option)."}
+{"id": "00b89197c9841f187da414b36bbac4c79aea69724ccc90441053dfdef0feb1df", "item_id": "ddd231987c:17", "text": "Ways to set thread count,"}
+{"id": "9be34e9a262f77867edefe12641984aff72139cccd0389ae6fd976e69ee77eb2", "item_id": "ddd231987c:18", "text": "in order of precedence"}
+{"id": "8d57a56d9062c974a27809c4c059eae82c1422c16031b3cae67d532f404679d4", "item_id": "ddd231987c:20", "text": "Katana preferences:"}
+{"id": "eef375d2879df3692e7ff5ab7264d078ba28134a6bb7e0bb79e60b0d045b2086", "item_id": "ddd231987c:39", "text": "interactiveRenderThreadsOverride"}
+{"id": "b7b9887bce4cd6b1fe3a85d70eeebb51488cc7c73de23d99d0e4a5f5bf2c7e28", "item_id": "ddd231987c:42", "text": "interactiveRenderThreads3D"}
+{"id": "5ea1d2a43253974b6cb84e7302b86ae73674d10174ba8ca3584ef6a1e43edd48", "item_id": "ddd231987c:37", "text": "(equivalent to the use of the \""}
+{"id": "5556d22a9495479877b4542838e805bbf093a629a6e171e06cc35cf9921a82da", "item_id": "ddd231987c:25", "text": "\" command line parameter in batch mode)."}
+{"id": "0d5f861c86d081de7679f9329e890210d79b7b3393e0f9e4ab920c166dd31829", "item_id": "ddd231987c:26", "text": "Katana attribute:"}
+{"id": "22ee56a36fb35ded8d5a190dbaae22cf5b354e3ef1b4c414901ea518eec2613d", "item_id": "ddd231987c:27", "text": "renderSettings.renderThreads."}
+{"id": "4de7db4dee4a5ee779a55073d963216571e112641b6f7451ecbbba5338c018f0", "item_id": "ddd231987c:28", "text": "PRMan option:"}
+{"id": "b88173917cb9819b219e42aab68d9cc6c4cf529dfa64c57f289f690b1b915b0b", "item_id": "ddd231987c:29", "text": "prmanGlobalStatements.options.limits.threads"}
+{"id": "ae231137647194c671e742b50f2a78c71093a32e472d541104e7bbd8355b7d22", "item_id": "ddd231987c:31", "text": "How and where to set these values are detailed below."}
+{"id": "91bf8ef16ff9641f9612582bf3b6504fe5267129e54d24541ce233f34ab3b64b", "item_id": "ddd231987c:32", "text": "Option 1:   interactiveRenderThread Preferences"}
+{"id": "97d8ac7bd76905832c68513295fdc6ca8ba5f3e046f7855a367f4746de8de573", "item_id": "ddd231987c:33", "text": "Below is a screen capture of the preferences"}
+{"id": "6caa78aa7ee32b9abe634555003e39669aefd7862eacdb6b9f1e077a456733de", "item_id": "ddd231987c:38", "text": "\" command line parameter in batch mode). If you want to definitively set the number of render threads this will be the place to do it. Set"}
+{"id": "85a39ab345d672ff8ca9b9c6876f3adcacf45ee7c1e2dbd2408fd338bd55e07e", "item_id": "ddd231987c:40", "text": "Yes"}
+{"id": "cdf56213ef2d4a6b12ba129b954127e26e9bc5b103260c33d8eb3d628c28bd1a", "item_id": "ddd231987c:41", "text": "and set the value of"}
+{"id": "28e6f6344c8a463b69b289656431e988f2e6cbf0b3521efd3bc20b0e63cbf339", "item_id": "ddd231987c:43", "text": "to your desired threads:"}
+{"id": "7d4b5d42419c460d969193d95fa26ec5757813c0e5571f05838d54113e5e0ac8", "item_id": "ddd231987c:44", "text": "Option 2: renderThreads Attribute"}
+{"id": "6d64e8b173e7dc751a4cc6c1adfdb70e013e198e32bbc30ed8cbe233d737c1c7", "item_id": "ddd231987c:45", "text": "The attribute"}
+{"id": "7e994b91d30891bdd8802b238c301a3e7889fb6aea08c9fac509fb6460dced44", "item_id": "ddd231987c:46", "text": "renderSettings.renderThreads"}
+{"id": "cbec8fda3f5ea171f80d1dabbc5b88bdd6d35e4434536eeffafe7ce612cef356", "item_id": "ddd231987c:47", "text": "must be set via AttributeSet or OpScript as it is not exposed in RenderSettings.  Below is an example of setting the attribute with an AttributSet node:"}
+{"id": "0d58aa0daafcc0e7501c4ef007cd9fd73d107f34f9bc0c285f0c36c7427476a4", "item_id": "ddd231987c:48", "text": "Option 3: limits.threads prman Option"}
+{"id": "09db90c4a8172cec06c407e5dc91ee7ef58d2c246c9a7a3e33e12aef14c91252", "item_id": "ddd231987c:49", "text": "The prman option for"}
+{"id": "58735f971e7608d4492e6cf30293ca6d5753365bac961a401c53976bac1a487f", "item_id": "ddd231987c:50", "text": "limits.threads"}
+{"id": "d74ea926644d78b827b78299c1ca36b3cf695015b1bd489f3525a8ae4370a657", "item_id": "ddd231987c:51", "text": "is set via the"}
+{"id": "d0db8b5e364b6989e4b8f38a2b3846b87d99a51c1592ebf35d21cc66405a8e39", "item_id": "ddd231987c:52", "text": "Options"}
+{"id": "efefdd1a149cd0937e9b2374ee0d6e3e04edae2ddf6eeac3e07d4221dc1dadbb", "item_id": "ddd231987c:53", "text": "section of the PrmanGlobalStatements node:"}
+{"id": "41c12435980cd4daa1e5ec606c8aa4d57f8d7c6bb8fbbb6e6760a50b3ebcf3c3", "item_id": "ddd231987c:54", "text": "This attribute translates literally to RIB:"}
+{"id": "4ace2ba4163ffd46b28ce628ee97d2f95ce72fcb2795a4d7e4d169d9e1b898bb", "item_id": "ddd231987c:55", "text": "As it is lowest in the precedence list, this thread option is overridden if either (1) preferences or (2) render settings have a thread value enabled."}
+{"id": "afe7fcb40b5c8e76fe21b1049dc7ca84d1e6b2b1439dddf1566734db3b99179e", "item_id": "ddd231987c:56", "text": "Special Values"}
+{"id": "f79a57364489010b0e5d5eb6479f503a3e9a4073225a43172800b015a6bd350f", "item_id": "ddd231987c:57", "text": "In all cases, if a value of 0 (zero) is given to prman then all CPUs will be utilized for rendering. If a negative value (-N) is specified, then prman will use all but N CPUs for rendering."}

@@ -1,0 +1,91 @@
+{"item_id": "f456b1e88b:0", "source": "RenderMan for Maya improves"}
+{"item_id": "f456b1e88b:1", "source": "Alembic"}
+{"item_id": "f456b1e88b:2", "source": "rendering workflows by consolidating existing functionalities."}
+{"item_id": "f456b1e88b:3", "source": "There are now different ways to render Alembic archives in RFM. We will review them one by one."}
+{"item_id": "f456b1e88b:4", "source": "This documentation uses an Alembic archive of the"}
+{"item_id": "f456b1e88b:5", "source": "Rolling Teapot"}
+{"item_id": "f456b1e88b:6", "source": "model from"}
+{"item_id": "f456b1e88b:7", "source": "Brice Laville Saint Martin"}
+{"item_id": "f456b1e88b:8", "source": "."}
+{"item_id": "f456b1e88b:9", "source": "You can download it here,"}
+{"item_id": "f456b1e88b:10", "source": "here"}
+{"item_id": "f456b1e88b:11", "source": "Exporting geometry to alembic from Maya"}
+{"item_id": "f456b1e88b:12", "source": "First, you need to export your geometry so that RenderMan may render it correctly."}
+{"item_id": "f456b1e88b:13", "source": "To make it easier, we have added a few export functions in RFM to guarantee correct results, but you can roll out your own based on our work if you need to customize it."}
+{"item_id": "f456b1e88b:14", "source": "You can find it in the Archive section of the RenderMan menu..."}
+{"item_id": "f456b1e88b:15", "source": "...or by right-clicking the archive icon in the RenderMan shelf."}
+{"item_id": "f456b1e88b:16", "source": "We export many geometric options"}
+{"item_id": "f456b1e88b:17", "source": "using our menu selection"}
+{"item_id": "f456b1e88b:18", "source": "to provide enough data for other bridge products, such as:"}
+{"item_id": "f456b1e88b:19", "source": "As you can see, there are different options depending on how the archive will be rendered:"}
+{"item_id": "f456b1e88b:20", "source": "Export for the gpuCache node"}
+{"item_id": "f456b1e88b:21", "source": "When exporting for the gpuCache node, the alembic archive will be sent directly to the renderer, without being processed by RfM. If your scene contains polygon meshes that are either smoothed (using the Smooth Mesh controls) or carry RenderMan's subdivision surface attributes, we need to make sure they will be exported as subdivision surfaces instead of poly meshes. This menu includes a pre-processing step before calling the usual Alembic export dialog."}
+{"item_id": "f456b1e88b:22", "source": "We use the"}
+{"item_id": "f456b1e88b:23", "source": "gpuCache"}
+{"item_id": "f456b1e88b:24", "source": "node to reference, display and render regular, high quality Alembic archives."}
+{"item_id": "f456b1e88b:25", "source": "It is different from Maya's GPU cache workflow where you save a simplified version of your scene, simply to keep large scenes more interactive."}
+{"item_id": "f456b1e88b:26", "source": "Always use our Alembic Export menus for best results. If you try to render alembic files saved via the Cache > GPU Cache > Export... menu, we can not guarantee the results."}
+{"item_id": "f456b1e88b:27", "source": "Export for imported/referenced archives"}
+{"item_id": "f456b1e88b:28", "source": "When an alembic node is imported or referenced in a Maya scene, the archive's nodes will be rebuilt as Maya shapes and must carry their original RenderMan attributes to render as expected. Our export menus include a setup step to make sure all relevant attributes will be saved in the alembic cache, as well as uv sets and subdivision surface creases and corners."}
+{"item_id": "f456b1e88b:29", "source": "Rendering Imported or Referenced Caches"}
+{"item_id": "f456b1e88b:30", "source": "Alembic archives can either be imported or referenced in Maya. You can attach materials to them and they will render exactly like any other piece of Maya geometry."}
+{"item_id": "f456b1e88b:31", "source": "They are great to light and shade animated characters without the burden of evaluating complex rigs. They are not so great when the archive contains a large number of nodes with heavy geometry, in which case you might consider rendering a GPU cache instead."}
+{"item_id": "f456b1e88b:32", "source": "Rendering gpuCache nodes"}
+{"item_id": "f456b1e88b:33", "source": "Creating a new gpuCache node"}
+{"item_id": "f456b1e88b:34", "source": "The easy way"}
+{"item_id": "f456b1e88b:35", "source": "Right-click the archive icon in the RenderMan shelf and select \"Import GPU Cache...\". A file picker will open, the node will be created and made visible to indirect rays."}
+{"item_id": "f456b1e88b:36", "source": "The hard way"}
+{"item_id": "f456b1e88b:37", "source": "Start by importing your alembic file via the"}
+{"item_id": "f456b1e88b:38", "source": "GPU Cache"}
+{"item_id": "f456b1e88b:39", "source": "menu. If the menu doesn't appear in your Maya, go to the"}
+{"item_id": "f456b1e88b:40", "source": "Plug-in Manager"}
+{"item_id": "f456b1e88b:41", "source": "window to enable it."}
+{"item_id": "f456b1e88b:42", "source": "For animated GPU caches please select:"}
+{"item_id": "f456b1e88b:43", "source": "Use Global Time"}
+{"item_id": "f456b1e88b:44", "source": "In this example, I imported the Rolling Teapot model. Note that the whole model is now a single node in Maya, which by default will be rendered by RenderMan."}
+{"item_id": "f456b1e88b:45", "source": "The default attributes will appear in the RenderMan section:"}
+{"item_id": "f456b1e88b:46", "source": "Render Alembic Cache"}
+{"item_id": "f456b1e88b:47", "source": "MUST be enabled to render."}
+{"item_id": "f456b1e88b:48", "source": "RLF File Name"}
+{"item_id": "f456b1e88b:49", "source": "The full path to a RenderMan Look File that will be applied to the Alembic file. You can use the editor described further down the page to create and save RLF files."}
+{"item_id": "f456b1e88b:50", "source": "Edit RLF File"}
+{"item_id": "f456b1e88b:51", "source": "Open a standalone RLF editor to modify the file referenced in"}
+{"item_id": "f456b1e88b:52", "source": "RLF File Name"}
+{"item_id": "f456b1e88b:53", "source": ". See"}
+{"item_id": "f456b1e88b:54", "source": "Assign materials"}
+{"item_id": "f456b1e88b:55", "source": "for details."}
+{"item_id": "f456b1e88b:56", "source": "Edit objects"}
+{"item_id": "f456b1e88b:57", "source": "Open the shape editor to modify the contents of the alembic file. See"}
+{"item_id": "f456b1e88b:58", "source": "Geometric edits"}
+{"item_id": "f456b1e88b:59", "source": "for details."}
+{"item_id": "f456b1e88b:60", "source": "Inspect Alembic section"}
+{"item_id": "f456b1e88b:61", "source": "Read archive contents"}
+{"item_id": "f456b1e88b:62", "source": "Click this button to parse the contents of the archive and display its contents in the node lists."}
+{"item_id": "f456b1e88b:63", "source": "Large alembic archives may take many seconds to parse. Be patient..."}
+{"item_id": "f456b1e88b:64", "source": "The node list may incorrectly display large number of deeply nested nodes. To work around this Maya bug, we only expand the first 3 levels by default and suggest using the filter field to explore the archive."}
+{"item_id": "f456b1e88b:65", "source": "The parsed data is saved on the node so it may be displayed quickly without having to re-parse the file, but you will have to re-parse the archive if anything has changed in it."}
+{"item_id": "f456b1e88b:66", "source": "You can \"solo\" any point in the hierarchy (display only the selection) by double-clicking in the list. To display everything again, double-click the top node (ABC). This has no impact on the final render."}
+{"item_id": "f456b1e88b:67", "source": "Filter"}
+{"item_id": "f456b1e88b:68", "source": "The contents of the node list can be filtered using a glob expression."}
+{"item_id": "f456b1e88b:69", "source": "Pattern"}
+{"item_id": "f456b1e88b:70", "source": "Meaning"}
+{"item_id": "f456b1e88b:71", "source": "matches everything"}
+{"item_id": "f456b1e88b:72", "source": "?matches any single character"}
+{"item_id": "f456b1e88b:73", "source": "matches any character in"}
+{"item_id": "f456b1e88b:74", "source": "seq"}
+{"item_id": "f456b1e88b:75", "source": "matches any character not in"}
+{"item_id": "f456b1e88b:76", "source": "seq"}
+{"item_id": "f456b1e88b:77", "source": "Node list"}
+{"item_id": "f456b1e88b:78", "source": "A hierarchical view of the archive's contents."}
+{"item_id": "f456b1e88b:79", "source": "Each node will display its properties as an annotation. This is useful to check if your archive contains the properties you need."}
+{"item_id": "f456b1e88b:80", "source": "This can be toggled with the"}
+{"item_id": "f456b1e88b:81", "source": "View node annotations"}
+{"item_id": "f456b1e88b:82", "source": "check box under the node list."}
+{"item_id": "f456b1e88b:83", "source": "Batch Rendering"}
+{"item_id": "f456b1e88b:84", "source": "For efficiency, RenderMan for Maya does not export all shaders, it only exports materials which are attached to geometry. This will lead to issues when batch rendering GPU Caches."}
+{"item_id": "f456b1e88b:85", "source": "To workaround this issue, Please"}
+{"item_id": "f456b1e88b:86", "source": "Enable \"Output All Shaders\""}
+{"item_id": "f456b1e88b:87", "source": "in the advanced menu of the RenderMan Render Settings."}
+{"item_id": "f456b1e88b:88", "source": "Debugging"}
+{"item_id": "f456b1e88b:89", "source": "As of RFM 24.4, it is possible to define the"}
+{"item_id": "f456b1e88b:90", "source": "environment variable (its value doesn't matter) before launching RFM to get debugging output at render-time."}

@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Stylized Looks in Houdini Overview</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Stylized Looks in Houdini Overview</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFH27/544646545/Stylized+Looks+in+Houdini+Overview">https://rmanwiki-27.pixar.com/space/RFH27/544646545/Stylized+Looks+in+Houdini+Overview</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="911" loading="lazy" src="../../attachments/544646545/npr.PNG" data-image-src="../../attachments/544646545/npr.PNG" data-height="343" data-width="1023" data-unresolved-comment-count="0" data-linked-resource-id="544646566" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="npr.PNG" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544646545" data-linked-resource-container-version="1" data-media-id="e7628f71-fc22-4d20-aa0d-c5244e12e066" data-media-type="file"></span><p /><p>设置风格化渲染需要 3 个组件：</p><p /><h4 id="StylizedLooksinHoudiniOverview-1.AddaStylizedDisplayFilter">1. 添加 Stylized Display Filter（风格化显示滤波器）</h4><p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="864" loading="lazy" src="../../attachments/544646545/stylizedfilters.PNG" data-image-src="../../attachments/544646545/stylizedfilters.PNG" data-height="295" data-width="536" data-unresolved-comment-count="0" data-linked-resource-id="544646569" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="stylizedfilters.PNG" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544646545" data-linked-resource-container-version="1" data-media-id="ac9aa598-10bc-4ace-9f7a-3ce25022f54e" data-media-type="file"></span><p /><h4 id="StylizedLooksinHoudiniOverview-2.EnableStylizedAOVs">2. 启用 Stylized AOVs</h4><p>启用 Stylized 渲染所需 AOVs 的最简单方式，是从 RenderMan 菜单创建一个 R26 Stylized ROP。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="RenderMan_RfH_StylizedLooks_menu.jpg" width="642" loading="lazy" src="../../attachments/544646545/RenderMan_RfH_StylizedLooks_menu.jpg" data-image-src="../../attachments/544646545/RenderMan_RfH_StylizedLooks_menu.jpg" data-height="48" data-width="642" data-unresolved-comment-count="0" data-linked-resource-id="544646560" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_RfH_StylizedLooks_menu.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544646545" data-linked-resource-container-version="1" data-media-id="646cfe4d-6385-4fe9-bad2-4b41a2215fc6" data-media-type="file"></span><p>这会自动创建一个 RenderMan ROP，并激活在 Stylized Looks 中渲染所需的所有 AOVS。</p><p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="RenderMan_RfH_StylizedLooks_2.jpg" width="1559" loading="lazy" src="../../attachments/544646545/RenderMan_RfH_StylizedLooks_2.jpg" data-image-src="../../attachments/544646545/RenderMan_RfH_StylizedLooks_2.jpg" data-height="1414" data-width="1580" data-unresolved-comment-count="0" data-linked-resource-id="544646557" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_RfH_StylizedLooks_2.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544646545" data-linked-resource-container-version="1" data-media-id="ec27f09c-2461-41bd-9150-759cf3d9177d" data-media-type="file"></span><p /><p>如果已经有 RenderMan ROP 节点，也可以在 Images → Stylized 下手动启用 Stylized AOVS。</p><p /><h4 id="StylizedLooksinHoudiniOverview-3.ConnectPxrStylizedControltomaterials">3. 将 PxrStylizedControl 连接到材质</h4><p>场景中的所有对象并不都需要这个 pattern。需要使用 dynamic array（动态数组）将 PxrStylizedControl 的 integer 输出连接到 PxrSurface 的 utilityPattern 输入。若要把 PxrStylizedControl 添加到多个材质，请使用 RenderMan 菜单中的 Stylize 工具。</p><p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="783" loading="lazy" src="../../attachments/544646545/stylizedpattern.PNG" data-image-src="../../attachments/544646545/stylizedpattern.PNG" data-height="300" data-width="536" data-unresolved-comment-count="0" data-linked-resource-id="544646572" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="stylizedpattern.PNG" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544646545" data-linked-resource-container-version="1" data-media-id="7cff1118-ca27-4874-abe6-415b1c253f18" data-media-type="file"></span><p /><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="76adfe08-fd74-45c7-8f0b-d636b31f607b" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>“R24 Stylized” 工具架按钮会设置上文所述的全部 3 个必要组件</p><ul><li><p>创建一个启用 stylized looks 的 RIS ROP。</p></li><li><p>添加 Hatching display filter（Hatching 显示滤波器）。</p></li><li><p>将 PxrStylizedControl 添加到所有选定对象的材质。</p></li></ul></div></div><p />
+  </article>
+</main>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OpenVDB Volumes in Maya</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>OpenVDB Volumes in Maya</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFM27/544540066/OpenVDB+Volumes+in+Maya">https://rmanwiki-27.pixar.com/space/RFM27/544540066/OpenVDB+Volumes+in+Maya</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p><style>[data-colorid=en0w79ti3p]{color:#808284} html[data-color-mode=dark] [data-colorid=en0w79ti3p]{color:#7b7d7f}</style>OpenVDB 是用于 volumes（体积）的开源 hierarchical data structure（层级数据结构）。Renderman for Maya（RenderMan for Maya）支持 OpenVDB Maya plugin（OpenVDB Maya 插件）$RMSTREE/plug-ins/OpenVDB.so。</p><p style="text-align: center;"><br /></p><div class="figure align-center"><span class="confluence-embedded-file-wrapper image-center-wrapper"><img class="confluence-embedded-image image-center" loading="lazy" src="../../attachments/544540066/openvdb.png" data-image-src="../../attachments/544540066/openvdb.png" data-unresolved-comment-count="0" data-linked-resource-id="544540097" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="openvdb.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544540066" data-linked-resource-container-version="1" data-media-id="1b5257c1-fb75-4953-8e00-bf681c03eb8c" data-media-type="file" /></span><p style="text-align: center;"><span data-colorid="en0w79ti3p">Maya shelf（Maya 工具架）中的 OpenVDB 图标</span></p></div><p style="text-align: left;">只需点击一次该图标，RfM 就会自动创建用于读取、可视化和渲染 OpenVDB volume data（OpenVDB 体积数据）的默认设置。</p><p>有关 OpenVDB 的更多信息，请参阅&nbsp;<a class="external-link" href="http://www.openvdb.org/documentation/doxygen/faq.html" rel="nofollow" style="text-decoration: underline;">OpenVDB FAQ（OpenVDB 常见问题）</a>。</p><p><br /></p><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="d975e0ba-37cf-4f46-861c-03ffd95918f6" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><ul><li>OpenVDB node（OpenVDB 节点）默认会把 indirect visibility（间接可见性）设为 "off"，这是因为 Maya 的旧默认设置会在 attribute editor（属性编辑器）的 Render Stats rollout 中，把导入对象设为对 reflections/refractions（反射/折射）不可见。请打开这些选项以获得正确渲染。</li></ul></div></div><p><br /></p><h3 id="OpenVDBVolumesinMaya-HowToReadOpenVDB">Read OpenVDB（读取 OpenVDB）的方法</h3><p>在 Renderman for Maya（RenderMan for Maya）中，若要读取 OpenVDB 文件，只需点击 OpenVDB 图标。这会创建一个&nbsp;<strong>OpenVDB Read（OpenVDB 读取）</strong>，让用户可以通过用于选择 OpenVDB 文件的 file picker（文件选择器）来设置&nbsp;<em>VDB File Path（VDB 文件路径）</em>。</p><p><br /></p><div class="figure align-center"><span class="confluence-embedded-file-wrapper image-center-wrapper"><img class="confluence-embedded-image image-center" loading="lazy" src="../../attachments/544540066/rfmOpenVDBRead.png" data-image-src="../../attachments/544540066/rfmOpenVDBRead.png" data-unresolved-comment-count="0" data-linked-resource-id="544540094" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfmOpenVDBRead.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544540066" data-linked-resource-container-version="1" data-media-id="a7488004-a04c-4d4d-a329-7798743f9b95" data-media-type="file" /></span></div><p><br /></p><p><br /></p><h3 id="OpenVDBVolumesinMaya-HowToVisualizeOpenVDB">Visualize OpenVDB（可视化 OpenVDB）的方法</h3><p>加载 OpenVDB 文件后，会出现&nbsp;<em>OpenVDB Visualize（OpenVDB 可视化）</em>&nbsp;选项卡会出现在 Attribute Editor（属性编辑器）中。</p><p>OpenVDB Visualizer（OpenVDB 可视化器）会在 Maya 中显示 OpenVDB volume data（OpenVDB 体积数据），并提供选项来更改 OpenVDB data（OpenVDB 数据）如何输出到 RIB。</p><p>默认情况下，Renderman for Maya（RenderMan for Maya）会输出 RiVolume。如果勾选 OpenVDBVisualize node（OpenVDBVisualize 节点）中的 Surface checkbox（Surface 复选框），或者 OpenVDB 文件只包含 level set data（水平集数据），则会改为输出 RiBlobby。在这种情况下，用户会希望接入一个不同于默认&nbsp;<a href="https://rmanwiki-26.pixar.com/space/REN26/19661555/PxrVolume" data-linked-resource-id="19661555" data-linked-resource-version="12" data-linked-resource-type="page">PxrVolume</a>的 shader（着色器）。可以添加 Renderman for Maya（RenderMan for Maya）的 Custom Shading Group attribute（Custom Shading Group 属性）来连接 shading group（着色组）。</p><p><br /></p><div class="figure align-center"><span class="confluence-embedded-file-wrapper image-center-wrapper"><img class="confluence-embedded-image image-center" loading="lazy" src="../../attachments/544540066/rfmOpenVDBVisualizer.png" data-image-src="../../attachments/544540066/rfmOpenVDBVisualizer.png" data-unresolved-comment-count="0" data-linked-resource-id="544540091" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfmOpenVDBVisualizer.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544540066" data-linked-resource-container-version="1" data-media-id="0f120d61-760f-49d4-bf25-b32f60592fea" data-media-type="file" /></span></div><h4 id="OpenVDBVolumesinMaya-RIBOptions">RIB Options（RIB 选项）</h4><p>以下选项可用于更改 OpenVDB volume（OpenVDB 体积）的 data（数据）输出到 RIB 的方式。</p><p><strong>VDB Grid Name（VDB 网格名称）</strong></p><p>VDB grid（VDB 网格）是 voxel data（体素数据）的 sparse tree representation（稀疏树表示）。例如，float grid（浮点网格）会为每个 voxel（体素）存储一个 single-precision floating point value（单精度浮点值）。加载 OpenVDB 文件后，pulldown menu（下拉菜单）中会出现 grid names（网格名称）列表。选择你想采样的 grid name（网格名称）。</p><p><strong>Surface（曲面）</strong></p><p>这会创建 RiBlobby，而不是创建 RiVolume。请注意，开启此选项可能会减慢 render（渲染）。</p><p><strong>Isovalue（等值）</strong></p><p>此项设置 volume（体积）的 threshold（阈值）。</p><h4 id="OpenVDBVolumesinMaya-VisualizerOptions">Visualizer Options（可视化器选项）</h4><p>以下 attributes（属性）仅用于可视化。更改它们不会改变 volume（体积）的渲染。</p><p><strong>Active Value Bounding Box（活动值包围盒）</strong></p><p>Show/hide（显示/隐藏）active value（活动值）的 bounding box（包围盒）。</p><p><strong>Internal Nodes（内部节点）</strong></p><p><span class="legacy-color-text-default">Show/Hide（显示/隐藏）。具有 dynamic branching factor（动态分支因子）的 root node（根节点）包含 fixed branching（固定分支）的 internal nodes（内部节点）。</span></p><p><strong>Leaf Nodes（叶节点）</strong></p><p><span class="legacy-color-text-default"> <span>Show/Hide（显示/隐藏）&nbsp;</span>存储在 leaf nodes（叶节点）中的值对应于单个 voxels（体素）；所有其他值都对应于 "tiles"（区块）</span></p><p><strong>Active Tiles（活动区块）</strong></p><p><span class="legacy-color-text-default"> <span>Show/Hide（显示/隐藏）&nbsp;</span>存储在类型为&nbsp;</span> <code>RootNode</code> <span class="legacy-color-text-default">&nbsp;或&nbsp;</span> <code>InternalNode</code> <span class="legacy-color-text-default">&nbsp;的节点中的值，对应于 index space（索引空间）中具有 constant value（常量值）和 active state（活动状态）、且尺寸为 2 的幂的区域。&nbsp;<span>grid（网格）中的每个值都有一个 binary state（二进制状态），称为其 "active state"（活动状态）。对此 on/off state（开/关状态）的解释取决于具体应用，但通常 active (on) value（活动/开启值）在某种意义上是“有意义的”，而 inactive (off) value（非活动/关闭值）则不那么有意义。</span> </span></p><p><strong>Active Voxels（活动体素）</strong></p><p><span class="legacy-color-text-default">Show/Hide（显示/隐藏）&nbsp;</span>同上，但适用于 voxels（体素）。&nbsp;<span class="legacy-color-text-default">存储在类型为&nbsp;</span> <code>LeafNode</code> <span class="legacy-color-text-default">&nbsp;的节点中的值（如果存在，这类节点具有固定深度）对应于单个 voxels（体素）。这些是 index space（索引空间）中最小的可寻址单位。</span></p><h3 id="OpenVDBVolumesinMaya-OpenVDBShadingNetwork">OpenVDB 着色网络（Shading Network）</h3><p>OpenVDB Visualizer（OpenVDB 可视化器）图标会自动设置 volume shading group（体积着色组），并连接到相应的 openVDB visualizer（openVDB 可视化器）。</p><p><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/544540066/openVDB_Network.jpg" data-image-src="../../attachments/544540066/openVDB_Network.jpg" data-unresolved-comment-count="0" data-linked-resource-id="544540082" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="openVDB_Network.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544540066" data-linked-resource-container-version="1" data-media-id="d6ec169f-0208-4efa-b5de-8ea736c2536f" data-media-type="file" /></span></p><p><br /></p>
+  </article>
+</main>
+</body>
+</html>

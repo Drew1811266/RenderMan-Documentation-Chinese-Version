@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rendering Clouds with Aggregate Volumes</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Rendering Clouds with Aggregate Volumes</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/REN27/542213419/Rendering+Clouds+with+Aggregate+Volumes">https://rmanwiki-27.pixar.com/space/REN27/542213419/Rendering+Clouds+with+Aggregate+Volumes</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="contentLayout2"><style>[data-colorid=gndpg9vwa9]{color:#808284} html[data-color-mode=dark] [data-colorid=gndpg9vwa9]{color:#7b7d7f}[data-colorid=js2s6il4ys]{color:#808284} html[data-color-mode=dark] [data-colorid=js2s6il4ys]{color:#7b7d7f}[data-colorid=jeb0cj9j5y]{color:#808284} html[data-color-mode=dark] [data-colorid=jeb0cj9j5y]{color:#7b7d7f}[data-colorid=w8o9fiqb2y]{color:#808284} html[data-color-mode=dark] [data-colorid=w8o9fiqb2y]{color:#7b7d7f}[data-colorid=vdi0wr8eh0]{color:#808284} html[data-color-mode=dark] [data-colorid=vdi0wr8eh0]{color:#7b7d7f}[data-colorid=rmb8pp1h42]{color:#808284} html[data-color-mode=dark] [data-colorid=rmb8pp1h42]{color:#7b7d7f}[data-colorid=vwzgobj33n]{color:#808284} html[data-color-mode=dark] [data-colorid=vwzgobj33n]{color:#7b7d7f}[data-colorid=z590up02x5]{color:#808284} html[data-color-mode=dark] [data-colorid=z590up02x5]{color:#7b7d7f}[data-colorid=bpea6agwi2]{color:#808284} html[data-color-mode=dark] [data-colorid=bpea6agwi2]{color:#7b7d7f}[data-colorid=r9bsjqiozc]{color:#808284} html[data-color-mode=dark] [data-colorid=r9bsjqiozc]{color:#7b7d7f}[data-colorid=tw2ln561gy]{color:#808284} html[data-color-mode=dark] [data-colorid=tw2ln561gy]{color:#7b7d7f}[data-colorid=aalo0fmcpw]{color:#808284} html[data-color-mode=dark] [data-colorid=aalo0fmcpw]{color:#7b7d7f}[data-colorid=vrwxbyo530]{color:#808284} html[data-color-mode=dark] [data-colorid=vrwxbyo530]{color:#7b7d7f}[data-colorid=hvwj65sl87]{color:#808284} html[data-color-mode=dark] [data-colorid=hvwj65sl87]{color:#7b7d7f}[data-colorid=e13gkvbbhw]{color:#808284} html[data-color-mode=dark] [data-colorid=e13gkvbbhw]{color:#7b7d7f}[data-colorid=wl2zolca1u]{color:#808284} html[data-color-mode=dark] [data-colorid=wl2zolca1u]{color:#7b7d7f}[data-colorid=narb7zlre6]{color:#808284} html[data-color-mode=dark] [data-colorid=narb7zlre6]{color:#7b7d7f}[data-colorid=ypvo7psuxm]{color:#808284} html[data-color-mode=dark] [data-colorid=ypvo7psuxm]{color:#7b7d7f}[data-colorid=vg8oflfcoe]{color:#808284} html[data-color-mode=dark] [data-colorid=vg8oflfcoe]{color:#7b7d7f}[data-colorid=mc8o29gff5]{color:#808284} html[data-color-mode=dark] [data-colorid=mc8o29gff5]{color:#7b7d7f}[data-colorid=r5hjtgn0lx]{color:#808284} html[data-color-mode=dark] [data-colorid=r5hjtgn0lx]{color:#7b7d7f}[data-colorid=afaf3fr5gn]{color:#808284} html[data-color-mode=dark] [data-colorid=afaf3fr5gn]{color:#7b7d7f}[data-colorid=xre75m9btq]{color:#808284} html[data-color-mode=dark] [data-colorid=xre75m9btq]{color:#7b7d7f}[data-colorid=n16j9j8rl6]{color:#808284} html[data-color-mode=dark] [data-colorid=n16j9j8rl6]{color:#7b7d7f}[data-colorid=q9n4nnlvum]{color:#808284} html[data-color-mode=dark] [data-colorid=q9n4nnlvum]{color:#7b7d7f}[data-colorid=zopi7yd7cr]{color:#808284} html[data-color-mode=dark] [data-colorid=zopi7yd7cr]{color:#7b7d7f}[data-colorid=dq3f7o4zwl]{color:#808284} html[data-color-mode=dark] [data-colorid=dq3f7o4zwl]{color:#7b7d7f}[data-colorid=d2lve9zh3n]{color:#808284} html[data-color-mode=dark] [data-colorid=d2lve9zh3n]{color:#7b7d7f}[data-colorid=hro6tq0o1z]{color:#808284} html[data-color-mode=dark] [data-colorid=hro6tq0o1z]{color:#7b7d7f}[data-colorid=ew3zwgl81w]{color:#808284} html[data-color-mode=dark] [data-colorid=ew3zwgl81w]{color:#7b7d7f}[data-colorid=b301j3dm2i]{color:#808284} html[data-color-mode=dark] [data-colorid=b301j3dm2i]{color:#7b7d7f}[data-colorid=t77l9v2qoy]{color:#808284} html[data-color-mode=dark] [data-colorid=t77l9v2qoy]{color:#7b7d7f}</style>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p style="text-align: center;"><span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image" width="900" loading="lazy" src="../../attachments/542213419/hiResFinal.0.jpg" data-image-src="../../attachments/542213419/hiResFinal.0.jpg" data-unresolved-comment-count="0" data-linked-resource-id="542213533" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="hiResFinal.0.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542213419" data-linked-resource-container-version="5" data-media-id="873566d8-0b05-4ba6-bf7c-4635b2583ff4" data-media-type="file" /></span><span data-colorid="b301j3dm2i">使用聚合体积工作流渲染的 Moana Cloud 资产。OpenVDB 资产由 </span><a class="external-link" href="https://www.disneyanimation.com/data-sets/?drawer=/resources/clouds/" rel="nofollow">Walt Disney Animation 提供</a><span data-colorid="zopi7yd7cr">。 </span><a class="external-link" href="https://creativecommons.org/licenses/by-sa/3.0/" rel="nofollow">CC BY-SA 3.0</a><span data-colorid="d2lve9zh3n"> 许可证。</span></p><p>使用聚合体积工作流渲染云时，可以调整若干关键设置来控制云的外观。本页所有图像都使用在 RfM 中搭建的场景渲染。有关场景设置的说明，请参阅 <a href="542213419-Rendering Clouds with Aggregate Volumes.html" rel="nofollow">场景设置</a> 一节。</p><h2 id="RenderingCloudswithAggregateVolumes-VolumeSettings">体积设置</h2><h3 id="RenderingCloudswithAggregateVolumes-MaxPathLength">Max Path Length</h3><p>渲染云时，最大路径长度是极其重要的控制项。要得到类似云的外观，需要相对较高的最大路径长度。下方图像分别使用最大路径长度 0、16 和 64 渲染。</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="maxPath0.0.jpg" width="410" loading="lazy" src="../../attachments/542213419/maxPath0.0.jpg" data-image-src="../../attachments/542213419/maxPath0.0.jpg" data-height="540" data-width="960" data-unresolved-comment-count="0" data-linked-resource-id="542213479" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="maxPath0.0.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542213419" data-linked-resource-container-version="5" data-media-id="ed9ab9e1-76e0-4f76-bb05-75f7b80ffd3b" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="maxPath64.0.jpg" width="410" loading="lazy" src="../../attachments/542213419/maxPath64.0.jpg" data-image-src="../../attachments/542213419/maxPath64.0.jpg" data-height="540" data-width="960" data-unresolved-comment-count="0" data-linked-resource-id="542213476" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="maxPath64.0.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542213419" data-linked-resource-container-version="5" data-media-id="ea0666ba-7c14-47a1-ae61-1da23ddc47cb" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="maxPath256.0.jpg" width="410" loading="lazy" src="../../attachments/542213419/maxPath256.0.jpg" data-image-src="../../attachments/542213419/maxPath256.0.jpg" data-height="540" data-width="960" data-unresolved-comment-count="0" data-linked-resource-id="542213473" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="maxPath256.0.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542213419" data-linked-resource-container-version="5" data-media-id="337dfbcc-0846-4b11-8105-c40a0ef9729c" data-media-type="file" /></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p>在更高路径长度下变化会更细微，但若要让云的阴影区域出现明显的光线渗透，就需要非常高的最大路径长度。</p></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="maxPath64.0.jpg" width="632" loading="lazy" src="../../attachments/542213419/maxPath64.0.jpg" data-image-src="../../attachments/542213419/maxPath64.0.jpg" data-height="540" data-width="960" data-unresolved-comment-count="0" data-linked-resource-id="542213476" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="maxPath64.0.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542213419" data-linked-resource-container-version="5" data-media-id="ea0666ba-7c14-47a1-ae61-1da23ddc47cb" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="maxPath256.0.jpg" width="632" loading="lazy" src="../../attachments/542213419/maxPath256.0.jpg" data-image-src="../../attachments/542213419/maxPath256.0.jpg" data-height="540" data-width="960" data-unresolved-comment-count="0" data-linked-resource-id="542213473" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="maxPath256.0.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542213419" data-linked-resource-container-version="5" data-media-id="337dfbcc-0846-4b11-8105-c40a0ef9729c" data-media-type="file" /></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p style="text-align: center;"><span data-colorid="ew3zwgl81w">路径长度为 64（左）和 256（右）时的云场景渲染结果。</span></p><p style="text-align: center;" /><div class="confluence-information-macro confluence-information-macro-tip conf-macro output-block" data-hasbody="true" data-macro-id="80bcaf1c-1ac8-4bf9-bf9d-54997eeb511c" data-macro-name="tip"><span class="aui-icon aui-icon-small aui-iconfont-approve confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>提高最大路径长度也会增加渲染时间，因此应尽量保持较低。Volume Scattering Approximation（见下文）可以用低得多的成本模拟高路径长度的效果。</p></div></div><h3 id="RenderingCloudswithAggregateVolumes-VolumeScatteringApproximation">Volume Scattering Approximation</h3><p>Volume Scattering Approximation 设置是一组用于模拟体积内多重散射效果的设置。正确设置时，Volume Scattering Approximation 可以产生类似非常高路径长度的外观，同时不会增加渲染时间。Volume Scattering Approximation 有三个控制项： <em>Gain</em>, <em>Bleed</em> 和 <em>Contribution</em>。每个设置的效果见下文。虽然 <em>Bleed</em> 和 <em>Contribution</em> 都是颜色，但下文用一个单一数值指代它们，该数值会同时用于红、绿、蓝三个通道。</p><h4 id="RenderingCloudswithAggregateVolumes-Gain">Gain</h4><p>该 <em>Gain</em> 参数用于在灯光上启用或禁用 Volume Scattering Approximation。应将它设为 1，并调整 <em>Bleed</em> 和 <em>Contribution</em> 设置以获得所需效果。将 <em>Gain</em> 设置为 [0,1] 范围之外的值可能产生不正确的结果。</p></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="maxPath64.0.jpg" width="632" loading="lazy" src="../../attachments/542213419/maxPath64.0.jpg" data-image-src="../../attachments/542213419/maxPath64.0.jpg" data-height="540" data-width="960" data-unresolved-comment-count="0" data-linked-resource-id="542213476" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="maxPath64.0.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542213419" data-linked-resource-container-version="5" data-media-id="ea0666ba-7c14-47a1-ae61-1da23ddc47cb" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="msApproxBase.0.jpg" width="632" loading="lazy" src="../../attachments/542213419/msApproxBase.0.jpg" data-image-src="../../attachments/542213419/msApproxBase.0.jpg" data-height="540" data-width="960" data-unresolved-comment-count="0" data-linked-resource-id="542213470" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="msApproxBase.0.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542213419" data-linked-resource-container-version="5" data-media-id="d9743a82-8b3d-4008-8e0f-fc42f743b20a" data-media-type="file" /></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p style="text-align: center;"><span data-colorid="t77l9v2qoy">云场景渲染结果，其中 </span><em><span data-colorid="bpea6agwi2">Gain</span></em><span data-colorid="z590up02x5"> 设为 0（左）和 1（右），并使用默认的 </span><em><span data-colorid="js2s6il4ys">Bleed</span></em><span data-colorid="q9n4nnlvum"> 和 </span><em><span data-colorid="e13gkvbbhw">Contribution</span></em><span data-colorid="vrwxbyo530">。</span></p><p style="text-align: center;" /><div class="confluence-information-macro confluence-information-macro-warning conf-macro output-block" data-hasbody="true" data-macro-id="e8971af9-673c-4389-a2cb-2643e322566d" data-macro-name="warning"><span class="aui-icon aui-icon-small aui-iconfont-error confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>将 <em>Gain</em> 设置为 [0,1] 范围之外的值可能无法产生视觉上正确的图像</p></div></div><h4 id="RenderingCloudswithAggregateVolumes-Bleed">Bleed</h4><p>该 <em>Bleed</em> 参数控制有多少光线会渗透穿过体积。更高的 <em>Bleed</em> 值会允许更多光线穿过体积，并照亮原本处于阴影中的区域。因此， <em>Bleed</em> 的效果在体积的阴影区域最明显，但它也会带来轻微的整体增亮效果。可以使用渗透（Bleed）参数来补偿较低 Max Path Length 导致的整体亮度损失。</p></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="msApproxBleed1.0.jpg" width="632" loading="lazy" src="../../attachments/542213419/msApproxBleed1.0.jpg" data-image-src="../../attachments/542213419/msApproxBleed1.0.jpg" data-height="540" data-width="960" data-unresolved-comment-count="0" data-linked-resource-id="542213464" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="msApproxBleed1.0.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542213419" data-linked-resource-container-version="5" data-media-id="004fba5f-a646-41b1-85d4-5dc168249da0" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="msApproxBleed9.0.jpg" width="632" loading="lazy" src="../../attachments/542213419/msApproxBleed9.0.jpg" data-image-src="../../attachments/542213419/msApproxBleed9.0.jpg" data-height="540" data-width="960" data-unresolved-comment-count="0" data-linked-resource-id="542213467" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="msApproxBleed9.0.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542213419" data-linked-resource-container-version="5" data-media-id="835b977f-920a-437b-94ed-66d01c99aed7" data-media-type="file" /></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p style="text-align: center;"><span data-colorid="hro6tq0o1z">云场景渲染结果，其中 </span><em><span data-colorid="r9bsjqiozc">Bleed</span></em><span data-colorid="vdi0wr8eh0"> 设为 0.1（左）和 0.9（右），并使用默认的 </span><em><span data-colorid="vg8oflfcoe">Contribution</span></em><span data-colorid="afaf3fr5gn">。</span></p><h4 id="RenderingCloudswithAggregateVolumes-Contribution">Contribution</h4><p>该 <em>Contribution</em> 参数控制来自 <em>Bleed</em> 参数的光线渗透会在多大程度上贡献到体积亮度。提高 <em>Contribution</em> 通常会提高云的整体亮度，但对边缘的增亮略少。可以使用 <em>Contribution</em> 来帮助呈现体积边缘的细节。</p></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="msApproxContrib25.0.jpg" width="632" loading="lazy" src="../../attachments/542213419/msApproxContrib25.0.jpg" data-image-src="../../attachments/542213419/msApproxContrib25.0.jpg" data-height="540" data-width="960" data-unresolved-comment-count="0" data-linked-resource-id="542213458" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="msApproxContrib25.0.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542213419" data-linked-resource-container-version="5" data-media-id="05ea85ec-6a6c-4cda-be77-472a14ffc953" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="msApproxContrib75.0.jpg" width="632" loading="lazy" src="../../attachments/542213419/msApproxContrib75.0.jpg" data-image-src="../../attachments/542213419/msApproxContrib75.0.jpg" data-height="540" data-width="960" data-unresolved-comment-count="0" data-linked-resource-id="542213461" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="msApproxContrib75.0.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542213419" data-linked-resource-container-version="5" data-media-id="1d47ee86-5ff3-4e7f-92ef-5fb1c816c6bd" data-media-type="file" /></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p style="text-align: center;"><span data-colorid="mc8o29gff5">云场景渲染结果，其中 </span><em><span data-colorid="dq3f7o4zwl">Contribution</span></em><span data-colorid="r5hjtgn0lx"> 设为 0.25（左）和 0.75（右），并使用默认的 </span><em><span data-colorid="jeb0cj9j5y">Bleed。</span></em></p><h4 id="RenderingCloudswithAggregateVolumes-VolumeScatteringApproximationSuggestions">Volume Scattering Approximation 调参建议</h4><ul><li><p>要为 <em>Bleed</em> 和 <em>Contribution</em> 找到合适的值可能并不容易，因为二者相互依赖很强。可以尝试的流程是先将<em> Gain </em>设为 1，然后交替小幅提高 <em>Contribution</em> 并降低 <em>Bleed</em> ，直到阴影区域的亮度达到正确平衡。</p></li><li><p><em>Contribution</em> 会产生更强的增亮效果，因此调整步幅应小于 <em>Bleed</em>。</p></li><li><p>当数值较高时， <em>Contribution</em> 参数会变得非常敏感，因此在接近 1 时应以小增量（0.05 或更小）调整。</p></li></ul><h3 id="RenderingCloudswithAggregateVolumes-Density">密度</h3><p>云的密度会显著影响它的外观。密度的主要控制项是体积上的 <em>Density Scale</em> 设置，它会缩放输入 OpenVDB 文件中的密度。较低的 <em>Density Scale</em> 值会产生更轻盈、更少细节且光线渗透更多的外观，而较高的 <em>Density Scale</em> 值会产生更厚重、更有细节，甚至接近实体的外观。下方图像使用 <em>Density Scale</em> 的取值分别为 0.2、1.0 和 5.0。</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="densityLo.0.jpg" width="410" loading="lazy" src="../../attachments/542213419/densityLo.0.jpg" data-image-src="../../attachments/542213419/densityLo.0.jpg" data-height="540" data-width="960" data-unresolved-comment-count="0" data-linked-resource-id="542213455" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="densityLo.0.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542213419" data-linked-resource-container-version="5" data-media-id="f78dc804-67dc-4161-904e-628164c638ef" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="densityHi0.0.jpg" width="410" loading="lazy" src="../../attachments/542213419/densityHi0.0.jpg" data-image-src="../../attachments/542213419/densityHi0.0.jpg" data-height="540" data-width="960" data-unresolved-comment-count="0" data-linked-resource-id="542213449" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="densityHi0.0.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542213419" data-linked-resource-container-version="5" data-media-id="ad7cdb90-e6f4-49a9-9e0d-65f5f9096606" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="densityHi.0.jpg" width="410" loading="lazy" src="../../attachments/542213419/densityHi.0.jpg" data-image-src="../../attachments/542213419/densityHi.0.jpg" data-height="540" data-width="960" data-unresolved-comment-count="0" data-linked-resource-id="542213452" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="densityHi.0.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542213419" data-linked-resource-container-version="5" data-media-id="f3eabf3c-9666-4ce8-84e1-f08d14dc7b49" data-media-type="file" /></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h3 id="RenderingCloudswithAggregateVolumes-Anisotropy">Anisotropy</h3><p>调整 PxrVolume 中的各向异性设置，对于获得真实的云渲染同样关键。需要注意三个各向异性设置：Primary Anisotropy、Secondary Anisotropy 和 Lobe Blend Factor。Primary Anisotropy 与 Secondary Anisotropy 设置控制两个各向异性波瓣，它们可以是前向散射（设为 +1）或后向散射（设为 -1）。Lobe Blend 控制两个波瓣的相对贡献，其中 0 表示只使用 Primary 波瓣，1 表示只使用 Secondary 波瓣。将 Primary 波瓣设为前向散射会压平云中某些区域的细节，但也会让面向光源的云体部分变暗。</p></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="anisoNone.0.jpg" width="632" loading="lazy" src="../../attachments/542213419/anisoNone.0.jpg" data-image-src="../../attachments/542213419/anisoNone.0.jpg" data-height="540" data-width="960" data-unresolved-comment-count="0" data-linked-resource-id="542213443" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="anisoNone.0.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542213419" data-linked-resource-container-version="5" data-media-id="a77cef59-5e88-45eb-b5c1-d919b6aa114f" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="anisoForward.0.jpg" width="632" loading="lazy" src="../../attachments/542213419/anisoForward.0.jpg" data-image-src="../../attachments/542213419/anisoForward.0.jpg" data-height="540" data-width="960" data-unresolved-comment-count="0" data-linked-resource-id="542213446" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="anisoForward.0.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542213419" data-linked-resource-container-version="5" data-media-id="e12f0736-81b5-4029-8131-bede8a4668b7" data-media-type="file" /></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p style="text-align: center;"><span data-colorid="gndpg9vwa9">云场景渲染结果，左侧未使用各向异性，右侧使用前向散射 Primary 波瓣，其中 </span><em><span data-colorid="tw2ln561gy">Primary Anisotropy </span></em><span data-colorid="narb7zlre6">设为 0.8，且 </span><em><span data-colorid="vwzgobj33n">Blend</span></em><span data-colorid="n16j9j8rl6"> 设为 0。</span></p><p>添加后向散射 Secondary 波瓣，可以恢复前向散射渲染中丢失的大部分细节，同时仍保留面向光源区域中的部分细节。</p></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="anisoNone.0.jpg" width="632" loading="lazy" src="../../attachments/542213419/anisoNone.0.jpg" data-image-src="../../attachments/542213419/anisoNone.0.jpg" data-height="540" data-width="960" data-unresolved-comment-count="0" data-linked-resource-id="542213443" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="anisoNone.0.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542213419" data-linked-resource-container-version="5" data-media-id="a77cef59-5e88-45eb-b5c1-d919b6aa114f" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="anisoBackward.0.jpg" width="632" loading="lazy" src="../../attachments/542213419/anisoBackward.0.jpg" data-image-src="../../attachments/542213419/anisoBackward.0.jpg" data-height="540" data-width="960" data-unresolved-comment-count="0" data-linked-resource-id="542213440" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="anisoBackward.0.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542213419" data-linked-resource-container-version="5" data-media-id="bd434c53-23b7-4b36-904f-1b1916269820" data-media-type="file" /></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p style="text-align: center;"><span data-colorid="xre75m9btq">云场景渲染结果，左侧未使用各向异性，右侧使用前向散射 Primary 波瓣和后向散射 Secondary 波瓣，其中 </span><em><span data-colorid="w8o9fiqb2y">Primary Anisotropy </span></em><span data-colorid="hvwj65sl87">设为 0.8， </span><em><span data-colorid="rmb8pp1h42">Secondary Anisotropy 设为 -0.2</span></em><span data-colorid="aalo0fmcpw"> 且 </span><em><span data-colorid="wl2zolca1u">Blend</span></em><span data-colorid="ypvo7psuxm"> 设为 0.2。</span></p><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="e11a3620-cddf-4a09-ac0b-148e2d4e2bc0" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>启用各向异性会给渲染引入额外噪声。各向异性数值越高，引入的噪声越多。</p></div></div><h2 id="RenderingCloudswithAggregateVolumes-sceneSetup"><span class="confluence-anchor-link conf-macro output-inline" data-hasbody="false" data-local-id="c930e805-e3b3-4123-a8e9-3f782242f01a" data-macro-id="5d4f0db3-8873-458c-b2d1-775c3c96ea4d" data-macro-name="anchor" id="RenderingCloudswithAggregateVolumes-sceneSetup"><span class="confluence-anchor-link" id="sceneSetup"> </span></span></h2><h2 id="RenderingCloudswithAggregateVolumes-SceneSetup">场景设置</h2><p>本节介绍上面使用的场景是如何在 RfM 中设置的。</p><h3 id="RenderingCloudswithAggregateVolumes-VolumeSetup">体积设置</h3><p>首先，从 RenderMan 工具架标签页创建一个 OpenVDBVisualize 对象。</p><span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="454" loading="lazy" src="../../attachments/542213419/createvdbvisualize.png" data-image-src="../../attachments/542213419/createvdbvisualize.png" data-height="193" data-width="349" data-unresolved-comment-count="0" data-linked-resource-id="542213500" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="createvdbvisualize.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542213419" data-linked-resource-container-version="5" data-media-id="7f080650-00e2-4275-bf18-93cf2b844698" data-media-type="file" /></span><p>接下来，在属性编辑器的 OpenVDBRead 设置中选择要使用的 VDB 文件（Moana Cloud 的四分之一或八分之一分辨率版本很适合用于调试设置）。</p><span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="492" loading="lazy" src="../../attachments/542213419/selectvdbfile.png" data-image-src="../../attachments/542213419/selectvdbfile.png" data-height="294" data-width="486" data-unresolved-comment-count="0" data-linked-resource-id="542213518" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="selectvdbfile.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542213419" data-linked-resource-container-version="5" data-media-id="eb351a70-4d4e-4624-90c9-e6b5415e2fd8" data-media-type="file" /></span><p>现在，你应该能在视口中看到叶节点和 tile 的线框（可能需要缩小视图才能看到整朵云）。接着，在大纲视图中选择 OpenVDBVisualize 对象，并在属性编辑器中打开 OpenVDBVisualize 设置。在这里，应旋转体积，使云的顶部朝向 +Z 方向。因此，沿 X 轴添加 90 度旋转。</p><span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="444" loading="lazy" src="../../attachments/542213419/rotatevolume.png" data-image-src="../../attachments/542213419/rotatevolume.png" data-height="327" data-width="486" data-unresolved-comment-count="0" data-linked-resource-id="542213515" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rotatevolume.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542213419" data-linked-resource-container-version="5" data-media-id="18136ee2-deb7-487d-b2fd-4444f7a61068" data-media-type="file" /></span><p>请确保在 OpenVDBVisualizeShape 节点上启用 “Visible in Reflections”，该选项位于 Render Stats 部分。此设置在 Maya 中默认关闭；为了得到正确的光线多重散射，需要将它开启。</p><span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" alt="OpenVDBVisualize_RenderStats.png" width="459" loading="lazy" src="../../attachments/542213419/OpenVDBVisualize_RenderStats.png" data-image-src="../../attachments/542213419/OpenVDBVisualize_RenderStats.png" data-height="500" data-width="459" data-unresolved-comment-count="0" data-linked-resource-id="542213437" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="OpenVDBVisualize_RenderStats.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542213419" data-linked-resource-container-version="5" data-media-id="2288c8a5-feea-4b25-8f30-57b08fba3a69" data-media-type="file" /></span><p /><p>体积设置中最后需要做的是把该体积加入体积聚合。globalVolumeAggregate 会自动创建，因此在 OpenVDBVisualizeShape 设置中的 RenderMan &gt; Volume Aggregate 下，将 <em>Aggregate Membership</em> 设置为 “globalVolumeAggregate”。</p><span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="444" loading="lazy" src="../../attachments/542213419/setvolumeaggregate.png" data-image-src="../../attachments/542213419/setvolumeaggregate.png" data-height="401" data-width="485" data-unresolved-comment-count="0" data-linked-resource-id="542213530" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="setvolumeaggregate.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542213419" data-linked-resource-container-version="5" data-media-id="715cb66f-3873-4e0d-a862-3b409bc6e223" data-media-type="file" /></span><p>你可能还希望禁用叶节点和活动 tile 的可视化；该选项位于 OpenVDB Visualization Settings 下。</p><span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="436" loading="lazy" src="../../attachments/542213419/changevisualizesettings.png" data-image-src="../../attachments/542213419/changevisualizesettings.png" data-height="444" data-width="480" data-unresolved-comment-count="0" data-linked-resource-id="542213491" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="changevisualizesettings.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542213419" data-linked-resource-container-version="5" data-media-id="8d7f6bcf-ff99-474c-9fe7-4ebaefc33db0" data-media-type="file" /></span><h4 id="RenderingCloudswithAggregateVolumes-VolumeShaderSettings">体积着色器设置</h4><p>在着色器设置中，也可以在 Anisotropy 区域调整各向异性设置。默认情况下，各向异性处于关闭状态。</p><span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="632" loading="lazy" src="../../attachments/542213419/anisotropysettings.png" data-image-src="../../attachments/542213419/anisotropysettings.png" data-height="103" data-width="441" data-unresolved-comment-count="0" data-linked-resource-id="542213485" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="anisotropysettings.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542213419" data-linked-resource-container-version="5" data-media-id="f5310420-7f10-41f7-a88c-8c3b00bd9469" data-media-type="file" /></span><h3 id="RenderingCloudswithAggregateVolumes-LightSetup">灯光设置</h3><p>灯光设置将使用 PxrEnvDayLight。因此，灯光设置的第一步是从工具架的 RenderMan 标签页创建一个 PxrEnvDayLight。</p><span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="415" loading="lazy" src="../../attachments/542213419/createenvdaylight.png" data-image-src="../../attachments/542213419/createenvdaylight.png" data-height="142" data-width="283" data-unresolved-comment-count="0" data-linked-resource-id="542213497" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="createenvdaylight.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542213419" data-linked-resource-container-version="5" data-media-id="63968590-5d44-4221-86f1-06b220331be3" data-media-type="file" /></span><p>接下来，可以在属性编辑器的 PxrEnvDayLightShape 标签页中调整灯光方向，可以使用 <em>Month</em>/<em>Day</em>/<em>Year</em>/<em>Hour</em> （这是 RfM 中的默认方法），也可以使用 <em>Direction</em> 控制项，方法是选择 Month &gt; Use Direction。要复现本教程使用的场景，请使用方向控制项，并将方向设置为 0.8、1.0、0.6。还应将 <em>Ground Mode</em> 从 “Legacy” 改为 “Horizon Clamping”。</p><span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="379" loading="lazy" src="../../attachments/542213419/lightsettings.png" data-image-src="../../attachments/542213419/lightsettings.png" data-height="520" data-width="485" data-unresolved-comment-count="0" data-linked-resource-id="542213506" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="lightsettings.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542213419" data-linked-resource-container-version="5" data-media-id="588b9dcc-379e-44f6-b060-ad44c347fca2" data-media-type="file" /></span><p>其他默认值提供了不错的起点，因此现在可以先保持不变。这里也是调整 Volume Scattering Approximation 设置的位置。Volume Scattering Approximation 对渲染的影响可能很难预测，因此应等渲染完全设置好之后再调整这些设置。</p><h3 id="RenderingCloudswithAggregateVolumes-RenderSettings">渲染设置</h3><p>要看到渲染出的云，最后需要修改的是 Render Settings。打开 Render Settings 并选择 RenderMan 标签页。首先要在 “Aggregate Volumes” 标签页下修改 <em>Volume Aggregate Name</em>，输入 “globalVolumeAggregate”（这就是我们之前把云加入的体积聚合）。</p><span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="909" loading="lazy" src="../../attachments/542213419/aggregatename.png" data-image-src="../../attachments/542213419/aggregatename.png" data-height="158" data-width="696" data-unresolved-comment-count="0" data-linked-resource-id="542213482" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="aggregatename.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542213419" data-linked-resource-container-version="5" data-media-id="8f941e25-9765-4ddd-b647-b60ca88f90c3" data-media-type="file" /></span><p>设置体积聚合名称后，如果开始渲染（无论是在视口中，还是在外部 “it” 中），应该就能看到云，但它看起来仍然不会完全正确。要让云具有正确外观，需要调整反弹次数。首先，在 “Default Ray Depth” 下，将 <em>Max Specular Depth</em> 和 <em>Max Diffuse Depth</em> 都调高（如上所述），并在 “PxrPathTracer Parameters” 下将 <em>Max Indirect Bounces</em> 设置为同一个数值。</p><span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="543" loading="lazy" src="../../attachments/542213419/setbounces.png" data-image-src="../../attachments/542213419/setbounces.png" data-height="625" data-width="760" data-unresolved-comment-count="0" data-linked-resource-id="542213524" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="setbounces.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542213419" data-linked-resource-container-version="5" data-media-id="8a0bb44c-e92a-46af-8ed1-501d01ac541c" data-media-type="file" /></span><h3 id="RenderingCloudswithAggregateVolumes-VolumeScatteringApproximation.1">Volume Scattering Approximation</h3><p>要调整 Volume Scattering Approximation 设置，请转到 PxrEnvDayLight 的设置，并通过将 <em>Gain</em> 设为 1 来启用 Volume Scattering Approximation。现在，可以调整 <em>Bleed</em> 和 <em>Contribution</em> ，如上所述。</p><span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" alt="msapprox.jpg" width="976" loading="lazy" src="../../attachments/542213419/msapprox.jpg" data-image-src="../../attachments/542213419/msapprox.jpg" data-height="100" data-width="976" data-unresolved-comment-count="0" data-linked-resource-id="634421488" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="msapprox.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542213419" data-linked-resource-container-version="5" data-media-id="ea5f6567-d354-4323-9801-7caec9aa1a46" data-media-type="file" /></span><h3 id="RenderingCloudswithAggregateVolumes-Render">渲染</h3><p>现在所有设置都已完成，可以启动渲染并查看云，结果应类似这样：</p><span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="836" loading="lazy" src="../../attachments/542213419/mayarender.jpg" data-image-src="../../attachments/542213419/mayarender.jpg" data-height="540" data-width="960" data-unresolved-comment-count="0" data-linked-resource-id="542213509" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="mayarender.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542213419" data-linked-resource-container-version="5" data-media-id="4710bb69-7292-4190-993e-374eae29c4ed" data-media-type="file" /></span><p /><p /></div>
+</div>
+</div>
+</div>
+  </article>
+</main>
+</body>
+</html>

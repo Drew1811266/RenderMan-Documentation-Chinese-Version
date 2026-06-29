@@ -1,0 +1,105 @@
+{"id": "b07bb73beb7e44ad5f668d4fd6d41703fd9b0f287e86a0bbc90b487d04c865c1", "item_id": "ecc93dfe22:0", "text": "About PrimVars for Maya"}
+{"id": "f0d627cde288006291d26e3bcfd1548f94a2d443410c09a97cf08cd06e1e02fe", "item_id": "ecc93dfe22:1", "text": "It is often useful to attach data to the surface of an object. In RenderMan this is done by including the data as a token value pair when a surface primitive is declared. Once data is attached it is available as parameters to the shaders that are assigned to the surface primitive. Parameters that are attached to surface geometry in this way are called primitive variables, or primvars, for short. RenderMan for Maya provides both simple and flexible access to primvars."}
+{"id": "24acc147bd6941974be43609c518cb3d8d6fd0e651658b633c98147f4fce67f3", "item_id": "ecc93dfe22:2", "text": "At the simplest level, RfM includes Prim Var nodes, accessible via the Maya Hypershade, that can be attached to Maya nodes as needed. The various tools can then leverage those primvars at shading time. This effectively drives parameters or provides them with the data they need to achieve special effects. One such example could be to supply a color based on vertices locations on the mesh"}
+{"id": "e5e2c8bdb0fdd2865b7b74324873dded929673484134e659f22bd0354e8531de", "item_id": "ecc93dfe22:3", "text": "Nodes are provided for Color, Float (1, 2, and 3), Normal, Point, and Vector types of primvars."}
+{"id": "1d27e57fe88c226a667ce7c5c80f0efdaf898bbe93bbf0977d496301646fdda6", "item_id": "ecc93dfe22:4", "text": "Under the Covers"}
+{"id": "6517cbecf80f6a1bf7403c342320a221d76133e6f3c03939ed7a8865be628602", "item_id": "ecc93dfe22:5", "text": "RenderMan for Maya infers the request for a primitive variable by combining the Maya attribute type with the naming convention:"}
+{"id": "2d3fcd1e81400e5c7891f903ba02704a57f41badb3244afe65e07265df9f43ef", "item_id": "ecc93dfe22:6", "text": "A special character must be provided to hint at the Ri primvar type. Additional special characters can be provided to request specific detail and array representation. It is up to the user to provide properly sized Maya attributes."}
+{"id": "397209a4de1df7db050caa019c61cc4da3baef96a9a2f3d2e26486b9d6e157e9", "item_id": "ecc93dfe22:7", "text": "The three forms for special names are:"}
+{"id": "d85c19c3a8ed6572740f3e79dd57f064f6b7d7c4074a5da7c4ae6f5b27ef9539", "item_id": "ecc93dfe22:8", "text": "rmanTprimvarName: where T is one of:"}
+{"id": "492ed859b64761c9a75f79d1ea871ac772423d68da4a0e114b6c738f0e6b242d", "item_id": "ecc93dfe22:9", "text": "which are interpreted as the RenderMan types:"}
+{"id": "5ff61411924c8874f6d85c04c1b324487a78041f71990416078b4531ef2d089e", "item_id": "ecc93dfe22:10", "text": "float, color, vector, normal, point, hpoint, matrix, string"}
+{"id": "c6bfeb8c1de0b91ea1639e2141dccb2ba93b81a89d42fc227a17b0472058a299", "item_id": "ecc93dfe22:11", "text": "rmanDTprimvarname: where T is as above and D provides a detail hint:"}
+{"id": "a8710fdb2342e7107c539f1b3e391d42188867c309fecb85b2e6a3cb1db10896", "item_id": "ecc93dfe22:12", "text": "indicating standard RenderMan details:"}
+{"id": "88d7cbb320f38b705a9a637103439e9286ecf780d0ab8c2ee257af2ac5e11916", "item_id": "ecc93dfe22:13", "text": "constant, uniform, facevarying, varying, vertex"}
+{"id": "2f7c7460b711f7e3016d4482b8a7e7118ec5b18b1400ae2257a850ac357d9e95", "item_id": "ecc93dfe22:14", "text": "rmanaDTprimvarname: where T and D are as above and the letter"}
+{"id": "a35fe2839a97fc63c2dff43f173ceb64a21fe1df6a0d188f74b811b40297b313", "item_id": "ecc93dfe22:15", "text": "indicates that an array of the given type and detail is requested."}
+{"id": "f29534d32ac2e3ad4eaed433afba06df5bab33a33b9f6b402e3756e92517a5b2", "item_id": "ecc93dfe22:16", "text": "Available (or possible) PrimVars"}
+{"id": "0f5db72701a6ea5e0ba80270bf484f0a546f009548f22ce5f858eb9afd2755b9", "item_id": "ecc93dfe22:17", "text": "Some of these options are automatically provided even if they are empty but some, like radiusPP or Radius Per Particle, must be supplied by the user in any case. Below are some of these settings not included on the"}
+{"id": "180887b424f28a898870255fe74773df4a800b2b26726fc154b974aeadada022", "item_id": "ecc93dfe22:18", "text": "Geometric Settings"}
+{"id": "9f1ca1a8a578b6cbbcccddc509b2a318e95f669f40cf24327b11ae7291f1354c", "item_id": "ecc93dfe22:19", "text": "page since they may already be provided or have limited or special use."}
+{"id": "1d4bad48bb481365600e144b08cfbaa682562e9236a74acbaf38208732e8ee97", "item_id": "ecc93dfe22:20", "text": "Meshes"}
+{"id": "7298829d419aa334267195e6017659ef7440aa869cc9902697c847723763ef9e", "item_id": "ecc93dfe22:21", "text": "Cs, each color set goes out as a primvar"}
+{"id": "cdb6da9d6da229ddd00d19fa28d0f8d24616bf2a708bab6488f2b441753baf85", "item_id": "ecc93dfe22:22", "text": "This could be used to provide color based on the mesh data"}
+{"id": "db2496c157b1ce542559ea3ee9fd2ef0ed6f9913566fddd3ace683489f0f5624", "item_id": "ecc93dfe22:36", "text": "The one-dimensional S texture value"}
+{"id": "edd792d0cdf7c9744e8e9e6af9dc7fdca0eb67ba048985c38b138bbfd423ccfb", "item_id": "ecc93dfe22:37", "text": "The one-dimensional T texture value"}
+{"id": "b89b9650037332016cdec8b114ed7c97f0599f5918bd148247fbd22c89162c06", "item_id": "ecc93dfe22:25", "text": "u_uvSet"}
+{"id": "6059caae70e5745d767c38356a2369caf4b987190028ffd52052833cd7b00702", "item_id": "ecc93dfe22:26", "text": "The one-dimensional U texture value if UVsets are defined"}
+{"id": "563b144d57de0f34f9c0737c0951ed42fed52e1273c9d7eddcfc8d24ed3fb835", "item_id": "ecc93dfe22:27", "text": "v_uvSet"}
+{"id": "f896998a7dbc9ca76f91277cbb953ab7f71c2314943ac7e9a673e048efb905bd", "item_id": "ecc93dfe22:28", "text": "The one-dimensional V texture value if UVsets are defined"}
+{"id": "ba01435d2b41b47d0ea8f9a7ea31d7814db731130bb27ff0a4bf5b3894abec4f", "item_id": "ecc93dfe22:29", "text": "tangent"}
+{"id": "a6f6f3d81ad6efd9c91ffd8ca2c01f14348a0c4119b3c89ee3be0ad617a64c17", "item_id": "ecc93dfe22:30", "text": "Tangent space normals if specified"}
+{"id": "cb6a9b7b0662155c0536a1a83f5bbb5c9b8f444c624cd662ec3ccd8446c92a74", "item_id": "ecc93dfe22:31", "text": "Shape Normals if supplied by the mesh"}
+{"id": "07a8ec1c9566d237d6cfd01372f6a08e4a4e32a76296552cbdb1fd636f38d800", "item_id": "ecc93dfe22:35", "text": "Subdivision Surfaces"}
+{"id": "617dcb7753c053d93c9ea7588285c7a9ba49e85157f8d95c1208aeea3d9a5c89", "item_id": "ecc93dfe22:38", "text": "Hair (does not apply to Xgen)"}
+{"id": "d8be43d29c2ffbc26520b8f183946701ad20fff0dd783a83e13de5e6db305234", "item_id": "ecc93dfe22:74", "text": "varying color Os"}
+{"id": "6062652e10dd84c67b307203a7893e865cd49232871e7ae06110ffb77cfb535f", "item_id": "ecc93dfe22:41", "text": "Opacity"}
+{"id": "15c10d7d9576e66b8b6d4a42deac46fc8fe2de4ac0d322702758f0de000f73fd", "item_id": "ecc93dfe22:72", "text": "varying color Cs"}
+{"id": "5d67cc1ed30979edd5b1f431e59712f5a2e1c50ef9ef144fa4ab343c618c7fed", "item_id": "ecc93dfe22:68", "text": "varying float width"}
+{"id": "486cf786ab63a2f2f36db6bd6b334500d08f3aeed882d3b5bc3f3f4555bfc5f0", "item_id": "ecc93dfe22:45", "text": "Hair width"}
+{"id": "132cf2a46926b1ceeb74275f91d9cef5e3b135ca3067f16e8dccd342c93f56c2", "item_id": "ecc93dfe22:46", "text": "vertex float t"}
+{"id": "8cb56c0e775bba0f035731f76e08015149b19ae5c3d299e87d48896d9a608049", "item_id": "ecc93dfe22:47", "text": "Vertex number"}
+{"id": "0fbbe575243720a5cae29fd1da337db7c82fbe3a353d823d2f90112a13ab0bce", "item_id": "ecc93dfe22:48", "text": "constant string linetype"}
+{"id": "444ad680e57ffcb47c49009e4f0e07db2b767636dddde8c72449600dda6d79d4", "item_id": "ecc93dfe22:49", "text": "Returns the type of PaintFX curve"}
+{"id": "3f7e30cd7a7c9b1bb6304f3b4859ac82906b92efc9a767658d13d94637233f6c", "item_id": "ecc93dfe22:50", "text": "uniform float diffuseRand"}
+{"id": "969c107013b43191fa1d52293246d3f9ad4d234aa6d42df49ea129c6483bb376", "item_id": "ecc93dfe22:51", "text": "Diffuse Randomization/Noise"}
+{"id": "6be2c1fb6123a8253acc0622ee1822e9c2074c61f72d8b850d6d5fae7a8bf02a", "item_id": "ecc93dfe22:52", "text": "uniform float specularRand"}
+{"id": "b0d3246708817ef05e714b81359f198fe77bc1c8ba33d70544fcb559cde83844", "item_id": "ecc93dfe22:53", "text": "Specular Randomization/Noise"}
+{"id": "a131a32802f0b3ec7b81390f9ad8b168e8bc06f2f301d13066f867ad87087a0c", "item_id": "ecc93dfe22:54", "text": "uniform float hueRand"}
+{"id": "5c16db046de15fef38eb3ebd6f73fdc9d93574d667f5ee3ae9b9fdef9492d91c", "item_id": "ecc93dfe22:55", "text": "Randomized Hue"}
+{"id": "725b4fe1bfd6b59cc6dd6d6d094dd8e471641c16a90e9ec4d630b2815945886d", "item_id": "ecc93dfe22:56", "text": "uniform float satRand"}
+{"id": "f2e8ef864fa11f530b7d197101ffe2317de9b3a8a816ddccf0889a7d9db76ce5", "item_id": "ecc93dfe22:57", "text": "Randomized Saturation"}
+{"id": "69461338a35d8636e88df1a8db136211e3945932d72042f5dd71d89b9f091530", "item_id": "ecc93dfe22:58", "text": "uniform float valRand"}
+{"id": "4c111629a6e4dc13320a9ad1091428df20073b0ef6f56c95dfc739666bd79fae", "item_id": "ecc93dfe22:59", "text": "Randomized Value"}
+{"id": "6a1532469c125394e72d37626593f68a7375bf7979a4bd87ae9d1026f737bbd3", "item_id": "ecc93dfe22:60", "text": "uniform float scalpS"}
+{"id": "73248bb7599927b562aeb7eee6116d84a85458f78a24aa533603afe550f6315f", "item_id": "ecc93dfe22:61", "text": "One-dimensional scalp S coordinate"}
+{"id": "86c20aa603554ee87a270b9c0072bb42c8d521292e96353fdfe08e74d9b59968", "item_id": "ecc93dfe22:62", "text": "uniform float scalpT"}
+{"id": "eecaab59de09bd129b160c428cbc635f2b7e7285a887f2bf08e0398cab6c3960", "item_id": "ecc93dfe22:63", "text": "One-dimensional scalp T coordinate"}
+{"id": "a246d20f43db461a361109f0e7769b070b0966db1e19acc59ad79efc0fab251e", "item_id": "ecc93dfe22:64", "text": "vertex normal N"}
+{"id": "400af6db115229d4ec47b404b3ecfdf86bedf68f1311b7c5ba14d5f83a938104", "item_id": "ecc93dfe22:65", "text": "Hair vertex normals"}
+{"id": "e73735cfa7309e26299181df9b8f8f732ffecdcf9f793744ba2b5ac22845a8c2", "item_id": "ecc93dfe22:66", "text": "Particles"}
+{"id": "ff8e3d514cdafb52c9542a05086bd37459f9898488cdc162d45914f2c22f4199", "item_id": "ecc93dfe22:69", "text": "Varying particle width (if they have assigned radii)"}
+{"id": "abbdaf83151df7d7541242112fff2b477ea2082afba5dbf322174de495720f44", "item_id": "ecc93dfe22:70", "text": "constant float width"}
+{"id": "7539c0ca79f96611bc0e161859e38bd2c7c773f73e942f97e052886778ada2ff", "item_id": "ecc93dfe22:71", "text": "If there is no specified radii"}
+{"id": "9c3d116d3190c1009827a78e923c10fdc9f71b1598f7aa873fe75c18d3eb8d30", "item_id": "ecc93dfe22:73", "text": "Varying color if there is colorRed, colorGreen, colorBlue, or rgbPP"}
+{"id": "23aadfb9d447cd8d454319a0c45e0cb0a69b788e58114691709d34f8912e35f6", "item_id": "ecc93dfe22:75", "text": "Varying opacity if there is opacity or opacityPP"}
+{"id": "597722a06aea49e32143ab77f7ff70894f43d4e848034a8f3b68e879df76daa4", "item_id": "ecc93dfe22:76", "text": "constant float __threshold"}
+{"id": "1751c9d076491834a6eea58ea6423a1d7f40507cd159681fc00021531ce265b2", "item_id": "ecc93dfe22:77", "text": "Specified particle threshold"}
+{"id": "fa49e0120bb8244acfa69f101b76ecf0166bc1e445942e2d924ab0699984a6e9", "item_id": "ecc93dfe22:78", "text": "ageNormPP*"}
+{"id": "849f83366041c1001b45bae29c481d3dc4e4fdcc51af38e3a4df12f9ac7f3d4d", "item_id": "ecc93dfe22:79", "text": "Particle Age Normalized (0-1) per particle"}
+{"id": "e47115c325ad75ba326c4a21135da282cbc205fd0bf1d5086cd77996b5f678e3", "item_id": "ecc93dfe22:80", "text": "incandescencePP*"}
+{"id": "9bc8d9a4d81de46f1871702249fae7fec9832e3d8bc570a29e7c38400b10e139", "item_id": "ecc93dfe22:81", "text": "Incandescence specified per particle"}
+{"id": "604742650e112e486375fadaa4e5d3768712e43dccc548bbc740a22b7444849d", "item_id": "ecc93dfe22:82", "text": "spriteNumPP*"}
+{"id": "605627331dc14cd745b7a168b1fd52fd8313a9cc2ff50d5121a50e9715639f52", "item_id": "ecc93dfe22:83", "text": "The assigned sprite number per particle"}
+{"id": "b9349cf33b924b97941ec75caca886d1399fb3a6bbff5d660fd38c3533df02d0", "item_id": "ecc93dfe22:84", "text": "falloffpower"}
+{"id": "185594a17f03bbffc82eb3bc650f437253159e5ffdaa1e3db0a2c1cbb322b701", "item_id": "ecc93dfe22:85", "text": "Used to create \"fuzzy\" particles"}
+{"id": "42aa11d6bab662055631e0c84740f758dd659ed140748dc989f42f18a3164220", "item_id": "ecc93dfe22:86", "text": "These attributes influence other settings, like Cs, Os, orientation of particle:"}
+{"id": "1d026af2ee197b0b4e518283a94e0818d3a8fe256fb7236d0ca469a821d5ae3a", "item_id": "ecc93dfe22:87", "text": "opacityPP*"}
+{"id": "b7a74723e3cb004bf0ce77b3cdef499e56f3f486847b984f3b0b21e8cf0758d7", "item_id": "ecc93dfe22:88", "text": "Opacity specified per particle"}
+{"id": "7b314f52a53ff6a71c232df4abd25aefdaecc21e0ff9ac855509af3cbed54003", "item_id": "ecc93dfe22:89", "text": "radiusPP*"}
+{"id": "31b51610a4134b54aa616e1831b7c64d4018b89f6915865a307548be4e72aa26", "item_id": "ecc93dfe22:90", "text": "Radius specified per particle"}
+{"id": "c57f827720f41651740a05e4b099361a1307c91907de4c1ec85f2e907ce63975", "item_id": "ecc93dfe22:91", "text": "spriteScaleXPP*"}
+{"id": "c2ca775fe601900d07fd9906659323d0347833935f9b923d54d920669c828bb5", "item_id": "ecc93dfe22:92", "text": "Sprite scale in X axis"}
+{"id": "7b9bb85727ded1f86191c0d37ce5e5ec8f1dc8dd6f9b503694af3a38e53c9251", "item_id": "ecc93dfe22:93", "text": "spriteScaleYPP*"}
+{"id": "88dbffaa851e5f7a1f4c0a40e12eca49652bd533673c28aff0b63d417ec0efe8", "item_id": "ecc93dfe22:94", "text": "Sprite scale in Y axis"}
+{"id": "a381c6206f40c1beefa7085805a6aade41a630b7b52e1933bca3db91996b8684", "item_id": "ecc93dfe22:95", "text": "spriteTwistPP*"}
+{"id": "25bdc39850f0e7424d7d5b5e4ad15898bfdaf365bc22bd3a1da82fa725de7121", "item_id": "ecc93dfe22:96", "text": "Sprite twist if specified"}
+{"id": "2154977d0cb1edd91a6c898c24f0778604f6a351c77608867a30050704b1864e", "item_id": "ecc93dfe22:97", "text": "Attributes marked with an asterisk * must be supplied by the user. An example of this are Per Particle attributes added to Maya particles in the attribute editor."}
+{"id": "aec479d376a312c05d1cf95801414a9ff67b9b97976d7807f7339859f78bf4b5", "item_id": "ecc93dfe22:98", "text": "Fluids"}
+{"id": "e4bb0be778f3995c0be39b9c801ef32d3159f8b0529cc400baa91e0b35836a40", "item_id": "ecc93dfe22:99", "text": "color Cs"}
+{"id": "1f89d7deab0c03914871df4a26245e20e073a60d9c1709742da64b59e7c2a59a", "item_id": "ecc93dfe22:100", "text": "Fluid color"}
+{"id": "8720b8ab8516cdf62a7cfd09d51d03a86851a4c89cf1b873a482170726d92a60", "item_id": "ecc93dfe22:101", "text": "float density"}
+{"id": "dde0a0d81ad1ef8d5d378d57d868f577518fdba18fbbc093c369c9a50a5d7a96", "item_id": "ecc93dfe22:102", "text": "Fluid density"}
+{"id": "bf7e5db34d47751452df5e7f3dac5dd54b0c05991bdf8efb1562f985d4f290f4", "item_id": "ecc93dfe22:103", "text": "vector dPdtime"}
+{"id": "a778230a31d9d0164346c41baac70b21f80e3cad920fcd3ac243b441ba8faf99", "item_id": "ecc93dfe22:104", "text": "Motion vector"}
+{"id": "6f2c0ae291f27aeb3e161b7ca14eb8188a9c07d30200a0f9c88f7e70585c9591", "item_id": "ecc93dfe22:105", "text": "vector velocity"}
+{"id": "1e79df2d013c58a8031617da2969ccb1f58aa0692338b281a5972925c5fb78ef", "item_id": "ecc93dfe22:106", "text": "Motion velocity"}
+{"id": "13fafe0850d4cd1ea339c36d6674ab85a607e521e2e4217ae39245cd3ea21078", "item_id": "ecc93dfe22:107", "text": "float pressure"}
+{"id": "c165faa741288b23bdf189b9d169f59775a3b037d7802b09a3cbd3069ffe3742", "item_id": "ecc93dfe22:108", "text": "Fluid pressure"}
+{"id": "e560ed200e9a1b3b26ca05453abfda588b7346dab030fae64632bcfa0b90e212", "item_id": "ecc93dfe22:109", "text": "float temperature"}
+{"id": "7e43f9d434e5db5126c121587f35e84a0f50b9060d68acc9a4e5f94d03cfe57b", "item_id": "ecc93dfe22:110", "text": "Fluid temperature"}
+{"id": "e76604ec4c5a896079d02db9a383098e137cf6f20d258e0b82a3896002928441", "item_id": "ecc93dfe22:111", "text": "float fuel"}
+{"id": "ca1e99412dcbc97f2d2463b0b1783924a73dcd410c9123460571d594888d227c", "item_id": "ecc93dfe22:112", "text": "Fluid fuel"}
+{"id": "7c7c61ebad576fec24a82d95a672e15b39b97d344d0a4ecf3c48875693ba22d4", "item_id": "ecc93dfe22:113", "text": "float falloffField"}
+{"id": "1ee27675ce05f9c56544e145d1d8031d3b7b018ef7fdbcf4ae9b419bd303bfd3", "item_id": "ecc93dfe22:115", "text": "float[3] UVW"}
+{"id": "3936e330e473b9a3fdaaca03aa9c7584d2c9862ae2d171fb6f40f7388bee9da9", "item_id": "ecc93dfe22:116", "text": "UVW output"}

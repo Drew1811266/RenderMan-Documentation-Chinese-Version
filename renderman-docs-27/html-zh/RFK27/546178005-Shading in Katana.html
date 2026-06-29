@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shading in Katana</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Shading in Katana</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFK27/546178005/Shading+in+Katana">https://rmanwiki-27.pixar.com/space/RFK27/546178005/Shading+in+Katana</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<span class="confluence-embedded-file-wrapper image-center-wrapper"><img class="confluence-embedded-image image-center" loading="lazy" src="../../attachments/546178005/rfkShading3Teapots.png" data-image-src="../../attachments/546178005/rfkShading3Teapots.png" data-height="538" data-width="1023" data-unresolved-comment-count="0" data-linked-resource-id="546178035" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfkShading3Teapots.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="546178005" data-linked-resource-container-version="1" data-media-id="6561b6ca-5cfc-4de1-9157-0a3866e9b329" data-media-type="file"></span><p>RfK 中的 Shading and Look Development（着色与外观开发）将 Katana 内置的 look development（外观开发）工具与 Pixar 强大的 material systems（材质系统）结合起来。通过组合 Pixar 内置的 <a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661433" rel="nofollow">Bxdfs</a>（materials，材质）和 <a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661575" rel="nofollow">Patterns（模式）</a>（material modifiers，材质修饰器），几乎可以实现任何外观。</p><p>将 shaders（着色器）添加到 geometry（几何体）需要：</p><ol start="1"><li><p>创建 shader（着色器）或 shading network（着色网络）</p></li><li><p>将该 shader 连接到一个或多个 objects（对象）</p></li></ol><p>可以将单个 material（材质）添加到 Material 节点。许多类型的 shading effects（着色效果）只使用 PRMan 的 <a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661415" rel="nofollow">PxrSurface</a>即可创建。PxrDiffuse 是一个快速、简单且不错的选项，此外还有一些 specialized materials（专用材质）： <a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661555" rel="nofollow">PxrVolume</a> 和 <a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661553" rel="nofollow">PxrMarschnerHair</a>。更复杂的 materials 可以用一组 PrmanShadingNodes 构建，并馈入 NetworkMaterial 节点。下表用小型 Node Graph（节点图）示例拆解了这两种情形：</p><div class="table-wrap"><table data-table-width="1232" data-layout="default" data-local-id="fc2a7307-48a8-482c-9748-601aa30c835d" class="confluenceTable"><tbody><tr><th class="confluenceTh"><p>Material Type（材质类型）</p></th><th class="confluenceTh"><p>Node Type（节点类型）</p></th><th class="confluenceTh"><p>Example（示例）</p></th><th class="confluenceTh"><p /></th></tr><tr><td class="confluenceTd"><p>Single（单一）</p></td><td class="confluenceTd"><p>Material</p></td><td colspan="2" class="confluenceTd"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rfkShadingSingleMaterial.png" width="250" loading="lazy" src="../../attachments/546178005/rfkShadingSingleMaterial.png" data-image-src="../../attachments/546178005/rfkShadingSingleMaterial.png" data-height="248" data-width="183" data-unresolved-comment-count="0" data-linked-resource-id="546178029" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfkShadingSingleMaterial.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="546178005" data-linked-resource-container-version="1" data-media-id="624e96ea-d7bb-4011-9334-9f085b33d7eb" data-media-type="file"></span><p style="text-align: center;">    </p></td></tr><tr><td class="confluenceTd"><p>Complex or Layered（复杂或分层）</p></td><td class="confluenceTd"><p>PrmanShadingNode(s) + NetworkMaterial</p></td><td colspan="2" class="confluenceTd"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rfkShadingNetworkMaterial.png" width="400" loading="lazy" src="../../attachments/546178005/rfkShadingNetworkMaterial.png" data-image-src="../../attachments/546178005/rfkShadingNetworkMaterial.png" data-height="248" data-width="405" data-unresolved-comment-count="0" data-linked-resource-id="546178032" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfkShadingNetworkMaterial.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="546178005" data-linked-resource-container-version="1" data-media-id="8233abf2-84ad-45c9-9376-241c63f019c8" data-media-type="file"></span><p style="text-align: center;">     </p></td></tr></tbody></table></div><p /><p>在这两种情况下，material（Material 或 NetworkMaterial）都会使用 MaterialAssign 节点附加到 object(s)（对象）。最简单的情况是将 material 分配给单个 object。更常见的情况是将 material 分配给多个 locations（位置）：这些 locations 可以全部组合在一起（例如 hierarchy（层级）中的 parent），也可以分布在场景中，并通过定义好的共同性（例如 "collection"）来识别。复杂分配的细节超出此处范围，但 Katana 文档中的 <em>Collections and CEL（集合和 CEL）</em>对此有详细说明。</p><p>在上表中，我们将 material types（材质类型）分解为 "Single"、"Complex" 或 "Layered"。Single 与 Complex/Layered 的区别在于是否能够向 bxdf shader（bxdf 着色器）添加 pattern inputs（模式输入）。Material 节点只能用于单个 bxdf。如果需要 texture（纹理）等额外 material modifications（材质修改），必须使用 PrmanShadingNode bxdf 和 NetworkMaterial 节点。Complex 与 Layered 的区别，顾名思义，是能否对 materials 进行 layer（分层）。页面顶部的茶壶图像就是这三种工作流的渲染结果。中间的 chrome teapot（铬质茶壶）仅使用 PxrSurface Material 节点着色。红色茶壶分配了一个 NetworkMaterial，其中 PxrSurface bxdf 的 <strong>Global Bump（全局凹凸）</strong> attribute（属性）由 PxrBump 和 PxrWorley 馈入。右侧是一个带有 PxrLayerSurface bxdf 的 NetworkMaterial。 <a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661463" rel="nofollow">PxrLayerSurface</a> 是 PxrSurface 的专用版本，设置用于通过 PxrLayer 和 PxrLayerMixer 进行 layering（分层）。</p><p><br/></p><h3 id="ShadinginKatana-SeeAlso">See Also（另请参阅）</h3><ul class="childpages-macro conf-macro output-block" data-hasbody="false" data-layout="default" data-local-id="7874cd4e-4fae-4711-b2cd-2e3577b39a7c" data-macro-id="5f5b4fbf-2afe-4a52-9e28-d62b9bb93485" data-macro-name="children"><li><a href="546178051-PrmanSignalVisualizer.html" data-linked-resource-id="546178051" data-linked-resource-version="1" data-linked-resource-type="page">PrmanSignalVisualizer</a></li><li><a href="546178105-Using Displacement.html" data-linked-resource-id="546178105" data-linked-resource-version="3" data-linked-resource-type="page">Using Displacement（使用置换）</a></li><li><a href="546178139-Material Layers in Katana.html" data-linked-resource-id="546178139" data-linked-resource-version="4" data-linked-resource-type="page">Material Layers in Katana（Katana 中的材质层）</a></li><li><a href="546178221-Surface Orientation.html" data-linked-resource-id="546178221" data-linked-resource-version="1" data-linked-resource-type="page">Surface Orientation（曲面朝向）</a></li></ul><p><br/></p><p><br/></p>
+  </article>
+</main>
+</body>
+</html>

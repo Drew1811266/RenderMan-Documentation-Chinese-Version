@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Customizing Blender</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Customizing Blender</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFB27/544640096/Customizing+Blender">https://rmanwiki-27.pixar.com/space/RFB27/544640096/Customizing+Blender</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>A lot of aspects of RenderMan for Blender (RfB) such as defaults and labels can be customized using JSON (.json files).</p><h2 id="CustomizingBlender-EnvironmentVariables">Environment Variables</h2><p>Environment variables can be set using an rfb_envvars.json file. This file is automatically read on start up from the user's config directory (see: <a class="external-link" href="https://docs.blender.org/manual/en/latest/advanced/blender_directory_layout.html" rel="nofollow">Blender's documentation</a>). Note, this method cannot be used to set any standard Blender environment variables, including OCIO.</p><p>An example of the format of the file:</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="0a2bfbf8-8752-43bb-a3a5-f866db8e9ed1" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">{
+    &quot;$schema&quot;: &quot;./schemas/rfbEnvVarsSchema.json&quot;,
+    &quot;environment&quot;: {
+        &quot;RFB_LOG_LEVEL&quot;: {
+            &quot;value&quot;: &quot;INFO&quot;
+        },
+        &quot;RFB_SITE_PATH&quot;: {
+            &quot;value&quot;: &quot;/path/to/rfb_config_files&quot;
+        }
+    }</pre>
+</div></div><p><strong>Advanced</strong>: if you would like RfB to ignore the rfb_envvars.json, set the environment variable RFB_IGNORE_ENVVARS_JSON to 1</p><h2 id="CustomizingBlender-ConfigurationPaths">Configuration Paths</h2><p>To find configuration JSON files, RfB will check the following environment variables in order:</p><ul><li><p>RFB_SITE_PATH</p></li><li><p>RFB_SHOW_PATH</p></li><li><p>RFB_USER_PATH</p></li></ul><p>Each environment can also contain multiple, color-separated, paths (on Windows, these are semi-colon separated paths).</p><p>You can also specify a config path in the RenderMan for Blender preferences, under the Advanced section (requires restart).</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="683" loading="lazy" src="../../attachments/544640096/preferences_config_dir.png" data-image-src="../../attachments/544640096/preferences_config_dir.png" data-height="106" data-width="479" data-unresolved-comment-count="0" data-linked-resource-id="544640110" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="preferences_config_dir.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544640096" data-linked-resource-container-version="1" data-media-id="8f9b5a38-b8f5-4fd3-9c79-fa2d4b85ccfb" data-media-type="file"></span><p /><h3 id="CustomizingBlender-rfb.json">rfb.json</h3><p>This json file configure certain settings such as your site's Tractor engine configuration, directory mappings, or adding extra user tokens. Here's an example:</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="1914a130-2f2d-4869-b668-20b3d4d7195b" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">{
+    &quot;$schema&quot;: &quot;./schemas/rfbSchema.json&quot;,
+    &quot;tractor_cfg&quot;: {
+        &quot;engine&quot;: &quot;tractor-engine&quot;,
+        &quot;port&quot;: 80,
+        &quot;user&quot;: &quot;&quot;
+    },    
+    &quot;dirmaps&quot;: {
+        &quot;seahome_to_z&quot;: {
+            &quot;from&quot;: &quot;/seahome/&quot;,
+            &quot;to&quot;: &quot;Z:/&quot;,
+            &quot;zone&quot;: &quot;UNC&quot;
+        }
+    },
+    &quot;woffs&quot;: [
+        &quot;R90007&quot;
+    ], 
+    &quot;user tokens&quot;: [&quot;PROD&quot;, &quot;SHOT&quot;]
+}</pre>
+</div></div><h3 id="CustomizingBlender-ConfiguringPanelProperties">Configuring Panel Properties</h3><p>The properties in some RenderMan panels can be configured to use different defaults. Here's an example.</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="4125ed2a-c318-4cbf-ad1d-7d6ac9e1074e" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">{
+    &quot;name&quot;: &quot;rman_properties_scene&quot;,
+    &quot;params&quot;: [
+        {
+            &quot;name&quot;: &quot;motion_blur&quot;,
+            &quot;label&quot;: &quot;Motion Blur (Blurry!)&quot;,
+            &quot;type&quot;: &quot;int&quot;,
+            &quot;default&quot;: 1,
+            &quot;help&quot;: &quot;TURNS ON MOTION BLUR!&quot;
+        },
+        {
+            &quot;panel&quot;: &quot;RENDER_PT_renderman_custom_options&quot;,
+            &quot;name&quot;: &quot;user_foobar&quot;,
+            &quot;label&quot;: &quot;FooBar&quot;,
+            &quot;riopt&quot;: &quot;user:foobar&quot;,
+            &quot;type&quot;: &quot;int&quot;,
+            &quot;default&quot;: 0,
+            &quot;help&quot;: &quot;This is a test user option&quot;
+        }        
+    ]
+}</pre>
+</div></div><p>&quot;name&quot;, should be the name of the configuration we are interested in overriding (in this case it's the scene properties). &quot;params&quot; should follow name. In our example, the first property is an existing one and we are overriding the label, the default, and the description. If we are adding a new property, we also need to specify which panel this property should be drawn in; in this case we want to add it to the scene's custom options panel. This example also shows how we can add a RenderMan user option. Note, the name of the json file itself in this case does not matter; as long as the first &quot;name&quot; matches an already known configuration it will work. Here's what the result should look like after applying the above override:</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="683" loading="lazy" src="../../attachments/544640096/config_scene_properties.png" data-image-src="../../attachments/544640096/config_scene_properties.png" data-height="250" data-width="411" data-unresolved-comment-count="0" data-linked-resource-id="544640113" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="config_scene_properties.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544640096" data-linked-resource-container-version="1" data-media-id="2a4b51ae-ef66-4b77-a372-1c61a4bb92a1" data-media-type="file"></span><p>As you can see, the label for Motion Blur has changed along with its default. There is also a new FooBar user option under Custom Options.</p><p /><p>To get a list of configurable panels, you can run the following code in Blender's Python console:</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="eec10e75-5029-4701-9834-e9c0f83a289f" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">import RenderManForBlender.rfb_api as rfbapi
+rfbapi.GetConfigurablePanels()</pre>
+</div></div><p /><h3 id="CustomizingBlender-ShaderDefaults">Shader Defaults</h3><p>We can also the override the defaults of any of RenderMan's shaders (bxdf's, patterns etc.)  Here's an example where we override parameters in PxrEnvDayLight:</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="8cb46f72-728d-48cb-986b-44019a69b10b" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">{
+    &quot;name&quot;: &quot;PxrEnvDayLight.args&quot;,
+    &quot;params&quot;: [
+        {
+            &quot;name&quot;: &quot;sunDirection&quot;,
+            &quot;default&quot;: [0.0, 0.0, 1.0] 
+        }
+    ]
+}</pre>
+</div></div><p>In this case we want to change the default for the sunDirection to default to pointing up in the Z-direction. &quot;name&quot; should be the name of the Args file we want to override (this can also be the name of an OSL shader), follow by the parameters we want to configure. Note, the name of the json file itself in this case does not matter; as long as the first &quot;name&quot; matches an already known shader Args file it will work.</p><h3 id="CustomizingBlender-DisplayChannels">Display Channels</h3><p>Finally, we can also add custom display channels that can be used in AOVs. Note, the name of this JSON file <strong>does</strong> matter; it must be named: <strong>rman_dspychan_definitions.json. </strong>Here's an example where we add a new channel called MyAOV.</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="d166086f-b28b-4baa-aa73-0a74c6734183" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">{
+    &quot;$schema&quot;: &quot;./schemas/rfbDspyChansSchema.json&quot;,
+    &quot;channels&quot;: {
+        &quot;MyAOV&quot;: {
+            &quot;description&quot;: &quot;This a custom AOV&quot;,
+            &quot;channelType&quot;: &quot;color&quot;,
+            &quot;channelSource&quot;: &quot;MyAOV&quot;,
+            &quot;group&quot;: &quot;Pixar&quot;
+        }        
+    }
+}</pre>
+</div></div><p /><h2 id="CustomizingBlender-CustomShaders">Custom Shaders</h2><p>You can also add your own custom shaders by using the environment variables RMAN_SHADERPATH for OSL shaders and RMAN_RIXPLUGINPATH for C++ shaders. For the latter, an accompanying Args file is required. </p><h2 id="CustomizingBlender-OtherExamples">Other Examples</h2><p>You can also look at some other examples of JSON config files in Blender's Text Editor <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image" height="20" loading="lazy" src="../../attachments/544640096/text_editor.png" data-image-src="../../attachments/544640096/text_editor.png" data-unresolved-comment-count="0" data-linked-resource-id="544640116" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="text_editor.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544640096" data-linked-resource-container-version="1" data-media-id="6d619ca9-9737-4292-b835-ddbba39acc7c" data-media-type="file"></span>, under the Templates menu.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="684" loading="lazy" src="../../attachments/544640096/config_text_templates.png" data-image-src="../../attachments/544640096/config_text_templates.png" data-height="407" data-width="516" data-unresolved-comment-count="0" data-linked-resource-id="544640119" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="config_text_templates.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544640096" data-linked-resource-container-version="1" data-media-id="2209f4e2-ddc5-4a5f-953d-56f7fadfd291" data-media-type="file"></span>
+  </article>
+</main>
+</body>
+</html>

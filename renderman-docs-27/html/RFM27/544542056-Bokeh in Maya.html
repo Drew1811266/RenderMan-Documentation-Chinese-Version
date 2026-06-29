@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bokeh in Maya</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Bokeh in Maya</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFM27/544542056/Bokeh+in+Maya">https://rmanwiki-27.pixar.com/space/RFM27/544542056/Bokeh+in+Maya</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="contentLayout2">
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p /><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="0d48416a-4a6a-4e74-b4e7-36d3e759af26" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>Do you need help setting up <a href="544541982-Depth of Field in Maya.html" rel="nofollow"><em>Depth of Field in Maya</em></a> in Maya or using <a href="544542112-Tilt-Shift in Maya.html" rel="nofollow"><em>Tilt-Shift in Maya</em></a> controls?</p></div></div><p /><p>&quot;Bokeh&quot; is the name given to a side-effect of using Depth of Field where light sources or highlights form a shape where they are out of focus. The result is an almost &quot;glittery&quot; look that many people enjoy viewing.</p><p>In the below still from Pixar's <em>The</em> <em>Blue Umbrella</em> you can see light sources in the background have turned into circular blobs of colored light.</p><p /><a class="external-link" href="http://www.pixar.com/short_films/Theatrical-Shorts/The-Blue-Umbrella" rel="nofollow"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="The Blue Umbrella" width="1280" loading="lazy" src="../../attachments/544542056/example_BlueUmbrella.jpg" data-image-src="../../attachments/544542056/example_BlueUmbrella.jpg" data-height="535" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="544542086" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="example_BlueUmbrella.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544542056" data-linked-resource-container-version="1" data-media-id="e66d9ada-07c5-4844-a0c6-73f048965c77" data-media-type="file"></span></a><p /><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="b1c2da8c-c597-43ae-9a62-7c83cb4d0447" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>Did you know that Bokeh effects are from a topic in optics called the Circle of Confusion?</p></div></div><p /><p>They are available under the RenderMan Rollout in your camera Attribute Editor (AE) Panel.</p><p>These controls are called <strong>Bokeh</strong> in the menu.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="482" loading="lazy" src="../../attachments/544542056/rfm_bokehControls.png" data-image-src="../../attachments/544542056/rfm_bokehControls.png" data-height="680" data-width="482" data-unresolved-comment-count="0" data-linked-resource-id="544542089" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfm_bokehControls.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544542056" data-linked-resource-container-version="1" data-media-id="0e081c00-183f-4680-807a-7f3d4c8ef7b1" data-media-type="file"></span><p>There are 4 controls and a convenient tooltip when you hover over the name or value fields. The controls from left to right and top to bottom are:</p><ul><li><p>Number of<strong> Sides:</strong> This determines the shape of the bokeh effect. If you choose fewer than three sides (triangle) the bokeh will be circular.</p></li><li><p><strong>Angle </strong>in Degrees<strong>:</strong> This controls the angle where sides meet for non-circular bokeh shapes (Number of Sides is greater than 2).</p></li><li><p><strong>Roundness: </strong>Values from 0 to 1 make the shape bow or flex outwards making it more rounded. Values from 0 to -1 bow inwards and make for sharper points.</p></li><li><p><strong>Density:</strong> This controls the brightness across the bokeh shape. 0 to 1 makes it brighter at the outer edge like a catadrioptic lens (look it up, quite interesting). 0 to -1 makes it brighter in the center and falloff towards the edges.</p></li></ul></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p>Below is an example using:</p><ul><li><p>Number of Sides = 6</p></li><li><p>Angle in Degrees = 33.33</p></li><li><p>Roundness = default (0.0)</p></li><li><p>Density = 1.0</p></li><li><p>Eyes on furthest alien = slightly creepy</p></li></ul><p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="maya_AlienDOFTweak.jpg" width="731" loading="lazy" src="../../attachments/544542056/maya_AlienDOFTweak.jpg" data-image-src="../../attachments/544542056/maya_AlienDOFTweak.jpg" data-height="450" data-width="731" data-unresolved-comment-count="0" data-linked-resource-id="544542077" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="maya_AlienDOFTweak.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544542056" data-linked-resource-container-version="1" data-media-id="4b437380-5978-4562-8641-5dec1d45d464" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p>Below is an example using:</p><ul><li><p>Number of Sides = 3</p></li><li><p>Angle in Degrees = 60.0</p></li><li><p>Roundness = default (0.0)</p></li><li><p>Density = -0.5</p></li><li><p>Eyes on furthest alien = less creepy</p></li></ul><p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="maya_AlienDOFTweak2.jpg" width="731" loading="lazy" src="../../attachments/544542056/maya_AlienDOFTweak2.jpg" data-image-src="../../attachments/544542056/maya_AlienDOFTweak2.jpg" data-height="450" data-width="731" data-unresolved-comment-count="0" data-linked-resource-id="544542074" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="maya_AlienDOFTweak2.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544542056" data-linked-resource-container-version="1" data-media-id="fe0fdffa-bc17-40f6-b037-7e60e0672714" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p /><p /></div>
+</div>
+</div>
+</div>
+  </article>
+</main>
+</body>
+</html>

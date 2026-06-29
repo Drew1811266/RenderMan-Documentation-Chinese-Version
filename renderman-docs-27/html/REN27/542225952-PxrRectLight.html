@@ -1,0 +1,515 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PxrRectLight</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>PxrRectLight</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/REN27/542225952/PxrRectLight">https://rmanwiki-27.pixar.com/space/REN27/542225952/PxrRectLight</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="contentLayout2"><style>[data-colorid=z9wdqlciic]{color:#3e3f40} html[data-color-mode=dark] [data-colorid=z9wdqlciic]{color:#bfc0c1}[data-colorid=ubarxlhom7]{color:#3e3f40} html[data-color-mode=dark] [data-colorid=ubarxlhom7]{color:#bfc0c1}[data-colorid=tokys99lim]{color:#3e3f40} html[data-color-mode=dark] [data-colorid=tokys99lim]{color:#bfc0c1}[data-colorid=jfx2yzl1uf]{color:#3e3f40} html[data-color-mode=dark] [data-colorid=jfx2yzl1uf]{color:#bfc0c1}[data-colorid=njdi7n5y0s]{color:#3e3f40} html[data-color-mode=dark] [data-colorid=njdi7n5y0s]{color:#bfc0c1}[data-colorid=idakpynprt]{color:#3e3f40} html[data-color-mode=dark] [data-colorid=idakpynprt]{color:#bfc0c1}[data-colorid=jkxc4sqr3u]{color:#3e3f40} html[data-color-mode=dark] [data-colorid=jkxc4sqr3u]{color:#bfc0c1}[data-colorid=dym997hb6t]{color:#3e3f40} html[data-color-mode=dark] [data-colorid=dym997hb6t]{color:#bfc0c1}[data-colorid=p4z31pj2lp]{color:#3e3f40} html[data-color-mode=dark] [data-colorid=p4z31pj2lp]{color:#bfc0c1}[data-colorid=t118skd452]{color:#3e3f40} html[data-color-mode=dark] [data-colorid=t118skd452]{color:#bfc0c1}[data-colorid=qt10es02kv]{color:#3e3f40} html[data-color-mode=dark] [data-colorid=qt10es02kv]{color:#bfc0c1}[data-colorid=u1azh6mmf4]{color:#3e3f40} html[data-color-mode=dark] [data-colorid=u1azh6mmf4]{color:#bfc0c1}[data-colorid=rr90kvx19b]{color:#3e3f40} html[data-color-mode=dark] [data-colorid=rr90kvx19b]{color:#bfc0c1}[data-colorid=f3jm72l9ji]{color:#3e3f40} html[data-color-mode=dark] [data-colorid=f3jm72l9ji]{color:#bfc0c1}[data-colorid=pdaa47oy4h]{color:#3e3f40} html[data-color-mode=dark] [data-colorid=pdaa47oy4h]{color:#bfc0c1}[data-colorid=i94r0fhvvo]{color:#3e3f40} html[data-color-mode=dark] [data-colorid=i94r0fhvvo]{color:#bfc0c1}[data-colorid=gminda4e4z]{color:#3e3f40} html[data-color-mode=dark] [data-colorid=gminda4e4z]{color:#bfc0c1}[data-colorid=cl8xpc1vd7]{color:#3e3f40} html[data-color-mode=dark] [data-colorid=cl8xpc1vd7]{color:#bfc0c1}[data-colorid=hkx7ymbg7p]{color:#3e3f40} html[data-color-mode=dark] [data-colorid=hkx7ymbg7p]{color:#bfc0c1}[data-colorid=u6xq69gvup]{color:#3e3f40} html[data-color-mode=dark] [data-colorid=u6xq69gvup]{color:#bfc0c1}[data-colorid=lpoi2f2mpm]{color:#3e3f40} html[data-color-mode=dark] [data-colorid=lpoi2f2mpm]{color:#bfc0c1}[data-colorid=psaob6hagp]{color:#3e3f40} html[data-color-mode=dark] [data-colorid=psaob6hagp]{color:#bfc0c1}</style>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p>This one-sided area light simulates a rectangular-shaped light source.</p><p>Its usage includes illuminating objects, simulating softboxes used in photography, linear lights, fluorescent lights, and light panels. This is also used for adding bounce lighting off walls or bounce board geometry</p><p>These parameters are the same as&nbsp;the&nbsp;<a href="542225952-PxrRectLight.html" rel="nofollow">P</a><a href="542226613-PxrDiskLight.html" rel="nofollow">xrDiskLight</a>&nbsp;and vice versa. Because of this, the examples are mostly the same.</p><p /><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="6fdd68ac-260d-47df-9217-54dba3dba983" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p><span data-colorid="jfx2yzl1uf">You will see mention of &quot;non-physical&quot; controls. These controls are designed to help artists make art-directed imagery by ignoring certain laws of physics we usually simulate.</span></p></div></div><p><br /><br /></p><h3 id="PxrRectLight-Parameters">Parameters</h3><h4 id="PxrRectLight-Basic">Basic</h4><p><strong>Intensity</strong></p><p>Scales the contribution of this light linearly. The light intensity is computed using physical falloff. <br />Below the <strong>Intensity</strong> parameter increases by 1.0 each render.</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrRectLght_intensity10.jpg" width="384" loading="lazy" src="../../attachments/542225952/pxrRectLght_intensity10.jpg" data-image-src="../../attachments/542225952/pxrRectLght_intensity10.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542226154" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrRectLght_intensity10.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542225952" data-linked-resource-container-version="1" data-media-id="1beb9b52-b2d9-430a-bf21-48d107e31534" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrRectLght_intensity20.jpg" width="384" loading="lazy" src="../../attachments/542225952/pxrRectLght_intensity20.jpg" data-image-src="../../attachments/542225952/pxrRectLght_intensity20.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542226151" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrRectLght_intensity20.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542225952" data-linked-resource-container-version="1" data-media-id="f092b614-9465-4b86-9e4d-a0196f09a752" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrRectLght_intensity30.jpg" width="384" loading="lazy" src="../../attachments/542225952/pxrRectLght_intensity30.jpg" data-image-src="../../attachments/542225952/pxrRectLght_intensity30.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542226148" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrRectLght_intensity30.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542225952" data-linked-resource-container-version="1" data-media-id="0312ab01-0e1e-47aa-96a3-d347645ba305" data-media-type="file" /></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p /><hr /><p><strong>Exposure</strong></p><p>Specifies the exposure of the area light as a power of 2. Increasing the exposure by 1 will double the energy emitted by the light source. A value of&nbsp;0&nbsp;produces an intensity of 1 at the source, -1 produces 0.5. Real-world<span data-colorid="lpoi2f2mpm">&nbsp;lighting has high energies and typical exposures are low values while you may have to type a really large number for equivalent&nbsp;</span> <strong>Intensity</strong> <span data-colorid="ubarxlhom7">. This is also comfortable for artists familiar with photographic measurements. The intensity is reset to 1.0 so the result starts darker than above because of the physical falloff of the light. </span><br /><span data-colorid="f3jm72l9ji">Below exposure is 1.0, 2.0, 3.0.</span></p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrRectLght_exposure10.jpg" width="384" loading="lazy" src="../../attachments/542225952/pxrRectLght_exposure10.jpg" data-image-src="../../attachments/542225952/pxrRectLght_exposure10.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542226145" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrRectLght_exposure10.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542225952" data-linked-resource-container-version="1" data-media-id="144d9ec4-edfe-4fdd-81d7-3c3eeb4fb797" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrRectLght_exposure20.jpg" width="384" loading="lazy" src="../../attachments/542225952/pxrRectLght_exposure20.jpg" data-image-src="../../attachments/542225952/pxrRectLght_exposure20.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542226142" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrRectLght_exposure20.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542225952" data-linked-resource-container-version="1" data-media-id="578f1345-bdd4-4da8-8489-907cdffd0451" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrRectLght_exposure30.jpg" width="384" loading="lazy" src="../../attachments/542225952/pxrRectLght_exposure30.jpg" data-image-src="../../attachments/542225952/pxrRectLght_exposure30.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542226139" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrRectLght_exposure30.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542225952" data-linked-resource-container-version="1" data-media-id="67b417dc-40a8-4e7d-a229-43205edec396" data-media-type="file" /></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p /><p><strong>Color Map</strong></p><p>An image to use as a light source. Preferably a High Dynamic Range source. Below there are three different images used. Notice this affects color and shadowing based on the contents of the HDRI used. If forced to use an 8-bit source such as a JPEG image, it should be linearized (transformed to linear color space) before use as a color.</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrRectLght_colorMap1.jpg" width="384" loading="lazy" src="../../attachments/542225952/pxrRectLght_colorMap1.jpg" data-image-src="../../attachments/542225952/pxrRectLght_colorMap1.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542226136" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrRectLght_colorMap1.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542225952" data-linked-resource-container-version="1" data-media-id="900e0899-2f59-4e58-a21b-982f4b819d03" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrRectLght_colorMap2.jpg" width="384" loading="lazy" src="../../attachments/542225952/pxrRectLght_colorMap2.jpg" data-image-src="../../attachments/542225952/pxrRectLght_colorMap2.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542226133" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrRectLght_colorMap2.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542225952" data-linked-resource-container-version="1" data-media-id="d5ec5e46-9106-4de4-b339-a6861eeebea1" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrRectLght_colorMap3.jpg" width="384" loading="lazy" src="../../attachments/542225952/pxrRectLght_colorMap3.jpg" data-image-src="../../attachments/542225952/pxrRectLght_colorMap3.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542226130" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrRectLght_colorMap3.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542225952" data-linked-resource-container-version="1" data-media-id="082f3e44-8ea1-4814-a94b-1a5ca830bfd2" data-media-type="file" /></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p /><p><strong>Color</strong></p><p>The color of the emitted light. If a color map is specified, this tints the light.</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrRectLght_colorBlue.jpg" width="384" loading="lazy" src="../../attachments/542225952/pxrRectLght_colorBlue.jpg" data-image-src="../../attachments/542225952/pxrRectLght_colorBlue.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542226127" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrRectLght_colorBlue.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542225952" data-linked-resource-container-version="1" data-media-id="13dfaad6-5fc6-42fe-8126-141506ce1361" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrRectLght_colorGreen.jpg" width="384" loading="lazy" src="../../attachments/542225952/pxrRectLght_colorGreen.jpg" data-image-src="../../attachments/542225952/pxrRectLght_colorGreen.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542226124" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrRectLght_colorGreen.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542225952" data-linked-resource-container-version="1" data-media-id="de7097ae-7b18-4ab9-b47f-73572670696b" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrRectLght_colorRed.jpg" width="384" loading="lazy" src="../../attachments/542225952/pxrRectLght_colorRed.jpg" data-image-src="../../attachments/542225952/pxrRectLght_colorRed.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542226121" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrRectLght_colorRed.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542225952" data-linked-resource-container-version="1" data-media-id="c4a7918d-792e-4bb5-8c0d-a7afd9035034" data-media-type="file" /></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p /><p><strong>Map Gamma</strong></p><p>Gamma-correct the texture. Each channel (RGB) can be adjusted independently.</p><p /><p><strong>Map Saturation</strong></p><p>Adjust the saturation of the texture.</p><p /><p><strong>Enable Temperature</strong></p><p><span data-colorid="idakpynprt">Turns color temperature on or off.</span></p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrRectLght_colorTemp4000.jpg" width="384" loading="lazy" src="../../attachments/542225952/pxrRectLght_colorTemp4000.jpg" data-image-src="../../attachments/542225952/pxrRectLght_colorTemp4000.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542226118" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrRectLght_colorTemp4000.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542225952" data-linked-resource-container-version="1" data-media-id="178514d3-f83e-4975-b722-44fab776ff46" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrRectLght_colorTemp6500.jpg" width="384" loading="lazy" src="../../attachments/542225952/pxrRectLght_colorTemp6500.jpg" data-image-src="../../attachments/542225952/pxrRectLght_colorTemp6500.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542226115" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrRectLght_colorTemp6500.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542225952" data-linked-resource-container-version="1" data-media-id="76489b97-5359-466e-8e0d-38e428551fc7" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrRectLght_colorTemp8500.jpg" width="384" loading="lazy" src="../../attachments/542225952/pxrRectLght_colorTemp8500.jpg" data-image-src="../../attachments/542225952/pxrRectLght_colorTemp8500.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542226112" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrRectLght_colorTemp8500.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542225952" data-linked-resource-container-version="1" data-media-id="95dfba0c-139e-4914-bb4a-d47638b28a86" data-media-type="file" /></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p /><p><strong>Color Temperature</strong></p><p>Allow the user to choose the&nbsp;color temperature&nbsp;of the light in&nbsp;Kelvins. Unlike the basic light color, this allows the user to easily pick plausible light colors based on standard temperature measurements. This control will act like a filter or gel (a tinted transparent surface) in front of your light. If your light is white, you will get the chosen color temperature. If your light is colored, the color temperature will make it cooler (over 6500K) or warmer (below 6500K).</p><p /><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="7e0f254a-aeb9-47bf-9a8b-7e8c59fb8dff" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>The effect will be less pronounced on fully saturated monochromatic lights. Defaults to 6500K, which should be very close to white on most monitors (D65 illuminant used by sRGB and Rec 709).</p></div></div><p /><p><strong>Primary Visibility</strong></p><p>The light isn't directly visible to the camera by default. Turning this on makes it visible and can be written to an LPE using the emission token, 'O'</p><p /><hr /><h4 id="PxrRectLight-Refine">Refine</h4><p /><p><strong>Emission Focus</strong></p><p>Off-axis cosine power exponent to shape the emission. This controls the&nbsp;<em>spread</em>&nbsp;of the light. Higher numbers will start focusing the light towards the center and thus narrowing the light spread.</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrRectLght_emissFocus00.jpg" width="384" loading="lazy" src="../../attachments/542225952/pxrRectLght_emissFocus00.jpg" data-image-src="../../attachments/542225952/pxrRectLght_emissFocus00.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542226109" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrRectLght_emissFocus00.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542225952" data-linked-resource-container-version="1" data-media-id="a146ae1e-7964-4838-8f5e-54ae67f0747a" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrRectLght_emissFocus10.jpg" width="384" loading="lazy" src="../../attachments/542225952/pxrRectLght_emissFocus10.jpg" data-image-src="../../attachments/542225952/pxrRectLght_emissFocus10.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542226106" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrRectLght_emissFocus10.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542225952" data-linked-resource-container-version="1" data-media-id="53c35ba7-af39-488c-be4f-aae092c259e3" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrRectLght_emissFocus50.jpg" width="384" loading="lazy" src="../../attachments/542225952/pxrRectLght_emissFocus50.jpg" data-image-src="../../attachments/542225952/pxrRectLght_emissFocus50.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542226103" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrRectLght_emissFocus50.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542225952" data-linked-resource-container-version="1" data-media-id="72c2af8d-eb31-4609-bf82-c9b639d5e9a7" data-media-type="file" /></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p /><p><strong>Emission Focus Tint</strong></p><p>Off-axis light color tint. This tints the emission in the falloff region starting from the off-angle direction of the light towards the center. By default, the tint color is black (none). In addition to tinting, values greater than white will also increase the intensity of the falloff region.&nbsp;Notice when using White the emission focus nearly appears to be off.</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrRectLght_emissFocusTntBlue.jpg" width="384" loading="lazy" src="../../attachments/542225952/pxrRectLght_emissFocusTntBlue.jpg" data-image-src="../../attachments/542225952/pxrRectLght_emissFocusTntBlue.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542226100" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrRectLght_emissFocusTntBlue.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542225952" data-linked-resource-container-version="1" data-media-id="2e27d765-a3ff-4ef7-828a-96e507ad3147" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrRectLght_emissFocusTntRed.jpg" width="384" loading="lazy" src="../../attachments/542225952/pxrRectLght_emissFocusTntRed.jpg" data-image-src="../../attachments/542225952/pxrRectLght_emissFocusTntRed.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542226097" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrRectLght_emissFocusTntRed.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542225952" data-linked-resource-container-version="1" data-media-id="17ce8011-6c14-4b1b-b208-8aa187d555b7" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrRectLght_emissFocusTntWht.jpg" width="384" loading="lazy" src="../../attachments/542225952/pxrRectLght_emissFocusTntWht.jpg" data-image-src="../../attachments/542225952/pxrRectLght_emissFocusTntWht.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542226094" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrRectLght_emissFocusTntWht.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542225952" data-linked-resource-container-version="1" data-media-id="52af4067-d8ec-4652-95a0-21876afb9668" data-media-type="file" /></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p /><p><strong>Specular Amount</strong></p><p>Amount of specular light that is emitted.&nbsp;This is a non-physical control.&nbsp;You could use a light with&nbsp; <strong>Specular Amount</strong> &nbsp;0.0 to act purely as a source of diffuse light for your scene objects and avoid adding highlights.&nbsp;This scene has subtle reflections but you can notice the light disappears from the&nbsp;reflection&nbsp;in the chrome ball far right. </p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrRectLght_specAmount00.jpg" width="384" loading="lazy" src="../../attachments/542225952/pxrRectLght_specAmount00.jpg" data-image-src="../../attachments/542225952/pxrRectLght_specAmount00.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542226091" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrRectLght_specAmount00.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542225952" data-linked-resource-container-version="1" data-media-id="5e0ebef5-21e6-4283-bcb4-2bac2a31f033" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrRectLght_specAmount05.jpg" width="384" loading="lazy" src="../../attachments/542225952/pxrRectLght_specAmount05.jpg" data-image-src="../../attachments/542225952/pxrRectLght_specAmount05.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542226088" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrRectLght_specAmount05.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542225952" data-linked-resource-container-version="1" data-media-id="a6053d94-ac07-4593-9b8e-7fec954522a3" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrRectLght_specAmount10.jpg" width="384" loading="lazy" src="../../attachments/542225952/pxrRectLght_specAmount10.jpg" data-image-src="../../attachments/542225952/pxrRectLght_specAmount10.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542226085" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrRectLght_specAmount10.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542225952" data-linked-resource-container-version="1" data-media-id="8b832daa-4b30-40ad-ae00-1d0635eda86e" data-media-type="file" /></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p /><p><strong>Diffuse Amount</strong></p><p>Amount of diffuse light that is emitted. This is a non-physical control.&nbsp;You could use a light with&nbsp; <strong>Diffuse Amount</strong> &nbsp;0.0 to act purely as a source of highlights for your scene objects.</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrRectLght_diffAmount00.jpg" width="384" loading="lazy" src="../../attachments/542225952/pxrRectLght_diffAmount00.jpg" data-image-src="../../attachments/542225952/pxrRectLght_diffAmount00.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542226082" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrRectLght_diffAmount00.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542225952" data-linked-resource-container-version="1" data-media-id="6680725d-0755-41c8-8f97-d4272a139039" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrRectLght_diffAmount05.jpg" width="384" loading="lazy" src="../../attachments/542225952/pxrRectLght_diffAmount05.jpg" data-image-src="../../attachments/542225952/pxrRectLght_diffAmount05.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542226079" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrRectLght_diffAmount05.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542225952" data-linked-resource-container-version="1" data-media-id="527a763c-582a-484c-a53a-e16b41fc030f" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrRectLght_diffAmount10.jpg" width="384" loading="lazy" src="../../attachments/542225952/pxrRectLght_diffAmount10.jpg" data-image-src="../../attachments/542225952/pxrRectLght_diffAmount10.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542226076" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrRectLght_diffAmount10.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542225952" data-linked-resource-container-version="1" data-media-id="a71155c2-fb9c-4d41-b2ff-43dfbdf74658" data-media-type="file" /></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p /><p><strong>Intensity Near Dist</strong></p><p>Near distance at which the point being illuminated and the light at which the sample doesn't get brighter. This may help you avoid hot spots and sampling issues where a light is near a surface. These values are based on your scene scale/distance so this is just an example.</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrRectLght_IntenseNearDist_00.jpg" width="384" loading="lazy" src="../../attachments/542225952/pxrRectLght_IntenseNearDist_00.jpg" data-image-src="../../attachments/542225952/pxrRectLght_IntenseNearDist_00.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542226073" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrRectLght_IntenseNearDist_00.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542225952" data-linked-resource-container-version="1" data-media-id="f497f23d-3566-4bd2-9379-a77700241847" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrRectLght_IntenseNearDist_25.jpg" width="384" loading="lazy" src="../../attachments/542225952/pxrRectLght_IntenseNearDist_25.jpg" data-image-src="../../attachments/542225952/pxrRectLght_IntenseNearDist_25.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542226070" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrRectLght_IntenseNearDist_25.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542225952" data-linked-resource-container-version="1" data-media-id="2b8cc025-150c-4de8-acfc-77ffb157400d" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrRectLght_IntenseNearDist_50.jpg" width="384" loading="lazy" src="../../attachments/542225952/pxrRectLght_IntenseNearDist_50.jpg" data-image-src="../../attachments/542225952/pxrRectLght_IntenseNearDist_50.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542226067" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrRectLght_IntenseNearDist_50.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542225952" data-linked-resource-container-version="1" data-media-id="6820403f-ab83-4edf-84fe-989aa6c2deec" data-media-type="file" /></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p /><p><strong>Specular Near Dist</strong></p><p>Near distance between the point with specular shading being illuminated and the light at which the sample doesn't get brighter. This may help you avoid hot spots and sampling issues where a light is near a specular surface. <strong>Note</strong> that this value will not apply to lights as seen from the camera. <span class="legacy-color-text-default">Below, the right sphere has a distance of 0.0, 5.0, and finally 10.0. These values are based on your scene scale/distance so this is just an example.</span></p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrRectLght_SpecNearDist_00.jpg" width="432" loading="lazy" src="../../attachments/542225952/pxrRectLght_SpecNearDist_00.jpg" data-image-src="../../attachments/542225952/pxrRectLght_SpecNearDist_00.jpg" data-height="1080" data-width="1080" data-unresolved-comment-count="0" data-linked-resource-id="542226064" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrRectLght_SpecNearDist_00.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542225952" data-linked-resource-container-version="1" data-media-id="3aae610b-0f3c-4b16-9bf0-6a9ae388934d" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrRectLght_SpecNearDist_50.jpg" width="432" loading="lazy" src="../../attachments/542225952/pxrRectLght_SpecNearDist_50.jpg" data-image-src="../../attachments/542225952/pxrRectLght_SpecNearDist_50.jpg" data-height="1080" data-width="1080" data-unresolved-comment-count="0" data-linked-resource-id="542226061" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrRectLght_SpecNearDist_50.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542225952" data-linked-resource-container-version="1" data-media-id="9c92d397-01c9-4969-9707-906a92ed9a05" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrRectLght_SpecNearDist_100.jpg" width="432" loading="lazy" src="../../attachments/542225952/pxrRectLght_SpecNearDist_100.jpg" data-image-src="../../attachments/542225952/pxrRectLght_SpecNearDist_100.jpg" data-height="1080" data-width="1080" data-unresolved-comment-count="0" data-linked-resource-id="542226058" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrRectLght_SpecNearDist_100.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542225952" data-linked-resource-container-version="1" data-media-id="7b7a7d64-801c-46d3-b527-202e51aad7ab" data-media-type="file" /></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p /><p><strong>Diffuse Near Dist</strong></p><p>Near distance between the point with diffuse shading being illuminated and the light at which the sample doesn't get brighter. This may help you avoid hot spots and sampling issues where a light is near a diffuse surface. <strong>Note</strong> that this value will not apply to lights as seen from the camera. <span class="legacy-color-text-default">Below, the left sphere has a distance of&nbsp;0.0, 5.0, and finally 10.0. These values are based on your scene scale/distance so this is just an example.</span></p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrRectLght_DiffNearDist_00.jpg" width="432" loading="lazy" src="../../attachments/542225952/pxrRectLght_DiffNearDist_00.jpg" data-image-src="../../attachments/542225952/pxrRectLght_DiffNearDist_00.jpg" data-height="1080" data-width="1080" data-unresolved-comment-count="0" data-linked-resource-id="542226055" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrRectLght_DiffNearDist_00.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542225952" data-linked-resource-container-version="1" data-media-id="787b94bb-39ae-4e8b-b9bc-0655d679d3c5" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrRectLght_DiffNearDist_50.jpg" width="432" loading="lazy" src="../../attachments/542225952/pxrRectLght_DiffNearDist_50.jpg" data-image-src="../../attachments/542225952/pxrRectLght_DiffNearDist_50.jpg" data-height="1080" data-width="1080" data-unresolved-comment-count="0" data-linked-resource-id="542226052" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrRectLght_DiffNearDist_50.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542225952" data-linked-resource-container-version="1" data-media-id="0e85f124-2ce9-44e3-914a-60b6d7596f3c" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrRectLght_DiffNearDist_100.jpg" width="432" loading="lazy" src="../../attachments/542225952/pxrRectLght_DiffNearDist_100.jpg" data-image-src="../../attachments/542225952/pxrRectLght_DiffNearDist_100.jpg" data-height="1080" data-width="1080" data-unresolved-comment-count="0" data-linked-resource-id="542226049" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrRectLght_DiffNearDist_100.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542225952" data-linked-resource-container-version="1" data-media-id="31ef5a1c-562b-4fe2-8089-55cfa033cf96" data-media-type="file" /></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p /><p><strong>Cone Angle</strong></p><p>Angle of the virtual flaps on the light to turn it into a spotlight.&nbsp;This does not affect IES Profiles (should you be using one).</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrRectLght_coneAngle20.jpg" width="384" loading="lazy" src="../../attachments/542225952/pxrRectLght_coneAngle20.jpg" data-image-src="../../attachments/542225952/pxrRectLght_coneAngle20.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542226046" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrRectLght_coneAngle20.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542225952" data-linked-resource-container-version="1" data-media-id="29fe738e-1ca8-4d7c-b591-c784082d5003" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrRectLght_coneAngle45.jpg" width="384" loading="lazy" src="../../attachments/542225952/pxrRectLght_coneAngle45.jpg" data-image-src="../../attachments/542225952/pxrRectLght_coneAngle45.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542226043" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrRectLght_coneAngle45.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542225952" data-linked-resource-container-version="1" data-media-id="65256db3-11ee-41b2-9fd6-65e3a2207145" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrRectLght_coneAngle90.jpg" width="384" loading="lazy" src="../../attachments/542225952/pxrRectLght_coneAngle90.jpg" data-image-src="../../attachments/542225952/pxrRectLght_coneAngle90.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542226040" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrRectLght_coneAngle90.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542225952" data-linked-resource-container-version="1" data-media-id="9e750d7f-fca9-4a8d-836f-243cb4ae9c5d" data-media-type="file" /></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p /><p><strong>Cone Softness</strong></p><p>Softness of the cut-off of the <strong>Cone Angle</strong>. The regular range is from 0 (hard cut-off) to 1 (smooth transition), but it can be set higher than 1 for additional gradation. Above in the <strong>Cone Angle</strong> you notice how hard the edges look, this parameter improves that result to be more pleasing.</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrRectLght_coneSoft00.jpg" width="384" loading="lazy" src="../../attachments/542225952/pxrRectLght_coneSoft00.jpg" data-image-src="../../attachments/542225952/pxrRectLght_coneSoft00.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542226037" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrRectLght_coneSoft00.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542225952" data-linked-resource-container-version="1" data-media-id="5105d412-bda9-4844-9b82-91e43ae23b93" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrRectLght_coneSoft25.jpg" width="384" loading="lazy" src="../../attachments/542225952/pxrRectLght_coneSoft25.jpg" data-image-src="../../attachments/542225952/pxrRectLght_coneSoft25.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542226034" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrRectLght_coneSoft25.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542225952" data-linked-resource-container-version="1" data-media-id="9337f66c-3c97-4d41-a718-811882568fc4" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrRectLght_coneSoft75.jpg" width="384" loading="lazy" src="../../attachments/542225952/pxrRectLght_coneSoft75.jpg" data-image-src="../../attachments/542225952/pxrRectLght_coneSoft75.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542226031" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrRectLght_coneSoft75.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542225952" data-linked-resource-container-version="1" data-media-id="c39c5b98-00d6-4fb8-8284-3ccc8e8a6513" data-media-type="file" /></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p /><hr /><h4 id="PxrRectLight-LightProfile">Light Profile</h4><p /><p><strong>IES Profile</strong></p><p>Name of an IES light profile. Below makes use of three different IES profiles and some dark mood lighting.</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrRectLght_IES1.jpg" width="384" loading="lazy" src="../../attachments/542225952/pxrRectLght_IES1.jpg" data-image-src="../../attachments/542225952/pxrRectLght_IES1.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542226028" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrRectLght_IES1.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542225952" data-linked-resource-container-version="1" data-media-id="cc7c9adb-c9c2-433a-865e-b122efded995" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrRectLght_IES2.jpg" width="384" loading="lazy" src="../../attachments/542225952/pxrRectLght_IES2.jpg" data-image-src="../../attachments/542225952/pxrRectLght_IES2.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542226025" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrRectLght_IES2.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542225952" data-linked-resource-container-version="1" data-media-id="4e9f3c09-079b-4275-8243-0884a648a8d4" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrRectLght_IES3.jpg" width="384" loading="lazy" src="../../attachments/542225952/pxrRectLght_IES3.jpg" data-image-src="../../attachments/542225952/pxrRectLght_IES3.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542226022" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrRectLght_IES3.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542225952" data-linked-resource-container-version="1" data-media-id="35d0404c-e6f5-4dbe-a34d-9b815662958e" data-media-type="file" /></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p /><p><strong>Profile Scale</strong></p><p>Rescales the angular distribution of the IES profiles. Values less than 0 specify that the profile represents less angular coverage, and will effectively increase the size of the projected profile. Defaults to 0 for full coverage (no scaling).</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrRectLght_IESrange100.jpg" width="384" loading="lazy" src="../../attachments/542225952/pxrRectLght_IESrange100.jpg" data-image-src="../../attachments/542225952/pxrRectLght_IESrange100.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542226019" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrRectLght_IESrange100.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542225952" data-linked-resource-container-version="1" data-media-id="1a6f250e-dc33-4499-a9a9-c517e7f0c7a9" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrRectLght_IESrange50.jpg" width="384" loading="lazy" src="../../attachments/542225952/pxrRectLght_IESrange50.jpg" data-image-src="../../attachments/542225952/pxrRectLght_IESrange50.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542226016" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrRectLght_IESrange50.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542225952" data-linked-resource-container-version="1" data-media-id="51cf8bc2-5288-4072-8667-38a369561d86" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrRectLght_IESrangeNeg1.jpg" width="384" loading="lazy" src="../../attachments/542225952/pxrRectLght_IESrangeNeg1.jpg" data-image-src="../../attachments/542225952/pxrRectLght_IESrangeNeg1.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542226013" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrRectLght_IESrangeNeg1.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542225952" data-linked-resource-container-version="1" data-media-id="2e369840-43a5-42cc-85d1-3435687fc73c" data-media-type="file" /></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p /><p><strong>Profile Normalization</strong><br /><br /></p><p>Sets the IES profile to prevent its amplitude from altering the energy of the light.</p><hr /><h4 id="PxrRectLight-Shadows">Shadows</h4><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="e4abb58c-b157-4abe-837e-9e44a2b49660" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p><span data-colorid="p4z31pj2lp">All shadow parameters will be ignored if the light's&nbsp;</span> <strong>Trace Light Paths </strong><span data-colorid="qt10es02kv">is enabled in Advanced. The below options are all non-physical controls when used out of their default state. If&nbsp;</span> <strong>Trace Light Paths </strong><span data-colorid="u1azh6mmf4">is enabled then their physical nature is enforced.</span></p></div></div><p /><p /><p><strong>Enable Shadows</strong></p><p><span data-colorid="z9wdqlciic">Enable raytraced shadows.</span></p></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrRectLght_shadowOff.jpg" width="384" loading="lazy" src="../../attachments/542225952/pxrRectLght_shadowOff.jpg" data-image-src="../../attachments/542225952/pxrRectLght_shadowOff.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542226010" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrRectLght_shadowOff.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542225952" data-linked-resource-container-version="1" data-media-id="4b81b743-7645-4d1c-9e27-b45e7b5b88e6" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrRectLght_shadowOn.jpg" width="384" loading="lazy" src="../../attachments/542225952/pxrRectLght_shadowOn.jpg" data-image-src="../../attachments/542225952/pxrRectLght_shadowOn.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542226007" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrRectLght_shadowOn.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542225952" data-linked-resource-container-version="1" data-media-id="d88009fb-1065-4f2c-ac8c-3df6d3231a94" data-media-type="file" /></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p /><p><strong>Shadow Color</strong></p><p><span data-colorid="dym997hb6t">The color of the shadows cast by emitted light.</span></p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrRectLght_shadowColorAqua.jpg" width="384" loading="lazy" src="../../attachments/542225952/pxrRectLght_shadowColorAqua.jpg" data-image-src="../../attachments/542225952/pxrRectLght_shadowColorAqua.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542226004" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrRectLght_shadowColorAqua.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542225952" data-linked-resource-container-version="1" data-media-id="41a3a9ee-bc9d-46e9-b400-8cd74d58007d" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrRectLght_shadowColorRed.jpg" width="384" loading="lazy" src="../../attachments/542225952/pxrRectLght_shadowColorRed.jpg" data-image-src="../../attachments/542225952/pxrRectLght_shadowColorRed.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542226001" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrRectLght_shadowColorRed.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542225952" data-linked-resource-container-version="1" data-media-id="0a768dac-6494-4719-9ed7-bd87868aca99" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrRectLght_shadowColorYellow.jpg" width="384" loading="lazy" src="../../attachments/542225952/pxrRectLght_shadowColorYellow.jpg" data-image-src="../../attachments/542225952/pxrRectLght_shadowColorYellow.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542225998" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrRectLght_shadowColorYellow.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542225952" data-linked-resource-container-version="1" data-media-id="73d31a16-3cb9-4224-9a12-b586d610ab5e" data-media-type="file" /></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p /><p><strong>Shadow Max Distance</strong></p><p><span data-colorid="njdi7n5y0s">The maximum distance of the shadow starting from the position of the point being shaded. -1.0 is unset which will use the distance between the point being shaded and the point on the light. You may use this control to artificially reduce the distance shadows are cast. This may also increase render speed by not calculating shadows outside this distance. Here it's used to remove the shadow off the back wall from the flashbulb effect of the light.</span></p></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrRectLght_shadMaxDist10.jpg" width="384" loading="lazy" src="../../attachments/542225952/pxrRectLght_shadMaxDist10.jpg" data-image-src="../../attachments/542225952/pxrRectLght_shadMaxDist10.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542225995" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrRectLght_shadMaxDist10.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542225952" data-linked-resource-container-version="1" data-media-id="30db8156-2e37-48c4-be20-1473e823bd66" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrRectLght_shadMaxDistOff.jpg" width="384" loading="lazy" src="../../attachments/542225952/pxrRectLght_shadMaxDistOff.jpg" data-image-src="../../attachments/542225952/pxrRectLght_shadMaxDistOff.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542225992" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrRectLght_shadMaxDistOff.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542225952" data-linked-resource-container-version="1" data-media-id="e8681c7a-31e1-4066-a80d-9e0c52dd373d" data-media-type="file" /></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p /><p><strong>Shadow Falloff</strong></p><p><span data-colorid="t118skd452">The distance from the light at which shadow falloff begins. -1.0 turns off shadow falloff. This is used along with&nbsp;</span> <strong>Shadow Max Distance&nbsp;</strong><span data-colorid="jkxc4sqr3u">to create a false fade for shadows that are reduced or cut off by the&nbsp;</span> <strong>Shadow Max Distance&nbsp;</strong><span data-colorid="rr90kvx19b">parameter. Below is an example with both parameters being used and the falloff is increased. Note this parameter may impact performance on complex lighting setups.</span></p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrRectLght_shadFalloff025.jpg" width="384" loading="lazy" src="../../attachments/542225952/pxrRectLght_shadFalloff025.jpg" data-image-src="../../attachments/542225952/pxrRectLght_shadFalloff025.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542225986" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrRectLght_shadFalloff025.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542225952" data-linked-resource-container-version="1" data-media-id="7847cb81-f319-44b5-af11-e0f90c7b4ee6" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrRectLght_shadFalloff10.jpg" width="384" loading="lazy" src="../../attachments/542225952/pxrRectLght_shadFalloff10.jpg" data-image-src="../../attachments/542225952/pxrRectLght_shadFalloff10.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542225989" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrRectLght_shadFalloff10.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542225952" data-linked-resource-container-version="1" data-media-id="9a7d9b25-1e20-4301-880d-047265af2d40" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrRectLght_shadFalloffOff.jpg" width="384" loading="lazy" src="../../attachments/542225952/pxrRectLght_shadFalloffOff.jpg" data-image-src="../../attachments/542225952/pxrRectLght_shadFalloffOff.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542225983" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrRectLght_shadFalloffOff.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542225952" data-linked-resource-container-version="1" data-media-id="8d7aa9e8-877d-48ca-9980-b22bb3477ff1" data-media-type="file" /></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p /><p><strong>Shadow Falloff Gamma</strong></p><p><span data-colorid="pdaa47oy4h">The gamma of the shadow strength in the falloff zone. This requires the use of&nbsp;</span> <strong>Shadow Max Distance&nbsp;</strong><span data-colorid="u6xq69gvup">and</span> <strong>&nbsp;Shadow Falloff</strong> <span data-colorid="hkx7ymbg7p">.</span></p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrRectLght_shadFallGamma05.jpg" width="384" loading="lazy" src="../../attachments/542225952/pxrRectLght_shadFallGamma05.jpg" data-image-src="../../attachments/542225952/pxrRectLght_shadFallGamma05.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542225980" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrRectLght_shadFallGamma05.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542225952" data-linked-resource-container-version="1" data-media-id="05e9f856-30d2-4eca-ac04-c70dd679d600" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrRectLght_shadFallGamma025.jpg" width="384" loading="lazy" src="../../attachments/542225952/pxrRectLght_shadFallGamma025.jpg" data-image-src="../../attachments/542225952/pxrRectLght_shadFallGamma025.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542225977" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrRectLght_shadFallGamma025.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542225952" data-linked-resource-container-version="1" data-media-id="c77b3a3b-1141-4e5d-9161-f508e89d3852" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrRectLght_shadFallGammaOff.jpg" width="384" loading="lazy" src="../../attachments/542225952/pxrRectLght_shadFallGammaOff.jpg" data-image-src="../../attachments/542225952/pxrRectLght_shadFallGammaOff.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542225974" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrRectLght_shadFallGammaOff.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542225952" data-linked-resource-container-version="1" data-media-id="8ca2163f-012f-4878-bf27-f5bfeca0f3d7" data-media-type="file" /></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p /><p><strong>Trace Subset</strong></p><p>Set of geometry to consider for traced shadow intersection. If this is not specified, all geometry is considered for traced shadow intersection.</p><p /><p><strong>Don't Trace Subset</strong></p><p>Set of geometry to ignore for traced shadow intersection. If this is not specified, all geometry is used for traced shadow intersection.</p><p /><p /><hr /><h4 id="PxrRectLight-Advanced">Advanced</h4><p /><p><strong>Normalize</strong></p><p>When normalize is enabled, the amount of light contributed to the scene will not change as you scale the light source. This makes it easier to adjust highlight size without changing scene lighting.</p><p /><p><strong>Trace Light Paths</strong></p><p><span data-colorid="tokys99lim">Enable light and photon tracing from this light. This value enforces a physically-based light and as a side-effect disables the above&nbsp;</span> <strong>Shadows&nbsp;</strong><span data-colorid="i94r0fhvvo">controls. Users may use this feature to selectively decide which lights emit photons when using the PxrVCM or PxrUnified Integrators.</span></p><p /><p><strong>Thin Shadow</strong></p><p><span data-colorid="cl8xpc1vd7">Enable thin shadow and disable refraction caustics for this light. This parameter will be ignored if&nbsp;</span> <strong>Trace Light Paths&nbsp;</strong><span data-colorid="gminda4e4z">is enabled. This is a non-physical control that creates &quot;fake&quot; colored shadows for transmissive objects without needing to generate photons for caustics. Notice we lose the colored shadows and interior colored reflection choosing Off, but we gain some render speed instead.</span></p></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrRectLght_thinShadowOff.jpg" width="384" loading="lazy" src="../../attachments/542225952/pxrRectLght_thinShadowOff.jpg" data-image-src="../../attachments/542225952/pxrRectLght_thinShadowOff.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542225971" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrRectLght_thinShadowOff.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542225952" data-linked-resource-container-version="1" data-media-id="d5fd5697-75e2-4cd1-b287-4f9a80151b7b" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrRectLght_thinShadowOn.jpg" width="384" loading="lazy" src="../../attachments/542225952/pxrRectLght_thinShadowOn.jpg" data-image-src="../../attachments/542225952/pxrRectLght_thinShadowOn.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542225968" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrRectLght_thinShadowOn.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542225952" data-linked-resource-container-version="1" data-media-id="d0e60805-bf66-4a77-8269-b3cc5d8bb8bc" data-media-type="file" /></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p /><p><strong>Visible in Refraction</strong></p><p>Make a light visible through transmission effects like glass and windows by turning this on.</p><p /><p><strong>Manifold Walk</strong></p><p>Used with the PxrUnified Integrator and enabling&nbsp;<strong>Enable Manifold Walk</strong>&nbsp;to create inexpensive caustics. Note: You must disable Thin Shadows</p><p /><p><strong>Manifold Walk Exclude Group</strong></p><p>Used with the PxrUnified Integrator and enabling&nbsp;<strong>Enable Manifold Walk, </strong>this trace set is ignored during manifold exploration to avoid stopping or shadowing manifold exploration rays</p><p /><p><strong>Light Samples</strong></p><p><span data-colorid="psaob6hagp">Specifies an override of the number of light samples to be taken for this light source. If set to something other than zero, it will override the sampling performed by the integrator and can result in a performance impact. It's recommended to leave this at the default unless you experience unsolvable noise from the light.</span></p><p /><p><strong>Light Group</strong></p><p>Specify the light group name used for light group LPEs. This is useful to generate per-light AOVs for later adjustment in compositing.</p><p /><p><strong>Importance Multiplier</strong></p><p>Rather than setting explicit Light Samples, users can change the amount of samples the light will be assigned internally by changing this value. RenderMan creates a set of samples at render time for all lights in the scene and changing this value rebalances the samples across the lights. Note that&nbsp;increasing&nbsp;this value will cause&nbsp;<em>more</em>&nbsp;samples to be selected from this light while reducing it for others in the scene. Lower than the default will&nbsp;<em>decrease</em>&nbsp;the samples while providing more to others in the scene.</p></div>
+</div>
+</div>
+</div>
+  </article>
+</main>
+</body>
+</html>

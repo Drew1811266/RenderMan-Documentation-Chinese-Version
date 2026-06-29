@@ -1,0 +1,26 @@
+{"item_id":"553fb03a58:0","text":"合成工作流程（Compositing）"}
+{"item_id":"553fb03a58:1","text":"这是一段相当长的旅程，但我们终于到达 integration 的最后一步：compositing！"}
+{"item_id":"553fb03a58:2","text":"首先，我们要确保 ACES workflow 在 Nuke 中也保持一致。不用担心，这只需要点击几下，Nuke 会为我们把 sRGB footage 转换到正确的 acesCG color space。"}
+{"item_id":"553fb03a58:3","text":"要访问 Nuke 中的 project settings，把 mouse hover 到 Node Graph window 上并按 “S”。进入 Color tab，并将 “Nuke Default” setting 切换为 “OCIO”。这会确保 Nuke 自动以正确 color space 打开你的所有 files。"}
+{"item_id":"553fb03a58:4","text":"现在可以下载 project file；我在其中加入了大量 sticky notes，逐个 node 解释整个 compositing process。"}
+{"item_id":"553fb03a58:5","text":"一个帮助我避免耗费精力和时间进行 rotoscoping 的有用 Nuke workflow tip，是使用 3D cards 来生成 additional masks。"}
+{"item_id":"553fb03a58:6","text":"setup 的工作方式如下："}
+{"item_id":"553fb03a58:7","text":"写出 generated mask 的 image sequence 时，请确保 .png 会带 alpha 生成，以获得更好结果。"}
+{"item_id":"553fb03a58:8","text":"这个 basic 3D scene setup 结合 dual-viewer workspace，让你可以在 flat、non-moving surfaces 上“直接”绘制，例如 ground。通过创建单个 rotoscope shape 并使用 camera tracking data，可以确保 rotoscope 在整个 shot 中保持 stable，从而节省大量 time 和 effort。"}
+{"item_id":"553fb03a58:9","text":"在这个案例中，我使用这项 technique 为 car 在 footage 这一部分中投射的 shadow 生成 occlusion mask。"}
+{"item_id":"553fb03a58:10","text":"不过，如果你发现自己别无选择，只能处理令人畏惧的 manual rotoscoping，那就带上 patience、determination，也许再配一个好 podcast 作伴。"}
+{"item_id":"553fb03a58:11","text":"谈到 rotoscoping，我最好的建议是尽量保持 shapes 简单。处理 20 个每个 6 点的小 shapes，要比挣扎于一个过度复杂、很可能让你一天结束时崩溃的 single shape 容易得多。因此，不要犹豫，把 object 拆分为多个 shapes，以获得更好的 control 和 efficiency。"}
+{"item_id":"553fb03a58:12","text":"另一个有用技巧是调整每个 shape 的 “Life” input。这允许你在 shape 不再需要时 deactivate 它，避免不必要的 shapes 尴尬地漂浮在 screen 上。"}
+{"item_id":"553fb03a58:13","text":"此外，keyframes 越少，问题越少。为了节省时间，可以先做 rough pass，每 5 到 10 frames 设置一个 keyframe（可以用 Shift + arrow keys 按固定 frame 数跳转）。这会帮助你快速识别哪些 frames 需要最多 refinement。"}
+{"item_id":"553fb03a58:14","text":"最后，虽然 Bezier curves 是 rotoscoping 的常用工具，但我强烈建议尝试 B-spline shapes。它们通常需要更少 control points，更容易 fine-tune 和 stabilize，尤其是在处理 organic motion 时。"}
+{"item_id":"553fb03a58:15","text":"欢迎探索提供的 Nuke scene，以更深入地理解整个 process。你会找到解释 node-by-node process 的 sticky notes。"}
+{"item_id":"553fb03a58:16","text":"不过，如果让我根据自己的经验总结 plate matching 时需要注意的关键事项："}
+{"item_id":"553fb03a58:17","text":"极端数值范围（Extreme values）："}
+{"item_id":"553fb03a58:18","text":"任何过暗或过亮的部分都会立刻破坏 illusion。注意 contrast，并确保 smooth integration。"}
+{"item_id":"553fb03a58:19","text":"Pixel imperfections（像素瑕疵）："}
+{"item_id":"553fb03a58:20","text":"3D renders 从 render engine 直接出来时往往太 sharp。花时间 softening edges，并把它们自然 blend 到 imperfect real-world footage 中。"}
+{"item_id":"553fb03a58:21","text":"The illusion matters most（幻觉最重要）："}
+{"item_id":"553fb03a58:22","text":"在某些情况下，我甚至会 rotopaint 掉一些 small details，即便它们是真实存在的，因为它们太吸引眼球，可能让 viewer 下意识觉得有什么不对。"}
+{"item_id":"553fb03a58:23","text":"归根结底，目标是把 CGI seamless blend 到 live-action 中，同时避免任何可能触发 visual suspicion 的东西。"}
+{"item_id":"553fb03a58:24","text":"我个人认为这是一个非常 unforgiving、但也很有 creative excitement 的练习，因为即使最没有经验的 viewer 也能立刻看出什么地方感觉不对。我们的 eyes 天生经过一生训练，用来观察周围世界，因此 integration 中的任何 inconsistency 都会马上变得 noticeable。"}
+{"item_id":"553fb03a58:25","text":"祝你玩得开心！"}

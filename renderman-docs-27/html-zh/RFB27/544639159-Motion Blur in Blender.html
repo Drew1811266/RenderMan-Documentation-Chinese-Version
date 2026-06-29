@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Motion Blur in Blender</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Motion Blur in Blender</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFB27/544639159/Motion+Blur+in+Blender">https://rmanwiki-27.pixar.com/space/RFB27/544639159/Motion+Blur+in+Blender</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="contentLayout2">
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p>下面看一个简单场景，用来演示 motion blur settings（运动模糊设置）的效果。</p><p>以下图像显示两个球在 frames 1、2 和 3 的位置。在此示例中，key-frames（关键帧）使用 linear tangents（线性切线），因此在观察 shutter timing（快门时序）时，球会保持固定速度。</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" alt="Frame 1" width="479" loading="lazy" src="../../attachments/544639159/rfmMoblurFrame1.png" data-image-src="../../attachments/544639159/rfmMoblurFrame1.png" data-height="270" data-width="480" data-unresolved-comment-count="0" data-linked-resource-id="544639171" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfmMoblurFrame1.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544639159" data-linked-resource-container-version="1" data-media-id="f82d77f1-5b9c-4205-b89c-3c7214a1efbb" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" alt="Frame 2" width="479" loading="lazy" src="../../attachments/544639159/rfmMoblurFrame2.png" data-image-src="../../attachments/544639159/rfmMoblurFrame2.png" data-height="270" data-width="480" data-unresolved-comment-count="0" data-linked-resource-id="544639174" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfmMoblurFrame2.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544639159" data-linked-resource-container-version="1" data-media-id="0f30102e-3af7-43c0-849f-8da141d2c705" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" alt="Frame 3" width="479" loading="lazy" src="../../attachments/544639159/rfmMoblurFrame3.png" data-image-src="../../attachments/544639159/rfmMoblurFrame3.png" data-height="270" data-width="480" data-unresolved-comment-count="0" data-linked-resource-id="544639177" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfmMoblurFrame3.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544639159" data-linked-resource-container-version="1" data-media-id="97512ede-bf6c-46cf-8fe2-fc153be6d67d" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p>可以在 render properties（渲染属性）中启用 motion blur（运动模糊） <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image" height="24" loading="lazy" src="../../attachments/544639159/render_properties.png" data-image-src="../../attachments/544639159/render_properties.png" data-unresolved-comment-count="0" data-linked-resource-id="544639279" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="render_properties.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544639159" data-linked-resource-container-version="1" data-media-id="5abfbf4b-a306-4760-8d12-198230b3c6ef" data-media-type="file"></span>，位置在 Motion Blur 面板下。默认情况下它未启用。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="500" loading="lazy" src="../../attachments/544639159/motion_blur_render.png" data-image-src="../../attachments/544639159/motion_blur_render.png" data-height="178" data-width="406" data-unresolved-comment-count="0" data-linked-resource-id="544639285" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="motion_blur_render.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544639159" data-linked-resource-container-version="1" data-media-id="3c275cb2-4d8d-451d-ae6f-f300c34a7517" data-media-type="file"></span><p /><h3 id="MotionBlurinBlender-ShutterTiming">Shutter Timing（快门时序）</h3><h4 id="MotionBlurinBlender-StartonFrame">Start on Frame（从帧开始）</h4><p>以下图像显示 frames 1、2 和 3 的 Start on Frame blur（从帧开始模糊）。shutter（快门）会在帧开始时打开。默认 shutter angle（快门角度）为 180，表示快门会打开半帧时间。请注意最后一帧没有 blur（模糊）。这是因为该帧快门打开之后没有动画。</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="479" loading="lazy" src="../../attachments/544639159/rfmMoblurFrame1FrameOpen180.png" data-image-src="../../attachments/544639159/rfmMoblurFrame1FrameOpen180.png" data-height="270" data-width="480" data-unresolved-comment-count="0" data-linked-resource-id="544639183" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfmMoblurFrame1FrameOpen180.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544639159" data-linked-resource-container-version="1" data-media-id="7b65c6b7-7377-420a-becd-a4689de48e8f" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="479" loading="lazy" src="../../attachments/544639159/rfmMoblurFrame2FrameOpen180.png" data-image-src="../../attachments/544639159/rfmMoblurFrame2FrameOpen180.png" data-height="270" data-width="480" data-unresolved-comment-count="0" data-linked-resource-id="544639186" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfmMoblurFrame2FrameOpen180.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544639159" data-linked-resource-container-version="1" data-media-id="956542ba-065a-4440-9fba-50ba1d5fb4f9" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="479" loading="lazy" src="../../attachments/544639159/rfmMoblurFrame3FrameOpen180.png" data-image-src="../../attachments/544639159/rfmMoblurFrame3FrameOpen180.png" data-height="270" data-width="480" data-unresolved-comment-count="0" data-linked-resource-id="544639189" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfmMoblurFrame3FrameOpen180.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544639159" data-linked-resource-container-version="1" data-media-id="836fb932-d7a6-4ab7-ae38-72498696f02d" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h4 id="MotionBlurinBlender-CenteronFrame">Center on Frame（以帧为中心）</h4><p>以下图像显示 Center on Frame blur（以帧为中心的模糊），这意味着 shutter（快门）会在帧之前打开，并在帧之后关闭，时间中心位于该帧。第一帧和最后一帧的 blur（模糊）看起来较短，因为动画没有延伸到这些帧之外。</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="479" loading="lazy" src="../../attachments/544639159/rfmMoblurFrame1FrameCenter180.png" data-image-src="../../attachments/544639159/rfmMoblurFrame1FrameCenter180.png" data-height="270" data-width="480" data-unresolved-comment-count="0" data-linked-resource-id="544639192" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfmMoblurFrame1FrameCenter180.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544639159" data-linked-resource-container-version="1" data-media-id="7ea72c92-6750-40cd-a49b-ce2e997c998d" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="479" loading="lazy" src="../../attachments/544639159/rfmMoblurFrame2FrameCenter180.png" data-image-src="../../attachments/544639159/rfmMoblurFrame2FrameCenter180.png" data-height="270" data-width="480" data-unresolved-comment-count="0" data-linked-resource-id="544639195" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfmMoblurFrame2FrameCenter180.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544639159" data-linked-resource-container-version="1" data-media-id="6a92f5dd-041e-44cd-817a-b5200e06a1d0" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="479" loading="lazy" src="../../attachments/544639159/rfmMoblurFrame3FrameCenter180.png" data-image-src="../../attachments/544639159/rfmMoblurFrame3FrameCenter180.png" data-height="270" data-width="480" data-unresolved-comment-count="0" data-linked-resource-id="544639198" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfmMoblurFrame3FrameCenter180.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544639159" data-linked-resource-container-version="1" data-media-id="30593f87-e133-43fc-ae8f-fab5df171173" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h4 id="MotionBlurinBlender-EndofFrame">End of Frame（帧结束）</h4><p>以下图像显示 End of Frame blur（帧结束模糊），这意味着 shutter（快门）会在该帧上关闭。同样，第一帧没有 blur（模糊），因为该帧之前没有动画。</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="479" loading="lazy" src="../../attachments/544639159/rfmMoblurFrame1FrameClose180.png" data-image-src="../../attachments/544639159/rfmMoblurFrame1FrameClose180.png" data-height="270" data-width="480" data-unresolved-comment-count="0" data-linked-resource-id="544639201" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfmMoblurFrame1FrameClose180.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544639159" data-linked-resource-container-version="1" data-media-id="35dba004-83ce-4d61-a85a-c0f535e3c781" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="479" loading="lazy" src="../../attachments/544639159/rfmMoblurFrame2FrameClose180.png" data-image-src="../../attachments/544639159/rfmMoblurFrame2FrameClose180.png" data-height="270" data-width="480" data-unresolved-comment-count="0" data-linked-resource-id="544639204" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfmMoblurFrame2FrameClose180.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544639159" data-linked-resource-container-version="1" data-media-id="eda4b3ff-66f8-437c-85c7-ff8b92431dc8" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="479" loading="lazy" src="../../attachments/544639159/rfmMoblurFrame3FrameClose180.png" data-image-src="../../attachments/544639159/rfmMoblurFrame3FrameClose180.png" data-height="270" data-width="480" data-unresolved-comment-count="0" data-linked-resource-id="544639207" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfmMoblurFrame3FrameClose180.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544639159" data-linked-resource-container-version="1" data-media-id="0e38384a-96a0-427d-adc1-f03bfc927f83" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p /><h3 id="MotionBlurinBlender-MotionSamples">Motion Samples（运动采样）</h3><p>在使用 centered blur（居中模糊）时，第二帧中的红球看起来有点奇怪。blur（模糊）是水平的，但球实际应该在这条模糊轨迹中间到达最高点。默认情况下只有两个 motion samples（运动采样），因为它们开销较高，而且两个通常已经足够。你可以在 render properties（渲染属性）的 Motion Blur 面板中更改全局 motion samples（运动采样）数量。或者，如果知道只有某个特定 geometry（几何体）需要额外样本，可以在该球体的 object properties（对象属性）中添加。在 RenderMan Geometry 面板下，你会看到 Override Motion Samples 复选框以及 Motion Samples 属性。 </p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="500" loading="lazy" src="../../attachments/544639159/motion_samples_geomerty.png" data-image-src="../../attachments/544639159/motion_samples_geomerty.png" data-height="99" data-width="417" data-unresolved-comment-count="0" data-linked-resource-id="544639282" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="motion_samples_geomerty.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544639159" data-linked-resource-container-version="1" data-media-id="d8c746ff-12da-4620-9f7c-9d6b1a481c1e" data-media-type="file"></span><div class="confluence-information-macro confluence-information-macro-tip conf-macro output-block" data-hasbody="true" data-macro-id="b15a8b9f-beec-48b9-8cfc-40fae1c2a22b" data-macro-name="tip"><span class="aui-icon aui-icon-small aui-iconfont-approve confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>任何小于 2 的设置都会实际关闭该特定对象的 motion blur（运动模糊）。</p></div></div><p /><p>两个样本表示只会在 shutter open time（快门打开时间）和 shutter close（快门关闭）时采样球的位置。超过两个样本时，样本会均匀分布在 shutter open（快门打开）与 close（关闭）之间。这有时称为 <strong>Multi-Segment（多段）</strong> motion blur（运动模糊）。</p><p>例如，下面展示了从 2 个 samples（样本）增加到 7 个 samples（样本）时图像如何变化。这是 Frame Center blur（帧中心模糊）。到 7 个 samples（样本）时，看起来已经相当平滑！你可以继续增加到任意高的数值。samples（样本）数量没有限制。</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="479" loading="lazy" src="../../attachments/544639159/rfmMoblurFrame2FrameCenter180.png" data-image-src="../../attachments/544639159/rfmMoblurFrame2FrameCenter180.png" data-height="270" data-width="480" data-unresolved-comment-count="0" data-linked-resource-id="544639195" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfmMoblurFrame2FrameCenter180.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544639159" data-linked-resource-container-version="1" data-media-id="6a92f5dd-041e-44cd-817a-b5200e06a1d0" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="479" loading="lazy" src="../../attachments/544639159/rfmMoblurFrame2FrameCenter180s3.png" data-image-src="../../attachments/544639159/rfmMoblurFrame2FrameCenter180s3.png" data-height="270" data-width="480" data-unresolved-comment-count="0" data-linked-resource-id="544639213" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfmMoblurFrame2FrameCenter180s3.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544639159" data-linked-resource-container-version="1" data-media-id="e4be55ba-0eea-4e99-a7cf-07e66d8705aa" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="479" loading="lazy" src="../../attachments/544639159/rfmMoblurFrame2FrameCenter180s4.png" data-image-src="../../attachments/544639159/rfmMoblurFrame2FrameCenter180s4.png" data-height="270" data-width="480" data-unresolved-comment-count="0" data-linked-resource-id="544639216" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfmMoblurFrame2FrameCenter180s4.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544639159" data-linked-resource-container-version="1" data-media-id="a044bf6a-a83a-44aa-aea4-778c218cf6f7" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="479" loading="lazy" src="../../attachments/544639159/rfmMoblurFrame2FrameCenter180s5.png" data-image-src="../../attachments/544639159/rfmMoblurFrame2FrameCenter180s5.png" data-height="270" data-width="480" data-unresolved-comment-count="0" data-linked-resource-id="544639219" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfmMoblurFrame2FrameCenter180s5.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544639159" data-linked-resource-container-version="1" data-media-id="aef979cf-f233-4ee0-bde8-13d2a3bb07a6" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="479" loading="lazy" src="../../attachments/544639159/rfmMoblurFrame2FrameCenter180s6.png" data-image-src="../../attachments/544639159/rfmMoblurFrame2FrameCenter180s6.png" data-height="270" data-width="480" data-unresolved-comment-count="0" data-linked-resource-id="544639222" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfmMoblurFrame2FrameCenter180s6.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544639159" data-linked-resource-container-version="1" data-media-id="1b3fafd3-a15b-4040-b9c9-608a49d85678" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="479" loading="lazy" src="../../attachments/544639159/rfmMoblurFrame2FrameCenter180s7.png" data-image-src="../../attachments/544639159/rfmMoblurFrame2FrameCenter180s7.png" data-height="270" data-width="480" data-unresolved-comment-count="0" data-linked-resource-id="544639225" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfmMoblurFrame2FrameCenter180s7.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544639159" data-linked-resource-container-version="1" data-media-id="c3afb124-d3c6-4691-8b59-57ef0d95edd7" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p>除了 motion paths（运动路径）之外，旋转对象通常也需要额外的 motion samples（运动采样）。来看这个 color wheel（色轮）。首先是不使用 blur（模糊）的情况：</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="500" loading="lazy" src="../../attachments/544639159/rfmMoblurWheel.png" data-image-src="../../attachments/544639159/rfmMoblurWheel.png" data-height="270" data-width="480" data-unresolved-comment-count="0" data-linked-resource-id="544639228" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfmMoblurWheel.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544639159" data-linked-resource-container-version="1" data-media-id="352dafd4-bb63-4921-b5dd-ce78f3837c05" data-media-type="file"></span><p>现在，使用 2 到 7 个 motion samples（运动采样）：</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="479" loading="lazy" src="../../attachments/544639159/rfmMoblurWheelShutterAngle180s2.png" data-image-src="../../attachments/544639159/rfmMoblurWheelShutterAngle180s2.png" data-height="270" data-width="480" data-unresolved-comment-count="0" data-linked-resource-id="544639231" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfmMoblurWheelShutterAngle180s2.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544639159" data-linked-resource-container-version="1" data-media-id="01a6a464-9f1e-4a7a-81f1-86de227221c4" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="479" loading="lazy" src="../../attachments/544639159/rfmMoblurWheelShutterAngle180s3.png" data-image-src="../../attachments/544639159/rfmMoblurWheelShutterAngle180s3.png" data-height="270" data-width="480" data-unresolved-comment-count="0" data-linked-resource-id="544639234" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfmMoblurWheelShutterAngle180s3.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544639159" data-linked-resource-container-version="1" data-media-id="096c5721-0cf6-4f4d-bc04-7d4d010534e6" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="479" loading="lazy" src="../../attachments/544639159/rfmMoblurWheelShutterAngle180s4.png" data-image-src="../../attachments/544639159/rfmMoblurWheelShutterAngle180s4.png" data-height="270" data-width="480" data-unresolved-comment-count="0" data-linked-resource-id="544639237" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfmMoblurWheelShutterAngle180s4.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544639159" data-linked-resource-container-version="1" data-media-id="aaa46aaa-28eb-4744-bb0c-56474fd0f0fc" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="479" loading="lazy" src="../../attachments/544639159/rfmMoblurWheelShutterAngle180s5.png" data-image-src="../../attachments/544639159/rfmMoblurWheelShutterAngle180s5.png" data-height="270" data-width="480" data-unresolved-comment-count="0" data-linked-resource-id="544639240" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfmMoblurWheelShutterAngle180s5.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544639159" data-linked-resource-container-version="1" data-media-id="a61ad7e1-3412-4b36-94ae-e386ce31ef79" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="479" loading="lazy" src="../../attachments/544639159/rfmMoblurWheelShutterAngle180s6.png" data-image-src="../../attachments/544639159/rfmMoblurWheelShutterAngle180s6.png" data-height="270" data-width="480" data-unresolved-comment-count="0" data-linked-resource-id="544639243" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfmMoblurWheelShutterAngle180s6.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544639159" data-linked-resource-container-version="1" data-media-id="f5b3701d-0803-411b-849b-62fe3e468d9b" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="479" loading="lazy" src="../../attachments/544639159/rfmMoblurWheelShutterAngle180s7.png" data-image-src="../../attachments/544639159/rfmMoblurWheelShutterAngle180s7.png" data-height="270" data-width="480" data-unresolved-comment-count="0" data-linked-resource-id="544639246" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfmMoblurWheelShutterAngle180s7.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544639159" data-linked-resource-container-version="1" data-media-id="e33cefe4-cd23-4643-959c-9c8715b9a218" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p /><h3 id="MotionBlurinBlender-ShutterAngle">Shutter Angle（快门角度）</h3><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="250" loading="lazy" src="../../attachments/544639159/rfmShutterAngle2.png" data-image-src="../../attachments/544639159/rfmShutterAngle2.png" data-height="210" data-width="175" data-unresolved-comment-count="0" data-linked-resource-id="544639267" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfmShutterAngle2.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544639159" data-linked-resource-container-version="1" data-media-id="ad8afb01-361c-4579-a97e-15467475aa62" data-media-type="file"></span><p>shutter angle（快门角度）是一个角度值（以 360 度为完整周期），用于决定 camera（摄像机）的 shutter（快门）打开多少个转动周期比例，以便让“film”（胶片）曝光。默认值为 180 度，因此快门会打开半帧时间。shutter angle（快门角度）越大，运动物体看起来越模糊。</p><p>来看这个示例：使用 frame center blur（帧中心模糊）、大量 motion samples（运动采样），并分别使用 90、180 和 360 的 shutter angles（快门角度）。</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="410" loading="lazy" src="../../attachments/544639159/rfmMoblurShutterAngle90.png" data-image-src="../../attachments/544639159/rfmMoblurShutterAngle90.png" data-height="270" data-width="480" data-unresolved-comment-count="0" data-linked-resource-id="544639270" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfmMoblurShutterAngle90.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544639159" data-linked-resource-container-version="1" data-media-id="8b7f1d0d-4e3d-4097-8e7f-895a421ad419" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="479" loading="lazy" src="../../attachments/544639159/rfmMoblurShutterAngle180.png" data-image-src="../../attachments/544639159/rfmMoblurShutterAngle180.png" data-height="270" data-width="480" data-unresolved-comment-count="0" data-linked-resource-id="544639273" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfmMoblurShutterAngle180.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544639159" data-linked-resource-container-version="1" data-media-id="e14a7370-353f-4e07-af09-8fb6e750b135" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="479" loading="lazy" src="../../attachments/544639159/rfmMoblurShutterAngle360.png" data-image-src="../../attachments/544639159/rfmMoblurShutterAngle360.png" data-height="270" data-width="480" data-unresolved-comment-count="0" data-linked-resource-id="544639276" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfmMoblurShutterAngle360.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544639159" data-linked-resource-container-version="1" data-media-id="f0671091-70a4-4064-ad4b-c576ce1d590d" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h3 id="MotionBlurinBlender-ShutterOpen/ShutterClose">Shutter Open/Shutter Close（快门打开/快门关闭）</h3><p>默认情况下，shutter（快门）实际上会瞬时打开和关闭。Shutter 设置包含两个值， <strong>a</strong> 和 <strong>b</strong> ，它们是 shutter interval（快门区间）的 fractions（分数），可用于调整快门打开和关闭所需时间。从 0 到 <strong>a</strong> 之间快门打开，并从 <strong>b</strong> 到 1 之间关闭。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="500" loading="lazy" src="../../attachments/544639159/rfmMoblurShutterOpening0_1.png" data-image-src="../../attachments/544639159/rfmMoblurShutterOpening0_1.png" data-height="100" data-width="480" data-unresolved-comment-count="0" data-linked-resource-id="544639249" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfmMoblurShutterOpening0_1.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544639159" data-linked-resource-container-version="1" data-media-id="1d2905ca-51c1-4b2d-a8e8-ed58001e08df" data-media-type="file"></span><p>在区间开始时瞬时打开，并在区间结束时瞬时关闭。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="500" loading="lazy" src="../../attachments/544639159/rfmMoblurShutterOpening05_05.png" data-image-src="../../attachments/544639159/rfmMoblurShutterOpening05_05.png" data-height="100" data-width="480" data-unresolved-comment-count="0" data-linked-resource-id="544639252" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfmMoblurShutterOpening05_05.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544639159" data-linked-resource-container-version="1" data-media-id="fafb1068-800c-4aa5-b73e-89178b35bc54" data-media-type="file"></span><p>用区间前半段打开，用后半段关闭。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="500" loading="lazy" src="../../attachments/544639159/rfmMoblurShutterOpening0_05.png" data-image-src="../../attachments/544639159/rfmMoblurShutterOpening0_05.png" data-height="100" data-width="480" data-unresolved-comment-count="0" data-linked-resource-id="544639255" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfmMoblurShutterOpening0_05.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544639159" data-linked-resource-container-version="1" data-media-id="24e390ea-8ae5-4080-adc6-2a1dbe434a93" data-media-type="file"></span><p>在开始时瞬时打开，然后用区间的后半段关闭。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="500" loading="lazy" src="../../attachments/544639159/rfmMoblurShutterOpening0_0.png" data-image-src="../../attachments/544639159/rfmMoblurShutterOpening0_0.png" data-height="100" data-width="480" data-unresolved-comment-count="0" data-linked-resource-id="544639258" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfmMoblurShutterOpening0_0.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544639159" data-linked-resource-container-version="1" data-media-id="b5c44230-1976-4008-96cf-1583716c17ca" data-media-type="file"></span><p>在开始时瞬时打开，并用整个区间关闭。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="500" loading="lazy" src="../../attachments/544639159/rfmMoblurShutterOpening05_1.png" data-image-src="../../attachments/544639159/rfmMoblurShutterOpening05_1.png" data-height="100" data-width="480" data-unresolved-comment-count="0" data-linked-resource-id="544639261" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfmMoblurShutterOpening05_1.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544639159" data-linked-resource-container-version="1" data-media-id="a380e972-1189-4480-a16f-650be9c67847" data-media-type="file"></span><p>用区间前半段打开，然后在区间结束时瞬时关闭。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="500" loading="lazy" src="../../attachments/544639159/rfmMoblurShutterOpening1_1.png" data-image-src="../../attachments/544639159/rfmMoblurShutterOpening1_1.png" data-height="100" data-width="480" data-unresolved-comment-count="0" data-linked-resource-id="544639264" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfmMoblurShutterOpening1_1.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544639159" data-linked-resource-container-version="1" data-media-id="c16bc380-ad00-47f2-98b0-5ceaa9af47ad" data-media-type="file"></span><p>用整个区间打开，然后在区间结束时瞬时关闭。</p></div>
+</div>
+</div>
+</div>
+  </article>
+</main>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Best Practices - The Milk</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Best Practices - The Milk</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RU/619708417/Best+Practices+-+The+Milk">https://rmanwiki-27.pixar.com/space/RU/619708417/Best+Practices+-+The+Milk</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="contentLayout2"><style>[data-colorid=gqn1lh9cf6]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=gqn1lh9cf6]{color:#004eb3}</style>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="CookiesNMilk_new_Banner.jpg" width="760" loading="lazy" src="../../attachments/619708417/CookiesNMilk_new_Banner.jpg" data-image-src="../../attachments/619708417/CookiesNMilk_new_Banner.jpg" data-height="1073" data-width="1074" data-unresolved-comment-count="0" data-linked-resource-id="619708487" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="CookiesNMilk_new_Banner.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="619708417" data-linked-resource-container-version="4" data-media-id="51254ba8-1882-43e0-a3d8-352a372118cf" data-media-type="file" /></span><h2 id="BestPractices-TheMilk-TheMilk">The Milk</h2><p>The milk surface is actually simple to create. The PxrSurface pages provide a helpful table of data used to make everyday items using Subsurface Scattering. Populate the parameters under the Subsurface rollout with the correct color values.</p><p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="milkNCookies_milkAngleA.jpg" width="400" loading="lazy" src="../../attachments/619708417/milkNCookies_milkAngleA.jpg" data-image-src="../../attachments/619708417/milkNCookies_milkAngleA.jpg" data-height="600" data-width="400" data-unresolved-comment-count="0" data-linked-resource-id="619511935" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="milkNCookies_milkAngleA.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="619708417" data-linked-resource-container-version="4" data-media-id="cc574c6f-d2c4-47a6-aa58-8136188918fc" data-media-type="file" /></span><p /><p>After this, there are two simple ways to control the result you require:</p><ul><li><p>Gain - use this to control the weight of the effect artistically</p></li><li><p>Post Tint - use this to create chocolate milk!</p></li></ul><p>Another control users may have to adjust, but typically only once, is the Mean Free Path Distance. This option controls the amount of scattering distance based on scene units. It's essential to set this parameter to a reasonable value to avoid issues such as noise.</p><p>For milk, the light that enters the liquid will only scatter a certain distance into the medium before it is absorbed. This means a more realistic value follows that understanding. If the value is too low, the light doesn't scatter enough, and the object appears more solid. </p><p>If it's too large, then it will scatter light too far and introduce noise or artifacts. In the case of the milk, 1.0 is chosen based on the scene scale and how far light may travel into the liquid medium. </p><p>A very high setting, say 10 or 15, is actually outside the container as measured in scene units. That's not realistic since this means the scattering travels beyond the liquid itself and even the glass container. While it may be pleasing, it will be slower, introduce noise, and not be realistic for milk. Users who spend too much time tuning this measurement while ignoring the scene scale may experience frustration trying to re-balance the other controls to compensate.</p><p>For materials not listed in the table, you can start with something in the table that best matches your target look and then alter the color and gain appropriately. The recommendation for Mean Free Path Distance remains the same, however.</p><p /><hr /><h3 id="BestPractices-TheMilk-NextSteps"><span data-colorid="gqn1lh9cf6">Next Steps</span></h3><p>A short and sweet lesson on creating the milk!  Next, let&rsquo;s do the cookies.</p><p /></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<a href="/wiki/spaces/RU/pages/619642881/Best+Practices+-+Milk+Bottle" data-linked-resource-id="619642881" data-linked-resource-version="4" data-linked-resource-type="page"><span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" alt="previousLesson.png" width="200" loading="lazy" src="../../attachments/619708417/previousLesson.png" data-image-src="../../attachments/619708417/previousLesson.png" data-height="67" data-width="286" data-unresolved-comment-count="0" data-linked-resource-id="619708436" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="previousLesson.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="619708417" data-linked-resource-container-version="4" data-media-id="7df5de5f-ddd1-4d84-b439-ba69351474b5" data-media-type="file" /></span></a><p /></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<a href="/wiki/spaces/RU/pages/619741185/Best+Practices+-+Cookies" data-linked-resource-id="619741185" data-linked-resource-version="3" data-linked-resource-type="page"><span class="confluence-embedded-file-wrapper image-right-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-right" alt="nextLesson.png" width="200" loading="lazy" src="../../attachments/619708417/nextLesson.png" data-image-src="../../attachments/619708417/nextLesson.png" data-height="67" data-width="286" data-unresolved-comment-count="0" data-linked-resource-id="619708433" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="nextLesson.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="619708417" data-linked-resource-container-version="4" data-media-id="bab9de17-74fa-4d2f-bf5e-aab738ed0253" data-media-type="file" /></span></a><p /></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<hr /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="RenderManUniversity_logo_Small.png" width="100" loading="lazy" src="../../attachments/619708417/RenderManUniversity_logo_Small.png" data-image-src="../../attachments/619708417/RenderManUniversity_logo_Small.png" data-height="100" data-width="100" data-unresolved-comment-count="0" data-linked-resource-id="619708430" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderManUniversity_logo_Small.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="619708417" data-linked-resource-container-version="4" data-media-id="67c303a7-afee-477f-bc42-75220730ae81" data-media-type="file" /></span></div>
+</div>
+</div>
+</div>
+  </article>
+</main>
+</body>
+</html>

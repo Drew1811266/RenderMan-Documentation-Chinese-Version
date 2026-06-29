@@ -1,0 +1,10 @@
+{"item_id":"c89811a0fa:0","text":"Hippe Dragon 角色的贴图制作流程（Texturing）"}
+{"item_id":"c89811a0fa:1","text":"我喜欢从 Color/Albedo 开始 Texturing，并把它作为基础来驱动 secondary maps 上的大部分信息。对于 Color map，我更喜欢 Mari，因为它有一些很好的 procedural nodes；对于 Roughness 和 Displacement 等 secondary maps，我使用 Substance Painter。"}
+{"item_id":"c89811a0fa:2","text":"对于 body，我使用 procedural tools 创建 textures 和 variation；对于 leaves 和 petals，我结合 Projecting images 与 procedural techniques。这就是我的 color map 从开始到结束逐步形成的过程。"}
+{"item_id":"c89811a0fa:3","text":"对于 displacement/height map，我更喜欢 Substance Painter，因为它能在 viewport 中给出相当接近的 output 估计。这为每次小调整节省了大量 render iterations。为了更好控制 body 不同部位的 bump 和 displacement intensity，我使用了 Layer Displacement workflow。它允许我通过 Remap node 和用于控制区域的 mask，调整 body 特定部位的 intensity。"}
+{"item_id":"c89811a0fa:4","text":"节省 render time 的一个 tip 是：尽量用 displacement 实现较大的 deformations，而 micro details 则通过 Bump 获得，即使两者使用同一张 height map 也是如此。如果试图只通过 Displacement 获取包括 micro details 在内的全部细节，最终可能会把 micropolygon length 降得过低，才能看见细节。另一方面，用 Bump 得到这些细节会轻得多。"}
+{"item_id":"c89811a0fa:5","text":"对于这个 asset，我的 base model 已经相当 high poly；为了让它更轻，我把 micropolygon length 从默认值 1 提高到 1.5。它可以在 Renderman 下的 Render Settings 中找到。"}
+{"item_id":"c89811a0fa:6","text":"另一个需要注意的是勾选 “Watertight Dicing”。处理 Displacement 时，我开始在 seams 附近看到一些 holes；勾选这个选项后，问题得到了解决。"}
+{"item_id":"c89811a0fa:7","text":"为了额外确保 geometry 中没有 holes，我还勾选了名为 “Prevent Polygon Cracking” 的选项；它位于 object 的 Attribute Editor 的 Shape node 中，在 Renderman 的 Displacement Tab 下。"}
+{"item_id":"c89811a0fa:8","text":"这就是 base model 在 Displacement 前后的样子。"}
+{"item_id":"c89811a0fa:9","text":"为所有希望单独控制的主要区域创建 RGB masks，对这种方法非常重要。它在 Lookdev 阶段非常有用，尤其是在调整 bump 和 displacement，或在不同区域分别控制 SSS 和 transmission 时。"}

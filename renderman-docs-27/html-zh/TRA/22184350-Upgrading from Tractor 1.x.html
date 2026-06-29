@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Upgrading from Tractor 1.x</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Upgrading from Tractor 1.x</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/TRA/22184350/Upgrading+from+Tractor+1.x">https://rmanwiki-27.pixar.com/space/TRA/22184350/Upgrading+from+Tractor+1.x</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="document"><ul><li><p class="first">迁移摘要</p><blockquote><ul class="simple"><li>备份现有的 Tractor 1.x 作业和配置数据。</li><li>创建一个新目录来保存你的 2.x 配置覆盖项。</li><li>熟悉新的 Engine+Blade 已安装产品布局。</li><li>检查 tractor.config 设置，特别是 EngineOwner 设置。</li></ul></blockquote></li><li><p class="first">Tractor-2.0 打包为单个安装程序，包含所有不同的 Tractor 组件：Engine、Blade、Dashboard、Spooler、Nimby、Tractor Query 工具，以及兼容的预构建子系统，例如作业数据库服务器、Python 和 Tcl 解释器，以及支持模块和框架。某些组件的名称略有不同，或现在通过包装脚本访问；其中大多数现在位于 Tractor-2.0/bin 目录中。浏览过新结构后，你可能需要修改自己站点开发脚本中的路径或工具名称，以使用新的方案。</p></li><li><p class="first">作业队列数据库已经从简单的扁平 JSON 文件系统升级为完全集成的 PostgreSQL 数据库。此变更为 Tractor 2.0 带来了若干重要功能，但对于出于某些原因依赖直接文件系统访问作业数据的站点来说，可能会造成影响。更好的做法是依赖各种作业访问 API，这样你就能与底层数据表示的变化隔离；对 2.0 来说这仍然成立，因为表示细节会继续演进。</p></li><li><p class="first">考虑到需要 PostgreSQL 服务器，Tractor 2.0 安装程序会在 Tractor-2.0 安装区域内提供与 Tractor 兼容的预构建 PostgreSQL 服务器。相对于匹配的 Tractor 版本，这种数据库组件的“private（私有）”安装允许 tractor-engine 根据需要可靠地启动和停止 PostgreSQL 服务器。技术上也可以将 Tractor 配置为使用站点中可能已经可用的另一个 PostgreSQL 服务器（详情见 <a href="22184296-PostgreSQL.html" data-linked-resource-id="22184296" data-linked-resource-version="4" data-linked-resource-type="page">db.config</a>）。不过请注意，采用这种方式时可能存在一些性能、兼容性和数据安全方面的顾虑。请联系 RenderMan <a class="external-link" href="https://renderman.pixar.com/forum/forumdisplay.php?s=&amp;forumid=125" rel="nofollow" style="text-decoration: underline;">Customer Support（客户支持）</a> 以获取更多信息。</p></li><li><p class="first">配置文件处理：从各种 Tractor 配置文件加载配置值的方式发生了若干细微变化。 <strong>应使用不同目录来保存 1.x 和 2.x engine 配置文件。</strong> 已安装的 Tractor-2.0 目录顶层仍然有一个“stock（原厂）”config 目录。你可以，也应该，把想要修改的文件从那里复制到安装区域之外自己的目录中。副本可以在产品重新安装时保护你的更改，并且在安装新版本时也会继续应用这些更改。Tractor 2.0 与 1.x 的不同之处在于，你不再需要复制未更改的文件。engine 现在会在你指定的 "--configdir" 位置查找文件（和以前一样），但对于在 "--configdir" 位置找不到的文件，现在会回退到 stock 安装位置查找。此外，对于特定文件 "tractor.config" 和 "db.config"，你的副本可以只包含想要更改的具体值的覆盖项，不需要复制整个文件。这种方式允许新版本中可能重要的设置仍可在 stock tractor.config 中找到，同时仍会应用你期望的覆盖项。</p></li><li><p class="first">Engine 命令行选项：许多 1.x tractor-engine 命令行选项现在可以在 tractor.config 中指定。某些参数，例如作业数据目录的位置 <em>必须</em> 现在在 tractor.config 中指定，以便其他 Tractor 辅助应用程序能够找到它们。</p></li></ul></div>
+  </article>
+</main>
+</body>
+</html>

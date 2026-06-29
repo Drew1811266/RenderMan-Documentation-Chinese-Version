@@ -1,0 +1,173 @@
+{"item_id":"e54cdd8991:0","text":"图片来自"}
+{"item_id":"e54cdd8991:1","text":"Incredibles 2"}
+{"item_id":"e54cdd8991:2","text":"PxrUnified 最初作为实验性积分器包含在 RenderMan 中。最终，此积分器会成为功能完整、可用于可靠生产渲染的积分器。此积分器在 RenderMan XPU 中不可用。"}
+{"item_id":"e54cdd8991:3","text":"请注意，PxrUnified"}
+{"item_id":"e54cdd8991:4","text":"目前"}
+{"item_id":"e54cdd8991:5","text":"不支持"}
+{"item_id":"e54cdd8991:6","text":"Holdout workflow（遮挡保留工作流）"}
+{"item_id":"e54cdd8991:7","text":"Bidirectional mode（双向模式）中的 LPE 输出"}
+{"item_id":"e54cdd8991:8","text":"Shadow Collectors（阴影收集器）"}
+{"item_id":"e54cdd8991:9","text":"Exclude Shadow Subsets（排除阴影子集）"}
+{"item_id":"e54cdd8991:10","text":"PxrUnified 是 Pixar 自家电影和动画短片所依赖的积分器。它既实现正向路径追踪算法，也实现双向选项，并使用 Manifold Next Event Estimation（流形下一事件估计）技术来更快处理焦散，在这里该技术称为"}
+{"item_id":"e54cdd8991:11","text":"Manifold Walk（流形行走）"}
+{"item_id":"e54cdd8991:12","text":"。它还提供两种"}
+{"item_id":"e54cdd8991:13","text":"Indirect Guiding（间接引导）"}
+{"item_id":"e54cdd8991:14","text":"选项，通过从场景中照明更充分或更重要的区域进行采样来改善间接照明。其中一种间接引导方法基于 Müller 等人的 Practical Path Guiding for Efficient Light-Transport Simulation（用于高效光传输模拟的实用路径引导）。这种方法开销相对较高，但对某些场景可能有益，尤其是具有高度镜面间接交互的场景。第二种方法称为 risPathGuiding，开销低得多，对漫反射和光泽场景更有效。请参见"}
+{"item_id":"e54cdd8991:15","text":"Path Guiding（路径引导）"}
+{"item_id":"e54cdd8991:99","text":"Path Guiding（路径引导）"}
+{"item_id":"e54cdd8991:17","text":"请注意，Max Path Length 是用于控制全局 trace depth（追踪深度）的单一控件；PxrUnified 会忽略单独的镜面和漫反射 trace depth 设置。这意味着更简单的控件更直观，但某些场景可能需要更长渲染时间，并且外观可能不同于用户已根据场景优化反弹次数的其他积分器。将此控件设为 0 表示只启用直接照明和摄影机可见效果。提高该设置会允许光在场景对象中传播得更深，并从对象上继续反弹。"}
+{"item_id":"e54cdd8991:18","text":"对于直接照明，numLightSamples 和 numBxdfSamples 参数决定 light（灯光）与 Bxdf（材质）直接照明采样的数量，生成的直接照明贡献会使用多重重要性采样进行组合。"}
+{"item_id":"e54cdd8991:19","text":"对于间接照明，numIndirectSamples 参数控制是否发射光线来采样间接路径。目前只支持 0 和 1 两个值。"}
+{"item_id":"e54cdd8991:20","text":"SubSurface Over-sampling（次表面过采样）用于在渲染复杂照明以及启用次表面着色的对象时帮助降低噪声。"}
+{"item_id":"e54cdd8991:21","text":"有关这些高级特性的更多技术信息，可以参考以下研究论文："}
+{"item_id":"e54cdd8991:22","text":"论文作者：Thomas Müller、Markus Gross 和 Jan Novák。"}
+{"item_id":"e54cdd8991:23","text":"Practical Path Guiding for Efficient Light-Transport Simulation（用于高效光传输模拟的实用路径引导）"}
+{"item_id":"e54cdd8991:24","text":"。《Computer Graphics Forum》（EGSR 2017 论文集），第 36 卷，第 4 期"}
+{"item_id":"e54cdd8991:25","text":"论文作者：Johannes Hanika、Marc Droske 和 Luca Fascione。"}
+{"item_id":"e54cdd8991:26","text":"Manifold Next Event Estimation（流形下一事件估计）。"}
+{"item_id":"e54cdd8991:27","text":"Eurographics Symposium on Rendering 2015，第 34 卷，第 4 期"}
+{"item_id":"e54cdd8991:28","text":"Basic Parameters（基本参数）"}
+{"item_id":"e54cdd8991:130","text":"参数"}
+{"item_id":"e54cdd8991:31","text":"traceLightPaths"}
+{"item_id":"e54cdd8991:32","text":"此参数启用双向路径追踪模式。PxrUnified 具有 4 种积分模式，具体取决于 light path（光路径）的采样方式。还有更多选项可用，并且某些选项组合会因选择不同而无效。其选择方式类似下面提到的 PxrVCM。随着此积分器最终定型，相关设置会补充更多细节。"}
+{"item_id":"e54cdd8991:33","text":"Off（关闭）"}
+{"item_id":"e54cdd8991:34","text":"单向路径追踪，类似 PxrPathTracer"}
+{"item_id":"e54cdd8991:35","text":"On（开启）"}
+{"item_id":"e54cdd8991:36","text":"双向路径追踪，类似 PxrVCM 中 connect on、merge off 的模式。Indirect Guiding（间接引导）会被禁用。"}
+{"item_id":"e54cdd8991:37","text":"Photons Only（仅光子）"}
+{"item_id":"e54cdd8991:38","text":"渐进式光子映射，类似 PxrVCM 中 connect off、merge on 的模式。Indirect Guiding（间接引导）会被禁用。随后会显示 Photon Controls（光子控制）。"}
+{"item_id":"e54cdd8991:39","text":"UPS/VCM"}
+{"item_id":"e54cdd8991:40","text":"双向路径追踪结合渐进式光子映射，类似 PxrVCM 中 connect on、merge on 的模式。"}
+{"item_id":"e54cdd8991:41","text":"maxIndirectBounces"}
+{"item_id":"e54cdd8991:42","text":"控制最大光线深度的绝对上限。例如，此参数值为 0 时只允许直接照明；值为 4 时允许最多 4 次全局照明反弹。默认值为 8。"}
+{"item_id":"e54cdd8991:43","text":"useTraceDepth"}
+{"item_id":"e54cdd8991:44","text":"启用时，积分器会遵循场景中分配给对象的 trace depth（追踪深度）；这通常用作渲染优化，将各类反弹数量限制到视觉上必要的程度。请参见"}
+{"item_id":"e54cdd8991:45","text":"Trace Depth"}
+{"item_id":"e54cdd8991:47","text":"maxRayDistance"}
+{"item_id":"e54cdd8991:48","text":"此参数控制一条以 scene units（场景单位）计的"}
+{"item_id":"e54cdd8991:49","text":"间接"}
+{"item_id":"e54cdd8991:50","text":"光线在被终止前可传播的距离。如果你的场景尺度使得相距很远的对象在视觉上不会发生间接交互，可以使用此参数优化场景。请注意，穿过窗户和其他对象的光线也是 indirect rays（间接光线），可能会过早终止并从玻璃折射中消失。（设想一个从客厅窗户看远处山脉的渲染，请确保这些光线能传播得足够远。）"}
+{"item_id":"e54cdd8991:51","text":"catchAllLights"}
+{"item_id":"e54cdd8991:52","text":"在最后一次命中处，对灯光进行无阴影评估；默认值为 off（0.0）。如果发现折射变暗，将此滑块设为 1.0 会加入灯光采样的完整贡献。开启此项可能会让场景变亮。"}
+{"item_id":"e54cdd8991:53","text":"emissionMultiplier"}
+{"item_id":"e54cdd8991:54","text":"乘以材质和灯光上设置的所有 emissive（自发光）和 \"glow\"（辉光）属性。"}
+{"item_id":"e54cdd8991:55","text":"accumOpacity"}
+{"item_id":"e54cdd8991:56","text":"控制路径追踪器是否沿路径跟踪累积不透明度。默认值为 off。如果计划渲染折射对象，并且关心用于合成的 alpha 值，可能需要开启此项，例如汽车车窗。"}
+{"item_id":"e54cdd8991:57","text":"specularCurvatureFilter"}
+{"item_id":"e54cdd8991:58","text":"Filter（过滤）镜面交互的粗糙度；设为 0.0 表示不进行过滤，即 \"ground truth\"（基准真值）。默认值旨在降低噪声。"}
+{"item_id":"e54cdd8991:59","text":"numLightSamples"}
+{"item_id":"e54cdd8991:60","text":"控制每个摄影机命中点用于直接照明的灯光采样数量。默认值为 1。较小数值可能提升交互式和渐进式更新的性能。较大数值可能看起来收敛更好，但更新会更慢。"}
+{"item_id":"e54cdd8991:61","text":"numBxdfSamples"}
+{"item_id":"e54cdd8991:62","text":"控制每个摄影机命中点用于直接照明的 Bxdf 采样数量。默认值为 1。较小数值可能提升交互式和渐进式更新的性能。较大数值可能看起来收敛更好，但更新会更慢。"}
+{"item_id":"e54cdd8991:63","text":"numIndirectSamples"}
+{"item_id":"e54cdd8991:64","text":"作为开关使用：off（0，或无间接照明）与 on（1）。"}
+{"item_id":"e54cdd8991:65","text":"sssOversampling"}
+{"item_id":"e54cdd8991:66","text":"控制每个摄影机命中点要生成的 subsurface rays（次表面光线）数量。默认值为 8。"}
+{"item_id":"e54cdd8991:67","text":"allowMultilobeIndirect"}
+{"item_id":"e54cdd8991:68","text":"允许在毛发渲染期间复用采样，以加快收敛。这可能会改变生成的 LPE。"}
+{"item_id":"e54cdd8991:69","text":"rouletteDepth"}
+{"item_id":"e54cdd8991:70","text":"控制从哪个光线深度开始执行 Russian Roulette（俄罗斯轮盘）。在此深度之后，Russian Roulette 可能会终止光线，尤其是当它们对结果贡献很小时。默认值为 1。"}
+{"item_id":"e54cdd8991:71","text":"rouletteThreshold"}
+{"item_id":"e54cdd8991:72","text":"控制 path throughput（路径吞吐量）阈值；低于该阈值时会执行 Russian Roulette（俄罗斯轮盘）。它控制光线贡献在何种程度上小到可以终止该光线。默认值为 0.2。"}
+{"item_id":"e54cdd8991:73","text":"directClamp"}
+{"item_id":"e54cdd8991:74","text":"设置数值被钳制的幅度。对于直接照明，默认值较高，以保留场景照明的动态范围。降低该值会减少 fireflies（亮点噪声）等噪声，但代价是动态范围降低。默认值为 1000000.0。"}
+{"item_id":"e54cdd8991:75","text":"indirectClamp"}
+{"item_id":"e54cdd8991:76","text":"设置数值被钳制的幅度。对于间接照明，默认值较低，这可以避免已经吸收部分能量的次级效果产生噪声。降低该值会减少噪声，但也会使间接效果变暗。默认值为 8.0。"}
+{"item_id":"e54cdd8991:77","text":"causticClamp"}
+{"item_id":"e54cdd8991:78","text":"设置数值被钳制的幅度。对于焦散，默认值较高，以保留光线从对象表面反射或穿过对象聚焦后产生的光图案。降低该值会减少 fireflies（亮点噪声）等噪声，但代价是动态范围降低。默认值为 1000000.0。"}
+{"item_id":"e54cdd8991:79","text":"Manifold Walk（流形行走）（当前不适用于 BDPT 模式）"}
+{"item_id":"e54cdd8991:82","text":"manifoldWalk"}
+{"item_id":"e54cdd8991:83","text":"启用或禁用 manifold walk（流形行走）计算。请注意，场景还需要额外设置；这些协同工作的设置可在 Lights、PxrSurface 和积分器中找到。"}
+{"item_id":"e54cdd8991:84","text":"maxIterations"}
+{"item_id":"e54cdd8991:85","text":"这是 walk（行走）在放弃并终止前可执行的最大迭代次数。"}
+{"item_id":"e54cdd8991:86","text":"maxInterfaces"}
+{"item_id":"e54cdd8991:87","text":"这是 walk（行走）在通往灯光途中预计会遇到的最大透射界面数量。数值过低可能会阻止它离开界面链并找到光源。"}
+{"item_id":"e54cdd8991:88","text":"walkThreshold"}
+{"item_id":"e54cdd8991:89","text":"这是用于控制 manifold walk（流形行走）收敛的阈值。较高值可能产生噪声。"}
+{"item_id":"e54cdd8991:90","text":"enableVolumeCaustics"}
+{"item_id":"e54cdd8991:91","text":"此参数允许在介质中（如果存在介质）产生体积焦散。包围该介质的对象必须属于特定"}
+{"item_id":"e54cdd8991:92","text":"trace set（追踪集合）"}
+{"item_id":"e54cdd8991:93","text":"：mw_volume_include_subset。这是一项昂贵技术。"}
+{"item_id":"e54cdd8991:94","text":"RIS Indirect Guiding（间接引导）/ RIS 间接引导"}
+{"item_id":"e54cdd8991:97","text":"risPathGuiding"}
+{"item_id":"e54cdd8991:98","text":"设为 1 时，会启用间接路径引导。在渲染进行期间，此技术会学习场景中的间接 radiance（辐射亮度）分布，并使用多重重要性采样将这些信息与 Bxdf 采样结合，以缩短收敛时间。它对光泽和漫反射表面尤其有效，也适用于间接光占主导的区域。"}
+{"item_id":"e54cdd8991:100","text":"PPG Indirect Guiding（间接引导）/ PPG 间接引导"}
+{"item_id":"e54cdd8991:103","text":"indirectTrainingSamples"}
+{"item_id":"e54cdd8991:104","text":"这是用于“学习”场景光照分布的采样数量。此数值不应超过 hider 设置的 minSample，也不应超过 maxSamples 的 10% 到 20%。64 应作为最小值（这意味着 minSamples 至少应为 64；如果设为 0，则为 maxSamples 的平方根，可能过低）。"}
+{"item_id":"e54cdd8991:105","text":"indirectSpatialBlurRadius"}
+{"item_id":"e54cdd8991:106","text":"此参数会模糊 spatial tree（空间树）的边界；它只影响采样，不是对最终采样结果进行模糊的参数。如果你看到由网格结构导致的不连续，可以使用此参数。"}
+{"item_id":"e54cdd8991:107","text":"indirectDirectionalBlurRadius"}
+{"item_id":"e54cdd8991:108","text":"此参数会模糊 spatial tree（空间树）中给出的方向；它只影响采样，不是对最终采样结果进行模糊的参数。如果你看到由网格结构导致的不连续，可以使用此参数。"}
+{"item_id":"e54cdd8991:109","text":"indirectOversampling"}
+{"item_id":"e54cdd8991:110","text":"Over sample（过采样）lookup tree（查询树），以获得更好的结果。通常这只是非常细微的效果。"}
+{"item_id":"e54cdd8991:111","text":"Photons（光子）（Enabled：当 Trace Light Paths 设为 Photons 或 UPS/VCM 模式时启用）"}
+{"item_id":"e54cdd8991:114","text":"photonEstimationRadius"}
+{"item_id":"e54cdd8991:115","text":"用于光子查找优化的搜索半径，以 scene units（场景单位）计。通常默认值即可，除非你想在收敛过程中获得不同的预览效果。"}
+{"item_id":"e54cdd8991:116","text":"photonEstimationNumber"}
+{"item_id":"e54cdd8991:117","text":"在上述搜索半径内用于估计的 photons（光子）数量。"}
+{"item_id":"e54cdd8991:118","text":"photonVisibilityRod"}
+{"item_id":"e54cdd8991:119","text":"用于 photons（光子）的 targeting shape（定向形状），可开启或关闭。"}
+{"item_id":"e54cdd8991:120","text":"photonVisibilityRodDirectProb"}
+{"item_id":"e54cdd8991:121","text":"控制 photons（光子）向下方指定 Rod box 的定向程度。接近 1.0 的值会开始使图像产生偏差。"}
+{"item_id":"e54cdd8991:122","text":"photonVisibilityRodDirectMin"}
+{"item_id":"e54cdd8991:123","text":"光子定向区域的最小边界。"}
+{"item_id":"e54cdd8991:124","text":"photonVisibilityRodDirectMax"}
+{"item_id":"e54cdd8991:125","text":"光子定向区域的最大边界。"}
+{"item_id":"e54cdd8991:126","text":"photonAdaptive"}
+{"item_id":"e54cdd8991:127","text":"基于论文："}
+{"item_id":"e54cdd8991:128","text":"\"Adaptive Progressive Photon Mapping\"（“自适应渐进式光子映射”）"}
+{"item_id":"e54cdd8991:129","text":"Diagnostic（诊断）"}
+{"item_id":"e54cdd8991:132","text":"suppressNaNs"}
+{"item_id":"e54cdd8991:133","text":"此参数会在单个采样被 splat（泼溅写入）到图像之前，让返回 \"not a number\"（非数字）的采样失效。执行此检查会有开销，并且默认关闭。"}
+{"item_id":"e54cdd8991:134","text":"enableShadingTimers"}
+{"item_id":"e54cdd8991:135","text":"（developer option，开发者选项）启用计时器，用于按 profileGroup user attribute（用户属性）对 shader 组的着色成本进行收集。"}
+{"item_id":"e54cdd8991:136","text":"enableSampleTimers"}
+{"item_id":"e54cdd8991:137","text":"（developer option，开发者选项）启用用于跟踪像素采样迭代成本的计时器。"}
+{"item_id":"e54cdd8991:138","text":"Standard AOVs（标准 AOV）"}
+{"item_id":"e54cdd8991:139","text":"除了常规的基于 LPE 的 AOV 之外，此积分器还会输出若干合成师通常使用的标准 AOV。"}
+{"item_id":"e54cdd8991:140","text":"声明"}
+{"item_id":"e54cdd8991:141","text":"内容"}
+{"item_id":"e54cdd8991:142","text":"Channels（通道）"}
+{"item_id":"e54cdd8991:143","text":"color __Pworld"}
+{"item_id":"e54cdd8991:144","text":"P，位于 world-space（世界空间）"}
+{"item_id":"e54cdd8991:145","text":"__Pworld.r：x 分量"}
+{"item_id":"e54cdd8991:146","text":"__Pworld.g：y 分量"}
+{"item_id":"e54cdd8991:147","text":"__Pworld.b：z 分量"}
+{"item_id":"e54cdd8991:148","text":"color __Nworld"}
+{"item_id":"e54cdd8991:149","text":"Nn，位于 world-space（世界空间）"}
+{"item_id":"e54cdd8991:150","text":"__Nworld.r：x 分量"}
+{"item_id":"e54cdd8991:151","text":"__Nworld.g：y 分量"}
+{"item_id":"e54cdd8991:152","text":"__Nworld.b：z 分量"}
+{"item_id":"e54cdd8991:153","text":"color __depth"}
+{"item_id":"e54cdd8991:154","text":"多用途 AOV"}
+{"item_id":"e54cdd8991:155","text":"__depth.r：从摄影机算起、位于 world-space（世界空间）的深度"}
+{"item_id":"e54cdd8991:156","text":"__depth.g：world-space（世界空间）中的高度"}
+{"item_id":"e54cdd8991:157","text":"__depth.b：几何朝向比：abs(Nn.V)"}
+{"item_id":"e54cdd8991:158","text":"color __st"}
+{"item_id":"e54cdd8991:159","text":"纹理坐标"}
+{"item_id":"e54cdd8991:160","text":"__st.x：s"}
+{"item_id":"e54cdd8991:161","text":"__st.y：t"}
+{"item_id":"e54cdd8991:162","text":"__st.z：0.0"}
+{"item_id":"e54cdd8991:163","text":"color __Pref"}
+{"item_id":"e54cdd8991:164","text":"Reference Position primvar（参考位置 primvar，如可用）"}
+{"item_id":"e54cdd8991:165","text":"__Pref.r：x 分量"}
+{"item_id":"e54cdd8991:166","text":"__Pref.g：y 分量"}
+{"item_id":"e54cdd8991:167","text":"__Pref.b：z 分量"}
+{"item_id":"e54cdd8991:168","text":"color __Nref"}
+{"item_id":"e54cdd8991:169","text":"Reference Normal primvar（参考法线 primvar，如可用）"}
+{"item_id":"e54cdd8991:170","text":"__Nref.r：x 分量"}
+{"item_id":"e54cdd8991:171","text":"__Nref.g：y 分量"}
+{"item_id":"e54cdd8991:172","text":"__Nref.b：z 分量"}
+{"item_id":"e54cdd8991:173","text":"color __WPref"}
+{"item_id":"e54cdd8991:174","text":"Reference World Position primvar（参考世界位置 primvar，如可用）"}
+{"item_id":"e54cdd8991:175","text":"__WPref.r：x 分量"}
+{"item_id":"e54cdd8991:176","text":"__WPref.g：y 分量"}
+{"item_id":"e54cdd8991:177","text":"__WPref.b：z 分量"}
+{"item_id":"e54cdd8991:178","text":"color __WNref"}
+{"item_id":"e54cdd8991:179","text":"Reference World Normal primvar（参考世界法线 primvar，如可用）"}
+{"item_id":"e54cdd8991:180","text":"__WNref.r：x 分量"}
+{"item_id":"e54cdd8991:181","text":"__WNref.g：y 分量"}
+{"item_id":"e54cdd8991:182","text":"__WNref.b：z 分量"}
+{"id": "cdb4ee2aea69cc6a83331bbe96dc2caa9a299d21329efb0336fc02a82e1839a8", "item_id": "e54cdd8991:16", "text": "。"}
+{"id": "dd066ec1bf1d4485d3597f93a32c2f64b88ccdb6c555428ac4af3d17bf691cc2", "item_id": "e54cdd8991:29", "text": "Parameter"}
+{"id": "526e0087cc3f254d9f86f6c7d8e23d954c4dfda2b312efc29194ae8a860106ba", "item_id": "e54cdd8991:30", "text": "说明"}

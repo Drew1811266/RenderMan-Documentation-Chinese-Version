@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PxrPtexture</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>PxrPtexture</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/REN27/542224432/PxrPtexture">https://rmanwiki-27.pixar.com/space/REN27/542224432/PxrPtexture</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>Provides access to per-face texture (ptex) files. Unlike other texture nodes, this texture always operates over the default parameterization on the surface. There is no manifold to be provided, instead a special primitive variable called __faceindex is used.</p><p><br/></p><h3 class="section" id="PxrPtexture-PxrPtexture">PxrPtexture</h3><h4 class="section" id="PxrPtexture-Filename">Filename</h4><div class="section">The filename of the texture. This parameter must be supplied.</div><div class="section"><br/></div><div class="section"><div class="line-block"><p>You can reference a constant string primvar in your filename to make it easy to reuse a texture across different pieces of geometry, where the primvar dictates a filename convention.</p><ul><li>&lt;primstr:primvarname&gt; - will substitute the value of the named constant string primitive variable, such as the name of an asset in for example &quot;/assets/&lt;primstr:model&gt;/diffuse.tex&quot; on an apple with &quot;const string model&quot; [&quot;apple&quot;] would be expanded to &quot;/assets/apple/diffuse.tex&quot;</li></ul></div><h4 class="section" id="PxrPtexture-FirstChannelOffset">First Channel Offset</h4><div class="section">OffsetOffsets the first channel to be looked up.</div><div class="line-block"><div class="line"><p><br/></p></div></div><h4 class="section" id="PxrPtexture-FaceIndexOffset">Face Index Offset</h4><div class="section">If you have put more than one set of data into a ptex file, you can offset the index by the known amount.</div><h4 class="section" id="PxrPtexture-InvertWindingOrder">Invert Winding Order</h4><p>If your faces are flipped or have artifacts, your bridge application may have inverted the order, this may alleviate those artifacts by reversing the order again.</p><div class="line-block"><div class="line"><p><br/></p></div></div><h4 class="section" id="PxrPtexture-Filter">Filter</h4><div class="section">Selects different reconstruction filters that can be used during texture lookup. The filters available for PxrPtexture are:</div><ul class="simple"><li>0: Nearest</li><li>1: Box</li><li>2: Bilinear</li><li>3: Bspline</li><li>4: Mitchell</li><li>5: Catmullrom</li><li>6: Gaussian</li><li>7: Lagrangian</li></ul><div class="line-block"><div class="line"><p><br/></p></div></div><h4 class="section" id="PxrPtexture-Blur">Blur</h4><div class="section">Specifies how much to blur the image retrieved from the ptex file.</div><div class="section"><h4 class="section" id="PxrPtexture-MipInterpolate">Mip Interpolate</h4><br/>Selects whether to interpolate between adjacent resolutions in the multi-resolution texture, resulting in smoother transitions between levels.</div><div class="section"><h4 class="section" id="PxrPtexture-MissingColor">Missing Color</h4><br/>If there is an error opening the texture, use this color.<h4 class="section" id="PxrPtexture-MissingAlpha">Missing Alpha</h4><p>If there is an error opening the texture, use this alpha.</p><h4 class="section" id="PxrPtexture-Linearize">Linearize</h4><p>Apply the reverse sRGB transform your texture. If you are painting textures in sRGB space (default for most paint packages) but viewing your data in data linear space, your textures will look washed out. This will apply the sRGB transform to your texture, which should make it appear visually linear again.</p></div><div class="section"><h3 id="PxrPtexture-AdjustOutput">Adjust Output</h3><h4 id="PxrPtexture-ColorScale">Color Scale</h4><p>A multiplier for the color values in a texture, can be used to adjust brightness or manipulate individual color channels</p><p><br/></p><h4 id="PxrPtexture-ColorOffset">Color Offset</h4><p>Apply an offset to the result, shifting the colors of the result</p><p><br/></p><h4 id="PxrPtexture-Saturation">Saturation</h4><p>Increase (greater than one) or decrease (less than one) the saturation of the texture result</p><p><br/></p><h4 id="PxrPtexture-AlphaScale">Alpha Scale</h4><p>A multiplier for the alpha channel, useful when the alpha is used to drive a parameter</p><p><br/></p><h4 id="PxrPtexture-AlphaOffset">Alpha Offset</h4><p>An offset for the alpha channel, useful when the alpha is used to drive a parameter</p><p><br/></p><h3 id="PxrPtexture-OutputParameters">Output Parameters</h3></div></div><h4 class="section" id="PxrPtexture-resultRGB">resultRGB</h4><div class="section">The filtered color result. Note all results are looked up starting at the startChannel offset.</div><h4 class="section" id="PxrPtexture-resultR">resultR</h4><div class="section">The R channel result</div><h4 class="section" id="PxrPtexture-resultG">resultG</h4><div class="section">The G channel result</div><h4 class="section" id="PxrPtexture-resultB">resultB</h4><div class="section">The B channel result</div><h4 class="section" id="PxrPtexture-resultA">resultA</h4><div class="section">If alpha is present and resultRGB is connected it returns the channel after RGB. If RGB is not connected it returns the first channel.</div>
+  </article>
+</main>
+</body>
+</html>

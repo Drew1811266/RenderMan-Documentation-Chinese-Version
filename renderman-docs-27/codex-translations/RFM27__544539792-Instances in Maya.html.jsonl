@@ -1,0 +1,49 @@
+{"item_id":"1ba915da9d:0","text":"通过"}
+{"item_id":"1ba915da9d:1","text":"instancing（实例化）"}
+{"item_id":"1ba915da9d:2","text":"复用 geometry（几何体），可以在 RenderMan 渲染复杂场景时显著降低 memory footprint（内存占用）。即使是在包含多个相似对象的较简单场景中，把 instancing（实例化）纳入工作流程也会很方便。"}
+{"item_id":"1ba915da9d:3","text":"在 Maya 中，设置 instances（实例）有几种方法，包括："}
+{"item_id":"1ba915da9d:4","text":"Maya Instances（Maya 实例）"}
+{"item_id":"1ba915da9d:5","text":"Maya instances（Maya 实例）大概是 Maya 中最常见的 instancing（实例化）形式。Maya instances 会在 RenderMan 中渲染为 \"object instances\"（对象实例），这是 RenderMan 最高效的 instancing 形式。"}
+{"item_id":"1ba915da9d:6","text":"在此示例中，假设需要对一个 teacup（茶杯）进行 instancing（实例化）。"}
+{"item_id":"1ba915da9d:7","text":"选择要进行 instance（实例化）的层级结构的顶层 group node（组节点），在本例中就是 teacup node（茶杯节点）。"}
+{"item_id":"1ba915da9d:8","text":"如果要进行 instance（实例化）的对象非常复杂，可以先创建一个"}
+{"item_id":"1ba915da9d:9","text":"RenderMan Archive（RenderMan 归档）"}
+{"item_id":"1ba915da9d:10","text":"，然后对它进行 instance（实例化），这样原始 geometry（几何体）甚至不需要出现在场景中。"}
+{"item_id":"1ba915da9d:11","text":"执行 Edit->Duplicate Special，打开 option box（选项框）。"}
+{"item_id":"1ba915da9d:12","text":"确保在选项中启用了 instancing（实例化）。"}
+{"item_id":"1ba915da9d:13","text":"一个新的 instance（实例）会出现在 outliner 中。"}
+{"item_id":"1ba915da9d:14","text":"打开 HyperGraph Hierarchy 窗口，可以看到原始节点和 instance（实例）是两个独立的 transform（变换），但共享同一个 geometry（几何体）。（Windows->HyperGraph: Hierarchy）"}
+{"item_id":"1ba915da9d:15","text":"新的 instance（实例）可以独立放置。"}
+{"item_id":"1ba915da9d:16","text":"Multiple Materials（多个材质）"}
+{"item_id":"1ba915da9d:17","text":"可以把新 material（材质）分配给 instanced shapes（实例化形状）。在 viewport（视口）中选择要分配新材质的 shape（形状），然后按平常的方式分配即可。新 material 只会分配给你点击的那个 shape。"}
+{"item_id":"1ba915da9d:18","text":"Particle Instancer（粒子实例器）"}
+{"item_id":"1ba915da9d:19","text":"当 instances（实例）数量很大时，创建 Maya instances 并逐个独立摆放会变得不切实际。Maya 的 particle instancer（粒子实例器）是在 particles（粒子）上进行 geometry instancing（几何体实例化）的一种方法。"}
+{"item_id":"1ba915da9d:20","text":"首先创建一些 particles（粒子）。这可以使用 emitter（发射器，用于动态放置粒子）完成，也可以使用 Maya 的 nParticle Tool 来放置单个粒子。nParticles 和 Maya 的 legacy particles（旧版粒子）都受支持。"}
+{"item_id":"1ba915da9d:21","text":"在下面的示例中，particles（粒子）是使用 nParticle Tool 逐个放置的。"}
+{"item_id":"1ba915da9d:22","text":"注意，进行 particle instancing（粒子实例化）时，有时会在 Maya 中得到意外的 offset（偏移）。为避免这种情况，请把将要被 instanced（实例化）的对象（例如 teacup）移到 0,0,0。执行 Modify->Freeze Transformations。为了让每个 instance（实例）都能使用 per-particle attributes（逐粒子属性），可以把原始对象从视图中移开。"}
+{"item_id":"1ba915da9d:23","text":"通过 \"top\" orthographic camera（正交相机）查看。点击来在新 instances（实例）应该放置的位置创建 particles（粒子），完成后按 Enter。"}
+{"item_id":"1ba915da9d:24","text":"先选择应该被 instanced（实例化）的节点（例如 teacup），再选择 particle shape 的 transform（例如 nParticle1），然后执行 nParticles->Instancer。如果选择顺序错误，Maya 会指出这一点。"}
+{"item_id":"1ba915da9d:25","text":"你会看到每个 particle（粒子）位置都出现一个 instance（实例）。"}
+{"item_id":"1ba915da9d:26","text":"XGen Archives（XGen 归档）"}
+{"item_id":"1ba915da9d:27","text":"Nested Instancing（嵌套实例化）"}
+{"item_id":"1ba915da9d:28","text":"特别是在处理大型数据集时，例如用 Xgen 对许多对象进行 instancing（实例化），我们会尝试 flatten（展平）instances（实例），以便用户能够灵活设置 overrides（覆盖）并提高速度。但有些时候这可能会消耗过多内存。原因是 flattened instances（展平后的实例）在渲染时会相乘，因此 1,000 个由 1,000 个实例组成的实例会变成 1,000,000 个实例。"}
+{"item_id":"1ba915da9d:29","text":"加入 Nested instances（嵌套实例）后，1,000 个由 1,000 个实例组成的实例在内存中会变成 2,000 个。不过，实例的一些选项（例如某些 variation（变化）等）将不再提供给 renderer（渲染器）。因此，我们允许用户通过给 transform nodes（变换节点）打标签来决定何时嵌套 instancing（实例化）。"}
+{"item_id":"1ba915da9d:30","text":"创建 XGen Description（XGen 描述）"}
+{"item_id":"1ba915da9d:31","text":"XGen 是一个强大的工具，可用于放置任意 geometry（几何体）的 instances（实例）。首先需要创建一个 XGen description（XGen 描述），其中保存 instances 将被放置到的点集合。然后可以创建 archive（归档），并在这些点上对它进行 instance（实例化）。"}
+{"item_id":"1ba915da9d:32","text":"选择要在其上放置 instances（实例）的 shape（形状）（例如 ground plane）。然后在 XGen toolbar（工具栏）中，点击最左侧带有 X 的图标。"}
+{"item_id":"1ba915da9d:33","text":"在弹出的 XGen 窗口中，选择标有 \"Create New Description\" 的按钮。"}
+{"item_id":"1ba915da9d:34","text":"在弹出的 Create XGen Description 对话框中，选择名为 \"Custom Geometry/Archives (use for any model you have created)\" 的 radio button（单选按钮）。"}
+{"item_id":"1ba915da9d:35","text":"接着点击 Create 按钮。这会在平面上随机分布 points（点）。现在不用担心这个。我们先创建一个 archive（归档）。"}
+{"item_id":"1ba915da9d:36","text":"创建 XGen Archive（XGen 归档）"}
+{"item_id":"1ba915da9d:37","text":"在 XGen Window 中的 Primitives 选项卡下，向下滚动到名为 Archive Files 的部分。"}
+{"item_id":"1ba915da9d:38","text":"选择要 archive（归档）的层级结构的顶层 transform（变换）（例如 teacup node），然后点击名为 \"Create From Selection...\" 的按钮。"}
+{"item_id":"1ba915da9d:39","text":"在出现的 \"Export Selection as Archives\" 对话框中，为 XGen archive（XGen 归档）选择位置和名称，然后执行 Export。系统也可能提示你重新保存场景。"}
+{"item_id":"1ba915da9d:40","text":"接下来，点击 Archive Files 列表下方的 \"Add...\" 按钮。浏览到之前保存的 archive（归档）。文件名应以 .xarc 结尾。"}
+{"item_id":"1ba915da9d:41","text":"你应该会看到 archive（归档）的 instances（实例）密集分布在 ground plane（地面平面）上。"}
+{"item_id":"1ba915da9d:42","text":"Specify Points（指定点）"}
+{"item_id":"1ba915da9d:43","text":"如果不想使用随机定位，可以在特定位置指定 points（点）。"}
+{"item_id":"1ba915da9d:44","text":"滚动到 XGen Primitives 选项卡顶部。将 Generate Primitives 设置从 \"Randomly across the surface\" 改为 \"At specified locations。然后点击标有 \"Specify Points...\" 的按钮。"}
+{"item_id":"1ba915da9d:45","text":"viewport（视口）中会出现一个用于放置 points（点）的工具。"}
+{"item_id":"1ba915da9d:46","text":"放置 points（点）之后，你应该会看到 archive（归档）在这些点上被 instanced（实例化）。"}
+{"item_id":"1ba915da9d:47","text":"Add a Material（添加材质）"}
+{"item_id":"1ba915da9d:48","text":"在 Preview/Output 选项卡下，向下滚动到 RenderMan Settings 部分。这里可以为 archives（归档）应用新的 material（材质）。"}

@@ -1,0 +1,54 @@
+{"item_id":"8253c1a53e:0","text":"本页的目标是为你在 RenderMan XPU 中设置 Min 和 Max samples 提供一个直接明了的概览和起点；但在开始之前，先把一些术语说明清楚..."}
+{"item_id":"8253c1a53e:1","text":"Sample（采样）"}
+{"item_id":"8253c1a53e:2","text":"一条 ray 会从 camera 发出，并在 scene 中反弹。它在 scene 中找到的能量会被存储到一个 pixel 中。"}
+{"item_id":"8253c1a53e:3","text":"低 samples 会带来大量 noise，但图像生成很快。"}
+{"item_id":"8253c1a53e:4","text":"高 samples 会得到更干净的图像，但 render 会更慢。"}
+{"item_id":"8253c1a53e:5","text":"RenderMan 一定有办法在过低和过高之间协商出良好平衡，对吧？没错！这种质量协商称为 Adaptive Sampling（自适应采样），并通过 Pixel Variance 来衡量..."}
+{"item_id":"8253c1a53e:6","text":"Pixel Variance（像素方差）"}
+{"item_id":"8253c1a53e:7","text":"这是对 sampling 导致的 noise 的度量。"}
+{"item_id":"8253c1a53e:8","text":"pixel variance 越高，图像看起来越 noisy。"}
+{"item_id":"8253c1a53e:9","text":"pixel variance 越低，图像看起来越干净。"}
+{"item_id":"8253c1a53e:10","text":"我们会向 renderer 指定一个"}
+{"item_id":"8253c1a53e:11","text":"variance threshold（方差阈值）"}
+{"item_id":"8253c1a53e:12","text":"用来告诉它，我们愿意在完成图像中接受多少 noise。"}
+{"item_id":"8253c1a53e:13","text":"pixel variance threshold 越低，最终 render 越干净，但完成渲染所需时间也越长。一般来说，每当你把 variance threshold 减半，render time 就会增加到四倍。"}
+{"item_id":"8253c1a53e:14","text":"现在我们更了解 Sample 和 Pixel Variance 是什么，以及它们如何配合工作，接下来把它放进一个实际示例。"}
+{"item_id":"8253c1a53e:15","text":"Step 1（步骤 1）。"}
+{"item_id":"8253c1a53e:16","text":"Start by（先从这里开始）按下面这样设置你的 Min / Max samples："}
+{"item_id":"8253c1a53e:17","text":"Min Samples"}
+{"item_id":"8253c1a53e:18","text":"Max Samples"}
+{"item_id":"8253c1a53e:19","text":"Pixel Variance"}
+{"item_id":"8253c1a53e:20","text":"Step 2（步骤 2）。"}
+{"item_id":"8253c1a53e:21","text":"默认情况下，threshold 设置为 0.05，这会生成一张高质量图像。"}
+{"item_id":"8253c1a53e:22","text":"在第一次测试中，把该值设为 0.2，以获得一张快速但 noisy 的图像。"}
+{"item_id":"8253c1a53e:23","text":"Min Samples"}
+{"item_id":"8253c1a53e:24","text":"Max Samples"}
+{"item_id":"8253c1a53e:25","text":"Pixel Variance"}
+{"item_id":"8253c1a53e:26","text":"使用这些 base settings，让我们启动一次 render。"}
+{"item_id":"8253c1a53e:27","text":"上图在 18 秒内完成渲染，但可以看到仍然有一些 noise，因为 pixel variance threshold 设置得较高，所以 renderer 判断这些 pixels 已经足够干净，即使在我们眼中它们仍然 noisy。"}
+{"item_id":"8253c1a53e:28","text":"Step 3（步骤 3）。"}
+{"item_id":"8253c1a53e:29","text":"让我们再做一些测试。"}
+{"item_id":"8253c1a53e:30","text":"在下图中，我们再次渲染了同一个 scene，每次使用不同的 pixel variance。"}
+{"item_id":"8253c1a53e:31","text":"如你所见，在 0.2 的高 threshold render 下，我们 18 秒就能得到一张图像，它仍可用于 review，但包含明显 noise。（顺便说一句，即使在这种低质量下，强大的 RenderMan Denoiser 也很可能能从中生成 production-quality image。）"}
+{"item_id":"8253c1a53e:32","text":"你也可以看到，当 threshold 降到 0.01 时，我们现在得到了一张完全干净的图像，甚至可以说比实际需要更干净，但 render time 飙升到了 11 分 45 秒。"}
+{"item_id":"8253c1a53e:33","text":"How to choose a threshold?（如何选择 threshold？）"}
+{"item_id":"8253c1a53e:34","text":"所以...这里的大问题是..."}
+{"item_id":"8253c1a53e:35","text":"“我的 pixel variance value 应该设成多少？”"}
+{"item_id":"8253c1a53e:36","text":"答案是，没有任何单一数值可以在你的 scene 中每次都适用；但把 min 和 max 设为较宽范围，并依靠 pixel variance 来指导选择，是一个很好的起点。"}
+{"item_id":"8253c1a53e:37","text":"理想情况下，你应该像上图那样做一些测试，看看什么设置适合你。"}
+{"item_id":"8253c1a53e:38","text":"好消息是，由于 RenderMan Denoiser 非常擅长在保留 hair 和 surface imperfections 中细微细节的同时去除 noise，它已经让 Pixar 能够把大多数 production shots 的 pixel variance 提高到"}
+{"item_id":"8253c1a53e:39","text":"，这反过来意味着我们不仅能以前所未有的速度 render shots，也能让 artists 更快地 iterate 和 refine shots。"}
+{"item_id":"8253c1a53e:40","text":"它也让 Pixar 能够渲染过去不可能完成的 shots。"}
+{"item_id":"8253c1a53e:41","text":"既然知道 RenderMan denoiser 能为我们提供支持，我们就知道把 pixel variance 降到"}
+{"item_id":"8253c1a53e:42","text":"太低了，因此一个不错的起点是"}
+{"item_id":"8253c1a53e:43","text":"再做一次 render，运行 denoiser，然后看看效果。"}
+{"item_id":"8253c1a53e:44","text":"然后再启动几次 render，每次提高 pixel variance，直到达到 rendering sweet spot：快速 render times，以及 denoiser 能够清理的可接受 noise 量。"}
+{"item_id":"8253c1a53e:45","text":"当你把繁重工作交给 denoiser 后，会惊讶于 pixel variance 可以推到多高。"}
+{"item_id":"8253c1a53e:46","text":"这个示例演示了如何在单张 image 上设置 threshold。"}
+{"item_id":"8253c1a53e:47","text":"如果你正在制作 animation，别忘了渲染一段 frame sequence，以确保 motion blur 和 depth of field 足够干净，并避免 low samples 带来的典型问题，例如星星、灰尘或 particles 这类微小对象丢失。"}
+{"item_id":"8253c1a53e:48","text":"Visualizing your samples（可视化你的 samples）。"}
+{"item_id":"8253c1a53e:49","text":"你可能还会问自己另一个问题..."}
+{"item_id":"8253c1a53e:50","text":"“我怎么知道 render 中所有 samples 都用在了哪里？”"}
+{"item_id":"8253c1a53e:51","text":"RenderMan 有一个非常有用的 AOV，名为 Sample Count，可以把它添加到 render 中，并在 IT 中检查其 values，帮助你判断 renderer 正在哪里计算 samples。"}
+{"item_id":"8253c1a53e:52","text":"下面是我们的 Sample Count AOV 的样子。可以看到，使用更多 samples 的地方图像更亮；较暗区域表示 samples 较少。"}
+{"item_id":"8253c1a53e:53","text":"当你在 IT viewer 中用鼠标悬停检查这些 pixels 时，会看到该 pixel 精确的 “average samples per pixel”。"}

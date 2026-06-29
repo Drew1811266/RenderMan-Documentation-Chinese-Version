@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Treasure Optimizations</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Treasure Optimizations</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RU/657227977/Treasure+Optimizations">https://rmanwiki-27.pixar.com/space/RU/657227977/Treasure+Optimizations</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<h3 id="TreasureOptimizations-InteractivityOptimizations">交互性优化（Interactivity Optimizations）</h3><p>让这 2 亿多枚 coins 以快速且优化的方式 render 出来极其重要；更关键的是，高效解析 scene 对 interactivity 至关重要。使用 instancing 来实现这一点确实帮助我们守住 deadline，因为 first pixel 从 2 小时缩短到只有 5 分钟，对一台朴素的 single node render machine 来说差别巨大。</p><p /><p>Houdini 非常适合用来 scatter 大量 gold coins 和 treasure。我从一个简单的 for-each loop 开始，用它变化 gold coins、cups、swords、helmets 等的 shapes。利用一些 height-field scatter 技巧，我成功创建了 underlying terrain geometry，并且同样给它应用 gold shader……欢迎来到 CGI，这里的一切都在于巧妙伪装！</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="various_treasure_geoSetup.png" width="760" loading="lazy" src="../../attachments/657227977/various_treasure_geoSetup.png" data-image-src="../../attachments/657227977/various_treasure_geoSetup.png" data-height="1117" data-width="1917" data-unresolved-comment-count="0" data-linked-resource-id="656998635" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="various_treasure_geoSetup.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="657227977" data-linked-resource-container-version="1" data-media-id="febd999d-0fea-4aab-9b7f-3a3a190cb44d" data-media-type="file"></span><p /><p>到这个阶段，我的直觉是 export 一个 single USD file；它在磁盘上的 footprint 小得令人惊讶（甚至可以说让人满意）。遗憾的是，这个 workflow 最终好得不真实，因为它会独立加载每一件 treasure……乘以 1.5 亿次。</p><p>这个意外结果让我去请教一些专家，看看我是不是漏掉了某个 optimization step。Nemanja Stavric（一位亲爱的朋友兼同事）给了我一个思路：把它们组合起来，也就是 instance 更大的 treasure clumps，而不是 instance 单个 pieces。</p><p>这个方案帮助我降低了 first pixel times，代价是 memory usage 略有增加。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="scattered_packed_andExported.png" width="760" loading="lazy" src="../../attachments/657227977/scattered_packed_andExported.png" data-image-src="../../attachments/657227977/scattered_packed_andExported.png" data-height="1056" data-width="1915" data-unresolved-comment-count="0" data-linked-resource-id="656998642" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="scattered_packed_andExported.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="657227977" data-linked-resource-container-version="1" data-media-id="6433e2b2-1fc9-498c-811f-28fa85b22540" data-media-type="file"></span><hr/>
+  </article>
+</main>
+</body>
+</html>

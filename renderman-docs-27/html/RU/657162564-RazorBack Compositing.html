@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RazorBack Compositing</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>RazorBack Compositing</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RU/657162564/RazorBack+Compositing">https://rmanwiki-27.pixar.com/space/RU/657162564/RazorBack+Compositing</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<h3 id="RazorBackCompositing-Compositing">Compositing</h3><p>For compositing, consider employing an additive reconstruction approach using the shuffle node to reconstruct your entire set of AOVs and restore your final &quot;beauty&quot; image.</p><p>Once the reconstruction is complete, you can enhance the light and color intensity to match the references using utility nodes closely. Additionally, ensure that defocus and motion blur align with the references, if present.</p><p>Conclude the compositing process with a final color-correction pass, using glow, vignetting, and grain to integrate the asset into the shot environment seamlessly. Custom-built nodes or those sourced from Nukepedia can provide access to technical tools for precise adjustments, ensuring accuracy in the final result.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="compo_template.jpg" width="760" loading="lazy" src="../../attachments/657162564/compo_template.jpg" data-image-src="../../attachments/657162564/compo_template.jpg" data-height="501" data-width="960" data-unresolved-comment-count="0" data-linked-resource-id="657621370" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="compo_template.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="657162564" data-linked-resource-container-version="1" data-media-id="8fb5d855-4fc3-4fbd-a9bf-c0ecf65b89a4" data-media-type="file"></span><p>To closely match your references, adjust the gain and gamma at both ends of the spectrum to align the grain and black-and-white points. Exploring extreme values can provide additional visual and technical insights to fine-tune the image and enhance integration.</p><p>It's important to remember that you're matching a reference with different assets, which may result in variations in shaders, specular highlights, and contrast. For instance, scales will reflect light differently from hair due to their inherent properties. </p><p>Therefore, it's essential to adapt your adjustments accordingly to achieve cohesive visual consistency while accommodating the unique characteristics of each asset.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="compositing_tips_gamma_matchlight.jpg" width="760" loading="lazy" src="../../attachments/657162564/compositing_tips_gamma_matchlight.jpg" data-image-src="../../attachments/657162564/compositing_tips_gamma_matchlight.jpg" data-height="652" data-width="1157" data-unresolved-comment-count="0" data-linked-resource-id="657424700" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="compositing_tips_gamma_matchlight.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="657162564" data-linked-resource-container-version="1" data-media-id="50e8e6c5-18b6-4c9e-9c7f-ab9f664d5597" data-media-type="file"></span><p /><p>Utilize the node switch and the W key to facilitate an effective comparison between your reference and your rendering. Examine your reference closely, zooming in and out as needed, and test various screens with different colorimetry and calibration, as these factors can influence perception.</p><p>By toggling between the reference and your rendering, you can identify areas that need adjustment to achieve closer alignment. </p><p>Pay attention to details and nuances, ensuring that your rendering faithfully captures the essence and characteristics of the reference image. </p><p>This meticulous approach enhances the accuracy and quality of your final output.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Design-sans-titre.gif" width="760" loading="lazy" src="../../attachments/657162564/Design-sans-titre.gif" data-image-src="../../attachments/657162564/Design-sans-titre.gif" data-height="648" data-width="1152" data-unresolved-comment-count="0" data-linked-resource-id="657555664" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Design-sans-titre.gif" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/gif" data-linked-resource-container-id="657162564" data-linked-resource-container-version="1" data-media-id="9ddfa2e3-2517-47fa-b806-b7e41016053a" data-media-type="file"></span><p /><p>To finish up, here are some renders that match the film plates. </p><p>What are you waiting for? </p><p>Download the project and have fun with the Razorback Whiptail look-dev project!</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="plate-match.gif" width="760" loading="lazy" src="../../attachments/657162564/plate-match.gif" data-image-src="../../attachments/657162564/plate-match.gif" data-height="1075" data-width="1920" data-unresolved-comment-count="0" data-linked-resource-id="657621379" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="plate-match.gif" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/gif" data-linked-resource-container-id="657162564" data-linked-resource-container-version="1" data-media-id="7aae0d73-00f1-4f1c-9f40-bc7e3602abf8" data-media-type="file"></span><p />
+  </article>
+</main>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>What Light, When?</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>What Light, When?</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RU/399245378/What+Light%2C+When%3F">https://rmanwiki-27.pixar.com/space/RU/399245378/What+Light%2C+When%3F</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><style>[data-colorid=jbk6j1w90w]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=jbk6j1w90w]{color:#004eb3}[data-colorid=uytm96p69o]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=uytm96p69o]{color:#004eb3}</style><img class="confluence-embedded-image image-center" alt="Elio_lighting.jpg" width="760" loading="lazy" src="../../attachments/399245378/Elio_lighting.jpg" data-image-src="../../attachments/399245378/Elio_lighting.jpg" data-height="402" data-width="960" data-unresolved-comment-count="0" data-linked-resource-id="630980770" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Elio_lighting.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="399245378" data-linked-resource-container-version="15" data-media-id="06c3202f-1aef-4011-93e2-572839f5e503" data-media-type="file" /></span><p>RenderMan 附带一整套 analytic 和 photorealistic lights（解析型与写实灯光）。  </p><p>下面这份快速指南旨在帮助你判断，不同 lighting purpose（照明目的）应该使用哪一种 light。</p><p /><div class="table-wrap"><table data-table-width="760" data-layout="default" data-local-id="06d1762d-0396-4c66-8318-ae31546758a5" class="confluenceTable"><colgroup><col style="width: 186.0px;" /><col style="width: 573.0px;" /></colgroup><tbody><tr><th class="confluenceTh"><p><strong><span data-colorid="uytm96p69o">RenderMan Light（RenderMan 灯光）</span></strong></p></th><th class="confluenceTh"><p><strong><span data-colorid="jbk6j1w90w">Uses（用途）</span></strong></p></th></tr><tr><td class="confluenceTd"><span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" alt="PxrDomeLight.svg" width="51" loading="lazy" src="../../attachments/399245378/PxrDomeLight.svg" data-image-src="../../attachments/399245378/PxrDomeLight.svg" data-height="32" data-width="32" data-unresolved-comment-count="0" data-linked-resource-id="630915289" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="PxrDomeLight.svg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/svg+xml" data-linked-resource-container-id="399245378" data-linked-resource-container-version="15" data-media-id="45e5f8fe-e8c8-4547-b84e-56d09a0e6d73" data-media-type="file" /></span><p><strong>PxrDomeLight</strong></p></td><td class="confluenceTd"><p /><p>在大量 visual effects 和 animation 工作中，场景主要使用 High Dynamic Range Image (HDRI) 或手绘 sky ramp texture 来照明。</p><p>它们也可以用来给角色添加 rim light（边缘光），因为它们能够提供漂亮、均匀的 rim-lighting 效果。</p><p /></td></tr><tr><td class="confluenceTd"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="PxrRectLight.svg" width="49" loading="lazy" src="../../attachments/399245378/PxrRectLight.svg" data-image-src="../../attachments/399245378/PxrRectLight.svg" data-height="32" data-width="32" data-unresolved-comment-count="0" data-linked-resource-id="631308423" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="PxrRectLight.svg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/svg+xml" data-linked-resource-container-id="399245378" data-linked-resource-container-version="15" data-media-id="a8fb6b30-2005-43f6-95c9-e5af4415a32f" data-media-type="file" /></span><p><strong>PxrRectLight</strong></p></td><td class="confluenceTd"><p /><p>一种大型矩形灯光，用来模拟摄影 light panel 或 softbox。  </p><p>这是渲染中最常用的 lights 之一。  </p><p>为了获得真实的 reflections 和 light quality，可以给灯光应用一张 texture。</p><p>这是一种通用 light，可用于许多 look 的照明，也可以用来从天花板或墙面添加室内 fill light。</p><p>它也可用于从墙面或 bounce board geometry 添加 bounce lighting（反弹照明）。</p><p /></td></tr><tr><td class="confluenceTd"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="PxrDiskLight.svg" width="51" loading="lazy" src="../../attachments/399245378/PxrDiskLight.svg" data-image-src="../../attachments/399245378/PxrDiskLight.svg" data-height="32" data-width="32" data-unresolved-comment-count="0" data-linked-resource-id="631210133" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="PxrDiskLight.svg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/svg+xml" data-linked-resource-container-id="399245378" data-linked-resource-container-version="15" data-media-id="5eab4dab-bf6a-4728-9618-cf8e24e97813" data-media-type="file" /></span><p><strong>PxrDiscLight</strong></p></td><td class="confluenceTd"><p /><p>与 PxrRectLight 相同，只是形状为 disc（圆盘）。</p><p /></td></tr><tr><td class="confluenceTd"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="PxrDistantLight.svg" width="49" loading="lazy" src="../../attachments/399245378/PxrDistantLight.svg" data-image-src="../../attachments/399245378/PxrDistantLight.svg" data-height="32" data-width="32" data-unresolved-comment-count="0" data-linked-resource-id="631472134" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="PxrDistantLight.svg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/svg+xml" data-linked-resource-container-id="399245378" data-linked-resource-container-version="15" data-media-id="71f65cd0-e71b-453e-a4a3-31d8519a89e3" data-media-type="file" /></span><p><strong>PxrDistantLight</strong></p></td><td class="confluenceTd"><p /><p>主要用于模拟 sunlight、moonlight，或非常遥远的 light source。</p><p /></td></tr><tr><td class="confluenceTd"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="PxrSphereLight.svg" width="49" loading="lazy" src="../../attachments/399245378/PxrSphereLight.svg" data-image-src="../../attachments/399245378/PxrSphereLight.svg" data-height="32" data-width="32" data-unresolved-comment-count="0" data-linked-resource-id="631504900" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="PxrSphereLight.svg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/svg+xml" data-linked-resource-container-id="399245378" data-linked-resource-container-version="15" data-media-id="1c1e26ee-ae7b-4949-94a1-3e38b9dace7b" data-media-type="file" /></span><p><strong>PxrSphereLight</strong></p></td><td class="confluenceTd"><p /><p>常用于复现 360 度发光的 practical light sources（实际灯具光源），例如蜡烛、车灯和灯泡。</p><p /></td></tr><tr><td class="confluenceTd"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="PxrCylinderLight.svg" width="49" loading="lazy" src="../../attachments/399245378/PxrCylinderLight.svg" data-image-src="../../attachments/399245378/PxrCylinderLight.svg" data-height="32" data-width="32" data-unresolved-comment-count="0" data-linked-resource-id="630915295" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="PxrCylinderLight.svg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/svg+xml" data-linked-resource-container-id="399245378" data-linked-resource-container-version="15" data-media-id="fc8acce4-2c55-491b-b7fa-a4704fc3f0dd" data-media-type="file" /></span><p><strong>PxrCylinderLight</strong></p></td><td class="confluenceTd"><p /><p>非常适合室内 tube lighting、neons 和 light sabers（光剑）！</p><p /></td></tr><tr><td class="confluenceTd"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="PxrPortalLight.svg" width="49" loading="lazy" src="../../attachments/399245378/PxrPortalLight.svg" data-image-src="../../attachments/399245378/PxrPortalLight.svg" data-height="32" data-width="32" data-unresolved-comment-count="0" data-linked-resource-id="631242876" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="PxrPortalLight.svg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/svg+xml" data-linked-resource-container-id="399245378" data-linked-resource-container-version="15" data-media-id="3f088662-a991-4418-8e7f-6e39693a66d7" data-media-type="file" /></span><p><strong>PxrPortalLight</strong></p></td><td class="confluenceTd"><p /><p>窗户！</p><p /></td></tr><tr><td class="confluenceTd"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="PxrEnvDayLight.svg" width="53" loading="lazy" src="../../attachments/399245378/PxrEnvDayLight.svg" data-image-src="../../attachments/399245378/PxrEnvDayLight.svg" data-height="32" data-width="32" data-unresolved-comment-count="0" data-linked-resource-id="631177374" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="PxrEnvDayLight.svg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/svg+xml" data-linked-resource-container-id="399245378" data-linked-resource-container-version="15" data-media-id="4b21548b-e007-42c7-8377-20f928f69dcf" data-media-type="file" /></span><p><strong>PxrEnvDaylight</strong></p></td><td class="confluenceTd"><p /><p>当你需要为 exterior lighting（室外照明）快速、轻松地完成设置，或者只是做一些 look development，但又没有可用于 PxrDomeLight 的 HDRI 时，Daylight simulations（日光模拟）会很有帮助。它的简洁性和真实感让这种 light 很受艺术家欢迎。</p><p /></td></tr></tbody></table></div><p />
+  </article>
+</main>
+</body>
+</html>

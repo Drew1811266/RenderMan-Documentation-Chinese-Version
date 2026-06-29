@@ -1,0 +1,49 @@
+{"item_id":"5191b2ddee:0","text":"RenderMan 提供了多个 nodes，可用于随机 texture colouring、file selection，以及随机 orientation/placement。"}
+{"item_id":"5191b2ddee:1","text":"我们要看的两个 nodes 是"}
+{"item_id":"5191b2ddee:2","text":"PxrVary"}
+{"item_id":"5191b2ddee:3","text":"节点和"}
+{"item_id":"5191b2ddee:4","text":"PxrRandomTileManifold"}
+{"item_id":"5191b2ddee:5","text":"节点。"}
+{"item_id":"5191b2ddee:6","text":"在这个示例中，我们有七个 spray cans；目前它们看起来相当乏味。"}
+{"item_id":"5191b2ddee:7","text":"本课的目标是为每个罐子创建随机颜色的 lids。"}
+{"item_id":"5191b2ddee:8","text":"我们还设计了七种不同的 labels，希望把它们随机应用到罐身的 labels 上。"}
+{"item_id":"5191b2ddee:9","text":"Spray Can Colored Lids（喷漆罐彩色盖）"}
+{"item_id":"5191b2ddee:10","text":"我们先处理 lids，使用一个极其实用的 randomization node：PxrVary。"}
+{"item_id":"5191b2ddee:11","text":"该 node 接收 base color（或 colored input），并允许 hue、saturation、gamma 以及许多其他 parameters 按 instance 具有随机值。"}
+{"item_id":"5191b2ddee:12","text":"先把 PxrVary 连接到 PxrSurface 的 Diffuse color，并将 Input Color 设置为明亮的 orange。"}
+{"item_id":"5191b2ddee:13","text":"这会把所有 lids 都变成同一种 orange color，而这不是我们想要的。"}
+{"item_id":"5191b2ddee:14","text":"我们希望每个 lid 都有随机颜色。"}
+{"item_id":"5191b2ddee:15","text":"调整以下 values 后，会得到下面的 image。"}
+{"item_id":"5191b2ddee:16","text":"Hue"}
+{"item_id":"5191b2ddee:17","text":"Saturation"}
+{"item_id":"5191b2ddee:18","text":"Luminance"}
+{"item_id":"5191b2ddee:19","text":"Gamma"}
+{"item_id":"5191b2ddee:20","text":"这样看起来“还可以”，但我们其实不想让 RenderMan 决定选择哪些 random colors。我们想自己选择它们。"}
+{"item_id":"5191b2ddee:21","text":"我们希望 art-direct PxrVary 随机选择颜色时使用的 color palette。"}
+{"item_id":"5191b2ddee:22","text":"实现方式是使用 PxrRamp node，在其中设置 ramp colors。我们还需要把 Ramp Type 设置为 Random Object Color。"}
+{"item_id":"5191b2ddee:23","text":"注意！这项技术只有在你把"}
+{"item_id":"5191b2ddee:24","text":"Ramp Type"}
+{"item_id":"5191b2ddee:25","text":"设置为"}
+{"item_id":"5191b2ddee:26","text":"Random Object Color 时才会生效。"}
+{"item_id":"5191b2ddee:27","text":"理解这是一个 random node 很有帮助，因此有时很难 art-direct 哪个 lid 获得哪个 random color。有时，如你所见，PxrVary 会随机给两个 lids 分配相同颜色。"}
+{"item_id":"5191b2ddee:28","text":"另外，ramp 中 colors 的宽度会决定随机分配和概率，因此要调出你想要的准确 random look 可能有点棘手。"}
+{"item_id":"5191b2ddee:29","text":"这里的关键词就是 Random！"}
+{"item_id":"5191b2ddee:30","text":"如果你有 100 个 cans，而且并不在意哪个 lid 是哪种 color，那么 PxrVary 就是解决方案；但如果你需要特定 cans 拥有特定 colored lids，那么为每个 can 定义 PrimVar value（然后在 PxrVary 的 PrimVar attribute 中指定 PrimVar name）才是办法，不过那是另一课的内容。"}
+{"item_id":"5191b2ddee:31","text":"我们想要 random-colored lids……也确实得到了 random-colored lids。"}
+{"item_id":"5191b2ddee:32","text":"接下来处理 labels。"}
+{"item_id":"5191b2ddee:33","text":"Spray Can Labels（喷漆罐标签）"}
+{"item_id":"5191b2ddee:34","text":"这里有几张 textures，我们想再次随机地分配给每个 label，不太在意哪张配哪个 label。我们要的就是 random！"}
+{"item_id":"5191b2ddee:35","text":"要实现这一点，我们需要两个 nodes。"}
+{"item_id":"5191b2ddee:36","text":"第一个是 PxrMultiTexture node，我们会把所有 maps 加载到每个 filename parameter 中。"}
+{"item_id":"5191b2ddee:37","text":"然后，需要一个 PxrRandomTextureManifold node，通过把 PxrMultiTexture files 分配到 cans 上，来控制它们的 randomness。"}
+{"item_id":"5191b2ddee:38","text":"像上面的 network 那样连接它们，你就会得到类似这样的结果！"}
+{"item_id":"5191b2ddee:39","text":"注意：你需要把"}
+{"item_id":"5191b2ddee:40","text":"Number of Textures"}
+{"item_id":"5191b2ddee:41","text":"parameter 设置为要使用的 file list 中 textures 的数量。"}
+{"item_id":"5191b2ddee:42","text":"PxrRandomTextureManifold 还有各种可调 parameters，可以添加更多 randomization，例如 random texture orientation、flipping、offset 等等，所以 texture randomization 的数量……几乎没有尽头！"}
+{"item_id":"5191b2ddee:43","text":"更多用途"}
+{"item_id":"5191b2ddee:44","text":"这两个 nodes 并不只是用于随机选择 colors 或 diffuse textures。"}
+{"item_id":"5191b2ddee:45","text":"例如，PxrRandomTextureManifold 也可以用于随机分配和变换 roughness/bump maps、叠加 random textures、变换 random edge breakup masks 等。"}
+{"item_id":"5191b2ddee:46","text":"PxrVary 可以为 roughness maps 添加 random color/saturation variation，让每个 instance 拥有不同的 roughness values。同样的 technique 也可用于设置 random bump 和 specular values，以及控制 clear coat 上的 random thickness。"}
+{"item_id":"5191b2ddee:47","text":"这两个 nodes 的可能性没有尽头。"}
+{"item_id":"5191b2ddee:48","text":"如果你想在所有 instances 上实现完整的 shading randomization，这两个 nodes 是不错的起点！"}

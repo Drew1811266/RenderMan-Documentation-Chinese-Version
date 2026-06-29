@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lighting in Maya</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Lighting in Maya</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFM27/544541369/Lighting+in+Maya">https://rmanwiki-27.pixar.com/space/RFM27/544541369/Lighting+in+Maya</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p /><div class="table-wrap"><table data-table-width="1800" data-layout="default" data-local-id="2319c7d3-71e2-4636-a90d-8e6f777aa144" class="confluenceTable"><tbody><tr><td class="confluenceTd"><p><a href="544541437-Analytic Lights in Maya.html" rel="nofollow"><strong>Analytic Lights（解析灯光）</strong></a></p></td><td class="confluenceTd"><p /></td><td class="confluenceTd"><p><a href="544541535-Mesh Lights in Maya.html" rel="nofollow"><strong>Mesh Lights（网格灯光）</strong></a></p></td><td class="confluenceTd"><p><a href="544541572-Light Filters in Maya.html" rel="nofollow"><strong>Light Filters（灯光滤镜）</strong></a></p></td></tr><tr><td class="confluenceTd"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="64" loading="lazy" src="../../attachments/544541369/rfmShelfLight.png" data-image-src="../../attachments/544541369/rfmShelfLight.png" data-height="40" data-width="44" data-unresolved-comment-count="0" data-linked-resource-id="544541392" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfmShelfLight.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544541369" data-linked-resource-container-version="1" data-media-id="b20ab893-f41d-453c-99b9-2c07194e53da" data-media-type="file"></span></td><td class="confluenceTd"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="64" loading="lazy" src="../../attachments/544541369/rfmShelfEnvLight.png" data-image-src="../../attachments/544541369/rfmShelfEnvLight.png" data-height="40" data-width="44" data-unresolved-comment-count="0" data-linked-resource-id="544541398" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfmShelfEnvLight.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544541369" data-linked-resource-container-version="1" data-media-id="ed7e88f7-17af-4044-bd73-ddf0c03614f1" data-media-type="file"></span></td><td class="confluenceTd"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="58" loading="lazy" src="../../attachments/544541369/rfmShelfMeshLight.png" data-image-src="../../attachments/544541369/rfmShelfMeshLight.png" data-height="40" data-width="36" data-unresolved-comment-count="0" data-linked-resource-id="544541404" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfmShelfMeshLight.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544541369" data-linked-resource-container-version="1" data-media-id="17451130-5682-44ef-8348-89e46fc8fd3e" data-media-type="file"></span></td><td class="confluenceTd"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="64" loading="lazy" src="../../attachments/544541369/rfmShelfLightFilter.png" data-image-src="../../attachments/544541369/rfmShelfLightFilter.png" data-height="40" data-width="44" data-unresolved-comment-count="0" data-linked-resource-id="544541407" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfmShelfLightFilter.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544541369" data-linked-resource-container-version="1" data-media-id="1e431a85-e055-4cf9-8f06-9cad6301da24" data-media-type="file"></span></td></tr><tr><td class="confluenceTd"><span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="433" loading="lazy" src="../../attachments/544541369/rfmShelfLightMenu.png" data-image-src="../../attachments/544541369/rfmShelfLightMenu.png" data-height="102" data-width="175" data-unresolved-comment-count="0" data-linked-resource-id="544541395" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfmShelfLightMenu.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544541369" data-linked-resource-container-version="1" data-media-id="033c6b54-a3b0-4d02-a74b-7bc438bd7eef" data-media-type="file"></span></td><td class="confluenceTd"><span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="433" loading="lazy" src="../../attachments/544541369/rfmShelfEnvLightMenu.png" data-image-src="../../attachments/544541369/rfmShelfEnvLightMenu.png" data-height="62" data-width="176" data-unresolved-comment-count="0" data-linked-resource-id="544541401" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfmShelfEnvLightMenu.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544541369" data-linked-resource-container-version="1" data-media-id="b124e815-e293-4d5e-b5c9-d2900ddba02d" data-media-type="file"></span></td><td class="confluenceTd"><p /></td><td class="confluenceTd"><span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="433" loading="lazy" src="../../attachments/544541369/rfmShelfLightFilterMenu.png" data-image-src="../../attachments/544541369/rfmShelfLightFilterMenu.png" data-height="140" data-width="200" data-unresolved-comment-count="0" data-linked-resource-id="544541410" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfmShelfLightFilterMenu.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544541369" data-linked-resource-container-version="1" data-media-id="53d22589-3268-4f6d-b59d-2765f43d748c" data-media-type="file"></span></td></tr></tbody></table></div><p>在 Maya 中，可以通过 RenderMan Shelf、RenderMan Menu 或 Hypershade Window 创建 RenderMan lights。 </p><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="9b201f7c-706e-428a-bb2c-20ac1b877617" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><ul><li><p>不支持原生 Maya lights。请使用 "Pxr" lights。</p></li><li><p><span class="legacy-color-text-default">在 Maya node editor 中，你可能会看到 lights 上有一个可用的 "Light Data" output connection。尽管 Maya 将其显示为有效 output，但它并不是可连接的 parameter。</span></p></li></ul></div></div><p /><p /><div class="contentLayout2 conf-macro output-block" data-hasbody="false" data-layout="default" data-local-id="c5440f5a-4733-4732-b247-92ad7aba4f38" data-macro-id="9b1f3f9aab27773ec5dad7fe3893c3d18a736346384eb07bbcfdf7ae2b2cac28" data-macro-name="include">
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="900" loading="lazy" src="../../attachments/19661727/RenderMan_Lamps.jpeg" data-image-src="../../attachments/19661727/RenderMan_Lamps.jpeg" data-height="720" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="19670438" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Lamps.jpeg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="19661727" data-linked-resource-container-version="3" data-media-id="04e4d008-573a-40f3-9537-baac05dc8d9e" data-media-type="file" /></span><p>RenderMan 中的 Lighting 很灵活，对用户来说也非常直接。</p><p>RenderMan 内置了一组基础 geometric lights。这些 specialized shapes - <strong>DomeLight、DistantLight、RectLight， </strong>以及<strong> SphereLight</strong><em><strong> </strong></em>（尤其是后两者）- 与任意 geometry（即附加 light Bxdf 的标准 geometric primitives）相比，可以提供更优的 sampling behavior。此外还有一个 <strong>PortalLight</strong> 用于改善通过窗户、天窗等开口间接照明的 interior scenes 的 lighting，以及一个 <strong>Daylight</strong> simulation（模拟）。</p><p><a href="https://rmanwiki-26.pixar.com/space/REN26/19661491/Light+Filters" data-linked-resource-id="19661491" data-linked-resource-version="3" data-linked-resource-type="page">Light Filters（灯光滤镜）</a> 也可以修改和定向 lighting，提供更多 control 与艺术选项。你可以找到真实世界中的可能性，例如 <a href="https://rmanwiki-26.pixar.com/space/REN26/19661757/PxrGoboLightFilter" data-linked-resource-id="19661757" data-linked-resource-version="2" data-linked-resource-type="page">Gobos</a> 以及 <a href="https://rmanwiki-26.pixar.com/space/REN26/19661755/PxrCookieLightFilter" data-linked-resource-id="19661755" data-linked-resource-version="2" data-linked-resource-type="page">Cookies</a>，也可以找到高级方式，用于从单个 light 链接并控制 object-specific <a href="https://rmanwiki-26.pixar.com/space/REN26/19661767/PxrIntMultLightFilter" data-linked-resource-id="19661767" data-linked-resource-version="5" data-linked-resource-type="page">intensities</a> 等结果。</p><p><br /></p><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="a4a96705-855e-495b-b405-8a089b1c5869" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><ul><li><p>请注意，由于这些 optimizations，spherelight 要求所有 scale transforms 都是 uniform；例如 X、Y 和 Z scale 必须完全相同，以免 sphere shape 被扭曲成 ellipse 或其他形状。</p></li><li><p><strong>默认情况下，Lights 在 refraction/transmission 中不可见。可以在 light visibility settings 中启用这一点。</strong></p></li></ul></div></div><p><br /></p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-right-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-right" alt="lightTypes_disc.jpg" width="300" loading="lazy" src="../../attachments/19661727/lightTypes_disc.jpg" data-image-src="../../attachments/19661727/lightTypes_disc.jpg" data-height="400" data-width="300" data-unresolved-comment-count="0" data-linked-resource-id="19670463" data-linked-resource-version="2" data-linked-resource-type="attachment" data-linked-resource-default-alias="lightTypes_disc.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="19661727" data-linked-resource-container-version="3" data-media-id="aad6165b-54c3-4260-8868-beb471f518be" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="lightTypes_distant.jpg" width="300" loading="lazy" src="../../attachments/19661727/lightTypes_distant.jpg" data-image-src="../../attachments/19661727/lightTypes_distant.jpg" data-height="400" data-width="300" data-unresolved-comment-count="0" data-linked-resource-id="19670460" data-linked-resource-version="2" data-linked-resource-type="attachment" data-linked-resource-default-alias="lightTypes_distant.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="19661727" data-linked-resource-container-version="3" data-media-id="0ea7e481-7f63-455d-8204-983db016ee52" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" alt="lightTypes_env.jpg" width="300" loading="lazy" src="../../attachments/19661727/lightTypes_env.jpg" data-image-src="../../attachments/19661727/lightTypes_env.jpg" data-height="400" data-width="300" data-unresolved-comment-count="0" data-linked-resource-id="19670457" data-linked-resource-version="2" data-linked-resource-type="attachment" data-linked-resource-default-alias="lightTypes_env.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="19661727" data-linked-resource-container-version="3" data-media-id="b7d94a64-e952-44f7-8795-ec8b5658da97" data-media-type="file" /></span></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-right-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-right" alt="lightTypes_rect.jpg" width="300" loading="lazy" src="../../attachments/19661727/lightTypes_rect.jpg" data-image-src="../../attachments/19661727/lightTypes_rect.jpg" data-height="400" data-width="300" data-unresolved-comment-count="0" data-linked-resource-id="19670454" data-linked-resource-version="2" data-linked-resource-type="attachment" data-linked-resource-default-alias="lightTypes_rect.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="19661727" data-linked-resource-container-version="3" data-media-id="2f5f9483-a002-4dfd-9fd8-42b217ce3e13" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="lightTypes_sphere.jpg" width="300" loading="lazy" src="../../attachments/19661727/lightTypes_sphere.jpg" data-image-src="../../attachments/19661727/lightTypes_sphere.jpg" data-height="400" data-width="300" data-unresolved-comment-count="0" data-linked-resource-id="19670451" data-linked-resource-version="2" data-linked-resource-type="attachment" data-linked-resource-default-alias="lightTypes_sphere.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="19661727" data-linked-resource-container-version="3" data-media-id="12af005d-ff40-4710-9409-902e6f8267e0" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" alt="lightTypes_spot2.jpg" width="300" loading="lazy" src="../../attachments/19661727/lightTypes_spot2.jpg" data-image-src="../../attachments/19661727/lightTypes_spot2.jpg" data-height="400" data-width="300" data-unresolved-comment-count="0" data-linked-resource-id="19670448" data-linked-resource-version="2" data-linked-resource-type="attachment" data-linked-resource-default-alias="lightTypes_spot2.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="19661727" data-linked-resource-container-version="3" data-media-id="dfff6625-5535-4a6f-a43b-d79e1a4ee09c" data-media-type="file" /></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><br /></p><p>请注意，lighting scene 主要有三种方式：</p><ul><li><p>Analytic Lights - 这是首选。这类灯光提供更好的 memory usage、flexibility 和 speed。对于 camera visibility，它们的 visibility 只是简单的 on/off。</p></li><li><p>Mesh Lights - 这类灯光非常适合在 lighting 中使用任意 shapes。由于它们是 geometry，因此会消耗更多 memory，复杂 shapes 可能会增加 noise。它们可以像其他 object 一样使用 visibility：camera、shadow/transmission 和 indirect visibility。</p></li><li><p>Emissive Surfaces - 这类表面通常使用 constant bxdf 或 "glow" parameter 来间接照亮 scene。这种方式效率较低，通常应避免使用；但在未来感 objects 和 panels 上进行 texture mapping "lights" 时可能会有帮助！</p></li></ul><p><br /></p><p><strong>Analytic Light Types（解析灯光类型）</strong></p><ul><li><p><a href="https://rmanwiki-26.pixar.com/space/REN26/19661747/PxrDomeLight" data-linked-resource-id="19661747" data-linked-resource-version="2" data-linked-resource-type="page">PxrDomeLight</a> - domelight 充当 scene 的 environment light，并且通常会映射 high dynamic range image（HDRI）。</p></li><li><p><a href="https://rmanwiki-26.pixar.com/space/REN26/19661739/PxrRectLight" data-linked-resource-id="19661739" data-linked-resource-version="2" data-linked-resource-type="page">PxrRectLight</a> - 此 light 常用于矩形 area lights。</p></li><li><p><a href="https://rmanwiki-26.pixar.com/space/REN26/19661729/PxrDistantLight" data-linked-resource-id="19661729" data-linked-resource-version="2" data-linked-resource-type="page">PxrDistantLight</a> - 此 light 非常适合作为 Sunlight 或其他 distant source 使用，此时 light rays 近乎平行并覆盖整个 scene。</p></li><li><p><a href="https://rmanwiki-26.pixar.com/space/REN26/19661741/PxrDiskLight" data-linked-resource-id="19661741" data-linked-resource-version="2" data-linked-resource-type="page">PxrDiskLight</a> - 很适合作为 area light 使用，也可以与 filters 结合来制作 spotlight。</p></li><li><p><a href="https://rmanwiki-26.pixar.com/space/REN26/19661751/PxrSphereLight" data-linked-resource-id="19661751" data-linked-resource-version="1" data-linked-resource-type="page">PxrSphereLight</a> - 对怀念 point light 的用户来说，此 light 可用于向所有方向照明。</p></li><li><p><a href="https://rmanwiki-26.pixar.com/space/REN26/19661749/PxrEnvDayLight" data-linked-resource-id="19661749" data-linked-resource-version="2" data-linked-resource-type="page">PxrEnvDaylight</a> - 一种 daylight simulation shader，你可以提供地球上任意 time 和 location，或者直接把 sunlight 放在想要的位置。</p></li><li><p><a href="https://rmanwiki-26.pixar.com/space/REN26/19661743/PxrPortalLight" data-linked-resource-id="19661743" data-linked-resource-version="2" data-linked-resource-type="page">PxrPortalLight</a> - 对于间接照明室内等困难 lighting situations，此 light 可与 PxrDomeLight 一起使用，提高 renders 的 quality 和 speed。</p></li></ul><p><strong>Geometric Light Types（几何灯光类型）</strong></p><ul><li><p><a href="https://rmanwiki-26.pixar.com/space/REN26/19661735/PxrMeshLight" data-linked-resource-id="19661735" data-linked-resource-version="2" data-linked-resource-type="page">PxrMeshLight</a> - mesh light 使用一块 geometry 并将其转化为 light source。这比使用 bxdf 的 glow 或 emission 高效得多。它非常适合 neon lights 之类的对象！</p></li></ul><p><strong>Utility Light Types（实用灯光类型）</strong></p><ul><li><p><a href="https://rmanwiki-26.pixar.com/space/REN26/19661731/PxrAOVLight" data-linked-resource-id="19661731" data-linked-resource-version="1" data-linked-resource-type="page">PxrAOVLight</a> - 这是一个 utility，被识别为 light type，但它 <em>不会</em> 照亮任何东西。它是一个有用工具，可通过 light linking 为 objects 快速创建 masks。</p></li></ul><p><br /></p><p><br /></p><p>Lights 还有一些与 shadows 和 bidirectional path tracing 相关的特殊 parameters，这些由 PxrVCM 和 PxrUnified integrators 实现。可以参考 technical memo：</p><ul><li><p>Christophe Hery, Ryusuke Villemin, Florian Hecht. <a class="external-link" href="http://graphics.pixar.com/library/BiDir/paper.pdf" rel="nofollow">Towards Bidirectional Pathtracing at Pixar</a></p></li></ul><p><br /></p></div>
+</div>
+</div>
+</div><p />
+  </article>
+</main>
+</body>
+</html>

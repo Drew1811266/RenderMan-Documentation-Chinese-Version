@@ -1,0 +1,150 @@
+{
+  "phase": 790,
+  "file": "TRA/22184258-Idle Job or Task.html",
+  "file_id": "36a122d9fc",
+  "source_items": 35,
+  "translation_rows": 35,
+  "source_items_match_translation_rows": true,
+  "duplicate_rows": [],
+  "missing_item_ids": [],
+  "extra_item_ids": [],
+  "tag_fingerprint_identical": true,
+  "rendered_markup_matches_target_markup": true,
+  "glossary_violations": [],
+  "direct_placement_missing": [],
+  "actionable_long_source_residuals": [],
+  "accepted_long_source_residuals": [],
+  "actionable_ascii_heavy_residuals": [],
+  "accepted_ascii_heavy_residuals": [
+    {
+      "item_id": "36a122d9fc:2",
+      "text": "job 可能不运行有许多原因：network 或 hardware failure、system misconfiguration，或者只是正常 scheduling rules 阻止了 job execution。",
+      "ascii_letters": 74,
+      "cjk_chars": 20
+    },
+    {
+      "item_id": "36a122d9fc:7",
+      "text": "确保没有 job filter 或 client side search box 阻止 job 显示，",
+      "ascii_letters": 31,
+      "cjk_chars": 9
+    },
+    {
+      "item_id": "36a122d9fc:8",
+      "text": "检查 dashboard 是否指向与 spool 该 job 的 entity 相同的 engine，并且",
+      "ascii_letters": 29,
+      "cjk_chars": 14
+    },
+    {
+      "item_id": "36a122d9fc:9",
+      "text": "检查 engine log file 中是否在 job 被 spooled 时出现过 “job Loaded” message。log file 中相邻的 error messages 可能表明 job file 存在 syntax error。",
+      "ascii_letters": 77,
+      "cjk_chars": 21
+    },
+    {
+      "item_id": "36a122d9fc:10",
+      "text": "你也可以在 command line 上查看最近 spooled jobs，例如 “tq jobs mine --sort jid”。",
+      "ascii_letters": 39,
+      "cjk_chars": 12
+    },
+    {
+      "item_id": "36a122d9fc:18",
+      "text": "job 必须有 ready tasks（就绪任务）。",
+      "ascii_letters": 13,
+      "cjk_chars": 7
+    },
+    {
+      "item_id": "36a122d9fc:19",
+      "text": "验证 job 确实有 ready tasks。提交 job 后，至少会有一个可运行的 ready task（除非 job author 能够编织出具有 circular dependencies 的 job！）。Ready tasks 会是 job graph 上的 leaf nodes，不过并非所有 leaf nodes 都一定 ready。可以在 command line 上用 “tq tasks state=ready and jid=<jid>” 列出 job 的 ready tasks。",
+      "ascii_letters": 148,
+      "cjk_chars": 49
+    },
+    {
+      "item_id": "36a122d9fc:20",
+      "text": "submission time 的 remaining tasks 会处于 blocked 状态；一旦其所有 child tasks 成功完成（或被 manually skipped），某个 task 就会变为 ready。对于 serial subtasks，task 可能还必须等待其 “older” sibling tasks 完成后才能变为 ready。",
+      "ascii_letters": 109,
+      "cjk_chars": 40
+    },
+    {
+      "item_id": "36a122d9fc:21",
+      "text": "Blades 必须正在请求 work。",
+      "ascii_letters": 10,
+      "cjk_chars": 6
+    },
+    {
+      "item_id": "36a122d9fc:22",
+      "text": "验证 blades 确实正在请求 work（并且请求正确的 engine:port）。参与的 blades 会在 dashboard 的 blades tab 中可见。如果一个都没有，请确保 blades 正在联系正确的 engine，并且 blade 和 engine hosts 的 firewall 中打开了 proper ports。engine 的默认 port 是 80 (TCP)，blades 的默认 port 是 9005 (TCP)。（注意，blade 和 engine 上必须打开 9005 (UDP)，progress messages 才能报告给 engine；不过这不会影响 task 是否在 blade 上启动。）",
+      "ascii_letters": 162,
+      "cjk_chars": 83
+    },
+    {
+      "item_id": "36a122d9fc:24",
+      "text": "还要考虑，如果 blades 在某个 interval 内发生若干 task failures，它们可能不会请求 work。这样的 blades 会在 blade list 的 Note column 中标记为 error accrual hiatus。",
+      "ascii_letters": 73,
+      "cjk_chars": 32
+    },
+    {
+      "item_id": "36a122d9fc:25",
+      "text": "blade's profile（blade 配置档案页面）",
+      "ascii_letters": 18,
+      "cjk_chars": 6
+    },
+    {
+      "item_id": "36a122d9fc:26",
+      "text": "中的 RecentErrorThrottle setting 管理这个 hiatus calculation 的 parameters。",
+      "ascii_letters": 53,
+      "cjk_chars": 7
+    },
+    {
+      "item_id": "36a122d9fc:27",
+      "text": "Scheduling rules 必须允许考虑该 job。",
+      "ascii_letters": 18,
+      "cjk_chars": 7
+    },
+    {
+      "item_id": "36a122d9fc:28",
+      "text": "有几条 scheduling rules 决定 task 是否在给定 blade 上运行：",
+      "ascii_letters": 24,
+      "cjk_chars": 13
+    },
+    {
+      "item_id": "36a122d9fc:29",
+      "text": "requesting blade 的 service keys 必须匹配 task 的 service key expression，",
+      "ascii_letters": 50,
+      "cjk_chars": 6
+    },
+    {
+      "item_id": "36a122d9fc:30",
+      "text": "requesting blade 的 metrics 必须满足 task 的 metric requirements，",
+      "ascii_letters": 44,
+      "cjk_chars": 6
+    },
+    {
+      "item_id": "36a122d9fc:31",
+      "text": "task 不得受 limits 限制。这里的 limits 可能由 job、task 或 task 当前 command 的 limit tags 表示，并且",
+      "ascii_letters": 43,
+      "cjk_chars": 19
+    },
+    {
+      "item_id": "36a122d9fc:32",
+      "text": "task 不得受 sharing limits 限制。这里的 limits 是与 job project 关联的那些 limits。",
+      "ascii_letters": 39,
+      "cjk_chars": 15
+    },
+    {
+      "item_id": "36a122d9fc:33",
+      "text": "即使某个 task 满足这些 requirements，也可能存在一个更高 priority job 的 task 同样满足这些 requirements，并因此被 job 选中。",
+      "ascii_letters": 46,
+      "cjk_chars": 30
+    },
+    {
+      "item_id": "36a122d9fc:34",
+      "text": "还要注意，每次 task assignment 和 completion 都会影响 limit counters，这会影响哪些 tasks 有资格响应下一个 blade request。",
+      "ascii_letters": 54,
+      "cjk_chars": 25
+    }
+  ],
+  "required_phrase_missing": [],
+  "section_order_positions": [],
+  "section_order_ok": true,
+  "passed": true
+}

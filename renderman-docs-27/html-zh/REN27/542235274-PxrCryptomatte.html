@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PxrCryptomatte</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>PxrCryptomatte</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/REN27/542235274/PxrCryptomatte">https://rmanwiki-27.pixar.com/space/REN27/542235274/PxrCryptomatte</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="contentLayout2">
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p local-id="baf3d81ad4c1"><a class="external-link" href="https://github.com/Psyop/Cryptomatte" rel="nofollow">Cryptomatte</a> 由 Psyop Studios 开发，用于生产管线。 <span class="legacy-color-text-default">当前版本为 Cryptomatte 1.2.0</span></p><p local-id="9b1c84f6dbdf"> </p><p local-id="42f727a47976">采样滤镜的输出允许美术人员（基本上）自动生成 ID，供 Nuke 等合成软件包在选择和遮罩操作中用于指定对象或材质选择。你可以在 Katana 和 Maya 的 Cryptomatte 输出页面找到示例文件。下面展示的是一个包含茶壶的简单场景中 Cryptomatte 输出的对象结果和材质结果。</p><p local-id="771ddc7081d0" /></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="684" loading="lazy" src="../../attachments/542235274/RfK_Crypto_object.png" data-image-src="../../attachments/542235274/RfK_Crypto_object.png" data-height="369" data-width="371" data-unresolved-comment-count="0" data-linked-resource-id="542235291" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RfK_Crypto_object.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542235274" data-linked-resource-container-version="2" data-media-id="de549cf6-aac1-4b9a-a094-810c8754b878" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="684" loading="lazy" src="../../attachments/542235274/RfK_Crypto_material.png" data-image-src="../../attachments/542235274/RfK_Crypto_material.png" data-height="370" data-width="370" data-unresolved-comment-count="0" data-linked-resource-id="542235288" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RfK_Crypto_material.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542235274" data-linked-resource-container-version="2" data-media-id="b8687f71-02c7-4c69-adbb-e212cd7dde5c" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h2 local-id="42613f7168df" id="PxrCryptomatte-Parameters">Parameters（参数）</h2><h3 local-id="980f9d78b23f" id="PxrCryptomatte-Filename">Filename（文件名）</h3><p local-id="780df6c0b3f2">要写入的 EXR 图像文件名；默认值为 “cryptomatte.exr”。目前它需要写入与 beauty 或 denoise EXR 输出分离的单独文件。</p><h3 local-id="279fe1eed83e" id="PxrCryptomatte-Manifest">Manifest（清单）</h3><p local-id="b355144637f0">合法取值为 “None”、“Header”（默认）和 “Sidecar”。 <span class="legacy-color-text-default">Cryptomatte 格式允许使用一个可选的 JSON 格式清单，将名称映射到 ID。它可以作为字符串 metadata 字段包含在 EXR 头部，也可以存储在 sidecar 文件中，也可以省略。</span></p><h3 local-id="7cf7aec0d55d" id="PxrCryptomatte-Layer">Layer（层）</h3><p local-id="cd6d1bf0a88c">要使用哪个属性来识别对象并将对象分组。可设为 “Name”（默认）以使用对象的直接名称；设为 “Path” 以使用对象的完整 outliner 路径；设为 “Material” 以按着色器网络对对象分组；或设为 “Attribute” 以使用自定义用户字符串属性。这里的选择也会决定存储在 EXR 头部中的 metadata 字符串名称，以及 EXR 图像自身通道的名称。</p><div class="panel conf-macro output-block" data-hasbody="true" data-local-id="2196a5599810" data-macro-id="63d561c3-5a99-4ab0-acb1-ff44ae19b4f2" data-macro-name="panel" style="background-color: #DEEBFF;border-width: 1px;"><div class="panelContent" style="background-color: #DEEBFF;">
+<p local-id="6afc360fc789">“Attribute” 层目前在 XPU 中不受支持。</p>
+</div></div><h3 local-id="65aa4bb8ea04" id="PxrCryptomatte-Attribute">Attribute（属性）</h3><p local-id="50b259470b4a">如果 Layer 选择了 “Attribute”，此参数允许你指定要使用的自定义字符串 user attribute 名称。 </p><div class="panel conf-macro output-block" data-hasbody="true" data-local-id="e9afdefd0d69" data-macro-id="64719c8a-d91f-4a57-9c86-06b1cb5a406c" data-macro-name="panel" style="background-color: #DEEBFF;border-width: 1px;"><div class="panelContent" style="background-color: #DEEBFF;">
+<p local-id="0c29ae2c61dc">此参数目前在 XPU 中不受支持。</p>
+</div></div><h3 local-id="fa68049ca0dd" id="PxrCryptomatte-Levels">Levels</h3><p local-id="c54d2bda9953">要包含多少个 ID/覆盖率对；默认值为 6。</p><h3 local-id="9b3c85779b1b" id="PxrCryptomatte-Accuracy">Accuracy（精度）</h3><p local-id="e918963f9f67">计算但不存入文件的额外 ID/覆盖率对；默认值为 4。如果某个像素中贡献对象的数量没有超过 Levels 与 Accuracy 的总和，那么该像素计算得到的遮罩结果将是精确的。否则，遮罩结果将是近似的；增大此值可能会为像素中较不显著的对象生成更好的估计（到一定程度为止），但代价是更多内存。</p></div>
+</div>
+</div>
+</div>
+  </article>
+</main>
+</body>
+</html>

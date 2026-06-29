@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shading in Houdini</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Shading in Houdini</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFH27/544644296/Shading+in+Houdini">https://rmanwiki-27.pixar.com/space/RFH27/544644296/Shading+in+Houdini</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="900" loading="lazy" src="../../attachments/544644296/RenderMan_Fundamentals_WallpaperTwo.jpg" data-image-src="../../attachments/544644296/RenderMan_Fundamentals_WallpaperTwo.jpg" data-height="720" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="544644321" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Fundamentals_WallpaperTwo.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544644296" data-linked-resource-container-version="1" data-media-id="cc8607cd-3983-4357-85d3-771ea2688aef" data-media-type="file"></span><h3 id="ShadinginHoudini-Materials">Materials</h3><p>Materials in RenderMan are often referred to as Bxdf(s). A Bxdf describes the material to the <a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661783" rel="nofollow">integrator</a> that determines the final rendered look. Since these are independent, users can change integrators and still use the same Bxdf to achieve a consistent or expected result. Imagine you've created a golden metal, if you were to render this in PxrPathTracer or PxrVCM, you would expect the material properties to still be seen as &quot;gold&quot; in the final image. This could even be extended to non-photorealistic and custom integrators that would render your gold Bxdf in new and interesting ways but would still be understood as gold (or golden) in the result. This is the power of material Bxdfs in RenderMan.</p><p>Below you will find links to the materials available in RenderMan categorized by common use.</p><p /><p><a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661411" rel="nofollow"><strong>PxrSurface</strong></a> - This is your ultimate material system for creating all the looks you should need. From skin to gemstones, PxrSurface handles complex looks through layering and artist-driven parameters.</p><p><a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661457" rel="nofollow"><strong>MaterialX Lama</strong> </a>- <span class="legacy-color-text-default">MaterialX Lama is a state-of-the-art material layering system developed at Industrial Light &amp; Magic that introduces a modular approach to building material networks and includes recent work on energy conservation and dispersion. </span></p><p><a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661555" rel="nofollow"><strong>PxrVolume</strong></a> - A powerful and fast volumetric shader used for smoke, fire, explosions, and more. </p><p><a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661553" rel="nofollow"><strong>PxrMarschnerHair</strong></a> - This material is designed for hair, fur, and fibers.</p><p><strong>Basic Materials</strong> - These materials are designed for specific uses.</p><ul><li><p><strong>PxrConstant </strong>- This material supplies a constant color or can be textured. It's great for projections and other effects where you don't want shading.</p></li><li><p><strong>PxrDiffuse</strong> - A simple and fast diffuse material.</p></li><li><p><strong>PxrBlack</strong> - A non-scattering material that renders just like it sounds – black.</p></li></ul><p /><ul class="childpages-macro conf-macro output-block" data-hasbody="false" data-layout="default" data-local-id="a97918bf-ebbe-4595-9a96-4242b9dc7501" data-macro-id="e66d4af6-c5d0-4934-8ec9-14b5f66edebf" data-macro-name="children"><li><a href="/wiki/spaces/RFH27/pages/544644341/Texture+Manager" data-linked-resource-id="544644341" data-linked-resource-version="6" data-linked-resource-type="page">Texture Manager</a></li><li><a href="/wiki/spaces/RFH27/pages/544644370/Volume+Material" data-linked-resource-id="544644370" data-linked-resource-version="1" data-linked-resource-type="page">Volume Material</a></li><li><a href="/wiki/spaces/RFH27/pages/544644429/Soloing+Patterns" data-linked-resource-id="544644429" data-linked-resource-version="1" data-linked-resource-type="page">Soloing Patterns</a></li><li><a href="/wiki/spaces/RFH27/pages/544644451/OSL+Patterns" data-linked-resource-id="544644451" data-linked-resource-version="1" data-linked-resource-type="page">OSL Patterns</a></li><li><a href="/wiki/spaces/RFH27/pages/544644486/Assigning+Materials+To+Faces" data-linked-resource-id="544644486" data-linked-resource-version="1" data-linked-resource-type="page">Assigning Materials To Faces</a></li><li><a href="/wiki/spaces/RFH27/pages/544644545/Using+Material+Layers" data-linked-resource-id="544644545" data-linked-resource-version="1" data-linked-resource-type="page">Using Material Layers</a></li><li><a href="/wiki/spaces/RFH27/pages/544644642/Using+Displacement" data-linked-resource-id="544644642" data-linked-resource-version="1" data-linked-resource-type="page">Using Displacement</a></li><li><a href="/wiki/spaces/RFH27/pages/544644703/Creating+A+Material" data-linked-resource-id="544644703" data-linked-resource-version="1" data-linked-resource-type="page">Creating A Material</a></li></ul><p /><p />
+  </article>
+</main>
+</body>
+</html>

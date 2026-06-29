@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Upgrading</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Upgrading</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/TRA/22184348/Upgrading">https://rmanwiki-27.pixar.com/space/TRA/22184348/Upgrading</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="document"><p>升级 engine 就像用新版本重启它一样简单。除非另有说明，active tasks 可以在 restart 期间继续运行。新的 engine 与较旧的 blades 兼容；只有在需要利用新的 blade functionality 时，才需要重启 blades。</p><p>某些站点可能希望在 upgrading 前备份 job data。这样做有两个好处：backup 可以在 upgrade 期间发生意外问题（例如 software 或 hardware failure）时防止 historical job data 丢失；另外，如果需要 downgrade，system 可以恢复到 pre-upgrade state。Backups 和 downgrades 会在下文讨论。</p><p> </p><div class="section"><h3 id="Upgrading-DownTime">停机时间说明（Down Time）</h3><p>执行 upgrade 所需时间主要受修改 database schema 所需 operations 影响。特定 upgrade 的 documentation 会提示何时可能需要较长时间（例如超过一分钟）来执行 upgrade。Upgrade 期间，active tasks 可以继续运行；不过不会 schedule 新 work，不能 submit 新 jobs，Dashboard、command-line 和 API 与 engine 的通信会 block。</p><p> </p></div><div class="section"><h3 id="Upgrading-BackingUp">备份操作说明（Backing Up）</h3><p>备份 job database 前，请确保 tractor engine 和 postgresql database 已停止。除非站点在其 db.config 文件中将 DBShutdown 设置为 False，或 engine 难以与 database server 通信，否则 engine 会自动关闭 database server。 <span class="pre">tractor-dbctl</span> <span class="pre">--status</span> 可用于验证 database server 是否已停止。如果它仍在运行，可以用 <span class="pre">tractor-dbctl</span> <span class="pre">--stop</span>停止。</p><p>要备份 job database，请运行 <span class="pre">tractor-dbctl</span> <span class="pre">--backup</span> <span class="pre">&lt;path-to-backup-file&gt;</span>。请确保有足够空间存储 backup file。Backup file 是 engine data directory 的 psql/ subdirectory 的 compressed tarball，因此只需要该 directory 所用空间的一小部分。</p><p> </p></div><div class="section"><h3 id="Upgrading-Downgrading">降级操作说明（Downgrading）</h3><p>Downgrading 时，如果现有 database 已经历 schema change，可能无法继续使用。在这种情况下，需要从新的 job database 开始，或从 backup restore。如果必须保留 upgrade 后发生的 job submissions 和 state changes，请联系 Customer Support。</p><p>要执行 downgrade，请按上文 <em>Backing Up</em>所述停止现有 engine 和 database server。然后用以下命令 destroy job database： <span class="pre">tractor-dbctl</span> <span class="pre">--destroy</span>。</p><p>要从 backup restore job database，请使用 <span class="pre">tractor-dbctl</span> <span class="pre">--restore</span> <span class="pre">&lt;path-to-backup-file&gt;</span> 并以适用版本的 engine 启动；job IDs 会从创建 backup 时最后使用的 job ID 继续。Backup 时处于 queued 状态的 jobs 会在 system 恢复到 backup 后重新 scheduled。Backup 之后提交的 jobs 不会出现在 restored job database 中。</p><p>如果 job database 没有从 backup restore，它就只是一个空 job database，job IDs 从 1 开始。</p><p>注意，如果 job ID 被 reused，其 log file output 会 append 到之前同 ID job 的 log files 中。因此，建议移除与将被 reused 的 job IDs 相关的 log files。</p><p>Job ID sequence 可以从不同 value 恢复，以避免 reusing job IDs。首先用以下命令启动 database server： <span class="pre">tractor-dbctl</span> <span class="pre">--start-for-engine</span> 然后运行 <span class="pre">tractor-dbctl</span> <span class="pre">--set-job-counter</span> &lt;#&gt;.</p><p>概括来说，downgrade 的步骤如下：</p><blockquote><ol style="margin-left: 28.0px;" class="arabic simple"><li>在 Dashboard admin panel 管理面板中暂停 dispatching 调度。</li><li>Retry 重试所有 active tasks 活动任务：tq <span class="pre">--force</span> <span class="pre">--yes</span> retry active</li><li>使用 Kill 命令终止 engine 进程。</li><li>Destroy job database： <span class="pre">tractor-dbctl</span> <span class="pre">--destroy</span></li><li>可选地 restore 恢复 backed up database 备份数据库： <span class="pre">tractor-dbctl</span> <span class="pre">--restore</span> <span class="pre">&lt;path-to-backup-file&gt;</span></li><li>Start 启动 database server： <span class="pre">tractor-dbctl</span> <span class="pre">--start-for-engine</span></li><li>用以下命令查看最后使用的 job ID： <span class="pre">tractor-dbctl</span> <span class="pre">--show-params</span> 并移除 job ID 更高的 jobs 的任何 log files。</li><li>可选地设置 job counter： <span class="pre">tractor-dbctl</span> <span class="pre">--set-job-counter</span> &lt;#&gt;</li><li>Start 启动适用的 engine。</li></ol></blockquote><p>注意，这里描述的所有 tractor-dbctl commands 都需要使用 --configdir option 指定 site configuration directory。</p><p> </p></div><div class="section"><h3 id="Upgrading-MultipleEngines">多个 Engines 引擎说明（Multiple Engines）</h3><p>可以同时运行不同版本的 Tractor engines，例如在部署到 production 前测试新版本。多个 engines 可以在同一 host 上运行；不过它们必须具有不同的 ports、configuration directories、data directories 和 database directories。即使 engines 不在同一 host 上运行，只要它们对上述任一 directories 使用相同的 network-sharable volumes，就可能发生 corruption。这里重要的 configuration settings 是 tractor.config 中的 TractorDataDirectory 和 db.config 中的 DBDataDir。还需要管理不同的 log files locations，以及让 blades 指向合适的 engine。</p><p> </p></div><div class="section"><h3 id="Upgrading-AdditionalInformation">附加信息说明（Additional Information）</h3><p>有关特定版本的 upgrade information，请参阅以下 documents。</p><a href="22184350-Upgrading from Tractor 1.x.html" data-linked-resource-id="22184350" data-linked-resource-version="2" data-linked-resource-type="page"><br />Upgrading from 1.x</a><p><a href="22184358-Upgrading to 2.1.html" data-linked-resource-id="22184358" data-linked-resource-version="9" data-linked-resource-type="page">Upgrading to 2.1</a></p><p><a href="22184360-Upgrading to 2.2.html" data-linked-resource-id="22184360" data-linked-resource-version="2" data-linked-resource-type="page">Upgrading to 2.2</a></p></div></div>
+  </article>
+</main>
+</body>
+</html>

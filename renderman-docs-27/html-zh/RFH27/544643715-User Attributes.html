@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>User Attributes</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>User Attributes</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFH27/544643715/User+Attributes">https://rmanwiki-27.pixar.com/space/RFH27/544643715/User+Attributes</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>要向对象添加 user attribute（用户属性），可通过 Edit Parameter Interface（编辑参数界面）添加。</p><p>在 RenderMan 选项卡中的 Attributes 或 Primvars 区段下，将参数添加到 User 选项卡。该参数必须位于 User 文件夹内，并且必须带有 "ri_user_" 前缀才能被读取。 </p><p>还必须为该参数提供 Tag Value，用来告知 Houdini 和 RenderMan 该参数类型，并允许交互式编辑。</p><h2 id="UserAttributes-SettingupMatteIDasanExample">以 MatteID 设置为示例</h2><p>创建一个名为 "ri_user_MatteID0" 的 color attribute（颜色属性）。 </p><p>label 是 UI 中显示的名称。</p><p>注意，我们使用了靠近底部的 tags 字段，这是为了告知 Houdini 和 RenderMan 该 RenderMan attribute（RenderMan 属性）。有效值类型如下。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="598" loading="lazy" src="../../attachments/544643715/rfh_addMatteUserAttr.png" data-image-src="../../attachments/544643715/rfh_addMatteUserAttr.png" data-height="786" data-width="1115" data-unresolved-comment-count="0" data-linked-resource-id="544643733" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfh_addMatteUserAttr.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544643715" data-linked-resource-container-version="1" data-media-id="83bb7290-93a7-40f3-ae66-d705d74733e7" data-media-type="file"></span><p /><p>有效的 Tag Values 列在这里。它们必须匹配左侧名为 "Create Parameters" 的窗格中所选 Parameter（参数）的预期数据类型：</p><ul><li><p>int</p></li><li><p>float</p></li><li><p>color</p></li><li><p>point</p></li><li><p>vector</p></li><li><p>normal</p></li><li><p>hpoint</p></li><li><p>matrix</p></li><li><p>string</p></li></ul><p /><p>这会向 RIB 输出如下内容。</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="c487bfed-0ac8-497e-8322-5adaa8f0b737" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: py; gutter: false; theme: Confluence" data-theme="Confluence"> Attribute &quot;user&quot; &quot;color MatteID0&quot; [0 1 0]</pre>
+</div></div><p />
+  </article>
+</main>
+</body>
+</html>

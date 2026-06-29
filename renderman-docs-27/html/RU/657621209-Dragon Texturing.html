@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dragon Texturing</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Dragon Texturing</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RU/657621209/Dragon+Texturing">https://rmanwiki-27.pixar.com/space/RU/657621209/Dragon+Texturing</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="contentLayout2">
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h3 id="DragonTexturing-Texturing">Texturing</h3><p>For secondary displacement details, I used <a class="external-link" href="https://texturing.xyz/" rel="nofollow">texturing.xyz</a> textures and added tileable textures for the dragons’s hard surface sections. After this step, my first course of action was to test the setup in RenderMan for Houdini to make sure my choices were successful so far.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Disp.gif" width="760" loading="lazy" src="../../attachments/657621209/Disp.gif" data-image-src="../../attachments/657621209/Disp.gif" data-height="1800" data-width="1500" data-unresolved-comment-count="0" data-linked-resource-id="657228009" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Disp.gif" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/gif" data-linked-resource-container-id="657621209" data-linked-resource-container-version="1" data-media-id="93a1ab13-ed6e-44da-9b3b-5ace0e6e3dc7" data-media-type="file"></span><p>I really love starting a displacement network with a pxrDisplacementLayer node, as it makes the layering of displacement maps super efficient and straightforward.</p><p>After that I went back to Mari and started with large swaths of colors, as things developed, I added finer details and breakups with the help of geometry bakes. I finished things off with high resolution tileable textures and some hand painting.</p><p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Dirty.jpg" width="760" loading="lazy" src="../../attachments/604635137/Dirty.jpg" data-image-src="../../attachments/604635137/Dirty.jpg" data-height="1800" data-width="1500" data-unresolved-comment-count="0" data-linked-resource-id="604242107" data-linked-resource-version="2" data-linked-resource-type="attachment" data-linked-resource-default-alias="Dirty.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="604635137" data-linked-resource-container-version="5" data-media-id="2c43f47c-080c-4c14-b667-1ad885c70ef6" data-media-type="file"></span><p>Another round of RenderMan testing was useful at this stage and allowed me to build the material networks in manageable steps. Once I felt happy with my progress, I made supporting material texture maps, such as Roughness and SSS scale, plus arbitrary masks for control later on in the look development process.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="texture-masks.jpg" width="760" loading="lazy" src="../../attachments/657621209/texture-masks.jpg" data-image-src="../../attachments/657621209/texture-masks.jpg" data-height="918" data-width="2000" data-unresolved-comment-count="0" data-linked-resource-id="657228016" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="texture-masks.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="657621209" data-linked-resource-container-version="1" data-media-id="19ad23a5-f5c2-45e8-bafd-6a76ed4429dc" data-media-type="file"></span><div class="panel conf-macro output-block" data-hasbody="true" data-macro-id="" data-macro-name="panel" style="background-color: #EAE6FF;border-color: #998DD9;border-width: 1px;"><div class="panelContent" style="background-color: #EAE6FF;">
+<p>Tip 1: Start simple and layer in detail as you take a look at the references to see how your asset is colored.</p>
+</div></div><div class="panel conf-macro output-block" data-hasbody="true" data-macro-id="" data-macro-name="panel" style="background-color: #EAE6FF;border-color: #998DD9;border-width: 1px;"><div class="panelContent" style="background-color: #EAE6FF;">
+<p>Tip 2: With geometry bakes, you can quickly bring many parts into your textures and thus support the shape and remain procedural at the same time.</p>
+</div></div><p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="sss-clay.jpg" width="760" loading="lazy" src="../../attachments/657621209/sss-clay.jpg" data-image-src="../../attachments/657621209/sss-clay.jpg" data-height="1200" data-width="2000" data-unresolved-comment-count="0" data-linked-resource-id="657228022" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="sss-clay.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="657621209" data-linked-resource-container-version="1" data-media-id="94bb4333-b7c5-4515-8bb8-9e3467a17bdf" data-media-type="file"></span><p>With the help of our arbitrary texture masks, I made color corrections for different parts with pxrLayeredBlend nodes. I also graded the Roughness map to have full control over the different values and areas, as animals in nature tend to use harder surfaces in their body for defense, thus wear and tear need to be expressed with that in mind.</p><p /></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Clean.jpg" width="356" loading="lazy" src="../../attachments/657621209/Clean.jpg" data-image-src="../../attachments/657621209/Clean.jpg" data-height="1800" data-width="1500" data-unresolved-comment-count="0" data-linked-resource-id="657228028" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Clean.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="657621209" data-linked-resource-container-version="1" data-media-id="91a5c001-a65d-4732-b692-7cdfeb7dda5e" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Dirty.jpg" width="356" loading="lazy" src="../../attachments/657621209/Dirty.jpg" data-image-src="../../attachments/657621209/Dirty.jpg" data-height="1800" data-width="1500" data-unresolved-comment-count="0" data-linked-resource-id="657228034" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Dirty.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="657621209" data-linked-resource-container-version="1" data-media-id="f80181b0-f16f-491c-bba2-146b6ce1661f" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p>This layer is very important because it often “glues” the asset together, creating textural areas of common value and design language. Even though the effect might be subtle with a creature such as this dragon, dirt textures might be much more pronounced with hard surfaces.</p><div class="panel conf-macro output-block" data-hasbody="true" data-macro-id="" data-macro-name="panel" style="background-color: #EAE6FF;border-color: #998DD9;border-width: 1px;"><div class="panelContent" style="background-color: #EAE6FF;">
+<p>Tip 1: Make the displacement first and use a gray shader to judge displacement details and SSS, so as not to be distracted by color details.</p>
+</div></div><div class="panel conf-macro output-block" data-hasbody="true" data-macro-id="" data-macro-name="panel" style="background-color: #EAE6FF;border-color: #998DD9;border-width: 1px;"><div class="panelContent" style="background-color: #EAE6FF;">
+<p>Tip 2: Think about how the different materials lie on top of each other in reality and try to recreate this digitally and non-destructively.</p>
+</div></div><p /><hr/></div>
+</div>
+</div>
+</div>
+  </article>
+</main>
+</body>
+</html>

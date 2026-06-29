@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PxrVariable</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>PxrVariable</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/REN27/542225473/PxrVariable">https://rmanwiki-27.pixar.com/space/REN27/542225473/PxrVariable</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>允许通过 pattern graphs（图案图）传递 GPrim primitive variables（primvars）。可用它代替 <a href="542224365-PxrPrimvar.html" data-linked-resource-id="542224365" data-linked-resource-version="1" data-linked-resource-type="page">PxrPrimvar</a></p><p><br/></p><h3 id="PxrVariable-InputParameters">Input Parameters</h3><h4 id="PxrVariable-VariableName">Variable Name</h4><p>primitive variable（primvar）的名称。如果未选择任何项，应在 UI 中填写 "PrimVar" 字段来指定自己的选择。</p><p>可包含以下选项：</p><ul><li>着色位置 (<code>P</code>)</li><li>未置换位置 (<code>Po</code>)</li><li>着色法线 (<code>Nn</code>)</li><li>几何法线 (<code>Ngn</code>)</li><li>未置换法线 (<code>Non</code>)</li><li>着色切线 (<code>Tn</code>)</li><li>归一化视图向量 (<code>Vn</code>)</li><li>视图向量长度 (<code>VLen</code>)</li><li>表面平均曲率 (<code>curvature</code>)</li><li>表面 U 方向曲率 (<code>curvature_u</code>)</li><li>表面 V 方向曲率 (<code>curvature_v</code>)</li><li>Ray Spread（光线扩散） (<code>incidentRaySpread</code>)</li><li>光线半径 (<code>incidentRayRadius</code>)</li><li>微多边形半径 (<code>PRadius</code>)</li><li>微多边形尺寸 (<code>mpSize</code>)</li><li>反射偏置 (<code>biasR</code>)</li><li>透射 (<code>biasT</code>)</li><li>表面 U (<code>u</code>)</li><li>表面 V (<code>v</code>)</li><li>表面 W (<code>w</code>)</li><li>表面 UV (<code>uv</code>)</li><li>表面 UVW (<code>uvw</code>)</li><li>光线 footprint U (<code>du</code>)</li><li>光线 footprint V (<code>dv</code>)</li><li>光线 footprint W (<code>dw</code>)</li><li>光线 footprint UV (<code>duv</code>)</li><li>光线 footprint UVW (<code>duvw</code>)</li><li>表面导数 U (<code>dPdu</code>)</li><li>表面导数 V (<code>dPdv</code>)</li><li>表面导数 W (<code>dPdw</code>)</li><li>速度 (<code>dPdtime</code>)</li><li>时间 (<code>time</code>)</li><li>外部 IOR (<code>outsideIOR</code>)</li><li>不透明度 (<code>Oi</code>)</li><li>前向运动 (<code>motionFore</code>)</li><li><span style="line-height: 1.42857;">后向运动 (</span> <code style="line-height: 1.42857;">motionBack</code> <span style="line-height: 1.42857;">)</span></li></ul><h4 id="PxrVariable-PrimVar">PrimVar</h4><p>添加 primitive variable（primvar）的名称</p><h4 id="PxrVariable-Type">Type</h4><p>primitive variable（primvar）的类型；这必须与你作为 Variable 选择的类型匹配：</p><ul><li>float</li><li>float2</li><li>color</li><li>point</li><li>vector</li><li>normal</li></ul><h4 id="PxrVariable-CoordinateSystem">Coordinate System</h4><p>默认情况下，shader 使用当前坐标系。可用的坐标系包括 <em>world</em>, <em>object</em>，或 <em>user-defined</em> 坐标系。</p><h3 id="PxrVariable-OutputParameters">Output Parameters</h3><h4 id="PxrVariable-resultRGB">result RGB</h4><p>以 color 形式输出的结果。</p><h4 id="PxrVariable-resultF">result F</h4><p>以 float 形式输出的结果。</p><h4 id="PxrVariable-resultF3">result F3</h4><p>以三个 float 形式输出的结果。</p>
+  </article>
+</main>
+</body>
+</html>

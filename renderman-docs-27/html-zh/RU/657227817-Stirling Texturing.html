@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Stirling Texturing</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Stirling Texturing</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RU/657227817/Stirling+Texturing">https://rmanwiki-27.pixar.com/space/RU/657227817/Stirling+Texturing</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<h3 id="StirlingTexturing-TexturingandUVs">贴图与 UVs（Texturing and UVs）</h3><p>在进入本教程可能最具技术性的部分之前，我想强调正确分层的重要性。如果处理得草率，它很快就会变成令人头疼的问题。我强烈建议花时间阅读专门介绍 <strong>Holdouts、Layering 和 Trace Sets</strong>。</p><p>在这个 scene 中，我们有两类 objects： <strong>被反射对象</strong> 以及 <strong>反射体</strong>（它们充当 holdouts）。首先，我们来看 reflected objects 的 layering 是如何设置的。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image15.jpg" width="760" loading="lazy" src="../../attachments/657227817/image15.jpg" data-image-src="../../attachments/657227817/image15.jpg" data-height="720" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="656998455" data-linked-resource-version="2" data-linked-resource-type="attachment" data-linked-resource-default-alias="image15.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="657227817" data-linked-resource-container-version="1" data-media-id="af7c8d29-619d-4b21-98a6-99b112b92cd2" data-media-type="file"></span><p>对于 car 本身（左图），设置相当直接：我让除 car 以外的所有内容都对 camera 的直接和间接可见性不可见。不过你会注意到，我选择隐藏了 glass windows。</p><p>在做 integration 时，如果想获得准确的 refractions，glass 可能会很棘手。为了简化流程，我把它放到单独的 layer 中，如右图所示。这里的方法是从第一个 layer 取回 visible elements 的选择集（它包含整辆 car，但排除 windows 和 interior），并创建一个 Matte Object collection。这个设置确保我可以在 Nuke 中把 glass 无缝 compositing 回 scene，避免任何 intersection issues。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image11.jpg" width="760" loading="lazy" src="../../attachments/657227817/image11.jpg" data-image-src="../../attachments/657227817/image11.jpg" data-height="720" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="656998462" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image11.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="657227817" data-linked-resource-container-version="1" data-media-id="3865fad0-64b9-4505-aaaf-febb6fb23069" data-media-type="file"></span><p>对于 refractions，我创建了一个带 PxrConstant shader 的 plane，并将它约束到 camera。在这个 PxrConstant 中，我只是连接 base plate 的 image sequence，并把它 offset 到足够远的位置，使它始终保持在 car 后方。</p><p>这个设置让我可以把 windows 无缝合并回 car，同时确保 refractions 正确。如果没有这个调整，来自 HDRI 的 distorted background 会非常抢眼，成为明显干扰。</p><p>现在，我们继续看 car reflectors 的 layering。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image15.jpg" width="760" loading="lazy" src="../../attachments/657227817/image15.jpg" data-image-src="../../attachments/657227817/image15.jpg" data-height="720" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="656998455" data-linked-resource-version="2" data-linked-resource-type="attachment" data-linked-resource-default-alias="image15.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="657227817" data-linked-resource-container-version="1" data-media-id="af7c8d29-619d-4b21-98a6-99b112b92cd2" data-media-type="file"></span><p>我们会使用视频开头出现的 van 所在 layer，因为它提供了最完整的示例。不过，所有 reflector layers 的设置方式都很相似。</p><p>首先，我们会为 van 创建一个 Holdout override（可以查看专门的 <strong>Holdouts</strong>页面），这个 van 已经被快速 shading，以匹配 footage 中显示的 look。主 object（van）之外的所有内容会再次设置为对 camera 的直接可见性不可见。 </p><p>不过这一次，重点会放在 indirect visibility 上。trace sets 会在这里真正发挥作用。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image2.jpg" width="760" loading="lazy" src="../../attachments/657227817/image2.jpg" data-image-src="../../attachments/657227817/image2.jpg" data-height="720" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="656998479" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image2.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="657227817" data-linked-resource-container-version="1" data-media-id="017b32ba-b578-4a4e-93ff-66e5fcf6e6df" data-media-type="file"></span><p /><p>在 footage 中可以看到，car 及其 reflection 的右侧应该接收由 black car 投下的 shadow。不过，为了让 objects 保持分离，使 compositing 更干净、更易管理，我们关闭了 black car proxy 的 indirect visibility。结果是，它投射到 car 上的 shadow 消失了，reflection 的真实感也被破坏。</p><p>这就是 trace sets 派上用场的地方，让我们可以兼顾两种需求。</p><p>要创建 trace set，请参考 <strong>Creating Trace Sets in Maya</strong> 文档。在这个案例中，我只是创建了一个 set，其中包含所有不希望反射到 holdout 中的 objects，并把它们从 van 的 trace sets 中排除。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image10.jpg" width="760" loading="lazy" src="../../attachments/657227817/image10.jpg" data-image-src="../../attachments/657227817/image10.jpg" data-height="484" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="656998485" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image10.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="657227817" data-linked-resource-container-version="1" data-media-id="9801314f-9336-42a2-b0b1-8221883ae6b0" data-media-type="file"></span><p>很高兴你已经看到这里！现在，根据项目需要，对尽可能多的 layers 重复这个流程，最后就可以进入 rendering settings 了。</p>
+  </article>
+</main>
+</body>
+</html>

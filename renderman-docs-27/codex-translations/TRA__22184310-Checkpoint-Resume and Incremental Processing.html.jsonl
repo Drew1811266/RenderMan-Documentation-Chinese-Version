@@ -1,0 +1,24 @@
+{"item_id":"8f4b7356eb:0","text":"作业脚本、调度和 Dashboard 的最新扩展增加了与增量计算相关的有趣新能力。Tractor 还支持通用的“从最后一个 checkpoint 重试”方案。这两项功能都与新的 RenderMan 19 RIS checkpoint 和 incremental rendering（增量渲染）功能集成。"}
+{"item_id":"8f4b7356eb:1","text":"从最后一个局部结果重试"}
+{"item_id":"8f4b7356eb:2","text":"例如，Pixar RenderMan renderer prman 在使用兼容输出格式时，多年来一直支持内置重试方案。"}
+{"item_id":"8f4b7356eb:3","text":"如果该进程在渲染一小时后由于某种原因被终止，但期间生成了局部图像文件，那么通常可以从该点重新开始渲染。"}
+{"item_id":"8f4b7356eb:4","text":"初始渲染等同于使用"}
+{"item_id":"8f4b7356eb:5","text":"-recover"}
+{"item_id":"8f4b7356eb:6","text":"0，因为零表示渲染应从开头开始，并忽略（覆盖）任何预先存在的输出文件。"}
+{"item_id":"8f4b7356eb:7","text":"一个调用该基础渲染命令的简单 Tractor 作业脚本，可以用 Tractor 的 \"%r\" 运行时替换参数来编写；Tractor 会在命令启动时填入该参数。"}
+{"item_id":"8f4b7356eb:8","text":"在命令第一次启动时，或用户请求完全重启任务时，Tractor 会在参数列表中把 %r 替换为数字零；当用户请求从最后一个 checkpoint 恢复时，则替换为数字一。"}
+{"item_id":"8f4b7356eb:9","text":"因此，Tractor 对此功能的支持假定许多应用程序或其 wrapper scripts（包装脚本）的重启行为，可以通过某个接受简单 '0' 或 '1' 的命令行参数来控制。"}
+{"item_id":"8f4b7356eb:10","text":"增量 Checkpoint-Resume（检查点恢复）迭代"}
+{"item_id":"8f4b7356eb:11","text":"引入新的 Tractor 作业脚本控制项："}
+{"item_id":"8f4b7356eb:12","text":"目标是将一组任务（整个依赖子树）标记为一个 group；当某些元素已经到达 checkpoint 但尚未完成时，该 group 会重新运行。"}
+{"item_id":"8f4b7356eb:13","text":"-resumeblock 选项放在组根部的"}
+{"item_id":"8f4b7356eb:14","text":"Task"}
+{"item_id":"8f4b7356eb:15","text":"上。-resumewhile 子句放在遵循 checkpoint-resume 语义的"}
+{"item_id":"8f4b7356eb:16","text":"RemoteCmd"}
+{"item_id":"8f4b7356eb:17","text":"上。"}
+{"item_id":"8f4b7356eb:18","text":"-resumepin"}
+{"item_id":"8f4b7356eb:19","text":"1 选项是带有 -resumewhile 的命令上的额外限定符，表示重启必须发生在该命令初始 pass（轮次）所用的同一 blade 上。"}
+{"item_id":"8f4b7356eb:20","text":"注意：在 -resumeblock Task 指定的子树中，并非所有任务都会在每个 pass 中重启。只有 -resumewhile 子句求值为 \"true\"（非零）的那些命令，才会在下一轮重试。其中一些命令可能会比块中的其他命令提前几个 pass 完全完成。一旦某个命令的 resumewhile 子句求值为 \"false\"（零），它就不会再由此循环机制重启。还请注意，"}
+{"item_id":"8f4b7356eb:21","text":"任何"}
+{"item_id":"8f4b7356eb:22","text":"依赖于被恢复任务的任务，一直到 resume block 的根部，也会被重试。由 -resumewhile 引起的重试在这方面的行为与手动任务重试相同：依赖的后继任务也会被重试。"}
+{"item_id":"8f4b7356eb:23","text":"替换模式 %r、%R 和 %q 会在 tractor-blade 启动每个命令之前填入：当任务全新开始时 %r 为 0；当用户或系统请求从 checkpoint 恢复时，%r 为大于零的整数；%R 是因 -resumewhile 构造而重启的命令的“loop count（循环计数）”；当任务因其依赖的子任务进入 final quality runs（最终质量运行）而执行时，%q 的值为 1.0；如果某个子任务在当前 resumewhile 循环中只到达 checkpoint，则 %q 小于 1.0。许多被启动的命令不支持这些区分；作业作者需要根据每个命令的情况适当使用这些可选参数。"}

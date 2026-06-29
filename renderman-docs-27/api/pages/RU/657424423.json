@@ -1,0 +1,34 @@
+{
+  "parentType": "page",
+  "parentId": "604569601",
+  "ownerId": "712020:9d5ecfb2-d6a8-470c-8147-e3a49ba45e31",
+  "lastOwnerId": null,
+  "createdAt": "2025-11-08T08:11:30.555Z",
+  "authorId": "712020:9d5ecfb2-d6a8-470c-8147-e3a49ba45e31",
+  "version": {
+    "number": 1,
+    "message": "",
+    "minorEdit": false,
+    "authorId": "712020:9d5ecfb2-d6a8-470c-8147-e3a49ba45e31",
+    "createdAt": "2025-11-08T08:12:28.100Z",
+    "ncsStepVersion": "15"
+  },
+  "position": 1666,
+  "spaceId": "476282890",
+  "status": "current",
+  "body": {
+    "view": {
+      "representation": "view",
+      "value": "<h3 id=\"BakeryShading-Shading\">Shading</h3><p>Another advantage of Substance (or other 3D paint softwares like Mari) is its preview capability, which gives you a good overview of the material and allows you to adjust the maps beforehand. However, this does not mean that once the maps have been applied to our PxrSurface, all we have to do is connect them to the corresponding channels to consider the shading complete. There may be differences between the rendering obtained in Substance and the one obtained in RenderMan. This is why it is sometimes necessary to remap, color correct, or manipulate our textures in other ways while we refine the final result.</p><h5 id=\"BakeryShading-DuplicationandPxrVary\"><br/>Duplication and PxrVary</h5><p>With many duplicated elements sharing the same PxrSurface, we have to find a way to vary all this stuff. One of the most useful nodes in this case is PxrVary. When connected to the color base, this node can introduce variations in saturation, value and hue. This makes for greater realism and avoids the dreaded “perfect 3D” effect. For example, for our breads and pastries, this gave us the ability to add subtlety to our baked goods, as breads are never 100% the same ... as they vary slightly in flour, water, yeast, and baking time.</p><span class=\"confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size\"><img class=\"confluence-embedded-image image-center\" alt=\"Breads_Pastries_PxrVary_comparison.gif\" width=\"760\" loading=\"lazy\" src=\"https://renderman.atlassian.net/wiki/download/thumbnails/657424423/Breads_Pastries_PxrVary_comparison.gif?version=1&amp;modificationDate=1762589546322&amp;cacheVersion=1&amp;api=v2&amp;width=760&amp;height=427\" data-image-src=\"https://renderman.atlassian.net/wiki/download/attachments/657424423/Breads_Pastries_PxrVary_comparison.gif?version=1&amp;modificationDate=1762589546322&amp;cacheVersion=1&amp;api=v2\" data-height=\"720\" data-width=\"1280\" data-unresolved-comment-count=\"0\" data-linked-resource-id=\"657227923\" data-linked-resource-version=\"1\" data-linked-resource-type=\"attachment\" data-linked-resource-default-alias=\"Breads_Pastries_PxrVary_comparison.gif\" data-base-url=\"https://renderman.atlassian.net/wiki\" data-linked-resource-content-type=\"image/gif\" data-linked-resource-container-id=\"657424423\" data-linked-resource-container-version=\"1\" data-media-id=\"aebc437b-ad81-4bc3-b3a5-46fdf4e420ba\" data-media-type=\"file\" srcset=\"https://renderman.atlassian.net/wiki/download/thumbnails/657424423/Breads_Pastries_PxrVary_comparison.gif?version=1&amp;modificationDate=1762589546322&amp;cacheVersion=1&amp;api=v2&amp;width=1280&amp;height=720 2x, https://renderman.atlassian.net/wiki/download/thumbnails/657424423/Breads_Pastries_PxrVary_comparison.gif?version=1&amp;modificationDate=1762589546322&amp;cacheVersion=1&amp;api=v2&amp;width=760&amp;height=427 1x\"></span><h5 id=\"BakeryShading-RoughnessandSpecular\">Roughness and Specular</h5><p>Another technique I've got is to invert my Roughness map using a remap before applying it to the EdgeColor. You can then adjust the remap to suit your needs; in this case, I lowered it to preserve the gloss of the paint. This trick allows more variation in roughness and enriches the texture a little more.</p><span class=\"confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size\"><img class=\"confluence-embedded-image image-center\" alt=\"Wood_Remap_Specular_Comparison.gif\" width=\"760\" loading=\"lazy\" src=\"https://renderman.atlassian.net/wiki/download/thumbnails/657424423/Wood_Remap_Specular_Comparison.gif?version=1&amp;modificationDate=1762589546366&amp;cacheVersion=1&amp;api=v2&amp;width=760&amp;height=427\" data-image-src=\"https://renderman.atlassian.net/wiki/download/attachments/657424423/Wood_Remap_Specular_Comparison.gif?version=1&amp;modificationDate=1762589546366&amp;cacheVersion=1&amp;api=v2\" data-height=\"720\" data-width=\"1280\" data-unresolved-comment-count=\"0\" data-linked-resource-id=\"657227930\" data-linked-resource-version=\"1\" data-linked-resource-type=\"attachment\" data-linked-resource-default-alias=\"Wood_Remap_Specular_Comparison.gif\" data-base-url=\"https://renderman.atlassian.net/wiki\" data-linked-resource-content-type=\"image/gif\" data-linked-resource-container-id=\"657424423\" data-linked-resource-container-version=\"1\" data-media-id=\"3ea58693-4f34-4cc8-8474-a82196d03386\" data-media-type=\"file\" srcset=\"https://renderman.atlassian.net/wiki/download/thumbnails/657424423/Wood_Remap_Specular_Comparison.gif?version=1&amp;modificationDate=1762589546366&amp;cacheVersion=1&amp;api=v2&amp;width=1280&amp;height=720 2x, https://renderman.atlassian.net/wiki/download/thumbnails/657424423/Wood_Remap_Specular_Comparison.gif?version=1&amp;modificationDate=1762589546366&amp;cacheVersion=1&amp;api=v2&amp;width=760&amp;height=427 1x\"></span><p>Finally ,one of the special features of this set is its viewpoint, designed for an overall shot where the objects appear relatively far away. As we already mentioned in the UV section, we optimize rendering time by exporting small maps but we can also avoid applying Displacement maps for that. Indeed, at this distance, a simple Normal map is more than enough to simulate relief effectively.</p><iframe allowfullscreen=\"\" allowtransparency=\"true\" class=\"fullscreen-video-iframe conf-macro output-block\" data-hasbody=\"false\" data-layout=\"wide\" data-local-id=\"d2e15d85-bbdd-4223-9b47-d5aeed6a9bf3\" data-macro-id=\"d1243998-9479-480d-ad0f-ff5738e6ddfd\" data-macro-name=\"widget\" frameborder=\"0\" height=\"540\" mozallowfullscreen=\"\" src=\"https://player.vimeo.com/video/1056945242\" style=\"border:none; margin:1em 0em;\" webkitallowfullscreen=\"\" width=\"960\">\n</iframe>\n\n<p /><hr/>"
+    }
+  },
+  "title": "Bakery Shading",
+  "id": "657424423",
+  "_links": {
+    "editui": "/pages/resumedraft.action?draftId=657424423",
+    "webui": "/spaces/RU/pages/657424423/Bakery+Shading",
+    "edituiv2": "/spaces/RU/pages/edit-v2/657424423",
+    "tinyui": "/x/J4AvJw",
+    "base": "https://renderman.atlassian.net/wiki"
+  }
+}

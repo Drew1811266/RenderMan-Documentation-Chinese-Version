@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Alternative Authentication</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Alternative Authentication</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/TRA/22184252/Alternative+Authentication">https://rmanwiki-27.pixar.com/space/TRA/22184252/Alternative+Authentication</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="document"><p>Here we discuss alternative means of managing custom authentication without using PAM.</p><div class="section"><h3 id="AlternativeAuthentication-CustomChallenge-ResponseHashingFunctions">Custom Challenge-Response Hashing Functions</h3><p>This approach, called &quot;Scheme #1&quot; below, can provide much better over the transmitted credentials, but requires custom coding to integrate it properly with the site password database.</p><p><strong>Background:</strong> There are two basic password schemes for remote login, consider their benefits and risks according to your site's needs.</p><p><em>Scheme #1 - Challenge/Response on Hashed Passwords</em></p><blockquote><ul class="simple"><li>Best practice basic protection</li><li>No passwords transmitted over the network</li><li>Usually requires a custom account/password database</li><li>Requires implementation of matching hash on server and clients</li></ul></blockquote><p>This approach has the advantage that it does not send a recoverable password over the network, and protects against replay attacks (in which someone captures the network traffic of a successful login, and replays that sequence later to gain access). The main disadvantage is that it requires a special &quot;account&quot; database to be created and stored on the server side. It will also likely require coding to implement a matching hash function on the server and for each type of client.</p><p>The scheme works like this: Prior to using the system, a hashed version of each user's password (see below) is stored into a server-side database, which might be a simple file on disk. During login, a fresh one-time random string, called the challenge, is sent to the UI, and a copy of that string is kept by the server. The UI prompts the person for their login name and password, then the UI performs two hash operations, in sequence. The first hash is identical to the one used to create the user's account entry on the server. Then the output of the first hash is combined with the server's random challenge string and hashed again. The output of this second hash is then sent to the server for validation, along with the plain-text of the user's login name. The server validates the login by redoing its own computation of the second hash, with inputs consisting of the one-time challenge that it previously sent to that client and its own existing pre-hashed entry for that user from the password database. It compares the result of its own computation to the one sent from the UI, and if they match then access is granted.</p><p>The hash used to create the initial password database, and also the client's first hash, is a one-way cryptophraphic-quality function applied to the string of characters formed by the combination of the user's login name, their chosen password, and a permanent site-wide &quot;realm&quot; string. The realm string, such as the company name or website name or any other locally unique string, helps to ensure that attackers can't use look-up tables of pre-computed hashed passwords to trivially crack the password database. For example, if the user &quot;baker&quot; chooses the password &quot;Cherry3.417&quot; then the input to the hash function might be &quot;baker|Cherry3.417|<a class="external-link" href="http://example.com" rel="nofollow">example.com</a>&quot;. After hashing with MD5 or a stronger function, this input string will be converted to a jumble of new output characters. The hash isn't random, it will always generate a repeatable output when the same inputs are given. A good hashing function will never be &quot;reversable&quot; -- so the input can't be recovered by running some function on the hashed output. Furthermore, a good hash will make it very (very) unlikely that two different input strings will map to the same output.</p><p>The initial hash ensures that user passwords are not stored on disk in a recoverable form, and that they are not sent in plain-text form over the network. The hashed value can only be used in a comparison to another hash computation. The second challenge-based hash ensures that the transmitted string is itself not &quot;password-equivalent&quot; -- meaning that it will not match a string copied out of the server's password database file. Since the challenge string varies on every login attempt, the second hash also helps to ensure that login access cannot be gained by replaying a previously captured login transaction.</p><p>The main difficulty here is in creating, maintaining, and accessing the storage scheme for the server-side password hash. LDAP might be a handy candidate for this purpose. Secondarily, it can sometimes be difficult to find (and correctly implement) a hashing algorithm that behaves identically on the server and all possible clients.</p><p><em>Scheme #2 - A Basic &quot;/etc/passwd&quot; Server-Side Approach</em></p><blockquote><ul class="simple"><li>Hashing performed on the server only</li><li>Passwords are sent from the client in encoded, but recoverable form</li><li>A classic, but long obsolete unix tradition</li></ul></blockquote><p>This approach is easier to implement given an existing simple /etc/passwd style database of password hashes. The disadvantage is that network snooping can be used to recover the password which is likely to also be the user's main desktop/system password. This scheme is more secure if the network connection between the client and server is itself trusted, for example when using SSL.</p><p>Here is the sketch: After the user is prompted for a login name and password, The client-side handler for the dialog encodes the password in some way, and then sends the login request to the server. The server receives the request and decodes the message, thus recovering the plaintext password and user name that the user just entered. The server then runs a one-way hash on the password and compares it to a previously stored version of that user's password hash (hashed using the same algorithm, of course). The main weakness stems from the fact that the transmitted password encoding is required to be recoverable. it should also be noted that the client-side encoding itself might be implemented in source-available context, such as JavaScript functions easily visible within a web page, thus attackers could easily see the encoding algorithm being used.</p><p>Note that this scheme is <em>not</em> improved by having the client, rather than the server, perform the one-way hash of the password before sending it to the server. Doing so causes the transmitted hash to become &quot;password equivalent&quot; -- as if unhashed passwords were being stored on the server -- making replay attacks trivially effective. However, if replay attacks are not a concern, then having the client do the hash might allow Tractor to use the normal system /etc/passwd database without transmitting those passwords over the wire. However, in the case of /etc/passwd specifically, the Dashboard client code would need an external means of acquiring the existing per-user &quot;salt&quot; values in each passwd entry in order to compute the correct crypt-style hash. For a small number of users these might be built directly into the trSiteDashboardFunctions script in a potentially automated way.</p></div><hr class="docutils"/><div class="section"><h3 id="AlternativeAuthentication-EnablingTractorPasswordValidation">Enabling Tractor Password Validation</h3><ul><li><p class="first">Password validation occurs using a <strong>pair</strong> of site-defined functions, one that sends credentials from the web-browser in the Dashboard client, and the other that validates the credentials on the tractor-engine server.</p></li><li><p class="first">The pair of functions work together to implement the validation, scheme, examples include the two approaches outlined above.</p></li><li><p class="first">The client side code must be inserted into the file trSiteDashboardFunctions.js located in the Tractor &quot;config&quot; directory. Within that file is a function called trSitePasswordHash which must be modified to return an appropriate password hash or encoding. The actual computation of the hash or encoding can be in this file or it can be elsewhere, as appropriate to each site's plug-in availability and external code conventions. If trSitePasswordHash returns the JavaScript value null then password processing is ignored by the Dashboard. Otherwise the function should return the new computed string, and the result will be sent to the Engine, along with the login name entered by the user.</p></li><li><p class="first">Upon receipt of the login credential strings, the Engine invokes an external validation program, passing in the strings as input on stdin. The program to be invoked is specified in the file crews.config with the dictionary key SitePasswordValidator.</p></li><li><p class="first">An example validator script, written in python, is supplied in the config directory. Here is an example crews.config entry to invoke it:</p><blockquote><p>&quot;SitePasswordValidator&quot;: &quot;python ${TractorConfigDirectory}/trSiteLoginValidator.py&quot;</p></blockquote></li><li><p class="first">The exit code of the invoked program determines whether the password and user name pair are valid. The program should exit with 0 (zero) to indicate success, and non-zero to indicate that login is not allowed.</p></li><li><p class="first">The example program, trSiteLoginValidator.py illustrates computing a one-way hash on a plaintext password in the style of /etc/passwd crypt(), and then comparing the hash with the value retrieved from the unix call &quot;getpwnam()&quot;, which can access simple /etc/passwd or NIS (yp) entries. <strong>NOTE</strong> this simple example assumes that the Dashboard client-side function trSitePasswordHash() has simply returned the inbound plaintext password as its output -- for the simplicity of illustration -- a real implementation should either strongly encrypt the password for transmission, or switch to a challenge/response scheme using a tractor-specific database of passwords (&quot;Scheme #1&quot; above).</p></li></ul></div></div>
+  </article>
+</main>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Advanced</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Advanced</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFM27/544542672/Advanced">https://rmanwiki-27.pixar.com/space/RFM27/544542672/Advanced</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>Many of the settings in the <strong>Advanced Tab</strong> you will never need to edit.  However, for the more advanced user who wants fine tuned control over RenderMan for Maya, they are here.</p><h4 id="Advanced-"><span class="confluence-embedded-file-wrapper image-center-wrapper"><img class="confluence-embedded-image image-center" loading="lazy" src="../../attachments/544542672/maya_AdvancedSettings.png" data-image-src="../../attachments/544542672/maya_AdvancedSettings.png" data-unresolved-comment-count="0" data-linked-resource-id="544542694" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="maya_AdvancedSettings.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544542672" data-linked-resource-container-version="1" data-media-id="9bbb852c-dd38-46df-a151-42d136851c1f" data-media-type="file"></span></h4><h3 id="Advanced-RenderOptions">Render Options</h3><p><strong>Output All Shaders:</strong> Typically we export only material networks attached to objects, but if you're shading a procedural it may not be connected in a way that is exported. This option will export all networks regardless.</p><p><strong>Reentrant Procedural: </strong>This allows procedurals to run simultaneously in multiple threads and greatly speed up renders with procedurals (hair). You most likely want to leave this on.</p><p><strong>Output Holdout Matte: </strong>When using the <a href="/wiki/spaces/REN26/pages/19661827/Holdouts" data-linked-resource-id="19661827" data-linked-resource-version="4" data-linked-resource-type="page">Holdout</a> workflow, output the Shadow AOV to this specified buffer.</p><p><strong>Enable Image Plane Filter: </strong>Render the image plane using the Pixar Image Plane Filter (Maya uses an actual geometric plane)</p><p><strong>Learn Light Results: </strong>This a new option for scenes with many lights. The renderer will refine the light selection process to improve sampling. This is especially useful in scenes with many occluded lights to avoid wasting samples from shadowed surfaces. This version is not deterministic and small differences can be seen if not well converged on re-renders of the same scene.</p><p><strong>Bucket Order:</strong> RenderMan subdivides the output image into small rectangular regions called buckets, and renders a single bucket at a time. This allows a small portion of the image to be in memory at any one time. The drop-down list allows users to choose the order in which buckets are displayed in &quot;it&quot; or the Render View. The default is Spiral. Note that only some bucket orders are supported for <a href="/wiki/spaces/REN26/pages/19661833/Checkpointing+and+Recovery" data-linked-resource-id="19661833" data-linked-resource-version="3" data-linked-resource-type="page">checkpointing</a> and recovery.</p><p><strong style="line-height: 1.42857;">Bucket Size:</strong> Specify the size of the buckets. Larger buckets will require more memory to render. Conversely, smaller buckets are less efficient for shading, but will use less memory during rendering. If your scene is using a lot of memory, you may want to try setting this field down to 8 by 8 or even 4 by 4 buckets, but most likely you will not change this.</p><p><strong>Opacity Threshold:</strong> Controls the Opacity Threshold, if set too low, it may terminate rays early on semi-opaque objects. An objects opacity is controlled by the material Presence parameter and depth in supported integrators.</p><p><strong style="line-height: 1.42857;">Reference Frame:</strong> Once per job passes and <em>static</em> objects are evaluated at the frame designated here.</p><h3 id="Advanced-AdaptiveSampler">Adaptive Sampler</h3><p><strong>Adaptive Metric: </strong>Make use of the improved Variance sampling algorithm as the default. You can use the Contrast-V22 metric as the older technique to match previous renders. The new technique improves the consistency of noise frame to frame. Extra options may be visible for each selection.</p><ul><li style="list-style-type: none;background-image: none;"><ul><li>Contrast-V22: An older metric based on the contrast threshold between samples, this will match sampling from recent previous versions<ul><li>Darkfalloff: used to prevent oversampling in dark areas of an image that may not be important</li></ul></li><li>Variance: An improved perceptual variance scheme that should provide consistent noise frame to frame<ul><li>Exposure: used to give a hint to the renderer that it should sample based on this exposure bracket (assuming the compositing process stays within that range as not to reveal unsampled noise beyond the expected range)</li></ul></li></ul></li></ul><p><strong>Adapt All: </strong>Apply the sampling quality criteria (pixel variance) to all color/illumination AOVs. This can increase render time as some AOVs may have more noise than the Beauty and trigger more samples through all the AOVs.</p><h3 id="Advanced-Dicing">Dicing</h3><p><strong>Micropolygon Lenth:</strong> Controls the tessellation rate for displacement.  The default setting of 1 will dice displacements to 1 pixel's size.  (As seen from the dicing camera, typically the render camera). Smaller numbers are finer geometric detail at the cost of creating more geometry.</p><p><strong>Watertight Dicing: </strong>Closes pinholes in diced geometry or attempts to close gaps in displacement. Useful if you have holes in your solid object alpha.</p><p><strong>Dicing Camera:</strong> Enables the use of a reference camera for dicing. This can be done globally, or restricted to specific objects (e.g. objects with displacements that &quot;sparkle&quot; as the camera moves) by also attaching this as a per-object attribute.</p><p><strong>Reference Camera:</strong> Specify the camera to be used as your dicing camera here. Click on the widget to create a new camera, or right click in the field to select an existing camera. Note that the Reference Camera needs to be different from the render camera.</p><h3 id="Advanced-Hair">Hair</h3><p><strong>Min Hair Width:</strong> Sets a minimum width for hairs/RiCurves. Narrower hairs will be clamped to this value and their opacity will be reduced to compensate for the difference in visual weight. This may improve anti-aliasing quality if not too small.</p><h3 id="Advanced-Trace">Trace</h3><p><strong>Trace Auto Bias and Trace Bias: </strong>RenderMan will automatically compute a trace bias for displacing ray origins off a hit surface.  However, if you wish to turn off the auto bias, you can set the bias manually here. Per-object settings should have Auto Bias turned off. Increase the value slowly until the artifact (self-shadowing, dark lines, etc.) disappears.</p><p><strong>Trace World Origin: </strong>Move the world origin for increased floating point precision for raytracing. Sometimes when rendering very large scenes, the camera is moved to a position quite far from the origin. This may introduce precision issues depending on your scene units, values exported to the renderer are very large in these cases. Possible values are:</p><ul><li>&quot;world&quot; (default) uses the true world origin</li><li>&quot;worldoffset&quot; use user provided trace:worldoffset as the raytrace world origin ( the control will expose an XYZ coordinate field)</li><li>&quot;camera&quot; use the camera position as the raytrace world origin, you may wish to use this in large scenes with multiple camera positions as the default.</li></ul><h3 id="Advanced-OpenShadingLanguage">Open Shading Language</h3><p><strong>Enable Batched OSL: </strong>Enable performance improvements on batched shading points through vectorized instructions on supported hardware. (Available on machines with a minimum of support for Advanced Vector Extensions (AVX). Additionally, it can take advantage of the 512-bit wide datapaths on machines that support Advance Vector Extensions 512 (AVX-512). This is <em>on</em> by default</p><p><strong>OSL Verbosity: </strong>Valid in ranges of 0 to 5 with 5 having the most messages. See the <a href="/wiki/spaces/REN26/pages/19661571/OSL+Patterns" data-linked-resource-id="19661571" data-linked-resource-version="5" data-linked-resource-type="page">OSL documentation</a> for more information.</p><p><strong>OSL Statistics Level: </strong>As above, valid in ranges of 0 to 5 with 5 having the most messages.</p><h3 id="Advanced-DeepRendering">Deep Rendering</h3><p><strong>Quality: </strong>Controls the decimation rate of merging samples. A setting of 1.0 has no merging of samples and will generate huge files. The default of 0.75 maps to Deepshadow Error 0.01 and when set to 0 maps to Deepshadow Error 0.16. Note this is not a linear mapping.</p><h3 id="Advanced-CropWindow">Crop Window</h3><p><strong>Enable:</strong> Use the crop window, off (default) renders the complete frame based on camera settings</p><p><strong>Top Left/Bottom Right:</strong> Specify the coordinates (x and Y) for a crop window to render. This can be useful when rendering many iterations for debugging or lookdev when only a specific region is under consideration. You may also use this to shift around the rendered region to tile together a very large render (possibly for print) and send the different regions to a different render node. Please note using crop windows with the PxrVCM renderer may generate different results than a full frame since we only generate photons for the region being rendered as an optimization.</p><h3 id="Advanced-IESProfiles">IES Profiles</h3><p><strong>Scene units to meters:</strong> While scenes are exported to renderers &quot;unitless&quot;, IES files specify a unit measure.  Use this setting to specify the scene unit to meter conversion factor.  For instance, if 1 unit = 1 meter, use 1.  If 1 unit = 1cm use 100.</p><p><strong>Ignore Watts: </strong>Ignore the internal watts measurement in the profile</p><h3 id="Advanced-CacheSizes">Cache Sizes</h3><p>Allows users to customize the cache sizes for various assets, including textures, ray-traced geometry (specifically the tessellation cache), and opacity (as a function of Presence in materials). The values are in megabytes, and the renderer will automatically unload data from the cache when the limits specified here are reached. These values may be conservative based on your machine's available resources. If your render stats show many cache misses (reloading and re-reading) and your overall usage is below your available memory, you may want to increase these values to improve performance, keeping them reasonable and within your memory budget.</p><h3 id="Advanced-Statistics">Statistics</h3><p><strong>Level:</strong> Enable this to output <a href="/wiki/spaces/REN26/pages/19661849/Legacy+Diagnostics" data-linked-resource-id="19661849" data-linked-resource-version="1" data-linked-resource-type="page">diagnostic information</a> from render jobs. Useful for timing, debugging, and seeing what RenderMan is doing. Higher numbers are more verbosity. Note there can be a performance impact that adds up by requiring the renderer to lookup these strings.</p><p><strong>XML File:</strong> You can specify a target destination for both &quot;Old School&quot; and XML statistics.</p><h3 id="Advanced-LPELobeMappings">LPE Lobe Mappings</h3><p>This section maps the specified lobes to an output. You will notice in the <a href="/wiki/spaces/REN26/pages/19661883/Light+Path+Expressions" data-linked-resource-id="19661883" data-linked-resource-version="6" data-linked-resource-type="page">Light Path Expression</a> documentation that per-lobe outputs rely on these being correct so we recommend leaving them at their default. You may use User Lobes in custom C++ BxDFs.</p><p>Example: You will note in the defaults that Diffuse 3 Lobe ID is Subsurface. The corresponding LPE is:</p><pre>color lpe:CD3[DS]*[&lt;L.&gt;O]</pre><p>Note the D3 lobe specified. This matches the IDs assigned here.</p><p>There are no D1, S1, or U1 lobes as these are &quot;fallthrough&quot; when something is unspecified. User 2 Lobe are the collective Albedo results (texture data).</p><p><br/></p><p><br/></p><p><br/></p><p><br/></p><p><br/></p><p style="text-align: left;"><br/></p><p><br/></p>
+  </article>
+</main>
+</body>
+</html>

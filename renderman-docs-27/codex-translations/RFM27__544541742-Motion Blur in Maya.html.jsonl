@@ -1,0 +1,37 @@
+{"item_id": "fecbd0c26e:0", "text": "让我们看一个简单 scene，用它演示 motion blur settings 的效果。"}
+{"item_id": "fecbd0c26e:1", "text": "以下 images 显示两个 balls 在 frame 1、2 和 3 的位置。在此示例中，key-frames 使用 linear tangents 制作，因此在观察 shutter timing 时，balls 会保持固定 speed。"}
+{"item_id": "fecbd0c26e:2", "text": "Frame 1"}
+{"item_id": "fecbd0c26e:3", "text": "Frame 2"}
+{"item_id": "fecbd0c26e:4", "text": "Frame 3"}
+{"item_id": "fecbd0c26e:5", "text": "可以在 Render Settings window 的 Features tab 下启用 motion blur。默认情况下它未启用。dropdown menu 还提供了输出 2D motion 以用于 compositing operations 的选项。"}
+{"item_id": "fecbd0c26e:6", "text": "Shutter Timing（快门时序）"}
+{"item_id": "fecbd0c26e:7", "text": "Frame Open"}
+{"item_id": "fecbd0c26e:8", "text": "以下 images 显示 frame 1、2 和 3 的 Frame Open blur。shutter 会在 frame 开始时打开。默认 shutter angle 为 180，表示 shutter 会打开半个 frame。请注意最后一帧没有 blur。这是因为该 frame 的 shutter 打开之后没有 animation。"}
+{"item_id": "fecbd0c26e:9", "text": "Frame Center"}
+{"item_id": "fecbd0c26e:10", "text": "以下 images 显示 Frame Center blur，也就是 shutter 在 frame 之前打开，并在 frame 之后关闭，以该 frame 为中心。第一帧和最后一帧的 blur 看起来较短，因为 animation 没有延伸到这些 frames 之外。"}
+{"item_id": "fecbd0c26e:11", "text": "Frame Close"}
+{"item_id": "fecbd0c26e:12", "text": "以下 images 显示 Frame Close blur，也就是 shutter 在该 frame 上关闭。同样，第一帧没有 blur，因为该 frame 之前没有 animation。"}
+{"item_id": "fecbd0c26e:13", "text": "Motion Samples（运动采样）"}
+{"item_id": "fecbd0c26e:14", "text": "在第二帧使用 centered blur 时，我们的 red ball 看起来有些奇怪。blur 是水平的，但 ball 实际上应该在这条 streak 的中间到达 apex。默认情况下只有两个 motion samples，因为它们成本较高，而且两个通常已经足够。你可以在 Render Settings 的 Motion Blur section 中更改全局 motion samples 数量。或者，如果你知道只有某一块 geometry 需要额外 samples，也可以只为该 geometry transform 添加它们。"}
+{"item_id": "fecbd0c26e:15", "text": "在 transform 的 Attribute Editor 中，选中 sphere transform 的 tab 后，你会看到 motion samples 的设置。-1 是默认值，表示继承 global setting。"}
+{"item_id": "fecbd0c26e:16", "text": "Two samples 表示 ball 的 position 只会在 shutter open time 和 shutter close 处采样。超过两个 samples 时，它们会均匀分布在 shutter open 和 close 之间。这有时称为"}
+{"item_id": "fecbd0c26e:17", "text": "Multi-Segment"}
+{"item_id": "fecbd0c26e:18", "text": "motion blur。"}
+{"item_id": "fecbd0c26e:19", "text": "例如，下面展示了从 2 个 samples 增加到 7 个 samples 时 image 如何变化。这是 Frame Center blur。当达到 7 个 samples 时，看起来已经相当 smooth！你可以按需要继续增加，没有 samples 数量上限。"}
+{"item_id": "fecbd0c26e:20", "text": "除了 motion paths，spinning objects 通常也需要额外的 motions samples。让我们看看这个 color wheel。首先是不带 blur 的情况："}
+{"item_id": "fecbd0c26e:21", "text": "现在，使用 2 到 7 个 motion samples："}
+{"item_id": "fecbd0c26e:22", "text": "Shutter Opening（快门开启）"}
+{"item_id": "fecbd0c26e:23", "text": "默认情况下，shutter 实际上会瞬时打开和关闭。Shutter setting 包含两个值，"}
+{"item_id": "fecbd0c26e:24", "text": "和"}
+{"item_id": "fecbd0c26e:25", "text": "，它们是 shutter interval 的 fractions，可用于调整 shutter 打开和关闭所需的时间。从 0 到"}
+{"item_id": "fecbd0c26e:26", "text": "期间 shutter 打开，从"}
+{"item_id": "fecbd0c26e:27", "text": "到 1 期间 shutter 关闭。"}
+{"item_id": "fecbd0c26e:28", "text": "在 interval 开始时瞬时打开，并在 interval 结束时瞬时关闭。"}
+{"item_id": "fecbd0c26e:29", "text": "用 interval 的前半段打开，并用后半段关闭。"}
+{"item_id": "fecbd0c26e:30", "text": "在开始时瞬时打开，然后用 interval 的后半段关闭。"}
+{"item_id": "fecbd0c26e:31", "text": "在开始时瞬时打开，并用整个 interval 关闭。"}
+{"item_id": "fecbd0c26e:32", "text": "用 interval 的前半段打开，然后在结束时瞬时关闭。"}
+{"item_id": "fecbd0c26e:33", "text": "用整个 interval 打开，然后在结束时瞬时关闭。"}
+{"item_id": "fecbd0c26e:34", "text": "Shutter Angle（快门角度）"}
+{"item_id": "fecbd0c26e:35", "text": "shutter angle 是一个角度（以 360 degrees 为总量），它决定 camera 的 shutter 为曝光 \"film\" 而打开一个旋转周期的多大 fraction。默认值为 180 degrees，因此 shutter 会打开半个 frame。shutter angle 越高，moving objects 看起来就越 blurry。"}
+{"item_id": "fecbd0c26e:36", "text": "让我们看看这个示例：使用 frame center blur、大量 motion samples，以及 90、180 和 360 的 shutter angles。"}

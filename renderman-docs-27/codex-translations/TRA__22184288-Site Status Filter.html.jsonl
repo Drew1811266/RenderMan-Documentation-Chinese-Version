@@ -1,0 +1,18 @@
+{"item_id":"a17ebb8a60:0","text":"概览"}
+{"item_id":"a17ebb8a60:1","text":"站点可以通过 TractorSiteStatusFilter.py 中定义的类扩展 blade 的功能。自定义内容包括："}
+{"item_id":"a17ebb8a60:2","text":"添加用于判断 blade 是否已准备好请求更多工作的指标，"}
+{"item_id":"a17ebb8a60:3","text":"响应命令启动、启动失败、完成和错误等事件，以及"}
+{"item_id":"a17ebb8a60:4","text":"响应命令输出中的模式，例如抑制冗长输出，或由于发出警告而提前终止命令。"}
+{"item_id":"a17ebb8a60:5","text":"安装"}
+{"item_id":"a17ebb8a60:6","text":"TractorSiteStatusFilter.py 必须安装在 blade 可见的目录中，理想情况下是 blade.config 中由 SiteModulesPath 定义的目录。"}
+{"item_id":"a17ebb8a60:7","text":"首先，从 Tractor 安装目录将 lib/python2.7/site-packages/tractor/apps/blade/TractorSiteStatusFilter.py 复制到 SiteModulesPath 目录。"}
+{"item_id":"a17ebb8a60:8","text":"请注意，需要重新加载 blade.config，blade 才能反映对 SiteModulesPath 或 TractorSiteStatusFilter.py 的更改。"}
+{"item_id":"a17ebb8a60:9","text":"场景：新指标"}
+{"item_id":"a17ebb8a60:10","text":"可以通过覆盖 FilterBasicState() 和 TestBasicState() 方法，使用新的指标来判断 blade 执行工作的能力。在下面的示例中，"}
+{"item_id":"a17ebb8a60:11","text":"www.example.com"}
+{"item_id":"a17ebb8a60:12","text":"可能表示 license server（许可证服务器）等资源；在 blade 考虑请求工作之前，需要能够访问该资源。"}
+{"item_id":"a17ebb8a60:13","text":"场景：记录错误"}
+{"item_id":"a17ebb8a60:14","text":"可以通过覆盖 SubprocessEnded() 来维护一份单独的出错进程日志。"}
+{"item_id":"a17ebb8a60:15","text":"场景：提前终止进程"}
+{"item_id":"a17ebb8a60:16","text":"blade 会针对进程输出的每一行调用 FilterSubprocessOutputLine()。"}
+{"item_id":"a17ebb8a60:17","text":"在此示例中，任何发出以 R10007 开头的行的 prman 进程都会立即终止。可以修改该逻辑以检查其他应用程序的输出、查找其他模式并执行其他操作。请注意，未匹配的情况应交由超类的 FilterSubprocessOutputLine() 处理。"}

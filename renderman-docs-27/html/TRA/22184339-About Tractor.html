@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>About Tractor</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>About Tractor</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/TRA/22184339/About+Tractor">https://rmanwiki-27.pixar.com/space/TRA/22184339/About+Tractor</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p class="first"><strong><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/22184339/logo-128x128-text.png" data-image-src="../../attachments/22184339/logo-128x128-text.png" data-unresolved-comment-count="0" data-linked-resource-id="22195901" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="logo-128x128-text.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="22184339" data-linked-resource-container-version="5" data-media-id="6420b2bd-6c34-4434-86ac-36e4166d00bc" data-media-type="file"></span></strong></p><p class="first"><strong><br/></strong></p><p class="first"><strong>Tractor</strong> distributes tasks to a farm of execution servers. It manages large queues of concurrent jobs from many users, enforcing dependencies and scheduling policies.</p><p class="first">Tractor is installed locally by administrators at each customer studio, and all of the running components and job data are private to each studio.  An on-site Tractor farm can be extended to include cloud nodes by using Virtual Private Network techniques to extend the local network to the cloud machines.</p><p>Tractor is designed to be a compact system, relative to the complex role that it plays:</p><ul class="simple"><li>Tractor-Engine: The central job queue manager, a self-contained single install. Low overhead operation with engineering emphasis on high throughput job distribution for large farms.</li><li>Tractor-Blade: Simplified &quot;plug-and-play&quot; deployment of new execution servers on any size farm.</li><li>Tractor-Dashboard Web UI for ubiquitous access to job feedback and farm status.</li><li>Scripting and command-line tools for wranglers and advanced users.</li><li>Component architecture based on common web technologies.</li></ul><p>Tractor can drive all of the computational tools used in modern VFX and animation pipelines. It is used to run everything from rendering and compositing to simulation, transcoding, archiving, database updates, code builds, online asset delivery and notifications. Tractor can launch almost any executable available on your Linux, Windows, and macOS systems.</p><p>A tractor <strong>Job</strong> describes what needs to get done. Jobs are comprised of <strong>Tasks</strong>, which represent the steps required to complete the job. A job definition describes the resources that are required for each task, and whether the task will run serially or in parallel with other tasks in the job. Jobs can be created by hand, by scripts, by the supplied Python API, or by plug-in job generators in content-creation applications.</p><p>Jobs are submitted to the <strong>Engine</strong>, the central process that maintains the job queue. Tractor-engine selects an appropriate Tractor <strong>Blade</strong> execution node on the farm for each command, using an abstract keyword matching scheme and resource limit restrictions. The engine also takes care of enforcing dependencies between tasks, as well as finding opportunities for parallel execution, allowing different jobs or independent parts of a single job to run on different servers concurrently. Tractor provides flexible schemes for job prioritization, compute resource access controls, dynamic server availability, and user limit policies.</p><p>The Tractor <strong>Dashboard</strong> web interface provides users and administrators with simple feedback on job status, errors, and overall system status. It also provides drill-down access to detailed information on job structure, attributes, and output logs, as well as detailed data on the blades. The <strong>Tractor Query</strong> tools provide access to more complex relational queries into the job queue and past execution data. There are query tool interfaces in the web Dashboard, or through a Python API, or on the command line to provide wranglers with quick diagnostics or to build custom reports.</p><p class="last">Tractor components communicate using common web-based technologies such as HTTP, JSON, and AJAX. Studios can develop their own custom extensions or external applications that communicate with Tractor using these same standard tools.</p><p class="last">Tractor was developed with efficient large studio environments in mind, and as a result it is intentionally light-weight and single purpose. For example, Tractor does not undertake asset management roles, though asset management tasks can be added to Tractor jobs. Typically Tractor jobs are authored assuming that input files for tasks are located on shared file servers at the studio, and that administrators have configured the network to allow commands launched by each Tractor Blade to have access to those shared files.</p><p><br/></p>
+  </article>
+</main>
+</body>
+</html>

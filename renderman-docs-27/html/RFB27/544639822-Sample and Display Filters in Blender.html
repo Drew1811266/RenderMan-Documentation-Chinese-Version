@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sample and Display Filters in Blender</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Sample and Display Filters in Blender</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFB27/544639822/Sample+and+Display+Filters+in+Blender">https://rmanwiki-27.pixar.com/space/RFB27/544639822/Sample+and+Display+Filters+in+Blender</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>Sample and display filter plug-ins are used to adjust shaded sample and pixel values, respectively, after an <a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661783" rel="nofollow">integrator</a> has produced them and before they are sent to the <a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661875" rel="nofollow">display driver</a>.</p><h3 id="SampleandDisplayFiltersinBlender-SampleFilters">Sample Filters</h3><p><em>Sample Filter</em> plug-ins describe color transformations made to sample values before they are pixel filtered.  They operate on the raw camera ray samples before pixel filtering is applied to them.  Once a sample filter changes a sample and it goes into the framebuffer it becomes a permanent part of any rendered images (including deep images). Note that if a single <a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661871" rel="nofollow">arbitrary output variable (AOV)</a> is output as part of multiple image files, a single change to a sample may affect all of them. Changes made by a sample filter can also influence the adaptive sampler.</p><ul><li><p><a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661895" rel="nofollow">PxrSampleFilterCombiner</a></p></li><li><p><a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661911" rel="nofollow">PxrCryptomatte</a></p></li></ul><h3 id="SampleandDisplayFiltersinBlender-DisplayFilters">Display Filters</h3><p><em>Display Filter</em> plug-ins describe color transformations made to final pixel values after pixel filtering and before they are output.  AOVs shared by multiple images are considered distinct at this point and can be modified separately. Display filters are not currently supported for deep images at this time and have no effect on the adaptive sampler.</p><ul><li><p><a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661889" rel="nofollow">PxrLightSaturation</a></p></li><li><p><a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661893" rel="nofollow">PxrDisplayFilterCombiner</a></p></li><li><p><a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661891" rel="nofollow">PxrImageDisplayFilter</a></p></li><li><p><a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19662371" rel="nofollow">PxrShadowDisplayFilter</a></p></li></ul><h2 id="SampleandDisplayFiltersinBlender-SetupinBlender">Setup in Blender</h2><p>You can create <a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661887" rel="nofollow">Display and Sample Filters</a> in the render properties <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image" height="24" loading="lazy" src="../../attachments/544639822/render_properties.png" data-image-src="../../attachments/544639822/render_properties.png" data-unresolved-comment-count="0" data-linked-resource-id="544639854" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="render_properties.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544639822" data-linked-resource-container-version="1" data-media-id="03967105-5a57-4b43-9ee1-b6f96074b11e" data-media-type="file"></span>. Click the Add RenderMan Display Filters Nodetree button or Add RenderMan Sample Filters Nodetree.</p><span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="679" loading="lazy" src="../../attachments/544639822/sf_df_3.png" data-image-src="../../attachments/544639822/sf_df_3.png" data-height="116" data-width="409" data-unresolved-comment-count="0" data-linked-resource-id="544639857" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="sf_df_3.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544639822" data-linked-resource-container-version="1" data-media-id="6a2833a5-57fe-4b07-acb0-51af1567b11f" data-media-type="file"></span><p>You should see the panels for Display Filters and Sample Filters expand similar to below.</p><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="b893f5c0-c3b1-4710-af03-0b52a777009b" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>Clicking Add RenderMan Display Filters Nodetree will automatically add a PxrBackgroundDisplayFilter node and inherit the World color as the background color.</p></div></div><p><br/></p><span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="672" loading="lazy" src="../../attachments/544639822/sf_df.png" data-image-src="../../attachments/544639822/sf_df.png" data-height="347" data-width="413" data-unresolved-comment-count="0" data-linked-resource-id="544639860" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="sf_df.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544639822" data-linked-resource-container-version="1" data-media-id="465ed02e-4f43-4661-a5bd-3b7b00ff0952" data-media-type="file"></span><p>Multiple Display and Sample Filters can be used. Clicking Add will add a new slot for an additional Display Filter or Sample Filter that can be added. To remove a filter, click the - button next to the name. Like integrators, display and sample filters are just shading nodes inside of the world node. </p><span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="672" loading="lazy" src="../../attachments/544639822/sf_df2.png" data-image-src="../../attachments/544639822/sf_df2.png" data-height="330" data-width="325" data-unresolved-comment-count="0" data-linked-resource-id="544639869" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="sf_df2.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544639822" data-linked-resource-container-version="1" data-media-id="2c325128-3d50-4829-aa7d-5a730a240a70" data-media-type="file"></span>
+  </article>
+</main>
+</body>
+</html>

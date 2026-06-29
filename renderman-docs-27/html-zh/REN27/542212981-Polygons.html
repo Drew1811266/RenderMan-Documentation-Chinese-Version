@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Polygons</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Polygons</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/REN27/542212981/Polygons">https://rmanwiki-27.pixar.com/space/REN27/542212981/Polygons</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<h3 id="Polygons-Introduction">简介</h3><p>多边形（以及由相邻多边形组成的多面体或多边形网格集合）是计算机图形学中最常用的几何类型。与细分网格等其他曲面相比，它们虽然存在一些缺点，但渲染效率也极高。这一点通常足以抵消这些缺点。</p><p>多边形有许多形式，渲染器通常会对其表示施加任意限制（例如只支持三角形或四边形，或者要求所有面都必须是平面的）。RenderMan 没有这些限制：它支持各种多边形形式，从简单的凸平面多边形，到复杂的多边、非平面凹多边形，甚至带内部孔洞的多边形。RenderMan 将支持孔洞的凹多边形称为 <strong>general polygons（通用多边形）； </strong>它们没有限制，但渲染效率略低一些。选择将多边形输出为 general polygons 还是 regular polygons，通常由 Maya 等桥接应用程序与建模程序协同自动决定；为确保一致性，建模程序通常更适合先将 general polygons 镶嵌细分为更简单的多边形，再发送给 RenderMan。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="600" loading="lazy" src="../../attachments/542212981/buddha.jpg" data-image-src="../../attachments/542212981/buddha.jpg" data-height="960" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="542213002" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="buddha.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542212981" data-linked-resource-container-version="1" data-media-id="af033dac-0592-43c0-9425-ee12807f6a8c" data-media-type="file"></span><h3 id="Polygons-Considerations">注意事项</h3><p>多边形在 RenderMan 中非常高效，尤其是在使用多个多边形共享顶点的多面体表示时。通过压缩技术，渲染器可以在合理的内存占用下渲染数十亿甚至更多多边形。由于这种效率，多边形非常适合表示非常详细的表面，尤其是建筑等具有锐利角度的硬表面几何体。</p><p><strong>平滑表面</strong></p><p>不过，在渲染人类角色等平滑的有机表面时，可能需要大量多边形才能创建平滑表面；否则，可能会看到分面等不良伪影。使用平滑法线可以改善这个问题，因为它能减少分面的外观。遗憾的是，平滑法线无法改善轮廓边缘；如果几何体的外轮廓呈现棱角感，只有增加更多多边形才能使边缘变得平滑。在这种情况下，使用 <a href="542213016-Subdivision Surfaces.html" rel="nofollow">细分曲面</a> 可能更合适，因为它们始终具有平滑外观；不过，细分曲面会带来额外的内存和时间成本。符合少量约束的多边形网格可以很容易地转换为细分曲面。</p><p><strong>纹理</strong></p><p>多边形网格本质上没有定义良好的默认参数化；如果没有额外的 UV 或纹理坐标，对原始多边形网格进行纹理映射可能会很困难。使用 UV 编辑器为多边形网格创建 UV 坐标的工作流已经很成熟；不需要 UV 坐标的其他多边形纹理工作流也存在，包括 3D 投射，或使用 <a href="542224432-PxrPtexture.html" rel="nofollow">PTex</a> 或 <a href="542225070-PxrTexture.html" rel="nofollow">UDIM</a> 纹理。</p><p><strong>变量插值</strong></p><p>处理边数超过四条的多边形时，附加到多边形几何体上的变量插值本质上并没有明确定义。RenderMan 会尝试使用“最不令人意外”的插值方案，但这些方案仍然是任意的，也可能会根据多边形是否非平面、凹形或带孔而变化。这些方案可能与建模或纹理绘制程序使用的方案不同，因此渲染结果和纹理预览之间可能出现不一致。通常，如果这些有问题的多边形足够大，以至于插值选择会导致视觉伪影，那么最好避免使用它们，并确保发送给 RenderMan 的多边形不超过四条边。即使在三边或四边表面上，大多边形面上的平滑法线插值也只是对平滑表面上法线真实行为的粗略近似。对于来自非常详细几何体的小多边形面，这个问题通常可以忽略。</p><p><strong>位移</strong></p><p>对多边形几何体应用位移时必须格外小心。如果不使用平滑法线，沿表面法线方向的位移将不可避免地在面处撕裂几何体，导致可见的孔洞和裂缝。即使使用了平滑法线，也必须注意确保位移函数在面边界处保持一致，尤其是在使用较大纹理过滤尺寸时。ZBrush 或 Mudbox 等用于生成多边形位移纹理贴图的专用程序已经考虑到了这一点。</p>
+  </article>
+</main>
+</body>
+</html>

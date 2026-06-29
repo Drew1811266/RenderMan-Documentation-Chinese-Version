@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bakery Texturing</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Bakery Texturing</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RU/656998602/Bakery+Texturing">https://rmanwiki-27.pixar.com/space/RU/656998602/Bakery+Texturing</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<h3 id="BakeryTexturing-TexturingandUVs">Texturing and UVs</h3><p>One of the difficulties of this part was the large number of elements and how best to optimize them to avoid wasting too much time.</p><p>The first essential point was to think about duplication. As Céline mentioned in the modeling section, a lot of the scenery is duplicated, which is why it's essential to do the UVs on the basic models before duplicating them. Some duplicated elements are subsequently deformed; to adjust that, you just have to select the UV Shells and fit their scale according to the deformation, or, more simply, click on “Unfold” to redraw the UV correctly.</p><div class="panel conf-macro output-block" data-hasbody="true" data-macro-id="" data-macro-name="panel" style="background-color: #EAE6FF;border-color: #998DD9;border-width: 1px;"><div class="panelContent" style="background-color: #EAE6FF;">
+<p>Tip: Align the UVs in the same direction as the grooves. This will save you from having to create different masks when texturing to adjust the texture on each plank.</p>
+</div></div><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="UV_planks.png" width="760" loading="lazy" src="../../attachments/656998602/UV_planks.png" data-image-src="../../attachments/656998602/UV_planks.png" data-height="713" data-width="1951" data-unresolved-comment-count="0" data-linked-resource-id="657260567" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="UV_planks.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="656998602" data-linked-resource-container-version="1" data-media-id="a5f69651-9afd-4aaa-9a33-78d12b8a9063" data-media-type="file"></span><p>Then there's the question of how to arrange the UVs. As we have a lot of elements and therefore a lot of different materials, it didn't seem very sensible to sort them by material. That's why we chose to organize our UVs by object or group of objects. This made it easier for us to find our way around.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="UV_groups_scheme.jpg" width="760" loading="lazy" src="../../attachments/656998602/UV_groups_scheme.jpg" data-image-src="../../attachments/656998602/UV_groups_scheme.jpg" data-height="1147" data-width="1068" data-unresolved-comment-count="0" data-linked-resource-id="657260574" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="UV_groups_scheme.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="656998602" data-linked-resource-container-version="1" data-media-id="aa1eb02b-16b9-46ba-9e62-5618a53c2ce2" data-media-type="file"></span><h5 id="BakeryTexturing-ToUDIMsorNottoUDIMs">To UDIMs or Not to UDIMs</h5><p>As most of the objects in the final image are small or distant, a single 1024 or 512px map was more than sufficient in terms of resolution. Only large pieces like the green wooden furniture required more than one UDIM to maintain detail.</p><hr/><h3 id="BakeryTexturing-Texturing">Texturing</h3><p>Before starting any texture work, it's important to establish your references and analyze them carefully. This will give you a clearer idea of the type of rendering you're looking for, so you can be more efficient.</p><p>In our case, one of our main references was the Pixar film <em>Luca</em> (fortunately!). What's interesting about this film is how Pixar managed to bring their sets to life without ‘dirtying’ them with traditional dirt maps, but rather by using a graphic aesthetic which reinforces a natural variation inherent in pretty, picturesque villages. This variation is the effect of hundreds of years of human choices in an environment, rather than only decay.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="PureRef_texture.jpg" width="760" loading="lazy" src="../../attachments/656998602/PureRef_texture.jpg" data-image-src="../../attachments/656998602/PureRef_texture.jpg" data-height="720" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="657260580" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="PureRef_texture.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="656998602" data-linked-resource-container-version="1" data-media-id="e7446120-dc45-4b7b-ba1a-9aa66e9e38ad" data-media-type="file"></span><p>After analysis, we can move on to texturing. In Substance, there are numerous methods for texturing, but one of the simplest consists of using a fill to which we apply our base color. We then modify it by superimposing other fills with different mask generators. This allows great flexibility, because the color and masks can still be modified, unlike a layer where you paint directly, and which is therefore not destructive.</p><p>From these fills, we finally generate the other maps (Normal, Displacement, Roughness) and gradually adjust to obtain the desired material.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Substance_organisation.jpg" width="760" loading="lazy" src="../../attachments/656998602/Substance_organisation.jpg" data-image-src="../../attachments/656998602/Substance_organisation.jpg" data-height="1080" data-width="1261" data-unresolved-comment-count="0" data-linked-resource-id="657260586" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Substance_organisation.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="656998602" data-linked-resource-container-version="1" data-media-id="bf1bdc01-768b-46c8-bf06-0a83a45d7968" data-media-type="file"></span><h5 id="BakeryTexturing-Variations,Variations,andVariations...">Variations, Variations, and Variations...</h5><p>Let's take the example of wood. We're trying here to reproduce painted wood that has worn over time. So I start with a wood base taken from Substance's database and quickly adjust the color. I then apply an initial fill for my paint, which I vary with other shades, changing my roughness slightly each time to give more relief (damaged paint = rougher). These fills are placed in a group to which I apply a mask to simulate damaged paint, particularly around the edges. I then gradually add the details identified earlier to enrich the texture.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Wood_step_of_texturing.gif" width="760" loading="lazy" src="../../attachments/656998602/Wood_step_of_texturing.gif" data-image-src="../../attachments/656998602/Wood_step_of_texturing.gif" data-height="1080" data-width="1920" data-unresolved-comment-count="0" data-linked-resource-id="657260592" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Wood_step_of_texturing.gif" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/gif" data-linked-resource-container-id="656998602" data-linked-resource-container-version="1" data-media-id="72fb377e-8875-4219-a30f-63ebf76fc650" data-media-type="file"></span><p /><div class="panel conf-macro output-block" data-hasbody="true" data-macro-id="" data-macro-name="panel" style="background-color: #EAE6FF;border-color: #998DD9;border-width: 1px;"><div class="panelContent" style="background-color: #EAE6FF;">
+<p>Tip: Generally, we tend to change only the value or saturation when we make variations, but don't hesitate to change the hue too; it will add a more interesting dimension to your texture!</p>
+</div></div><h5 id="BakeryTexturing-DenoisingforLookDevelopment">Denoising for Look Development</h5><p>I used the RenderMan machine learning Denoiser to a great extent. It helped me greatly when I needed a quick turnaround</p><p> during look development. Using it early during our project was crucial to cut down on final render times, as it allowed us to understand how converged the image needed to be before the Denoiser could clean things up.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Wood_Material_Hue_comparison.gif" width="760" loading="lazy" src="../../attachments/656998602/Wood_Material_Hue_comparison.gif" data-image-src="../../attachments/656998602/Wood_Material_Hue_comparison.gif" data-height="1200" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="657260598" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Wood_Material_Hue_comparison.gif" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/gif" data-linked-resource-container-id="656998602" data-linked-resource-container-version="1" data-media-id="66663fed-ad2d-44ea-bcee-0d945e660db2" data-media-type="file"></span><p>One of the advantages of using Substance is that you can create your own materials and add them directly to the smart materials (database of basic materials). Hence the importance of creating a good base (wood, paint, metal…), you can then select your group and click on “Create smart material.”</p><p>All that's left to do is apply them to the different models and then modify the sliders accordingly. It will save you a lot of time!</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Substance_smart_material.jpg" width="760" loading="lazy" src="../../attachments/656998602/Substance_smart_material.jpg" data-image-src="../../attachments/656998602/Substance_smart_material.jpg" data-height="720" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="657260604" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Substance_smart_material.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="656998602" data-linked-resource-container-version="1" data-media-id="e79f0c0d-9e72-4b61-8ef8-c25109787995" data-media-type="file"></span><p>Once my work was finished in Substance, I exported my texture maps and finally moved on to shading!</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="french-bakery-albedo.jpg" width="760" loading="lazy" src="../../attachments/656998602/french-bakery-albedo.jpg" data-image-src="../../attachments/656998602/french-bakery-albedo.jpg" data-height="720" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="657260610" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="french-bakery-albedo.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="656998602" data-linked-resource-container-version="1" data-media-id="f2566ce9-7725-4d5d-b815-b034e5db94e5" data-media-type="file"></span><hr/>
+  </article>
+</main>
+</body>
+</html>

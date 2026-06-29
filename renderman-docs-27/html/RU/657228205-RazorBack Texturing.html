@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RazorBack Texturing</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>RazorBack Texturing</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RU/657228205/RazorBack+Texturing">https://rmanwiki-27.pixar.com/space/RU/657228205/RazorBack+Texturing</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<h3 id="RazorBackTexturing-TexturinginMari">Texturing in Mari</h3><p>The methodology involves utilizing Substance Painter to bake utility masks, which serve as drivers for various maps in mask form. After baking all the necessary maps, they are imported into a Mari template, along with the displacement and normal output maps from ZBrush.</p><p>Each mask is driven using the teleport receiver, and it's crucial to preserve the number of node paints and masks in the scene. </p><p>This means that a mask used for color can also drive displacement or roughness, offering flexibility and efficiency in the workflow.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Mari_node_all.png" width="760" loading="lazy" src="../../attachments/657228205/Mari_node_all.png" data-image-src="../../attachments/657228205/Mari_node_all.png" data-height="403" data-width="1334" data-unresolved-comment-count="0" data-linked-resource-id="656834779" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Mari_node_all.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="657228205" data-linked-resource-container-version="1" data-media-id="5fc369aa-aa93-4ee9-89a6-2346b5fee305" data-media-type="file"></span><p /><p>The next step is to create ISO maps, which serve as masks in the Mari tree. Once all ISO and bake maps have been generated and painted, there is freedom to experiment, modify, and blend the maps to achieve the desired outcome.</p><p>Each mask introduces variations in color, hue, and saturation, resulting in a natural, realistic appearance. The asset's hue/saturation/value (HSV) values are adjusted to ensure authenticity. Additionally, each scale exhibits unique characteristics, with factors such as the creature's posture influencing wear and tear. </p><p>For instance, the creature's belly may show more damage from frequent contact with surfaces, while its tail and spikes may show wear from combat or environmental interactions.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="iso_mask_mari_texturing.jpg" width="760" loading="lazy" src="../../attachments/657228205/iso_mask_mari_texturing.jpg" data-image-src="../../attachments/657228205/iso_mask_mari_texturing.jpg" data-height="810" data-width="1440" data-unresolved-comment-count="0" data-linked-resource-id="656834787" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="iso_mask_mari_texturing.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="657228205" data-linked-resource-container-version="1" data-media-id="ebccf238-8168-4b60-b144-3f0a504f737e" data-media-type="file"></span><p>When working on shader previews, it's advisable to focus primarily on the displacement channel, minimizing distractions by restricting the preview to a single channel, such as albedo. This approach helps maintain clarity and prevents potential confusion that could affect decision-making. Nonetheless, periodic checks ensure that everything remains in order.</p><p>Using the teleport receiver and bake points streamlines the workflow, enabling adjustments to lighten the scene and improve responsiveness in the viewport. This optimization minimizes time spent on selections, facilitating efficient progress.</p><p>Once all maps and ISOs are synchronized, duplicating the left-hand side of the model onto the right-hand side using UV symmetry, as outlined in the modeling section, is recommended. </p><p>Subsequently, introducing procedural asymmetry by triplanar projecting rock, noise, and oil maps enhances variation across ISO, color, and bake maps, fostering a more organic appearance.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="substance_painter_dryskin_mask.jpg" width="760" loading="lazy" src="../../attachments/657228205/substance_painter_dryskin_mask.jpg" data-image-src="../../attachments/657228205/substance_painter_dryskin_mask.jpg" data-height="270" data-width="960" data-unresolved-comment-count="0" data-linked-resource-id="657260803" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="substance_painter_dryskin_mask.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="657228205" data-linked-resource-container-version="1" data-media-id="2cb6c241-1627-43e4-a2d2-6217080af4d4" data-media-type="file"></span><p /><p />
+  </article>
+</main>
+</body>
+</html>

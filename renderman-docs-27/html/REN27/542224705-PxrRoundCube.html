@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PxrRoundCube</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>PxrRoundCube</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/REN27/542224705/PxrRoundCube">https://rmanwiki-27.pixar.com/space/REN27/542224705/PxrRoundCube</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="contentLayout2">
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="PxrRoundCube_AjaxMarble.png" width="672" loading="lazy" src="../../attachments/542224705/PxrRoundCube_AjaxMarble.png" data-image-src="../../attachments/542224705/PxrRoundCube_AjaxMarble.png" data-height="675" data-width="672" data-unresolved-comment-count="0" data-linked-resource-id="542224794" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="PxrRoundCube_AjaxMarble.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542224705" data-linked-resource-container-version="1" data-media-id="5ce3435c-1788-45b6-9c88-34e1bbc5df1c" data-media-type="file"></span><p>This is a projection manifold for triplanar mapping. This technique is also sometimes called &quot;blended cube&quot;. It is often used to texture a large environment without having to worry about UVs.</p><p>PxrRoundCube computes texture coordinates (UV) based on an object's surface position and orientation and can handle up to 6 sets of coordinates. It also outputs blending weights to be used by PxrMultiTexture.</p><p>The sculpture on the left was 3d-scanned and the irregular topology of the mesh makes it tricky to create nice UVs. This is a perfect use case for PxrRoundCube.</p><p /></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p>PxrRoundCube only defines texture mapping coordinates and MUST be connected to a PxrMultiTexture pattern. To do so, connect PxrRoundCube.resultMulti to PxrMultiTexture.manifoldMulti. See Maya example below.</p></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="PxrRoundCube_graph.png" width="648" loading="lazy" src="../../attachments/542224705/PxrRoundCube_graph.png" data-image-src="../../attachments/542224705/PxrRoundCube_graph.png" data-height="162" data-width="648" data-unresolved-comment-count="0" data-linked-resource-id="542224791" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="PxrRoundCube_graph.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542224705" data-linked-resource-container-version="1" data-media-id="c007d2c3-717d-4cd3-aeb7-440c0ce21b61" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p /><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="b709ae49-23cf-49d7-b416-c91e80f99d91" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>You will need to modify your shading networks when importing old scenes.</p></div></div><h2 id="PxrRoundCube-InputParameters">Input Parameters</h2><h4 id="PxrRoundCube-NumberOfTextures">Number Of Textures</h4><p>You can choose to project 1, 3, or 6 images. The table below shows which textures will be used by the PxrMultiTexture node.</p><div class="table-wrap"><table data-table-width="760" data-layout="default" data-local-id="495ec9fa-d85b-4cde-8365-cee56aced922" class="confluenceTable"><tbody><tr><th class="confluenceTh"><p><strong>Number of textures</strong></p></th><th class="confluenceTh"><p><strong>+X</strong></p></th><th class="confluenceTh"><p><strong>+Y</strong></p></th><th class="confluenceTh"><p><strong>+Z</strong></p></th><th class="confluenceTh"><p><strong>-X</strong></p></th><th class="confluenceTh"><p><strong>-Y</strong></p></th><th class="confluenceTh"><p><strong>-Z</strong></p></th></tr><tr><td class="confluenceTd"><p>1</p></td><td class="confluenceTd"><p>0</p></td><td class="confluenceTd"><p>0</p></td><td class="confluenceTd"><p>0</p></td><td class="confluenceTd"><p>0</p></td><td class="confluenceTd"><p>0</p></td><td class="confluenceTd"><p>0</p></td></tr><tr><td class="confluenceTd"><p>3</p></td><td class="confluenceTd"><p>0</p></td><td class="confluenceTd"><p>1</p></td><td class="confluenceTd"><p>2</p></td><td class="confluenceTd"><p>0</p></td><td class="confluenceTd"><p>1</p></td><td class="confluenceTd"><p>3</p></td></tr><tr><td class="confluenceTd"><p>6</p></td><td class="confluenceTd"><p>0</p></td><td class="confluenceTd"><p>1</p></td><td class="confluenceTd"><p>2</p></td><td class="confluenceTd"><p>3</p></td><td class="confluenceTd"><p>4</p></td><td class="confluenceTd"><p>5</p></td></tr></tbody></table></div><p><br/></p><h3 id="PxrRoundCube-Tiling">Tiling</h3><h4 id="PxrRoundCube-TilingMode">Tiling Mode</h4><p>Select between Regular and Hexagonal tiling modes</p><h3 id="PxrRoundCube-Frequency"><strong>Frequency</strong></h3></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p>The frequency at which the texture will repeat. A value of 1 indicates that the texture will not repeat.</p></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="frequency.png" width="686" loading="lazy" src="../../attachments/542224705/frequency.png" data-image-src="../../attachments/542224705/frequency.png" data-height="150" data-width="800" data-unresolved-comment-count="0" data-linked-resource-id="542224788" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="frequency.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542224705" data-linked-resource-container-version="1" data-media-id="846b8727-2000-48c9-8f1f-f61c0ab01e9e" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><br/></p><h3 id="PxrRoundCube-Manifold3D">Manifold 3D</h3><h4 id="PxrRoundCube-TransitionWidth">Transition Width</h4></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p>This controls how much the per-axis projections blend. We use a very smooth looking blending function to make natural textures blend nicely. The valid range is from 0 to 1.</p></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="transitionWidth.png" width="686" loading="lazy" src="../../attachments/542224705/transitionWidth.png" data-image-src="../../attachments/542224705/transitionWidth.png" data-height="150" data-width="800" data-unresolved-comment-count="0" data-linked-resource-id="542224785" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="transitionWidth.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542224705" data-linked-resource-container-version="1" data-media-id="5339452f-50fb-428a-8f50-23580e3f1ad6" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p /><h4 id="PxrRoundCube-Pref">Pref</h4></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p>The name of the reference position primvar (Maya uses __Pref). The position reference may be used to keep the texture anchored to the surface while the object is deforming. If your deforming object is textured with PxrRoundCube, <strong>you need __Pref AND __Nref</strong> !</p></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="deformations.png" width="591" loading="lazy" src="../../attachments/542224705/deformations.png" data-image-src="../../attachments/542224705/deformations.png" data-height="150" data-width="591" data-unresolved-comment-count="0" data-linked-resource-id="542224782" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="deformations.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542224705" data-linked-resource-container-version="1" data-media-id="3a46780b-2478-4602-b98b-1fed6b355eb9" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><br/></p><h4 id="PxrRoundCube-Nref">Nref</h4><p>The name of the reference normal primvar (Maya uses __Nref). The normal reference may be used to keep the texture anchored to the surface while the object is deforming. If your deforming object is textured with PxrRoundCube, <strong>you need __Nref AND __Pref</strong> !</p><p><br/></p><p><br/></p><h4 id="PxrRoundCube-CoordinateSystem">Coordinate System</h4><p>Name of coordinate system transform (e.g. place3dtexture node in Maya). You can either use one of the predefined spaces (&quot;world&quot;, &quot;object&quot;, &quot;current&quot;, etc) or the name of a coordinate system node in your scene. If empty, PxrRoundCube use &quot;object&quot; space.</p><p><br/></p><p><br/></p><h4 id="PxrRoundCube-UseUndisplacedPosition">Use Undisplaced Position</h4><p>When an object is displaced using PxrRoundCube, textures used during shading by the bxdf will not line up correctly with regard to the displacement map. The reason is simple : the displacement shader has moved P and the patterns attached to the bxdf are using the displaced P instead of the original. To avoid this problem, enable useUndisplacedPosition and the pattern will use the undisplaced position (Po) instead of the current position (P). Note that, under the hood, PxrRoundCube also uses the original normal (Non) instead of the current normal (N) when this is enabled.</p><p><br/></p><p><br/></p><h3 id="PxrRoundCube-Randomize">Randomize</h3><p>Sometimes, it is useful to randomize some of the parameters to make things look more natural...</p><h4 id="PxrRoundCube-RandomSource">Random Source</h4><p>For each object to get a different variation, you need to select something unique about them to create a unique seed. You have a choice between the object's id and the object's name. These attributes are created by the software outputting the RIB and depending on your host, one may work better than the other.</p><div class="table-wrap"><table data-table-width="760" data-layout="default" data-local-id="6f0e05d5-3e9c-4e51-b8d4-a1c567451d62" class="confluenceTable"><tbody><tr><th class="confluenceTh"><p><strong>Value</strong></p></th><th class="confluenceTh"><p><strong>Meaning</strong></p></th><th class="confluenceTh"><p><strong>Depends on</strong></p></th></tr><tr><td class="confluenceTd"><p><sup>0</sup></p></td><td class="confluenceTd"><p><sup>Object ID</sup></p></td><td class="confluenceTd"><p><sup>Attribute &quot;identifier&quot; &quot;float id&quot;</sup></p></td></tr><tr><td class="confluenceTd"><p><sup>1</sup></p></td><td class="confluenceTd"><p><sup>Object Name</sup></p></td><td class="confluenceTd"><p><sup>Attribute &quot;identifier&quot; &quot;string name&quot;)</sup></p></td></tr></tbody></table></div><p><br/></p><p><br/></p><h4 id="PxrRoundCube-ExtraSeed">Extra Seed</h4><p>When set to zero, all PxrRoundCube patterns operating on the same node will compute the same random seed. If you want one of these patterns to compute a different variation, set the randomExtraSeed to a non-zero value.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="random_all_seed.gif" width="320" loading="lazy" src="../../attachments/542224705/random_all_seed.gif" data-image-src="../../attachments/542224705/random_all_seed.gif" data-height="120" data-width="320" data-unresolved-comment-count="0" data-linked-resource-id="542224731" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="random_all_seed.gif" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/gif" data-linked-resource-container-id="542224705" data-linked-resource-container-version="1" data-media-id="c8e5e0f9-46fe-400c-92ad-1409ad0ad27b" data-media-type="file"></span><h4 id="PxrRoundCube-RandomOrientation">Random Orientation</h4><p>Set this parameter to 1 to randomly rotate the triplanar projection. By default, the axes will be in object-space. This means that 3 spheres with the same PxrRoundCube pattern will look exactly the same. When you randomize the axes' orientation, they all look different, even though they might have the same transform. Typically, this is useful to control random variations of a lot of objects (think &quot;rocks on the ground&quot;) from a single source.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="orientation.gif" width="320" loading="lazy" src="../../attachments/542224705/orientation.gif" data-image-src="../../attachments/542224705/orientation.gif" data-height="120" data-width="320" data-unresolved-comment-count="0" data-linked-resource-id="542224728" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="orientation.gif" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/gif" data-linked-resource-container-id="542224705" data-linked-resource-container-version="1" data-media-id="0392e0cd-0548-449f-9df6-7eafe780a097" data-media-type="file"></span><p> <br/></p><h4 id="PxrRoundCube-RandomFlip">Random Flip</h4><p>This switch will randomly flip st coordinates of each axis of the triplanar projection.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="flip.gif" width="320" loading="lazy" src="../../attachments/542224705/flip.gif" data-image-src="../../attachments/542224705/flip.gif" data-height="120" data-width="320" data-unresolved-comment-count="0" data-linked-resource-id="542224725" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="flip.gif" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/gif" data-linked-resource-container-id="542224705" data-linked-resource-container-version="1" data-media-id="b4240c93-4db0-4956-a9b6-9e3590c34f5a" data-media-type="file"></span><p> <br/></p><h4 id="PxrRoundCube-RandomOffset">Random Offset</h4><p>This switch will randomly offset st coordinates of each axis of the triplanar projection. You should probably make sure seams are not visible your texture is tiling.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="offsett.gif" width="320" loading="lazy" src="../../attachments/542224705/offsett.gif" data-image-src="../../attachments/542224705/offsett.gif" data-height="120" data-width="320" data-unresolved-comment-count="0" data-linked-resource-id="542224722" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="offsett.gif" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/gif" data-linked-resource-container-id="542224705" data-linked-resource-container-version="1" data-media-id="291c8bd5-5f28-4d4d-b591-91d3809bf612" data-media-type="file"></span><p> <br/></p><h3 id="PxrRoundCube-XAxis">X Axis</h3><h4 id="PxrRoundCube-EnableX">Enable X</h4><p>Enable or disable textures on the X axis.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="axis_none.gif" width="200" loading="lazy" src="../../attachments/542224705/axis_none.gif" data-image-src="../../attachments/542224705/axis_none.gif" data-height="150" data-width="200" data-unresolved-comment-count="0" data-linked-resource-id="542224719" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="axis_none.gif" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/gif" data-linked-resource-container-id="542224705" data-linked-resource-container-version="1" data-media-id="696d0e0d-0652-47f8-bc11-99241d09bad5" data-media-type="file"></span><p> <br/></p><p><br/></p><div class="confluence-information-macro confluence-information-macro-tip conf-macro output-block" data-hasbody="true" data-macro-id="a1bd52d1-c93a-4dc4-b7ed-4339649d5127" data-macro-name="tip"><span class="aui-icon aui-icon-small aui-iconfont-approve confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><h3 id="PxrRoundCube-Projectalabel">Project a label</h3><p>You can create a simple label projection by enabling only one of the axes.</p></div></div><p><br/></p><h4 id="PxrRoundCube-ScaleS">Scale S</h4><p>Scale the textures on the X axis in the s direction (horizontal).</p><p><br/></p><p><br/></p><h4 id="PxrRoundCube-ScaleT">Scale T</h4><p>Scale the textures on the X axis in the t direction (vertical).</p><p><br/></p><p><br/></p><h4 id="PxrRoundCube-OffsetS">Offset S</h4><p>Offset the textures on the X axis in the s direction (horizontal).</p><p><br/></p><p><br/></p><h4 id="PxrRoundCube-OffsetT">Offset T</h4><p>Offset the textures on the X axis in the t direction (vertical).</p><p><br/></p><p><br/></p><h4 id="PxrRoundCube-InvertS">Invert S</h4><p>Flip the textures on the X axis in the s direction (horizontal).</p><p><br/></p><p><br/></p><h4 id="PxrRoundCube-InvertT">Invert T</h4><p>Flip the textures on the X axis in the t direction (vertical).</p><p><br/></p><p><br/></p><h4 id="PxrRoundCube-SwapST">Swap ST</h4><p>Swap the s and t direction on the X axis. This is equivalent to a 90 degree rotation.</p><p><br/></p><p><br/></p><h4 id="PxrRoundCube-PivotS">Pivot S</h4><p>Position in s of the scaling center on the X axis.</p><p><br/></p><p><br/></p><h4 id="PxrRoundCube-PivotT">Pivot T</h4><p>Position in t of the scaling center on the X axis.</p><p><br/></p><p><br/></p><h3 id="PxrRoundCube-YAxis">Y Axis</h3><p>Same controls as above for Y axis.</p><p><br/></p><h3 id="PxrRoundCube-ZAxis">Z Axis</h3><p>Same controls as above for Z axis.</p><p><br/></p><h3 id="PxrRoundCube-OutputParameters">Output Parameters</h3><h4 id="PxrRoundCube-resultMask">resultMask</h4><p>The blending weights of the 3 axes, as an RGB output. Useful to tweak the projection result either in comp or further down the graph.</p><h4 id="PxrRoundCube-resultMulti">resultMulti</h4><p>The struct outputting all required information for a PxrMultiTexture pattern.</p><p><br/></p><p><br/></p><p><br/></p><p><br/></p><h1 id="PxrRoundCube-Tutorial">Tutorial</h1><h2 id="PxrRoundCube-Makingrocksonthecheap">Making rocks on the cheap</h2></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p>We start with one piece of geometry (a cube interpreted as a subdivision surface), duplicate it 3 times and scale each of differently them to get different shapes.</p><p>We setup a texturing network using PxrRoundCube...</p></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="ex1_graph0-2.png" width="686" loading="lazy" src="../../attachments/542224705/ex1_graph0-2.png" data-image-src="../../attachments/542224705/ex1_graph0-2.png" data-height="162" data-width="813" data-unresolved-comment-count="0" data-linked-resource-id="542224749" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="ex1_graph0-2.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542224705" data-linked-resource-container-version="1" data-media-id="bf944b04-3e00-406b-9b2b-d68c9a70ce78" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p>...and make our first render.</p></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="ex1_0.png" width="600" loading="lazy" src="../../attachments/542224705/ex1_0.png" data-image-src="../../attachments/542224705/ex1_0.png" data-height="220" data-width="600" data-unresolved-comment-count="0" data-linked-resource-id="542224746" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="ex1_0.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542224705" data-linked-resource-container-version="1" data-media-id="fc3d5a19-5e0c-454c-9fe4-7deb0411c728" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p>As we are using a single stone texture, we can see similarities between our rocks. We could use more textures but we are doing it on the cheap ! Let's add displacement, using the same PxrRoundCube.</p></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="ex1_graph1.png" width="686" loading="lazy" src="../../attachments/542224705/ex1_graph1.png" data-image-src="../../attachments/542224705/ex1_graph1.png" data-height="298" data-width="810" data-unresolved-comment-count="0" data-linked-resource-id="542224743" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="ex1_graph1.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542224705" data-linked-resource-container-version="1" data-media-id="832a2c63-4690-4e5e-9b53-9697a685428b" data-media-type="file"></span><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="ex1_1.png" width="600" loading="lazy" src="../../attachments/542224705/ex1_1.png" data-image-src="../../attachments/542224705/ex1_1.png" data-height="220" data-width="600" data-unresolved-comment-count="0" data-linked-resource-id="542224740" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="ex1_1.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542224705" data-linked-resource-container-version="1" data-media-id="9496ca30-fd45-4315-a3c0-e1433b930c1b" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p>Now, the similarities are much more obvious, so we will randomly <a href="/wiki/spaces/REN23/pages/19038273/PxrRoundCube#RandomFlip" data-linked-resource-id="19038273" data-linked-resource-version="5" data-linked-resource-type="page">flip</a> and <a href="/wiki/spaces/REN23/pages/19038273/PxrRoundCube#RandomOffset" data-linked-resource-id="19038273" data-linked-resource-version="5" data-linked-resource-type="page">offset</a> our textures (See <a href="/wiki/spaces/REN23/pages/19038273/PxrRoundCube#Randomize" data-linked-resource-id="19038273" data-linked-resource-version="5" data-linked-resource-type="page">PxrRoundCube#Randomize</a> section).</p></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="ex1_2.png" width="600" loading="lazy" src="../../attachments/542224705/ex1_2.png" data-image-src="../../attachments/542224705/ex1_2.png" data-height="220" data-width="600" data-unresolved-comment-count="0" data-linked-resource-id="542224737" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="ex1_2.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542224705" data-linked-resource-container-version="1" data-media-id="1a1daa0a-e161-4610-b0d3-ddf930cd4c4a" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p>This is starting to look better : our stones all look different now ! Still, if you look at the bottom of the right-most stone, the stone grain is not oriented the same way as the top of that rock. It looks a bit un-natural.</p><p>This is easy to fix. That area corresponds to the Z axis, so we go to &quot;Z Axis&quot; section and toggle &quot;<a href="/wiki/spaces/REN23/pages/19038273/PxrRoundCube#SwapST" data-linked-resource-id="19038273" data-linked-resource-version="5" data-linked-resource-type="page">swap ST</a>&quot;. This is equivalent to a 90 degrees rotation of the texture on the Z axis.</p></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="ex1_3.png" width="600" loading="lazy" src="../../attachments/542224705/ex1_3.png" data-image-src="../../attachments/542224705/ex1_3.png" data-height="220" data-width="600" data-unresolved-comment-count="0" data-linked-resource-id="542224734" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="ex1_3.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542224705" data-linked-resource-container-version="1" data-media-id="4fcd0de6-8916-4144-9989-4c659d978230" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><br/></p><p>They all look different and reasonably natural (for a 10 mn job). We've earned that coffee !</p></div>
+</div>
+</div>
+</div>
+  </article>
+</main>
+</body>
+</html>

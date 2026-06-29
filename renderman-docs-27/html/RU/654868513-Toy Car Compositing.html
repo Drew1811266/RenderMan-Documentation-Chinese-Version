@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Toy Car Compositing</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Toy Car Compositing</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RU/654868513/Toy+Car+Compositing">https://rmanwiki-27.pixar.com/space/RU/654868513/Toy+Car+Compositing</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<h3 id="ToyCarCompositing-Compositing">Compositing</h3><p>This project marked my first experience with node-based compositing in Nuke.</p><p /><p>To keep the pipeline consistent, I worked within an ACES color workflow, configuring OCIO in Nuke to convert sRGB footage into ACESCG.</p><p>I combined AOVs using shuffle nodes and used Cryptomatte to isolate specific surfaces where I enhanced or reduced reflections based on lighting and composition.</p><p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image13.jpg" width="760" loading="lazy" src="../../attachments/654868513/image13.jpg" data-image-src="../../attachments/654868513/image13.jpg" data-height="437" data-width="1010" data-unresolved-comment-count="0" data-linked-resource-id="654671945" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image13.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="654868513" data-linked-resource-container-version="1" data-media-id="65f722ac-b5b2-4a58-be95-126d6d4a2ca6" data-media-type="file"></span><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image10.jpg" width="760" loading="lazy" src="../../attachments/654868513/image10.jpg" data-image-src="../../attachments/654868513/image10.jpg" data-height="465" data-width="1315" data-unresolved-comment-count="0" data-linked-resource-id="654671952" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image10.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="654868513" data-linked-resource-container-version="1" data-media-id="33e397fa-ed3c-43dd-afea-bf5497f278de" data-media-type="file"></span><p /><p>Some background elements required manual rotoscoping to separate them cleanly. For the breakdown, I also included UVs, wireframes, and checkerboard overlays. The TV screen, which I modeled and rendered separately, was composited directly into the final shot in Nuke.</p><p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image7.jpg" width="760" loading="lazy" src="../../attachments/654868513/image7.jpg" data-image-src="../../attachments/654868513/image7.jpg" data-height="1061" data-width="1208" data-unresolved-comment-count="0" data-linked-resource-id="654671958" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image7.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="654868513" data-linked-resource-container-version="1" data-media-id="f6902291-642a-4369-84c7-ccb7a39eb889" data-media-type="file"></span><p /><p>... and here we have the final image!</p><p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image5.jpg" width="760" loading="lazy" src="../../attachments/654868513/image5.jpg" data-image-src="../../attachments/654868513/image5.jpg" data-height="1125" data-width="1999" data-unresolved-comment-count="0" data-linked-resource-id="654671964" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image5.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="654868513" data-linked-resource-container-version="1" data-media-id="248f05d3-2e28-4968-a7b9-79163d29c7a5" data-media-type="file"></span><p>This project was a personal journey for me. Don’t forget to download the project and take a closer look. I hope you enjoy it as much as I did. </p><p>Have fun!</p><p />
+  </article>
+</main>
+</body>
+</html>

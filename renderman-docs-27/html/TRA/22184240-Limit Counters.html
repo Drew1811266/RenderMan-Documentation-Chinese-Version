@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Limit Counters</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Limit Counters</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/TRA/22184240/Limit+Counters">https://rmanwiki-27.pixar.com/space/TRA/22184240/Limit+Counters</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>The Limit Counters tab displays the the tally of the current limit counts in effect in the engine.</p><p><span><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/22184240/tractor_limitcounters.png" data-image-src="../../attachments/22184240/tractor_limitcounters.png" data-unresolved-comment-count="0" data-linked-resource-id="22195891" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="tractor_limitcounters.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="22184240" data-linked-resource-container-version="3" data-media-id="455aa805-0009-4d2b-bf60-d05d24e162a7" data-media-type="file"></span> </span></p><p>The counters tab can be limited to only displaying counts associated with formal limits, as defined in the limits.config file.</p><p>The Site value is the site-wide or global limit as defined in the limits file. You'll see in the example above there are 5 defined global limits: limit10 == 10, limit15 == 15, limit5 == 5, limittest==50, and prman is currently unlimited. In this picture none of these limits are currently in effect.</p><p><span><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/22184240/tractor_limitcounters2.png" data-image-src="../../attachments/22184240/tractor_limitcounters2.png" data-unresolved-comment-count="0" data-linked-resource-id="22195887" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="tractor_limitcounters2.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="22184240" data-linked-resource-container-version="3" data-media-id="a66b496c-9922-4744-93e0-3305d63e68fc" data-media-type="file"></span> </span></p><p>Clicking off the Show only limits in config file checkbox will present ALL the current limits. Besides the config-defined limits, as mentioned above, there are limits that are constructed by the engine, on-the-fly. These limits come from:</p><ul class="simple"><li>The name of the running command, i.e. prman</li><li>The name of the user, such as rdavis</li><li>The service key, i.e. pixarRender or RMSRibGen</li><li>Any tag defined in the job script, like intensive or Prod 6</li></ul><p>As you can above, there are currently 160 running tasks. All 160 tasks were launched with the service key pixarRender. Out of these tasks, 129 are running jobs from rdavis, while 31 are running jobs from ratbuild.</p><p>The 31 ratbuild jobs are all running pysleep tests, while rdavis' jobs are not displayed in this image, as they were below the image cut-off point.</p>
+  </article>
+</main>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Implicit Surfaces</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Implicit Surfaces</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/REN27/542213207/Implicit+Surfaces">https://rmanwiki-27.pixar.com/space/REN27/542213207/Implicit+Surfaces</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p local-id="3295e0dbef46" /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="geometryStirling.png" width="858" loading="lazy" src="../../attachments/542213207/geometryStirling.png" data-image-src="../../attachments/542213207/geometryStirling.png" data-height="405" data-width="720" data-unresolved-comment-count="0" data-linked-resource-id="542213223" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="geometryStirling.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542213207" data-linked-resource-container-version="2" data-media-id="fbda1b88-99a6-450d-b42d-f39fd880f2dc" data-media-type="file"></span><p local-id="4b617b72fcb9" /><div class="panel conf-macro output-block" data-hasbody="true" data-local-id="ddcb7af33d6d" data-macro-id="be7701bc-7b6a-450d-8633-314323bcaf4d" data-macro-name="panel" style="background-color: #DEEBFF;border-width: 1px;"><div class="panelContent" style="background-color: #DEEBFF;">
+<p local-id="d675ba76eeec">RenderMan XPU 不支持隐式曲面。</p>
+</div></div><h4 local-id="f4bd933d9666" id="ImplicitSurfaces-Introduction">简介</h4><p local-id="7659d5e63f60">RenderMan 能够渲染 <strong>隐式曲面</strong> （在 RenderMan 中有时称为“RiBlobby”或 blobby 曲面）。RenderMan 中大多数几何类型都有显式控制网格：几何体由一组位于表面上或表面附近的顶点指定。隐式曲面则不同：它们由以 <em>隐式方式</em>定义的图元构建，也就是使用一个数学函数，使其在表面上的每一点都等于某个阈值。渲染器会隐藏这些复杂数学细节，但这种表示方式在某些场景中能非常高效地建模几何体：用户想创建无定形形状，并愿意牺牲对形状细节的精细控制，以换取对大体特征的易建模性。</p><h4 local-id="366df2b26989" id="ImplicitSurfaces-Built-InPrimitives">内置图元</h4><p local-id="5c2a2795f4c4">在 RenderMan 中构建隐式曲面的一种方式，是组合简单的内置图元形状：椭球体。这里，隐式曲面最重要的特性是 <em>自动混合</em>：相邻图元会融合成圆润、厚实的球状团块。当图元彼此足够接近时，这种混合会自动发生（或按建模师的意愿不发生），无需构造显式的圆形或圆角面片来连接它们。下面展示了六个多色球体，它们一开始彼此相隔一段距离；在这个距离下，它们不会相互作用。不过，当它们逐渐靠近时，就会开始拉伸并混合在一起，平滑地融合成一个更大的团块。这种混合会在渲染器中自动且高效地发生，不会产生额外内存成本；与在建模程序中创建等价的多边形镶嵌细分相比，隐式曲面的内存效率通常高得多。</p><div class="table-wrap"><table data-table-width="1800" data-layout="align-start" data-local-id="b44683c0-c1c7-4d04-83f0-d4d8cba208c5" class="confluenceTable"><tbody><tr data-local-id="f3574d7e228c"><td data-local-id="66a89b093248" class="confluenceTd"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="bloba.png" width="184" loading="lazy" src="../../attachments/542213207/bloba.png" data-image-src="../../attachments/542213207/bloba.png" data-height="512" data-width="512" data-unresolved-comment-count="0" data-linked-resource-id="542213244" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="bloba.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542213207" data-linked-resource-container-version="2" data-media-id="8e0521aa-eaf0-4aa1-8ae1-227ece28be0e" data-media-type="file"></span></td><td data-local-id="ac479cbd841d" class="confluenceTd"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="blobb.png" width="184" loading="lazy" src="../../attachments/542213207/blobb.png" data-image-src="../../attachments/542213207/blobb.png" data-height="512" data-width="512" data-unresolved-comment-count="0" data-linked-resource-id="542213241" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="blobb.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542213207" data-linked-resource-container-version="2" data-media-id="7f3fec3c-fefb-4e2b-8274-113f7b2d2e7d" data-media-type="file"></span></td><td data-local-id="6743a76114cb" class="confluenceTd"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="blobc.png" width="184" loading="lazy" src="../../attachments/542213207/blobc.png" data-image-src="../../attachments/542213207/blobc.png" data-height="512" data-width="512" data-unresolved-comment-count="0" data-linked-resource-id="542213238" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="blobc.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542213207" data-linked-resource-container-version="2" data-media-id="36ca40df-0276-4451-8c7d-3cd1caba3191" data-media-type="file"></span></td><td data-local-id="3e76df5acb75" class="confluenceTd"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="blobd.png" width="184" loading="lazy" src="../../attachments/542213207/blobd.png" data-image-src="../../attachments/542213207/blobd.png" data-height="512" data-width="512" data-unresolved-comment-count="0" data-linked-resource-id="542213235" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="blobd.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542213207" data-linked-resource-container-version="2" data-media-id="d8747293-6303-411a-8392-5fa16702a5f6" data-media-type="file"></span></td><td data-local-id="ff6a37f7391d" class="confluenceTd"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="blobe.png" width="184" loading="lazy" src="../../attachments/542213207/blobe.png" data-image-src="../../attachments/542213207/blobe.png" data-height="512" data-width="512" data-unresolved-comment-count="0" data-linked-resource-id="542213232" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="blobe.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542213207" data-linked-resource-container-version="2" data-media-id="bf3dc1c5-1541-42c0-846c-0bcc4fff179c" data-media-type="file"></span></td><td data-local-id="867cdb0238b7" class="confluenceTd"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="blobf.png" width="184" loading="lazy" src="../../attachments/542213207/blobf.png" data-image-src="../../attachments/542213207/blobf.png" data-height="512" data-width="512" data-unresolved-comment-count="0" data-linked-resource-id="542213229" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="blobf.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542213207" data-linked-resource-container-version="2" data-media-id="3831c273-357d-49a8-8e2f-80f8af0cd1be" data-media-type="file"></span></td><td data-local-id="adbea70c1c89" class="confluenceTd"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="blobg.png" width="184" loading="lazy" src="../../attachments/542213207/blobg.png" data-image-src="../../attachments/542213207/blobg.png" data-height="512" data-width="512" data-unresolved-comment-count="0" data-linked-resource-id="542213226" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="blobg.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542213207" data-linked-resource-container-version="2" data-media-id="490dba12-5cc5-4ccb-9fc2-f966933bc047" data-media-type="file"></span></td></tr></tbody></table></div><p local-id="41ea5103e204">使用内置椭球体图元形状时，其底层数学函数会使混合后的曲面体积大致等于组成它的各个图元的总体积。这让该工作流非常适合建模粘性流体等对象，因为这种体积保持属性非常理想。不过，如上所述，形状如何混合在一起并没有精细控制：图元要么相互作用并混合，要么不相互作用。它们开始混合的阈值可以在整个曲面范围内全局设置（这会使整个隐式曲面“膨胀”或“收缩”），但不能逐个球体设置阈值。</p><h4 local-id="a3b145007992" id="ImplicitSurfaces-ImplicitFieldPlugins">隐式场插件</h4><p local-id="08860ff18c95">RenderMan 允许用户把内置图元形状扩展到其他数学描述，并让它们可以与内置图元无缝参与自动混合。这种扩展需要使用 <strong>隐式场插件</strong>，它们是由渲染器加载的 C++ 共享库。渲染器随附了几个插件，用来为立方体和线段形状的图元提供支持；这里的线段指带有圆头、类似香肠的圆柱体。</p><p local-id="f7361bf21139">不过，隐式场插件也适用于另一种截然不同的隐式曲面使用方式：把另一个程序生成的隐式场表示作为输入。隐式场是表示流体和体积效果的一种自然且高效的方式，并且可由 Maya Fluids、输出 OpenVDB 文件的程序或 Bifrost 等程序直接输出。可以编写隐式场插件来弥合这些第三方隐式数据文件格式与 RenderMan 隐式图元之间的差距，从而让流体模拟的输出可以直接且高效地在 RenderMan 内渲染。通常在这种情况下，隐式曲面由单个图元组成；从概念上说，这个图元就是隐式场插件本身，并带有对该插件具有特殊含义的参数。与其他图元混合通常既不是关注点，也不是期望行为。渲染器随附了两个这类插件：一个用于读取 Maya fluid cache 文件，另一个用于 <a href="542213271-OpenVDB Implicit Field Plugin.html" data-linked-resource-id="542213271" data-linked-resource-version="1" data-linked-resource-type="page">读取 OpenVDB 文件</a>。</p><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-local-id="ec1e19eb75f9" data-macro-id="49b55ff5-e4c9-4e5e-9dad-b6792d4b56c4" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p local-id="abc9760d86cf">某些隐式场插件（例如 <a href="542213271-OpenVDB Implicit Field Plugin.html" data-linked-resource-id="542213271" data-linked-resource-version="1" data-linked-resource-type="page">OpenVDB 插件</a>）可以 <strong>同时</strong> 用于隐式曲面 <strong>，也可以</strong> 用于 <a href="542213164-Volumes.html" data-linked-resource-id="542213164" data-linked-resource-version="1" data-linked-resource-type="page">体积图元。</a> 这反映了一个事实：隐式场同样也是表示体积的好方法。对于 OpenVDB，选择使用哪种图元取决于所用 OpenVDB 文件的类型（“levelset”还是“fogvolume”）。</p></div></div>
+  </article>
+</main>
+</body>
+</html>

@@ -1,0 +1,34 @@
+{
+  "parentType": "page",
+  "parentId": "22184334",
+  "ownerId": "557058:bd93f2ee-e583-43fb-8a78-f4b1519a63bf",
+  "lastOwnerId": null,
+  "createdAt": "2016-12-15T11:12:16Z",
+  "authorId": "557058:bd93f2ee-e583-43fb-8a78-f4b1519a63bf",
+  "position": 361070094,
+  "version": {
+    "number": 6,
+    "message": "",
+    "minorEdit": false,
+    "authorId": "61fbe41ee688d6007069f091",
+    "createdAt": "2024-07-05T18:22:31.186Z",
+    "ncsStepVersion": "43"
+  },
+  "spaceId": "22183942",
+  "status": "current",
+  "body": {
+    "view": {
+      "representation": "view",
+      "value": "<p>Once you have installed Tractor, customized your configuration files, and started the engine and blade services, you are ready to submit your first job.</p><p> </p><h3 id=\"YourFirstJob-OpenaDashboard\">Open a Dashboard</h3><p>The Dashboard is convenient way to manage the jobs and blades from the comfort of your favorite browser.</p><p>Go to <a class=\"external-link\" href=\"http://tractor-engine\" rel=\"nofollow\">http://tractor-engine</a>, or <a class=\"external-link\" href=\"http://HOSTNAMEPORT\" rel=\"nofollow\">http://HOSTNAME:PORT</a> if you have a custom hostname and port, and log in to Tractor.</p><p>If the Dashboard cannot be reached, check that the engine is in fact running. The engine log file can provide useful diagnostic information.</p><p> </p><h3 id=\"YourFirstJob-AbouttheExamples\">About the Examples</h3><p>The following examples assume your current directory is INSTALL_DIR/bin.</p><p>The TRACTOR_ENGINE environment variable or --engine flag can be used to point the command line programs to a different engine from the default or the one determined through <a href=\"https://renderman.atlassian.net/wiki/spaces/TRA/pages/22184316#Engine-enginediscovery\" rel=\"nofollow\">engine discovery</a>.</p><p> </p><h3 id=\"YourFirstJob-SubmitaJob\">Submit a Job</h3><p>Jobs can be submitted into the Tractor queue using the tractor-spool script, or through the RenderMan for Maya plug-in, or using the <a href=\"https://renderman.atlassian.net/wiki/spaces/TRA/pages/22184314\" rel=\"nofollow\">author API</a>.  Job submission is sometimes referred to as <a class=\"external-link\" href=\"https://en.wikipedia.org/wiki/Spooling\" rel=\"nofollow\">spooling</a> by analogy to print spooling or traditional batch job systems.</p><p>tractor-spool most commonly takes the filename of an <a href=\"https://renderman.atlassian.net/wiki/spaces/TRA/pages/22184254\" rel=\"nofollow\">Alfred-syntax job file</a> as an argument.</p><p><code>% tractor-spool jobfile.alf</code><sup>\n</sup></p><p>The following example job can be placed in a file and submitted with tractor-spool. It will simply output the environment that the command is running in.</p><p><code>Job -title {Environment Job} -subtasks {\n  Task -title {Environment Task} -cmds {\n    RemoteCmd {{printenv}} -service {pixarRender}\n  }\n}</code></p><p /><p>You can view the output of the task using the Dashboard, or from the command line with tq. The job id JOBID would be substituted with the job id emitted by tractor-spool.</p><p><code>tq log jid=JOBID and tid=1\n</code></p><p>The -c option creates a new tractor job for the single command specified by the remaining arguments. Try this simple command to test that the system is working. The job status and output can be checked in the Dashboard or tq.</p><p><code>% tractor-spool -c printenv\n</code></p><p><sup> </sup></p><h3 id=\"YourFirstJob-DeleteaJob\">Delete a Job</h3><p>Jobs can be deleted in the Dashboard by clicking on the job entry in the job queue, and pressing the <em>Delete</em> or <em>Backspace</em> key.</p><p>Jobs can als be deleted from the command-line using the spooling tool by specifying the job id with --jdelete.</p><p><code>% tractor-spool --jdelete 1534\n</code></p><p>tq also permits the deleting a job from the command-line.</p><p><code>% tq delete jid=1534\n</code></p><p><sup> </sup></p><h3 id=\"YourFirstJob-FurtherReading\">Further Reading</h3><p>All users will be interested in the <a href=\"https://renderman.atlassian.net/wiki/spaces/TRA/pages/22184282\" rel=\"nofollow\">Dashboard</a> section which describes the graphical interface for managing the system.</p><p>Developers can learn about how to generate job scripts in the <a href=\"https://renderman.atlassian.net/wiki/spaces/TRA/pages/22184314\" rel=\"nofollow\">Job Author Python API</a> section. Tools for querying and managing the state of jobs and blades can be created with the <a href=\"https://renderman.atlassian.net/wiki/spaces/TRA/pages/22184266\" rel=\"nofollow\">Query Python API</a>.</p><p>Wranglers, admins, and anyone else confortable on the command line will enjoy the power of the command line tool <a href=\"https://renderman.atlassian.net/wiki/spaces/TRA/pages/22184306\" rel=\"nofollow\">tq</a>.</p><p>Admins can explore advanced customization techniques in the <a href=\"https://renderman.atlassian.net/wiki/spaces/TRA/pages/22184210\" rel=\"nofollow\">Configuration</a> section.</p>"
+    }
+  },
+  "title": "Your First Job",
+  "id": "22184278",
+  "_links": {
+    "editui": "/pages/resumedraft.action?draftId=22184278",
+    "webui": "/spaces/TRA/pages/22184278/Your+First+Job",
+    "edituiv2": "/spaces/TRA/pages/edit-v2/22184278",
+    "tinyui": "/x/VoFSAQ",
+    "base": "https://renderman.atlassian.net/wiki"
+  }
+}

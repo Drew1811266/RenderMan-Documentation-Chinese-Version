@@ -1,0 +1,50 @@
+{"item_id": "2b86c13f54:0", "source": "RenderMan allows for creating complex looks through layering materials. This means effects like car paint, labels on bottles, dirt or mud, can all be layered efficiently for rendering."}
+{"item_id": "2b86c13f54:1", "source": "Below you can find a step by step example of creating a patina on a bronze statue that is then composited into a plate. At the end of the page there's a file package for you to try!"}
+{"item_id": "2b86c13f54:2", "source": "Step 1"}
+{"item_id": "2b86c13f54:3", "source": ": To begin you should assign a"}
+{"item_id": "2b86c13f54:4", "source": "PxrLayerSurface"}
+{"item_id": "2b86c13f54:5", "source": "material to your object. This tells RenderMan which materials will be rendered for the assigned object. Leave it at default unless you prefer a different specular model. This must be changed in the assigned PxrLayerSurface. GGX is chosen as the specular model for this example. In Maya we automatically create a base and upper layer."}
+{"item_id": "2b86c13f54:6", "source": "Since we create an upper layer for the user in Maya when selecting PxrLayerSurface, it should be disabled in the PxrLayerMixer so you can see the base layer as you work."}
+{"item_id": "2b86c13f54:7", "source": "From here planning is very important to avoid duplicating work and making your material network as simple and useful as possible. In researching adding a real-life patina to copper and other metals, you will find it's a multi-stage project with different methods. Anything from heating the metal to produce different colors (a look easily achieved through PxrLayer Iridescence) to vinegar and salt used to create a crust on the metal, which is a look we'll experiment with here."}
+{"item_id": "2b86c13f54:8", "source": "Two basic layers of materials are needed:"}
+{"item_id": "2b86c13f54:9", "source": "A metal layer like bronze or copper"}
+{"item_id": "2b86c13f54:10", "source": "A patina, a diffuse layer that's a bit crusty and blue-green in color"}
+{"item_id": "2b86c13f54:11", "source": "Below are the layers seen separately."}
+{"item_id": "2b86c13f54:12", "source": "Step 2"}
+{"item_id": "2b86c13f54:13", "source": ": Use the"}
+{"item_id": "2b86c13f54:14", "source": "PxrLayerMixer"}
+{"item_id": "2b86c13f54:15", "source": "and be sure it's connected to the Input Material of the PxrLayerSurface. Technically: PxrLayerMixer.pxrMaterialOut -> PxrLayerSurface.inputMaterial  A simple middle mouse button drag in Maya works if doing this manually."}
+{"item_id": "2b86c13f54:16", "source": "This sets up our node where we will be connecting everything. It's very simple using a"}
+{"item_id": "2b86c13f54:17", "source": "Base"}
+{"item_id": "2b86c13f54:18", "source": "and then layering each additional PxrLayer on top and in order from 1 to 4. Also note you can connect other PxrLayerMixers into the Layers for using collections of looks and masking them together. This is great if you want to reuse networks somewhere else. For this example we're just using two layers, the Base and Layer 1."}
+{"item_id": "2b86c13f54:19", "source": "Step 3"}
+{"item_id": "2b86c13f54:20", "source": ": The Copper/Bronze is accomplished by using the"}
+{"item_id": "2b86c13f54:21", "source": "PxrLayer"}
+{"item_id": "2b86c13f54:22", "source": "connected to the PxrLayerMixer as the"}
+{"item_id": "2b86c13f54:23", "source": "Base"}
+{"item_id": "2b86c13f54:24", "source": ". You can begin adjusting this for your base look. To make copper we are overriding the specular and diffuse properties. It's also useful to add a bump here so the copper has a nice texture to it."}
+{"item_id": "2b86c13f54:25", "source": "Explanation of settings: These are somewhat arbitrary since they are art directed, but we're looking for an older dull copper or bronze look that holds up after being layered. Here you see Diffuse and Primary Specular"}
+{"item_id": "2b86c13f54:26", "source": "Enabled"}
+{"item_id": "2b86c13f54:27", "source": ". Remember, this PxrLayer is now our base so we don't require changing anything in the PxrLayerSurface material assigned to the object. This allows flexible rearrangement and changes to the materials and layers should your needs change."}
+{"item_id": "2b86c13f54:28", "source": "The material look is largely controlled through the colors in the diffuse and face color parameters. Each of these has a modified Maya Crater pattern to provide the color with some variation. A Maya Noise pattern is used to control roughness and passed through a PxrClamp so that the roughness is in a useful range. Again, you can select whatever patterns or hand painted textures you want to make most anything!"}
+{"item_id": "2b86c13f54:29", "source": "Step 4"}
+{"item_id": "2b86c13f54:30", "source": ": The patina is a basic diffuse color with some diffuse roughness. Below are the settings."}
+{"item_id": "2b86c13f54:31", "source": "Explanation of settings: The color is sampled from a real image and tweaked some. This is then used in a Maya Crater Pattern for some variation. The roughness helps bring out the \"powdery\" look from the patina crust. The previous bump pattern is used again in this layer to be consistent but you could actually use a different one here to really improve the realism."}
+{"item_id": "2b86c13f54:32", "source": "Step 5"}
+{"item_id": "2b86c13f54:33", "source": ": Your patina layer is Layer 1 of your PxrLayerMixer. Note that Layer 1 is enabled by default at creation, but none of the other layers. When tuning the look of the base (above) we had set this to disabled to avoid obscuring the base."}
+{"item_id": "2b86c13f54:34", "source": "There's no mask, so this override completely covers the"}
+{"item_id": "2b86c13f54:35", "source": "Base"}
+{"item_id": "2b86c13f54:36", "source": "layer. We need to make a mask pattern of some form."}
+{"item_id": "2b86c13f54:37", "source": "Step 6"}
+{"item_id": "2b86c13f54:38", "source": ": We can accomplish this very easily using textures, but we may also make use of the"}
+{"item_id": "2b86c13f54:39", "source": "PxrDirt"}
+{"item_id": "2b86c13f54:40", "source": "node to control where the patina and metal are seen. At the beginning you see the weathering pattern produced by the PxrDirt node and a noise pattern. The Bias Normal for the PxrDirt node is 50.0 in Y to stretch out the result vertically as if rain and weathering has run down the statue. Below is the resulting mask rendered alone from a tweaked PxrDirt. The unoccluded color is driven by a PxrFractal and PxrGamma to break up the result some and control the strength respectively."}
+{"item_id": "2b86c13f54:41", "source": "Step 7"}
+{"item_id": "2b86c13f54:42", "source": ": PxrDirt outputs a color, you can connect the Red result to the Layer 1 mask or use a PxrToFloat node in between. Then render!"}
+{"item_id": "2b86c13f54:43", "source": "The images were taken in Seattle, Washington USA."}
+{"item_id": "2b86c13f54:44", "source": "The model is free from"}
+{"item_id": "2b86c13f54:45", "source": "Three D Scans"}
+{"item_id": "2b86c13f54:46", "source": "."}
+{"item_id": "2b86c13f54:47", "source": "The HDRI is a bit fuzzy thanks to some winds blowing our tiny camera."}
+{"item_id": "2b86c13f54:48", "source": "You can download me here:"}
+{"item_id": "2b86c13f54:49", "source": "layeredExample.zip"}

@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>JSON Job Scripting</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>JSON Job Scripting</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/TRA/22184264/JSON+Job+Scripting">https://rmanwiki-27.pixar.com/space/TRA/22184264/JSON+Job+Scripting</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="document"><div class="section"><h3 id="JSONJobScripting-Synopsis">Synopsis</h3><p>Tractor Job files are often represented as <a href="/wiki/spaces/TRA/pages/22184254/Job+Scripting" data-linked-resource-id="22184254" data-linked-resource-version="25" data-linked-resource-type="page">special purpose TCL scripts</a> using additional job definition operators recognized by the Tractor job parser. This format was first introduced for the Alfred system, and Tractor remains compatible with nearly all Alfred constructs.</p><p>Tractor also supports an evolving set of JSON job specification formats, described here.</p><p> </p></div><div class="section"><h3 id="JSONJobScripting-Introduction">Introduction</h3><p>Job scripts describe the work to be dispatched and monitored by Tractor. They are typically created by plug-ins in content-creation applications as they spool new rendering jobs. Thus the following syntax discussion will probably be useful only to people developing Tractor-compliant applications.</p><p>However, there is a very <strong>simple way to generate a basic Tractor job</strong> from the command-line or within a shell script. The tractor-spool command-line tool is used to send job scripts into the job queue managed by tractor-engine. You can also cause tractor-spool to generate a simple job script directly:</p><pre style="margin-left: 25.0px;" class="literal-block">tractor-spool -c prman /home/yoda/new_idea.rib
+</pre><p>Any text after the -c is wrapped in a job definition and will be sent to an available tractor-blade server on the farm. There are a variety of <a href="/wiki/spaces/TRA/pages/22184276/tractor-spool" data-linked-resource-id="22184276" data-linked-resource-version="25" data-linked-resource-type="page">additional command-line options</a> that can be used to modify the specifics of the job.</p><p>Job scripts support a simple hierarchical structuring scheme that can encode dependencies that, in turn, determine the order of task execution.</p><p> </p><div class="section"><h4 id="JSONJobScripting-AJSONJobExample">A JSON Job Example</h4><p>Here is a simple script that defines an example task hierarchy. Assume we have two shadow maps to compute, and a final frame that references them; in this case the shadow maps must be completed before rendering can begin on the final frame.</p><pre style="margin-left: 25.0px;" class="literal-block">{  &quot;TractorJob&quot;: &quot;2.0&quot;,
+   &quot;data&quot;: {
+      &quot;title&quot;: &quot;a very short film&quot;,
+      &quot;priority&quot;: 1.0,
+      &quot;spoolcwd&quot;: &quot;/private/tmp&quot;,
+      &quot;spooldate&quot;: &quot;2014-03-11 12:06:55&quot;,
+      &quot;spoolfile&quot;: &quot;x.job&quot;,
+      &quot;spoolhost&quot;: &quot;h2o&quot;,
+      &quot;spooltime&quot;: 1394564815,
+      &quot;tags&quot;: &quot;&quot;,
+      &quot;metadata&quot;: &quot;&quot;,
+      &quot;comment&quot;: &quot;&quot;,
+      &quot;envkey&quot;: [],
+      &quot;projects&quot;: [&quot;theFilm&quot;],
+   },
+   &quot;children&quot;: [
+      {
+         &quot;data&quot;: {
+            &quot;title&quot;: &quot;Frame One&quot;,
+            &quot;commands&quot;: [
+               {
+                 &quot;argv&quot;: [&quot;render&quot;, &quot;beauty.1.rib&quot;],
+                 &quot;service&quot;: &quot;PixarRender&quot;
+                 &quot;type&quot;: &quot;RC&quot;,
+               }
+            ]
+         }
+         &quot;children&quot;: [
+            {
+               &quot;data&quot;: {
+                  &quot;title&quot;: &quot;Shadow A&quot;,
+                  &quot;commands&quot;: [
+                     {
+                       &quot;argv&quot;: [&quot;render&quot;, &quot;light.1.rib&quot;],
+                       &quot;service&quot;: &quot;PixarRender&quot;
+                       &quot;type&quot;: &quot;RC&quot;,
+                     }
+                  ]
+               }
+            },
+            {
+               &quot;data&quot;: {
+                  &quot;title&quot;: &quot;Shadow B&quot;,
+                  &quot;commands&quot;: [
+                     {
+                       &quot;argv&quot;: [&quot;render&quot;, &quot;light.2.rib&quot;],
+                       &quot;service&quot;: &quot;PixarRender&quot;
+                       &quot;type&quot;: &quot;RC&quot;,
+                     }
+                  ]
+               }
+            }
+
+         ]
+
+      }
+   ]
+}
+</pre><p>This job script describes a two-level execution tree in which the task named <em>Scene One</em> will launch its command (render frame.1.rib) after the two tasks upon which it depends have completed successfully (the <em>Shadow</em>s). The nested task descriptions define the (depth-first) order of execution; hence, the render command for light.1.rib is launched first, then the one for light.2.rib follows. Then, when they are both complete, frame.1.rib is rendered. Commands are launched as separate sub-processes, in the order that they appear in the script.</p><p>Note that the two shadow commands are not dependent on each other, i.e. they aren't nested with respect to each other; hence, they represent a parallel processing opportunity. Given sufficient resources, Tractor will typically launch both commands and allow them to execute concurrently. Hence, the script defines a <em>launching order</em>, some commands may still be running when another is launched, and these concurrent commands may complete in any order. In no case, however, will a Task launch its own commands until <em>all</em> of its sub-tasks have completed their commands successfully.</p><p>The assumptions made in this example are:</p><ul class="simple"><li>that there is an executable named <em>render</em> somewhere in the current search path.</li><li>that the two shadow map images are created on disk where frame.1.rib expects to find them (i.e. file system references within those the RIB files are consistent).</li></ul><p>Tractor will <em>not</em> attempt to confirm these sorts of assumptions, that is the domain of the job generator. If an error does occur, the task becomes blocked, the corresponding UI widget converts to the error state, and all tasks that depend upon the broken one will remain unexecuted (others that have no dependency on it may proceed however).</p><p>Things to note about Tasks:</p><ul class="simple"><li>the title string will appear in the Dashboard, so it's handy to choose a brief but descriptive title.</li><li>child tasks are listed in the -subtasks field; if there are no dependencies it can be empty or missing.</li><li>the RemoteCmd list in the -cmds field describes the actual actions to take when the dependencies have been met; it can be empty or missing; it can also contain multiple (newline separated) RemoteCmds, which will be processed in sequence.</li></ul></div></div></div>
+  </article>
+</main>
+</body>
+</html>

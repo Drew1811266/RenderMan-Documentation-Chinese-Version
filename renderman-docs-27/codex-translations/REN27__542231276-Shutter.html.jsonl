@@ -1,0 +1,18 @@
+{"item_id":"f5562b3734:0","text":"快门的开启和闭合速率由 shutterOpenTime、shutterCloseTime 和 shutteropening RiCamera 属性控制。快门区间由传给 RiShutter 的值决定。在快门归一化时间中，快门区间会映射到 [0,1]。指定 shutterOpenTime 和 shutterCloseTime 后，在 RIB 中会如下所示："}
+{"item_id":"f5562b3734:1","text":"Camera \"world\" \"float shutterOpenTime\" [opentime] \"float shutterCloseTime\" [closetime]"}
+{"item_id":"f5562b3734:2","text":"快门从时间 0 开始开启。opentime 是它达到完全开启的时间。在 opentime 和 closetime 之间，快门保持完全开启。到 closetime 时，快门开始闭合，并在时间 1 时完全闭合。"}
+{"item_id":"f5562b3734:3","text":"下图显示一个蓝色球体从画面左侧移动到画面右侧。摄影机快门会瞬时开启和闭合；如果没有给出 shutteropening，这就是默认行为。为了让模糊更明显，球体被人为调亮。由于快门在整个快门区间内完全开启，运动采样会均匀分布，从而产生恒定模糊："}
+{"item_id":"f5562b3734:4","text":"通过把 shutterOpenTime 和 shutterCloseTime 参数设置为 [0.0]，我们可以让快门仍然瞬时开启，但随后用 0 到 1 之间的时间以恒定速度闭合。这会在球体运动开始时，也就是画面左侧，生成最多的采样；随着它穿过画面，采样逐渐减少，使模糊向画面右侧淡出。"}
+{"item_id":"f5562b3734:5","text":"Camera \"world\" \"float shutterOpenTime\" [0.0] \"float shutterCloseTime\" [0.0]"}
+{"item_id":"f5562b3734:6","text":"让这个快门用整个区间完成开启、随后瞬时闭合，会得到相反的图像效果：模糊会随着球体运动逐渐淡入。"}
+{"item_id":"f5562b3734:7","text":"Camera \"world\" \"float shutterOpenTime\" [1.0] \"float shutterCloseTime\" [1.0]"}
+{"item_id":"f5562b3734:8","text":"由于真实摄影机快门不可能无限快地运动，它们通常会花费一段非零时间开启，保持开启一小段时间，然后再花费一段非零时间闭合。我们可以这样建模：让快门在 0 到 0.35 之间开启，在 0.35 到 0.65 之间完全开启，并在 0.65 到 1 之间闭合。"}
+{"item_id":"f5562b3734:9","text":"Camera \"world\" \"float shutterOpenTime\" [0.35] \"float shutterCloseTime\" [0.65]"}
+{"item_id":"f5562b3734:10","text":"为了更准确地近似真实摄影机快门，我们可以放宽“以恒定速率开启和闭合”的限制，并建模快门开始开启时的加速，以及它接近完全开启或完全闭合位置时的减速。为此，需要更复杂的参数化描述："}
+{"item_id":"f5562b3734:11","text":"Camera \"world\" \"float shutterOpenTime\" [a] \"float shutterCloseTime\" [b] \"float[8] shutteropening\" [c1 c2 d1 d2 e1 e2 f1 f2]"}
+{"item_id":"f5562b3734:12","text":"shutteropening 的 8 个参数表示图上一条代表快门运动的曲线上的四个点："}
+{"item_id":"f5562b3734:13","text":"点 c1,c2 和 d1,d2 必须位于以 (0,0) 与 (opentime,1) 为角点的轴对齐矩形内，并且它们是 Bezier 曲线段的控制点。同样，e1,e2 和 f1,f2 是 (closetime,1) 到 (1,0) 之间一条 Bezier 曲线的控制点，并且必须位于以这些点为角点的轴对齐矩形内。此外，Bezier 曲线本身必须是一个函数，也就是说，在定义的曲线段内它的斜率绝不能为无限大。"}
+{"item_id":"f5562b3734:14","text":"下面这些图像显示快门用整个区间完成开启的情况。第一张与前面相同，快门以恒定速率开启。第二张把 Bezier 曲线段向下弯曲，使快门一开始非常缓慢地开启，并在整个开启区间内持续加速，直到最终完全开启时速度很快。这会把运动采样分布进一步推向快门区间末端，因此区间开始处的拖影不那么明显，并且亮度会更急剧地增强。"}
+{"item_id":"f5562b3734:15","text":"Camera \"world\" \"float shutterOpenTime\" [1] \"float shutterCloseTime\" [1] \"float[8] shutteropening\" [0 0 1 1 1 1 1 1]"}
+{"item_id":"f5562b3734:16","text":"Camera \"world\" \"float shutterOpenTime\" [1] \"float shutterCloseTime\" [1] \"float[8] shutteropening\" [0.8 0.1 0.9 0.2 1 1 1 1]"}
+{"item_id":"f5562b3734:17","text":"更陡峭的快门开启曲线会保留运动对象更多的静态形状，审美效果也可能更理想。"}

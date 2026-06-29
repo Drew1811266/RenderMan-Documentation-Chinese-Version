@@ -1,0 +1,406 @@
+{"item_id":"93a3f0d13d:0","text":"PrmanGlobalStatements 节点是 RenderMan 专用节点，包含用于配置 RenderMan 全局 Options（选项）的 attributes。"}
+{"item_id":"93a3f0d13d:1","text":"PrmanGlobalStatements attribute 与其对应的 RenderMan option 通常是一一映射关系。此外，还有若干 RfK 专用 plugin control options，下面会详细列出。"}
+{"item_id":"93a3f0d13d:2","text":"Common（通用）"}
+{"item_id":"93a3f0d13d:3","text":"Baking（烘焙）"}
+{"item_id":"93a3f0d13d:4","text":"Shading（着色）"}
+{"item_id":"93a3f0d13d:5","text":"Dicing（细分）"}
+{"item_id":"93a3f0d13d:6","text":"Display（显示）"}
+{"item_id":"93a3f0d13d:7","text":"Statistics（统计）"}
+{"item_id":"93a3f0d13d:8","text":"Configuration（配置）"}
+{"item_id":"93a3f0d13d:9","text":"RIB"}
+{"item_id":"93a3f0d13d:10","text":"OSL"}
+{"item_id":"93a3f0d13d:11","text":"Volumes（体积）"}
+{"item_id":"93a3f0d13d:12","text":"Common（通用）"}
+{"item_id":"93a3f0d13d:13","text":"Name（名称）"}
+{"item_id":"93a3f0d13d:14","text":"Type（类型）"}
+{"item_id":"93a3f0d13d:15","text":"Default（默认值）"}
+{"item_id":"93a3f0d13d:16","text":"Description（说明）"}
+{"item_id":"93a3f0d13d:17","text":"hider:adaptall"}
+{"item_id":"93a3f0d13d:18","text":"int"}
+{"item_id":"93a3f0d13d:19","text":"启用所有 AOVs 的 adaptive sampling（自适应采样）。启用后，在判断 pixel 是否收敛时会考虑所有 channels（beauty pass + AOVs）。默认值（off）会忽略 AOVs，只考虑 beauty pass 的 pixel convergence。因此，如果某些 AOVs 从未达到指定 variance threshold，关闭 \"adaptall\" 可能会加快渲染。Value range（取值范围）：true/false。"}
+{"item_id":"93a3f0d13d:20","text":"hider:adaptivemetric"}
+{"item_id":"93a3f0d13d:21","text":"string"}
+{"item_id":"93a3f0d13d:22","text":"variance"}
+{"item_id":"93a3f0d13d:23","text":"指定用于驱动 adaptive sampling 的 metric。\"contrast\" 测量一个 pixel 中 samples 之间的 contrast。\"variance\" 测量一个 pixel 中 samples 的 variance。\"halfbuffer\" 将 samples 分成两类，并测量两个 sample classes 各自平均值之间的差异。\"contrast-v22\" 使用 RenderMan 22 及更早版本的 relative contrast computation。\"variance-v22\" 使用 RenderMan 22 及更早版本的 relative variance computation。Supported values（支持的值）：contrast、variance、halfbuffer、contrast-v22、variance-v22。"}
+{"item_id":"93a3f0d13d:24","text":"hider:bluenoise"}
+{"item_id":"93a3f0d13d:25","text":"int"}
+{"item_id":"93a3f0d13d:26","text":"用于控制 samples 是否应具有视觉上令人满意的 blue noise distribution 的设置。Default（默认值）为 1（on）。如果相邻 pixels 中的 samples 需要完全 decorrelated，则设为 0（off）。Value range（取值范围）：true/false。"}
+{"item_id":"93a3f0d13d:27","text":"hider:darkfalloff"}
+{"item_id":"93a3f0d13d:28","text":"float"}
+{"item_id":"93a3f0d13d:29","text":"在 adaptive sampler 中降低 low luminance samples 的优先级。使用此参数可避免对暗部区域过度采样，同时保持整体 image quality。较高值会剔除更多 samples，加快 render time，但会增加暗部区域 noise。Value range（取值范围）：0 到 1。"}
+{"item_id":"93a3f0d13d:30","text":"hider:decidither"}
+{"item_id":"93a3f0d13d:31","text":"int"}
+{"item_id":"93a3f0d13d:32","text":"interactive rendering 允许的最大 pixel decimation rate。在快速编辑重型 scenes 且此设置非零时，renderer 会尝试用类似 dissolve 的效果逐步更新整个屏幕，以减少 tearing。将其设为 zero 可禁用此行为，并强制它完整更新能处理到的 buckets。Value range（取值范围）：0 到 6。"}
+{"item_id":"93a3f0d13d:33","text":"hider:exposurebracket"}
+{"item_id":"93a3f0d13d:34","text":"float[2]"}
+{"item_id":"93a3f0d13d:35","text":"post-production 中用于帮助指导 adaptive sampling 的预期 exposure Bracket [min max]。"}
+{"item_id":"93a3f0d13d:36","text":"hider:extrememotiondof"}
+{"item_id":"93a3f0d13d:37","text":"int"}
+{"item_id":"93a3f0d13d:38","text":"启用改进的 sampling accuracy。在某些同时使用大量 motion blur 和 depth of field 的情况下，sampling artifacts 可能导致不理想结果。此 flag 会使用较慢但更准确的 sampling method 来缓解 artifacts。由于这种 sampling method 会降低性能，因此只应在必要时使用此 flag。Value range（取值范围）：true/false。"}
+{"item_id":"93a3f0d13d:39","text":"hider:geomShadowTermBias"}
+{"item_id":"93a3f0d13d:40","text":"int"}
+{"item_id":"93a3f0d13d:41","text":"此设置控制何时计算并向 Poly Meshes 应用 bias，以避免 geometric shadow terminator artifacts；这些 artifacts 会出现在 shading points 从 light 看相对于 shading normal 可见、但相对于 geometric normal 不可见的情况下。默认值为 1（on）。如果不希望将此 bias 应用于 scene 中的 Poly Meshes，请设为 0（off）。Value range（取值范围）：true/false。"}
+{"item_id":"93a3f0d13d:42","text":"hider:incremental"}
+{"item_id":"93a3f0d13d:43","text":"int"}
+{"item_id":"93a3f0d13d:44","text":"启用结果的 progressive display（渐进显示），而不是 bucketed results。Value range（取值范围）：true/false。"}
+{"item_id":"93a3f0d13d:45","text":"hider:jitter"}
+{"item_id":"93a3f0d13d:46","text":"int"}
+{"item_id":"93a3f0d13d:47","text":"此 option 切换 camera samples 中的 jitter（variation）。默认情况下，此 hider option 已启用（设为 1），意味着 camera samples 会随机放置在 pixel location 中。关闭时，camera rays 会放置在 pixel 中心。关闭后，surface edges 会显得 aliased 和 jagged。Value range（取值范围）：true/false。"}
+{"item_id":"93a3f0d13d:48","text":"hider:maxsamples"}
+{"item_id":"93a3f0d13d:49","text":"int"}
+{"item_id":"93a3f0d13d:50","text":"samples 数量的显式限制。如果 maxsamples 等于其默认值，则最大 samples 数将设为 64。注意 minsamples 默认等于 maxsamples 设置的平方根。Value range（取值范围）：0 或更大。"}
+{"item_id":"93a3f0d13d:51","text":"hider:minextrasamples"}
+{"item_id":"93a3f0d13d:52","text":"int"}
+{"item_id":"93a3f0d13d:53","text":"这是一个 sample 未通过 adaptive sampler 的 convergence test 后，pixel 应继续发射的最小 extra samples 数。默认匹配 minsamples。"}
+{"item_id":"93a3f0d13d:54","text":"hider:minsamples"}
+{"item_id":"93a3f0d13d:55","text":"int"}
+{"item_id":"93a3f0d13d:56","text":"指定 adaptive sampling 的最小 samples 数。默认值是 maxsamples 的平方根。"}
+{"item_id":"93a3f0d13d:57","text":"hider:pixelfiltermode"}
+{"item_id":"93a3f0d13d:58","text":"string"}
+{"item_id":"93a3f0d13d:59","text":"importance"}
+{"item_id":"93a3f0d13d:60","text":"指定如何执行 camera samples 的 pixel filtering。\"Importance\"（默认值）会在 screen space 中围绕 pixel center warp samples，并且不在 pixels 之间共享 sample results。某些 postprocessing algorithms（例如 denoisers）需要 \"Importance\"，要获得 blue-noise samples 的视觉收益也需要它；生成 variance AOVs 也需要它。\"Weighted\" 是较旧的方法，会混合相邻 pixels 的 sample results。Supported values（支持的值）：weighted、importance。"}
+{"item_id":"93a3f0d13d:61","text":"hider:samplemotion"}
+{"item_id":"93a3f0d13d:62","text":"int"}
+{"item_id":"93a3f0d13d:63","text":"此 option 切换 hider 中 motion blurred micropolygon 的 sampling，因此只有在 scene 使用 motion blur 时才有意义。默认情况下，此 hider option 已启用（设为 1），意味着 micropolygons 会在 hider 中被 blur 并采样。禁用时（设为 0），micropolygons 在采样前不再 blur；不过仍会为所有 objects 计算 dPdtime variable。此 variable 可以作为 arbitrary output variable（aov）输出到单独 image，并用于作为 postprocess 执行 motion blur。Value range（取值范围）：true/false。"}
+{"item_id":"93a3f0d13d:64","text":"hider:sampleoffset"}
+{"item_id":"93a3f0d13d:65","text":"int"}
+{"item_id":"93a3f0d13d:66","text":"这允许并行渲染多张 images（使用不同的 sampleoffset values），然后将它们合并。使用 non-adaptive sampling 时：假设用 sampleoffsets 0、256、512 和 768 分别渲染四张 images，每张 256 samples。如果合并这四张 images，将得到与渲染一张 1024 samples image 完全相同的结果。使用 adaptive sampling 时：假设再次渲染四张 images，每张的 \"maxsamples\" 为 256，sampleoffsets 为 0、256、512 和 768。假设由于 adaptive sampling，某个 pixel 在四张 images 中各只获得 64 pixel samples。那么合并后的 image 使用 sample numbers 0-63、256-319、512-575 和 768-831 渲染。由于 samples 的 stratification，这不如渲染一张具有 256 个 consecutive samples 的 image 那么好。不过，它仍优于只用 64 samples 渲染单张 image。"}
+{"item_id":"93a3f0d13d:67","text":"hider:samplestride"}
+{"item_id":"93a3f0d13d:68","text":"int"}
+{"item_id":"93a3f0d13d:69","text":"这有助于并行渲染多张 images（使用相同的 aamplestride 但不同的 sampleoffset），并在 interactive rendering 期间逐步合并它们。Default value（默认值）为 1。使用 non-adaptive sampling 时：假设用 samplestride 4 和 sampleoffsets 0、1、2、3 分别渲染四张 images，每张 256 samples。如果合并这四张 images，将得到与渲染一张 1024 samples image 完全相同的结果，并且在 incremental/interactive rendering 期间可以最好地利用 stratified progressive sample sequences。如果能在 interactive rendering 期间用 samples 0-3、4-7、8-12 等 \"assemble\" images，就可以获得更快渲染的收益，而不必一开始就跳到高 samples。使用 adaptive sampling 时：假设再次渲染四张 images，每张的 \"maxsamples\" 为 256，samplestride 为 4，sampleoffsets 为 0、1、2、3。这次使用 adaptive sampling（PixelVariance > 0）。由于四张 images 中每张都比合并 image 更 noisy，adaptive sampling 在判定 image error 可接受之前会使用比单张 image 渲染更多的 samples。因此可能需要调整 PixelVariance 设置。"}
+{"item_id":"93a3f0d13d:70","text":"hider:type"}
+{"item_id":"93a3f0d13d:71","text":"string"}
+{"item_id":"93a3f0d13d:72","text":"raytrace"}
+{"item_id":"93a3f0d13d:73","text":"Render mode。Supported values（支持的值）：raytrace、bake。"}
+{"item_id":"93a3f0d13d:74","text":"Ri:Frame"}
+{"item_id":"93a3f0d13d:75","text":"int"}
+{"item_id":"93a3f0d13d:76","text":"Frame number（帧号）。"}
+{"item_id":"93a3f0d13d:77","text":"Ri:PixelVariance"}
+{"item_id":"93a3f0d13d:78","text":"float"}
+{"item_id":"93a3f0d13d:79","text":"控制 adaptive sampling。这会设置 pixel values 相对于 true pixel values 的 acceptable estimated variance 的上限。Value range（取值范围）：0 到 1。"}
+{"item_id":"93a3f0d13d:80","text":"Ri:Shutter"}
+{"item_id":"93a3f0d13d:81","text":"float[2]"}
+{"item_id":"93a3f0d13d:82","text":"Scene motion shutter。"}
+{"item_id":"93a3f0d13d:83","text":"Shutter:offset"}
+{"item_id":"93a3f0d13d:84","text":"float"}
+{"item_id":"93a3f0d13d:85","text":"偏移 shutter 的 open/close 时间。"}
+{"item_id":"93a3f0d13d:86","text":"Baking（烘焙）"}
+{"item_id":"93a3f0d13d:87","text":"Name（名称）"}
+{"item_id":"93a3f0d13d:88","text":"Type（类型）"}
+{"item_id":"93a3f0d13d:89","text":"Default（默认值）"}
+{"item_id":"93a3f0d13d:90","text":"Description（说明）"}
+{"item_id":"93a3f0d13d:91","text":"hider:bakebboxmax"}
+{"item_id":"93a3f0d13d:92","text":"point"}
+{"item_id":"93a3f0d13d:93","text":"1e30 1e30 1e30"}
+{"item_id":"93a3f0d13d:94","text":"用于 3D point clouds 的 \"integrator\" baking 的 bounding box max（也用于 \"all\" baking 中的 integrator 部分）。位于 world space。对于 \"pattern\" baking 和 2D baking 会被忽略。"}
+{"item_id":"93a3f0d13d:95","text":"hider:bakebboxmin"}
+{"item_id":"93a3f0d13d:96","text":"point"}
+{"item_id":"93a3f0d13d:97","text":"-1e30 -1e30 -1e30"}
+{"item_id":"93a3f0d13d:98","text":"用于 3D point clouds 的 \"integrator\" baking 的 bounding box min（也用于 \"all\" baking 中的 integrator 部分）。位于 world space。对于 \"pattern\" baking 和 2D baking 会被忽略。"}
+{"item_id":"93a3f0d13d:99","text":"hider:bakemode"}
+{"item_id":"93a3f0d13d:100","text":"string"}
+{"item_id":"93a3f0d13d:101","text":"pattern"}
+{"item_id":"93a3f0d13d:102","text":"指定 renderer 应 bake Pattern results、Integrator results，还是两者都 bake。Supported values（支持的值）：pattern、integrator、all。"}
+{"item_id":"93a3f0d13d:103","text":"hider:bakeudimoffset"}
+{"item_id":"93a3f0d13d:104","text":"int"}
+{"item_id":"93a3f0d13d:105","text":"烘焙 udims 子集时的 offset。与 bakeudimstride 配合使用。Default 0 表示当 bakeudimstride 为 1 时烘焙所有 udims。"}
+{"item_id":"93a3f0d13d:106","text":"hider:bakeudimstride"}
+{"item_id":"93a3f0d13d:107","text":"int"}
+{"item_id":"93a3f0d13d:108","text":"烘焙 udims 子集时的 stride。Default 1 表示烘焙所有 udims。"}
+{"item_id":"93a3f0d13d:109","text":"hider:invert"}
+{"item_id":"93a3f0d13d:110","text":"int"}
+{"item_id":"93a3f0d13d:111","text":"指定烘焙 integrator results 时是否 invert T texture coordinate。Value range（取值范围）：true/false。"}
+{"item_id":"93a3f0d13d:112","text":"hider:primvar"}
+{"item_id":"93a3f0d13d:113","text":"string[2]"}
+{"item_id":"93a3f0d13d:114","text":"st,"}
+{"item_id":"93a3f0d13d:115","text":"指定烘焙 integrator results 时使用的 dicing manifold。"}
+{"item_id":"93a3f0d13d:116","text":"Shading（着色）"}
+{"item_id":"93a3f0d13d:117","text":"Name（名称）"}
+{"item_id":"93a3f0d13d:118","text":"Type（类型）"}
+{"item_id":"93a3f0d13d:119","text":"Default（默认值）"}
+{"item_id":"93a3f0d13d:120","text":"Description（说明）"}
+{"item_id":"93a3f0d13d:121","text":"lighting:minimumestimate"}
+{"item_id":"93a3f0d13d:122","text":"float"}
+{"item_id":"93a3f0d13d:123","text":"1e-6"}
+{"item_id":"93a3f0d13d:124","text":"light selection 的 minimum estimate。estimate 低于此值的 local lights 会被忽略。增大此值可能有助于加快 direct lighting，但会牺牲 accuracy。"}
+{"item_id":"93a3f0d13d:125","text":"lighting:selectionlearningscheme"}
+{"item_id":"93a3f0d13d:126","text":"int"}
+{"item_id":"93a3f0d13d:127","text":"使用 machine learning algorithm 更准确地对 lights 进行 importance sample，并考虑 occlusion 和 light filters。Value range（取值范围）：true/false。"}
+{"item_id":"93a3f0d13d:128","text":"trace:bvhcompression"}
+{"item_id":"93a3f0d13d:129","text":"float"}
+{"item_id":"93a3f0d13d:130","text":"构建 ray accelerator 时，向系统提供倾向 memory utilization 还是 speed 的提示。Valid values 位于 [0, 1] 范围内，值越高，memory representation 越 compact。随着不同 strategies 被激活，此控制在 compression rate 上大体近似线性，但存在一些 discontinuities。获得的结果很可能依赖 scene。经验法则是，除非需要降低 memory utilization 以渲染特定 scene 或 sequence，否则将此控制保持为 0。调优时，先将控制设为 1，查看通过 compression 可节省多少 memory 以及生成什么 time overhead，然后将数值调回较低值（如果可能），以达到 speed 和 memory usage 之间的理想平衡。Value range（取值范围）：0 到 1。"}
+{"item_id":"93a3f0d13d:131","text":"trace:worldoffset"}
+{"item_id":"93a3f0d13d:132","text":"float[3]"}
+{"item_id":"93a3f0d13d:133","text":"当 worldorigin option 设为 \"worldoffset\" 时，用作 origin。"}
+{"item_id":"93a3f0d13d:134","text":"trace:worldorigin"}
+{"item_id":"93a3f0d13d:135","text":"string"}
+{"item_id":"93a3f0d13d:136","text":"camera"}
+{"item_id":"93a3f0d13d:137","text":"设置新的 world origin，以获得更好的 floating point precision。Supported values（支持的值）：world、worldoffset、camera。"}
+{"item_id":"93a3f0d13d:138","text":"Dicing（细分）"}
+{"item_id":"93a3f0d13d:139","text":"Name（名称）"}
+{"item_id":"93a3f0d13d:140","text":"Type（类型）"}
+{"item_id":"93a3f0d13d:141","text":"Default（默认值）"}
+{"item_id":"93a3f0d13d:142","text":"Description（说明）"}
+{"item_id":"93a3f0d13d:143","text":"curve:minwidth"}
+{"item_id":"93a3f0d13d:144","text":"float"}
+{"item_id":"93a3f0d13d:145","text":"raster coordinates 中的 minimum curve width。Value range（取值范围）：0 或更大。"}
+{"item_id":"93a3f0d13d:146","text":"dice:offscreenmultiplier"}
+{"item_id":"93a3f0d13d:147","text":"float"}
+{"item_id":"93a3f0d13d:148","text":"viewing frustum 外对象的 dicing rate multiplier。Value range（取值范围）：0 或更大。"}
+{"item_id":"93a3f0d13d:149","text":"dice:triangle"}
+{"item_id":"93a3f0d13d:150","text":"string"}
+{"item_id":"93a3f0d13d:151","text":"trim"}
+{"item_id":"93a3f0d13d:152","text":"用于 dicing \"triangles\" 的方法。默认方法 \"trim\" 通过修剪 quad 来渲染 triangles。\"blp\" 方法会渲染一个具有两个重合 points 的 quad。Supported values（支持的值）：trim、blp。"}
+{"item_id":"93a3f0d13d:153","text":"stitch:refwarning"}
+{"item_id":"93a3f0d13d:154","text":"int"}
+{"item_id":"93a3f0d13d:155","text":"启用 stitch warnings。Value range（取值范围）：true/false。"}
+{"item_id":"93a3f0d13d:156","text":"Display（显示）"}
+{"item_id":"93a3f0d13d:157","text":"Name（名称）"}
+{"item_id":"93a3f0d13d:158","text":"Type（类型）"}
+{"item_id":"93a3f0d13d:159","text":"Default（默认值）"}
+{"item_id":"93a3f0d13d:160","text":"Description（说明）"}
+{"item_id":"93a3f0d13d:161","text":"bucket:order"}
+{"item_id":"93a3f0d13d:162","text":"string"}
+{"item_id":"93a3f0d13d:163","text":"horizontal"}
+{"item_id":"93a3f0d13d:164","text":"Render bucket order。Supported values（支持的值）：horizontal、vertical、zigzag-x、zigzag-y、spacefill、random、spiral、circle。"}
+{"item_id":"93a3f0d13d:165","text":"bucket:orderorigin"}
+{"item_id":"93a3f0d13d:166","text":"int[2]"}
+{"item_id":"93a3f0d13d:167","text":"\"spiral\" 和 \"circle\" order 的 first bucket。Image center 为 [-1 -1]。"}
+{"item_id":"93a3f0d13d:168","text":"checkpoint:asfinal"}
+{"item_id":"93a3f0d13d:169","text":"int"}
+{"item_id":"93a3f0d13d:170","text":"启用后，在写入 render 的 final image 时会保留 extra channels 和 checkpoint tag。Final image 会与任何其他 checkpoint 相同，而不是瘦身后的 image。这意味着当 image 达到设置的 quality 并完成后，用户以后始终可以重新启动它。Value range（取值范围）：true/false。"}
+{"item_id":"93a3f0d13d:171","text":"checkpoint:command"}
+{"item_id":"93a3f0d13d:172","text":"string"}
+{"item_id":"93a3f0d13d:173","text":"empty（空）"}
+{"item_id":"93a3f0d13d:174","text":"checkpoint 后要调用的 system command。如果启用了 system calls，则在写入 checkpoint 后会调用指定 command。这是同步执行的；运行期间 rendering threads 会静止，并且在 process 返回前不会再次恢复，从而避免 command 耗时导致的潜在 race conditions。token %i 会替换为当前 increment，并以 5 位 zero-padded。token %e 会替换为 elapsed time（秒），并以 6 位 zero-padded。token %r 会替换为此次 checkpoint files 更新的 reason（要么完全 `finished`，要么因 exitat option 提前 `exiting`，要么是普通 `checkpoint`）。Literal % 字符可以用 %% 插入。"}
+{"item_id":"93a3f0d13d:175","text":"checkpoint:exitat"}
+{"item_id":"93a3f0d13d:176","text":"string"}
+{"item_id":"93a3f0d13d:177","text":"empty（空）"}
+{"item_id":"93a3f0d13d:178","text":"render 在写入 final checkpoint 并终止前应运行多久。Value 也可以是 \"10m\" 或 \"0.5h\" 这样的字符串。设为 0 或 empty 可禁用。"}
+{"item_id":"93a3f0d13d:179","text":"checkpoint:interval"}
+{"item_id":"93a3f0d13d:180","text":"string"}
+{"item_id":"93a3f0d13d:181","text":"empty（空）"}
+{"item_id":"93a3f0d13d:182","text":"每 N 个 progressive steps 将 framebuffers Write（写入）到磁盘。如果 value 为正，其单位会解释为 seconds。如果 value 为负，其单位会解释为 increments。Value 也可以是 \"10m\" 或 \"0.5h\" 这样的字符串。将 option 设为 0 或 empty 会禁用 checkpoints。"}
+{"item_id":"93a3f0d13d:183","text":"checkpoint:keepfiles"}
+{"item_id":"93a3f0d13d:184","text":"int"}
+{"item_id":"93a3f0d13d:185","text":"如果设为 true，prman 会为每个 checkpoint 写入一个新的编号 image。注意：这会禁用 checkpoint file 的 final write，这意味着 render 无法使用 'recover' option 恢复。Value range（取值范围）：true/false。"}
+{"item_id":"93a3f0d13d:186","text":"deep:flagvolumes"}
+{"item_id":"93a3f0d13d:187","text":"int"}
+{"item_id":"93a3f0d13d:188","text":"对于 dtex，Auto 为 off；其他情况下为 on。Supported values（支持的值）：Off (0)、Auto (1)、On (2)。"}
+{"item_id":"93a3f0d13d:189","text":"Ri:CropWindow"}
+{"item_id":"93a3f0d13d:190","text":"float[4]"}
+{"item_id":"93a3f0d13d:191","text":"NDC space 中的 crop window [left right top bottom]。"}
+{"item_id":"93a3f0d13d:192","text":"Ri:FormatPixelAspectRatio"}
+{"item_id":"93a3f0d13d:193","text":"float"}
+{"item_id":"93a3f0d13d:194","text":"Output image pixel aspect ratio。Value range（取值范围）：0 到 1。"}
+{"item_id":"93a3f0d13d:195","text":"Ri:FormatResolution"}
+{"item_id":"93a3f0d13d:196","text":"int[2]"}
+{"item_id":"93a3f0d13d:197","text":"Output image resolution。"}
+{"item_id":"93a3f0d13d:198","text":"Ri:FrameAspectRatio"}
+{"item_id":"93a3f0d13d:199","text":"float"}
+{"item_id":"93a3f0d13d:200","text":"Output image aspect ratio。"}
+{"item_id":"93a3f0d13d:201","text":"Ri:ScreenWindow"}
+{"item_id":"93a3f0d13d:202","text":"float[4]"}
+{"item_id":"93a3f0d13d:203","text":"Screen space 中的 screen window [left right top bottom]。"}
+{"item_id":"93a3f0d13d:204","text":"Statistics（统计）"}
+{"item_id":"93a3f0d13d:205","text":"Name（名称）"}
+{"item_id":"93a3f0d13d:206","text":"Type（类型）"}
+{"item_id":"93a3f0d13d:207","text":"Default（默认值）"}
+{"item_id":"93a3f0d13d:208","text":"Description（说明）"}
+{"item_id":"93a3f0d13d:209","text":"shade:chiangCompatibilityVersion"}
+{"item_id":"93a3f0d13d:210","text":"float"}
+{"item_id":"93a3f0d13d:211","text":"允许 PxrChiang 针对较旧版本 Bxdf 在 compatibility mode 下工作的设置，使不同版本的 renders 可以匹配其结果。默认值为 24.0。"}
+{"item_id":"93a3f0d13d:212","text":"shade:debug"}
+{"item_id":"93a3f0d13d:213","text":"int"}
+{"item_id":"93a3f0d13d:214","text":"Shading debug level。Value range（取值范围）：true/false。"}
+{"item_id":"93a3f0d13d:215","text":"shade:incorrectPointOpacityCalculation"}
+{"item_id":"93a3f0d13d:216","text":"int"}
+{"item_id":"93a3f0d13d:217","text":"使用旧方法组合 RiPoint falloff 与 presence 或 opacity。此问题已在 R25 中修复。设置此 option 会为兼容性目的回退到旧的、不正确的 behavior。此 option 会在 R26 中移除，并始终使用新的、正确的方法。Value range（取值范围）：true/false。"}
+{"item_id":"93a3f0d13d:218","text":"shade:roughnessmollification"}
+{"item_id":"93a3f0d13d:219","text":"float"}
+{"item_id":"93a3f0d13d:220","text":"Specular Roughness Mollification。它会在 diffuse 或 broad glossy reflections 之后的 secondary bounces 上，以及高度弯曲 surfaces 上，选择性增加 material roughness。这会减少 noise 和 fireflies，但也可能让 caustics 更模糊或完全消失。若想渲染 ground-truth caustics，请将此值设为 0.0。默认值为 1.0。"}
+{"item_id":"93a3f0d13d:221","text":"shade:shadowBumpTerminator"}
+{"item_id":"93a3f0d13d:222","text":"int"}
+{"item_id":"93a3f0d13d:223","text":"用于控制 non-hair bxdfs 中 bump shadow terminators 是否被 smoothing 的设置。Value range（取值范围）：true/false。"}
+{"item_id":"93a3f0d13d:224","text":"shade:subsurfaceTypeDefaultFromVersion24"}
+{"item_id":"93a3f0d13d:225","text":"int"}
+{"item_id":"93a3f0d13d:226","text":"使用 PxrSurface 'surfaceType' 参数的旧默认值。旧默认值为 0（Jensen dipole diffusion），新默认值为 5（path-traced subsurface scattering）。Value range（取值范围）：true/false。"}
+{"item_id":"93a3f0d13d:227","text":"statistics:displace_ratios"}
+{"item_id":"93a3f0d13d:228","text":"float[2]"}
+{"item_id":"93a3f0d13d:229","text":"抑制报告那些除以 max displacement 后落在指定范围内的 displacements。"}
+{"item_id":"93a3f0d13d:230","text":"statistics:filename"}
+{"item_id":"93a3f0d13d:231","text":"string"}
+{"item_id":"93a3f0d13d:232","text":"empty（空）"}
+{"item_id":"93a3f0d13d:233","text":"以 plain text 报告的 summary statistics 的 file name。"}
+{"item_id":"93a3f0d13d:234","text":"statistics:level"}
+{"item_id":"93a3f0d13d:235","text":"int"}
+{"item_id":"93a3f0d13d:236","text":"启用 statistics reporting。Value range（取值范围）：true/false。"}
+{"item_id":"93a3f0d13d:237","text":"statistics:maxdispwarnings"}
+{"item_id":"93a3f0d13d:238","text":"int"}
+{"item_id":"93a3f0d13d:239","text":"修改报告的 displacement issues 最大数量。如果 value 设为 0，则报告所有 displacement issues。Value range（取值范围）：0 或更大。"}
+{"item_id":"93a3f0d13d:240","text":"statistics:shaderprofile"}
+{"item_id":"93a3f0d13d:241","text":"string"}
+{"item_id":"93a3f0d13d:242","text":"empty（空）"}
+{"item_id":"93a3f0d13d:243","text":"statistics:stylesheet"}
+{"item_id":"93a3f0d13d:244","text":"string"}
+{"item_id":"93a3f0d13d:245","text":"empty（空）"}
+{"item_id":"93a3f0d13d:246","text":"XML detailed statistics 的 stylesheet。"}
+{"item_id":"93a3f0d13d:247","text":"statistics:texturestatslevel"}
+{"item_id":"93a3f0d13d:248","text":"int"}
+{"item_id":"93a3f0d13d:249","text":"启用 texture statistics reporting。Value range（取值范围）：true/false。"}
+{"item_id":"93a3f0d13d:250","text":"statistics:xmlfilename"}
+{"item_id":"93a3f0d13d:251","text":"string"}
+{"item_id":"93a3f0d13d:252","text":"empty（空）"}
+{"item_id":"93a3f0d13d:253","text":"以 XML 报告的 detailed statistics 的 file name。"}
+{"item_id":"93a3f0d13d:254","text":"Configuration（配置）"}
+{"item_id":"93a3f0d13d:255","text":"Name（名称）"}
+{"item_id":"93a3f0d13d:256","text":"Type（类型）"}
+{"item_id":"93a3f0d13d:257","text":"Default（默认值）"}
+{"item_id":"93a3f0d13d:258","text":"Description（说明）"}
+{"item_id":"93a3f0d13d:259","text":"limits:brickmemory"}
+{"item_id":"93a3f0d13d:260","text":"int"}
+{"item_id":"93a3f0d13d:261","text":"Brickmap cache size，单位 kB。Value range（取值范围）：0 或更大。"}
+{"item_id":"93a3f0d13d:262","text":"limits:bucketsize"}
+{"item_id":"93a3f0d13d:263","text":"int[2]"}
+{"item_id":"93a3f0d13d:264","text":"render buckets 的尺寸，单位 pixels。"}
+{"item_id":"93a3f0d13d:265","text":"limits:deepshadowerror"}
+{"item_id":"93a3f0d13d:266","text":"float"}
+{"item_id":"93a3f0d13d:267","text":"控制 lossy compression scheme，以减小 deep output 的 file size。设置为高值会导致每个 pixel 存储更少 samples。Value range（取值范围）：0 到 1。"}
+{"item_id":"93a3f0d13d:268","text":"limits:geocachememory"}
+{"item_id":"93a3f0d13d:269","text":"int"}
+{"item_id":"93a3f0d13d:270","text":"Geometry cache size，单位 kB。Value range（取值范围）：0 或更大。"}
+{"item_id":"93a3f0d13d:271","text":"limits:gridsize"}
+{"item_id":"93a3f0d13d:272","text":"int"}
+{"item_id":"93a3f0d13d:273","text":"Value range（取值范围）：1 或更大。"}
+{"item_id":"93a3f0d13d:274","text":"limits:matrixcachememory"}
+{"item_id":"93a3f0d13d:275","text":"int"}
+{"item_id":"93a3f0d13d:276","text":"Matrix cache，单位 kB。Value range（取值范围）：0 或更大。"}
+{"item_id":"93a3f0d13d:277","text":"limits:nurbcurvaturedicefactor"}
+{"item_id":"93a3f0d13d:278","text":"int"}
+{"item_id":"93a3f0d13d:279","text":"NURBs max curvature multiplier。Value range（取值范围）：0 或更大。"}
+{"item_id":"93a3f0d13d:280","text":"limits:octreememory"}
+{"item_id":"93a3f0d13d:281","text":"int"}
+{"item_id":"93a3f0d13d:282","text":"None cache size，单位 kB。Value range（取值范围）：0 或更大。"}
+{"item_id":"93a3f0d13d:283","text":"limits:opacitycachememory"}
+{"item_id":"93a3f0d13d:284","text":"int"}
+{"item_id":"93a3f0d13d:285","text":"Opacity cache，单位 kB。Value range（取值范围）：0 或更大。"}
+{"item_id":"93a3f0d13d:286","text":"limits:othreshold"}
+{"item_id":"93a3f0d13d:287","text":"float[3]"}
+{"item_id":"93a3f0d13d:288","text":"Opacity Culling：渲染包含大量 semi-transparent layered objects（例如 hair）的 scenes 时，可以设置 opacity culling threshold，以显著节省 time 和 memory。实质上，如果一组 visible points 的 accumulated opacity（在每个 channel 中）大于指定 limit，则 hider 会将其视为完全 opaque，并 cull 该 stack 后方的 objects。"}
+{"item_id":"93a3f0d13d:289","text":"limits:pointmemory"}
+{"item_id":"93a3f0d13d:290","text":"int"}
+{"item_id":"93a3f0d13d:291","text":"Point cache size，单位 kB。Value range（取值范围）：0 或更大。"}
+{"item_id":"93a3f0d13d:292","text":"limits:proceduralbakingclumpsize"}
+{"item_id":"93a3f0d13d:293","text":"int"}
+{"item_id":"93a3f0d13d:294","text":"Value range（取值范围）：0 或更大。"}
+{"item_id":"93a3f0d13d:295","text":"limits:ptexturemaxfiles"}
+{"item_id":"93a3f0d13d:296","text":"int"}
+{"item_id":"93a3f0d13d:297","text":"Value range（取值范围）：1 或更大。"}
+{"item_id":"93a3f0d13d:298","text":"limits:ptexturememory"}
+{"item_id":"93a3f0d13d:299","text":"int"}
+{"item_id":"93a3f0d13d:300","text":"PTex cache size，单位 kB。Value range（取值范围）：0 或更大。"}
+{"item_id":"93a3f0d13d:301","text":"limits:rendermemory"}
+{"item_id":"93a3f0d13d:302","text":"float"}
+{"item_id":"93a3f0d13d:303","text":"memory limit，以 machine memory 百分比表示。Value range（取值范围）：0 到 1。"}
+{"item_id":"93a3f0d13d:304","text":"limits:rendertime"}
+{"item_id":"93a3f0d13d:305","text":"int"}
+{"item_id":"93a3f0d13d:306","text":"最大 render time，单位 minutes。Value range（取值范围）：0 或更大。"}
+{"item_id":"93a3f0d13d:307","text":"limits:shadesize"}
+{"item_id":"93a3f0d13d:308","text":"int"}
+{"item_id":"93a3f0d13d:309","text":"vertices 的最大数量，而不是 grid。Value range（取值范围）：1 或更大。"}
+{"item_id":"93a3f0d13d:310","text":"limits:texturememory"}
+{"item_id":"93a3f0d13d:311","text":"int"}
+{"item_id":"93a3f0d13d:312","text":"Texture cache size，单位 kB。Value range（取值范围）：0 或更大。"}
+{"item_id":"93a3f0d13d:313","text":"limits:textureperthreadmemoryratio"}
+{"item_id":"93a3f0d13d:314","text":"float"}
+{"item_id":"93a3f0d13d:315","text":"limits:threads"}
+{"item_id":"93a3f0d13d:316","text":"int"}
+{"item_id":"93a3f0d13d:317","text":"设置 renderer 使用的 threads 数。如果指定值为 0，则会使用所有 CPU 进行渲染。如果指定负值 '-N'，则 prman 会使用除 N 个 CPU 外的所有 CPU 进行渲染。"}
+{"item_id":"93a3f0d13d:318","text":"searchpath:archive"}
+{"item_id":"93a3f0d13d:319","text":"string"}
+{"item_id":"93a3f0d13d:320","text":"empty（空）"}
+{"item_id":"93a3f0d13d:321","text":"Rib archives 和 DelayedReadArchive 的 search path。"}
+{"item_id":"93a3f0d13d:322","text":"searchpath:dirmap"}
+{"item_id":"93a3f0d13d:323","text":"string"}
+{"item_id":"93a3f0d13d:324","text":"empty（空）"}
+{"item_id":"93a3f0d13d:325","text":"Search path remapping。"}
+{"item_id":"93a3f0d13d:326","text":"searchpath:display"}
+{"item_id":"93a3f0d13d:327","text":"string"}
+{"item_id":"93a3f0d13d:328","text":"empty（空）"}
+{"item_id":"93a3f0d13d:329","text":"display plug-ins 的 search path。"}
+{"item_id":"93a3f0d13d:330","text":"searchpath:procedural"}
+{"item_id":"93a3f0d13d:331","text":"string"}
+{"item_id":"93a3f0d13d:332","text":"empty（空）"}
+{"item_id":"93a3f0d13d:333","text":"DynamicLoad procedural plug-ins 的 search path。"}
+{"item_id":"93a3f0d13d:334","text":"searchpath:rifilter"}
+{"item_id":"93a3f0d13d:335","text":"string"}
+{"item_id":"93a3f0d13d:336","text":"empty（空）"}
+{"item_id":"93a3f0d13d:337","text":"Rif plug-ins 的 search path。"}
+{"item_id":"93a3f0d13d:338","text":"searchpath:rixplugin"}
+{"item_id":"93a3f0d13d:339","text":"string"}
+{"item_id":"93a3f0d13d:340","text":"empty（空）"}
+{"item_id":"93a3f0d13d:341","text":"shading plug-ins 的 search path。"}
+{"item_id":"93a3f0d13d:342","text":"searchpath:shader"}
+{"item_id":"93a3f0d13d:343","text":"string"}
+{"item_id":"93a3f0d13d:344","text":"empty（空）"}
+{"item_id":"93a3f0d13d:345","text":"OSL pattern plug-ins 的 search path。"}
+{"item_id":"93a3f0d13d:346","text":"searchpath:texture"}
+{"item_id":"93a3f0d13d:347","text":"string"}
+{"item_id":"93a3f0d13d:348","text":"empty（空）"}
+{"item_id":"93a3f0d13d:349","text":"texture files 的 search path。"}
+{"item_id":"93a3f0d13d:350","text":"RIB"}
+{"item_id":"93a3f0d13d:351","text":"Name（名称）"}
+{"item_id":"93a3f0d13d:352","text":"Type（类型）"}
+{"item_id":"93a3f0d13d:353","text":"Default（默认值）"}
+{"item_id":"93a3f0d13d:354","text":"Description（说明）"}
+{"item_id":"93a3f0d13d:355","text":"ribparse:varsubst"}
+{"item_id":"93a3f0d13d:356","text":"string"}
+{"item_id":"93a3f0d13d:357","text":"empty（空）"}
+{"item_id":"93a3f0d13d:358","text":"仅用于 RIB parse。"}
+{"item_id":"93a3f0d13d:359","text":"OSL"}
+{"item_id":"93a3f0d13d:360","text":"Name（名称）"}
+{"item_id":"93a3f0d13d:361","text":"Type（类型）"}
+{"item_id":"93a3f0d13d:362","text":"Default（默认值）"}
+{"item_id":"93a3f0d13d:363","text":"Description（说明）"}
+{"item_id":"93a3f0d13d:364","text":"osl:batched"}
+{"item_id":"93a3f0d13d:365","text":"int"}
+{"item_id":"93a3f0d13d:366","text":"启用 OSL optimizations，以允许在支持的 processors（AVX、AVX2、AVX512）上通过 vectorized instructions 执行多个 shading points。Value range（取值范围）：true/false。"}
+{"item_id":"93a3f0d13d:367","text":"osl:statisticslevel"}
+{"item_id":"93a3f0d13d:368","text":"int"}
+{"item_id":"93a3f0d13d:369","text":"设置要跟踪的 OSL statistics 级别。Level 2 及以上会引入 timing，可能对 performance 有轻微影响。Level 4 及以上包含 internal OSL statistics。Level 5 包含 per shader 的 statistics。其他 levels 保留供未来使用。"}
+{"item_id":"93a3f0d13d:370","text":"osl:verbose"}
+{"item_id":"93a3f0d13d:371","text":"int"}
+{"item_id":"93a3f0d13d:372","text":"设置要传递的 OSL messages 级别。"}
+{"item_id":"93a3f0d13d:373","text":"Volumes（体积）"}
+{"item_id":"93a3f0d13d:374","text":"Name（名称）"}
+{"item_id":"93a3f0d13d:375","text":"Type（类型）"}
+{"item_id":"93a3f0d13d:376","text":"Default（默认值）"}
+{"item_id":"93a3f0d13d:377","text":"Description（说明）"}
+{"item_id":"93a3f0d13d:378","text":"volume:aggregatespace"}
+{"item_id":"93a3f0d13d:379","text":"string"}
+{"item_id":"93a3f0d13d:380","text":"world"}
+{"item_id":"93a3f0d13d:381","text":"用于计算 aggregate volume metadata 的 space。Valid spaces 为 \"world\" 和 \"camera\"。通常应选择能最小化 volumes motion range 的 space。"}
+{"item_id":"93a3f0d13d:382","text":"Plugin（插件）"}
+{"item_id":"93a3f0d13d:383","text":"Name（名称）"}
+{"item_id":"93a3f0d13d:384","text":"Type（类型）"}
+{"item_id":"93a3f0d13d:385","text":"Default（默认值）"}
+{"item_id":"93a3f0d13d:386","text":"Description（说明）"}
+{"item_id":"93a3f0d13d:387","text":"traversalMethod"}
+{"item_id":"93a3f0d13d:388","text":"int"}
+{"item_id":"93a3f0d13d:389","text":"Parallel"}
+{"item_id":"93a3f0d13d:390","text":"在转换为 Rix scenegraph 时，用于 serialize Katana scenegraph traversal 的 Option（选项）。默认情况下，此 traversal 会并行运行。"}
+{"item_id":"93a3f0d13d:391","text":"maxTraversalThreads"}
+{"item_id":"93a3f0d13d:392","text":"int"}
+{"item_id":"93a3f0d13d:393","text":"RfK 在遍历 Katana scenegraph 以构建 Rix scenegraph 时使用的最大 threads 数。值 '0' 表示 'automatic'。"}
+{"item_id":"93a3f0d13d:394","text":"sleepAtStartup"}
+{"item_id":"93a3f0d13d:395","text":"int"}
+{"item_id":"93a3f0d13d:396","text":"告诉 plugin 在 render 启动后、任何 initialization 发生之前 sleep N seconds。适合将 debugger 或 profiler 附加到 renderboot。Default 为 '0'（禁用 startup sleep）。NOTE：目前这是 Linux-only feature。"}
+{"item_id":"93a3f0d13d:397","text":"flattenInstanceSources"}
+{"item_id":"93a3f0d13d:398","text":"int"}
+{"item_id":"93a3f0d13d:399","text":"默认情况下，RenderMan 会将一个 instance source 扁平化为 group 中每个 geometry 对应的独立 object prototypes。将此 option 设为 'false' 会把每个 instance source location 保持为单个 object prototype。对于包含大量 instances 的 scenes，这可能带来很大的 performance improvements。"}
+{"item_id":"93a3f0d13d:400","text":"deferInstanceSources"}
+{"item_id":"93a3f0d13d:401","text":"int"}
+{"item_id":"93a3f0d13d:402","text":"将其设为 'true' 会告诉 plugin 只 traversal 并构建被 instance 使用的 instance source locations。如果 scene 中有未使用的 heavy instance sources，启用此 option 可以加快 traversal。该设置在 live rendering 期间会被忽略。"}
+{"item_id":"93a3f0d13d:403","text":"honorInheritedMeshLightMaterial"}
+{"item_id":"93a3f0d13d:404","text":"int"}
+{"item_id":"93a3f0d13d:405","text":"将其设为 1 或 \"yes\" 会让 mesh light objects 继承已设置的 BxDF material，而不是用 PxrBlack material 替换它；PxrBlack 是默认 material。"}

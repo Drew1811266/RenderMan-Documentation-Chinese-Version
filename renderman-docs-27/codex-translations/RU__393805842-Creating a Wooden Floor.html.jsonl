@@ -1,0 +1,45 @@
+{"item_id":"5b07adadf8:0","text":"在本课中，我们将学习如何利用 PxrRandomTextureManifold 的能力，把一组 10 张 floorboard textures（地板木板纹理）随机分配给 geometry，让每块地板都有自己独特的随机翻转、方向和位置偏移。"}
+{"item_id":"5b07adadf8:1","text":"虽然本课展示的是如何重新创建 floorboards（地板木板），但这项技术也可以用于许多其他创作用途，例如墙砖、石块、道路，以及其他需要在多种对象上随机放置 textures 的场景。"}
+{"item_id":"5b07adadf8:2","text":"Initial Setup（初始设置与素材准备）"}
+{"item_id":"5b07adadf8:3","text":"先来看一下 Maya 中的 setup。我们有一组独立的 floorboards，每块都使用相同的 UV tile。"}
+{"item_id":"5b07adadf8:4","text":"接着看一下我们要使用的 textures。这些素材由 Texture Supply 的朋友们慷慨提供。在这个示例中，我们使用了他们精美的 5k Brown Ash 40.8x6.8cm texture pack。"}
+{"item_id":"5b07adadf8:5","text":"现在开始把这些 textures 指定给我们的 floorboards。"}
+{"item_id":"5b07adadf8:6","text":"如果一开始只是在 base PxrSurface 上为 Diffuse color 添加一个 PxrTexture node，可以从下图看到，结果一点也不随机。这不是我们想要的效果：textures 在所有 floorboards 上的位置随机性不足，而且看起来都非常相似。"}
+{"item_id":"5b07adadf8:7","text":"这里的技巧是结合使用 PxrMultiTexture node 来载入一组 10 张 textures，然后用 PxrRandomTextureManifold 对每张 texture 和 UV placement 的随机性进行艺术指导。"}
+{"item_id":"5b07adadf8:8","text":"如上面的渲染所示，我们的 10 张 floorboard textures 现在已经更随机地分布了。"}
+{"item_id":"5b07adadf8:9","text":"但我们还没有完成...现在可以继续调整 Randomize parameters，让随机性更进一步。这些设置完全用于塑造你想要的观感，因此这里没有绝对正确或错误的数值。"}
+{"item_id":"5b07adadf8:10","text":"PxrRandomTextureManifold 内部有几个关键参数"}
+{"item_id":"5b07adadf8:11","text":"Number of Textures（纹理数量）："}
+{"item_id":"5b07adadf8:12","text":"这会决定从 PxrMultiTexture files 中使用多少张 textures"}
+{"item_id":"5b07adadf8:13","text":"Texture Order（纹理顺序）："}
+{"item_id":"5b07adadf8:14","text":"这会控制 PxrMultiTexture files 中的 textures 如何被打乱顺序"}
+{"item_id":"5b07adadf8:15","text":"Random Source（随机来源）："}
+{"item_id":"5b07adadf8:16","text":"这会控制 PxrRandomTextureManifold 使用哪个 geometry ID"}
+{"item_id":"5b07adadf8:17","text":"Pushing the Randomization（进一步推进随机化）"}
+{"item_id":"5b07adadf8:18","text":"现在 diffuse color 已经呈现出我们想要的效果，可以进一步提升 floorboards shader 的真实感。"}
+{"item_id":"5b07adadf8:19","text":"让我们看一下最终渲染中使用的 final shader。这里添加了几个额外的 nodes"}
+{"item_id":"5b07adadf8:20","text":"diffuse textures 也被连接到 PxrBumpMixer，再连接到 diffuse bump，用来给 diffuse layer 添加轻微的 bump。"}
+{"item_id":"5b07adadf8:21","text":"diffuse texture 还被用来驱动 Primary Specular。"}
+{"item_id":"5b07adadf8:22","text":"它们开始看起来不错了，但颜色仍然都一样。现实中，每块板都会有略微不同的颜色：可能来自制造过程差异，也可能有些随着时间褪色，或者变得更脏、更积灰。"}
+{"item_id":"5b07adadf8:23","text":"幸运的是，PxrMultiTexture node 内部还有更多 randomization parameters。"}
+{"item_id":"5b07adadf8:24","text":"这里我们正在随机化 10 张 textures 的 Hue value。如你所见，每块 floorboard 现在都有了轻微的 hue 偏移。"}
+{"item_id":"5b07adadf8:25","text":"把 Saturation mode 设置为 Subtractive，意味着每张 texture 都会得到一个低于其原始 hue 的随机 hue value。同样，具体设置成多少是创作选择；这里我们把数值推得稍高一些，以便演示效果。"}
+{"item_id":"5b07adadf8:26","text":"Adding Varnish（添加清漆与涂层）"}
+{"item_id":"5b07adadf8:27","text":"我们希望给 floorboards 增加一层额外 varnish（清漆），这可以通过 PxrSurface 中的 Clear Coat layer 轻松实现。如果使用 Lama，也可以把带 tint 的 LamaDielectric node 分层作为 base layer，然后调整 PxrLayer node 上的 Layer Thickness parameter 来完成。"}
+{"item_id":"5b07adadf8:28","text":"这里添加了一个使用默认值的 Clear Coat layer。"}
+{"item_id":"5b07adadf8:29","text":"通常购买 wood varnish（木器清漆）时，可以指定它的颜色，这会为未处理的木材提供保护和色彩。我们也可以很容易地复现这一点。"}
+{"item_id":"5b07adadf8:30","text":"我们只需要增加一些 Layer Thickness（可以想象清漆在木材上涂得有多厚），再使用 Absorption Tint，就能给 varnish 引入一些颜色。"}
+{"item_id":"5b07adadf8:31","text":"不错...现在我们已经把一块单调乏味的木材变成了色彩漂亮的 varnished wood（上清漆木材）。"}
+{"item_id":"5b07adadf8:32","text":"完成了吗？也许...但我们的 varnish roughness 非常平滑、完美。理想情况下，我们希望给这层 varnish 加入一些 roughness，以强化它在受损、磨损和划伤位置的真实感。同样，这是创作决定，因此请参考你的 reference images 来调出目标效果。"}
+{"item_id":"5b07adadf8:33","text":"在这个示例中，我们添加了一张 roughness map，包含擦痕、划痕和细小瑕疵。这里使用 PxrRoundCube node，而不是 PxrRandomTileManifold，因为我们不希望这些瑕疵在不同木板之间发生变化。"}
+{"item_id":"5b07adadf8:34","text":"本例还使用了 HexTiling（而不是 tri-planar）mapping，因为它非常适合在大面积上无缝平铺 maps，避免接缝或可见重复。"}
+{"item_id":"5b07adadf8:35","text":"现在木材的效果如下。这是一个细微差异，但真实感的关键正是这些细微之处。"}
+{"item_id":"5b07adadf8:36","text":"呼...这节课快结束了，不过在结束前，还要再补充一点。"}
+{"item_id":"5b07adadf8:37","text":"制作这类示例时，camera angle 非常关键。camera 越低、grazing angle（掠射角）越高，你的 transparent coat layer 就会显得越明显，因此可能需要相应地调整它。"}
+{"item_id":"5b07adadf8:38","text":"Further Refinements（进一步优化）"}
+{"item_id":"5b07adadf8:39","text":"尝试使用 diffuse map（或 imperfection map）来驱动 Clear Coat layer 的 Layer Thickness。当你希望刮掉 varnish coating、露出下面的 raw wood 时，这可以用来增加额外真实感。"}
+{"item_id":"5b07adadf8:40","text":"给 Clear Coat layer 添加一张 bump texture，以加入更多 bumps 和瑕疵"}
+{"item_id":"5b07adadf8:41","text":"为你的 diffuse texture map(s) 制作一张 Bump2Roughness map。随后可以用它来驱动 floorboards 的 roughness、bump 和 anisotropy。"}
+{"item_id":"5b07adadf8:42","text":"在地板上散布一些细小 dust particles 和 hair curves，增加一层污垢。"}
+{"item_id":"5b07adadf8:43","text":"在 Diffuse 或 Clear Coat 上方叠加一张 imperfection map，以增加更多损伤。"}
+{"item_id":"5b07adadf8:44","text":"用地板上的 imperfections 来讲故事。它是新的还是旧的？是否曾有椅子被用力拖过地面，留下长长的划痕和凹痕？"}

@@ -1,0 +1,23 @@
+{"item_id":"4fd66c29ff:0","text":"不使用 shelf menu（工具架菜单）时，archive node（归档节点）可在 Hypershade 的 RenderMan >"}
+{"item_id":"4fd66c29ff:1","text":"Light（灯光）"}
+{"item_id":"4fd66c29ff:2","text":"下找到；它被归类为 light（灯光），这样 Maya 才会为 archive（归档）绘制 locator（定位器）。"}
+{"item_id":"4fd66c29ff:3","text":"假设你有一个已经变得很复杂的模型。开始渲染时，直到看到第一批像素所需的时间越来越长。或者你已经完成 assets（资产），现在需要将它们交付给 lighting（灯光部门）（并且这个包不应被 lighter（灯光师）改动）。这正是 RenderMan Archive node（RenderMan 归档节点）的用途！此选项会将场景部分预先转换为一个 RIB 文件。这样在点击 render（渲染）时可以节省转换场景实体的时间，也能让 Maya 不必在内存中保持所有这些部分。下面看看它是如何工作的。"}
+{"item_id":"4fd66c29ff:4","text":"Create an Archive（创建 Archive）"}
+{"item_id":"4fd66c29ff:5","text":"选择模型的 top node（顶层节点），以收集所有部分。"}
+{"item_id":"4fd66c29ff:6","text":"然后前往 RenderMan 菜单导出 RIB archive（RIB 归档）。"}
+{"item_id":"4fd66c29ff:7","text":"或者，如果要在创建 archive（归档）时访问完整选项集，请选择 options box（选项框）。为了方便，我们会导出一个 RIB 文件，同时导出一个用于在 viewport（视口）中显示的 GPU cache（GPU 缓存）。"}
+{"item_id":"4fd66c29ff:8","text":"加载后，你会看到模型周围出现一个 bounding box（边界框），以及原始 geometry（几何）的 GPU cache（GPU 缓存）。此示例为一帧导出了单个 RIB archive（RIB 归档）。假设这辆车会永久停放。虽然可以将动画导出为一系列 RIB 文件，但该选项位于 archive menu selection（归档菜单选择项）的选项中。"}
+{"item_id":"4fd66c29ff:9","text":"名为 CoupeRibArchive 的节点就是你的 archive（归档，来自原始名称）。如果决定移除该 archive（归档），只需删除该节点，它在场景中的所有痕迹都会消失。"}
+{"item_id":"4fd66c29ff:10","text":"当 RenderMan for Maya 在为渲染转换场景时遇到 archive node（归档节点），它会使用该 archive（归档），并忽略层级结构中其余的 geometry（几何）。"}
+{"item_id":"4fd66c29ff:11","text":"archive node（归档节点）可以单独使用。可以从原始 asset file（资产文件）进行版本化来更新此文件，然后在 CoupeRibArchiveShape 节点中指向新文件。请注意，该节点还包含用于 viewport（视口）显示的 Alembic GPU procedural。"}
+{"item_id":"4fd66c29ff:12","text":"Update Shading（更新着色）"}
+{"item_id":"4fd66c29ff:13","text":"RIB archives（RIB 归档）无法更改已指定的 shading（着色）。它被设计为完整导出，并在导入时保留原始 materials（材质）指定。如果想要一种可在事后更改 shading（着色）的格式，请改用"}
+{"item_id":"4fd66c29ff:14","text":"Alembic workflow（Alembic 工作流）"}
+{"item_id":"4fd66c29ff:15","text":"。"}
+{"item_id":"4fd66c29ff:16","text":"Instancing Archives（实例化 Archives）"}
+{"item_id":"4fd66c29ff:17","text":"下面展示了三个 instanced RenderManArchive nodes（实例化的 RenderManArchive 节点）在 viewport（视口）中的显示效果，每个节点都引用原始 archive（归档）。所有原始 geometry（几何）都已从场景中删除，因此我们看到的是这些 archives（归档）的 GPU cache（GPU 缓存）。"}
+{"item_id":"4fd66c29ff:18","text":"以及 final render（最终渲染）。"}
+{"item_id":"4fd66c29ff:19","text":"RenderManArchive nodes（RenderManArchive 节点）可以在 Maya 中通过几种不同方式进行 instancing（实例化）。"}
+{"item_id":"4fd66c29ff:20","text":"Maya Instances（Maya 实例）：像平常在 Maya 中那样创建实例。选择一个 RenderManArchive 节点，然后执行 Edit->Duplicate Special，并选择 instancing（实例化）选项。"}
+{"item_id":"4fd66c29ff:21","text":"Maya Particle Instancer（Maya 粒子实例化器）：先选择一个 RenderManArchive 节点，再选择一个 Maya particle shape（Maya 粒子形状），然后执行 nParticles->Instancer。"}
+{"item_id":"4fd66c29ff:22","text":"创建多个 RenderManArchive 节点，并让每个节点引用同一个 archive（归档）。这比另外两种方法效率低，因为它会再次加载同一个 archive（归档），而不是复用数据（真正的 instancing（实例化））。"}

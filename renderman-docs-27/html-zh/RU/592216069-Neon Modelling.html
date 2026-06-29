@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Neon Modelling</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Neon Modelling</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RU/592216069/Neon+Modelling">https://rmanwiki-27.pixar.com/space/RU/592216069/Neon+Modelling</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>我在这个项目中的目标是创建一个完全程序化的 Neon Sign maker（霓虹招牌生成器），这样无论我想创建哪些字母或设计，Houdini 都会为我程序化生成几何体。</p><p>我首先在 Illustrator 中创建矢量设计；对设计满意后，导出一个单独的 SVG 文件。 </p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="DemoSign_setup3.jpg" width="760" loading="lazy" src="../../attachments/592216069/DemoSign_setup3.jpg" data-image-src="../../attachments/592216069/DemoSign_setup3.jpg" data-height="540" data-width="1531" data-unresolved-comment-count="0" data-linked-resource-id="592117790" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="DemoSign_setup3.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="592216069" data-linked-resource-container-version="4" data-media-id="3d11b657-d51e-441a-b988-306fe9c94f21" data-media-type="file"></span><p /><p>这个 SVG 文件被导入 Houdini，然后每个字母的每个部分都被 blast 成单独片段，分别用于主字母面板、内外挤出，以及每根管子。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="DemoSign_setup.jpg" width="760" loading="lazy" src="../../attachments/592216069/DemoSign_setup.jpg" data-image-src="../../attachments/592216069/DemoSign_setup.jpg" data-height="873" data-width="1830" data-unresolved-comment-count="0" data-linked-resource-id="591691807" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="DemoSign_setup.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="592216069" data-linked-resource-container-version="4" data-media-id="911f7d22-58f6-4b75-b229-b5131935030e" data-media-type="file"></span><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="DemoSign_parts.jpg" width="760" loading="lazy" src="../../attachments/592216069/DemoSign_parts.jpg" data-image-src="../../attachments/592216069/DemoSign_parts.jpg" data-height="960" data-width="2000" data-unresolved-comment-count="0" data-linked-resource-id="591921180" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="DemoSign_parts.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="592216069" data-linked-resource-container-version="4" data-media-id="31f5d051-0f89-4ff1-92a6-d3986a907d48" data-media-type="file"></span><p>我创建了一个程序化系统，使用 <em>grouprange </em>节点查找每条霓虹管曲线上的第一个点和最后一个点。 </p><p>我还使用了 <em>carve </em>节点来调整这些点在曲线上的位置，从而可以改变霓虹招牌中的断点。</p><p> 我能够使用 <em>copytopoints </em>节点，把霓虹孔洞几何体实例化到霓虹曲线的第一个点和最后一个点上。</p><p>霓虹管支架同样采用程序化方法，使用 <em>carve </em>和 <em>copytopoints </em>节点沿霓虹管曲线放置它们。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="DemoSign_setup1.jpg" width="760" loading="lazy" src="../../attachments/592216069/DemoSign_setup1.jpg" data-image-src="../../attachments/592216069/DemoSign_setup1.jpg" data-height="866" data-width="1531" data-unresolved-comment-count="0" data-linked-resource-id="591822873" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="DemoSign_setup1.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="592216069" data-linked-resource-container-version="4" data-media-id="b5865509-1689-4059-9ba4-8efe46a1bff2" data-media-type="file"></span><p>螺栓使用 Sidefx Labs 中名为 Labs Pick and Place 的节点手动放置。这让我能为招牌增加一点不规则感。</p><p>为了给招牌添加最后一点手工制作的不完美感，我使用了 <em>sculpt </em>节点，为面板加入细微弯曲和凹痕。</p><p>UVs 和 Texel density（纹素密度）也是程序化的，使用<em> Labs Auto UV</em> 和 <em>texeldensity </em>节点</p><p>完成一个字母后，创建所有其他字母和箭头就是一个快速且简单的过程。注意：霓虹管本身是单独导入 Solaris 的。我希望将它们与招牌本身分开，以便服务于纹理制作和着色工作流。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="DemoSign_setup4.jpg" width="760" loading="lazy" src="../../attachments/592216069/DemoSign_setup4.jpg" data-image-src="../../attachments/592216069/DemoSign_setup4.jpg" data-height="907" data-width="1758" data-unresolved-comment-count="0" data-linked-resource-id="591822889" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="DemoSign_setup4.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="592216069" data-linked-resource-container-version="4" data-media-id="2aa509ca-4eb1-439f-a2ac-0de72ef36667" data-media-type="file"></span><p /><p />
+  </article>
+</main>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Curves</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Curves</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFB27/544637943/Curves">https://rmanwiki-27.pixar.com/space/RFB27/544637943/Curves</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Furry3.jpg" width="760" loading="lazy" src="../../attachments/544637943/Furry3.jpg" data-image-src="../../attachments/544637943/Furry3.jpg" data-height="1080" data-width="1920" data-unresolved-comment-count="0" data-linked-resource-id="544637969" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Furry3.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544637943" data-linked-resource-container-version="1" data-media-id="f96d099e-3108-4626-8db5-dc7fe65d3575" data-media-type="file"></span><p>RenderMan Curve primitive（曲线图元）非常适合渲染 hair and fur（头发和毛发），因为它旨在高效渲染大量极细的线束。</p><p>参见 <a class="external-link" href="https://rmanwiki-26.pixar.com/space/REN26/19661233/Curves" rel="nofollow">曲线</a> 了解更多信息。</p><p /><h2 id="Curves-CurveTypes">曲线类型</h2><p>RfB 应能渲染 Blender 中的大多数曲线类型。不过，并非所有设置都一定受支持。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="curves_render.png" width="760" loading="lazy" src="../../attachments/544637943/curves_render.png" data-image-src="../../attachments/544637943/curves_render.png" data-height="1198" data-width="2098" data-unresolved-comment-count="0" data-linked-resource-id="544637978" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="curves_render.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544637943" data-linked-resource-container-version="1" data-media-id="f9608599-025c-4fe1-a687-53f6ad1f6eb4" data-media-type="file"></span><h2 id="Curves-CurveWidths">曲线宽度</h2><p>如果想改变曲线宽度，可以选择对象并进入 Edit Mode（编辑模式）。选中要调整宽度的顶点，然后修改 radius（半径）设置。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="widths_edit_mode2.png" width="760" loading="lazy" src="../../attachments/544637943/widths_edit_mode2.png" data-image-src="../../attachments/544637943/widths_edit_mode2.png" data-height="1211" data-width="2120" data-unresolved-comment-count="0" data-linked-resource-id="544637975" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="widths_edit_mode2.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544637943" data-linked-resource-container-version="1" data-media-id="272758fd-a929-4b4a-ab27-feb621deb56a" data-media-type="file"></span><p>下面是一个示例渲染：</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="curves_render2.png" width="760" loading="lazy" src="../../attachments/544637943/curves_render2.png" data-image-src="../../attachments/544637943/curves_render2.png" data-height="1213" data-width="2118" data-unresolved-comment-count="0" data-linked-resource-id="544637972" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="curves_render2.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544637943" data-linked-resource-container-version="1" data-media-id="f9584246-36cd-4934-8ad8-da1acb546bde" data-media-type="file"></span><h2 id="Curves-RenderingandShadingCurves">曲线的渲染与着色</h2><p>Curves（曲线）最好使用 PxrMarschnerHair 或 LamaHairChiang 材质进行着色。若要给曲线着色或添加纹理，请使用 PxrHairColor pattern（图案节点）；它提供 melanin（黑色素）、dye（染色）、strand variation（发束变化）等选项。</p><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="0bc055e0-7fe9-48a7-95d1-01e92174bf89" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>要为材质添加变化，请使用 <strong>index</strong> 这个 primvar；它位于 PxrhairColor &gt; hairIndexPrimvar 属性中，用于按发束索引驱动材质变化。</p></div></div><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="FurryInterface.JPG" width="760" loading="lazy" src="../../attachments/544637943/FurryInterface.JPG" data-image-src="../../attachments/544637943/FurryInterface.JPG" data-height="1216" data-width="3838" data-unresolved-comment-count="0" data-linked-resource-id="544637960" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="FurryInterface.JPG" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544637943" data-linked-resource-container-version="1" data-media-id="ec600998-8c57-42e3-9654-f818ab3bd98f" data-media-type="file"></span><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="FurryInterface2.JPG" width="760" loading="lazy" src="../../attachments/544637943/FurryInterface2.JPG" data-image-src="../../attachments/544637943/FurryInterface2.JPG" data-height="730" data-width="1947" data-unresolved-comment-count="0" data-linked-resource-id="544637957" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="FurryInterface2.JPG" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544637943" data-linked-resource-container-version="1" data-media-id="8cf98220-360e-48ae-9b9c-8748cc2c0f0d" data-media-type="file"></span><hr/><p>几个有趣的示例渲染！</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Furry2.jpg" width="760" loading="lazy" src="../../attachments/544637943/Furry2.jpg" data-image-src="../../attachments/544637943/Furry2.jpg" data-height="1080" data-width="1920" data-unresolved-comment-count="0" data-linked-resource-id="544637966" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Furry2.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544637943" data-linked-resource-container-version="1" data-media-id="632cc30e-73b9-415f-9d46-1c7f8e76c29f" data-media-type="file"></span><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Furry1.jpg" width="760" loading="lazy" src="../../attachments/544637943/Furry1.jpg" data-image-src="../../attachments/544637943/Furry1.jpg" data-height="1080" data-width="1920" data-unresolved-comment-count="0" data-linked-resource-id="544637963" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Furry1.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544637943" data-linked-resource-container-version="1" data-media-id="d270fe03-71e6-44c0-a04b-29191a5666a0" data-media-type="file"></span><p />
+  </article>
+</main>
+</body>
+</html>

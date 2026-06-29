@@ -1,0 +1,92 @@
+{"id": "b8e4316035901cc03052edcaf815dc052fd4775dc5086bf7819d424ada212336", "item_id": "736f4ce84f:0", "text": "If you want to jump past all the explanations there is a simple example scene which is the RenderMan version of Katana's \"hello_pony\" Demonstration scene ("}
+{"id": "fc16c23e55a4864ee236a79f026a1badbaa91d2d508a79dc4b2587bd452a9e9b", "item_id": "736f4ce84f:1", "text": "located in"}
+{"id": "c631bb64379cf71f546cd11fd90b112eca6abb7282507142d989db68dce05c97", "item_id": "736f4ce84f:2", "text": ").  Below is a more detailed explanation of each stage of building a similar scene with just a sphere and environment light."}
+{"id": "092fe7f55638f9b529849a85f40d108f693dccdc5f3ca563455fd1269f27d8ac", "item_id": "736f4ce84f:3", "text": "Create Camera and Geometry"}
+{"id": "bf293d500df612656a957d99553dfd70113aa370bdbbb8f10cb4a6f7a372a736", "item_id": "736f4ce84f:4", "text": "Geometry can be brought into a Katana scene in any number of ways, but for introductory purposes simply add a sphere to your scene using a PrimitiveCreate node. Then create a Katana camera using the standard CameraCreate node:"}
+{"id": "174f6c59744eaf85ffa9e7367648b8921f447aca3cf922e0c7cfee5a3f573355", "item_id": "736f4ce84f:5", "text": "By default both the camera and the sphere will be created at the origin.  Re-position either the camera and/or the sphere as needed so the sphere is in the camera's field of view.  Use the Viewer tab to quickly look-through the camera and re-frame on the sphere or use the manipulators to move objects around in the Viewer."}
+{"id": "6cb7f58069ee31f3da9153fafa66fb88d441c9b5673d8b94ff67d6412644c302", "item_id": "736f4ce84f:6", "text": "Add Lights"}
+{"id": "fa7c1db747cc5a42f334481f4872ab49a3bf5412bb27649ce4c07b4d62ebf9e0", "item_id": "736f4ce84f:7", "text": "RenderMan will not work with the Katana built-in lights or lights from other renderers; you will need to use the built-in"}
+{"id": "6913046df68ed64006aebfefbe7b536b3f1b28a65635f0a7cedcfbcb6b6b950d", "item_id": "736f4ce84f:8", "text": "RenderMan lights"}
+{"id": "31759716faf8718e3c994d6054a99d324ba5ee11b7b2a14eb4b4585931bb47a8", "item_id": "736f4ce84f:9", "text": "included with RfK.  These lights are now available as part of the"}
+{"id": "9fd728c66c9a256b121472dabf32a34317aed01d8427d70ec830289cf23a7cc8", "item_id": "736f4ce84f:13", "text": "Add"}
+{"id": "3c112c1318975776705be20e20b1321b3ec2d4a16310882ccec2f01df9f9770b", "item_id": "736f4ce84f:11", "text": "context menu in the GafferThree node. Create a GafferThree node then press"}
+{"id": "bfb3839bfb5fd9cd45e04cad67a9e3bf4538294cbbf65c0d1aab685d1cc5a03e", "item_id": "736f4ce84f:12", "text": "to make it editable in the Parameters tab. In the Parameters tab right-click in the Gaffer object table and select"}
+{"id": "fe8ebde10c439dc6facf0a2a79ab97d8c56af7188ea4905f4ce3893437ab0262", "item_id": "736f4ce84f:14", "text": ".  You'll see a context menu come up with options for several RenderMan (\"Pxr\") light types in addition to the simple \"light\" option.  Create a PxrEnvDayLight:"}
+{"id": "971361464ae0b00cf40f8e24c1dd51ff1356cb819d82d1e72fa0561fb41ff689", "item_id": "736f4ce84f:15", "text": "A couple of commonly adjusted controls on RenderMan lights are"}
+{"id": "b40356e6d1c6948bcb05c662bf5aa970a270424c9af61c9fc0c861f2e2269629", "item_id": "736f4ce84f:20", "text": "exposure"}
+{"id": "7d2fb3da93a013ce41e4eb531e0bb78e245939e05984a6a8dea49113becc347c", "item_id": "736f4ce84f:18", "text": "visibility"}
+{"id": "23a5392dceb2475b96111587b3ce344ffdc81cd83218c190bcca1762fecb9a1d", "item_id": "736f4ce84f:19", "text": ".  Lights have a physical falloff; if a light seems dark in a scene, you may want to turn up the"}
+{"id": "5152c9ba05d4dcdfc8fc03bf8b36f8939984093e5cc4ded52ec2c000ea04e14d", "item_id": "736f4ce84f:21", "text": ". The exposure attribute works like a film camera's exposure: increasing by 1 doubles the energy emitted by the light source."}
+{"id": "127889d958927263718f1ebcacac231c2f0a3d0853f7e275348bf7a0ee550528", "item_id": "736f4ce84f:22", "text": "By default lights are not visible to the camera, so you will need to make the PxrEnvDaylight visible to the camera if you want to see the color of the daylight in the background.  This setting is included as part of the"}
+{"id": "62a6da8735c18e2d66fe5de3dc5440252a1da49e3cbaa7c1d2d5068ad73ffba0", "item_id": "736f4ce84f:23", "text": "Object"}
+{"id": "8d139288dbe8acb087506df2c6d6ffdb76eb00100fb71e1c931fcb0b134aee42", "item_id": "736f4ce84f:24", "text": "settings for RenderMan lights:"}
+{"id": "4178e984993818d1420557f41b5a01e0f6bb69ddd33161432a2e05d30c74abb7", "item_id": "736f4ce84f:25", "text": "So Far"}
+{"id": "50fd3a08d834ddfbfb4ea6982bc2c54e9dfbf229419f9ce59b31a248b3dfdf1e", "item_id": "736f4ce84f:26", "text": "At this point we actually have enough nodes to do a basic test render.  Wire the nodes together using a Merge node:"}
+{"id": "31e38b16f4702c70a56684e3f4ff7a211f03329a96fd2017bb373f87c2893f7e", "item_id": "736f4ce84f:27", "text": "Right-click on the GafferThree node and select"}
+{"id": "eb7d6d193ba0c607cf34adbf507939cbd4101c4d168e22801840b29d01a1cf0a", "item_id": "736f4ce84f:28", "text": "Preview Render"}
+{"id": "bfa2d371da784ba6ad9147b1a4292d57003358a1fd6de022299b23816c9c9e74", "item_id": "736f4ce84f:29", "text": "from the context menu.  Look to the Monitor tab for your preview render.  With the camera"}
+{"id": "839cd11692e82b35399802778a0d4b08fb21690eb757a7d9e5030d9a2bcc2b97", "item_id": "736f4ce84f:30", "text": "translation"}
+{"id": "60c9d3f0b5462b448278ff712e918cf2b7cb360dec6bc92236611aa6a069ed99", "item_id": "736f4ce84f:31", "text": "set to (0.0, 0.0, 3.0) we'll see this render:"}
+{"id": "0dae1414ddfe7e02baeb72a6e326c1cb6f13c3b54b5774e9050416f2314502ff", "item_id": "736f4ce84f:32", "text": "It's not very exciting, but it is a good test to make sure all the pieces are in place (so far!).  If you get any errors during rendering please check your installation and your search paths.  If you have other renderers installed you'll need to make sure RenderSettings is set up with"}
+{"id": "6bd52b204f5b4cffb267597f37d0fa62bae229341394dfec0e5d42439d8b722c", "item_id": "736f4ce84f:33", "text": "renderer"}
+{"id": "70cf84cb0f19fa423c4b2d1ffee4b355df59d0fef0cf69432e33883d83ed2026", "item_id": "736f4ce84f:34", "text": "prman."}
+{"id": "22b31145e8d3bb430fbc6c067c0e8cd94845678f90270175bd1042da1c8c96a4", "item_id": "736f4ce84f:35", "text": "From the context menu when you right-click on a node you could also choose"}
+{"id": "59c769c56c907c528595dac2cbc7c58445afa76679dc877b8ac7b7c725c11a08", "item_id": "736f4ce84f:36", "text": "Live Render"}
+{"id": "73d2b424d5a22b1f15d6d415ba144f3d34bd4f7892c62f3d3139fdd68a727687", "item_id": "736f4ce84f:37", "text": "which allows you to view changes to your scene as you make them without having to restart the render."}
+{"id": "1daf0b5e965c3b0593af5be632bf5b01f2b9bff543c5ab4008cbfc5758cf3fdf", "item_id": "736f4ce84f:38", "text": "Add Materials"}
+{"id": "53af20e73370b826b3fb23c8df604ad6767a13905714ba54ba772388e2e6d2a9", "item_id": "736f4ce84f:39", "text": "Let's spruce this sphere up a little bit.  All of the new"}
+{"id": "9cced1a6fc04e8f446eb25e011003ae009636abd221e82157bd920a5072fce7c", "item_id": "736f4ce84f:40", "text": "Pixar Surface Materials"}
+{"id": "0cf7d944cddf8904dac1b45fd917cc6f89c76648ed30edb6f4dcb9e0a394d4a6", "item_id": "736f4ce84f:41", "text": "are available in RfK in the shader lists of the Material node and the PrmanShadingNode.  For this simple scene let's just create a single Material node then select"}
+{"id": "85e72eaf4f9e27a7de7084fb58452776507772f881aad1650dfcdd2c8829e98e", "item_id": "736f4ce84f:42", "text": "Add Shader->bxdf:"}
+{"id": "d46fca1157b420fc4a277570e3259922cb96873344b8ef62c9ec4a3838ea22b5", "item_id": "736f4ce84f:43", "text": "Choose PxrSurface from the list of prmanBxdfShaders:"}
+{"id": "742c9dc992799443f302e165b8313ea8fc7196245ebc36d55b8febbcc33750d2", "item_id": "736f4ce84f:44", "text": "In order to connect the Material with its geometry you create and connect a MaterialAssign node and set the"}
+{"id": "b953889eeed0c1dcd135b85ac5b9104128a8935787ffc64307ea2a99b579b091", "item_id": "736f4ce84f:49", "text": "materialAssign"}
+{"id": "bcec8f23e450ad7cac1716484dda9efb3a500029a033a8dccc13011b32f6cdb0", "item_id": "736f4ce84f:46", "text": "attribute to the material location.  The easiest way to do this is to Shift+middle-click and drag the Material node directly onto the MaterialAssign node:"}
+{"id": "8dec350d426bc96f4574bd58ef56494d55a2cbb94ebf08d14de3d6c4228d38d3", "item_id": "736f4ce84f:47", "text": "If you enable the MaterialAssign node for editing (hover over the node and hit"}
+{"id": "eb35cf79c33648eed8f4087a5ba4a138c437c384918353bff7f9d85b73631e1e", "item_id": "736f4ce84f:48", "text": ") you could also Shift+middle-click from the Material node into the"}
+{"id": "e2c44093812029cf38de6236550e335151da1d20ab75754d094803175ddf8be0", "item_id": "736f4ce84f:50", "text": "box in the Parameter tab.  Add the primitive to the Material CEL location in a similar manner to finish the material assignment:"}
+{"id": "2a5461fbdaef3ba46385cca86f06966ba84a3e6540b58b19a8e331f64e00c5e9", "item_id": "736f4ce84f:51", "text": "Rendering at this point will still give you a diffuse grey sphere, so let's shine up our surface a little bit by adjusting"}
+{"id": "bee55c6b218b981e700f0bb46718e6500424edbd0ecc28ada5c0f7bc1f02e019", "item_id": "736f4ce84f:52", "text": "Color,"}
+{"id": "edb6791f79b4dad4a0d57155ecd29fd7071ae38768c94ac1a0bc9bf9ea0d74c4", "item_id": "736f4ce84f:53", "text": "Fresnel"}
+{"id": "51baf1bef5d301e2f037f3d224ca0555dde5bdb53c47098e0233c1c16cfaf5f6", "item_id": "736f4ce84f:56", "text": "on the"}
+{"id": "00579d0a92e924f17d80da6e72a6607769495dc163aa1b7081638bd46c9320e5", "item_id": "736f4ce84f:57", "text": "Primary Specular."}
+{"id": "b43123cb8d1b4746b19d25dd734e53045506715f510d2a88ea3cdf755ab63d42", "item_id": "736f4ce84f:58", "text": "Thus we have Sunrise on a Sphere:"}
+{"id": "bb8f97e227388a0ab842376679af427c2f2f41a6026858f0044ef019283c9710", "item_id": "736f4ce84f:60", "text": "Attributes of PxrSurface can be connected to outputs from RenderMan's extensive set of"}
+{"id": "1fd38d5cbd2a997b91f725cb1cb0a710849db30dac491ee42e92443fd8e3c1a2", "item_id": "736f4ce84f:61", "text": "pattern"}
+{"id": "877be7c5cc4003c2dd12b64691f6514f8ce5edc11b83b196415a653a02640cdb", "item_id": "736f4ce84f:62", "text": "nodes.  Things like texture, bump mapping and procedural color can be added by setting up a PxrSurface bxdf using the PrmanShadingNode instead of a Material node, then wiring that node into a NetworkMaterial node.  This is the start of a shading network which you can extend as far as your creativity takes you."}
+{"id": "77c7d1c6bd91a1fc06c61bc18c4eaf23264c7f4cc19a67484702f6d00da6de0c", "item_id": "736f4ce84f:63", "text": "Let's add a ground plane to our scene with some fractal-based shading.  Use another PrimitiveCreate to add a plane.  Then create a NetworkMaterial node and choose"}
+{"id": "bfb321708174a7934d903b7604ce0285c6676698371f7bc6a77de38b3b8b5a9f", "item_id": "736f4ce84f:64", "text": "bxdf"}
+{"id": "4f56bf5fd8e4753ba57720268f0333576ac22c9387534579f73848a433d99a1b", "item_id": "736f4ce84f:65", "text": "from the"}
+{"id": "8f446d0831dda0af96c9e6808442649d660928baa464424426e5475f3b573f12", "item_id": "736f4ce84f:66", "text": "Add Terminal"}
+{"id": "e925658696401c1a3b09881aa752fb0dfa8b4c6f66cb2ebc3b9993ee25b8534e", "item_id": "736f4ce84f:67", "text": "menu.  Create a PrmanShadingNode and set the"}
+{"id": "5988a47fa1fa0cab48b3be896c44fe5f7601733eb66ef0e87a2da56b4a56e65f", "item_id": "736f4ce84f:68", "text": "NodeType"}
+{"id": "663ea1bfffe5038f3f0cf667f14c4257eff52d77ce7f2a218f72e9286616ea39", "item_id": "736f4ce84f:69", "text": "to"}
+{"id": "486dbc2ee8a1058deac9b72c7cad6e783d80c09799d763ed4543002256592756", "item_id": "736f4ce84f:71", "text": ".  Add a new MaterialAssign node and connect the plane to the NetworkMaterial the same way you assigned the sphere its material.  With a little rearranging and color coordination the node graph is now set up with a light, a camera and two pieces of geometry, each assigned a PxrSurface material:"}
+{"id": "1c42ec2437a764feb1fb12a66695bffb8330805edcd52ae3c0bd24c643483427", "item_id": "736f4ce84f:72", "text": "The addition of our fractal shading is done with series of PrmanShadingNodes, each with a Pattern that feeds an output into the next with the last feeding its result into"}
+{"id": "d90eb0225634c844ce1fc99e32709c464520584f879b62f8c6624c143aacdb98", "item_id": "736f4ce84f:74", "text": "input of the PxrSurface node:"}
+{"id": "af10b0c41eb2f40d507b512906d39b4b611fac7b810144e749c56b87a4dc45cf", "item_id": "736f4ce84f:75", "text": "The above node graph uses the PxrFractal, PxrToFloat3 and PxrHSL patterns to convert fractal noise into a surface shader for our ground plane.  Sunrise on a Sphere in a Fractal Sea:"}
+{"id": "d3cc487db26b1386c6c7d91c8b2208f92e7ffee006423373d40707064434e672", "item_id": "736f4ce84f:76", "text": "Fine Tuning"}
+{"id": "9b02e7b0ba89c9c1879e9c2be5986bde7e10158184089b09e06965f9f5bd963f", "item_id": "736f4ce84f:77", "text": "Now that you have a renderable scene you can start fine tuning the render with adjustments to the shaders and to the renderer itself.  Most adjustments to the shaders can be done during Live Rendering.  Render configuration, on the other hand, must be set before the render starts (e.g. resolution, samples, integrator).  RfK has several places for configuring renderer attributes. The most commonly-used settings are discussed below; more detail on these and the rest of the settings can be found in the Render Settings page."}
+{"id": "b726dbffa0948f597955e8e176d4f4a9b4c910f042c96df3538395c2b4c16339", "item_id": "736f4ce84f:78", "text": "General Render Settings"}
+{"id": "67bacbf7ddfda6dad69b31be4f73ab3bcf46aeaa0117237282704356471da217", "item_id": "736f4ce84f:79", "text": "If RenderMan is the only renderer installed for your Katana session then it will be used by default when you render.  If there are other renderers installed then you'll need to create a"}
+{"id": "5c77ab11a4d3563103b7c94dd69570eb724627e6f688a5721ff23cb9d954bbb0", "item_id": "736f4ce84f:80", "text": "RenderSettings"}
+{"id": "fe03f68e156b3c04936f04d608e5b30bbe2b6cd15987a4cada5451dffdef3d4f", "item_id": "736f4ce84f:81", "text": "node and set the"}
+{"id": "9deb780b4331c60e997ac3b4855911f7e0fc8c432d7607992e566cb0087e7ca2", "item_id": "736f4ce84f:82", "text": "Renderer"}
+{"id": "5712a08ecf034bdab1733abb3c6e773f17f87dbdfac1e49bca84ea40e1b83bab", "item_id": "736f4ce84f:83", "text": "attribute to \""}
+{"id": "856bd7b25fcea86071f7281947ee1aa22f70ffb5cc002b4d05725f18bd696ddf", "item_id": "736f4ce84f:84", "text": "prman\""}
+{"id": "5ccf1218975db488ec64db8ed2d80c9ea6909cb3e6fe39fc0077d0d0c23d0a3c", "item_id": "736f4ce84f:86", "text": "The RenderSettings node is also where you control things like:"}
+{"id": "b5ff43f4201ad9b190e2d8516ce28caecd1c6934691654742f2006913abb3f87", "item_id": "736f4ce84f:87", "text": "image resolution"}
+{"id": "89e8b9518d92279489bbdee26f3dc646d921d89a15afbd3a3e0ad695328a3da0", "item_id": "736f4ce84f:88", "text": "camera"}
+{"id": "f984f66a561b0b4beb70c83263f232f865adfff8d7027b3bb9ea791ca5233afd", "item_id": "736f4ce84f:89", "text": "crop window"}
+{"id": "62529286fe660b99cadb79726d1434f69c170164c2e06facf4c513f3fc555525", "item_id": "736f4ce84f:90", "text": "shutter open/close."}
+{"id": "c4c229887228eff31e790db006f03d452bd277dc32958a586fedfd2a3ce9b02c", "item_id": "736f4ce84f:91", "text": "RenderMan Controls"}
+{"id": "b1f76af408201a58b5a48e4e5af251033d2738453e9c048122abe35a59ccbcc7", "item_id": "736f4ce84f:92", "text": "RenderMan-specific rendering controls such as Options and Attributes are available in the PrmanGlobalStatements node.  Other RfK configuration options are exposed here as well.  For example, if you'd like your renders to go to the RenderMan"}
+{"id": "852b408a96738bb496059c9176cf36ccac6c2dab4bb8c88347532377f1b01196", "item_id": "736f4ce84f:93", "text": "Image Tool ('it')"}
+{"id": "d6d377f6dadd7b8718b00cb972695d9d4cce4325fcb16f230ff0bb5d8b455780", "item_id": "736f4ce84f:94", "text": "instead of the Monitor window you can control that with the"}
+{"id": "8544c5add06ec0d11c90c624337dffbee1f1bbfb93ec6d7cf59a02e1d2dab7f6", "item_id": "736f4ce84f:95", "text": "renderDisplay"}
+{"id": "d5891967a0b509abae5bb6cc8c4001259e3ca873baf978ba4dc0578c78a10c87", "item_id": "736f4ce84f:96", "text": "attribute in PrmanGlobalStatements."}
+{"id": "759f4c0213571addf354aadab734cf53182c7930fa752b44ed51122c728616d1", "item_id": "736f4ce84f:97", "text": "Next Steps"}
+{"id": "f24c4a7968f2209479121c4f4373b710b638f55be74deed4b1682fdfe8e4e970", "item_id": "736f4ce84f:98", "text": "Now that you're familiar with all the basics, take a look at the Tutorials for more advanced shading and rendering workflows.  If you're looking to improve either speed or quality of rendering a good place to start would be the"}
+{"id": "ecdce45206c35407105aa6b0f5d0798cfc5f02582ef0b78d6879aa1d8e6d814f", "item_id": "736f4ce84f:99", "text": "Sampling Modes"}
+{"id": "894e988cdf94caa95b745c4df2c1f2a90ce5738b56aac00c997080d2c90d7fba", "item_id": "736f4ce84f:100", "text": "documentation."}
+{"id": "f1969e2b860ecfa5b67aa718d5c120029962198f2f424c9f5a6f96efc41956fb", "item_id": "736f4ce84f:101", "text": "Happy Rendering!"}

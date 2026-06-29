@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Your First Job</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Your First Job</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/TRA/22184278/Your+First+Job">https://rmanwiki-27.pixar.com/space/TRA/22184278/Your+First+Job</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>Once you have installed Tractor, customized your configuration files, and started the engine and blade services, you are ready to submit your first job.</p><p> </p><h3 id="YourFirstJob-OpenaDashboard">Open a Dashboard</h3><p>The Dashboard is convenient way to manage the jobs and blades from the comfort of your favorite browser.</p><p>Go to <a class="external-link" href="http://tractor-engine" rel="nofollow">http://tractor-engine</a>, or <a class="external-link" href="http://HOSTNAMEPORT" rel="nofollow">http://HOSTNAME:PORT</a> if you have a custom hostname and port, and log in to Tractor.</p><p>If the Dashboard cannot be reached, check that the engine is in fact running. The engine log file can provide useful diagnostic information.</p><p> </p><h3 id="YourFirstJob-AbouttheExamples">About the Examples</h3><p>The following examples assume your current directory is INSTALL_DIR/bin.</p><p>The TRACTOR_ENGINE environment variable or --engine flag can be used to point the command line programs to a different engine from the default or the one determined through <a href="https://renderman.atlassian.net/wiki/spaces/TRA/pages/22184316#Engine-enginediscovery" rel="nofollow">engine discovery</a>.</p><p> </p><h3 id="YourFirstJob-SubmitaJob">Submit a Job</h3><p>Jobs can be submitted into the Tractor queue using the tractor-spool script, or through the RenderMan for Maya plug-in, or using the <a href="22184314-Job Author Python API.html" rel="nofollow">author API</a>.  Job submission is sometimes referred to as <a class="external-link" href="https://en.wikipedia.org/wiki/Spooling" rel="nofollow">spooling</a> by analogy to print spooling or traditional batch job systems.</p><p>tractor-spool most commonly takes the filename of an <a href="22184254-Job Scripting.html" rel="nofollow">Alfred-syntax job file</a> as an argument.</p><p><code>% tractor-spool jobfile.alf</code><sup>
+</sup></p><p>The following example job can be placed in a file and submitted with tractor-spool. It will simply output the environment that the command is running in.</p><p><code>Job -title {Environment Job} -subtasks {
+  Task -title {Environment Task} -cmds {
+    RemoteCmd {{printenv}} -service {pixarRender}
+  }
+}</code></p><p /><p>You can view the output of the task using the Dashboard, or from the command line with tq. The job id JOBID would be substituted with the job id emitted by tractor-spool.</p><p><code>tq log jid=JOBID and tid=1
+</code></p><p>The -c option creates a new tractor job for the single command specified by the remaining arguments. Try this simple command to test that the system is working. The job status and output can be checked in the Dashboard or tq.</p><p><code>% tractor-spool -c printenv
+</code></p><p><sup> </sup></p><h3 id="YourFirstJob-DeleteaJob">Delete a Job</h3><p>Jobs can be deleted in the Dashboard by clicking on the job entry in the job queue, and pressing the <em>Delete</em> or <em>Backspace</em> key.</p><p>Jobs can als be deleted from the command-line using the spooling tool by specifying the job id with --jdelete.</p><p><code>% tractor-spool --jdelete 1534
+</code></p><p>tq also permits the deleting a job from the command-line.</p><p><code>% tq delete jid=1534
+</code></p><p><sup> </sup></p><h3 id="YourFirstJob-FurtherReading">Further Reading</h3><p>All users will be interested in the <a href="22184282-Dashboard App.html" rel="nofollow">Dashboard</a> section which describes the graphical interface for managing the system.</p><p>Developers can learn about how to generate job scripts in the <a href="22184314-Job Author Python API.html" rel="nofollow">Job Author Python API</a> section. Tools for querying and managing the state of jobs and blades can be created with the <a href="22184266-Query Python API.html" rel="nofollow">Query Python API</a>.</p><p>Wranglers, admins, and anyone else confortable on the command line will enjoy the power of the command line tool <a href="22184306-tq- Tractor Query tool.html" rel="nofollow">tq</a>.</p><p>Admins can explore advanced customization techniques in the <a href="22184210-Configuration.html" rel="nofollow">Configuration</a> section.</p>
+  </article>
+</main>
+</body>
+</html>

@@ -1,0 +1,125 @@
+{
+  "phase": 780,
+  "file": "TRA/22184272-Directory Mapping.html",
+  "file_id": "e7d3c66164",
+  "source_items": 28,
+  "translation_rows": 28,
+  "source_items_match_translation_rows": true,
+  "duplicate_rows": [],
+  "missing_item_ids": [],
+  "extra_item_ids": [],
+  "tag_fingerprint_identical": true,
+  "rendered_markup_matches_target_markup": true,
+  "glossary_violations": [],
+  "direct_placement_missing": [],
+  "actionable_long_source_residuals": [],
+  "accepted_long_source_residuals": [
+    {
+      "item_id": "e7d3c66164:19",
+      "source": "Windows Service Considerations"
+    }
+  ],
+  "actionable_ascii_heavy_residuals": [],
+  "accepted_ascii_heavy_residuals": [
+    {
+      "item_id": "e7d3c66164:0",
+      "text": "Directory Mapping（目录映射）是 Tractor 的一项功能，允许你指定一个系统上的 file system paths，使其对应到另一个 operating system 上的相同 asset paths。例如，如果 job script 在 Windows 系统上使用 UNC file paths 创建，而你希望该 job 在通过 NFS 访问文件的 Linux 或 macOS 系统上运行，就可以指定 directory mapping，将 UNC paths 改写为 NFS paths。Directory maps 也可用于把 Windows paths 中的 drive letter 替换为 fully qualified UNC path。",
+      "ascii_letters": 196,
+      "cjk_chars": 83
+    },
+    {
+      "item_id": "e7d3c66164:1",
+      "text": "要指定 directory map，可以添加 Job 参数",
+      "ascii_letters": 15,
+      "cjk_chars": 9
+    },
+    {
+      "item_id": "e7d3c66164:4",
+      "text": "其中 maps 是采用以下格式的 directory maps 列表：",
+      "ascii_letters": 17,
+      "cjk_chars": 12
+    },
+    {
+      "item_id": "e7d3c66164:6",
+      "text": "例如，下面是 job script 中一些有效的 directory maps：",
+      "ascii_letters": 22,
+      "cjk_chars": 11
+    },
+    {
+      "item_id": "e7d3c66164:9",
+      "text": "默认情况下，在 Windows 上运行的 Tractor Blades 会使用 UNC zone，而 Linux 和 macOS blades 会使用 NFS zone。也可以通过在匹配的",
+      "ascii_letters": 50,
+      "cjk_chars": 27
+    },
+    {
+      "item_id": "e7d3c66164:10",
+      "text": "blade profile",
+      "ascii_letters": 12,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "e7d3c66164:11",
+      "text": "中指定 DirMapZone 值，为给定 hosts 显式设置 zone name。另请注意，directory maps",
+      "ascii_letters": 36,
+      "cjk_chars": 15
+    },
+    {
+      "item_id": "e7d3c66164:16",
+      "text": "为 RenderMan for Maya 设置 Directory Mapping",
+      "ascii_letters": 32,
+      "cjk_chars": 3
+    },
+    {
+      "item_id": "e7d3c66164:19",
+      "text": "Windows Service Considerations（Windows 服务注意事项）",
+      "ascii_letters": 35,
+      "cjk_chars": 6
+    },
+    {
+      "item_id": "e7d3c66164:20",
+      "text": "Windows services 无法访问 mapped drives。因此，如果你的 Maya project 设置为类似 X:\\projects\\proj1 的 mapped drive 位置，那么你需要设置 directory mapping，使作为 Windows service 运行的 Tractor Blades 能访问该位置。如果你的 X: drive 映射到 \\\\fileserver\\projects，那么应为 UNC zone 设置类似下面的 directory mapping：",
+      "ascii_letters": 152,
+      "cjk_chars": 55
+    },
+    {
+      "item_id": "e7d3c66164:22",
+      "text": "Windows 有时会缓存 SMB mount credentials，也有时会清除之前已认证 credentials 的缓存。尤其是在较新的 Windows 版本（8.1+）中，当 blade 作为 service 运行时，UNC name 的 credential 需要把 Persistence 设置为 “enterprise”。如果你只是用 File Explorer 浏览到 share 并在那里输入密码，它不会被设置成这种值。设置 persistence 的步骤如下：",
+      "ascii_letters": 122,
+      "cjk_chars": 76
+    },
+    {
+      "item_id": "e7d3c66164:23",
+      "text": "打开 Control Panel->User Accounts and Family Safety->Manage Windows Credentials",
+      "ascii_letters": 63,
+      "cjk_chars": 2
+    },
+    {
+      "item_id": "e7d3c66164:24",
+      "text": "如果给定 share 的旧 credentials 的 persistence 尚不是 “enterprise”，则删除它们",
+      "ascii_letters": 37,
+      "cjk_chars": 15
+    },
+    {
+      "item_id": "e7d3c66164:25",
+      "text": "点击 “add a Windows credential”（添加 Windows 凭据）",
+      "ascii_letters": 28,
+      "cjk_chars": 6
+    },
+    {
+      "item_id": "e7d3c66164:26",
+      "text": "输入相应的 \\\\server\\share、account name 和 password。",
+      "ascii_letters": 30,
+      "cjk_chars": 6
+    },
+    {
+      "item_id": "e7d3c66164:27",
+      "text": "记得将 tractor-blade service 配置为以同一用户运行。* 进入 Control Panel->...->Services，并将 blade service 的 “Run As Account” 设置为你选择的 account。* 重启该 service",
+      "ascii_letters": 77,
+      "cjk_chars": 28
+    }
+  ],
+  "required_phrase_missing": [],
+  "section_order_positions": [],
+  "section_order_ok": true,
+  "passed": true
+}

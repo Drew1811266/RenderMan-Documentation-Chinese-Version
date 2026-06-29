@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shading in Houdini</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Shading in Houdini</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFH27/544644296/Shading+in+Houdini">https://rmanwiki-27.pixar.com/space/RFH27/544644296/Shading+in+Houdini</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="900" loading="lazy" src="../../attachments/544644296/RenderMan_Fundamentals_WallpaperTwo.jpg" data-image-src="../../attachments/544644296/RenderMan_Fundamentals_WallpaperTwo.jpg" data-height="720" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="544644321" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Fundamentals_WallpaperTwo.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544644296" data-linked-resource-container-version="1" data-media-id="cc8607cd-3983-4357-85d3-771ea2688aef" data-media-type="file"></span><h3 id="ShadinginHoudini-Materials">Materials（材质）</h3><p>Materials（材质）在 RenderMan 中通常称为 Bxdf(s)。Bxdf 会向 <a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661783" rel="nofollow">integrator（积分器）</a> 描述材质，并由该积分器决定最终渲染外观。由于二者彼此独立，用户可以更换积分器，同时仍使用同一个 Bxdf 来获得一致或预期的结果。假设你创建了一种金色金属；如果用 PxrPathTracer 或 PxrVCM 渲染它，你会期望最终图像中的材质属性仍然呈现为 "gold"（金色）。这甚至可以扩展到非照片写实积分器和 custom（自定义）积分器：它们可以用新的、有趣的方式渲染你的 gold Bxdf（金色 Bxdf），但结果仍会被理解为 gold（黄金/金色）。这正是 RenderMan 中材质 Bxdfs 的能力。</p><p>下面的链接按常见用途分类列出 RenderMan 中可用的材质。</p><p /><p><a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661411" rel="nofollow"><strong>PxrSurface</strong></a> - 这是用于创建所需各种外观的终极材质系统。从皮肤到宝石，PxrSurface 都能通过分层和艺术家驱动参数处理复杂外观。</p><p><a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661457" rel="nofollow"><strong>MaterialX Lama</strong> </a>- <span class="legacy-color-text-default">MaterialX Lama 是 Industrial Light &amp; Magic 开发的先进材质分层系统；它引入了一种模块化方式来构建材质网络，并包含关于能量守恒和色散的近期工作。 </span></p><p><a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661555" rel="nofollow"><strong>PxrVolume</strong></a> - 一种强大且快速的体积着色器，用于烟、火、爆炸等效果。 </p><p><a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661553" rel="nofollow"><strong>PxrMarschnerHair</strong></a> - 此材质专为毛发、绒毛和纤维设计。</p><p><strong>Basic Materials（基础材质）</strong> - 这些材质面向特定用途设计。</p><ul><li><p><strong>PxrConstant </strong>- 此材质提供恒定颜色，也可以贴图化。它非常适合投影以及其他不希望出现着色的效果。</p></li><li><p><strong>PxrDiffuse</strong> - 一种简单且快速的漫反射材质。</p></li><li><p><strong>PxrBlack</strong> - 一种非散射材质，顾名思义会渲染为黑色。</p></li></ul><p /><ul class="childpages-macro conf-macro output-block" data-hasbody="false" data-layout="default" data-local-id="a97918bf-ebbe-4595-9a96-4242b9dc7501" data-macro-id="e66d4af6-c5d0-4934-8ec9-14b5f66edebf" data-macro-name="children"><li><a href="544644341-Texture Manager.html" data-linked-resource-id="544644341" data-linked-resource-version="6" data-linked-resource-type="page">Texture Manager（纹理管理器）</a></li><li><a href="544644370-Volume Material.html" data-linked-resource-id="544644370" data-linked-resource-version="1" data-linked-resource-type="page">Volume Material（体积材质）</a></li><li><a href="544644429-Soloing Patterns.html" data-linked-resource-id="544644429" data-linked-resource-version="1" data-linked-resource-type="page">Soloing Patterns（单独显示 Patterns）</a></li><li><a href="544644451-OSL Patterns.html" data-linked-resource-id="544644451" data-linked-resource-version="1" data-linked-resource-type="page">OSL Patterns（OSL Patterns 图案）</a></li><li><a href="544644486-Assigning Materials To Faces.html" data-linked-resource-id="544644486" data-linked-resource-version="1" data-linked-resource-type="page">Assigning Materials To Faces（将材质指定到面）</a></li><li><a href="544644545-Using Material Layers.html" data-linked-resource-id="544644545" data-linked-resource-version="1" data-linked-resource-type="page">Using Material Layers（使用材质层）</a></li><li><a href="544644642-Using Displacement.html" data-linked-resource-id="544644642" data-linked-resource-version="1" data-linked-resource-type="page">Using Displacement（使用置换）</a></li><li><a href="544644703-Creating A Material.html" data-linked-resource-id="544644703" data-linked-resource-version="1" data-linked-resource-type="page">Creating A Material（创建材质）</a></li></ul><p /><p />
+  </article>
+</main>
+</body>
+</html>

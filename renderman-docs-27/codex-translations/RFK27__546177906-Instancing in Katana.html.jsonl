@@ -1,0 +1,65 @@
+{"item_id":"0e401185b5:0","text":"如果场景中有在多个位置重复使用的 geometry（几何体），instancing（实例化）可以让你在做少量额外设置后减少 render（渲染）的内存占用。例如，如果场景由多个建筑组成，每个建筑旋转略有不同，就可以使用 instancing 只将一个副本加载到内存中。"}
+{"item_id":"0e401185b5:1","text":"RenderMan for Katana 支持三种 instancing 方法：leaf-level instancing（叶级实例化）、hierarchical instancing（层级实例化）和 instance arrays（实例数组）。第一种 leaf-level 方法允许通过 attribute（属性）对匹配的 geometry 片段进行实例化。第二种和第三种是更明确的方式：先设置 object prototype（对象原型），然后显式实例化它。"}
+{"item_id":"0e401185b5:2","text":"teapots_instancingExample.katana"}
+{"item_id":"0e401185b5:3","text":"文件包含一个示例，展示如何使用这些方法渲染上方图像。"}
+{"item_id":"0e401185b5:4","text":"Performance Note（性能说明）"}
+{"item_id":"0e401185b5:5","text":"Instancing 可以节省内存，但可能影响 performance（性能），例如 time to first pixel（首像素时间，即渲染开始发送像素的速度），因为 Katana 可能会处理许多节点。能够实例化 hierarchy（层级）的选项在 time to first pixel 上会更高效，但你可能会失去对某些希望覆盖的 attributes（属性）的控制；这是需要权衡的地方。"}
+{"item_id":"0e401185b5:6","text":"在 PrmanGlobalStatements 中可以指定"}
+{"item_id":"0e401185b5:7","text":"或者可以在 PrmanObjectStatements 中使用"}
+{"item_id":"0e401185b5:8","text":"这些选项会告诉 Katana 将 instances（实例）保留为 groups（组）而不是将其 flatten（展平）；这样会加快 time to first pixel，因为不会为可能大量涌入的 instances 执行展平。"}
+{"item_id":"0e401185b5:9","text":"可以在主"}
+{"item_id":"0e401185b5:10","text":"Instancing（实例化）"}
+{"item_id":"0e401185b5:11","text":"页面上阅读更多关于 nesting（嵌套）与 flattening（展平）的内容。"}
+{"item_id":"0e401185b5:12","text":"本质上，SceneGraph flattening time（SceneGraph 展平时间）对应于 instances（实例）数量乘以 instance source（实例源）下方的 locations（位置）数量。instance sources 越复杂、instances 越多，展平成本就越高。"}
+{"item_id":"0e401185b5:13","text":"Leaf-level instancing（叶级实例化）"}
+{"item_id":"0e401185b5:14","text":"你可能会发现场景占用了大量内存，并认为由于场景有很多重复 geometry（几何体），也许可以利用 instancing。leaf-level instancing 方法可通过"}
+{"item_id":"0e401185b5:15","text":"attribute（属性）高效地将已有 geometry locations（几何体位置）转换为彼此的 instances。RenderMan for Katana 会把它遇到的第一个具有某个"}
+{"item_id":"0e401185b5:16","text":"的位置作为 geometry prototype（几何体原型），随后所有位置都会成为 instances。所有具有匹配 instance.ID 的 locations 必须完全相同，否则根据 RenderMan for Katana 最先遇到哪个 location，可能出现未定义行为。下面的屏幕截图展示如何设置该"}
+{"item_id":"0e401185b5:17","text":"attribute（属性），使用的是 AttributeSet 节点。"}
+{"item_id":"0e401185b5:18","text":"顾名思义，leaf-level instancing 只适用于没有 children（子级）的 Scene Graph locations。RenderMan for Katana 不会遍历超过带有"}
+{"item_id":"0e401185b5:19","text":"attribute（属性）的位置，因此它不能用于实例化 geometry groups（几何体组）。如果需要实例化 hierarchy（层级），必须使用 hierarchical instancing 或 instance array。接下来的两个小节会介绍它们。"}
+{"item_id":"0e401185b5:20","text":"Hierarchical Instancing（层级实例化）"}
+{"item_id":"0e401185b5:21","text":"在这种方法中，instance source/object prototypes（实例源/对象原型）通过其 Scene Graph locations 指定，然后在对应的 instance locations 中引用。如果你希望实例化一个 locations 层级，这种方法很适合。"}
+{"item_id":"0e401185b5:22","text":"使用这种方法创建 instances 的步骤如下。"}
+{"item_id":"0e401185b5:23","text":"将要用作 object prototype（对象原型）的 Scene Graph location 的 \"type\" 更改为 \"instance source\"。请注意，instance source 的 Scene Graph location 必须是 group（组）。如果将 geometric primitive（几何图元）的类型改为 \"instance source\"，RfK 将没有关于 primitive type（图元类型）的任何信息，instances 将无法渲染。"}
+{"item_id":"0e401185b5:24","text":"为 instances 创建 locations。可以使用 LocationCreate 节点或 OpScript 完成。如果希望 instance source 可见，也必须为它创建一个新的 instance（相比之下，instance.ID 方法会自动使 instance source 可见）。"}
+{"item_id":"0e401185b5:25","text":"将每个 instance location 的 geometry.instanceSource attribute（属性）设置为 instance source 的 Scene Graph location"}
+{"item_id":"0e401185b5:26","text":"使用 Transform3D 节点或 OpScript 在 instance locations 上设置 transforms（变换）。"}
+{"item_id":"0e401185b5:27","text":"下面的屏幕截图展示如何用 AttributeSet 节点设置必要的 attributes（属性）。"}
+{"item_id":"0e401185b5:28","text":"创建 instances 后，如果需要，可以使用将 material（材质）应用到 Scene Graph location 的标准 Katana 机制来 override（覆盖）material。注意，在 instance source location 上分配的任何 material 都会被忽略。这是为了允许在 instance locations 上进行 overrides。不过，只能覆盖 instance source location 根部的 materials。instance source 的子 locations 上的 material overrides 需要使用 user attributes（用户属性）完成。"}
+{"item_id":"0e401185b5:29","text":"Instance Arrays（实例数组）"}
+{"item_id":"0e401185b5:30","text":"与 hierarchical instancing 一样，此方法直接把 locations 指派为 instance sources。标记为 instance sources 的 locations 可以由 instance array location 引用。与 hierarchical instancing 相比，此方法有一些优缺点。主要优点是只需创建一个 Scene Graph location 来表示所有 instances。这可以节省 Katana Scene Graph 处理时间。此外，可以在单个 instance array 中引用多个 instance sources。主要缺点是 instance arrays 无法按每个 instance 覆盖所有 attributes - 只支持 user attribute overrides（用户属性覆盖）。在决定 instancing 方法之前，确定需求很重要。"}
+{"item_id":"0e401185b5:31","text":"设置 instance source locations 的步骤与 hierarchical instancing 相同。只需将表示 object prototype 的 group 类型设置为 \"instance source\"。然后需要创建一个 \"instance array\" 类型的 location，并在其上构建 instance array attributes。"}
+{"item_id":"0e401185b5:32","text":"instance array location 上需要以下 attributes："}
+{"item_id":"0e401185b5:33","text":"string"}
+{"item_id":"0e401185b5:34","text":"geometry.instanceSource"}
+{"item_id":"0e401185b5:35","text":"此 instance array 中引用的 instance source locations 数组。"}
+{"item_id":"0e401185b5:36","text":"int"}
+{"item_id":"0e401185b5:37","text":"geometry.instanceIndex"}
+{"item_id":"0e401185b5:38","text":"instanceIndex attribute（属性）为 instance array 中的每个 instance 都有一个元素。每个元素都会映射到 geometry.instanceSource attribute（属性）中的一个索引。此映射决定每个 instance 使用哪个 instance source。"}
+{"item_id":"0e401185b5:39","text":"double or float（类型为 double 或 float）"}
+{"item_id":"0e401185b5:40","text":"geometry.instanceMatrix"}
+{"item_id":"0e401185b5:41","text":"对于 instance array 中的每个 instance，instanceMatrix 中都有 16 个值表示该 instance 的 transformation matrix（变换矩阵）。注意，此 transform（变换）是相对于 instance array 自身的 transform。"}
+{"item_id":"0e401185b5:42","text":"此外，还有一些可用的 optional attributes（可选属性）："}
+{"item_id":"0e401185b5:43","text":"int"}
+{"item_id":"0e401185b5:44","text":"geometry.instanceSkipIndex"}
+{"item_id":"0e401185b5:45","text":"要从 instance array 中省略的 indices（索引）列表。用于 prune（剔除）某些 instances。"}
+{"item_id":"0e401185b5:46","text":"group"}
+{"item_id":"0e401185b5:47","text":"geometry.arbitrary"}
+{"item_id":"0e401185b5:48","text":"虽然格式化为 constant（常量）"}
+{"item_id":"0e401185b5:49","text":"PrimVars"}
+{"item_id":"0e401185b5:50","text":"，但在 renderer（渲染器）中这些 attributes（属性）会变成"}
+{"item_id":"0e401185b5:51","text":"user attributes（用户属性）"}
+{"item_id":"0e401185b5:52","text":"。value 和 indexValue attributes 中应为 instance array 中的每个 instance 都提供一个元素。"}
+{"item_id":"0e401185b5:53","text":"请参见这个"}
+{"item_id":"0e401185b5:54","text":"instanceArray.zip"}
+{"item_id":"0e401185b5:55","text":"示例（也可在 RfK 的 Examples 目录中找到），其中展示如何从 point cloud（点云）设置 instance array。"}
+{"item_id":"0e401185b5:56","text":"Overriding Materials at the Instance Level（在实例级别覆盖材质）"}
+{"item_id":"0e401185b5:57","text":"Shading overrides（着色覆盖）可以通过多种方式实现。在示例文件中采用了一种简单方法：为每个 instance 分配一个全新的 Bxdf。RenderMan for Katana 还可以用更复杂的方式改变每个 instance 上的 shading。其中一种方法是为每个 instance 创建一个唯一的 \"user\" attribute（属性）。在分配给 object prototype 的 material 内，可以创建一个 PxrAttribute pattern（模式）来读取 user attribute，然后使用其输出驱动 Bxdf 上的某个 parameter（参数）。"}
+{"item_id":"0e401185b5:58","text":"虽然可以按每个 instance 改变 Bxdfs、transforms、light linking（灯光链接）和 attributes，但有些内容不能变化。PrmanObjectStatements 中 \"primvars\" 和 \"primAttributes\" groups（组）下的 PrimVars 和 parameters 不能按每个 instance 变化。Displacement（置换）也不能跨 instances 变化，因为它会改变 renderer 中 geometry prototype（几何体原型）的表示。有关 instancing 的更深入讨论，请阅读"}
+{"item_id":"0e401185b5:59","text":"Instancing（实例化）"}
+{"item_id":"0e401185b5:60","text":"页面（RenderMan 文档）。它提供了很好的背景信息，以及可以跨 instances 变化内容的完整列表。"}
+{"item_id":"0e401185b5:61","text":"Instancing lights（实例化灯光）"}
+{"item_id":"0e401185b5:62","text":"可以使用上述方法或使用"}
+{"item_id":"0e401185b5:63","text":"Light Arrays（灯光数组）"}
+{"item_id":"0e401185b5:64","text":"来实例化 lights（灯光）。与实例化 geometry（几何体）相比，实例化 lights 有更多限制。Light shader parameters（灯光着色器参数）不能按每个 instance 变化。同样，PxrPortalLight 和 PxrEnvDay light 不能被实例化。还要注意，如果要使用 light filters（灯光过滤器）实例化 lights，不要使用 leaf-level instancing 方法，因为这种方法不允许实例化 hierarchies（层级）。"}

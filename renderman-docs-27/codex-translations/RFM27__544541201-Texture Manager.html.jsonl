@@ -1,0 +1,53 @@
+{"item_id": "0c652c5c0b:0", "text": "Texture Manager 的职责很简单：将 images 转换为 RenderMan 的 texture format，使用 OpenImageIO 或"}
+{"item_id": "0c652c5c0b:1", "text": "txmake"}
+{"item_id": "0c652c5c0b:2", "text": "。它既处理单张 images，也处理 texture atlases（UDIM、Mudbox、ZBrush）。"}
+{"item_id": "0c652c5c0b:3", "text": "User interface（用户界面）"}
+{"item_id": "0c652c5c0b:4", "text": "打开新 scene 时，Texture Manager 会找到所有用作 textures 的 images，并将它们加入 queue 进行转换。Conversion settings 会基于一组定义在"}
+{"item_id": "0c652c5c0b:5", "text": "json file"}
+{"item_id": "0c652c5c0b:6", "text": "中的 rules（见下文）。使用 Settings pane 修改当前所选 image(s) 的 settings，然后使用 Apply button 以新 settings 重新转换 image(s)。"}
+{"item_id": "0c652c5c0b:7", "text": "每当想转换新的 textures 时，只需按下"}
+{"item_id": "0c652c5c0b:8", "text": "Parse Scene"}
+{"item_id": "0c652c5c0b:9", "text": "。"}
+{"item_id": "0c652c5c0b:10", "text": "Pick Images"}
+{"item_id": "0c652c5c0b:11", "text": "和"}
+{"item_id": "0c652c5c0b:12", "text": "Pick Directories"}
+{"item_id": "0c652c5c0b:13", "text": "允许你预先转换 images，而不必知道如何使用 OpenImageIO 或"}
+{"item_id": "0c652c5c0b:14", "text": "txmake"}
+{"item_id": "0c652c5c0b:15", "text": "。"}
+{"item_id": "0c652c5c0b:16", "text": "Stop / Start the conversion queue（停止/启动转换队列）"}
+{"item_id": "0c652c5c0b:17", "text": "默认情况下，conversion queue 始终运行，但有时你可能想停止 conversion process。"}
+{"item_id": "0c652c5c0b:18", "text": "点击 progress bar 右侧的 icon 可以停止并重新启动 conversion queue。当 queue 停止时，正在运行的 worker processes 会立即被终止，但现有 textures 保持完好。重新启动后，它会从离开的地方继续。"}
+{"item_id": "0c652c5c0b:19", "text": "Conversion information（转换信息）"}
+{"item_id": "0c652c5c0b:20", "text": "Texture Manager window 底部有 disk usage 和 progress indicator。"}
+{"item_id": "0c652c5c0b:21", "text": "列表中的每个 file 也都有 status icon。"}
+{"item_id": "0c652c5c0b:22", "text": "Interactive versus Batch rendering（交互式与批量渲染）"}
+{"item_id": "0c652c5c0b:23", "text": "在 interactive renders 期间，texture manager 会将新 textures 添加到 queue，并返回 temporary texture，直到 conversion 完成。完成后，它会向 renderer 发送更新，你的 texture 会显示出来。"}
+{"item_id": "0c652c5c0b:24", "text": "当你启动"}
+{"item_id": "0c652c5c0b:25", "text": "Batch"}
+{"item_id": "0c652c5c0b:26", "text": "或"}
+{"item_id": "0c652c5c0b:27", "text": "Preview"}
+{"item_id": "0c652c5c0b:28", "text": "render 时，需要先转换所有 textures。从 22.3 开始，RfM 会停止 conversion queue，并将任何剩余 conversion task 添加到 LocalQueue 或 Tractor job，以确保始终得到预期图像。"}
+{"item_id": "0c652c5c0b:29", "text": "Settings（设置）"}
+{"item_id": "0c652c5c0b:30", "text": "Backend"}
+{"item_id": "0c652c5c0b:31", "text": "：OpenImageIO 会使用 OpenImageIO library 进行 texture conversion，并启动 rmanoiiotool processes。Legacy 会使用 RenderMan 的 txmake processes。此更改会在 Maya 重启后生效。"}
+{"item_id": "0c652c5c0b:32", "text": "Number of processes"}
+{"item_id": "0c652c5c0b:33", "text": "：同时启动多少个 worker processes。默认值为 2，但增加更多 processes 通常有助于加快 queue。"}
+{"item_id": "0c652c5c0b:34", "text": "Fallback Texture Path"}
+{"item_id": "0c652c5c0b:35", "text": "：默认情况下，texture manager 会把 texture 保存在 source image 旁边。如果由于任何原因无法保存在该目录中，则会使用 fallback texture path。"}
+{"item_id": "0c652c5c0b:36", "text": "Always Fallback"}
+{"item_id": "0c652c5c0b:37", "text": "：始终将转换后的 textures 保存在 fallback texture directory 中。"}
+{"item_id": "0c652c5c0b:38", "text": "Show Advanced Options"}
+{"item_id": "0c652c5c0b:39", "text": "：在 user interface 中显示更多 advanced options。"}
+{"item_id": "0c652c5c0b:40", "text": "Texture extensions"}
+{"item_id": "0c652c5c0b:41", "text": "：所有 texture file extensions，用于让 texture manager 知道哪些 files 可标记为已转换。"}
+{"item_id": "0c652c5c0b:42", "text": "Texture Manager Configuration（Texture Manager 配置）"}
+{"item_id": "0c652c5c0b:43", "text": "texture manager 使用一组 rules，根据以下内容选择最佳 OpenImageIO/txmake parameters："}
+{"item_id": "0c652c5c0b:44", "text": "使用该 texture 的 node 类型："}
+{"item_id": "0c652c5c0b:45", "text": "或"}
+{"item_id": "0c652c5c0b:46", "text": "。"}
+{"item_id": "0c652c5c0b:47", "text": "该 node 类型的一组 base parameters"}
+{"item_id": "0c652c5c0b:48", "text": "在考虑 file name、bit depth 等因素时，用于修改 base parameters 的一条或多条 rules"}
+{"item_id": "0c652c5c0b:49", "text": "Custom settings（自定义设置）可以由"}
+{"item_id": "0c652c5c0b:50", "text": "ocio configuration"}
+{"item_id": "0c652c5c0b:51", "text": "定义。"}
+{"item_id": "0c652c5c0b:52", "text": "默认 rules 是为效率而构建的；除非有特定 pipeline requirements，否则不需要修改它们"}

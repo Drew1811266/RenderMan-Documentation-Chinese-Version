@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cryptomatte in Houdini</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Cryptomatte in Houdini</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFH27/544645367/Cryptomatte+in+Houdini">https://rmanwiki-27.pixar.com/space/RFH27/544645367/Cryptomatte+in+Houdini</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p><span class="legacy-color-text-default"> <a href="https://rmanwiki-24.pixar.com/space/REN24/21760466/PxrCryptomatte" data-linked-resource-id="21760466" data-linked-resource-version="7" data-linked-resource-type="page">PxrCryptomatte（Cryptomatte 采样过滤器）</a> 作为 </span> <a class="external-link" href="http://rmanwiki-test.pixar.com/display/REN24/Sample+and+Display+Filters" rel="nofollow">Sample Filter（采样过滤器）</a> <span class="legacy-color-text-default"> plugin（插件）提供。因此，Cryptomatte 的输出会作为独立的 EXR 文件存储，与 beauty（美图）或 denoise outputs（降噪输出）分开。请注意，需要 OpenEXR 才能正确存储这些值。 </span>请参阅 <a href="544645844-Display &amp; Sample Filters.html" data-linked-resource-id="544645844" data-linked-resource-version="1" data-linked-resource-type="page">此处</a> 了解如何附加 sample filters（采样过滤器）以及如何组合 sample filters。 </p><p>Cryptomatte 用于生成 automatic IDs（自动 ID）或 user supplied IDs（用户提供的 ID），以便在 compositing（合成）中使用。通常，此 pass（通道）用于在后期操作中识别并修改 scene elements（场景元素）。它还省去了为 scene entities（场景实体）手动分配有用 ID 的繁琐工作，尤其是在场景很复杂时。</p><p>此 example scene（示例场景）使用 Houdini 18.0 制作，可在页面底部获取。</p><h3 id="CryptomatteinHoudini-Built-inOptions">Built-in Options（内置选项）</h3><p><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image confluence-thumbnail" loading="lazy" src="../../attachments/544645367/cryptomatte.ris1.0001.png" data-image-src="../../attachments/544645367/cryptomatte.ris1.0001.png" data-unresolved-comment-count="0" data-linked-resource-id="544645397" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cryptomatte.ris1.0001.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544645367" data-linked-resource-container-version="1" data-media-id="fbef5376-551a-4f7b-8c25-eea98756270f" data-media-type="file"></span> <span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/544645367/obj.PNG" data-image-src="../../attachments/544645367/obj.PNG" data-unresolved-comment-count="0" data-linked-resource-id="544645418" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="obj.PNG" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544645367" data-linked-resource-container-version="1" data-media-id="939e4288-4d3f-4302-b0a0-391fded927e0" data-media-type="file"></span></p><h4 id="CryptomatteinHoudini-Layers">Layers（层）</h4><ul style="list-style-type: square;"><li><strong>Name（名称）</strong> 此项使用 object name（对象名称）来指定 ID。更改 object name 会改变结果。</li></ul><p><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image confluence-thumbnail" loading="lazy" src="../../attachments/544645367/name2.png" data-image-src="../../attachments/544645367/name2.png" data-unresolved-comment-count="0" data-linked-resource-id="544645415" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="name2.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544645367" data-linked-resource-container-version="1" data-media-id="23337bb9-6592-4c3a-8d20-6a6bb1d8a469" data-media-type="file"></span></p><ul style="list-style-type: square;"><li><strong>Path（路径）</strong> 类似于 Name，但现在也会识别 instances（实例）。</li></ul><p><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image confluence-thumbnail" loading="lazy" src="../../attachments/544645367/path2.png" data-image-src="../../attachments/544645367/path2.png" data-unresolved-comment-count="0" data-linked-resource-id="544645427" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="path2.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544645367" data-linked-resource-container-version="1" data-media-id="58239689-1f90-46e5-b5c1-2477e8a20963" data-media-type="file"></span></p><ul style="list-style-type: square;"><li><strong>Material（材质）</strong> 此项基于分配的 material（材质）创建 ID。共享 materials 会具有相同 ID。</li></ul><p><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image confluence-thumbnail" loading="lazy" src="../../attachments/544645367/mat2.png" data-image-src="../../attachments/544645367/mat2.png" data-unresolved-comment-count="0" data-linked-resource-id="544645406" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="mat2.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544645367" data-linked-resource-container-version="1" data-media-id="dc533d5e-1bfe-4191-a116-1c33941ac1b1" data-media-type="file"></span></p><p><br/></p><h3 id="CryptomatteinHoudini-Attributes">Attributes（属性）</h3><ul style="list-style-type: square;"><li><strong>user:__objectid（用户对象 ID）</strong> 基于 OBJ node grouping（OBJ 节点分组）。<br/> <br/> <span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image confluence-thumbnail" loading="lazy" src="../../attachments/544645367/objectid2.png" data-image-src="../../attachments/544645367/objectid2.png" data-unresolved-comment-count="0" data-linked-resource-id="544645424" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="objectid2.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544645367" data-linked-resource-container-version="1" data-media-id="4b7880ac-7297-4f5e-a5f8-01af9e2acd1a" data-media-type="file"></span> </li><li><strong>user:cryptomatte（Cryptomatte 用户属性）</strong> 此项使用 RenderMan spare parameters（RenderMan 备用参数）中的参数。<br/> <br/> <span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image confluence-thumbnail" loading="lazy" src="../../attachments/544645367/cryptoattr2.png" data-image-src="../../attachments/544645367/cryptoattr2.png" data-unresolved-comment-count="0" data-linked-resource-id="544645388" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cryptoattr2.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544645367" data-linked-resource-container-version="1" data-media-id="bfd3045e-2300-4975-b60e-5dc879084e11" data-media-type="file"></span> <span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/544645367/attr.PNG" data-image-src="../../attachments/544645367/attr.PNG" data-unresolved-comment-count="0" data-linked-resource-id="544645385" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="attr.PNG" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544645367" data-linked-resource-container-version="1" data-media-id="858bec18-e3bb-4966-8381-b8312a8fe1e3" data-media-type="file"></span></li></ul><ul style="list-style-type: square;"><li><strong>user:myatttr（示例用户属性）</strong> 仅适用于 packed geometry（打包几何体）上的 primitive attribute（图元属性）。请注意，在 unpacked geometry（未打包几何体）上，primitive attributes 是 RenderMan Primvars（内建于 geometry 中的 primitive variables），而不是 attributes，因此 PxrCryptomatte 无法读取。<br/> <br/> <span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image confluence-thumbnail" loading="lazy" src="../../attachments/544645367/myattr2.png" data-image-src="../../attachments/544645367/myattr2.png" data-unresolved-comment-count="0" data-linked-resource-id="544645412" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="myattr2.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544645367" data-linked-resource-container-version="1" data-media-id="81a0c285-5a0d-4eb3-9df0-5dd56f788fa9" data-media-type="file"></span> <span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/544645367/geospread.PNG" data-image-src="../../attachments/544645367/geospread.PNG" data-unresolved-comment-count="0" data-linked-resource-id="544645400" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="geospread.PNG" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544645367" data-linked-resource-container-version="1" data-media-id="aabfcbeb-cd02-4d33-86d2-742f58a962c8" data-media-type="file"></span> </li><li>可以指定任何 attribute（属性），例如 visibility:camera、Ri:Matte 等，让 Cryptomatte 生成 ID。请参阅 <a href="https://rmanwiki-24.pixar.com/space/REN24/21760466/PxrCryptomatte" data-linked-resource-id="21760466" data-linked-resource-version="7" data-linked-resource-type="page">PxrCryptomatte（Cryptomatte 采样过滤器）</a> 文档了解更多详细信息。</li></ul><p><strong>此 scene（场景）可在下方获取：</strong></p><p><a href="https://renderman.atlassian.net/wiki/download/attachments/544645367/cryptomatte.hip?version=1&amp;modificationDate=1754433140557&amp;cacheVersion=1&amp;api=v2" data-linked-resource-id="544645391" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cryptomatte.hip" data-linked-resource-content-type="application/octet-stream" data-linked-resource-container-id="544645367" data-linked-resource-container-version="1">cryptomatte.hip（示例场景文件）</a></p>
+  </article>
+</main>
+</body>
+</html>

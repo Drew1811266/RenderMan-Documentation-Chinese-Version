@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Installing Custom Nodes</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Installing Custom Nodes</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFM27/544541146/Installing+Custom+Nodes">https://rmanwiki-27.pixar.com/space/RFM27/544541146/Installing+Custom+Nodes</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>In production, it's desirable to create and add your own patterns and C++ plugins (materials, lights, patterns, and more) to the user interface in Maya, having them load when RenderMan is loaded. This gives artists access to these nodes in a Maya session. Users wanting to do this must obtain a Maya Node ID from Autodesk (these are often assigned in blocks). This allows Maya to assign unique IDs and identify nodes.</p><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="9f9ac8e8-74ee-4318-ac08-a124b0422c36" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>Since we do not recommend changing the shipped rfm.json files, you may use a system environment variable, <span>RFM_SHOW_PATH or RFM_SITE_PATH,</span> to source your custom versions.</p></div></div><p><br/></p><p>RenderMan for Maya will search in the following order and merge/override in the same order. <strong>Note</strong> <span>: This hierarchical process is valid for the other config files: shelf.json, aovs.json, menu.json, etc.</span></p><ol><li>rfm will read RFMTREE/config/rfm.json. This is the base configuration and should NEVER be altered by you, please make a custom version.</li><li>rfm looks for RFM_SITE_PATH and RFM_SHOW_PATH. These can either be environment variables or values in the main rfm.json (prefer the Environment Variable route).</li><li>rfm looks for RFM_SITE_PATH/config/rfm.json. if found, it's contents will be merged with the base config.</li><li>rfm looks for RFM_SHOW_PATH/config/rfm.json. if found, it's contents will be merged/override the base config and the site config.</li><li>rfm looks for ~/rfm/config/rfm.json. if found, it's contents will be merged/override the base config, the site and show config.</li></ol><p>override.json can be used to override default values of RfM nodes both standard and custom.</p><p>To add extra nodes (patterns, bxdfs, integrators, etc), resources/user/nodes/search_paths should be extended. rfm always expects the same directory structure:</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="5a1b7b5d-c639-45f1-91b7-49563efff04e" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">BASE
+  |_ config
+     |_ rfm.json
+     |_ shelf.json, etc    (optional)
+  |_ nodes    (optional)
+     |_ args    (optional)
+     |_ osl    (optional)
+  |_ icons    (optional)
+  |_ logs    (optional)</pre>
+</div></div><h2 id="InstallingCustomNodes-OSLShaders"><br/>OSL Shaders</h2><p>Node IDs for Patterns are embedded in the metadata. Below is an example from the <a href="/wiki/spaces/REN26/pages/19661459/PxrLayer" data-linked-resource-id="19661459" data-linked-resource-version="3" data-linked-resource-type="page">PxrLayer</a> OSL shader.</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="cceb0b5f-0678-4261-b4cf-4251070e7b57" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: xml; gutter: false; theme: Confluence" data-theme="Confluence">shader PxrLayer
+   [[int rfm_nodeid=1053299, string 
+rfm_classification=&quot;rendernode/RenderMan/pattern&quot;,        
+    int rfc_nodeid=1037674, string rfc_description=&quot;Xpxrlayer&quot;,         
+    string help = &quot;An OSL pattern for layerable parameters for PxrSurface or &quot;
+            &quot;input layer to PxrLayerMixer.&quot;
+   ]]</pre>
+</div></div><p><br/></p><hr/><h2 id="InstallingCustomNodes-C++Plug-ins">C++ Plug-ins</h2><p>In your custom rfm.json file, you can load your files like the below example:</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="1032263c-b064-4adc-8b36-fff901cff246" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">{
+    &quot;$schema&quot;: &quot;./rfmSchema.json&quot;,
+    &quot;resources&quot;: {
+        &quot;user&quot;: {
+            &quot;nodes&quot;: {
+                &quot;node_exclusion_list&quot;: [
+                    &quot;PxrHair&quot;,
+                    &quot;PxrLMDiffuse&quot;,
+                    &quot;PxrLMGlass&quot;,
+                    &quot;PxrLMMetal&quot;,
+                    &quot;PxrLMPlastic&quot;,
+                    &quot;PxrLMSubsurface&quot;,
+                    &quot;PxrSkin&quot;,
+                    &quot;PxrValidateBxdf&quot;
+                ]
+            }
+        }
+    },
+    &quot;dirmaps&quot;: {
+        &quot;user_to_z&quot;: {
+            &quot;from&quot;: &quot;/User/name/maya&quot;,
+            &quot;to&quot;: &quot;Z:/maya&quot;,
+            &quot;zone&quot;: &quot;UNC&quot;
+        }
+    }
+}</pre>
+</div></div><p><br/></p><p>Node IDs for these are included in the .args file. The order doesn't matter but it must be in the first level of the tags. The below example is for a light.</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="a3ea1501-b643-42fb-8d04-9382b10647db" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: xml; gutter: false; theme: Confluence" data-theme="Confluence">&lt;rfmdata nodeid=&quot;1053261&quot;
+             classification=&quot;rendernode/RenderMan/shader/light&quot;/&gt;</pre>
+</div></div>
+  </article>
+</main>
+</body>
+</html>

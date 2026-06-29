@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>About Tractor</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>About Tractor</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/TRA/22184339/About+Tractor">https://rmanwiki-27.pixar.com/space/TRA/22184339/About+Tractor</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p class="first"><strong><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/22184339/logo-128x128-text.png" data-image-src="../../attachments/22184339/logo-128x128-text.png" data-unresolved-comment-count="0" data-linked-resource-id="22195901" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="logo-128x128-text.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="22184339" data-linked-resource-container-version="5" data-media-id="6420b2bd-6c34-4434-86ac-36e4166d00bc" data-media-type="file"></span></strong></p><p class="first"><strong><br/></strong></p><p class="first"><strong>Tractor</strong> 将任务分发到一组执行服务器。它管理来自许多用户的大量并发作业队列，并执行依赖关系和调度策略。</p><p class="first">Tractor 由每个客户工作室的管理员在本地安装，所有运行中的组件和作业数据都归各工作室私有。通过 Virtual Private Network（虚拟专用网络）技术把本地网络扩展到云端机器，也可以把现场 Tractor farm 扩展到包含 cloud nodes。</p><p>相对于它承担的复杂角色，Tractor 被设计成一个紧凑的系统：</p><ul class="simple"><li>Tractor-Engine：中央作业队列管理器，是一个自包含的单一安装包。它以低开销运行，并在工程上强调面向大型 farm 的高 throughput（吞吐量）作业分发。</li><li>Tractor-Blade：在任意规模 farm 上简化新增执行服务器的“即插即用”部署。</li><li>Tractor-Dashboard Web UI：可随处访问作业反馈和 farm 状态。</li><li>面向 wranglers 和高级用户的脚本与命令行工具。</li><li>基于通用 web 技术的组件架构。</li></ul><p>Tractor 可以驱动现代 VFX 和动画流程中使用的所有计算工具。它可用于运行从渲染、合成到模拟、转码、归档、数据库更新、代码构建、在线资产交付和通知等各种任务。Tractor 几乎可以启动 Linux、Windows 和 macOS 系统上可用的任何 executable。</p><p>一个 Tractor <strong>Job</strong> 描述需要完成的工作。Jobs 由 <strong>Tasks</strong>组成，它们表示完成作业所需的步骤。作业定义会描述每个 task 所需的资源，以及该 task 是串行运行还是与作业中的其他 tasks 并行运行。Jobs 可以手工创建，也可以由脚本、随附的 Python API，或内容创作应用中的 plug-in job generators 创建。</p><p>Jobs 会提交给 <strong>Engine</strong>，也就是维护作业队列的中央进程。Tractor-engine 会使用抽象的关键字匹配机制和资源限制约束，为每条 command 选择合适的 Tractor <strong>Blade</strong> 执行节点。engine 还负责执行 tasks 之间的依赖关系，并寻找并行执行的机会，让不同 jobs 或单个 job 中相互独立的部分可以在不同服务器上并发运行。Tractor 提供灵活的作业优先级、计算资源访问控制、动态服务器可用性和用户限制策略。</p><p>Tractor <strong>Dashboard</strong> web interface 为用户和管理员提供作业状态、错误和整体系统状态的简明反馈。它还提供下钻访问，可查看作业结构、属性、输出日志以及 blades 的详细数据。 <strong>Tractor Query</strong> tools 可访问作业队列和历史执行数据中更复杂的关系型查询。查询工具接口可以在 web Dashboard 中使用，也可以通过 Python API 或命令行使用，以便 wranglers 快速诊断或构建 custom reports。</p><p class="last">Tractor 组件使用 HTTP、JSON 和 AJAX 等通用 web-based technologies 进行通信。工作室可以使用这些相同的标准工具开发自己的 custom extensions 或外部应用，与 Tractor 通信。</p><p class="last">Tractor 的开发以高效的大型工作室环境为目标，因此它有意保持轻量且用途单一。例如，Tractor 不承担 asset management 角色，不过 asset management tasks 可以添加到 Tractor jobs 中。通常编写 Tractor jobs 时会假定 tasks 的输入文件位于工作室的共享 file servers 上，并且管理员已经配置好网络，使每个 Tractor Blade 启动的 commands 都能访问这些共享文件。</p><p><br/></p>
+  </article>
+</main>
+</body>
+</html>

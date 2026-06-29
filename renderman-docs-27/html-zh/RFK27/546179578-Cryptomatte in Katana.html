@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cryptomatte in Katana</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Cryptomatte in Katana</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFK27/546179578/Cryptomatte+in+Katana">https://rmanwiki-27.pixar.com/space/RFK27/546179578/Cryptomatte+in+Katana</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="contentLayout2">
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p>Using（使用） <a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661911" rel="nofollow">PxrCryptomatte</a> workflow，可以在 Katana 中 output IDs，方便在 compositing application 中选择。随后可以将该 selection 用作 mask，在 post packages 中有选择地进行修改。</p><p>PxrCryptomatte 作为 <a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661887" rel="nofollow">Sample Filter</a> plugin 提供。因此，Cryptomatte 的 output 会作为独立 EXR file 存储，与 beauty 或 denoise outputs 分开。请注意，需要 OpenEXR output（file.exr）才能正确存储这些 values。</p><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="fc56ed70-73f2-4615-b818-200ab2d17ee1" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>只有在使用 disk render 时才会 render 该输出，以避免在 interactive session 中覆盖 files</p></div></div><p><br/></p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="1167" loading="lazy" src="../../attachments/546179578/cryptomatteKatanaScenegraph.png" data-image-src="../../attachments/546179578/cryptomatteKatanaScenegraph.png" data-height="782" data-width="1006" data-unresolved-comment-count="0" data-linked-resource-id="546179596" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cryptomatteKatanaScenegraph.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="546179578" data-linked-resource-container-version="1" data-media-id="cbd1cc75-ac92-48b3-967f-8fd91f264b48" data-media-type="file"></span><p style="text-align: center;">附带的 example file 用于 Katana workflow。</p><p>此 file 包含两个 PxrCryptomatte nodes，用于同时 output object 和 material IDs。</p><p>Example Workflow（示例工作流）：</p><ol start="1"><li><p>创建 PxrCryptomatte node。指定 file name 和 path。example file 使用 script 写入 Temp directory。</p></li><li><p>Layer：选择 layer type，Name（object）或 Material。</p></li><li><p>将这些连接到 ShadingNodeArrayConnector</p></li><li><p>创建 PrmanShadingNode 并选择 PxrSampleFilterCombiner。将 ShadingNodeArrayConnector.out 连接到此 shading node 的 input。</p></li><li><p>创建 NetworkMaterial node，right-click 并选择 "Add terminal"，在 Prman dropdown 中选择 "samplefilter"。</p></li><li><p>将 prmanSamplefilter.out 连接到 NetworkMaterial。</p></li><li><p>将上述 network（易于 reuse）merge 到 trunk 中。</p></li><li><p>创建 MaterialAssign node，并将 Cryptomatte NetworkMaterial assign 到 /root</p></li></ol><p>render scene，然后在上面定义的 path 中查找 output EXR。example file 会 output 两个 EXRs，一个包含 Object IDs，另一个包含 Material IDs，如下所示。</p></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="453" loading="lazy" src="../../attachments/546179578/RfK_Crypto_object.png" data-image-src="../../attachments/546179578/RfK_Crypto_object.png" data-height="369" data-width="371" data-unresolved-comment-count="0" data-linked-resource-id="546179608" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RfK_Crypto_object.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="546179578" data-linked-resource-container-version="1" data-media-id="47993344-2963-41ac-b473-1c6b96dde333" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="453" loading="lazy" src="../../attachments/546179578/RfK_Crypto_material.png" data-image-src="../../attachments/546179578/RfK_Crypto_material.png" data-height="370" data-width="370" data-unresolved-comment-count="0" data-linked-resource-id="546179605" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RfK_Crypto_material.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="546179578" data-linked-resource-container-version="1" data-media-id="6ed58e2b-5a1f-4323-83ec-8d303014f42e" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p>可以将上方在 Katana 2.6 v4 中创建的 scene 下载为 <a href="../../attachments/20218736/cryptomatte_filters.katana" rel="nofollow">cryptomatte_filters.katana</a></p><p><br/></p><p><br/></p></div>
+</div>
+</div>
+</div>
+  </article>
+</main>
+</body>
+</html>

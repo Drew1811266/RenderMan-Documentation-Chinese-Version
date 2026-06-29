@@ -1,0 +1,21 @@
+{"item_id":"b6534cfeb2:0","text":"给 props 添加 edge breakup 是一种常见做法，通常通过在 Adobe Painter 或 The Foundry 的 Mari 等 texturing software 中绘制 masks 来实现。"}
+{"item_id":"b6534cfeb2:1","text":"不过在 Pixar，我们倾向于采用 procedural approach 来处理 edge breakup。"}
+{"item_id":"b6534cfeb2:2","text":"这样可以保留 creative control，例如无需重新绘制和导出 edge masks，就能快速响应 director's notes；也可以在 props 上创建 shading variants，从看起来崭新的 prop 到不同阶段的磨损和损伤。"}
+{"item_id":"b6534cfeb2:3","text":"下面是一份 procedural edge masks 的快速指南。"}
+{"item_id":"b6534cfeb2:4","text":"Step One（步骤一）"}
+{"item_id":"b6534cfeb2:5","text":"先给我们的 geometry 添加一个使用默认设置的 PxrCurvature node。在这个示例中，我们将使用 RenderMan University shield。"}
+{"item_id":"b6534cfeb2:6","text":"从第一次 render 可以看到，它并不算惊艳...但别担心，只需几个简单步骤，我们就能大幅改善效果。"}
+{"item_id":"b6534cfeb2:7","text":"Step Two（步骤二）"}
+{"item_id":"b6534cfeb2:8","text":"下一步是调整一些默认设置。"}
+{"item_id":"b6534cfeb2:9","text":"首先要让 curvature 更亮，因此把 Output Gain 从 1 提高到 10，会立即产生更强的 signal。"}
+{"item_id":"b6534cfeb2:10","text":"把 samples 数量从 4 提高到 8（或 16）会减少 curvature 中的一些 grain，但会略微增加 render time。"}
+{"item_id":"b6534cfeb2:11","text":"接下来，我们会载入一张 map 来开始打散 curvature。在这个示例中，我使用了 Grunge Texture Vol 1 Pack 中的 grunge_04.tex，并采用 PxrRoundCube+PxrMultiTexture (Triplanar) approach 进行 mapping。"}
+{"item_id":"b6534cfeb2:12","text":"为了给 grunge map 增加一点 contrast，这里使用 PxrThreshold node 来实现该效果。"}
+{"item_id":"b6534cfeb2:13","text":"使用 PxrBlend node，并将 mode 设置为 Subtract，我们就可以从 curvature 中减去 grunge map。"}
+{"item_id":"b6534cfeb2:14","text":"Step Three（步骤三，最后步骤）"}
+{"item_id":"b6534cfeb2:15","text":"现在结果开始变得有用了，可以作为两层之间的 mask，或为 shield 的 edges 添加 bump/displacement。"}
+{"item_id":"b6534cfeb2:16","text":"这个简单示例的最后一步是提高结果亮度；这里我们使用的是 PxrSplineMap node。"}
+{"item_id":"b6534cfeb2:17","text":"很好，现在我们有了一个更符合目的的 mask，但值得注意的是，这个示例只是一个直接的做法。"}
+{"item_id":"b6534cfeb2:18","text":"Refine Details（细化细节）"}
+{"item_id":"b6534cfeb2:19","text":"为了提升真实感，你可以尝试用多张 grunge maps 从 curvature 中做减法，添加更多细节，并进一步打散 mask。"}
+{"item_id":"b6534cfeb2:20","text":"下面是一个示例：两张 grunge maps 分层叠加在 curvature 上，并使用 PxrLayeredBlend node 来处理 layered maps 的 blending modes。"}

@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sample and Display Filters in Blender</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Sample and Display Filters in Blender</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFB27/544639822/Sample+and+Display+Filters+in+Blender">https://rmanwiki-27.pixar.com/space/RFB27/544639822/Sample+and+Display+Filters+in+Blender</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>Sample filter 和 display filter 插件分别用于在 <a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661783" rel="nofollow">integrator（积分器）</a> 生成着色采样和像素值之后，并在它们发送到 <a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661875" rel="nofollow">display driver（显示驱动器）</a>之前，对这些值进行调整。</p><h3 id="SampleandDisplayFiltersinBlender-SampleFilters">Sample Filters（采样滤镜）</h3><p><em>Sample Filter（采样滤镜）</em> 插件描述的是在像素过滤之前对采样值进行的颜色变换。它们作用于尚未应用像素过滤的原始 camera ray samples（相机光线采样）。一旦采样滤镜修改了某个采样并将其写入 framebuffer（帧缓冲），该修改就会永久成为所有渲染图像（包括深度图像）的一部分。请注意，如果单个 <a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661871" rel="nofollow">任意输出变量（AOV）</a> 作为多个图像文件的一部分输出，则对某个采样的一次修改可能会影响所有这些图像。采样滤镜所做的修改也会影响 adaptive sampler（自适应采样器）。</p><ul><li><p><a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661895" rel="nofollow">PxrSampleFilterCombiner</a></p></li><li><p><a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661911" rel="nofollow">PxrCryptomatte</a></p></li></ul><h3 id="SampleandDisplayFiltersinBlender-DisplayFilters">Display Filters（显示滤镜）</h3><p><em>Display Filter（显示滤镜）</em> 插件描述的是在像素过滤之后、输出之前对最终像素值进行的颜色变换。多个图像共享的 AOV 在此时会被视为彼此独立，因此可以分别修改。目前 Display filters 不支持 deep images（深度图像），并且不会影响 adaptive sampler（自适应采样器）。</p><ul><li><p><a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661889" rel="nofollow">PxrLightSaturation</a></p></li><li><p><a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661893" rel="nofollow">PxrDisplayFilterCombiner</a></p></li><li><p><a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661891" rel="nofollow">PxrImageDisplayFilter</a></p></li><li><p><a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19662371" rel="nofollow">PxrShadowDisplayFilter</a></p></li></ul><h2 id="SampleandDisplayFiltersinBlender-SetupinBlender">Blender 设置</h2><p>可以创建 <a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661887" rel="nofollow">Display and Sample Filters（Display Filters 和 Sample Filters）</a> ，位置在渲染属性中 <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image" height="24" loading="lazy" src="../../attachments/544639822/render_properties.png" data-image-src="../../attachments/544639822/render_properties.png" data-unresolved-comment-count="0" data-linked-resource-id="544639854" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="render_properties.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544639822" data-linked-resource-container-version="1" data-media-id="03967105-5a57-4b43-9ee1-b6f96074b11e" data-media-type="file"></span>。点击 Add RenderMan Display Filters Nodetree 按钮，或点击 Add RenderMan Sample Filters Nodetree。</p><span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="679" loading="lazy" src="../../attachments/544639822/sf_df_3.png" data-image-src="../../attachments/544639822/sf_df_3.png" data-height="116" data-width="409" data-unresolved-comment-count="0" data-linked-resource-id="544639857" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="sf_df_3.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544639822" data-linked-resource-container-version="1" data-media-id="6a2833a5-57fe-4b07-acb0-51af1567b11f" data-media-type="file"></span><p>你应该会看到 Display Filters 和 Sample Filters 面板展开，类似下图。</p><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="b893f5c0-c3b1-4710-af03-0b52a777009b" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>点击 Add RenderMan Display Filters Nodetree 会自动添加 PxrBackgroundDisplayFilter 节点，并继承 World color（世界颜色）作为背景色。</p></div></div><p><br/></p><span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="672" loading="lazy" src="../../attachments/544639822/sf_df.png" data-image-src="../../attachments/544639822/sf_df.png" data-height="347" data-width="413" data-unresolved-comment-count="0" data-linked-resource-id="544639860" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="sf_df.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544639822" data-linked-resource-container-version="1" data-media-id="465ed02e-4f43-4661-a5bd-3b7b00ff0952" data-media-type="file"></span><p>可以使用多个 Display and Sample Filters。点击 Add 会新增一个槽位，用于添加额外的 Display Filter 或 Sample Filter。若要移除某个滤镜，请点击名称旁边的 - 按钮。与 integrators（积分器）类似，显示滤镜和采样滤镜本质上都是 World 节点内部的着色节点。 </p><span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="672" loading="lazy" src="../../attachments/544639822/sf_df2.png" data-image-src="../../attachments/544639822/sf_df2.png" data-height="330" data-width="325" data-unresolved-comment-count="0" data-linked-resource-id="544639869" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="sf_df2.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544639822" data-linked-resource-container-version="1" data-media-id="2c325128-3d50-4829-aa7d-5a730a240a70" data-media-type="file"></span>
+  </article>
+</main>
+</body>
+</html>

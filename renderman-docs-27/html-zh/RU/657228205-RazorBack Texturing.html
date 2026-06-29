@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RazorBack Texturing</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>RazorBack Texturing</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RU/657228205/RazorBack+Texturing">https://rmanwiki-27.pixar.com/space/RU/657228205/RazorBack+Texturing</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<h3 id="RazorBackTexturing-TexturinginMari">在 Mari 中进行贴图制作（Texturing in Mari）</h3><p>方法是使用 Substance Painter bake utility masks，这些 masks 会以 mask form 作为各种 maps 的 drivers。bake 完所有必要 maps 后，将它们连同来自 ZBrush 的 displacement 和 normal output maps 一起导入 Mari template。</p><p>每个 mask 都通过 teleport receiver 驱动，并且必须保留 scene 中 node paints 和 masks 的数量。 </p><p>这意味着用于 color 的 mask 也可以驱动 displacement 或 roughness，为 workflow 提供灵活性和效率。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Mari_node_all.png" width="760" loading="lazy" src="../../attachments/657228205/Mari_node_all.png" data-image-src="../../attachments/657228205/Mari_node_all.png" data-height="403" data-width="1334" data-unresolved-comment-count="0" data-linked-resource-id="656834779" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Mari_node_all.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="657228205" data-linked-resource-container-version="1" data-media-id="5fc369aa-aa93-4ee9-89a6-2346b5fee305" data-media-type="file"></span><p /><p>下一步是创建 ISO maps，它们在 Mari tree 中作为 masks 使用。生成并绘制完所有 ISO 和 bake maps 之后，就可以自由 experiment、modify 和 blend 这些 maps，以获得期望结果。</p><p>每个 mask 都会引入 color、hue 和 saturation 的 variations，从而产生自然、真实的外观。会调整 asset 的 hue/saturation/value（HSV）数值，以确保真实性。此外，每个 scale 都具有独特特征，creature 的姿态等因素会影响 wear and tear。 </p><p>例如，creature 的 belly 可能因为频繁接触表面而显示更多 damage，而 tail 和 spikes 可能会因 combat 或 environmental interactions 出现磨损。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="iso_mask_mari_texturing.jpg" width="760" loading="lazy" src="../../attachments/657228205/iso_mask_mari_texturing.jpg" data-image-src="../../attachments/657228205/iso_mask_mari_texturing.jpg" data-height="810" data-width="1440" data-unresolved-comment-count="0" data-linked-resource-id="656834787" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="iso_mask_mari_texturing.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="657228205" data-linked-resource-container-version="1" data-media-id="ebccf238-8168-4b60-b144-3f0a504f737e" data-media-type="file"></span><p>处理 shader previews 时，建议主要关注 displacement channel，通过把 preview 限制在单一 channel（例如 albedo）来尽量减少干扰。这种方式有助于保持清晰，避免可能影响决策的混乱。不过，仍应定期检查以确保一切正常。</p><p>使用 teleport receiver 和 bake points 可以精简 workflow，使调整能够减轻 scene 负担并提升 viewport 的响应性。这种 optimization 减少了花在 selections 上的时间，从而提高推进效率。</p><p>当所有 maps 和 ISOs 都同步后，建议按照 modeling section 中描述的 UV symmetry，将 model 左侧复制到右侧。 </p><p>随后，通过 triplanar projecting rock、noise 和 oil maps 引入 procedural asymmetry，可以增强 ISO、color 和 bake maps 上的 variation，形成更 organic 的外观。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="substance_painter_dryskin_mask.jpg" width="760" loading="lazy" src="../../attachments/657228205/substance_painter_dryskin_mask.jpg" data-image-src="../../attachments/657228205/substance_painter_dryskin_mask.jpg" data-height="270" data-width="960" data-unresolved-comment-count="0" data-linked-resource-id="657260803" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="substance_painter_dryskin_mask.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="657228205" data-linked-resource-container-version="1" data-media-id="2cb6c241-1627-43e4-a2d2-6217080af4d4" data-media-type="file"></span><p /><p />
+  </article>
+</main>
+</body>
+</html>

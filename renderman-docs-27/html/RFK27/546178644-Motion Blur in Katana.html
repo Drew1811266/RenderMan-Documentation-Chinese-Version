@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Motion Blur in Katana</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Motion Blur in Katana</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFK27/546178644/Motion+Blur+in+Katana">https://rmanwiki-27.pixar.com/space/RFK27/546178644/Motion+Blur+in+Katana</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>Motion blur is enabled when RenderSettings' <em>maxTimeSamples</em> is greater than 1. A value of 1 implies no motion blur.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="834" loading="lazy" src="../../attachments/546178644/rfkMotionBlur.png" data-image-src="../../attachments/546178644/rfkMotionBlur.png" data-height="362" data-width="755" data-unresolved-comment-count="0" data-linked-resource-id="546178663" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfkMotionBlur.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="546178644" data-linked-resource-container-version="4" data-media-id="f7bec397-e11d-4c72-a54c-d2584a54a1aa" data-media-type="file"></span><p>The <em>maxTimeSamples</em> parameter is used for two cases:</p><ul><li><p>For nodes that support multi-sampling such as CameraCreate and PrimitiveCreate - maxTimeSamples is the number of time samples for the motion block (MotionBegin/MotionEnd).</p></li><li><p>For plugin such as Alembic_In - </p><ul><li><p>maxTimeSamples is used only as a switch to turn on/off motion blur. Changing it does not modify the number of time samples for the motion block. </p></li><li><p>The Alembic_In node provides a parameter in the advanced section called &quot;useOnlyShutterOpenCloseTimes&quot;, which will force the Alembic cache to only use the time samples corresponding to shutter open and close times when maxTimeSamples is set to 2.</p></li><li><p>To modify the number of time samples for the alembic cache in Maya's Alembic Exporter, turn on <em>Frame relative sample</em> and set its Low and High values.  </p></li></ul></li></ul><p /><h3 id="MotionBlurinKatana-ShutterOpen/Close">Shutter Open/Close</h3><p>The <em>shutterOpen</em> and <em>shutterClose</em> parameters in RenderSettings set the min and max time at which the shutter opens and closes. Open (min) should be less than Close (max). If min is equal to max, there is no motion blur.  Moving objects will blur while the camera shutter is open.</p><p /><h3 id="MotionBlurinKatana-CameraShutterOpening">Camera Shutter Opening</h3><p>Controls for a camera's <a href="/wiki/spaces/REN26/pages/19661763/Shutter" data-linked-resource-id="19661763" data-linked-resource-version="6" data-linked-resource-type="page">shutter efficiency</a> are available in <a href="/wiki/spaces/RFK27/pages/546178709/Camera+Settings+in+Katana" data-linked-resource-id="546178709" data-linked-resource-version="1" data-linked-resource-type="page">PrmanCameraSettings</a>. These controls allow to you control the rate of the shutter's opening and closing, allowing you to simulate a more physical camera shutter appearance.</p><h3 id="MotionBlurinKatana-AdjustingSamples">Adjusting Samples</h3><p>When there is a lot of motion blur, it is important to increase the number of <em>maxsamples</em> on the raytrace hider to see the details in the blur. Note that higher samples will take longer to render.</p>
+  </article>
+</main>
+</body>
+</html>

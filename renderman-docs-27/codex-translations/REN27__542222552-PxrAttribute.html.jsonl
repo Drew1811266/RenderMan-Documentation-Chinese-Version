@@ -1,0 +1,42 @@
+{"item_id":"0a3688c0ed:0","text":"PxrAttribute 允许用户读取附着（存储）在节点上的 attributes。一个例子是为一组对象添加 color attribute，稍后由材质读取。通过这种方式，材质可以根据正在渲染的对象改变其结果，而不必使用不同材质。下面的 shader ball 球体附着了 color attributes。单个"}
+{"item_id":"0a3688c0ed:1","text":"PxrSurface 材质"}
+{"item_id":"0a3688c0ed:2","text":"会根据每个形状定义的 attribute 指定值，以不同 diffuse color 渲染。下面提供使用示例。"}
+{"item_id":"0a3688c0ed:3","text":"在场景中许多位置使用此节点可能会带来性能开销。若无必要，应避免过多求值 user attributes；效率是关键。"}
+{"item_id":"0a3688c0ed:4","text":"Input Parameters（输入参数）"}
+{"item_id":"0a3688c0ed:5","text":"Variable name（变量名称）"}
+{"item_id":"0a3688c0ed:6","text":"此字段接受一个用于标识 attribute 的字符串。该字符串应包含 attribute namespace 和 attribute 名称，两者用冒号分隔。例如 trace:maxdiffusedepth 或 user:Ball。"}
+{"item_id":"0a3688c0ed:7","text":"Variable Type（变量类型）"}
+{"item_id":"0a3688c0ed:8","text":"这会指定要读取的变量类型，并且必须与前面在其他节点上指定的类型匹配。"}
+{"item_id":"0a3688c0ed:9","text":"Integer（整数）"}
+{"item_id":"0a3688c0ed:10","text":"Float（浮点）"}
+{"item_id":"0a3688c0ed:11","text":"Float 2（双浮点）"}
+{"item_id":"0a3688c0ed:12","text":"Color（颜色）"}
+{"item_id":"0a3688c0ed:13","text":"Point（点）"}
+{"item_id":"0a3688c0ed:14","text":"Vector（向量）"}
+{"item_id":"0a3688c0ed:15","text":"Normal（法线）"}
+{"item_id":"0a3688c0ed:16","text":"Default Float（默认 Float）"}
+{"item_id":"0a3688c0ed:17","text":"如果检索 float 类型的 attribute 时出错，将使用此值。"}
+{"item_id":"0a3688c0ed:18","text":"Verbosity（详细程度）"}
+{"item_id":"0a3688c0ed:19","text":"用于场景调试的诊断输出级别"}
+{"item_id":"0a3688c0ed:20","text":"Silent（静默）"}
+{"item_id":"0a3688c0ed:21","text":"Warnings（警告）"}
+{"item_id":"0a3688c0ed:22","text":"Info（信息）"}
+{"item_id":"0a3688c0ed:23","text":"Output Parameters（输出参数）"}
+{"item_id":"0a3688c0ed:24","text":"resultF"}
+{"item_id":"0a3688c0ed:25","text":"float 结果。"}
+{"item_id":"0a3688c0ed:26","text":"resultRGB"}
+{"item_id":"0a3688c0ed:27","text":"color 结果。"}
+{"item_id":"0a3688c0ed:28","text":"Example Usage（示例用法）"}
+{"item_id":"0a3688c0ed:29","text":"DCC 应用程序可能使用不同机制来应用 user attribute。下面是两个示例，演示如何把名为 “Ball” 的 color user attribute 应用到一个形状上："}
+{"item_id":"0a3688c0ed:30","text":"Maya："}
+{"item_id":"0a3688c0ed:31","text":"从 Maya Attribute editor 的 transform node 添加 user attribute，Name: Ball，Type: color，Color: Light Pink。下面是生成的导出结果；请注意，我们会自动假定来自 Maya Editor 的 User attribute，因此无需显式指定。"}
+{"item_id":"0a3688c0ed:32","text":"Katana："}
+{"item_id":"0a3688c0ed:33","text":"下面是在 Katana 中设置相同 attribute 的 OpScript 示例"}
+{"item_id":"0a3688c0ed:34","text":"gb = GroupBuilder()"}
+{"item_id":"0a3688c0ed:35","text":"gb:set(\"value\", FloatAttribute({1.0, 0.2, 0.65}, 3))"}
+{"item_id":"0a3688c0ed:36","text":"gb:set(\"type\", StringAttribute(\"color\"))"}
+{"item_id":"0a3688c0ed:37","text":"Interface.SetAttr(\"prmanStatements.attributes.user.Ball\", gb:build())"}
+{"item_id":"0a3688c0ed:38","text":"Houdini："}
+{"item_id":"0a3688c0ed:39","text":"请参见"}
+{"item_id":"0a3688c0ed:40","text":"Using PxrMatteID"}
+{"item_id":"0a3688c0ed:41","text":"，作为如何在 Houdini 中添加 user attribute 的示例。"}

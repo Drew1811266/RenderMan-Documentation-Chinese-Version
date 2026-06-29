@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AOV Setup and Viewing</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>AOV Setup and Viewing</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFH27/544645977/AOV+Setup+and+Viewing">https://rmanwiki-27.pixar.com/space/RFH27/544645977/AOV+Setup+and+Viewing</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>RenderMan for Houdini 提供了一套强大的 <a href="https://rmanwiki-26.pixar.com/space/REN26/19661871/Arbitrary+Output+Variables" data-linked-resource-id="19661871" data-linked-resource-version="1" data-linked-resource-type="page">AOV（任意输出变量）</a> 创建与 light transport output（光传输输出）系统，称为 <a href="https://rmanwiki-26.pixar.com/space/REN26/19662011" data-linked-resource-id="19662011" data-linked-resource-version="1" data-linked-resource-type="page">Light Path Expressions（LPE，光路表达式）</a>。为简化使用，许多最常用的 AOV 都以 presets（预设）形式提供在 ROP node（ROP 节点）的 <a href="544645926-Output.html" data-linked-resource-id="544645926" data-linked-resource-version="1" data-linked-resource-type="page">I</a>mages（图像）下。</p><h3 id="AOVSetupandViewing-DisplayDriver">Display Driver（显示驱动）</h3><p><a href="https://rmanwiki-26.pixar.com/space/REN26/19661875/Display+Drivers" data-linked-resource-id="19661875" data-linked-resource-version="2" data-linked-resource-type="page">Display driver（显示驱动）</a> 用于标识渲染图像的 file output（文件输出）和类型。你也可以在下文说明的 "Extra Image Planes" 下指定要添加到文件中的额外 AOV。默认情况下，我们提供一个默认指向 OpenEXR 文件的单一 driver（驱动）。你可以使用 <strong>Displays（显示输出）</strong> 参数添加更多 display；该参数位于 Images Tab（Images 选项卡）顶部</p><p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="600" loading="lazy" src="../../attachments/544645977/rfh_AOVDisplayDriver.png" data-image-src="../../attachments/544645977/rfh_AOVDisplayDriver.png" data-unresolved-comment-count="0" data-linked-resource-id="544646051" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfh_AOVDisplayDriver.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544645977" data-linked-resource-container-version="1" data-media-id="36045af0-a633-438b-8a52-2893f2beb044" data-media-type="file"></span></p><ul><li>Display（显示）- 要渲染的文件路径和名称，可使用适当的 tokens（标记），例如在 .exr 文件中用 $F4 表示 4 位帧号填充</li><li>Create Intermediate Directories（创建中间目录）- 允许 Houdini 根据你在上面使用的 tokens（标记）创建正确的目录结构</li><li>Device（设备）- 渲染目标；在 Houdini 内部，我们默认使用 "it" 作为 display device（显示设备），但也可以指定受支持的文件格式以及 Houdini 自身的 display（显示）</li><li>Denoise（降噪）- 对此 driver（驱动）的 channels（通道）进行降噪，可以作为 single frame（单帧）或 sequence/multi-frame（序列/多帧）处理</li></ul><h5 id="AOVSetupandViewing-Output">Output（输出）</h5><ul><li><a href="https://rmanwiki-26.pixar.com/space/REN26/19661819/Filtering" data-linked-resource-id="19661819" data-linked-resource-version="8" data-linked-resource-type="page">Pixel Filter（像素滤波器）</a> - 用于将 samples（采样）组合成最终 pixel color（像素颜色）的 filter（滤波器）；请注意，Denoise 选项会强制使用 Importance Sample Filtering（重要性采样滤波）</li><li>Relative Pixel Variance（相对像素方差）- 这是最终帧 Quality（质量）设置上的 multiplier（乘数）。降低该 multiplier 可能会让此 display driver（显示驱动）作为质量的主要 driver（驱动）被采样；如果高于 1，则实际上可能被忽略</li><li>Filter Width（滤波宽度）- 增大该值可能会在将更多 samples（采样）合并过滤为一个 pixel（像素）之前纳入更多采样，从而使结果图像更柔和。请注意，每个 per-filter（按滤波器）提供的值通常是最低默认值</li><li>Remap（重映射）- <a href="https://rmanwiki-26.pixar.com/space/REN26/19661819/Filtering" data-linked-resource-id="19661819" data-linked-resource-version="8" data-linked-resource-type="page">Remap（重映射）</a> 图像，以便在渲染中处理 highlights（高光）和其他 color values（颜色值）</li></ul><h5 id="AOVSetupandViewing-ExtraImagePlanes">Extra Image Planes（额外图像平面）</h5><p>这里包含额外常用 outputs（输出）的 presets（预设），并提供如下所述的自定义选项。</p><p><br/></p><h3 id="AOVSetupandViewing-Built-inAOV">Built-in AOV（内置 AOV）</h3><p>可以选择以下任一项，而不是手动指定 variable（变量）：</p><p>Default AOVs（默认 AOV）是 beauty（美图）和 alpha channels（Alpha 通道）。</p><p>Standard AOVs（标准 AOV）是用于 compositing operations（合成操作）的 data AOV（数据 AOV），这些操作需要 normals（法线）、depth（深度）等 data driven pass（数据驱动通道）。</p><p>Diagnostic（诊断）会提供关于渲染的数据，并将其存储在 channel（通道）中供之后使用</p><p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="450" loading="lazy" src="../../attachments/544645977/builtin.PNG" data-image-src="../../attachments/544645977/builtin.PNG" data-unresolved-comment-count="0" data-linked-resource-id="544646039" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="builtin.PNG" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544645977" data-linked-resource-container-version="1" data-media-id="ee55cc38-20e7-490e-a471-44b6a479cf63" data-media-type="file"></span></p><p>Lighting passes（灯光通道）是合成中进行视觉调整时常用的典型 passes（通道）。我们还提供 per-lobe LPE（按 lobe 的 LPE），用于从 Pxr materials（Pxr 材质）中提取特定 lighting information（照明信息）。请注意，这些结果是 additive（相加）的，并且物理正确。Compositing operations（合成操作）涉及加法和减法，以保留渲染期间产生的结果。乘法和除法可能引入 artifacts（瑕疵），不建议在 pixel level（像素级）的后期操作中使用。</p><p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="450" loading="lazy" src="../../attachments/544645977/builtin2.PNG" data-image-src="../../attachments/544645977/builtin2.PNG" data-unresolved-comment-count="0" data-linked-resource-id="544646045" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="builtin2.PNG" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544645977" data-linked-resource-container-version="1" data-media-id="a06273bc-3770-4f76-8ef8-ec415c5a064d" data-media-type="file"></span></p><p>Shadow AOVs（阴影 AOV）要求计算 Beauty render（美图渲染），用于将 shadows（阴影）合成到 filmed plates/footage（实拍底板/素材）上</p><p>Mattes（遮罩）可以帮助你在后期选择并隔离对象或材质；现在我们推荐使用 PxrCryptomatte。</p><p>Integrator AOVs（积分器 AOV，原文 Inegrator）是内建于所用 integrator（积分器）的 data AOV（数据 AOV）（请验证所选积分器是否支持）。__depth 很有用，并且经过 anti-aliased（抗锯齿）处理。再次提醒，请查看以下页面上的示例： <a href="https://rmanwiki-20.pixar.com/space/REN20/21561493" data-linked-resource-id="21561493" data-linked-resource-version="18" data-linked-resource-type="page">示例页面</a> 页面。</p><p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="450" loading="lazy" src="../../attachments/544645977/builtin3.PNG" data-image-src="../../attachments/544645977/builtin3.PNG" data-unresolved-comment-count="0" data-linked-resource-id="544646042" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="builtin3.PNG" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544645977" data-linked-resource-container-version="1" data-media-id="2026a28c-e03c-4390-93b6-9f431997d0c9" data-media-type="file"></span></p><h3 id="AOVSetupandViewing-CustomAOV">Custom AOV（自定义 AOV）</h3><p>你可以在这里指定自己的 AOV 和 Light Path Expressions（LPE，光路表达式）。这对于创建并存储 per-light（按灯光）、per-object（按对象）或你希望捕获的特定 light paths（光线路径）的 LPE 很有用。</p><p>要指定 AOV，应向 RenderMan 提供以下信息：</p><p><strong>Name（名称）</strong> - 指定 AOV 的 name（名称）和 type（类型），例如 varying normal Nn。这些内置选择只需选中即可；我们会向 renderer（渲染器）提供正确名称。</p><p class="reference external"><strong>Source（源）</strong> - 为 LPE 设置 source string（源字符串，即 expression 表达式）。如果使用 <span class="reference external">built-in LPE（内置 LPE；见下图），</span> 可以将此字段留空；否则必须提供适当的 LPE expression（LPE 表达式），例如 type（类型）： <strong>color（颜色）</strong> 以及表达式： <strong>lpe:C&lt;RD&gt;[&lt;L.&gt;O]（LPE 表达式）</strong>。</p><p><br/></p><p><strong>Filter（滤波器）</strong> - 对于 color AOV（颜色 AOV），推荐的 filter（滤波器）是 Gaussian；通常应与 Beauty 或 Ci Display Channel 匹配。Data AOV（数据 AOV）应不进行滤波。</p><p><strong>Relative Pixel Variance（相对像素方差）</strong> - 这是最终帧 Quality（质量）设置上的 multiplier（乘数）。降低该 multiplier 可能会让此 display channel（显示通道，原文 chennel）作为主要质量度量被采样；如果高于 1，则实际上可能被忽略</p><p><strong>Filter Width（滤波宽度）</strong> - 如上所述，使用 color AOV（颜色 AOV）时，Gaussian 的 filter width（滤波宽度）为 2 2 会匹配默认渲染设置。</p><p><strong>Statistics（统计信息）</strong> - 只有在为 AOV <span class="reference external"><a href="https://rmanwiki-26.pixar.com/space/REN26/19662375/Denoiser" data-linked-resource-id="19662375" data-linked-resource-version="11" data-linked-resource-type="page">Denoising（降噪）</a></span>并手动配置时，才会使用此字段。</p><p><strong>Remap（重映射）</strong> - 如 <a href="https://rmanwiki-26.pixar.com/space/REN26/19661819/Filtering" data-linked-resource-id="19661819" data-linked-resource-version="8" data-linked-resource-type="page">上文所述</a></p><p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="650" loading="lazy" src="../../attachments/544645977/rfh_customAOV.png" data-image-src="../../attachments/544645977/rfh_customAOV.png" data-unresolved-comment-count="0" data-linked-resource-id="544646048" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfh_customAOV.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544645977" data-linked-resource-container-version="1" data-media-id="af5ff8c8-9a9a-4b88-a910-43e86b36ad90" data-media-type="file"></span></p>
+  </article>
+</main>
+</body>
+</html>

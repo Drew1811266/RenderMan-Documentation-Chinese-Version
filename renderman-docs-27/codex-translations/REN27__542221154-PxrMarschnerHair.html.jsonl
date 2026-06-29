@@ -1,0 +1,111 @@
+{"id":"4ac10fa9eb3fae86751c2414c7be49a27f791078a09d703eb8a8af568108d32a","text":"© Disney/Pixar"}
+{"id":"8e67d18905c5f7124a513f193549fbd17477cd92c6559b946869a646739b1d74","text":"Hair and Fur Presets（毛发与皮毛预设）"}
+{"id":"998e13d7f8f63447b164e6ee263ad17df61d59c2424f3a389899c0992dfc670a","text":"我们的团队准备了一组多样化的 hair & fur presets，便于快速开始："}
+{"id":"b2bd6875dd46a6a466488af17206f071da9bc17650df0009b9abe7d090f96c38","text":"Download Presets（下载预设）"}
+{"id":"533262fd2b2039fe82fb3db4fbf1959729fc3c16f0c49c0341ce46388ae14232","text":"需要帮助渲染 Xgen hair 吗？可以试用这个 Maya 示例文件。"}
+{"id":"08dbe29cadef9f23176a5426477d9e822adf68d49a7d8aca70ff504278b09e09","text":"Classic Xgen Example"}
+{"id":"40b7f038a8e68cb859217b8ed74ae7ae430c65e4c3aa1d2b0a57ac72dc36c1d0","text":"Interactive Grooming Example"}
+{"id":"7af680ee727bffafa14981b36654d633b223d4e0d24b464ba1f801be4e06a147","text":"可以使用 RenderMan 随附的一个 pattern，以更简单的方式为 hair 进行 shading 和控制："}
+{"id":"92a4da46d1ad59caadc98bd9d442300c4b902fe97f71ff82d5e8affa8dccd63e","text":"PxrHairColor"}
+{"id":"c3a1a03fb271dd884b97e17fa275da0e3e62669fb151794bdb7430bb4e19f1b9","text":"PxrMarschner 是一种用于渲染真实 hair、fur 和 fibers 的材质。"}
+{"id":"4bccab80386e2aef5985c0ba8b1cbd22c65288f1c89be542e0580826731572af","text":"这是 Pixar 多部动画长片中使用的同一材质和设计，现在提供给用户用于渲染自己的场景。其控制项精简且对艺术家友好。该材质也具备物理合理性，因此艺术家可以先得到真实可信的结果，再根据 art direction 细化选项。"}
+{"id":"bb47c247c216f3998d36cdb91dfc20b944e57c543b116943c757b276957b4a89","text":"如果想深入了解该材质的技术细节，可以查看"}
+{"id":"784dddf4763ffb7df7cdf0e0af81818e2d499fd12a084c343d9e14981d6da1dc","text":"Pixar Technical Memo 15-02 \"A Data-Driven Light Scattering Model for Hair\""}
+{"id":"08e7be5fb7003ffaa591e95a2cc7c2fe5995988c47c3d32f79fc923b97d0538a","text":"，作者为 Leonid Pekelis、Christophe Hery、Ryusuke Villemin、Junyi Ling，可获得更多信息。本文档会结合示例说明各参数，方便艺术家立即开始创作！"}
+{"id":"79aa3acfb258f71589a67a43f78dfcdf1f830a0f2453d27c0fb13c3a0484f63c","text":"下方示例会说明更改参数如何影响 hair 的外观。"}
+{"id":"28446cddcb7f0385635245c4c2117599c9477e4352250da5ab4ceb9ebec1895d","text":"Diffuse Parameters（漫反射参数）"}
+{"id":"b6d6cd6402928296a4af3ae97c082e9830b52aa74b26aec2d86f4fb0b9655010","text":"diffuse models 有两种选择：Zinke 和 Kajiya。默认设置为 Zinke diffuse model，用于双向散射。参见"}
+{"id":"2c6d0d5ab06c5e13068dc79e0e0b31fb35ccad4a82c0b036ece2fa2cfdf599a0","text":"Importance Sampling for Physically-Based Hair Fiber Models"}
+{"id":"bfa3feb16b3a9fff57fee90e334fef4349551c5d4294888d3f3c7f2fb5f21d26","text":"Diffuse Gain"}
+{"id":"d77638de96b3aa00dd52faee0b9b77d7677008cd8e187c860d3b3ce41c0e4b63","text":"此参数是 Diffuse Color 的 multiplier。0.0 表示没有 diffuse color，1.0 表示完整效果。默认值为 0.0，可为深色到中等色度 hair 提供非常真实的效果，但渲染成本可能更高。对于铂金金发或灰发等较浅色 hair，可能需要使用更高数值。"}
+{"id":"98ab4a5b094a23a62e05820b8590b0830bd6267068a698ec38fe35b255bd3456","text":"这是 hair 本身的 diffuse color。即使对于 blond hair，它也比大多数真实 hair 的其他颜色参数更暗。为了获得最佳真实感，建议它与"}
+{"id":"a6866de3f978ff101a3958e9416a281e4ecb4221aa4758ce14bfe5d1b6549ff9","text":"Secondary Specular Color"}
+{"id":"a6d6824b38e2253c081471cc1aabf273d5d1011ec59209efc50db87bda7efe34","text":"使用相同颜色，只调整 gain。默认值为中灰。"}
+{"id":"9a672a46a43ca87ffc3d76a57da77884128a89e4a114a871bb91b7fae086f45e","text":"Specular Parameters（高光参数）"}
+{"id":"5d09c20a8ecbcbf1009c5ec885c66ffd400f85cc97d1e78ca3c3dceb257cedb1","text":"大部分控制项都位于 Specular Parameters 下。它们都以某种方式对应下面的说明。"}
+{"id":"38a7996b9b9c5b4f2699b3276ec407246112f27258444e701001be29f76adba2","text":"Marschner specular model 由三个 specular lobes 组成，使用上图中方向箭头所示的多个 specular transport paths："}
+{"id":"872b329d949af270baf16d523e7f209291c178bc5bbfd3be34599880da7a3165","text":"Primary Specular（主高光）："}
+{"id":"8f03f7957173a52ca6fc0546c81958ea195e8a947b03beb597369a65389e6e9d","text":"表示"}
+{"id":"28078f2ce05e42c76d53a165d78d94b46ed32b3dd3f1e76bdfb8292697dfa9ed","text":"“reflect（反射）”"}
+{"id":"6cc4b9e7ecaa01e5509015bfb4d5fc4773ae4b6c7774a0d618c71dca2e861833","text":"，即光照射到 hair 表面并反射。这是强烈的 primary、无色 specular。"}
+{"id":"fe7424df9713fb859f0d602773718c387863cba5ff3ae3dea1c56be54802e264","text":"Secondary Specular（二级高光）："}
+{"id":"fcb74bbf478f14e68e939a3c2c341673dbca09056fd1606029bc99d933a32263","text":"TRT"}
+{"id":"70524ee90b7b3ebf0bdbe701475f51be91e2b138a0e59a6f60c04140e79a1f1b","text":"“transmit（透射）”、“reflect（反射）”和“transmit（透射）”"}
+{"id":"83f4c96a9e9afcbe51fb16ab3cabb627e9861117031edf763d8e48c9422bb985","text":"，即光穿过 hair 表面，然后从 hair 内部反射，并从 hair 正面射出。这是带颜色的 secondary specular。"}
+{"id":"a7aeb17314b8256d2b82eab98d2fe39f5dad353875476b190737a6083fa86100","text":"Transmit Specular（透射高光）："}
+{"id":"9779469589f956f434b70b578302dcbaa084a5eabb0124ccd61b0ae58c596e70","text":"TT"}
+{"id":"5694480ed9ddde6fcee6a33101c50c29def539992336abaa25718ca46a3503df","text":"“transmit（透射）”和“transmit（透射）”"}
+{"id":"201ee8334ef79bcdb20ac93d804b0e6a6fd0b0dd7bd24cfe26be549b7a918ce5","text":"，即光透入 hair 表面，然后从另一侧射出。这是会响应 rim lighting 的带色透射。"}
+{"id":"4fcad3f0040302d66134be607260011ab2bc81c9f2c7f4972a2b0152c964307f","text":"Specular Gain"}
+{"id":"69e7c5d66a9ce797305fb84b5af6f56fe6ac744f7d58f876fdecaa6655404377","text":"控制项允许艺术家出于艺术目的打破能量守恒。如果输入的值相加大于 1.0，则 hair 不再能量守恒。只有在对外观不满意（太“hot”）或希望从物理真实 shading 起步时，这一点才重要。"}
+{"id":"f159a813d6a7c874740654e09d190cbb4eea497120a5ae46b8e08b1c9644caae","text":"默认 gain 现在为 1.0；之前版本可能设为 0.33。"}
+{"id":"f2eb72360b3b2af6913f46eeca227ad7ac7006a903467c9e1de09ae92f86b520","text":"Primary Specular Gain"}
+{"id":"8443df7fcbdf936daa1d07574edd272acb88db7fcd2704485b1d4e8772897112","text":"Marschner specular 的 Gain，对应"}
+{"id":"aac60daf57861f7cfa9a2d4c16ebd6c8861eb251ba70869e8a7ea3bb2119c420","text":"lobe（Marschner specular）。它类似 clearcoat，其中 specular 相当锐利、有光泽，并且通常不带色。该 specular 是直接反射，不会被任何 volume attenuation 着色。修改"}
+{"id":"94d449fd8d6758af43dc6eac61f92279de930862ce319135a1040ec61de95642","text":"lobe 也有助于让 hair 看起来“wet”。"}
+{"id":"c573770098285c153b8c974f1a9c086fdb3241c212d0e292d0b69e07154c753a","text":"Secondary Specular Gain"}
+{"id":"1b8145d3a03be044f9772dce9cbef325255a4373bc0446d6acbd2480bc64c314","text":"lobe（Marschner specular）。它是更粗糙且带颜色的 specular，会两次穿过 hair fiber volume。"}
+{"id":"9f93987dd9e3458ec626cc01285715a69fea0c70b9ce6874dbc1aab7c8731869","text":"Transmit Specular Gain"}
+{"id":"4765ed40d2d43cf95956387db4d828592e34fc1c9632a3f6b59870dd7126d05d","text":"lobe（Marschner specular）。它是一种 transmission-type（refraction）specular，带有一定 volume attenuation。它会穿过 fiber volume 一次。较高数值可能增加噪点。"}
+{"id":"63487f64694f5f6278adc4d5c54f7ecf75c4769ed510a87c758bfd9384439e38","text":"Glint Gain"}
+{"id":"b9028d9812ee80d16345ca3e90c153301927c217db8a57c9817edb9a6b4acfa1","text":"glints 的 Gain。这是 Glints 效果的 multiplier，工作方式与其他 gain controls 类似。"}
+{"id":"96ebc01281e6f2f2ad39d2a90689f4e98ea8df50458590e5b7974565c909a0c5","text":"Primary Specular Color"}
+{"id":"5ee053d32f916eb364bedb84af4c4e641cf55e4cdcfd1b0f120672d64dcacb9e","text":"用于给 Primary Specular（"}
+{"id":"1e16b952c4ca6d97f8889cbd0a37df3d5e93c68f61c2f8a529e58669b45583ac","text":"lobe）着色的 specular color。对于自然 hair 和 fur，这应始终为白色。"}
+{"id":"0c0fc39626b8fbff6990e34e6537637b8c3680e558ab8130dff46fe8a7db7e4d","text":"Specular color，用于"}
+{"id":"27c9c4add6c7bf23ec431c107a2f7426dabe01608a6adec5aef63a6096b63be0","text":"和 glints lobes 的 specular color。"}
+{"id":"49ff0635b0167cf46bfd6d60377f20d4a308607899009079d648d2db89d6db8a","text":"由于它表示 hair fiber 内部的两条路径，因此应比 Transmit Specular Color 更暗且饱和度更高；严格来说，Transmit Specular Color 是 Secondary Specular Color 的平方根。为了得到更真实的 hair，它应与"}
+{"id":"763c50611bb2fe6675c8c6334a946e150667d9c79c4c614e4a08295174bf1527","text":"Transmit Specular Color"}
+{"id":"e126eb2a59c567cc7f9ce61a00a35edfc4faa2347c3ee2bc1abcd98e570dca26","text":"lobe 匹配。下方示例设置为"}
+{"id":"a1b0c99bb30876eef474077bb0cc0f24ecc3e5cdc3067c2d7bf3e47c4e3fb95f","text":"1.0，其他所有 gain 为 0.0"}
+{"id":"c9810c3b7f14ab65518bdc3246725fdf3e053a2ef7216e80ff995ffaa9cedc69","text":"Primary Cone Angle"}
+{"id":"5de8829d1c5958efd487bd2b0ada2c4195671ca19aae257b5fd29372cade7711","text":"用于"}
+{"id":"970082e477a583e5d5359f1d1adcda2508c304fe4bbd558193fef9e12f7868fa","text":"lobe 的 cone angle（theta，单位为度）。角度越宽，highlight 越柔和、越宽。"}
+{"id":"a74c5ad403a90518224c142d4238e2c72d05b3ca3f2bee92073037462eba985e","text":"Secondary Cone Angle"}
+{"id":"07eb569203a22bc01e46d103add296309556ff84cb245c2e076991539ec6279c","text":"Transmit Cone Angle"}
+{"id":"228c68cfc17777da9c3df3407d7802446baf128c7dec4b34e3bd93373806cdaa","text":"lobe 的 cone angle（单位为度）。角度越宽，highlight 越柔和、越宽。注意，此参数使用高 gain 会产生柔和且浅色的 hair，但也会生成相当多噪点。在较大角度下，这可能增加渲染时间。"}
+{"id":"22b2190e89ae368175f306a7ff3e2659a664d9891507d921eaeb40dc94aff408","text":"Specular Offset"}
+{"id":"34e9f60873ee11649bf5f19336330f679b3fb2bbf762926644b639d4f7d87afe","text":"cone offset，单位为度，可用于沿 hair 方向移动 specular 结果。"}
+{"id":"eefc81e9d819ec30a4265a547ca18b1bddcca10961e9bc9c548b531975d6953e","text":"Refractive Index"}
+{"id":"abf79717c662d6b4a3c9be6d69c0b6775d3c4ee307a90fdd0ee678c50f066216","text":"hair 的 refractive index（ior）。较高数值会增加 specularity，类似于它在不透明表面上的工作方式。这可能使 hair fiber 看起来近似金属。"}
+{"id":"d9126c062fbc3bff1a7e69a3bf827911e34767713118ae3db34fffdef29e844c","text":"Fresnel Mix"}
+{"id":"17785588de217e24f755643a90aab6613b76f5d3f9f7b2d1722d25eb888aae13","text":"此控制项用于平衡沿 hair 方向的 fresnel energy attenuation。"}
+{"id":"fe72faac911d42946ef18c7cce3ac20e9d1ccedb2d0bd7f8d09a9daaf2685741","text":"Glint Width"}
+{"id":"24cc013559c40e7574571c203406d15ef9c8dc0ef18eda80d490f0ab95bdd4ee","text":"此参数会平滑 Secondary Specular（TRT）和 Glints 分布。对于真实 hair，该值通常应保持在 10 到 25 之间。"}
+{"id":"3642eea73ffa81393bd650b55a45badad5a3fb414bd05c869e5144bb5d52efea","text":"Eccentricity"}
+{"id":"50724fe32d94ffb538f4d6dd9db36dedb15cdb4d9df620018d0c82bf3ad8950a","text":"这是 hair 的 cross-section aspect ratio，对于真实 hair 通常在 0.85 到 1.0 之间。它最常用于渲染 curly hair。（注意，这取决于 hair normals；应通过 PrimVar 提供 user normals，而不是指定 N。）"}
+{"id":"f534ed976dc8838f13bb15cd2eb51bb48099a845ad95089627072682a6ddbb54","text":"Glow"}
+{"id":"d28ba6d08c9f1370ce1683157835c53c6d126cf0605c689166119a613bf66ddc","text":"Glow 可用于创建看起来会在场景中发光或“glow”的 hair fibers。"}
+{"id":"298b9b52e97e9583e355ebc722ad7fea210b8b353562b34b49d8d52a715c2545","text":"Glow gain 或 weight。下方从典型黑发开始，将 gain（使用白色）增加到 0.5，然后增加到 1.0。"}
+{"id":"acbbb6a2e784c929bfb06b085deb6438b1805edd03de422a1b651b6a6d0024ba","text":"控制材质的 incandescence color 或 glow。下方是 Color 参数接入各种 textured inputs 的示例。"}
+{"id":"f47ddae7d767135a2da794d0e578ccfa790cfd50c34f30436f829d4082cab1c2","text":"Globals（全局参数）"}
+{"id":"62971db37f09dd88b37e49c9fd9c869aabc16afce04aef8fc6056d1922f45a47","text":"本节提供整个材质的 global controls。Presence 也是一个 global parameter，会遮罩或“cutout”所有 lobes，就像 mask 值为 0.0 的位置对象并不存在一样。"}
+{"id":"e6ab4d4b56243aa9f146f3e1e7e243090480fc58dbba32047fdedeb014c6c4f9","text":"Specular Energy Compensation"}
+{"id":"e37610972fd235e9dda682088d6881c1497d81069733d3ba43d74744c9d2469d","text":"此控制项允许 diffuse 结果变暗，因为能量被 specular response 占用，剩余能量用于照亮 diffuse lobe。设为 1.0 对应物理效果。默认值为 off（艺术控制），且不守恒能量。"}
+{"id":"a180086c40dddb3ceb09cf36c20471b91e0281de9e0c0b1e9d83b2fb435fd8cd","text":"在此处连接 mask，可将 cutout pattern 应用于对象。Presence 定义为 binary（0 或 1）函数，但可以接受连续值来对形状进行 anti-alias。适用于创建树叶和其他薄而复杂形状等 cutouts。"}
+{"id":"34c07bf745aad58751ee277ba11b6069d5fc90bc8935b193721aebf43786abd9","text":"此值应为 0 或 1。介于 0 和 1 之间的值会产生不需要的噪点！"}
+{"id":"f92f51b3670e3a7202210c4021dcf30a68c47e04a49eaa71da37d417f17730bf","text":"Eccentricity Direction"}
+{"id":"f46f1cba5600d7e1425cb0f507c721cb269f1ac8ca88ea880695e03edd776eae","text":"此参数可用于覆盖 geometric normals，以控制 Eccentricity 参数。"}
+{"id":"6946fd2382957f0655d0fd423e1699825089519d5bf4903df891d5d5f327a146","text":"Shadow Color"}
+{"id":"f4bf7212a6cbe1b897480e1bb1f7e0fc943b624d60194824e26aa6bd65e661ed","text":"指定 shadow color。此参数可用于出于 art direction 目的伪造阴影颜色。注意，这会创建“transparent shadows”，并随着 hair 之间追踪更多 rays 而增加渲染时间。它也可能影响对象之间的 global illumination。"}
+{"id":"a689aba0a1c7d5d920fe5c81401ac31e88a350073721731ca71198c7ecda8aa8","text":"Named Lobes"}
+{"id":"95273401c0530f74be3aadcba4494178d00f763a2e96d067e832aa12a9146c1c","text":"下方列出 PxrMarschnerHair 的 named lobes 和 user lobes。"}
+{"id":"253ebd897fb943d95a8cec50e66e370991b167f91dd14a06c9d1adf6534c3b57","text":"Named Diffuse Lobe"}
+{"id":"7955cc9f6999280bcf3330527e5e34b6f34213cf81133015ebecf862d4fcac9b","text":"HairDiffuse"}
+{"id":"92637551ad6d07f5e8217460a2fbc6c05a79dcb67a1615a5df5c036b4da472d1","text":"Named Specular Lobes"}
+{"id":"c5c573731850cf8f9a98a6c39353b3fb1668049d696ca54990814658fb8cb3fe","text":"HairSpecularR"}
+{"id":"311f08c0e562f4bdd08fbc3c65b003bddc80d8a8e5521b179bedd059be761873","text":"HairSpecularTT"}
+{"id":"3df6ceba1686eefa0e881f6ee845cece15b21b382c8e1afcb8d47a4cac8aa761","text":"HairSpecularTRT"}
+{"id":"781c696659381865a4e74338195092249fb7e7bcef1e84f4a3caae68ed7bb9ad","text":"HairSpecularGLINTS"}
+{"id":"97f4197e8410ee32e9380e9c5cfe8682f23cb9c4c0cb8524fb79b0cb2f52415e","text":"HairAlbedo"}
+{"id":"b299a9161d8b4a72d31072190c869de9ac64f680087ec587b19f58bbae47ee4c","text":"HairTangent"}
+{"id":"6d031af10da7a25e554bb21247f28f0e6cef77f1471175199e7fcc571964dc3d","text":"Position"}
+{"id":"49ff0635b0167cf46bfd6d60377f20d4a308607899009079d648d2db89d6db8a","item_id":"e4bad84fef:67","text":"由于它表示 hair fiber 内部的两条路径，因此应比 Transmit Specular Color 更暗且饱和度更高；严格来说，Transmit Specular Color 是 Secondary Specular Color 的平方根。为了获得更真实的 hair，它应与"}
+{"id":"cdb4ee2aea69cc6a83331bbe96dc2caa9a299d21329efb0336fc02a82e1839a8","item_id":"e4bad84fef:69","text":"匹配。"}
+{"id":"e126eb2a59c567cc7f9ce61a00a35edfc4faa2347c3ee2bc1abcd98e570dca26","item_id":"e4bad84fef:73","text":"lobe。下方示例设置为"}
+{"id": "0133d4e8a3142638a5ed17a2457cf1eb80d21f0f7bb90897a44b376de437af2a", "item_id": "e4bad84fef:21", "text": "Diffuse Color"}
+{"id": "b344d80e24a3679999fa964450b34bc24d1578a35509f934c1418b0a20d21a67", "item_id": "e4bad84fef:42", "text": "该"}
+{"id": "4e125a3ef68a00b029459c9aa8aa94aa07e74cc54188ffef7f60f38f016e61ca", "item_id": "e4bad84fef:99", "text": "Gain"}
+{"id": "6b73191a0a4b67420e61d51c9f207c35277eaf18fbbf5beb52a320a23fe09653", "item_id": "e4bad84fef:101", "text": "Color"}
+{"id": "d6b3e8c828d3742089ed59ebbfd89492ec2ce0bc89a19294cae52a6ac233b244", "item_id": "e4bad84fef:107", "text": "Presence"}
+{"id": "90763974a3c8e31bc10c7016ef2fca576d710f1544fdb3223b048cdee8a830a4", "item_id": "e4bad84fef:123", "text": "User Lobes（用户瓣）"}

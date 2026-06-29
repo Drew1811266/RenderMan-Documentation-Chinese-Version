@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PxrPathTracer</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>PxrPathTracer</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/REN27/542231984/PxrPathTracer">https://rmanwiki-27.pixar.com/space/REN27/542231984/PxrPathTracer</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="680" loading="lazy" src="../../attachments/542231984/PxrPathTracer_image.png" data-image-src="../../attachments/542231984/PxrPathTracer_image.png" data-height="405" data-width="720" data-unresolved-comment-count="0" data-linked-resource-id="542231996" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="PxrPathTracer_image.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542231984" data-linked-resource-container-version="2" data-media-id="8331d043-2445-476e-bf2a-1d6565c56caf" data-media-type="file"></span><p local-id="b1ef183195c4">PxrPathTracer 是 RenderMan 中的核心最终质量积分器。 <br/><br/>它实现了正向路径追踪算法，擅长户外和高度镜面的场景。该算法结构简洁，通常易于使用和实现。其不足可能包括收敛速度较慢，尤其是在具有显著焦散照明的场景中（更多信息请参见下方 <em>clampLuminance</em> 和 <em>allowCaustics</em> 参数）。</p><p local-id="c86af5ccf151">对于直接照明，numLightSamples 和 numBxdfSamples 参数决定 light（灯光）与 Bxdf（材质）直接照明采样的数量，生成的直接照明贡献会使用多重重要性采样进行组合。</p><p local-id="bbfb403251ff">对于间接照明，sampleMode 参数控制间接光线数量在 diffuse（漫反射）、glossy/specular（光泽/镜面）、subsurface（次表面）以及 refraction/transmission（折射/透射）Bxdf 波瓣之间的分配策略。</p><p local-id="5be213b4b999">当 sampleMode 参数设为 "bxdf"（默认值）时，每个摄影机命中点生成的间接照明光线数量由 numIndirectSamples 参数值控制，并且每个摄影机命中点处的 Bxdf 实现会控制从 Bxdf 的 diffuse（漫反射）、glossy（光泽）与 specular（镜面）波瓣中采样生成 indirect rays（间接光线）的概率；换句话说，Bxdf 会控制每个摄影机命中点生成多少 indirect diffuse、glossy 与 specular 光线。</p><p local-id="146f5df2926b">当 sampleMode 参数设为 "manual" 时，numIndirectSamples 参数值会被忽略，用户需要手动控制 Bxdf 每个波瓣的 indirect rays（间接光线）总数。具体而言，当 sampleMode 设为 "manual" 时，numDiffuseSamples 参数明确控制每个摄影机命中点应生成的间接漫反射光线数量，numSpecularSamples 参数控制每个摄影机命中点应创建的间接光泽/镜面光线数量，numSubsurfaceSamples 参数值用于确定从每个摄影机命中点发射的次表面光线数量，而 numRefractionSamples 参数值等于每个摄影机命中点创建的折射/透射光线数量。<br/><br/>PxrPathTracer 支持 path guiding（路径引导）；这项技术会学习场景中的间接 radiance（辐射亮度）来源，并使用重要性采样将 indirect rays（间接光线）引向这些来源，从而更高效地收敛，尤其适用于间接照明占主导的区域。 <br/><br/><br/></p><hr local-id="cfc7547c31c4"/><p local-id="6677b19f3976" /><p local-id="61c2b5061163" /><h3 local-id="83b8f39054bf" id="PxrPathTracer-Parameters">Parameters（参数）</h3><div class="table-wrap"><table data-table-width="1800" data-layout="default" data-local-id="63188f10-c85f-4637-9458-0132a4f5722b" class="confluenceTable"><tbody><tr data-local-id="c1e4ca9a5eff"><th data-local-id="a1ef428035ac" class="confluenceTh"><p local-id="7b2266d8d13b"><strong>参数</strong></p></th><th data-local-id="9d57c321ac6d" class="confluenceTh"><p local-id="5326f5c18823"><strong>说明</strong></p></th></tr><tr data-local-id="9732f67ccfe1"><td data-local-id="0a5760ade46f" class="confluenceTd"><p local-id="fc2dab7c045e"><strong>maxIndirectBounces</strong></p></td><td data-local-id="c1314163451e" class="confluenceTd"><p local-id="c4d1be0a13d4">控制最大光线深度的绝对上限。例如，该参数值为 0 时只允许直接照明；值为 4 时允许最多 4 次全局照明反弹。默认值为 8。</p></td></tr><tr data-local-id="413adc3241c1"><td data-local-id="1e9a0b5179c7" class="confluenceTd"><p local-id="6ebd7707e060"><strong>sampleMode</strong></p></td><td data-local-id="7e320b023e91" class="confluenceTd"><p local-id="bc8c4da5dde7">控制 indirect rays（间接光线）数量在 diffuse、glossy 与 specular Bxdf 波瓣之间的分配策略。此参数的有效值为 "bxdf" 或 "manual"。如果 "sampleMode" 设为 "bxdf"，则 Bxdf 负责在每个摄影机命中点的 diffuse、glossy 与 specular 波瓣之间平衡将要生成的 indirect rays（间接光线）数量，并且每个摄影机命中点生成的 indirect rays 总数由 numIndirectSamples 参数控制。如果 "sampleMode" 设为 "manual"，则用户需要通过 numDiffuseSamples、numSpecularSamples、numSubsurfaceSamples 和 numRefractionSamples 参数，显式指定每个摄影机命中点上每个 Bxdf 波瓣要生成的 indirect rays 数量。默认值为 "bxdf"。</p></td></tr><tr data-local-id="cb5c8e860880"><td data-local-id="61618915c44b" class="confluenceTd"><p local-id="dd59f70a27b0"><strong>numLightSamples </strong></p></td><td data-local-id="1e3d0d0cb034" class="confluenceTd"><p local-id="472d095aafb0">控制每个摄影机命中点用于直接照明的灯光采样数量。默认值为 1。较小数值可能提升交互式和渐进式更新的性能。较大数值可能看起来收敛更好，但更新会更慢。</p></td></tr><tr data-local-id="1542f001f001"><td data-local-id="fa89e92adc16" class="confluenceTd"><p local-id="8e8cbf9cbe85"><strong>numBxdfSamples</strong></p></td><td data-local-id="15576a21a929" class="confluenceTd"><p local-id="a82c1c297935">控制每个摄影机命中点用于直接照明的 Bxdf 采样数量。默认值为 1。较小数值可能提升交互式和渐进式更新的性能。较大数值可能看起来收敛更好，但更新会更慢。</p></td></tr><tr data-local-id="238c9353f337"><td data-local-id="ecc098a09a9c" class="confluenceTd"><p local-id="00e2980beaa7"><strong>numIndirectSamples</strong></p></td><td data-local-id="1b53944b8d67" class="confluenceTd"><p local-id="d83f637df883">当 sampleMode 设为 Bxdf 时，此参数控制每个摄影机命中点要生成的 indirect rays（间接光线）总数。当 sampleMode 设为 manual 时，此参数值会被忽略。默认值为 1。</p></td></tr><tr data-local-id="bc8aab96e5e3"><td data-local-id="34162d5da65f" class="confluenceTd"><p local-id="535bf74fa603"><strong>numDiffuseSamples</strong></p></td><td data-local-id="672c177a79c3" class="confluenceTd"><p local-id="3fc1379b1fcc">当 sampleMode 设为 manual 时，此参数控制每个摄影机命中点要生成的间接漫反射反射光线数量。当 sampleMode 设为 Bxdf 时会被忽略。默认值为 1。</p></td></tr><tr data-local-id="3e3792dea488"><td data-local-id="b3840c3bf650" class="confluenceTd"><p local-id="e518fff60bc9"><strong>numSpecularSamples</strong></p></td><td data-local-id="035daed33ae2" class="confluenceTd"><p local-id="498009638184">当 sampleMode 设为 manual 时，此参数控制每个摄影机命中点要生成的间接镜面/光泽反射光线数量。当 sampleMode 设为 Bxdf 时会被忽略。默认值为 1。</p></td></tr><tr data-local-id="cb194846bae5"><td data-local-id="719d861a0157" class="confluenceTd"><p local-id="318ded90c6d8"><strong>numSubsurfaceSamples</strong></p></td><td data-local-id="887787ec04fe" class="confluenceTd"><p local-id="405de86e29d5">当 sampleMode 设为 manual 时，此参数控制每个摄影机命中点要生成的次表面光线数量。当 sampleMode 设为 Bxdf 时会被忽略。默认值为 1。</p></td></tr><tr data-local-id="122d43128a83"><td data-local-id="005c86b80b92" class="confluenceTd"><p local-id="1ec505ac6e3e"><strong>numRefractionSamples</strong></p></td><td data-local-id="4166ed1003d9" class="confluenceTd"><p local-id="49f74c05de3a">当 sampleMode 设为 manual 时，此参数控制每个摄影机命中点要生成的折射/透射光线数量。当 sampleMode 设为 "bxdf" 时会被忽略。默认值为 1。</p></td></tr><tr data-local-id="1d8fcbf8e4c2"><td data-local-id="609e5018c4bf" class="confluenceTd"><p local-id="977d407c1643"><strong>rouletteDepth</strong></p></td><td data-local-id="d39c596398fb" class="confluenceTd"><p local-id="1799d2391cad">控制开始执行 Russian Roulette（俄罗斯轮盘）的光线深度。在此深度之后，Russian Roulette 可能会终止光线，尤其是当它们对结果贡献很小时。默认值为 1。</p></td></tr><tr data-local-id="dbe76cb6fd10"><td data-local-id="d5e3fea04bba" class="confluenceTd"><p local-id="be9e359e618a"><strong>rouletteThreshold</strong></p></td><td data-local-id="a8af7da55164" class="confluenceTd"><p local-id="4598a9c524fd">控制执行 Russian Roulette（俄罗斯轮盘）的 path throughput（路径吞吐量）阈值；低于该阈值时会执行 Russian Roulette。这会控制光线贡献在何种程度上小到可以终止该光线。默认值为 0.2。</p></td></tr><tr data-local-id="2f0615d43aea"><td data-local-id="a64daaf48a88" class="confluenceTd"><p local-id="94e2078d73ee"><strong>clampDepth</strong></p></td><td data-local-id="4de4e304b5c4" class="confluenceTd"><p local-id="34d0d23a2446">如果指定了 clampLuminance 参数值，则 clampDepth 控制从哪个光线深度开始基于逐光线亮度进行钳制。例如，将此参数设为 2，并同时为 clampLuminance 指定值 4，将确保在所有间接照明中，每条光线贡献的亮度不超过 4，同时不会影响或钳制直接照明。默认值为 2。</p></td></tr><tr data-local-id="e31342cbfc2c"><td data-local-id="e4e213466e48" class="confluenceTd"><p local-id="d6a9a16ac235"><strong>clampLuminance</strong></p></td><td data-local-id="2258cd324b94" class="confluenceTd"><p local-id="8dc453be82b9">默认情况下，PxrPathTracer 积分器会将每条光线贡献的亮度钳制到最多 10.0。不过，可以通过为 clampLuminance 参数指定不同的值来改变此行为。为 clampLuminance 参数指定相对较低的值（例如 2 到 20 之间）可以大幅加快收敛，并且在许多情况下会让 PxrPathTracer 比更复杂的 PxrVCM 或 PxrUnified 积分器收敛得更快。在某些情况下，间接照明光路可能会因为钳制而明显变暗；这在特定情况下可能是可以接受的折衷。将此参数设为非常大的数字（例如 1e30）会有效禁用所有钳制。默认值为 10.0。</p></td></tr><tr data-local-id="89840bd14b95"><td data-local-id="b63db96ce12b" class="confluenceTd"><p local-id="af3614e983e3"><strong>allowCaustics</strong></p></td><td data-local-id="b36a69afb70d" class="confluenceTd"><p local-id="66353330ca4f">控制是否允许来自焦散光路的照明，也就是镜面照明落到漫反射表面上的情况。默认值为 0（off）。</p></td></tr><tr data-local-id="d9c8737ae175"><td data-local-id="ff6b82717543" class="confluenceTd"><p local-id="1670cfd40961"><strong>accumOpacity</strong></p></td><td data-local-id="141bcfec8c6b" class="confluenceTd"><p local-id="75f614a085bd">控制路径追踪器是否沿路径跟踪累积不透明度。默认值为 off。如果你计划渲染半不透明对象，并且关心用于合成的 alpha 值，可能需要将其打开。使用 "manual" sample mode 时，此功能不起作用。我们建议使用默认的 BxDF sampling。</p></td></tr><tr data-local-id="5f57feec7996"><td data-local-id="f0dcbfedcb95" class="confluenceTd"><p local-id="f301ee7d6a93"><strong>maxNonStochasticOpacityEvents</strong></p></td><td data-local-id="241690167f5f" class="confluenceTd"><p local-id="aeb662073e85">定义计算真实不透明度的深度。超过此数值的深度会按随机 presence 计算。较低数值可能提升性能，但代价是噪声增加。此设置只适用于 camera/primary rays（摄影机/主光线）。其他所有光线都按随机 presence 计算。</p></td></tr><tr data-local-id="1cbb1b186bf9"><td data-local-id="d69cc1e5875c" class="confluenceTd"><p local-id="d4ecc1f4f065"><strong>maxContinuationLength</strong></p></td><td data-local-id="ec306234a22e" class="confluenceTd"><p local-id="acc54403b8bf">这是用于渲染重叠体积的高级旋钮。与 maxIndirectBounces 类似，它控制包含 continuation rays（延续光线）在内的最大光线深度上限。负值会让路径追踪器使用经验式启发规则来限制光线深度。正值会覆盖该启发规则，并让路径追踪器直接使用参数值作为最大 continuation ray（延续光线）深度。continuation rays 通常由体积产生，当体积的某些子区域中不存在密度时就会出现。如果存在许多这样的零密度子区域互相重叠，就可能很快达到最大 continuation 深度。如果你正在渲染高度重叠体积的场景，可能需要将此参数调得足够宽松，让光线能够离开场景。</p></td></tr></tbody></table></div><p local-id="8ffe715d1f67" /><div class="table-wrap"><table data-table-width="1800" data-layout="default" data-local-id="d241aec4-354f-4edd-bb40-78c989a1d79b" class="confluenceTable"><tbody><tr data-local-id="a1dff71c9d6c"><td data-local-id="48e9bb3a2bc8" class="confluenceTd"><p local-id="d6c7caee2d60"><strong>risPathGuiding</strong></p></td><td data-local-id="f7d48fb4d0f4" class="confluenceTd"><p local-id="c1d1b45fcc52">设为 1 时，会启用 indirect path guiding（间接路径引导）。在渲染进行期间，此技术会学习场景中的间接 radiance（辐射亮度）分布，并使用多重重要性采样将这些信息与 Bxdf 采样结合，以缩短收敛时间。它对光泽和漫反射表面尤其有效，也适用于间接光占主导的区域。</p></td></tr></tbody></table></div><p local-id="68b99d42d089" /><hr local-id="823a75957671"/><h3 local-id="d2c77ef87552" id="PxrPathTracer-StandardAOVs"><br/>Standard AOVs（标准 AOV）</h3><p local-id="ae83356a41db">除了常规的基于 LPE 的 AOV 之外，此积分器还会输出若干合成师通常使用的标准 AOV。</p><div class="table-wrap"><table data-table-width="1800" data-layout="default" data-local-id="d5137af3-5eab-4388-b9f3-aff99c9a5f69" class="confluenceTable"><tbody><tr data-local-id="5f56df5c0fb5"><th data-local-id="4b43d15cf950" class="confluenceTh"><p local-id="4eee8d58749f"><strong>声明</strong></p></th><th data-local-id="755ead25587c" class="confluenceTh"><p local-id="2ea1ec49c524"><strong>内容</strong></p></th><th data-local-id="7c06a6f45329" class="confluenceTh"><p local-id="4ac569cf1021"><strong>Channels（通道）</strong></p></th></tr><tr data-local-id="39f2831fe122"><td data-local-id="f87659f37672" class="confluenceTd"><p local-id="2be47f9d6785">color __Pworld</p></td><td data-local-id="f6bfe61ee86d" class="confluenceTd"><p local-id="0cb6a1b88975">P，位于 world-space（世界空间）</p></td><td data-local-id="246907ad86c7" class="confluenceTd"><p local-id="c9e5a9d4589b">__Pworld.r：x 分量</p><p local-id="f23490f24095">__Pworld.g：y 分量</p><p local-id="a0dffe61b4e5">__Pworld.b：z 分量</p></td></tr><tr data-local-id="1769887f5e39"><td data-local-id="a9ccf5419be7" class="confluenceTd"><p local-id="89a487fcca0f">color __Nworld</p></td><td data-local-id="408246f9bb71" class="confluenceTd"><p local-id="d450dc3638bc">Nn，位于 world-space（世界空间）</p></td><td data-local-id="e261d58db2cf" class="confluenceTd"><p local-id="a99783be67a4">__Nworld.r：x 分量</p><p local-id="d4250f85d9aa">__Nworld.g：y 分量</p><p local-id="8c37edce6290">__Nworld.b：z 分量</p></td></tr><tr data-local-id="f98c83cb9ef2"><td data-local-id="8bb33d6de376" class="confluenceTd"><p local-id="de319ac286b5">color __depth</p></td><td data-local-id="8f459c902449" class="confluenceTd"><p local-id="228df92f8158">多用途 AOV</p></td><td data-local-id="c85a9029251b" class="confluenceTd"><p local-id="07a4b5d830f6">__depth.r：从摄影机算起、位于 world-space（世界空间）的深度</p><p local-id="e67fc374562f">__depth.g：world-space（世界空间）中的高度</p><p local-id="904139e83a08">__depth.b：几何朝向比：abs(Nn.V)</p></td></tr><tr data-local-id="3e82c764ca56"><td data-local-id="fb38b30a4c61" class="confluenceTd"><p local-id="febc4253434b">color __st</p></td><td data-local-id="9938a3b04c6b" class="confluenceTd"><p local-id="37bb6845ce9f">纹理坐标</p></td><td data-local-id="bc0148f51a2a" class="confluenceTd"><p local-id="ba0ba418f6ac">__st.x：s</p><p local-id="d593d6fee1e9">__st.y：t</p><p local-id="fc2c25e87d6e">__st.z：0.0</p></td></tr><tr data-local-id="ce2d0b89ea57"><td data-local-id="cf07930bd5d5" class="confluenceTd"><p local-id="5518d411bd30">color __Pref</p></td><td data-local-id="235a75cff31b" class="confluenceTd"><p local-id="3d05ce2db165">Reference Position primvar（参考位置 primvar，如可用）</p></td><td data-local-id="92ce96cf473e" class="confluenceTd"><p local-id="67e6303d4a96">__Pref.r：x 分量</p><p local-id="e9201a9b83f8">__Pref.g：y 分量</p><p local-id="b0ad18141d95">__Pref.b：z 分量</p></td></tr><tr data-local-id="45a335ee066a"><td data-local-id="7344252feba5" class="confluenceTd"><p local-id="236356c59aa7">color __Nref</p></td><td data-local-id="13f44a5ab82b" class="confluenceTd"><p local-id="f91cc031f332">Reference Normal primvar（参考法线 primvar，如可用）</p></td><td data-local-id="5007cccbc168" class="confluenceTd"><p local-id="ed5b5de0db3b">__Nref.r：x 分量</p><p local-id="d3d4e6237ef5">__Nref.g：y 分量</p><p local-id="a35b898b92b3">__Nref.b：z 分量</p></td></tr><tr data-local-id="416654febf9b"><td data-local-id="7a704dc02974" class="confluenceTd"><p local-id="b198dd599f53">color __WPref</p></td><td data-local-id="f7026897bdc4" class="confluenceTd"><p local-id="471bb0230e56">Reference World Position primvar（参考世界位置 primvar，如可用）</p></td><td data-local-id="aff7f56a6046" class="confluenceTd"><p local-id="f219fc7d56b1">__WPref.r：x 分量</p><p local-id="1fd7e1a7dec4">__WPref.g：y 分量</p><p local-id="b31fde67a506">__WPref.b：z 分量</p></td></tr><tr data-local-id="084a496d66e7"><td data-local-id="eee49cb826f5" class="confluenceTd"><p local-id="9354f4befbf0">color __WNref</p></td><td data-local-id="439140437a0e" class="confluenceTd"><p local-id="2a1e58248aac">Reference World Normal primvar（参考世界法线 primvar，如可用）</p></td><td data-local-id="a90042adefff" class="confluenceTd"><p local-id="5748b23a9076">__WNref.r：x 分量</p><p local-id="e3e8d1d536e6">__WNref.g：y 分量</p><p local-id="f48a57ff5768">__WNref.b：z 分量</p></td></tr></tbody></table></div><p local-id="f8f07c28ce1f" />
+  </article>
+</main>
+</body>
+</html>

@@ -1,0 +1,44 @@
+{"id":"6d89eb7d0938564938636b4a5ee73c09e55c2e6e5aaa9e3016781bf54805e8d3","item_id":"508afbb30c:0","text":"Render（渲染）"}
+{"id":"de7d3702040f86449d23d383b9d62b52aa4b807b5b3262c711d502630918a82f","item_id":"508afbb30c:1","text":"KaBoom Box HDA 此选项卡中的参数控制位于 HDA 内部的 PxrVolume 着色器的各项功能。"}
+{"id":"6863067eb0a2c7499425c6c189b2c88bac55ca754285a6ab1ef37b75b4cfad4d","item_id":"508afbb30c:2","text":"参见"}
+{"id":"6a6418ba097cbea8e3a21d1d4886992c020645f9f906159bfa4f9089e775e990","item_id":"508afbb30c:3","text":"Volume Material（体积材质）"}
+{"id":"75e5c275d786e65ca5c97e9d0ea63ab79086b52f6c9b850ba5de1a99222a97f6","item_id":"508afbb30c:4","text":"了解此 shader node 的专门文档。"}
+{"id":"e87faf31810f25331e82ec5c7fa75c61ba047281e27cc8db4bce1da5dbd090ca","item_id":"508afbb30c:5","text":"Light Source（光源）"}
+{"id":"02562ae6febab1b8e1371160ec8214d365a0e337953835ba7768bcb9e085d7c2","item_id":"508afbb30c:6","text":"开启此开关会向渲染器表明，该体积应被视为会参与 next event estimation（下一事件估计）的 emissive light source（发光光源）。只有当 emitColor 参数不是黑色时，这才有用。大多数情况下，对于被该体积照亮的场景部分（可能包括体积自身），这会降低噪声并加快收敛。"}
+{"id":"3dd4d8fb818e4b802919179e855892e5d84b473ee8410aaf6a3e2138f19c5e60","item_id":"508afbb30c:7","text":"请注意，如果只是开启此开关，而不改变场景中的其他设置，通常会得到更亮的结果，因为它本质上增加了一次额外的光反弹：对于自发光体积，体积中的点会被同一体积中的其他点自照明。因此，在最大路径长度为 1 时渲染一个开启 __islight 的 single scattering volume（单次散射体积），实际上等价于在最大路径长度为 2 时渲染一个关闭 __islight 的 multi-scattering volume（多重散射体积）。"}
+{"id":"22405b4cad54ef56b29c4bcf808808b3cdb94e58b7af1b3d6ca3397e9bd58904","item_id":"508afbb30c:8","text":"Multiple Scattering（多重散射）"}
+{"id":"fe30fb85099ee02e6721ea18d1c61834d53b61b0c318cab1bfea2b77f5e11724","item_id":"508afbb30c:9","text":"如果设置为 0，并且 integrator（积分器）遵循此提示，PxrVolume 将只执行 single scattering（单次散射）：体积内部的点只会被光源直接照亮。如果设置为 1，体积内部的点也会被 indirect illumination（间接照明）照亮（光会在体积内部散射多次）。此效果可能成本较高，因此默认值为 0（关闭）。请注意，某些 integrators（例如 PxrVCM）会忽略此提示，并始终执行 multiple scattering。此控制对 aggregate volumes（聚合体积）没有影响。"}
+{"id":"e66ae8108c4884b692d9f31077c2a6810cbfe420c4b2bdab97c25dbc49f09e45","item_id":"508afbb30c:10","text":"Velocity Multiplier（速度倍率）"}
+{"id":"026a30bc9e76a90c8028dc49a264925d62c5c5ade42a6d2a300f66a180abb3fe","item_id":"508afbb30c:11","text":"应用在体积速度上的 multiplier（倍率）。这可用于在按帧定义的速度和按秒定义的速度之间转换。"}
+{"id":"8d92c2498f5ca083b4554452796bb60e0c21fed9667a057002c36465571d949d","item_id":"508afbb30c:12","text":"Anisotropy（各向异性）"}
+{"id":"79e06d7f2451e2b60e308f9d4d57c4e7c8f1284376a5bd1cf286b0ff07c1a46a","item_id":"508afbb30c:13","text":"Primary Anisotropy（主各向异性）"}
+{"id":"ddf88810b12e9089416b149ba1af45c6f01370d899f67c851862878cfee41cc0","item_id":"508afbb30c:14","text":"控制体积在 primary lobe（主瓣）中散射光线的方向。Anisotropy 的范围为 -1 到 1，默认值为 0（isotropic，各向同性）。anisotropy 为 0 表示体积为各向同性：光会以相同概率向所有方向散射。"}
+{"id":"85032e3e226c04112ede8af81ea09d9ce7317166073f6970fb01875c3c12a2c6","item_id":"508afbb30c:15","text":"大于 0 的值表示体积为 forward scattering（前向散射）：入射光更可能沿相同方向散射（即远离入射光的来向）。"}
+{"id":"fd81d27f16725ce013893a95eb8349d025c02e0e3832a1ed0e20821e0c5e21c5","item_id":"508afbb30c:16","text":"anisotropy 小于 0 表示体积为 backward scattering（后向散射）：入射光更可能沿反方向散射（即朝向入射光来的方向返回）。"}
+{"id":"a203579688ef5d83b487abc41da4c550b9d18c1e271e32a53ce6ee361b7f7384","item_id":"508afbb30c:17","text":"Secondary Anisotropy（次各向异性）"}
+{"id":"5c81dc51a5b82d6f899ed9ab63c27dc86f4543d7d9604a72db6ba255cda90b63","item_id":"508afbb30c:18","text":"控制体积在 secondary lobe（次瓣）中散射光线的方向。Anisotropy 的范围为 -1 到 1，默认值为 0（isotropic，各向同性）。anisotropy 为 0 表示体积为各向同性：光会以相同概率向所有方向散射。"}
+{"id":"85032e3e226c04112ede8af81ea09d9ce7317166073f6970fb01875c3c12a2c6","item_id":"508afbb30c:19","text":"大于 0 的值表示体积为 forward scattering（前向散射）：入射光更可能沿相同方向散射（即远离入射光的来向）。"}
+{"id":"fd81d27f16725ce013893a95eb8349d025c02e0e3832a1ed0e20821e0c5e21c5","item_id":"508afbb30c:20","text":"anisotropy 小于 0 表示体积为 backward scattering（后向散射）：入射光更可能沿反方向散射（即朝向入射光来的方向返回）。"}
+{"id":"30f4c233fdf6ab35080a2ea35cd80abcffb6c109b054606668cb2ca4a0cc15de","item_id":"508afbb30c:21","text":"Lobe Blend Factor（瓣混合因子）"}
+{"id":"d03d550bf392fc84b83eafcc0e7d3640a2a464c9a90ab0642928f8d078a57f9b","item_id":"508afbb30c:22","text":"控制两个 lobes（瓣）之间的 blending weight（混合权重）。值为 0 表示只有第一个 lobe 处于活动状态，值为 1 表示只有第二个 lobe 处于活动状态。介于两者之间的值表示两个 lobes 都处于活动状态。"}
+{"id":"e41f08d35dd171fae766527304b84b79f457573cc418526128c3d861bc1c31e0","item_id":"508afbb30c:23","text":"Sampling（采样）"}
+{"id":"f45961c2688c4777e3ad6f9a9c270dfeeb147cc489ff1baf9ef5917886e5364b","item_id":"508afbb30c:24","text":"Equiangular weight（等角权重）"}
+{"id":"6884f0fd48971a921900d5c998c08fc0a3a6508a59928c52736e8d26375e6822","item_id":"508afbb30c:25","text":"使用 equiangular sampling（等角采样）而不是 density sampling（密度采样）的概率。equiangular sampling 可改善靠近光源的体积的收敛，而在处理密集或密度变化很大的体积时，density sampling 可能是更好的技术。默认值 0.5 表示两种技术会等量使用，并通过 multiple-importance sampling（多重重要性采样）进行组合。"}
+{"id":"7070cc566ded1e69d5339914c82ab2b02d92ac7d7a9703f24b8c980a33fa8482","item_id":"508afbb30c:26","text":"如果体积密集且远离光源，降低 equiangular weight 可能带来更好的收敛。"}
+{"id":"548323ba98cea61807d26991012d49611a0346f18eec9607a03e7c99f1b056a9","item_id":"508afbb30c:27","text":"此控制对 aggregate volumes（聚合体积）没有影响。"}
+{"id":"13ee0110571d9ef9250da454738cfbc7acb19fede198bfab91835d7ff5d5c9b7","item_id":"508afbb30c:28","text":"Min samples（最小采样数）"}
+{"id":"e5bc77e3b7373982c370575a75bb435cf64bdf8b6bc7f00d0caf9aace2fd14b3","item_id":"508afbb30c:29","text":"控制每条 ray（射线）在体积内部取得的最小采样数。仅在 single scattering（单次散射）时使用。默认值为 4。"}
+{"id":"5c336318e19cb01f8dcb98063fb22517d2bef728faac45adae0596f030821901","item_id":"508afbb30c:30","text":"此控制对 aggregate volumes（聚合体积）没有影响。"}
+{"id":"34d3cc69124f6a6478205a4f11d682ef7943317395bfb2b452ff4781f8fc6d3e","item_id":"508afbb30c:31","text":"Max samples（最大采样数）"}
+{"id":"6ac140ca98f6deb3b318090ebd4d7443a9a51cbde140775e60cb3f9517c02dac","item_id":"508afbb30c:32","text":"控制每条 ray 在体积内部取得的最大采样数。默认值为 4。"}
+{"id":"548323ba98cea61807d26991012d49611a0346f18eec9607a03e7c99f1b056a9","item_id":"508afbb30c:33","text":"此控制对 aggregate volumes（聚合体积）没有影响。"}
+{"id":"3c0176e43bf0f8187f2cf39f5cc5ef8827409945b2c50f8223be8fdfb564d609","item_id":"508afbb30c:34","text":"Multiscatter Optimization（多重散射优化）"}
+{"id":"4f882437835785e34bf51ab38f6235154577095606f4593f85be33e4017941f7","item_id":"508afbb30c:35","text":"MultiScatter Optimization（多重散射优化）"}
+{"id":"f1474f25fabe89f9eb09c7fa799644d68bb514c1513ed1f5630ddc50e4b45e95","item_id":"508afbb30c:36","text":"控制是否应用 MultiScatter Optimization（多重散射优化）。此控制对聚合体积没有影响。"}
+{"id":"2403c72de04094337e2e07bfd322d5ab67d3f794b5ee6dd74ef5050773f3108e","item_id":"508afbb30c:37","text":"Extinction Multiplier（消光倍率）"}
+{"id":"0d270d5dbc2fcdbf386084e40a1feff35972eedba2b7dd0c0709d20d0acb4b71","item_id":"508afbb30c:38","text":"Extinction Multiplier（消光倍率）用于多重散射，可在多重散射事件中修改消光系数。该倍率可设置为任何大于 0 的值；默认值 1 表示不做修改。"}
+{"id":"588ee681f16c1a89bdadd8898e254b64cf8b3ea05d929bcaaf72580e79ea6a1f","item_id":"508afbb30c:39","text":"小于 1 的值会降低消光系数，大于 1 的值会提高消光系数。此控制对聚合体积没有影响。"}
+{"id":"54d1bd72258b656e3fb8abb28321cf5d31b27a7a2a808141b632f192c6fb474f","item_id":"508afbb30c:40","text":"Contribution Multiplier（贡献倍率）"}
+{"id":"351f0d8d9fcbd6f81494ec00fcce86a2d44f1b206acd49a0e88b5a131728a69f","item_id":"508afbb30c:41","text":"Contribution Multiplier（贡献倍率）用于多重散射，可在多重散射事件中修改直接照明贡献。该倍率可设置为任何大于 0 的值；默认值 1 表示不做修改。"}
+{"id":"faa0bdf866e8fbdbd0236caac35b2c97a74d43102a3c4667d444ac4e079003db","item_id":"508afbb30c:42","text":"小于 1 的值会降低直接照明贡献，大于 1 的值会增强直接照明贡献。"}
+{"id":"548323ba98cea61807d26991012d49611a0346f18eec9607a03e7c99f1b056a9","item_id":"508afbb30c:43","text":"此控制对 aggregate volumes（聚合体积）没有影响。"}

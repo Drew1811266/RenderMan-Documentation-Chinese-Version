@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Solaris Lighting Workflow</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Solaris Lighting Workflow</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFH27/544641395/Solaris+Lighting+Workflow">https://rmanwiki-27.pixar.com/space/RFH27/544641395/Solaris+Lighting+Workflow</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>Solaris 允许你创建灯光并将其导出到 USD。 <br/>这些照明设置可以共享并导入到其他场景中。有关照明工作流的更多信息，请参阅 Solaris 文档。</p><h2 id="SolarisLightingWorkflow-CreatingLights">Creating Lights（创建灯光）</h2><p>在 stage view（舞台视图）中，添加 Light 节点，并从 <em>Type（类型）</em> 参数列表中选择灯光类型。PxrDomeLight 可通过单独的 Dome Light 节点使用。 </p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="900" loading="lazy" src="../../attachments/544641395/RenderMan_Solaris_LightTypes_1.JPG" data-image-src="../../attachments/544641395/RenderMan_Solaris_LightTypes_1.JPG" data-height="388" data-width="1037" data-unresolved-comment-count="0" data-linked-resource-id="544641422" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Solaris_LightTypes_1.JPG" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544641395" data-linked-resource-container-version="1" data-media-id="49dbeef0-ae88-46ac-9dbc-d2bfac082769" data-media-type="file"></span><p>属于 USDLuxLight schema 的参数位于该节点的<em> Base Properties（基础属性）</em>, <em>Shaping（塑形）</em>和 <em>Shadow（阴影）</em> 选项卡中。这些参数可用于多渲染器工作流。可用参数会因灯光类型而异。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="900" loading="lazy" src="../../attachments/544641395/RenderMan_Solaris_LightTypes_2.jpg" data-image-src="../../attachments/544641395/RenderMan_Solaris_LightTypes_2.jpg" data-height="574" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="544641419" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Solaris_LightTypes_2.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544641395" data-linked-resource-container-version="1" data-media-id="a293de7d-650e-470b-a886-f976a4031eac" data-media-type="file"></span><p>RenderMan 灯光专用的参数位于该节点的 RenderMan 选项卡中。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="900" loading="lazy" src="../../attachments/544641395/RenderMan_Solaris_LightTypes_3.jpg" data-image-src="../../attachments/544641395/RenderMan_Solaris_LightTypes_3.jpg" data-height="575" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="544641416" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Solaris_LightTypes_3.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544641395" data-linked-resource-container-version="1" data-media-id="b0d45b0f-28f4-44db-902d-51485f196d37" data-media-type="file"></span><p>Light Mixer 节点是查看和编辑基础灯光属性的便捷位置，例如 intensity（强度）、exposure（曝光）和 color（颜色）。你还可以通过创建灯光集合，同时控制多盏灯上的这些效果。Light Mixer 还提供了将灯光 mute（静音）和 solo（独奏）的方式。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="900" loading="lazy" src="../../attachments/544641395/RenderMan_Solaris_LightTypes_4.jpg" data-image-src="../../attachments/544641395/RenderMan_Solaris_LightTypes_4.jpg" data-height="573" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="544641413" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Solaris_LightTypes_4.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544641395" data-linked-resource-container-version="1" data-media-id="6d4b2f9f-824c-45cf-90f3-05e47af7461f" data-media-type="file"></span><hr/><h2 id="SolarisLightingWorkflow-Lightlinking">Light linking（灯光链接）</h2><p>可以使用 Light Linker 节点完成 light linking（灯光链接）。 <br/>只需将灯光或灯光集合拖到中央的 <em>Rules（规则）</em> 区域。然后将几何体拖到每盏灯的 on/off（开启/关闭）区域。类似地，也可以将几何体拖入 Rules 区域，并把灯光加入该几何体的 on/off 区域。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="900" loading="lazy" src="../../attachments/544641395/RenderMan_Solaris_LightTypes_5.jpg" data-image-src="../../attachments/544641395/RenderMan_Solaris_LightTypes_5.jpg" data-height="578" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="544641410" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Solaris_LightTypes_5.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544641395" data-linked-resource-container-version="1" data-media-id="db086f51-9798-4475-a90d-3c94883eed67" data-media-type="file"></span><hr/><h2 id="SolarisLightingWorkflow-DifferencesfromRfH">Differences from RfH（与 RfH 的差异）</h2><p>Light shapes（灯光形状）默认对相机可见。若要关闭所有灯光的可见性，请创建 Render Geometry Settings 节点，并将 Primitives scope 设置为 "All Light Primitives"。 <br/><br/>然后在 RenderMan 选项卡中，使用 Set and Create 覆盖该设置，再取消勾选 Camera Visibility 设置。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="900" loading="lazy" src="../../attachments/544641395/RenderMan_Solaris_LightTypes_6.jpg" data-image-src="../../attachments/544641395/RenderMan_Solaris_LightTypes_6.jpg" data-height="575" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="544641407" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Solaris_LightTypes_6.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544641395" data-linked-resource-container-version="1" data-media-id="684dbc00-d571-4d29-981c-0fa01d6eb6d5" data-media-type="file"></span><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="10699a26-3b99-4feb-9023-5d02cf3518b7" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>Solaris 不会自动转换你的纹理。  <br />要在光源上使用纹理，必须先使用 Texture Manager 面板将文件转换为 .tex。</p></div></div><p />
+  </article>
+</main>
+</body>
+</html>

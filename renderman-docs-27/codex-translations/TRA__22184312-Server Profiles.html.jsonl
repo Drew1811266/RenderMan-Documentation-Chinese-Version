@@ -1,0 +1,136 @@
+{"item_id":"434114e483:0","text":"Configuration Files（配置文件说明）"}
+{"item_id":"434114e483:1","text":"blade.config 配置文件指定"}
+{"item_id":"434114e483:2","text":"server profiles（服务器配置档）"}
+{"item_id":"434114e483:3","text":"，每个 profile 可应用于一个或多个 renderfarm hosts。其思路是使用一个 central configuration（policy）file 控制所有 machines，并允许一个 profile 在必要时应用到许多 machines。新 servers 可以上线，并使用它们匹配到的 profile settings，以简单的 \"plug and play\" 方式加入 renderfarm。"}
+{"item_id":"434114e483:4","text":"blade.config file 通常会完整复制到"}
+{"item_id":"434114e483:5","text":"site override directory"}
+{"item_id":"434114e483:6","text":"，然后在那里 custom 配置。它包含一个 dictionary，其中有两个 top-level key entries："}
+{"item_id":"434114e483:7","text":"ProfileDefaults"}
+{"item_id":"434114e483:8","text":"- 定义所有 profiles 的 default values。这里给出的 base values 用于初始化 BladeProfiles list（见下文）中的每个 entry。每个 profile definition 可以 override 这些 defaults 中的部分或全部。"}
+{"item_id":"434114e483:9","text":"BladeProfiles"}
+{"item_id":"434114e483:10","text":"- 是 individual profiles 的 ordered list，这些 profiles 可应用于一个或多个 renderfarm hosts。profile 中的 individual entries 是对 ProfileDefaults dictionary 中指定 values 的 overrides。"}
+{"item_id":"434114e483:11","text":"Profile Matching（配置档匹配）"}
+{"item_id":"434114e483:12","text":"启动时，每个 tractor-blade server 会 introspect 自身，以找出一些 basic traits："}
+{"item_id":"434114e483:13","text":"它的 hostname(s) 主机名和 ip address(es) 地址"}
+{"item_id":"434114e483:14","text":"它的 CPU core count"}
+{"item_id":"434114e483:15","text":"它的 GPU count 和 type(s)"}
+{"item_id":"434114e483:16","text":"它的 physical memory 物理内存和 disk sizes 磁盘大小"}
+{"item_id":"434114e483:17","text":"其他 basic platform information 基础平台信息"}
+{"item_id":"434114e483:18","text":"然后，每个 blade 会从 engine 请求整个 blade.config file。"}
+{"item_id":"434114e483:19","text":"每个 blade 会按顺序遍历 BladeProfiles list。"}
+{"item_id":"434114e483:20","text":"与 blade basic characteristics（hostname、platform 等）匹配的"}
+{"item_id":"434114e483:21","text":"第一个 profile"}
+{"item_id":"434114e483:22","text":"会 \"wins\" - blade 停止搜索 profile list，并将该 profile 应用为自己的 operating definition。"}
+{"item_id":"434114e483:23","text":"请求 work 时，server 的 profile name 会发送给 engine，使 assigner 能决定哪些 jobs 匹配该 host 的 access restrictions，以及哪些 commands 匹配该 server 的 capabilities。"}
+{"item_id":"434114e483:24","text":"由于采用 \"first match wins\" policy，只适用于少数 machines 的 profile definitions 应放在 BladeProfiles list 靠前位置，而 \"catch-all\" general profiles 应放在末尾，确保 specialized blades 会匹配到 appropriate profile。"}
+{"item_id":"434114e483:25","text":"Required Keys（必需配置键）"}
+{"item_id":"434114e483:26","text":"BladeProfile array 中每个 profile object（dictionary）都会指定若干 \"required\" keys。大多数 required keys 在 ProfileDefaults dictionary 中指定，并由 individual profiles 应用 overrides。下面是一个 reference example："}
+{"item_id":"434114e483:27","text":"Key Terms（配置键名术语）"}
+{"item_id":"434114e483:28","text":"ProfileName"}
+{"item_id":"434114e483:29","text":"- profile entry 的名称；每个 profile 都有一个 site-defined、abstract title，应该描述对 site 有意义的内容，例如 \"Linux_machines\"、\"8core_rack\" 或 \"server_of_last_resort\"。"}
+{"item_id":"434114e483:30","text":"Hosts"}
+{"item_id":"434114e483:31","text":"- 一个 dictionary，用来回答：此 profile entry 应用到哪些 hosts？"}
+{"item_id":"434114e483:32","text":"当每个 server 遍历 profile entries 时，它们会用自己的 host information 测试 Hosts dictionary 中的 patterns，以确定该 entry 是否适用。"}
+{"item_id":"434114e483:33","text":"Hosts dictionary 中的每个 entry 都表示一项 test，并且它们"}
+{"item_id":"434114e483:34","text":"必须全部通过，profile 才会应用到该 blade。匹配使用 glob-style string compare 完成。"}
+{"item_id":"434114e483:35","text":"dictionary item \"Name\" 指定的 pattern 会与 server 的所有 hostnames、aliases 和 \"dotted quad\" ip-addresses 比较。\"Name\" entry 可以是 list，也可以是 single entry。每个 entry 都可以包含 glob-style wildcard chars。注意！这里输入的 names 和 addresses 应是 engine 看到的值，其次才是 blade host 自身看到的值；使用 VPN tunnels 或其他 routing 的 hosts，engine 和 blade 上可见的数据可能不同。"}
+{"item_id":"434114e483:36","text":"\"Platform\" 给出的 pattern 会与每个 server 上由以下 Python expression 生成的 string 匹配："}
+{"item_id":"434114e483:37","text":"Python 表达式：platform.platform() + '-' + platform.architecture()[0]"}
+{"item_id":"434114e483:38","text":"\"NCPU\" 指定的 value 会与 host 报告的 CPUs 数量进行 exact 比较。"}
+{"item_id":"434114e483:39","text":"使用 \"MinNCPU\" 可测试 hosts 是否具有至少给定数量的 CPUs。"}
+{"item_id":"434114e483:40","text":"使用 \"MinPhysRAM\" 可测试 hosts 是否至少安装了给定 gigabytes 的 memory。"}
+{"item_id":"434114e483:41","text":"使用 \"PhysRAM\" 可测试 hosts 是否正好安装了给定 gigabytes 的 memory（四舍五入到最近 integer）。"}
+{"item_id":"434114e483:42","text":"使用 \"MinNGPU\" 可测试 hosts 是否至少具有给定数量的 GPU cards。关于 filtering，请参见 blade.config 中的 \"GPUExclusionPatterns\"。"}
+{"item_id":"434114e483:43","text":"使用 \"GPU.label\" 可测试 hosts 是否包含特定 type 的 GPU。这些是 wildcard matching patterns，例如 [\"*Quadro*K620*\", \"NVIDIA*\"]。"}
+{"item_id":"434114e483:44","text":"使用 \"PathExists\" 可测试 hosts 是否存在特定 directories 或 files。这些可以是 installed applications，也可能是不同 fileserver access mount points。这里的 value 应为 path strings list，所有 paths 都必须存在才会匹配。"}
+{"item_id":"434114e483:45","text":"Access"}
+{"item_id":"434114e483:46","text":"- server access restrictions 服务器访问限制：哪些"}
+{"item_id":"434114e483:47","text":"jobs"}
+{"item_id":"434114e483:48","text":"可以使用此 server？"}
+{"item_id":"434114e483:49","text":"这里定义的 patterns 会由 assigner 匹配到 job characteristics。"}
+{"item_id":"434114e483:50","text":"例如 {\"Crews\": \"Project-A\"} 只允许由 \"Project-A\" crew 成员 user spool 的 jobs 在给定 type of server 上运行，该 crew 在 crews.config file 中定义。"}
+{"item_id":"434114e483:51","text":"另一个例子 {\"Crews\": \"bob\"} 只允许 user \"bob\" spool 的 jobs 在给定 type of server 上运行，例如 bob 的 desktop。你可以把 username 指定为 crew，而无需在 crews.config file 中定义该 crew。"}
+{"item_id":"434114e483:52","text":"crews definition 可以是 single value 或 values list。list 会以 square brackets 定义：{\"Crews\": [\"Project-A\", \"Project-B\"]}。"}
+{"item_id":"434114e483:53","text":"如果未定义，default operation 是允许所有 valid users 访问。"}
+{"item_id":"434114e483:54","text":"order of operations（处理操作顺序）："}
+{"item_id":"434114e483:55","text":"job spool 时会带有某些 characteristics：user、priority、metadata 等。"}
+{"item_id":"434114e483:56","text":"当 job 变为 active（loaded into assignable queue）时，loader 会把 job traits 与所有 current server definitions 上的 Access field 进行比较。它会预先准备一张 map，说明哪些 types of servers 可以运行每个 job。"}
+{"item_id":"434114e483:57","text":"如果 definition file 发生变化，发送给 tractor-engine 的 signal 会导致该 file reload，并重新处理 access map。类似地，仍在使用 old definition 的 servers（通过其 request 中的 serial number 检测）会被告知重新 fetch new file。"}
+{"item_id":"434114e483:58","text":"当 server 请求 task 时，会用 server type 通过 access map 过滤掉某些 jobs。"}
+{"item_id":"434114e483:59","text":"Access dictionary 对谁可以修改使用该 profile 的 blades 的 NIMBY settings 提供特殊 access restrictions。有两个 basic controls：\"NimbyCrews\" list 定义哪些 user crews 有权限更改 setting，前提是 change requests 通过 engine 路由（默认方式）。\"NimbyConnectPolicy\" setting 控制 scripts 是否可以直接连接 blades 来更改 nimby state，还是必须通过 engine 间接提出 requests；使用 1.5 或更大 value 可只允许经过 engine 的 authenticated nimby requests。"}
+{"item_id":"434114e483:60","text":"Provides"}
+{"item_id":"434114e483:61","text":"- 一个"}
+{"item_id":"434114e483:62","text":"abstract service key names（抽象服务键名称）"}
+{"item_id":"434114e483:63","text":"array，精确列出 blade 可以接受哪些 types of commands。例如，某个特定 software tool 可能只安装在所有 farm machines 的一小部分上，因此可在这些 blades 的 Provides list 中添加一个代表该 application 的 name，表示它安装在那里。想调用该 tool 的 jobs 需要把相同 key name 添加到其 RemoteCmds -service expressions，表示它们"}
+{"item_id":"434114e483:64","text":"require（需要）"}
+{"item_id":"434114e483:65","text":"提供该 capability 的 blades。实际使用的 key names 是任意的，只需要 profile definitions 和 jobs 之间对这些 names 达成约定。例如，按 convention，安装了 Pixar 的 RenderMan renderer 的 blades 通常用 \"PixarRender\" key 表示。比较时会忽略 key spelling 的 upper/lower case。"}
+{"item_id":"434114e483:66","text":"如果整个 job 通过了上面的 Access tests，则会检查 individual ready commands，判断它们是否匹配 server 的 service keys Provides list，例如：\"Provides\": [\"pixarRender\", \"pixarNRM\"]。"}
+{"item_id":"434114e483:67","text":"Provides list 中的 key names 通常只是 simple keywords。不过，也有一些"}
+{"item_id":"434114e483:68","text":"advanced annotations（高级服务键注解）"}
+{"item_id":"434114e483:69","text":"可在不常见情况下应用。"}
+{"item_id":"434114e483:70","text":"Capacity"}
+{"item_id":"434114e483:71","text":"- 一个 constraints dictionary，会使 server 停止请求 new work。"}
+{"item_id":"434114e483:72","text":"\"MaxSlots\": (int) - server 上的 maximum concurrent commands。特殊 value '0'（zero）可用于自动把 MaxSlots 约束为 host 上发现的 CPUs 数量（这是 default）。"}
+{"item_id":"434114e483:73","text":"\"MaxLoad\": (float) - 当 loadavg 低于此 threshold 时继续请求 tasks。"}
+{"item_id":"434114e483:74","text":"\"MinRAM\": (float GB) - 当 free RAM 大于此 minimum 时继续请求 tasks。"}
+{"item_id":"434114e483:75","text":"\"MinDisk\": (float GB) - 当 free disk space 大于此 minimum 时继续请求 tasks。此 key 接受两种 value formats："}
+{"item_id":"434114e483:76","text":"\"MinDisk\": 3.75,"}
+{"item_id":"434114e483:77","text":"或："}
+{"item_id":"434114e483:78","text":"\"MinDisk:[3.75, \"/scratch\"],"}
+{"item_id":"434114e483:79","text":"第二种形式会命名要检查的 disk。"}
+{"item_id":"434114e483:80","text":"\"EnvKeys\""}
+{"item_id":"434114e483:81","text":"- environment key dictionaries list 环境键字典列表。"}
+{"item_id":"434114e483:82","text":"每个 dictionary 都是一个具名"}
+{"item_id":"434114e483:83","text":"environment（命名运行环境配置）"}
+{"item_id":"434114e483:84","text":"，并定义一个 environment"}
+{"item_id":"434114e483:85","text":"keys"}
+{"item_id":"434114e483:86","text":"list，该 list 会与待启动 job 传入的 envkeys 匹配。"}
+{"item_id":"434114e483:87","text":"该"}
+{"item_id":"434114e483:88","text":"environment"}
+{"item_id":"434114e483:89","text":"entry 包含对 command 运行时 default environment variables 的 overrides。"}
+{"item_id":"434114e483:90","text":"envhandler"}
+{"item_id":"434114e483:91","text":"key 包含 Python environment handler 的名称，该 handler 会在 command 执行前对其进行操作。envhandlers 可以通过把 modules 添加到 SiteModulePath entry 定义的 directory 来扩展。更多 details 请参阅"}
+{"item_id":"434114e483:92","text":"envhandler"}
+{"item_id":"434114e483:93","text":"documentation 相关文档详细说明。"}
+{"item_id":"434114e483:94","text":"SiteModulesPath"}
+{"item_id":"434114e483:95","text":"- 定义 blades 可访问的 directory，其中包含 additional python environment handlers。更多 details 请参阅"}
+{"item_id":"434114e483:96","text":"envhandler"}
+{"item_id":"434114e483:97","text":"documentation 相关文档详细说明。"}
+{"item_id":"434114e483:98","text":"CmdOutputLogging"}
+{"item_id":"434114e483:99","text":"- launched command output logs 的 destination。关于此 setting 的 details，请参阅单独的"}
+{"item_id":"434114e483:100","text":"logging discussion"}
+{"item_id":"434114e483:101","text":"。"}
+{"item_id":"434114e483:102","text":"VersionPin"}
+{"item_id":"434114e483:103","text":"- 指定一个特定 tractor-blade \"module version\"，使用给定 profile 的 blades 应运行该 version。这些 hosts 会被 \"pinned\" 到 blade software 的特定 version。此 setting 通常只在"}
+{"item_id":"434114e483:104","text":"ProfileDefaults"}
+{"item_id":"434114e483:105","text":"section 中给出，作为一种"}
+{"item_id":"434114e483:106","text":"向整个 farm 推送 blade update 更新"}
+{"item_id":"434114e483:107","text":"的方式，把所有 machines pin 到统一 blade module version。"}
+{"item_id":"434114e483:108","text":"当 administrator reload blade.config 时，blades 会检查其 profile 中的这个 setting。如果 blade 发现自己没有运行正确的 module version，它会从 engine 下载指定 module，并"}
+{"item_id":"434114e483:109","text":"使用 new module restart itself（用新模块重启自身）。"}
+{"item_id":"434114e483:110","text":"blade 只会 fetch core tractor-blade python module 本身的 prepackaged version；它不会 update 整个 Tractor install area，也不会 update bundled \"rmanpy\" python interpreter 或其他 Tractor tools；要 upgrade 这些其他 components，blade host 上需要完整 install。"}
+{"item_id":"434114e483:111","text":"named module patch package 必须已经存在于 site tractor-engine host 上，通常由 administrator 放置在那里。每个完整 Tractor product install 都包含该 release 的 \"factory\" blade module package；其他 blade module packages 可能通过 customer support channels 提供。这些 packages 是 self-contained zip-format modules，使用 \".pyz\" filename extension。"}
+{"item_id":"434114e483:112","text":"当 blade 请求 pinned module download 时，engine 会在两个位置查找。首先查找 engine 的 \"--configdir\" directory，也就是 engine host 上包含其他 site-modified configuration overrides 的 directory。其次查找 installed product directory 中与 current release 匹配的 shipped package。"}
+{"item_id":"434114e483:113","text":"TaskBidTuning"}
+{"item_id":"434114e483:114","text":"- 设置为 \"immediate\" 时，blade 会在先前 task 成功退出后立即请求 new work，或在 new task 已启动且仍有 additional slot capacity 时立即请求 new work。否则，blades 会在 requests 之间更保守地等待（minsleep secs）。\"immediate\" mode 会使 blades 很快轮询所有 waiting fast-running commands。"}
+{"item_id":"434114e483:115","text":"TR_EXIT_STATUS_terminate"}
+{"item_id":"434114e483:116","text":"- 控制发出 \"TR_EXIT_STATUS nnn\" directives 的 scripts 是最终自行以给定 exit status code override 退出，还是在没有及时退出时由 tractor-blade 主动 kill。使用 0（zero）表示等待，使用 1（one）表示主动 kill。"}
+{"item_id":"434114e483:117","text":"RecentErrorThrottle"}
+{"item_id":"434114e483:118","text":"- 类似 [5, 30, 120] 的 setting 表示：同一 blade 在 30 seconds 内出现 5 个 errors，将导致该 blade 的 new task assignments 暂停 120 seconds。此上下文中的 \"error\" 是指 blade 启动的 command 因 crash 而以 non-zero exit status code 或 unexpected signal 退出。当 list 第三个 parameter 给出 -1（替换上例中的 \"120\"）时，达到 error threshold 的 blades 会改为把自己置于 \"nimby\" state；在此 state 下，它们不会接收 new task assignments，直到 administrator 通过 Dashboard 或 tq 手动 unset nimby state。注意，此 setting 可以放在 \"ProfileDefaults\" dictionary 中应用到所有 blades，也可以在 specific profiles 中单独放置不同 settings（或对 default 的 overrides）。"}
+{"item_id":"434114e483:119","text":"DirMapZone"}
+{"item_id":"434114e483:120","text":"- 定义 directory mapping 中用于 cross platform support 的 zone。blades 会用 default DirMapZone 初始化（Windows=\"unc\"，Linux 和 Mac=\"nfs\"）。blade profile 中的 value 会 override internal default。"}
+{"item_id":"434114e483:121","text":"UDI"}
+{"item_id":"434114e483:122","text":"- Universal Desirability Index（通用期望指数）"}
+{"item_id":"434114e483:123","text":"这是一个 abstract、site-defined rating value，用于在 jobs spooled 且有 blades waiting for work 时帮助选择 \"more desirable\" servers。"}
+{"item_id":"434114e483:124","text":"目前，UDI 只在存在 idle blades 时适用；如果所有 servers 都 busy，则 tasks 会分配给下一台变为 available 的 blade。"}
+{"item_id":"434114e483:125","text":"NIMBY"}
+{"item_id":"434114e483:126","text":"- 将 NIMBY 添加到 blade profile，会定义 blade 可以拾取哪些 jobs。Settings 包括："}
+{"item_id":"434114e483:127","text":"- 将只接受从该 blade host spool 出来的 local jobs。"}
+{"item_id":"434114e483:128","text":"- 将接受来自任何人的 jobs。"}
+{"item_id":"434114e483:129","text":"username"}
+{"item_id":"434114e483:130","text":"- 将只接受来自指定 user 的 jobs。"}
+{"item_id":"434114e483:131","text":"注意，上文描述的 \"Access\" dictionary 中的 \"NimbyCrews\" setting 控制哪些 users（如果有）允许通过 dashboard 或其他 session-validated client 动态更改此 setting。还要注意，当在特定 profile definition 中提供任何 \"Access\" override 时，需要指定完整的 desired Access key-value pairs 集合；未指定的 keys 将"}
+{"item_id":"434114e483:132","text":"不会"}
+{"item_id":"434114e483:133","text":"从 ProfileDefaults 中的 Access values 继承。"}
+{"item_id":"434114e483:134","text":"GPUExclusionPatterns"}
+{"item_id":"434114e483:135","text":"-- 从 matching 和 counting consideration 中排除某些 GPU types。注意，此 keyword 只在 ProfileDefaults dictionary 中有效，并且 GPU filtering 会在任何 per-profile match testing 之前执行。背景：给定 profile 可以基于 \"Hosts\" clause 中的若干 criteria 匹配 specific hosts，这些 criteria 可包括 GPU 的 count 和 type。有些 hosts 包含 \"uninteresting\" virtual 或 underpowered GPUs，应始终在 profile matching pass 之前排除。使用这里的 \"GPUExclusionPatterns\" list 枚举要在 counts 和 matches 中跳过的 GPU makes/models。注意，\"GPUExclusionPatterns\" 仅限 ProfileDefaults block（此处）使用；它在 individual profile definitions 中会被 ignored，因为 GPU counting 在 matching 之前发生。list 中的每个 item 都是一个简单 \"glob-style\" wildcard pattern；不含 '*' 或 '?' 的 patterns 会被视为 \"*TEXT*\"。\"GPUExclusionPatterns\": [\"QXL\", \"Standard VGA\"],"}

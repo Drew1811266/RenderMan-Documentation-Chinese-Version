@@ -1,0 +1,58 @@
+{"item_id":"ddd231987c:0","text":"设置 Traversal Thread Count（遍历线程数）"}
+{"item_id":"ddd231987c:1","text":"当 RfK 将 Katana scene graph（场景图）转换为用于渲染的 Rix scene graph 时，会并行执行，并在 location 分支处生成新线程。默认值是 \"all on\"，意味着它会在 scene 中每个子 location 上 fork；这对大多数场景未必理想，但允许作者更深入地控制 parallelism（并行度）。控制层级有多种，需要一些调整，才能得出适合你的 pipeline 以及后续各个 scene 的配置。"}
+{"item_id":"ddd231987c:2","text":"prmanGlobalStatements.plugin.traversalMethod:"}
+{"item_id":"ddd231987c:3","text":"全局 traversal（遍历）设置。当设为 'Serial' 时，它会完全禁用并行 scene traversal。通常不建议这样做，但它对计时对比和 reentrant diagnostics（可重入诊断）很有用（也就是说，我在串行和并行 traversal 中都能看到这个问题吗？）。"}
+{"item_id":"ddd231987c:4","text":"prmanGlobalStatements.plugin.maxTraversalThreads:"}
+{"item_id":"ddd231987c:5","text":"请求用于 traversal（遍历）的线程数：这是开始调优的首要位置。默认 max 设置为 4，但根据机器配置和 scene layout，此级别的性能可能提升一倍，也可能减半。对技术用户来说，这个值用于初始化 RfK 的 TBB task scheduler。将它设置为 TBB 默认值 '0' "}
+{"item_id":"ddd231987c:6","text":"不建议"}
+{"item_id":"ddd231987c:7","text":"。根据经验，将它设为 '0' 时我们见过明显减速，可能是因为与正在使用的其他 TBB sessions 冲突。"}
+{"item_id":"ddd231987c:8","text":"prmanStatements.traversal.forceSerial:"}
+{"item_id":"ddd231987c:9","text":"用于按 location 对 scene 或 asset 进行精细调优的设置。强烈建议在 component 或 group 层级将它设为 true，使 traversal 不会尝试一直并行化到 gprim 层级。更多关于 location-level thread tuning 的细节，请参见"}
+{"item_id":"ddd231987c:10","text":"PrmanObjectStatements"}
+{"item_id":"ddd231987c:11","text":"。"}
+{"item_id":"ddd231987c:12","text":"性能说明"}
+{"item_id":"ddd231987c:13","text":"请理解，某些分支以串行方式处理可能会改善 time to first pixel（开始发送像素前所需的时间），而且这高度依赖 scene；同时也要理解，对所有内容都使用并行 traversal 可能代价较高。"}
+{"item_id":"ddd231987c:14","text":"设置 Render Thread Count（渲染线程数）"}
+{"item_id":"ddd231987c:15","text":"目前在 RfK 中有三种设置 render threads（渲染线程）数量的方法。前两种会向 prman 的命令行参数添加 \""}
+{"item_id":"ddd231987c:16","text":"\"；按照 RenderMan 对 prman 参数的定义，这会覆盖 RIB 中的任何线程规格（第三种选项）。"}
+{"item_id":"ddd231987c:17","text":"设置 thread count（线程数）的方法，"}
+{"item_id":"ddd231987c:18","text":"按优先级顺序"}
+{"item_id":"ddd231987c:19","text":"："}
+{"item_id":"ddd231987c:20","text":"Katana preferences（偏好设置）："}
+{"item_id":"ddd231987c:21","text":"interactiveRenderThreadsOverride"}
+{"item_id":"ddd231987c:22","text":"和"}
+{"item_id":"ddd231987c:23","text":"interactiveRenderThreads3D"}
+{"item_id":"ddd231987c:24","text":"（等同于在 batch mode（批处理模式）中使用 \""}
+{"item_id":"ddd231987c:25","text":"\" 命令行参数）。"}
+{"item_id":"ddd231987c:26","text":"Katana attribute（属性）："}
+{"item_id":"ddd231987c:27","text":"renderSettings.renderThreads."}
+{"item_id":"ddd231987c:28","text":"PRMan option（选项）："}
+{"item_id":"ddd231987c:29","text":"prmanGlobalStatements.options.limits.threads"}
+{"item_id":"ddd231987c:30","text":"。"}
+{"item_id":"ddd231987c:31","text":"这些值的设置方式和位置如下详述。"}
+{"item_id":"ddd231987c:32","text":"Option 1（选项 1）：interactiveRenderThread Preferences（偏好设置）"}
+{"item_id":"ddd231987c:33","text":"下面是 preferences（偏好设置）的屏幕截图"}
+{"item_id":"ddd231987c:34","text":"interactiveRenderThreadsOverride"}
+{"item_id":"ddd231987c:35","text":"和"}
+{"item_id":"ddd231987c:36","text":"interactiveRenderThreads3D"}
+{"item_id":"ddd231987c:37","text":"（等同于在 batch mode（批处理模式）中使用 \""}
+{"item_id":"ddd231987c:38","text":"\" 命令行参数）。如果你想明确设置 render threads 的数量，应在这里设置。将"}
+{"item_id":"ddd231987c:39","text":"interactiveRenderThreadsOverride"}
+{"item_id":"ddd231987c:40","text":"Yes"}
+{"item_id":"ddd231987c:41","text":"，并将"}
+{"item_id":"ddd231987c:42","text":"interactiveRenderThreads3D"}
+{"item_id":"ddd231987c:43","text":"的值设为所需的线程数："}
+{"item_id":"ddd231987c:44","text":"Option 2（选项 2）：renderThreads Attribute（属性）"}
+{"item_id":"ddd231987c:45","text":"属性"}
+{"item_id":"ddd231987c:46","text":"renderSettings.renderThreads"}
+{"item_id":"ddd231987c:47","text":"必须通过 AttributeSet 或 OpScript 设置，因为它不会在 RenderSettings 中公开。下面是使用 AttributeSet 节点设置该 attribute（属性）的示例："}
+{"item_id":"ddd231987c:48","text":"Option 3（选项 3）：limits.threads prman Option（选项）"}
+{"item_id":"ddd231987c:49","text":"prman option（选项）"}
+{"item_id":"ddd231987c:50","text":"limits.threads"}
+{"item_id":"ddd231987c:51","text":"的设置通过"}
+{"item_id":"ddd231987c:52","text":"Options（选项）"}
+{"item_id":"ddd231987c:53","text":"section（部分）设置，该部分位于 PrmanGlobalStatements 节点中："}
+{"item_id":"ddd231987c:54","text":"该 attribute（属性）会直接转换为 RIB："}
+{"item_id":"ddd231987c:55","text":"由于它在优先级列表中最低，如果 (1) preferences（偏好设置）或 (2) render settings（渲染设置）启用了线程值，这个 thread option（线程选项）就会被覆盖。"}
+{"item_id":"ddd231987c:56","text":"特殊值"}
+{"item_id":"ddd231987c:57","text":"在所有情况下，如果给 prman 的值为 0（zero），则会使用所有 CPU 进行渲染。如果指定负值（-N），则 prman 会使用除 N 个 CPU 之外的所有 CPU 进行渲染。"}

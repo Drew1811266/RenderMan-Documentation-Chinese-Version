@@ -1,0 +1,37 @@
+{"item_id":"0290d97eef:0","text":"RenderMan Community 非常棒；感谢我们的 guest contributors，这里把他们在自己 scenes 中觉得有用的一些 lighting tips 汇总到一页！"}
+{"item_id":"0290d97eef:1","text":"Baba Yaga"}
+{"item_id":"0290d97eef:2","text":"by Romane La Rosa"}
+{"item_id":"0290d97eef:3","text":"Tip：保持通用性（Stay General）"}
+{"item_id":"0290d97eef:4","text":"所有 lights 都是 normalized rectangular lights，也就是说我可以改变它们的 size，而不会改变 exposure。small light 会产生 sharp shadow，而 big light 会产生 soft shadow。"}
+{"item_id":"0290d97eef:5","text":"一开始放置一些 fill lights 来控制 darkest shadows 的 value 很有帮助；添加新 lights 时也不要犹豫隐藏 scene 中的每一盏 light，这样你可以完美 visualise 自己正在做什么。"}
+{"item_id":"0290d97eef:6","text":"当我对 fill light rig 满意后，会把它隐藏并添加 key light。"}
+{"item_id":"0290d97eef:7","text":"rim lights 也是同样做法。三盏 lights 都正确 positioned 和 calibrated 后，我会把它们一起 visualise。Leading lights 建立完成，太好了！我也喜欢在 IPR 中 zoom out，确保 overall image 仍然 readable。"}
+{"item_id":"0290d97eef:8","text":"Tip：用几何体辅助 Lighting（Geometry 辅助灯光）"}
+{"item_id":"0290d97eef:9","text":"DIFFUSER"}
+{"item_id":"0290d97eef:10","text":"diffuser 是一个 plane，或你选择的 mesh，放在 subject 旁边。由于 Key Light rays 会从它上面 bounce 并 reflect 到 body 上，它会在 character 上产生非常 soft light。"}
+{"item_id":"0290d97eef:11","text":"这是真实 portrait photography 中非常常见的 technique，因为它能通过 softening shadows 和 harmonizing tone，为 subject 添加柔和的 bounce of light。"}
+{"item_id":"0290d97eef:12","text":"BLOCKERS"}
+{"item_id":"0290d97eef:13","text":"blocker 也是你添加到 scene 中的 mesh，但需要在 render settings（Render Stats → Visibility）中隐藏它。得益于 RenderMan 的 unbiased path tracing，你可以把它放在任何想要的位置，它会在不想要 light 的地方创建 absence of light。"}
+{"item_id":"0290d97eef:14","text":"最好给它应用 Pixar Surface material，这样可以控制 blocker 的 opacity，只在局部 softening 一些 hard shadows。由于使用 transparent surfaces 可能影响 sampling，也可以使用 Light Filter 以 non-destructive 方式 block light。"}
+{"item_id":"0290d97eef:15","text":"GROUND PLANE"}
+{"item_id":"0290d97eef:16","text":"在 character 下方使用 ground plane，有助于像真实 floor 一样 bounce light。artists 经常忘记这一点，但没有 floor 会让 environment 缺少急需的 bounced light。要做到这一点，可以给 ground plane 添加 material，并在 Diffuse attribute 中使用 ground texture。"}
+{"item_id":"0290d97eef:17","text":"Baz"}
+{"item_id":"0290d97eef:18","text":"by John Saleem"}
+{"item_id":"0290d97eef:19","text":"Tip：Asset Turntable 和 Light Rig Switcher"}
+{"item_id":"0290d97eef:20","text":"在深入 shot lighting 之前，我喜欢在 lookdev process 中用几个 lighting scenarios 测试 asset，例如 Studio、Sunny 和 Cloudy。这模拟了大型 visual effects studios 使用的 lookdev pipeline。"}
+{"item_id":"0290d97eef:21","text":"在网上研究 Katana nodes 和 workflows 多日后，我创建了一个 light rig switcher，让我可以快速“call to action”来切换 light rigs。"}
+{"item_id":"0290d97eef:22","text":"你可以从"}
+{"item_id":"0290d97eef:23","text":"polyhaven.com"}
+{"item_id":"0290d97eef:24","text":"下载 HDR maps，与 PxrDomeLight 一起使用；也可以为每个 rig 创建 custom 自定义 lighting，做出类似效果。"}
+{"item_id":"0290d97eef:25","text":"我还添加了第四个选项，名为 “Shot0”，作为 rendering 的 final light rig。这个特定 rig 模拟 three-point lighting setup，并加入额外 rim 和 fill lights，以增强 visual impact。"}
+{"item_id":"0290d97eef:26","text":"Brachur"}
+{"item_id":"0290d97eef:27","text":"by Johnny Fehr"}
+{"item_id":"0290d97eef:28","text":"我总是从 dome light 开始，并且经常使用 rim light 和 key light。"}
+{"item_id":"0290d97eef:29","text":"这样我已经能看到 shader 如何响应这种传统 lighting setup，它模拟了 three-point lighting rig。"}
+{"item_id":"0290d97eef:30","text":"Neutral lighting 很适合作为起点，也就是说除了 HRDI 中自然存在的轻微 saturation 外，不使用其他 colors。"}
+{"item_id":"0290d97eef:31","text":"大多数时候，我对 final lighting 的样子有一个粗略想法，所以会从一个接近目标的设置开始。当然，在 production 中情况不同，因为 art direction 优先；但个人作品可以拥有更多 creative liberties。"}
+{"item_id":"0290d97eef:32","text":"在这个 basic lighting setup 下调整 textures 和 materials 后，我会继续细化 final lighting setup，以获得适当的 light balance 和 image contrast，从而塑造 character 并突出它的 features。"}
+{"item_id":"0290d97eef:33","text":"TIP：Color Temperature"}
+{"item_id":"0290d97eef:34","text":"使用 lights 上的 color temperature 让 light 略微 tint。相比纯白 light，这要 realistic 得多。"}
+{"item_id":"0290d97eef:35","text":"TIP：Isolate Lights"}
+{"item_id":"0290d97eef:36","text":"关闭 lights 并 isolate 它们，以平衡 intensity，并正确理解它们的 contribution。"}

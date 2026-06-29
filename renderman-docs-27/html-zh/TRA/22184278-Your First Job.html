@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Your First Job</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Your First Job</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/TRA/22184278/Your+First+Job">https://rmanwiki-27.pixar.com/space/TRA/22184278/Your+First+Job</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>安装 Tractor、customized 你的 configuration files，并启动 engine 和 blade services 后，就可以提交你的 first job。</p><p> </p><h3 id="YourFirstJob-OpenaDashboard">打开 Dashboard 的操作步骤（Open a Dashboard）</h3><p>Dashboard 是一种方便的方式，可在你喜欢的 browser 中轻松管理 jobs 和 blades。</p><p>转到 <a class="external-link" href="http://tractor-engine" rel="nofollow">http://tractor-engine</a>，或 <a class="external-link" href="http://HOSTNAMEPORT" rel="nofollow">http://HOSTNAME:PORT</a>（如果你有 custom hostname 和 port），然后 login 到 Tractor。</p><p>如果无法访问 Dashboard，请检查 engine 实际上是否正在运行。engine log file 可以提供有用的 diagnostic information。</p><p> </p><h3 id="YourFirstJob-AbouttheExamples">示例使用说明（About the Examples）</h3><p>以下 examples 假定你的 current directory 是 INSTALL_DIR/bin。</p><p>TRACTOR_ENGINE environment variable 或 --engine flag 可用于把 command line programs 指向与默认值不同的 engine，或指向通过 <a href="https://renderman.atlassian.net/wiki/spaces/TRA/pages/22184316#Engine-enginediscovery" rel="nofollow">engine discovery</a>确定的 engine。</p><p> </p><h3 id="YourFirstJob-SubmitaJob">提交作业步骤（Submit a Job）</h3><p>Jobs 可以提交到 Tractor queue，方式包括使用 tractor-spool script、RenderMan for Maya plug-in，或使用 <a href="22184314-Job Author Python API.html" rel="nofollow">author API（作业创作 API）</a>提交到 Tractor queue。Job submission 有时也称为 <a class="external-link" href="https://en.wikipedia.org/wiki/Spooling" rel="nofollow">spooling</a>，这是类比 print spooling 或传统 batch job systems 的说法。</p><p>tractor-spool 最常把一个 <a href="22184254-Job Scripting.html" rel="nofollow">Alfred-syntax job file（Alfred 语法作业文件）</a> 的 filename（文件名）作为 argument（参数）。</p><p><code>% tractor-spool jobfile.alf</code><sup>
+</sup></p><p>下面的 example job 可以放入一个 file 中，并用 tractor-spool 提交。它只会输出 command 运行所在的 environment。</p><p><code>Job -title {Environment Job} -subtasks {
+  Task -title {Environment Task} -cmds {
+    RemoteCmd {{printenv}} -service {pixarRender}
+  }
+}</code></p><p /><p>你可以使用 Dashboard 查看 task 的 output，也可以在 command line 中使用 tq。job id JOBID 应替换为 tractor-spool 输出的 job id。</p><p><code>tq log jid=JOBID and tid=1
+</code></p><p>-c option 会为剩余 arguments 指定的 single command 创建一个新的 tractor job。试运行这个 simple command 来测试 system 是否正常工作。job status 和 output 可以在 Dashboard 或 tq 中检查。</p><p><code>% tractor-spool -c printenv
+</code></p><p><sup> </sup></p><h3 id="YourFirstJob-DeleteaJob">删除作业步骤（Delete a Job）</h3><p>可以在 Dashboard 中点击 job queue 中的 job entry，然后按 <em>Delete 键</em> 或 <em>Backspace 退格键按键</em> 来删除 jobs。</p><p>也可以在 command-line 中使用 spooling tool，并通过 --jdelete 指定 job id 来删除 jobs。</p><p><code>% tractor-spool --jdelete 1534
+</code></p><p>tq 也允许从 command-line 删除 job。</p><p><code>% tq delete jid=1534
+</code></p><p><sup> </sup></p><h3 id="YourFirstJob-FurtherReading">Further Reading（进一步阅读）</h3><p>所有用户都会对 <a href="22184282-Dashboard App.html" rel="nofollow">Dashboard</a> section 感兴趣，该 section 描述用于管理 system 的 graphical interface。</p><p>Developers（开发人员）可以在 <a href="22184314-Job Author Python API.html" rel="nofollow">Job Author Python API</a> section 中学习如何生成 job scripts。用于 querying 和 managing jobs 与 blades 状态的 tools 可以用 <a href="22184266-Query Python API.html" rel="nofollow">Query Python API</a>创建。</p><p>Wranglers、admins，以及其他熟悉 command line 的用户，会喜欢 command line tool <a href="22184306-tq- Tractor Query tool.html" rel="nofollow">tq</a>的强大能力。</p><p>Admins 可以在 <a href="22184210-Configuration.html" rel="nofollow">Configuration</a> section 中探索 advanced customization techniques。</p>
+  </article>
+</main>
+</body>
+</html>

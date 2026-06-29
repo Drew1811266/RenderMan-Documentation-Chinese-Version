@@ -1,0 +1,23 @@
+{"item_id":"b1c4cccdc4:0","text":"TOP networks（TOP 网络）用于调度任务，从运行 simulations（模拟）到 rendering（渲染）都可以。Read（阅读）"}
+{"item_id":"b1c4cccdc4:1","text":"此处，了解更多关于 PDG 的内容"}
+{"item_id":"b1c4cccdc4:2","text":"。RenderMan 现在已通过用于 rendering（渲染）、converting textures（转换纹理）、denoising（降噪）和 generating RIB（生成 RIB）的各类节点集成到 PDG 中。请注意，除非用户另行 Set（设置），\"Do Nothing\" 选择会使用 RenderMan 默认值。"}
+{"item_id":"b1c4cccdc4:3","text":"目前有一个 bug：即使没有生成 rib 文件，RenderMan render TOPs（RenderMan 渲染 TOP）的输出也会是 rib 文件路径。"}
+{"item_id":"b1c4cccdc4:4","text":"ROP Fetch（ROP 获取）"}
+{"item_id":"b1c4cccdc4:5","text":"最简单的 render node（渲染节点）是 ROP Fetch。将 ROP Path（ROP 路径）设置为 OUT context（OUT 上下文）中的渲染节点。"}
+{"item_id":"b1c4cccdc4:6","text":"RenderMan Render（RenderMan 渲染）"}
+{"item_id":"b1c4cccdc4:7","text":"RenderMan TOP 的功能类似于 ROP Fetch，不同之处在于 ROP node（ROP 节点）位于网络内部，并且所有 RenderMan ROP options（RenderMan ROP 选项）都会作为该节点上的 parameters（参数）暴露出来。"}
+{"item_id":"b1c4cccdc4:8","text":"Generate RIB（生成 RIB）"}
+{"item_id":"b1c4cccdc4:9","text":"这个 TOP node（TOP 节点）是 RenderMan Render TOP 的 clone（克隆），区别是启用了 \"Write RIB\" parameter（参数）。"}
+{"item_id":"b1c4cccdc4:10","text":"RenderMan Denoise（RenderMan 降噪）"}
+{"item_id":"b1c4cccdc4:11","text":"除非设置了 Image parameter（Image 参数），否则 parent node（父节点）的输出会被 denoised（降噪）。该图像需要适用于降噪的 proper AOVs（正确 AOV）。请参阅这些参数的说明"}
+{"item_id":"b1c4cccdc4:12","text":"此处"}
+{"item_id":"b1c4cccdc4:13","text":"。"}
+{"item_id":"b1c4cccdc4:14","text":"尚不支持 Crossframe denoising（跨帧降噪）。"}
+{"item_id":"b1c4cccdc4:15","text":"Render RIB（渲染 RIB）"}
+{"item_id":"b1c4cccdc4:16","text":"连接一个 generate rib node（生成 rib 节点）作为输入，或提供 RIB path（RIB 路径）。此节点是 prman executable（prman 可执行文件）的 wrapper（包装器），所有可用 command line arguments（命令行参数）都会作为 parameters（参数）提供。请参阅这些参数的说明"}
+{"item_id":"b1c4cccdc4:17","text":"此处"}
+{"item_id":"b1c4cccdc4:18","text":"。"}
+{"item_id":"b1c4cccdc4:19","text":"Texture Maker（纹理生成器）"}
+{"item_id":"b1c4cccdc4:20","text":"此节点会调用 txmake，并使用设定的 parameters（参数），将输入图像或提供的 image parameter（图像参数）转换为 texture（纹理）。请参阅这些参数的说明"}
+{"item_id":"b1c4cccdc4:21","text":"此处"}
+{"item_id":"b1c4cccdc4:22","text":"。"}

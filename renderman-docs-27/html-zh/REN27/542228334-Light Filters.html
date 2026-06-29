@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Light Filters</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Light Filters</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/REN27/542228334/Light+Filters">https://rmanwiki-27.pixar.com/space/REN27/542228334/Light+Filters</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>Light Filters 用于调控灯光结果。在真实世界中，这通常通过使用遮片和滤色片来改变镜头中灯光的颜色、质感和强度。RenderMan 的灯光滤镜提供了一种强大而灵活的方式，可以在场景布光中实现同样的效果，甚至实现更多控制。 </p><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="96c2c304-e99c-4602-a647-14cf1078b2d5" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>Light Filters 不会影响 PxrVCM 或 PxrUnified integrators 中的光子发射。</p></div></div><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="f9eee0bd-8b52-47a6-ac61-a961179c79b4" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>Gobo 和 Blocker light filters 在 RenderMan 26 中已弃用。请改用 cookie 和 rod light filters。</p></div></div><p><br/></p><p><strong><a href="542229435-PxrIntMultLightFilter.html" data-linked-resource-id="542229435" data-linked-resource-version="1" data-linked-resource-type="page">Intensity Light Filter</a></strong></p><p>PxrIntMultLightFilter 是一种 light filter，可用于乘以灯光的 intensity/exposure（强度/曝光）。当你想将某个特定资产（或多个资产）从场景其余部分中分离出来，并为它使用不同的 intensity/exposure 时，这非常有用。实现方式是把对象链接到 PxrIntMultLightFilter。</p><p><br/></p><p><strong><a href="542228360-PxrBarnLightFilter.html" data-linked-resource-id="542228360" data-linked-resource-version="1" data-linked-resource-type="page">Barn Door Light Filter</a></strong></p><p>PxrBarnLightFilter 允许我们创建物理准确的 window barns（窗形遮扉），以正确的阴影模拟真实片场灯光。它的其他用途还包括在大型场景中控制反弹光。除了 physical mode（物理模式）之外，它还提供 analytic mode（解析模式）。</p><p><br/></p><p><strong><a href="542228829-PxrCookieLightFilter.html" data-linked-resource-id="542228829" data-linked-resource-version="1" data-linked-resource-type="page">Cookie Light Filter</a></strong></p><p>PxrCookieLightFilter 会在灯光前方投射绘制纹理。它类似于 PxrGoboLightFilter，但提供更多选项和更高灵活性。</p><p><br/></p><p><strong><a href="542229813-PxrRodLightFilter.html" data-linked-resource-id="542229813" data-linked-resource-version="1" data-linked-resource-type="page">Rod Light Filter</a></strong></p><p>PxrRodLightFilter 使用类似“rod”的对象来遮挡灯光。该 blocker 可以被塑造成不规则形状，然后放置在你希望遮挡灯光的对象旁边。它类似于上面提到的 PxrBlockerLightFilter，但提供更多控制和更高灵活性。</p><p><br/></p><p><strong><a href="542229544-PxrRampLightFilter.html" data-linked-resource-id="542229544" data-linked-resource-version="1" data-linked-resource-type="page">Ramp Light Filter</a></strong></p><p>PxrRampLightFilter 使用 ramp 来控制灯光。这允许对颜色、强度等进行更复杂的控制。</p>
+  </article>
+</main>
+</body>
+</html>

@@ -1,0 +1,71 @@
+{"item_id":"31418905b6:0","text":"SPECULAR"}
+{"item_id":"31418905b6:1","text":"Reflection Tint"}
+{"item_id":"31418905b6:2","text":"外部反射的颜色乘数。应谨慎使用，因为非白色值会破坏物理性。"}
+{"item_id":"31418905b6:3","text":"Transmission Tint"}
+{"item_id":"31418905b6:4","text":"进入介质的光线的颜色乘数（涵盖外部透射和内部反射）。应谨慎使用，因为非白色值会破坏物理性。"}
+{"item_id":"31418905b6:5","text":"定义电介质颜色的首选方式，是使用正下方的 Interior attributes。"}
+{"item_id":"31418905b6:6","text":"Fresnel Mode"}
+{"item_id":"31418905b6:7","text":"在 Artistic 和 Scientific 参数之间切换 Fresnel。"}
+{"item_id":"31418905b6:8","text":"Artistic mode 提供法线方向的 reflectivity，以及掠射角处的 reflectivity90。"}
+{"item_id":"31418905b6:9","text":"Scientific mode 为每个 RGB component 提供一个折射率。请注意，IOR 只用于计算 Schlick approximation 所使用的 reflectivity 值。"}
+{"item_id":"31418905b6:10","text":"当 reflectivity90 为 1 时，两种 mode 会得到相同结果，因为二者可以相互映射。"}
+{"item_id":"31418905b6:11","text":"Reflectivity"}
+{"item_id":"31418905b6:12","text":"表面在法线方向反射的颜色。对应 specColor。"}
+{"item_id":"31418905b6:13","text":"IOR"}
+{"item_id":"31418905b6:14","text":"折射率（通常记作 “eta”），定义表面在法线方向的反射量，以及光线如何因折射而弯折。如有需要，可为每个颜色通道指定单独的值。"}
+{"item_id":"31418905b6:15","text":"Reflectivity 90"}
+{"item_id":"31418905b6:16","text":"表面在掠射角反射的颜色。对于多数材质，应保持为 1,1,1。对应 specColor90。"}
+{"item_id":"31418905b6:17","text":"ReflectivityProfile"}
+{"item_id":"31418905b6:18","text":"用于 Schlick 的指数的倒数"}
+{"item_id":"31418905b6:19","text":"Roughness"}
+{"item_id":"31418905b6:20","text":"微面元或细小粗糙度会以产生模糊结果的方式散射光线。roughness 越低，材质越像镜面并且更光滑。较高值会直接呈现漫反射外观。"}
+{"item_id":"31418905b6:21","text":"Normal/Bump"}
+{"item_id":"31418905b6:22","text":"在这里提供一个 signal（texture 或 procedural pattern），用于在表面上创建 bump，以“伪造”小凸起或划痕等表面细节。这意味着美术师无需对模型中这些繁琐且经常重复的部分进行建模。"}
+{"item_id":"31418905b6:23","text":"Tail Parameters"}
+{"item_id":"31418905b6:24","text":"Mix"}
+{"item_id":"31418905b6:25","text":"tail 效果应以线性方式达到的强度。"}
+{"item_id":"31418905b6:26","text":"Length"}
+{"item_id":"31418905b6:27","text":"定义 tail 的 roughness；1.0 为完全粗糙，会拉伸得最远，0.0 表示无 roughness 或无 length。"}
+{"item_id":"31418905b6:28","text":"Anisotropy Parameters"}
+{"item_id":"31418905b6:29","text":"Anisotropy"}
+{"item_id":"31418905b6:30","text":"此控制决定光线穿过对象时的行进方向：更向前（正值）或更向后（负值）朝向光源。"}
+{"item_id":"31418905b6:31","text":"Direction"}
+{"item_id":"31418905b6:32","text":"允许使用 tangent map/pattern 改变 anisotropy 的方向。"}
+{"item_id":"31418905b6:33","text":"Rotation"}
+{"item_id":"31418905b6:34","text":"可以围绕法线将指定方向完整旋转 360 度。"}
+{"item_id":"31418905b6:35","text":"Interior Parameters"}
+{"item_id":"31418905b6:36","text":"这些参数控制电介质材质的内部体积。当你思考玻璃对象为何呈现那样的外观，也就是它的颜色和清晰度时，关键就在 absorption。"}
+{"item_id":"31418905b6:37","text":"Absorption Color"}
+{"item_id":"31418905b6:38","text":"内部体积的吸收颜色。它定义为消光系数的负对数，取值在 0 到 1 之间，使对象本身及其阴影按比例着色。设置为 1 时没有吸收；设置为 0 时，对象将完全不透明。请注意，要让单次散射生效，该值必须小于 1。当此节点作为 stack 中的 top layer 使用时，此值也会充当涂层颜色。"}
+{"item_id":"31418905b6:39","text":"在 XPU 中，从版本 27.3 开始，此参数可以是一个连接。这会创建体积内部散射，其消光颜色会在光线进入玻璃时计算，并且不会随着光线在对象内部延伸而变化。这不是物理精确的着色模型，但易于控制，并且在艺术上可能很有趣。RIS 不支持此功能。"}
+{"item_id":"31418905b6:40","text":"Absorption Radius"}
+{"item_id":"31418905b6:41","text":"光被吸收前，在 scene units 中可到达的最大距离。"}
+{"item_id":"31418905b6:42","text":"在 XPU 中，从版本 27.3 开始，此参数可以是一个连接。RIS 不支持此功能。"}
+{"item_id":"31418905b6:43","text":"Scatter Color"}
+{"item_id":"31418905b6:44","text":"定义由上方 absorption 控制项吸收之外、被散射的光线颜色。"}
+{"item_id":"31418905b6:45","text":"Scatter Anisotropy"}
+{"item_id":"31418905b6:46","text":"定义光线的散射方向，可以是前向（正值）或后向（负值）散射。值为 0 表示 isotropic，即向所有方向散射。"}
+{"item_id":"31418905b6:47","text":"Shadow Parameters"}
+{"item_id":"31418905b6:48","text":"Density"}
+{"item_id":"31418905b6:49","text":"在考虑上方控制 Fresnel、coloring、absorption 等的参数后，此项控制最终阴影的不透明程度。值为 0 表示完全透明或不可见的阴影。"}
+{"item_id":"31418905b6:50","text":"Coloring"}
+{"item_id":"31418905b6:51","text":"控制最终阴影的着色，其中 0 为黑色，1 与 Transmission Tint 设置的颜色相同。"}
+{"item_id":"31418905b6:52","text":"Fresnel Front"}
+{"item_id":"31418905b6:53","text":"设置光线穿过正面朝向的 geometry 后，Fresnel 设置对阴影的影响。"}
+{"item_id":"31418905b6:54","text":"Fresnel Back"}
+{"item_id":"31418905b6:55","text":"设置光线穿过背面朝向的 geometry 后，Fresnel 设置对阴影的影响。"}
+{"item_id":"31418905b6:56","text":"Advanced Parameters"}
+{"item_id":"31418905b6:57","text":"Exterior IOR"}
+{"item_id":"31418905b6:58","text":"定义外部介质 IOR，可以是空气（默认）、水，也可以是使用 Stack node 在上方形成的清漆等分层材质。"}
+{"item_id":"31418905b6:59","text":"Energy Compensation"}
+{"item_id":"31418905b6:60","text":"允许向结果添加能量，因为微面元或非常粗糙的材质可能会损失能量，并使结果人为变暗。"}
+{"item_id":"31418905b6:61","text":"Surface Mollification"}
+{"item_id":"31418905b6:62","text":"根据曲率定义 roughness，并可能有助于减少渲染中的亮点噪声或亮像素/伪影。"}
+{"item_id":"31418905b6:63","text":"Motion Mollification"}
+{"item_id":"31418905b6:64","text":"根据对象运动定义 roughness，并可能有助于减少渲染中的亮点噪声或亮像素/伪影。"}
+{"item_id":"31418905b6:65","text":"Lobe Name"}
+{"item_id":"31418905b6:66","text":"为生成的 Light Path Expression (LPE) 定义 Arbitrary Output Variable (AOV) 名称"}
+{"item_id":"31418905b6:67","text":"Interior Id"}
+{"item_id":"31418905b6:68","text":"如果几个堆叠的带消光的电介质 lobes 使用相同的 Lobe Name，它们需要定义不同的 Interior Ids。如果它们的 Lobe Names 不同，则 Id 无关紧要。"}
+{"item_id":"31418905b6:69","text":"Matte"}
+{"item_id":"31418905b6:70","text":"定义最终 lobe weight 的 lobe output 输出到 Arbitrary Output Variable (AOV) 时使用的名称"}

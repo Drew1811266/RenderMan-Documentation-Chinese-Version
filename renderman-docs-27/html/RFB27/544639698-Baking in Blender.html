@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Baking in Blender</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Baking in Blender</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFB27/544639698/Baking+in+Blender">https://rmanwiki-27.pixar.com/space/RFB27/544639698/Baking+in+Blender</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="3dprinter_wide.jpg" width="1472" loading="lazy" src="../../attachments/544639698/3dprinter_wide.jpg" data-image-src="../../attachments/544639698/3dprinter_wide.jpg" data-height="1080" data-width="1920" data-unresolved-comment-count="0" data-linked-resource-id="544639714" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="3dprinter_wide.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544639698" data-linked-resource-container-version="1" data-media-id="88a1f512-f278-45b3-927e-feb1071ab908" data-media-type="file"></span><div class="conf-macro output-block" data-hasbody="false" data-macro-name="include" data-macro-id="1bc5bc1f-08e4-4a43-a85d-900b1053671d" data-layout="default" data-local-id="3ffb2906-9d75-4877-bbda-b1502f3effed"><h2 id="BakinginBlender-"><span class="confluence-embedded-file-wrapper image-center-wrapper"><img class="confluence-embedded-image image-center" loading="lazy" src="../../attachments/19662127/bakingrender.png" data-image-src="../../attachments/19662127/bakingrender.png" data-unresolved-comment-count="0" data-linked-resource-id="19673668" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="bakingrender.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="19662127" data-linked-resource-container-version="1" data-media-id="194c0fc4-cb1f-4b16-b656-7daf77e85feb" data-media-type="file"/></span></h2><h2 id="BakinginBlender-Overview">Overview</h2><p>Baking allows users to pre-compute or &quot;bake&quot; pattern networks into 2D texture images or 3D point clouds. Baking has several advantages:</p><ul><li>Reduce render times be eliminating run-time computation of expensive pattern networks. These savings can be realized across many frames.</li><li>Look development asset publishing as part of a shading pipeline.</li><li>Lock procedural pattern information from a reference position without using Pref</li><li>Transfer assets between renderers, real-time viewports, and 3D printing.</li></ul><p>Baking is exposed in RenderMan via pass-through pattern plug-ins that allow users to both render and bake from the same scenes. Without heavy modification of assets or scenes, users are able to:</p><ul><li>Use previously baked results, if they exist, or</li><li>Read the pattern network instead of the baked results. This can happen for any reason but typically will because the baked results do not exist or a user wishes to ignore the baked result in order to tweak the pattern network.</li></ul><p>Baking itself is enabled by using the bake hider.</p><h2 id="BakinginBlender-TextureBaking">Texture Baking</h2><p>2D baking allows users to bake pattern signals to texture images. Users can bake directly to <a href="/wiki/spaces/REN26/pages/19661963/txmake" data-linked-resource-id="19661963" data-linked-resource-version="4" data-linked-resource-type="page">txmake</a> (.tex), TIFF (.tif), and OpenEXR (.exr) outputs. 2D baking requires users to supply a well formed texture&nbsp;manifold, meaning there should be user created UVs laid out appropriately for their needs.&nbsp;While the most common texture manifold is ST, arbitrary manifolds are supported. Atlas outputs such as UDIM are supported.</p><p>RenderMan provides a generic texture baking pattern, <a href="/wiki/spaces/REN26/pages/19661581/PxrBakeTexture" data-linked-resource-id="19661581" data-linked-resource-version="4" data-linked-resource-type="page">PxrBakeTexture</a></p><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="7b8e8cf8-a91b-4aba-8e3d-af95134f0380" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>Baking behavior with an overlapping texture manifold is undefined.</p></div></div><h2 id="BakinginBlender-PointCloudBaking">Point Cloud Baking</h2><p>RenderMan provides a generic point cloud baking pattern, <a href="/wiki/spaces/REN26/pages/19662125/PxrBakePointCloud" data-linked-resource-id="19662125" data-linked-resource-version="1" data-linked-resource-type="page">PxrBakePointCloud</a>. This can be used to generate Ptex images.</p></div><h2 id="BakinginBlender-BlenderSetup">Blender Setup</h2><p>Baking can be set up in the render properties <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image" height="24" loading="lazy" src="../../attachments/544639698/render_properties.png" data-image-src="../../attachments/544639698/render_properties.png" data-unresolved-comment-count="0" data-linked-resource-id="544639720" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="render_properties.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544639698" data-linked-resource-container-version="1" data-media-id="f5ba3f70-1562-448d-a0f5-e06554a8f349" data-media-type="file"></span>, under the Baking panel.</p><span class="confluence-embedded-file-wrapper image-left-wrapper"><img class="confluence-embedded-image image-left" loading="lazy" src="../../attachments/544639698/baking_blender1.png" data-image-src="../../attachments/544639698/baking_blender1.png" data-height="260" data-width="410" data-unresolved-comment-count="0" data-linked-resource-id="544639717" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="baking_blender1.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544639698" data-linked-resource-container-version="1" data-media-id="ec7aaa9b-59b3-4d6a-903f-4692a4481ba3" data-media-type="file"></span><h3 id="BakinginBlender-Bake">Bake</h3><p>This will start a single frame bake render. If you want to do multiple frames, or want to do a batch render, use the External Bake Render button (see <a href="/wiki/spaces/RFB27/pages/544639612/Batch+Rendering+in+Blender" data-linked-resource-id="544639612" data-linked-resource-version="1" data-linked-resource-type="page">Batch Rendering in Blender</a>) </p><h3 id="BakinginBlender-BakeMode">Bake Mode</h3><p>Choose between Pattern, Illumination, or All. For Pattern, this requires either a PxrBakeTexture or PxrBakePointCloud somewhere in your object's material shader network. For Illumination, each of your AOVs will be baked into a pointcloud (.ptc) file or a 2D texture file. Selecting All will bake both patterns and illumination.</p><h3 id="BakinginBlender-BakingIlluminationMode">Baking Illumination Mode</h3><p>When baking illumination, 2D will bake to a 2D texture, 3D will bake to 3D pointcloud file (.ptc).</p><h3 id="BakinginBlender-Density">Density</h3><p>When doing 3D baking, this determines the density of the point cloud. Lower numbers will create denser point cloud files.</p><h3 id="BakinginBlender-Resolution">Resolution</h3><p>If 2D baking, determines the resolution for the 2D texture to write.</p><h3 id="BakinginBlender-FilenamePattern">Filename Pattern</h3><p>When doing illumination baking, this control filename pattern that should be used. Global will bake all objects into one file. Identifier will bake a file per object and use the object's name for the filename. Filename Attribute will use whatever is set on the object's filename attribute in the Baking panel (see the object properties <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image" height="28" loading="lazy" src="../../attachments/544639698/object_properties.png" data-image-src="../../attachments/544639698/object_properties.png" data-unresolved-comment-count="0" data-linked-resource-id="544639723" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="object_properties.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544639698" data-linked-resource-container-version="1" data-media-id="fa3bccfc-6bc2-48af-855b-60c04ac6c9bb" data-media-type="file"></span>)</p><h3 id="BakinginBlender-PrimvarS/PrimvarT">Primvar S/Primvar T</h3><p>For 2D baking, you can use a different UV set by setting the name of the primitive variable RenderMan should for use for u and v.</p><h3 id="BakinginBlender-InvertT">Invert T</h3><p>Whether or not RenderMan should invert the value in the T direction texture coordination.</p>
+  </article>
+</main>
+</body>
+</html>

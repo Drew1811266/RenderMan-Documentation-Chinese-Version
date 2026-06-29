@@ -1,0 +1,161 @@
+{"item_id": "b45b619964:0", "text": "PxrStylizedLines filter 允许你为 Stylized 渲染添加线稿。它可以单独用于技术制图外观，也可以与 toon 和 hatching 结合，创造更有创意的外观。你甚至可以把多个 PxrStylizedLines filter 相互叠加，创建颜色、破碎和 width 变化，以模拟各种传统线稿技法。"}
+{"item_id": "b45b619964:2", "text": "使用这些设置预览特定 AOV，帮助开发创意线稿。"}
+{"item_id": "b45b619964:4", "text": "- 关闭此节点；如果前面已连接另一个 DisplayFilter，则显示该串联链之前的 beauty，否则在没有其他 DisplayFilter 节点连接时显示常规 beauty 渲染"}
+{"item_id": "b45b619964:5", "text": "Final Lines Comp"}
+{"item_id": "b45b619964:6", "text": "查看 Final Lines 输出，它会根据 Compositing Page 中所选模式合成到上一层之上"}
+{"item_id": "b45b619964:7", "text": "Final Lines"}
+{"item_id": "b45b619964:8", "text": "仅查看线条输出"}
+{"item_id": "b45b619964:9", "text": "Visualizer -"}
+{"item_id": "b45b619964:10", "text": "此分隔符下方的菜单项表示主要用于调试和可视化的模式"}
+{"item_id": "b45b619964:11", "text": "Final Lines Invert"}
+{"item_id": "b45b619964:12", "text": "- 线条的反相可视化"}
+{"item_id": "b45b619964:13", "text": "Final Lines Alpha"}
+{"item_id": "b45b619964:14", "text": "- 由线条生成的 alpha 遮罩通道。"}
+{"item_id": "b45b619964:15", "text": "Line Thickness from PxrStylizedControl -"}
+{"item_id": "b45b619964:16", "text": "可视化插入到 Line Thickness Input 的任何 pattern 或纹理所生成的线条粗细，该输入属于你的"}
+{"item_id": "b45b619964:17", "text": "PxrStylizedControl"}
+{"item_id": "b45b619964:18", "text": "节点。"}
+{"item_id": "b45b619964:19", "text": "Line Thickness from Lighting -"}
+{"item_id": "b45b619964:20", "text": "可视化由场景光照生成的 Line Thickness"}
+{"item_id": "b45b619964:21", "text": "Signal Luminance"}
+{"item_id": "b45b619964:22", "text": "- 用于将颜色转换为灰度的正确 RGB 权重；目前未在任何模式中使用，只作为 visualizer"}
+{"item_id": "b45b619964:23", "text": "Signal Energy"}
+{"item_id": "b45b619964:24", "text": "- 此节点创建并用于混合 hatching 的内部 white shader pass"}
+{"item_id": "b45b619964:25", "text": "Pro Tip:"}
+{"item_id": "b45b619964:26", "text": "在交互式渲染期间，尝试更改"}
+{"item_id": "b45b619964:28", "text": "下拉菜单，以切换不同模式"}
+{"item_id": "b45b619964:29", "text": "Line Detection Page"}
+{"item_id": "b45b619964:30", "text": "Type"}
+{"item_id": "b45b619964:31", "text": "线条检测类型。根据选择，会选取不同 data AOV 来运行线条检测："}
+{"item_id": "b45b619964:32", "text": "Outline"}
+{"item_id": "b45b619964:33", "text": "- 基于对象 alpha 生成线条"}
+{"item_id": "b45b619964:34", "text": "Sections"}
+{"item_id": "b45b619964:35", "text": "- 基于 random id 生成线条"}
+{"item_id": "b45b619964:36", "text": "LineNZ"}
+{"item_id": "b45b619964:37", "text": "- 基于表面法线的 X、Y 分量与 Z depth 的组合生成线条，适合单位尺度"}
+{"item_id": "b45b619964:38", "text": "Curvature"}
+{"item_id": "b45b619964:39", "text": "- 基于表面法线变化生成线条"}
+{"item_id": "b45b619964:40", "text": "Camdist"}
+{"item_id": "b45b619964:41", "text": "- 基于摄像机距离变化生成线条"}
+{"item_id": "b45b619964:42", "text": "Custom AOV"}
+{"item_id": "b45b619964:43", "text": "- 使用下面定义的 custom AOV"}
+{"item_id": "b45b619964:44", "text": "Data AOV"}
+{"item_id": "b45b619964:45", "text": "用于进行线条检测的 color AOV 名称。"}
+{"item_id": "b45b619964:46", "text": "通常这是 diffuse，但也可以在这里放入 light AOV，根据灯光发射决定照片写实与 Stylized 之间的过渡。此 AOV 必须在 Maya/Katana/Houdini 中设置，否则 DisplayFilter 会退出。"}
+{"item_id": "b45b619964:47", "text": "Write To Type AOV"}
+{"item_id": "b45b619964:48", "text": "用线条检测的结果覆盖上面 Type 中选择的 Data AOV。通常在计算出线条检测之后，我们不再需要原始 data AOV；因此出于可视化和合成目的，会用线条检测的最终结果写回覆盖此 AOV。"}
+{"item_id": "b45b619964:103", "text": "Weight"}
+{"item_id": "b45b619964:50", "text": "在线条检测加权过程中获得变化"}
+{"item_id": "b45b619964:51", "text": "不同 Weight type 的图表（interactive graph"}
+{"item_id": "b45b619964:52", "text": "https://www.desmos.com/calculator/q2pkrrwv8h"}
+{"item_id": "b45b619964:53", "text": "Activation"}
+{"item_id": "b45b619964:54", "text": "在线条检测加权过程中获得变化。可在 Spline（用户自定义控制点）或 Sigmoid 之间选择。"}
+{"item_id": "b45b619964:55", "text": "Sigmoid Sharpness"}
+{"item_id": "b45b619964:60", "text": "See:"}
+{"item_id": "b45b619964:61", "text": "https://www.desmos.com/calculator/g4jbxcvtqz"}
+{"item_id": "b45b619964:58", "text": "并修改 sharpness 变量 “a”"}
+{"item_id": "b45b619964:59", "text": "Sigmoid Offset"}
+{"item_id": "b45b619964:62", "text": "并修改 offset 变量 “o”"}
+{"item_id": "b45b619964:63", "text": "Line Thickness Page"}
+{"item_id": "b45b619964:64", "text": "Line Thickness"}
+{"item_id": "b45b619964:65", "text": "线条的厚度，以 pixels 计量"}
+{"item_id": "b45b619964:66", "text": "Line Thickness Remap Page"}
+{"item_id": "b45b619964:67", "text": "by PxrStylizedControl"}
+{"item_id": "b45b619964:68", "text": "Multiply：将 Line Thickness 乘以 PxrStylizedControl 上逐对象的 Line Thickness 值"}
+{"item_id": "b45b619964:69", "text": "PxrStylizedControl Scale"}
+{"item_id": "b45b619964:70", "text": "全局缩放 Line Thickness。如果你已逐对象设置 Line Thickness，且它们的值各不相同，当你提高渲染分辨率时，可使用此全局 scale 增加或减少所有线条的 Line Thickness，因为它们基于 pixel width。"}
+{"item_id": "b45b619964:71", "text": "by Z Depth"}
+{"item_id": "b45b619964:72", "text": "Multiply Line Thickness by Z Depth：将 Line Thickness 乘以 Z Depth"}
+{"item_id": "b45b619964:73", "text": "Cam Dist Z Min"}
+{"item_id": "b45b619964:74", "text": "Remap 摄像机距离：Z 上的 Linear step Min（来自 lineNZ 的蓝色通道）"}
+{"item_id": "b45b619964:75", "text": "Cam Dist Z Max"}
+{"item_id": "b45b619964:76", "text": "Remap 摄像机距离：Z 上的 Linear step Max（来自 lineNZ 的蓝色通道）"}
+{"item_id": "b45b619964:77", "text": "Z Min Thickness Scale"}
+{"item_id": "b45b619964:78", "text": "在 Cam Dist Z Min 处，按此数值缩放 Line Thickness"}
+{"item_id": "b45b619964:79", "text": "Z Max Thickness Scale"}
+{"item_id": "b45b619964:80", "text": "在 Cam Dist Z Max 处，按此数值缩放 Line Thickness"}
+{"item_id": "b45b619964:81", "text": "by Lighting"}
+{"item_id": "b45b619964:82", "text": "Multiply Line Thickness by Lighting signal：将 Line Thickness 乘以 Lighting signal（在 Visualizer 下拉菜单中查看 Line Thickness From Lighting 以查看该 signal）"}
+{"item_id": "b45b619964:83", "text": "Low Mult"}
+{"item_id": "b45b619964:84", "text": "Scale：在阴影中按此值缩放（multiply）Line Thickness"}
+{"item_id": "b45b619964:85", "text": "High Mult"}
+{"item_id": "b45b619964:86", "text": "Scale：在受光区域按此值缩放（multiply）Line Thickness"}
+{"item_id": "b45b619964:87", "text": "Invert"}
+{"item_id": "b45b619964:88", "text": "反转上面的 min/max：使阴影中的线条更粗"}
+{"item_id": "b45b619964:90", "text": "对光照响应应用 gamma curve，以驱动 thickness"}
+{"item_id": "b45b619964:91", "text": "Input Page"}
+{"item_id": "b45b619964:92", "text": "Signal"}
+{"item_id": "b45b619964:93", "text": "用于 Line Color 和由光照驱动的 Line Thickness 的 light Signal color AOV 名称。通常为 diffuse；也可以在这里放入任何 light AOV。此 AOV 必须在 Maya/Katana/Houdini 中设置，否则 DisplayFilter 会退出。"}
+{"item_id": "b45b619964:151", "text": "Mode"}
+{"item_id": "b45b619964:95", "text": "在底层，会基于 Signal AOV 创建一个白色 shader 近似来驱动 Lines。默认使用 Signal AOV 的 RGB 分量平均值，但也可以用 NPRalbedo AOV 或 albedo AOV 中的纯 albedo，去除 Signal AOV 光照结果中的 albedo 分量。如果选择 NPRalbedo AOV，则必须在 Stylized Controller Pattern 节点中设置 Albedo Color。"}
+{"item_id": "b45b619964:96", "text": "Dilation Sorting Page"}
+{"item_id": "b45b619964:134", "text": "Enable"}
+{"item_id": "b45b619964:98", "text": "开启后：会将参与生成线条的信号（albedo color、thickness、z-depth 等）膨胀到几何体外，因为线条检测会越出几何体。如果 Dilate Sort 关闭，几何体外不正确的数据会产生不理想的双线。它还会排序，为更靠近摄像机的对象分配更高优先级。"}
+{"item_id": "b45b619964:99", "text": "Radius"}
+{"item_id": "b45b619964:100", "text": "用于膨胀信号的 Radius 大小，以 pixels 计。"}
+{"item_id": "b45b619964:101", "text": "Depth Scale"}
+{"item_id": "b45b619964:102", "text": "Scale Z depth：根据场景尺度缩放 Z depth 以进行排序"}
+{"item_id": "b45b619964:104", "text": "与 Line thickness edge detection 相同的 Weight 类型，但用于 Dilate Sort radius"}
+{"item_id": "b45b619964:105", "text": "Use Alpha"}
+{"item_id": "b45b619964:106", "text": "如果对象有 alpha channel：camera depth 上的零 alpha 会不正确。请改为切换为 ON，根据 alpha 在对象的 camera depth 与 Dilate_Sort_Max_depth 之间混合"}
+{"item_id": "b45b619964:107", "text": "Max Depth"}
+{"item_id": "b45b619964:108", "text": "alpha 外部要考虑的 Max Depth"}
+{"item_id": "b45b619964:109", "text": "Line Color Page"}
+{"item_id": "b45b619964:110", "text": "From"}
+{"item_id": "b45b619964:111", "text": "提供多个不同选项来确定 Line Color："}
+{"item_id": "b45b619964:112", "text": "Color Swatch -"}
+{"item_id": "b45b619964:113", "text": "从下方 Line Color 中为此节点的所有线条选择颜色"}
+{"item_id": "b45b619964:114", "text": "PxrStylizedControl -"}
+{"item_id": "b45b619964:115", "text": "从 PxrStylizedControl pattern 节点获取 Line Color"}
+{"item_id": "b45b619964:116", "text": "NPRalbedo AOV -"}
+{"item_id": "b45b619964:117", "text": "从"}
+{"item_id": "b45b619964:118", "text": "NPRalbedo"}
+{"item_id": "b45b619964:119", "text": "AOV 获取 Line Color，该 AOV 由 PxrStylizedControl pattern 节点设置"}
+{"item_id": "b45b619964:120", "text": "albedo AOV -"}
+{"item_id": "b45b619964:121", "text": "从 factory RenderMan"}
+{"item_id": "b45b619964:122", "text": "albedo"}
+{"item_id": "b45b619964:123", "text": "AOV"}
+{"item_id": "b45b619964:124", "text": "Line Color"}
+{"item_id": "b45b619964:125", "text": "用于选择颜色的 Color swatch"}
+{"item_id": "b45b619964:126", "text": "Light Tint"}
+{"item_id": "b45b619964:127", "text": "根据从亮部到 shadow 的光照为线条着色："}
+{"item_id": "b45b619964:128", "text": "HSV Light Dark -"}
+{"item_id": "b45b619964:129", "text": "在光照的 Light 与 Dark（shadow）部分选择 Hue/Saturation/Value tint"}
+{"item_id": "b45b619964:130", "text": "Line Color Shadow -"}
+{"item_id": "b45b619964:131", "text": "选择 shadow areas 中的 Line Color"}
+{"item_id": "b45b619964:132", "text": "Line Distort Page"}
+{"item_id": "b45b619964:133", "text": "New in RenderMan v25!"}
+{"item_id": "b45b619964:135", "text": "开启 Line Distort 功能"}
+{"item_id": "b45b619964:136", "text": "Offset"}
+{"item_id": "b45b619964:137", "text": "使线条偏离原始位置的 distortion 量"}
+{"item_id": "b45b619964:138", "text": "Remap"}
+{"item_id": "b45b619964:139", "text": "Remap line distort signal：将 line distort signal（通常是插入到 PxrStylizedControl Distort/Distort U & Distort V input 的 PxrFractal）在 -1 到 1 之间重映射（假设原始范围为 0 到 1）"}
+{"item_id": "b45b619964:140", "text": "Demo videos"}
+{"item_id": "b45b619964:141", "text": "Mask Page"}
+{"item_id": "b45b619964:142", "text": "PxrStylizedControl Mask"}
+{"item_id": "b45b619964:143", "text": "使用 PxrStylizedControl pattern 节点中配置的 mask"}
+{"item_id": "b45b619964:144", "text": "Input Mask"}
+{"item_id": "b45b619964:145", "text": "使用上方 Input/Signal 数据作为先前串联的 Stylized shaders 和/或基于物理的照明的遮罩"}
+{"item_id": "b45b619964:146", "text": "Final Line Gamma"}
+{"item_id": "b45b619964:147", "text": "线条检测发生后，对 Final Lines 应用 gamma。使用 Curvature Line Type 时，可用此参数控制 Curvature falloff，以微调线稿"}
+{"item_id": "b45b619964:148", "text": "Lines Inside Alpha"}
+{"item_id": "b45b619964:149", "text": "乘以 alpha，使线条检测得到的线条仅位于内部，不越出 geo"}
+{"item_id": "b45b619964:152", "text": "Over -"}
+{"item_id": "b45b619964:153", "text": "使用 Lines 的 alpha，合成到上一层之上"}
+{"item_id": "b45b619964:154", "text": "Plus -"}
+{"item_id": "b45b619964:155", "text": "使用 Lines 的 alpha，与上一层相加"}
+{"item_id": "b45b619964:156", "text": "Multiply -"}
+{"item_id": "b45b619964:157", "text": "使用 Lines 的 alpha，与上一层相乘"}
+{"item_id": "b45b619964:158", "text": "Linework Tips"}
+{"item_id": "b45b619964:159", "text": "为了让线条更扎实，可尝试将 Weight Type 改为 Hermite 或 Double Sigmoid"}
+{"item_id": "b45b619964:160", "text": "将纹理或 pattern 插入 PxrStylizedControl 节点的 Line Thickness input，以破碎并改变 width（线宽），为线条增加创意变化。"}
+{"item_id": "b45b619964:161", "text": "尝试通过叠加多个 PxrStylizedLines filter 来探索线稿；每个 filter 都有自己独特的宽度、颜色和厚度。"}
+{"id": "6e7d50e84f4731ef74187cf8cfa2672184eed8866b0b0074a772f4a64e0f4ba2", "item_id": "b45b619964:1", "text": "Result（结果）"}
+{"id": "b7e3e4aa4257b9a11a82f59faf34c8450ca10d4116885b0a29fedf60842d81d5", "item_id": "b45b619964:3", "text": "Disable（禁用）"}
+{"id": "81d27ef6d5033c3e1d46b7b2b50868604fd432ddb77716b5ed9383c30c08432f", "item_id": "b45b619964:49", "text": "Weight"}
+{"id": "9e6b578a1404ecc9974d24c219692d2304b5b3cc2d31fd45fc0ae412ac451967", "item_id": "b45b619964:56", "text": "See:"}
+{"id": "b80c4d0b0b6dacb2c2b49bea9d16a441a4fbc5cbba5a45693971f69dc67cc9b7", "item_id": "b45b619964:57", "text": "https://www.desmos.com/calculator/g4jbxcvtqz"}
+{"id": "a8ab3d5805c9214bc66b794f599cbccd5a5958dc5a6a322ee81e3a68344c6db7", "item_id": "b45b619964:89", "text": "Gamma"}
+{"id": "5e23ec6a300dc60a79641769017e16e9bf042cbd8fd0a54586a048ab9da972ff", "item_id": "b45b619964:94", "text": "Mode"}
+{"id": "5342e09f2729fbc6514528e727aeb9857afb31719d43568e6b18661ace7d1014", "item_id": "b45b619964:97", "text": "Enable"}
+{"id": "d5764c31ff0b6faa4f60837dff874ca6edbb8f0be99cb4ae444c01b68150c254", "item_id": "b45b619964:150", "text": "Compositing Page（合成页面）"}

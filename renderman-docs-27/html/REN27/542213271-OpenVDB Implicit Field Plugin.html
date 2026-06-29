@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OpenVDB Implicit Field Plugin</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>OpenVDB Implicit Field Plugin</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/REN27/542213271/OpenVDB+Implicit+Field+Plugin">https://rmanwiki-27.pixar.com/space/REN27/542213271/OpenVDB+Implicit+Field+Plugin</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="fd9b68ce-e124-442e-9082-0b5115bb35f0" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>This documentation is intended for developers working directly with the RenderMan interface or RIB files.</p></div></div><p><br/></p><p>The OpenVDB Implicit Field Plugin impl_openvdb.so supports the use of <a class="external-link" href="http://www.openvdb.org" rel="nofollow">OpenVDB</a> files, either as <a href="/wiki/spaces/REN27/pages/542213207/Implicit+Surfaces" data-linked-resource-id="542213207" data-linked-resource-version="2" data-linked-resource-type="page">implicit surfaces</a> or as <a href="/wiki/spaces/REN27/pages/542213164/Volumes" data-linked-resource-id="542213164" data-linked-resource-version="1" data-linked-resource-type="page">volumes</a>. Two string arguments are required (a third argument is optional, as described below). The first argument is the name of the OpenVDB file. The second argument is the name of the grid which will be used as the source of the field function. This grid must be of float type, and can be either a level set (getGridClass() == <span class="pre">openvdb::GRID_LEVEL_SET</span>) or a fog volume (<span class="pre">openvdb::GRID_FOG_VOLUME</span>). If the grid is a level set, it will be converted to a fog volume where the interior voxels have a field function value of 1, the exterior voxels have a value of 0, and the narrow-band voxels have values varying linearly from 0 to 1. If the field function grid's class is not specified in the OpenVDB file, or is neither a level set nor a fog volume, an override can be supplied by appending &quot;:levelset&quot; or &quot;:fogvolume&quot; to the name of the grid.</p><p>The plugin supports rendering of OpenVDB data both as a surface (using RiBlobby) and a volume (RiVolume). Here is an example of the syntax for rendering the OpenVDB dragon dataset as a surface.</p><pre class="literal-block">Blobby 1 [1004  0 0 0 2 1] [0]<br/>    [&quot;${RMANTREE}/lib/plugins/impl_openvdb.so/impl_openvdb.so&quot; &quot;dragon.vdb&quot; &quot;ls_dragon&quot;]
+</pre><p>And here is an example of the syntax for rendering the OpenVDB dragon dataset as a volume.</p><pre class="literal-block">Volume &quot;blobbydso:${RMANTREE}/lib/plugins/impl_openvdb.so&quot; [-99 103.4 -41.6 49.6 -57.6 77.3]
+    [0 0 0] &quot;constant string[2] blobbydso:stringargs&quot; [&quot;dragon.vdb&quot; &quot;ls_dragon&quot;]
+</pre><p>Deformation motion blur is supported by supplying the name of a grid containing velocity data in the optional third string argument. This grid must of type <span class="pre">openvdb::Vec3f</span>, and must be a fog volume. (If the velocity data's grid class is set otherwise in the OpenVDB file, it can be overriden by appending &quot;:fogvolume&quot; to the name of the grid.) Here is an example of the syntax for rendering a OpenVDB dataset containing a volume whose field function is contained in the grid named &quot;density&quot;, and a velocity in the grid named &quot;velocity&quot;.</p><pre class="literal-block">Volume &quot;blobbydso:${RMANTREE}/lib/plugins/impl_openvdb.so&quot; [-30 30 -30 30 -30 30]
+    [0 0 0] &quot;constant string[3] blobbydso:stringargs&quot; [&quot;sphere.vdb&quot; &quot;density&quot;
+    &quot;velocity&quot;] &quot;constant float[2] time&quot; [0 1] &quot;varying vector[1] dPdtime&quot; []
+</pre><p>Primitive variables are supported and are bound to grids of the same name in the OpenVDB file. RenderMan primitive variables of type color, vector, point, and normal are bound to grids of type <span class="pre">openvdb::Vec3fGrid</span> while float variables are bound to grids of type <span class="pre">openvdb::FloatGrid</span>. In the following example, we use three grids (density, fuel, and glow) to drive the field function and two attached primvars; the result of vdb_print file.vdb is shown as well.</p><pre class="literal-block">Volume &quot;blobbydso:${RMANTREE}/lib/plugins/impl_openvdb.so&quot; [-100 100 -100 100 -100 100]
+    [0 0 0] &quot;constant string[2] blobbydso:stringargs&quot; [&quot;file.vdb&quot; &quot;density&quot;]
+     &quot;varying float fuel&quot; [] &quot;varying color glow&quot; []
+
+fuel         float -100 -100 -100  100 100 100  200x200x200   1.8MVox 17.1MB
+density      float -100 -100 -100  100 100 100  200x200x200   1.8MVox 17.1MB
+glow         vec3s -100 -100 -100  100 100 100  200x200x200   1.8MVox 51.2MB
+</pre><p>Starting with RenderMan 24.2, the plugin takes additional parameters as a JSON string. The JSON string is supplied as an optional fourth string argument. If you do not want to specify a velocity grid but want to provide JSON parameters, you should leave the velocity grid argument as an empty string. The JSON string should be a top-level JSON dictionary containing one (or more) of the following keys:</p><ul><li>filterWidth</li><li>velocityScale</li><li>densityMult</li><li>densityRolloff</li></ul><p>These parameters are documented below. Here's an example of how the JSON argument can be passed to the DSO:</p><pre>Volume &quot;blobbydso:${RMANTREE}/lib/plugins/impl_openvdb.so&quot; [-99 103.4 -41.6 49.6 -57.6 77.3] [0 0 0]<br/>    &quot;constant string[2] blobbydso:stringargs&quot; [<br/>        &quot;dragon.vdb&quot; &quot;ls_dragon&quot; &quot;&quot;<br/>        &quot;{\&quot;filterWidth\&quot;: 0.5, \&quot;velocityScale\&quot;: 1.0, \&quot;densityMult\&quot;: 1.0, \&quot;densityRolloff\&quot;: 0.0}&quot;<br/>    ]</pre><p>By default, the plugin performs unfiltered lookups of voxel data. It can optionally also perform fully filtered lookups of voxel data in the OpenVDB file in order to avoid aliasing. In order to use the OpenVDB plugin's mipmapping functionality, the OpenVDB file must be processed using the vdbmake utility and the <em>filterWidth</em> should be set (the default value is 0, which disables mipmapping).</p><p>If filtering is enabled by setting the <em>filterWidth</em> to 1, the width of the filter used over OpenVDB voxels favors antialiasing over detail (the DSO picks the maximum dimension of a PRMan microvoxel); this may provide a blurry result if the PRMan microvoxels are very anisotropic due to a high relative shadingrate. Setting the <em>filterWidth</em> to a value smaller than 1 can alleviate the blurriness at the cost of potential aliasing.</p><p>By default, the velocity data is used directly by the plugin without any further transformation. Should the magnitude of the velocity vectors be inappropriate, the <em>velocityScale</em> parameter can be set in the JSON string argument. If set, the <em>velocityScale</em> will act as a multiplier on the values in the velocity grid.</p><p>The <em>densityMult</em> and <em>densityRolloff</em> parameters can be used to perform simple density manipulations. The <em>densityMult</em> scales the values in the density grid, while the <em>densityRolloff</em> parameter applies a logarithmic falloff (with higher values providing falloff). By default, the <em>densityMult</em> is set to 1 (no scaling) and the <em>densityRolloff</em> is set to 0 (no falloff). Using these parameters is more efficient than manipulating the density values in a shader.</p><p>In versions of RenderMan before 24.2, the <em>filterWidth</em> and <em>velocityScale</em> are passed to the DSO as optional float arguments. The first float argument is the <em>filterWidth</em> and the second is the <em>velocityScale</em>. Note that if you are passing a <em>velocityScale</em> as a float argument, then you will also have to pass a <em>filterWidth</em>. Also note that passing these parameters as float arguments is deprecated in RenderMan 24.2. Here's an example of how to pass the <em>filterWidth</em> and <em>velocityScale</em> as float args:</p><pre>Blobby 1 [1004 0 2 0 3 1] [1 0.25]<br/>    [&quot;${RMANTREE}/lib/plugins/impl_openvdb.so&quot; &quot;water.vdb&quot; &quot;surface&quot; &quot;vel:fogvolume&quot;]
+</pre>
+  </article>
+</main>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Material Layering with PxrLayerSurface in Blender</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Material Layering with PxrLayerSurface in Blender</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFB27/544638559/Material+Layering+with+PxrLayerSurface+in+Blender">https://rmanwiki-27.pixar.com/space/RFB27/544638559/Material+Layering+with+PxrLayerSurface+in+Blender</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>RenderMan allows for creating complex looks through layering materials. This means effects like car paint, labels on bottles, dirt or mud, can all be layered efficiently for rendering.</p><p>Below you can find a step by step example of creating a patina on a bronze monkey head, using <a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661463" rel="nofollow">PxrLayerSurface</a>. PxrLayerSurface is the same as <a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661415" rel="nofollow">PxrSurface</a> except that most of the parameters that don't apply to layering have been hidden from the UI.</p><h2 id="MaterialLayeringwithPxrLayerSurfaceinBlender-AttachMaterial">Attach Material</h2><p>Attach a PxrLayerSurface material to your selected object. You can do this via the object context menu.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="1173" loading="lazy" src="../../attachments/544638559/attach_PxrLayerSurface.png" data-image-src="../../attachments/544638559/attach_PxrLayerSurface.png" data-height="231" data-width="588" data-unresolved-comment-count="0" data-linked-resource-id="544638583" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="attach_PxrLayerSurface.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544638559" data-linked-resource-container-version="1" data-media-id="1158c08e-aea9-4422-9856-471a468ac6f2" data-media-type="file"></span><p>For PxrLayerSurface, RenderMan for Blender will automatically add a PxrLayerMixer node, along with two PxrLayer nodes that will act as a base layer and an upper layer. Here's what your network should look like at the start:</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="644" loading="lazy" src="../../attachments/544638559/pxrlayersurface_network.png" data-image-src="../../attachments/544638559/pxrlayersurface_network.png" data-height="751" data-width="1000" data-unresolved-comment-count="0" data-linked-resource-id="544638586" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrlayersurface_network.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544638559" data-linked-resource-container-version="1" data-media-id="6df6fd84-c1b0-4190-97e1-31d342c53ad7" data-media-type="file"></span><p><br/></p><h2 id="MaterialLayeringwithPxrLayerSurfaceinBlender-BaseLayer(copper)">Base Layer (copper)</h2><p>For the base layer, we will create a copper look. First, rename the PxrLayer node that's connected to the PxrLayerMixer's Base Layer parameter, to something like copper. Here are the settings for our copper layer:</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="589" loading="lazy" src="../../attachments/544638559/copper_layer.png" data-image-src="../../attachments/544638559/copper_layer.png" data-height="324" data-width="391" data-unresolved-comment-count="0" data-linked-resource-id="544638589" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="copper_layer.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544638559" data-linked-resource-container-version="1" data-media-id="f1868097-a6c4-4b03-b95a-f36e114e53c4" data-media-type="file"></span><h2 id="MaterialLayeringwithPxrLayerSurfaceinBlender-Layer1(patina)">Layer 1 (patina)</h2><p>For the upper layer, we will create a patina look. Like the base layer, rename the PxrLayer node to be called patina (this is connected to PxrLayerMixer's Layer 1 parameter). Here are the settings for our patina layer.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="688" loading="lazy" src="../../attachments/544638559/patina_layer.png" data-image-src="../../attachments/544638559/patina_layer.png" data-height="200" data-width="377" data-unresolved-comment-count="0" data-linked-resource-id="544638592" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="patina_layer.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544638559" data-linked-resource-container-version="1" data-media-id="2a5f0c5b-54e8-4c32-a879-39f9f901f5ab" data-media-type="file"></span><h2 id="MaterialLayeringwithPxrLayerSurfaceinBlender-Masking">Masking</h2><p>If you render your scene as is, you'll notice that only the patina layer is showing, and none of the copper layer. In order to mix the two together, we need to use a mask value. For the mask, we will use a <a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661607" rel="nofollow">PxrDirt</a> pattern node. Start by creating a PxrDirt node and connecting the resultR output to the Layer 1 Mask parameter of PxrLayerMixer. You can do this in the shader editor, like the image below:</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="684" loading="lazy" src="../../attachments/544638559/pxrdirt1.png" data-image-src="../../attachments/544638559/pxrdirt1.png" data-height="421" data-width="337" data-unresolved-comment-count="0" data-linked-resource-id="544638595" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrdirt1.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544638559" data-linked-resource-container-version="1" data-media-id="3d647be4-f403-4daa-aaba-df91ee100a31" data-media-type="file"></span><p>or use the connection widget in the material panel, like this:</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="797" loading="lazy" src="../../attachments/544638559/pxrdirt2.png" data-image-src="../../attachments/544638559/pxrdirt2.png" data-height="125" data-width="403" data-unresolved-comment-count="0" data-linked-resource-id="544638598" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrdirt2.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544638559" data-linked-resource-container-version="1" data-media-id="918ea0f6-fbc4-4089-8b9e-a1753c96cb33" data-media-type="file"></span><p>Below are the settings we will use for our PxrDirt. </p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="394" loading="lazy" src="../../attachments/544638559/pxrdirt3.png" data-image-src="../../attachments/544638559/pxrdirt3.png" data-height="663" data-width="344" data-unresolved-comment-count="0" data-linked-resource-id="544638601" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrdirt3.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544638559" data-linked-resource-container-version="1" data-media-id="14b515e3-0a5f-491b-9434-3cf7bb36ea03" data-media-type="file"></span><p>To help break up the mask a bit, we connected a <a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661627" rel="nofollow">PxrGamma</a> to the Unoccluded parameter, and then connected a <a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19662131" rel="nofollow">PxrFractal</a> pattern to PxrGamma's Input Color parameter.</p><p>If you want to work on the mask value, independent of the whole network, you can use the Solo Node function. Click the connection widget on the material panel, then click on Solo Input Node.</p><p><br/></p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="477" loading="lazy" src="../../attachments/544638559/solo_input_node.png" data-image-src="../../attachments/544638559/solo_input_node.png" data-height="122" data-width="248" data-unresolved-comment-count="0" data-linked-resource-id="544638604" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="solo_input_node.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544638559" data-linked-resource-container-version="1" data-media-id="cbb41bfa-bef9-44a2-9081-5e9f616ea70a" data-media-type="file"></span><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="485" loading="lazy" src="../../attachments/544638559/solo_input_node2.jpg" data-image-src="../../attachments/544638559/solo_input_node2.jpg" data-height="540" data-width="960" data-unresolved-comment-count="0" data-linked-resource-id="544638607" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="solo_input_node2.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544638559" data-linked-resource-container-version="1" data-media-id="f4e29e21-cd4b-4a53-8fe4-3de45f2c8f5f" data-media-type="file"></span><h2 id="MaterialLayeringwithPxrLayerSurfaceinBlender-Result">Result</h2><p>Here's the result of our layered material.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="477" loading="lazy" src="../../attachments/544638559/pxrlayersurface_final.jpg" data-image-src="../../attachments/544638559/pxrlayersurface_final.jpg" data-height="540" data-width="960" data-unresolved-comment-count="0" data-linked-resource-id="544638610" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrlayersurface_final.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544638559" data-linked-resource-container-version="1" data-media-id="2c5e2cac-a022-4039-8a2c-0e9625916323" data-media-type="file"></span><p>For more added realism, consider using a <a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661593" rel="nofollow">PxrBump</a> pattern, connected to the Global Bump parameter of each layer to create a more uneven surface.</p><p><br/></p><p><br/></p>
+  </article>
+</main>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Using Displacement</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Using Displacement</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFM27/544540663/Using+Displacement">https://rmanwiki-27.pixar.com/space/RFM27/544540663/Using+Displacement</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>The following sections describe displacement workflow in RenderMan for Maya (RfM) based on Mudbox and Zbrush workflow. You may be able to adapt this workflow to your own tools if necessary.</p><ul><li><p><a href="/wiki/spaces/RFM27/pages/544540737/Mudbox+Vector+Displacement" data-linked-resource-id="544540737" data-linked-resource-version="1" data-linked-resource-type="page">Mudbox Displacement Maps</a></p></li><li><p><a href="/wiki/spaces/RFM27/pages/544540797/ZBrush+Vector+Displacement" data-linked-resource-id="544540797" data-linked-resource-version="2" data-linked-resource-type="page">Zbrush Displacement Maps</a></p></li></ul><p><br/></p><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="b31a173e-61ed-4a53-af93-87c910f5e070" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>To match Displacement from previous versions of RenderMan, the following conversion may be of use:</p><p>To get a similar tessellation level, using a shading rate (deprecated) value of X would translate in using a micropolygonlength value of sqrt(X):</p><p>shading rate = 0.25, micropolygonlength = 0.5<br />shading rate = 1, micropolygonlength = 1<br />shading rate = 4, micropolygonlength = 2</p></div></div><p><br/></p><h2 id="UsingDisplacement-Avoidingcracksonpolygonalmeshes">Avoiding cracks on polygonal meshes</h2><p>When displacing a mesh with hard normals, faces can separate and create cracks. Displacement moves vertices in the direction of its normal but adjacent vertices on different sides of a hard edge have different normals and will move is different directions, creating gaps or cracks.</p><p>RenderMan has a &quot;<code>polygon:smoothdisplacement</code>&quot; attribute that will create a fully smoothed copy of the normals and use it instead of the original normals.</p><p>In RenderMan for Maya, this attribute is enabled by the &quot;Prevent polygon cracking&quot; (rman_preventPolyCracks) check box. </p><p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="smoothdisplacement.gif" width="1024" loading="lazy" src="../../attachments/544540663/smoothdisplacement.gif" data-image-src="../../attachments/544540663/smoothdisplacement.gif" data-height="512" data-width="1024" data-unresolved-comment-count="0" data-linked-resource-id="544540685" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="smoothdisplacement.gif" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/gif" data-linked-resource-container-id="544540663" data-linked-resource-container-version="1" data-media-id="7369ac6b-1a52-4eab-aeec-b2013f9da6e3" data-media-type="file"></span><p /><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="c9daccd5-567a-4d32-b77e-6b76bcaaf5c9" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>&quot;Prevent polygon cracking&quot; should only be enabled when necessary as it uses a bit more memory. The amount used is proportional to the number of vertices in the mesh.</p></div></div><p><br/></p><p>Notice how using smoothed normals warped the cube's displacement pattern and changed its appearance:</p><p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="smoothdisplacement_topo.gif" width="1024" loading="lazy" src="../../attachments/544540663/smoothdisplacement_topo.gif" data-image-src="../../attachments/544540663/smoothdisplacement_topo.gif" data-height="512" data-width="1024" data-unresolved-comment-count="0" data-linked-resource-id="544540682" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="smoothdisplacement_topo.gif" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/gif" data-linked-resource-container-id="544540663" data-linked-resource-container-version="1" data-media-id="19a4e170-4b91-4afc-b8b2-4e6246db5490" data-media-type="file"></span><p /><p>You can avoid that effect by inserting additional edges near sharp edges. This will limit the normal interpolation to the areas next to the edge and generally preserve the original appearance.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="smoothdisplacement_topo_2.gif" width="1024" loading="lazy" src="../../attachments/544540663/smoothdisplacement_topo_2.gif" data-image-src="../../attachments/544540663/smoothdisplacement_topo_2.gif" data-height="512" data-width="1024" data-unresolved-comment-count="0" data-linked-resource-id="544540679" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="smoothdisplacement_topo_2.gif" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/gif" data-linked-resource-container-id="544540663" data-linked-resource-container-version="1" data-media-id="269ce4b1-bdb0-4fd2-9152-7e8df1add241" data-media-type="file"></span><p> <br/></p><p><br/></p>
+  </article>
+</main>
+</body>
+</html>

@@ -1,0 +1,71 @@
+{"id":"d25435536778961223947337ef53903ef4e1fa1ff15b4bc9a5f8ca4c309df4a9","text":"这个 Bxdf 基于 Brent Burley 的扩展材质模型，该模型发表于“"}
+{"id":"1a441a2db213e6b2703e7eab9d02ea1921f02286943ff06446a1fe7cd8c1060e","text":"Extending the Disney BRDF to a BSDF with Integrated Subsurface Scattering”，SIGGRAPH 2015。"}
+{"id":"d39e075b5163013acd09eb631eb2d30faf64d56859aa6f32e5d97c66976899c5","text":"PxrDisneyBsdf 是一个清晰直接的基于物理的模型，参数数量精简，同时可覆盖很宽范围的照片级真实和艺术化材质，包括 diffuse 与 specular 反射和透射、clearcoat、sheen，以及次表面散射。"}
+{"id":"ca88acddee6c27fa5478bbb1aab5535a9ad1e92e32820341c3eec8f14f82b72b","text":"Walt Disney Animation Studios 制作的所有 CG 动画都使用这个材质模型；该材质的 Pixar 版本 PxrDisneyBsdf 的源代码可在 bxdf 代码示例中找到。"}
+{"id":"f2bee7a541c79add3387d5fa21cf1bb5af2a4790c6cead00ec0ed27d6592c3ed","text":"PxrDisneyBsdf 不同材质参数设置示例：金属反射、薄表面 diffuse 透射、薄表面 specular 透射、次表面散射，以及玻璃折射和反射。"}
+{"id":"b2c46aeb0b3bb90674b3a471efb6728b1abf984b52c4f7a76c7f2a359339c1f3","text":"图像灵感来自 Burley BSDF 论文的图 1。"}
+{"id":"0e35f6e9742e074dfd62e874de3c242c6d9b64c21bf9afbaf3d11f05579b4495","text":"Basic"}
+{"id":"540026e605232435a33b13622b5f0cce95a1199b2f0ccc411c7ff14f3664e39a","text":"Base Color"}
+{"id":"9a25da013411e90aeeb773502f6acd946b98bcd852c55e115f585ac780d8db9d","text":"主表面颜色，通常由 texture maps 提供。"}
+{"id":"e79434b37974536d159305a5ce17bfb873029221872e4a7ac08b7c55cf7ba488","text":"Emit Color"}
+{"id":"e8284af76f7b9fc298057eb888ede8b9cf630f54e55a652252f736a4b83aeb33","text":"发光能量。非黑色值表示 glow。请谨慎使用此参数。只将它用于低发光对象和材质。对于更亮的对象，始终使用 PxrMeshLight。"}
+{"id":"67e35056655247c7ccc4f01cf7eea46727488c1666e948a889bf20b15b5a6e6b","text":"Specular Reflection"}
+{"id":"5d08f304a03e1fedc20358f8f233e38a0dd68652286fa116c44d598ec56593cd","text":"Metallic"}
+{"id":"877fd383bd406b9e35dcca0740a7f4564deaf4c0b90537b7293b098e17d7b7a6","text":"定义材质的金属度。0 表示 dielectric，1 表示完全金属。PBR Metalness map 可用作输入。"}
+{"id":"96e1e3c6156cdc9f17948cb0b6b18c3ccb470fdd128ea6ca8c2d804d3bb333af","text":"这是两个不同模型之间的线性混合。金属模型没有 diffuse 分量，并且其带色的入射 specular 等于 base color。"}
+{"id":"8e0372acb61fdd928b141ea19680c63e05131d8bc734fb02e11daf8a910beb2f","text":"Specular Tint"}
+{"id":"d6357f13fc7976f8b2ed82750f560908edce7d4a5776494b5e549da19933f44b","text":"这是为了艺术控制而提供的折衷项，会将入射 specular 朝 base color 着色。掠射角 specular 仍保持无色（即不会给入射光着色）。"}
+{"id":"dd1d5242ada9028a453f20315be9161e9cd32954daeb1fcd3f1745b6be406567","text":"Roughness"}
+{"id":"0e598f1c79d9a7b0910fa73affbff5f1316a45903a861bf2cfb8c40e3ba1b889","text":"定义 diffuse 与 specular 响应之间的表面粗糙度。同样，通常会使用 PBR Roughness map 作为输入，以添加粗糙度变化。"}
+{"id":"0b5f0615e32450ba9e893c95946247ce6013eca3ee862133bc0cdc3a28b729ed","text":"Anisotropic"}
+{"id":"5fbb5a05bff64c45c2894c23c17fb9b1b173f21d05f0c4d62949816f40887913","text":"各向异性的程度控制 specular 高光的纵横比。0：各向同性；1：最大各向异性。"}
+{"id":"bc2cf7e6dd4a7e064a56692c7232eab9737f7a44cc1ebe22b5f8799ac80a4e17","text":"Index of Refraction"}
+{"id":"b49ae91998d0cb9192aa242bb08ee83c3d6a3eca58800e055edc1b89f20d10ac","text":"材质的折射率，用于控制折射，也控制 specular 反射量。（它还会影响次表面散射。）"}
+{"id":"14740b0b3be0a00879504bed4db00b5743ff987ef66ca606f50070d3decb1182","text":"Specular Reflection Scale"}
+{"id":"99708b7cc34c86f6b700fcbfe82769c76e5d709fc1ba204515b52f5e91da527b","text":"控制 specular 反射强度；0 会移除它，1 会保持完整的 specular 反射响应。通常不需要此参数，因为在物理正确的方式下，specular 响应由光的入射角以及 Roughness 和 IOR 参数决定，但此参数可以覆盖该结果。"}
+{"id":"fe9b3f4e02b8a840c1c26baf075e54f30ecc4f2c8c7678a5887bd18c4bf690f5","text":"Clearcoat"}
+{"id":"163bb181766724c66cc86bdc27b6ee95586798544a69fa22bb38ce6aea0907cc","text":"第二个专用 specular 波瓣，适合为材质添加清漆或 clear coat 层。"}
+{"id":"614d39b6f7b643273aeb745837f5aa4317890cb9d5ae1061bf193af47461baac","text":"Clearcoat Gloss"}
+{"id":"1bd323389b36b1e2f960b7043c73fe549342bbec15062108b7ad7e71fdfdd60f","text":"控制 clearcoat 光泽度。0 产生模糊高光，1 产生紧致高光。注意：此参数与 Roughness 的含义方向相反。"}
+{"id":"41cc805c68bd2303bb7fcb07c575620434e0222e5c4b4d2c178c982eec022b74","text":"Sheen"}
+{"id":"72ce4ea10b79ec20772e41db92bb79f7e7e6a49f6c67d986f3f23d952a665249","text":"额外的掠射角 / 前向散射 diffuse 分量，主要用于布料。"}
+{"id":"724a5890bdc9194e0856f47b33894bb21983bd19df708f77fa835dc623eb0a16","text":"Sheen Tint"}
+{"id":"3822e2a1db93b0055a39493277eb5b4fa5c4e3ee54c0dd9fdca18245f1fdb8ea","text":"将 sheen 朝 base color 着色的量。为 0 时，sheen 是无色的（即不会给入射光着色）。"}
+{"id":"3e10134259ab3285d4cefc9af923cbcc07f59b4024d37ef44ceea70c7a695a5d","text":"Transmission"}
+{"id":"99e33fdd5e423c26bb8e7e42cc367385887b83de79203e52598da2f7d48e899d","text":"Diffuse Transmission"}
+{"id":"2dd577eda0e3192e61c2c1637a47052753de96abdf3802a1c3d4a71cec31d9a3","text":"透射而不是反射的 diffuse 光量。0 表示 0% 透射、100% 反射；1 表示 50% 透射、50% 反射；2 表示 100% 透射、0% 反射。"}
+{"id":"c6c0ce6f61ff30b149a99272a1084d2403fadbb98362f850c77a226da9a1a4a4","text":"Specular Transmission"}
+{"id":"eb5622dfe96e802bddc24cb159becd0858a58ff49417fab17557a5299e41b678","text":"入射（最大）specular 透射量。"}
+{"id":"fe50a462885f7c163bfc9f6158e2ec52d6136178b8eb38e0d16ea596f4a3ca0d","text":"Thin Surface"}
+{"id":"c1ab32a7f209e3bf1bc06c4a4a0d0070680198294eeae759960c59a98949f85b","text":"表面应被视为薄表面，还是形成厚材质的界面。设置为 Thin 时，折射率为 1。"}
+{"id":"b649d5f17381bb16e2c26b964d9d9d78076e5fcc199f3763e7c31bd6005a0743","text":"Transmission Color"}
+{"id":"dd463700a83289f59cd5ca644dbecb59d54be3d93168d0fa9ebe4b333d9d56f1","text":"用于体积吸收的透射光颜色（Beer 指数消光定律）。"}
+{"id":"4d17704ee35d56197e1015a9653c260e679f6858b936630ad4a8152a6c462493","text":"Transmittance Distance"}
+{"id":"7e69a5a648b9cc237e7d9ad8d657022d66abe2de7dea89cb304a2ac37e11e704","text":"吸收达到指定透射率颜色时的距离。有时也标为 \"atDistance\"。距离越小，透射率颜色越饱和。"}
+{"id":"1ca065ca2fa44bc8de9ee6719db00a05ce1f4c6937ecdd1eb0b750b7c0857468","text":"Subsurface Scatter"}
+{"id":"d5f79e0cea470ec08d21e8c6eaf9740aea091ea3742fd99e5d08f547ad4aee14","text":"Subsurface"}
+{"id":"b51c444e13e583212a4303cbd5d3098266f0a4db13007e1e5ed9612da9d5ea56","text":"控制次表面散射量。"}
+{"id":"77a70c52491b2daa549419ebf95ed69bdd10b3c14a22f5fc2f83dc720576adff","text":"Subsurface Color"}
+{"id":"aba76aaf5a4b82166c31752c2e0d1461ebd7678b28c09a94e111cc64b0461655","text":"根据 Subsurface 参数与 diffuse 响应混合的颜色。"}
+{"id":"069072a6053e379f1a19f2c927b5d7b112c889092037e690ec1571c27c641de1","text":"Scattering Distances"}
+{"id":"daaa8a7f56f5fd78e3cb04efcb4c0d35b9d32bc9139c0393b87d00baacfe3c0e","text":"红、绿、蓝在 subsurface 中发生散射的平均距离。如果为 0，则回退到 diffuse BRDF。"}
+{"id":"2acb79950a0c913f02303798ce8e6f357878d3ed5f937ff85961109f86442fa4","text":"Subsurface Anisotropy"}
+{"id":"1b68aeb97d410d2a8cb9ddb0e9b5c32b3fae38ef4255ea7a22cb5b9b3a681f77","text":"路径追踪次表面散射中的 Subsurface 体积各向异性（散射的平均余弦）。0 表示各向同性散射，0 到 1 之间的值表示以前向散射为主，-1 到 0 之间的值表示以后向散射为主。"}
+{"id":"b2ca5fe4fd323a60d9f351f7ea3d2279eff1a554624ac47e99598d05bf239cd5","text":"Other parameters"}
+{"id":"be9484537fd6190cd947b96a55c5b4043398962050d84748c1af0df7737ec3f2","text":"Transmission Behavior"}
+{"id":"4aae5510afde5820af61c57f28114d3ac9e736e3c7f217345947b29f88850e8d","text":"为阴影光线选择 transmission 行为：opaque 或使用 baseColor。"}
+{"id":"d6b3e8c828d3742089ed59ebbfd89492ec2ce0bc89a19294cae52a6ac233b244","text":"Presence"}
+{"id":"faef91149ad5f650ae43ceaff177968c46c9c0b42558ab2efdd901e440d50a4e","text":"在这里连接 mask function，为对象应用镂空 pattern。Presence 定义为二值（0 或 1）函数，但可以采用连续值来对形状进行抗锯齿。它适合用于建模树叶和其他薄而复杂的形状。"}
+{"id":"ed0f6e2811327c76acd1be8304230234b943d6c2bcbcec6c99f150e5ae5b2a1e","text":"重要提示：此值应为 0 或 1。介于 0 和 1 之间的值会产生不需要的噪声！！！"}
+{"id":"0831c68d0b80eb0844b8ebb84a1bc29b9423212e5eb46f2a1825cc4c077661f9","text":"Bump Normal"}
+{"id":"70152ee3438d5c744322a3ae5ffcd274f350503a62f2cb3c7da34b473652c89d","text":"用于带 bump 法线的可选连接点。"}
+{"id":"209554286cb4c96bc02dcdf0b324927f4b18f33c6eb61016fe30e1cd0171ec47","text":"Shadow Bump Terminator"}
+{"id":"94a0bd5e2ab0970b3fe021c0728be6a53ef70dc9dd479acaa72c71651e966065","text":"使用强 bump 或 normal maps 时，隐藏突兀的阴影终止线。"}
+{"id":"873163a148c76cbb91384378a3f6a141173e57cf3e343ce224624a9a12950e2a","text":"Input AOV"}
+{"id":"87b9322638bbfcf33065e26b5489632489fc93d922c0b7a77eb3a9e74710363c","text":"在这里插入 MatteID 节点。"}
+{"id":"37f3f0b349e9896b61508bb3ce27079576f049414a17715c2a73849b71b3b222","text":"PxrDisney Fridge"}
+{"id":"a0e6af85f8be483a180ca47ae22de03f952820209ef3e6df2ab82bf42c09d623","text":"你可以在这里下载此 PxrDisney 示例："}
+{"id":"d6eafe82359100423c93c5ce53c352c1b51ca1e699215fcec3f5c5dd9bf12d24","text":"Download"}
+{"id":"99c4781970f975af2aa915e59fc3bbc5cb6349e515cff13f3b72fab3bccfb3b3","text":"Fridge 由艺术家"}
+{"id":"8ec020f40baf28d5230b6a0f3d9c3e219fde533da4463bd3ea600a6cdac554ec","text":"Fabio Sciedlarczyk"}
+{"id": "cdb4ee2aea69cc6a83331bbe96dc2caa9a299d21329efb0336fc02a82e1839a8", "item_id": "6cfcf2c503:71", "text": "。"}

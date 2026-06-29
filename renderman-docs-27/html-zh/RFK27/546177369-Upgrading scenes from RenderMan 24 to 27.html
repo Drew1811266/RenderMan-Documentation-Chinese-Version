@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Upgrading scenes from RenderMan 24 to 27</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Upgrading scenes from RenderMan 24 to 27</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFK27/546177369/Upgrading+scenes+from+RenderMan+24+to+27">https://rmanwiki-27.pixar.com/space/RFK27/546177369/Upgrading+scenes+from+RenderMan+24+to+27</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>RenderMan 25 中有一些变更，可能会影响旧场景渲染时的向后兼容性。下面概述如何升级你的场景。</p><h3 id="UpgradingscenesfromRenderMan24to27-OutputPortNamingConvention">Output Port Naming Convention（输出端口命名约定）</h3><p>在较旧版本的 RfK 中，RenderMan 插件上的输出端口（bxdfs、灯光、displacement（置换）等）都命名为 "out"。在 RenderMan 25 中，我们统一了不同 DCCs（DCC 应用）中的输出端口名称，以确保 USD 材质可以跨 DCC 导入和导出，而无需任何额外转换。因此名称已改为 PLUGINTYPE_out，例如 bxdf_out、displace_out、light_out 等。  </p><h3 id="UpgradingscenesfromRenderMan24to27-LamaParameterNameChanges">Lama Parameter Name Changes（Lama 参数名称变更）</h3><p>RenderMan 25 中更改了一些 Lama 节点上的参数。参数 "color" 和 "normal" 已改为节点专属名称。例如，在 LamaDiffuse 上，color 现在是 diffuseColor。这样做是为了准备让这些节点将来与 XPU 兼容。 </p><h3 id="UpgradingscenesfromRenderMan24to27-PxrSurfacesubsurfaceTypeDefault">PxrSurface subsurfaceType Default（PxrSurface subsurfaceType 默认值）</h3><p>PxrSurface 参数 "subsurfaceType" 的默认值从 0（Jensen dipole diffusion，Jensen 偶极扩散）改为 5（exponential path-traced，指数路径追踪）。 </p><h3 id="UpgradingscenesfromRenderMan24to27-UpgradingMaterials">Upgrading Materials（升级材质）</h3><p>要升级在 katana 文件内通过 NetworkMaterialCreate 或 PrmanShadingNode 创建的材质，可以运行 PRMan 25 shelf 中名为 <strong>Update Shading Networks (24 → 25)（更新着色网络）</strong>。 </p><p>通过 USD 传入的 Materials（材质）会在摄取到 katana 时，通过一个在 UsdIn 中运行的 RfK op 自动升级。该 op 会自动运行。当所有 usd 文件都更新为新约定后，可以通过环境变量 RFK_DISABLE_USDIN_MATERIAL_OP 禁用此 op。</p><p>为了与 PxrSurface 默认值变更保持向后兼容，现在有一个新的 Option 可用于保留旧的 "subsurfaceType" 默认值：Option "shade" "int subsurfaceTypeDefaultFromVersion24" [0|1]。该默认值为 0，即关闭，也就是说默认使用新的 "subsurfaceType" 默认值。在 Katana 中，此参数不在 PrmanGlobalStatements 中，但可以通过 OpScript 或 AttributeSet 添加。属性名称为 "prmanGlobalStatements.options.shade.subsurfaceTypeDefaultFromVersion24"，并且它是一个 IntAttribute。</p>
+  </article>
+</main>
+</body>
+</html>

@@ -1,0 +1,60 @@
+{"item_id":"d809806b1e:0","text":"RenderMan 提供了来自 Disney Research 的全新先进 Denoiser（降噪器），它使用 machine learning 来处理尚未完全收敛的图像，同时保持图像细节和时间一致性，使最终结果几乎难以与完全收敛的图像区分。"}
+{"item_id":"d809806b1e:1","text":"Denoiser Highlights（降噪器亮点）："}
+{"item_id":"d809806b1e:2","text":"Machine Learning（机器学习降噪核心）-"}
+{"item_id":"d809806b1e:3","text":"Pixar 的 RenderMan Denoiser 使用 machine learning，以高精度和时间一致性从部分收敛的图像中去除噪声，得到几乎难以与完全收敛图像区分的最终图像。该 denoiser 已经使用范围广泛的制作数据集进行训练，从 ILM 的 VFX 到 Pixar 和 Disney 的 feature animation 都包含在内。"}
+{"item_id":"d809806b1e:4","text":"Production Proven（制作验证）-"}
+{"item_id":"d809806b1e:5","text":"这项先进的 denoising technology（降噪技术）非常可靠，由 Disney Research 开发，并已在 Pixar、Walt Disney Animation Studios (WDAS) 和 Industrial Light and Magic 的制作中使用，证明了它的高效性。"}
+{"item_id":"d809806b1e:6","text":"Highest Fidelity（最高保真度）-"}
+{"item_id":"d809806b1e:7","text":"Denoiser 擅长保留原本可能丢失的复杂细节，因此非常适合 feature animation 和 VFX 等高要求应用。它能显著减少渲染时间，同时保持 high fidelity；业内资深人士有时甚至称它像“magic”一样。"}
+{"item_id":"d809806b1e:8","text":"Denosing the Luxo Ball（对 Luxo Ball 进行降噪）"}
+{"item_id":"d809806b1e:9","text":"既然我们已经了解了一些 denoiser 的背景信息，现在就把它用于实践：在弹跳的 Luxo Ball animation 上测试 denoiser。该 animation 使用 XPU 渲染，并开启了 DOF 和 Motion Blur。denoiser mode 设置为 Cross Frame（因为我们正在渲染 animation）。"}
+{"item_id":"d809806b1e:10","text":"Test One（测试一）"}
+{"item_id":"d809806b1e:11","text":"Pixel Variance"}
+{"item_id":"d809806b1e:12","text":"Min Samples"}
+{"item_id":"d809806b1e:13","text":"Max Samples"}
+{"item_id":"d809806b1e:14","text":"Av. Frame Times（平均帧时间）"}
+{"item_id":"d809806b1e:15","text":"30secs（30 秒）"}
+{"item_id":"d809806b1e:16","text":"IntialTest_wide.mov"}
+{"item_id":"d809806b1e:17","text":"IntialTest_cropped.mov"}
+{"item_id":"d809806b1e:18","text":"把它送入 RenderMan Denoiser 后，我们会得到一个 denoised version（已降噪版本），其质量等同于 adaptive threshold 为 .01 的渲染结果，非常适合 broadcast（广播级）输出。"}
+{"item_id":"d809806b1e:19","text":"正如我们在"}
+{"item_id":"d809806b1e:20","text":"Samples Made Simple"}
+{"item_id":"d809806b1e:21","text":"课程中看到的那样，当降低 threshold 时，渲染时间会变得越来越长。一般经验法则是：每当图像质量翻倍，渲染时间就会变为四倍。"}
+{"item_id":"d809806b1e:22","text":"因此，denoiser 可以 short-circuit（绕过）这些漫长的渲染时间，用一小部分渲染时间生成可用的 animations。"}
+{"item_id":"d809806b1e:23","text":"Denosing for final quality（面向最终质量的降噪）"}
+{"item_id":"d809806b1e:24","text":"Final Frame Render Settings（最终帧渲染设置）"}
+{"item_id":"d809806b1e:25","text":"Pixel Variance"}
+{"item_id":"d809806b1e:26","text":"Min Samples"}
+{"item_id":"d809806b1e:27","text":"Max Samples"}
+{"item_id":"d809806b1e:28","text":"Denosing for dailies / quick reviews（面向 dailies / 快速审片的降噪）"}
+{"item_id":"d809806b1e:29","text":"Denoising 并不只用于 final renders。也可以制作成本很低的 test renders，即使噪声多到不适合观看或不适合 review loop，也可以再把它们送入 denoiser。"}
+{"item_id":"d809806b1e:30","text":"下面这些 base render settings values 很适合作为 daily previews 的起点。"}
+{"item_id":"d809806b1e:31","text":"Dailies Render Settings（每日审片渲染设置）"}
+{"item_id":"d809806b1e:32","text":"Pixel Variance"}
+{"item_id":"d809806b1e:33","text":"Min Samples"}
+{"item_id":"d809806b1e:34","text":"Max Samples"}
+{"item_id":"d809806b1e:35","text":"ExitAt"}
+{"item_id":"d809806b1e:36","text":"1 hour（1 小时）"}
+{"item_id":"d809806b1e:37","text":"raw（未降噪）frames 可能会产生相当难以观看的 footage，但一旦通过 denoiser 处理，虽然不会得到 final-quality renders，这些 frames 已经非常适合团队或导演 review 并给出反馈。"}
+{"item_id":"d809806b1e:38","text":"Note：通过把 ExitAt 设置为 1 hour，我们告诉 renderer 每帧最多只花 1 小时，从而允许我们设置固定的 rendering time。"}
+{"item_id":"d809806b1e:39","text":"Further Testing（进一步测试）"}
+{"item_id":"d809806b1e:40","text":"为了演示 denoiser 有多惊人...让我们继续测试，看看 samples 可以降到多低，以及会得到什么结果。"}
+{"item_id":"d809806b1e:41","text":"4 x 4 Samples"}
+{"item_id":"d809806b1e:42","text":"Pixel Variance"}
+{"item_id":"d809806b1e:43","text":"Min Samples"}
+{"item_id":"d809806b1e:44","text":"Max Samples"}
+{"item_id":"d809806b1e:45","text":"4x4_Test2.mov"}
+{"item_id":"d809806b1e:46","text":"再做一次...这次真正挑战 denoiser，使用 1x1 Samples 的渲染！"}
+{"item_id":"d809806b1e:47","text":"1 x 1 Sample"}
+{"item_id":"d809806b1e:48","text":"Pixel Variance"}
+{"item_id":"d809806b1e:49","text":"Min Samples"}
+{"item_id":"d809806b1e:50","text":"Max Samples"}
+{"item_id":"d809806b1e:51","text":"1x1_Test.mov"}
+{"item_id":"d809806b1e:52","text":"好吧...这张图噪声非常大，denoised result 看起来也很糊，但它展示了 denoiser 的“magic”如何看穿噪声，并仍然细化木材和球体高光中的一些细节。"}
+{"item_id":"d809806b1e:53","text":"Tip：每个制作项目都不同，因此在开始之前，建议先做一系列测试，以确定 dailies 和 final frame renders 的最佳 render settings。"}
+{"item_id":"d809806b1e:54","text":"image（图像）"}
+{"item_id":"d809806b1e:55","text":"LPEs and AOVs（光路表达式与 AOV）"}
+{"item_id":"d809806b1e:56","text":"machine learning magic（机器学习的魔力）"}
+{"item_id":"d809806b1e:57","text":"result（结果）"}
+{"item_id":"d809806b1e:58","text":"variance 越高，denoiser 需要处理的难度就越大，结果也越容易变糊"}
+{"item_id":"d809806b1e:59","text":"variance 越低，结果会更加精细"}

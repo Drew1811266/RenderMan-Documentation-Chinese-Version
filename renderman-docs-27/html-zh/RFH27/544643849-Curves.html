@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Curves</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Curves</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFH27/544643849/Curves">https://rmanwiki-27.pixar.com/space/RFH27/544643849/Curves</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p /><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="4c659245-8a47-4497-862f-fd5707d01be2" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>请参见 <a href="https://rmanwiki-26.pixar.com/space/REN26/19661233/Curves" data-linked-resource-id="19661233" data-linked-resource-version="10" data-linked-resource-type="page">Curves（曲线）</a> 以了解 RenderMan 曲线及其属性的更多信息；在 RenderMan 中，曲线默认渲染为管状曲线。不支持 Camera-facing/billboard 曲线（面向摄影机/公告板曲线），但如果提供了用户法线，则会渲染带状曲线。</p></div></div><p /><p>要渲染曲线，至少需要添加 width attribute（宽度属性），除非你确实想得到巨大的曲线和毛发。 </p><p>可以在选中 curve SOP 的情况下使用 shelf button（工具架按钮）<strong> AddSpareParameters</strong> 来创建 RenderMan tabs（RenderMan 选项卡）和 Geometry Tab（几何选项卡），用于设置 Curve properties（曲线属性）：</p><ul><li><p><strong>Curve Basis（曲线基函数）：</strong> 选择 curve basis（曲线基函数）的类型（用于影响形状和控制方式）</p></li></ul><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="530" loading="lazy" src="../../attachments/544643849/rfh_curveBasis.png" data-image-src="../../attachments/544643849/rfh_curveBasis.png" data-height="390" data-width="841" data-unresolved-comment-count="0" data-linked-resource-id="544643875" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfh_curveBasis.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544643849" data-linked-resource-container-version="1" data-media-id="e22b80f2-4bb3-415d-af24-a97db0618b90" data-media-type="file"></span><ul><li><p><strong>Opacity Samples（不透明度采样）：</strong> 在材质中使用 Presence（opacity，不透明度）时要进行的采样次数。注意，integrator（积分器）可用于强制执行固定数量的 opacity samples（不透明度采样），之后才改用 stochastic samples（随机采样）；随机采样可能产生噪点。</p></li></ul><h2 id="Curves-AddWidthAttribute">Add Width Attribute（添加宽度属性）</h2><ul><li><p>使用 <strong>Attribute Create</strong> 添加 width attribute（宽度属性）。在底部设置宽度值（例如 0.01）并连接节点。系统会自动获取新值。</p></li></ul><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="544" loading="lazy" src="../../attachments/544643849/width_attributecreate.png" data-image-src="../../attachments/544643849/width_attributecreate.png" data-height="442" data-width="803" data-unresolved-comment-count="0" data-linked-resource-id="544643866" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="width_attributecreate.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544643849" data-linked-resource-container-version="1" data-media-id="8d4c817e-83a6-4c54-affb-e23ceafe7b3e" data-media-type="file"></span><span class="confluence-embedded-file-wrapper image-center-wrapper"><img class="confluence-embedded-image image-center" loading="lazy" src="../../attachments/544643849/rfh_curveWidth.png" data-image-src="../../attachments/544643849/rfh_curveWidth.png" data-height="405" data-width="443" data-unresolved-comment-count="0" data-linked-resource-id="544643878" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfh_curveWidth.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544643849" data-linked-resource-container-version="1" data-media-id="e29fdc7d-a732-4e8e-856a-b6a37ad8ba5a" data-media-type="file"></span><p /><p /><p /><h3 id="Curves-ROPNodesettings">ROP Node settings（ROP 节点设置）</h3><p>在 <strong>Rendering &gt; Dicing（渲染 &gt; 切分）</strong> 下，可以找到全局控制项 Minimum Width（最小宽度），用于控制已渲染曲线的最小像素宽度。较小的值（或 0）可能导致渲染耗时更长，因为小于一个像素宽的曲线可能被漏掉，并需要从渲染质量设置中获取更多 min samples（最小采样）。</p><p />
+  </article>
+</main>
+</body>
+</html>

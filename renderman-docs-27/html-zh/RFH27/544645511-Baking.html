@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Baking</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Baking</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFH27/544645511/Baking">https://rmanwiki-27.pixar.com/space/RFH27/544645511/Baking</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>Baking（烘焙）输出纹理只需两个简单步骤。</p><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="31034aec-2c51-4c5d-9c2e-e3924ab7487b" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p><span class="confluence-link">请参阅 <a href="https://rmanwiki-26.pixar.com/space/REN26/19662127/Baking" data-linked-resource-id="19662127" data-linked-resource-version="1" data-linked-resource-type="page">Baking（烘焙）</a> 了解更多信息。</span></p></div></div><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="d1227057-b931-435b-bbd4-85845da8ef42" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>用户应为要进行 baking（烘焙）的对象提供 UVs（UV 映射）。</p></div></div><h3 id="Baking-SetBakeHider">Set Bake Hider（设置 Bake Hider）</h3><p>不要使用 raytrace，而是将其设为<strong> bake（烘焙）</strong>。</p><p><span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image" width="650" loading="lazy" src="../../attachments/544645511/bakehider.png" data-image-src="../../attachments/544645511/bakehider.png" data-unresolved-comment-count="0" data-linked-resource-id="544645533" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="bakehider.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544645511" data-linked-resource-container-version="1" data-media-id="c900891e-80d7-48a8-888e-f5f91218e7b8" data-media-type="file"></span></p><p><br/></p><h3 id="Baking-AddPxrBakeTexture">Add PxrBakeTexture（添加 PxrBakeTexture）</h3><p>在 RIS Network（RIS 网络）中，添加一个 <a href="https://rmanwiki-26.pixar.com/space/REN26/19661581/PxrBakeTexture" data-linked-resource-id="19661581" data-linked-resource-version="4" data-linked-resource-type="page">PxrBakeTexture（纹理烘焙节点）</a> VOP。将其输出连接到 PxrSurface color parameter（PxrSurface 颜色参数），以便它会被求值。</p><p><span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image" width="650" loading="lazy" src="../../attachments/544645511/pxrbake.png" data-image-src="../../attachments/544645511/pxrbake.png" data-unresolved-comment-count="0" data-linked-resource-id="544645527" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrbake.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544645511" data-linked-resource-container-version="1" data-media-id="0e262c41-c06b-4f55-8cac-7d4f9382f50e" data-media-type="file"></span></p><p>在 PxrBakeTexture VOP 中，设置 output FileName（输出文件名）。请参阅 <a href="https://rmanwiki-26.pixar.com/space/REN26/19661581/PxrBakeTexture" data-linked-resource-id="19661581" data-linked-resource-version="4" data-linked-resource-type="page">PxrBakeTexture（纹理烘焙节点）</a> 了解每个参数的说明。</p><p><span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image" width="650" loading="lazy" src="../../attachments/544645511/pxrbaketexture.png" data-image-src="../../attachments/544645511/pxrbaketexture.png" data-unresolved-comment-count="0" data-linked-resource-id="544645530" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrbaketexture.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544645511" data-linked-resource-container-version="1" data-media-id="c3e08f34-0992-4682-b376-cf247f335d8c" data-media-type="file"></span></p><p><br/></p><p><br/></p><p><br/></p><p><br/></p><p><br/></p>
+  </article>
+</main>
+</body>
+</html>

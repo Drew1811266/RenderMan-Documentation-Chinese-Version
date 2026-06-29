@@ -1,0 +1,463 @@
+{
+  "phase": 501,
+  "file": "RFM27/544541121-PxrVolume in Maya.html",
+  "file_id": "c50df2d8c8",
+  "source_items": 258,
+  "translation_rows": 258,
+  "duplicate_rows": [],
+  "missing_item_ids": [],
+  "extra_item_ids": [],
+  "glossary_violations": [],
+  "ascii_heavy_candidates": [
+    {
+      "item_id": "c50df2d8c8:0",
+      "source": "PxrVolume is a Bxdf and should be used in the Material Connection of any Shading Group (SG) node. Connections to the Volume connection are not correct for RenderMan.",
+      "translation": "PxrVolume 是一种 Bxdf，应在任何 Shading Group (SG) node 的 Material Connection 中使用。连接到 Volume connection 对 RenderMan 来说是不正确的。"
+    },
+    {
+      "item_id": "c50df2d8c8:1",
+      "source": "The OpenVDB node defaults to having its indirect visibility set to \"off\", this is because Maya's old defaults have imported objects as invisible to reflections/refractions in the Render Stats rollout of the attribute editor. Turn these on for correct rendering.",
+      "translation": "OpenVDB node 的默认设置会将 indirect visibility 设为 \"off\"，这是因为 Maya 的旧默认值会在 attribute editor（Attribute Editor）的 Render Stats rollout 中把导入对象设为对 reflections/refractions 不可见。请开启这些选项以获得正确 rendering（渲染）。"
+    },
+    {
+      "item_id": "c50df2d8c8:2",
+      "source": "The Maya Cloud Pattern/Texture will not operate as expected in PxrVolume because of how it calculates the falloff effect.",
+      "translation": "由于 Maya Cloud Pattern/Texture 计算 falloff effect（衰减效果）的方式，它在 PxrVolume 中不会按预期工作。"
+    },
+    {
+      "item_id": "c50df2d8c8:3",
+      "source": "You can also make an emissive volume operate as a light from the PxrVolume material as explained below, but in Maya you can assign a Meshlight to the shading group node (right-click and create). If your volume has emission values then it will emit light, you may also make use of the light filter controls on the mesh light shader while the PxrVolume option does not allow for light filters.",
+      "translation": "如下所述，也可以让 emissive volume（自发光体积）从 PxrVolume material 作为 light（灯光）工作；但在 Maya 中，你也可以为 shading group node 指定 Meshlight（右键并创建）。如果 volume 具有 emission values，它就会发光；你还可以使用 mesh light shader 上的 light filter controls，而 PxrVolume 选项不支持 light filters。"
+    },
+    {
+      "item_id": "c50df2d8c8:5",
+      "source": "rendered with RenderMan - VDB Asset Courtesy of",
+      "translation": "使用 RenderMan 渲染 - VDB 资产由"
+    },
+    {
+      "item_id": "c50df2d8c8:6",
+      "source": "Walt Disney Animation",
+      "translation": "Walt Disney Animation"
+    },
+    {
+      "item_id": "c50df2d8c8:10",
+      "source": "Basic Workflows",
+      "translation": "Basic Workflows（基础工作流）"
+    },
+    {
+      "item_id": "c50df2d8c8:14",
+      "source": "Advanced Workflows",
+      "translation": "Advanced Workflows（高级工作流）"
+    },
+    {
+      "item_id": "c50df2d8c8:15",
+      "source": "Crepuscular Beams",
+      "translation": "Crepuscular Beams（曙暮光束）"
+    },
+    {
+      "item_id": "c50df2d8c8:16",
+      "source": "Performance Suggestions",
+      "translation": "Performance Suggestions（性能建议）"
+    },
+    {
+      "item_id": "c50df2d8c8:18",
+      "source": "Diffuse Color",
+      "translation": "Diffuse Color"
+    },
+    {
+      "item_id": "c50df2d8c8:21",
+      "source": "Multiple Scattering",
+      "translation": "Multiple Scattering"
+    },
+    {
+      "item_id": "c50df2d8c8:22",
+      "source": "Velocity and Motion Blur",
+      "translation": "Velocity and Motion Blur（速度与运动模糊）"
+    },
+    {
+      "item_id": "c50df2d8c8:45",
+      "source": "volume shader, optimized for dealing with \"pure\" volumes. It cannot deal with any surface effects such as refraction or reflection at a boundary between two different types of media, so you cannot use PxrVolume to render things like murky glass or water surfaces. If you are looking for a shader that can do surface effects, along with a limited amount of volumetric effects, take a look at the single scattering parameters of",
+      "translation": "volume shader，针对处理 \"pure\" volumes（纯体积）进行了优化。它不能处理两种不同 media（介质）边界处的 refraction（折射）或 reflection（反射）等 surface effects（表面效果），因此不能用 PxrVolume 渲染浑浊玻璃或水面之类对象。如果你需要既能处理 surface effects，又能处理有限 volumetric effects（体积效果）的 shader，请查看"
+    },
+    {
+      "item_id": "c50df2d8c8:48",
+      "source": "Basic Workflows",
+      "translation": "Basic Workflows（基础工作流）"
+    },
+    {
+      "item_id": "c50df2d8c8:55",
+      "source": "Diffuse Color",
+      "translation": "Diffuse Color"
+    },
+    {
+      "item_id": "c50df2d8c8:60",
+      "source": "For heterogeneous media like smoke, the typical approach is to bake the properties of the smoke into a file like an OpenVDB file. The OpenVDB file would contain a small number of properties including the density, the velocity (if using motion blur), and possibly the albedo. The OpenVDB should be attached to a",
+      "translation": "对于 Smoke 等非均匀介质，典型做法是将烟雾属性烘焙到 OpenVDB file 等文件中。OpenVDB file 会包含少量属性，包括密度、velocity（如果使用 motion blur）以及可能的 albedo。OpenVDB 应附加到"
+    },
+    {
+      "item_id": "c50df2d8c8:62",
+      "source": "and read using the impl_openvdb plugin. The name of the density property of the OpenVDB file is then used directly with the PxrVolume",
+      "translation": "并使用 impl_openvdb plugin 读取。随后会将 OpenVDB file 中密度属性的名称直接用于 PxrVolume 的"
+    },
+    {
+      "item_id": "c50df2d8c8:63",
+      "source": "Density Float PrimVar",
+      "translation": "Density Float PrimVar"
+    },
+    {
+      "item_id": "c50df2d8c8:66",
+      "source": "Diffuse Color",
+      "translation": "Diffuse Color"
+    },
+    {
+      "item_id": "c50df2d8c8:68",
+      "source": "Multiple Scattering",
+      "translation": "Multiple Scattering"
+    },
+    {
+      "item_id": "c50df2d8c8:75",
+      "source": "Equiangular weight",
+      "translation": "Equiangular weight"
+    },
+    {
+      "item_id": "c50df2d8c8:79",
+      "source": "rendered with RenderMan - VDB Asset Courtesy of",
+      "translation": "使用 RenderMan 渲染 - VDB 资产由"
+    },
+    {
+      "item_id": "c50df2d8c8:80",
+      "source": "Walt Disney Animation",
+      "translation": "Walt Disney Animation"
+    },
+    {
+      "item_id": "c50df2d8c8:86",
+      "source": "Density Float PrimVar",
+      "translation": "Density Float PrimVar"
+    },
+    {
+      "item_id": "c50df2d8c8:88",
+      "source": "Diffuse Color",
+      "translation": "Diffuse Color"
+    },
+    {
+      "item_id": "c50df2d8c8:90",
+      "source": "Multiple Scattering",
+      "translation": "Multiple Scattering"
+    },
+    {
+      "item_id": "c50df2d8c8:92",
+      "source": "Primary and Secondary Anisotropy.",
+      "translation": "Primary and Secondary Anisotropy。"
+    },
+    {
+      "item_id": "c50df2d8c8:94",
+      "source": "Equiangular weight",
+      "translation": "Equiangular weight"
+    },
+    {
+      "item_id": "c50df2d8c8:96",
+      "source": "Note that scattering in the volume is controlled by the Max Path Length parameter in the chosen integrator as well as the diffuse trace depth. You can find more information on this under the section below called",
+      "translation": "注意，体积中的散射由所选 integrator 中的 Max Path Length 参数以及 diffuse trace depth 控制。更多信息可在下方名为"
+    },
+    {
+      "item_id": "c50df2d8c8:97",
+      "source": "Multiple Scattering",
+      "translation": "Multiple Scattering"
+    },
+    {
+      "item_id": "c50df2d8c8:99",
+      "source": "Advanced Workflows",
+      "translation": "Advanced Workflows（高级工作流）"
+    },
+    {
+      "item_id": "c50df2d8c8:100",
+      "source": "Crepuscular Beams",
+      "translation": "Crepuscular Beams（曙暮光束）"
+    },
+    {
+      "item_id": "c50df2d8c8:102",
+      "source": "In order to efficiently render crepuscular beams, it is important to try to maximize the effect of",
+      "translation": "为了高效渲染 Crepuscular beams，需要尽量最大化"
+    },
+    {
+      "item_id": "c50df2d8c8:109",
+      "source": "Performance Suggestions",
+      "translation": "Performance Suggestions（性能建议）"
+    },
+    {
+      "item_id": "c50df2d8c8:112",
+      "source": "PrimVar density parameters",
+      "translation": "PrimVar density parameters"
+    },
+    {
+      "item_id": "c50df2d8c8:117",
+      "source": "micropolygonlength",
+      "translation": "micropolygonlength"
+    },
+    {
+      "item_id": "c50df2d8c8:119",
+      "source": "Emissive volumes",
+      "translation": "Emissive volumes（发光体积）"
+    },
+    {
+      "item_id": "c50df2d8c8:121",
+      "source": "Multiple Scattering",
+      "translation": "Multiple Scattering"
+    },
+    {
+      "item_id": "c50df2d8c8:124",
+      "source": "parameter is ignored), and is at the mercy of the Integrator settings. Moreover, multiple scattering may slow down the convergence of objects behind the volume. Therefore we suggest that whenever possible, multiple scattering should be avoided. For media with low albedo, multiple scattering adds very little to the final render. For some media like clouds, whose light transport involves many tens or hundreds of light bounces, unfortunately, multiple scattering may be unavoidable.",
+      "translation": "参数会被忽略），只能受 Integrator 设置支配。此外，multiple scattering 可能会减慢体积后方对象的收敛。因此，我们建议尽可能避免 multiple scattering。对于低 albedo 介质，multiple scattering 对最终渲染的贡献很小。对于 Clouds 等介质，其光传输涉及数十或数百次光反弹，遗憾的是 multiple scattering 可能无法避免。"
+    },
+    {
+      "item_id": "c50df2d8c8:130",
+      "source": "Equiangular sampling",
+      "translation": "Equiangular sampling（等角采样）"
+    },
+    {
+      "item_id": "c50df2d8c8:132",
+      "source": "Equiangular sampling may cause negative values in the volume alpha with low samples. This is a side effect of how the parameter works. Two solutions would be to set the Equiangular Weight to 0.0 or allow more samples to be taken which will correctly average out to a positive number.",
+      "translation": "在 samples 较低时，Equiangular sampling 可能导致 volume alpha 出现负值。这是该参数工作方式产生的副作用。有两种解决方式：将 Equiangular Weight 设为 0.0，或允许采集更多 samples，使结果正确平均为正数。"
+    },
+    {
+      "item_id": "c50df2d8c8:136",
+      "source": "Diffuse Color",
+      "translation": "Diffuse Color"
+    },
+    {
+      "item_id": "c50df2d8c8:139",
+      "source": "scattering albedo",
+      "translation": "scattering albedo（散射反照率）"
+    },
+    {
+      "item_id": "c50df2d8c8:149",
+      "source": "light filters",
+      "translation": "light filters（灯光滤镜）"
+    },
+    {
+      "item_id": "c50df2d8c8:151",
+      "source": "PxrMeshLight",
+      "translation": "PxrMeshLight"
+    },
+    {
+      "item_id": "c50df2d8c8:153",
+      "source": "Multiple Scattering",
+      "translation": "Multiple Scattering"
+    },
+    {
+      "item_id": "c50df2d8c8:156",
+      "source": ", since aggregate volumes always perform multiple scattering.",
+      "translation": "时，此参数无效，因为 aggregate volumes 总是执行 multiple scattering。"
+    },
+    {
+      "item_id": "c50df2d8c8:161",
+      "source": "). If the multiple scattering parameter is set to 0, and the integrator respects this hint, PxrVolume will only perform",
+      "translation": "）。如果 multiple scattering 参数设为 0，并且 integrator 遵循此提示，PxrVolume 将只执行"
+    },
+    {
+      "item_id": "c50df2d8c8:168",
+      "source": "Velocity and Motion Blur",
+      "translation": "Velocity and Motion Blur（速度与运动模糊）"
+    },
+    {
+      "item_id": "c50df2d8c8:170",
+      "source": "deformation motion-blurred volumes are enabled primarily using Bxdf controls",
+      "translation": "deformation motion-blur（变形运动模糊）体积主要使用 Bxdf controls 启用"
+    },
+    {
+      "item_id": "c50df2d8c8:176",
+      "source": "The following images were rendered using Eulerian motion blur, in conjunction with an OpenVDB file containing a velocity grid. The image on the left was rendered with no blur, while the image on the right has velocity supplied by a connection to the PxrPrimVar node reading a velocity grid from the file. The velocity has been exaggerated by a factor of 10. Note that this OpenVDB file (from",
+      "translation": "下列图像使用 Eulerian motion blur 渲染，并结合了一个包含 velocity grid 的 OpenVDB file。左图在没有 blur 的情况下渲染，右图则通过连接到 PxrPrimVar node 从文件读取 velocity grid 来提供 velocity。velocity 被夸大了 10 倍。注意，这个 OpenVDB file（来自"
+    },
+    {
+      "item_id": "c50df2d8c8:179",
+      "source": "Density Parameters",
+      "translation": "Density Parameters（密度参数）"
+    },
+    {
+      "item_id": "c50df2d8c8:180",
+      "source": "Extinction Distance",
+      "translation": "Extinction Distance"
+    },
+    {
+      "item_id": "c50df2d8c8:182",
+      "source": "Density Float PrimVar",
+      "translation": "Density Float PrimVar"
+    },
+    {
+      "item_id": "c50df2d8c8:183",
+      "source": "A primvar from the geometry which overrides the density float of the volume, unset by default. Setting this overrides the densityFloat input, and is more efficient than simply using a PxrPrimVar pattern connection.",
+      "translation": "来自几何体的 primvar，会覆盖体积的 density float，默认未设置。设置此项会覆盖 densityFloat input，并且比简单使用 PxrPrimVar pattern connection 更高效。"
+    },
+    {
+      "item_id": "c50df2d8c8:185",
+      "source": "Density Float",
+      "translation": "Density Float"
+    },
+    {
+      "item_id": "c50df2d8c8:190",
+      "source": "Density Color PrimVar",
+      "translation": "Density Color PrimVar"
+    },
+    {
+      "item_id": "c50df2d8c8:191",
+      "source": "A primvar from the geometry which overrides the density color of the volume, unset by default. Setting this overrides the densityColor input, and is more efficient than simply using a PxrPrimVar pattern connection.",
+      "translation": "来自几何体的 primvar，会覆盖体积的 density color，默认未设置。设置此项会覆盖 densityColor input，并且比简单使用 PxrPrimVar pattern connection 更高效。"
+    },
+    {
+      "item_id": "c50df2d8c8:193",
+      "source": "Density Color",
+      "translation": "Density Color"
+    },
+    {
+      "item_id": "c50df2d8c8:194",
+      "source": "The density of the volume directly controls how light is attenuated by the volume - i.e. it directly affects how the volume casts shadows. The density color parameter overrides the density float if the density color is changed from its default value. If you do not need colored shadows from the volume, then you should set the density float parameter and leave the density color parameter untouched; the volume will render more efficiently.",
+      "translation": "体积密度直接控制光如何被体积衰减，即直接影响体积如何投射 shadows（阴影）。如果 density color 从默认值改变，density color 参数会覆盖 density float。如果不需要来自体积的 colored shadows（彩色阴影），则应设置 density float 参数，并保持 density color 参数不变；这样体积渲染会更高效。"
+    },
+    {
+      "item_id": "c50df2d8c8:202",
+      "source": "Anisotropy Parameters",
+      "translation": "Anisotropy Parameters（各向异性参数）"
+    },
+    {
+      "item_id": "c50df2d8c8:203",
+      "source": "Primary Anisotropy",
+      "translation": "Primary Anisotropy"
+    },
+    {
+      "item_id": "c50df2d8c8:207",
+      "source": "Here are more examples at -0.8, 0.0, and 0.8 anisotropy for a multiple scattering volume.",
+      "translation": "这里是 multiple scattering 体积在 anisotropy 为 -0.8、0.0 和 0.8 时的更多示例。"
+    },
+    {
+      "item_id": "c50df2d8c8:208",
+      "source": "Secondary Anisotropy and Lobe Blend Factor",
+      "translation": "Secondary Anisotropy and Lobe Blend Factor（二级各向异性与瓣混合因子）"
+    },
+    {
+      "item_id": "c50df2d8c8:210",
+      "source": "From left to right: lobe blend factor set to 0, 0.5, and 1.0 for a single scattering volume with primary anisotropy = 0.0 and secondary anisotropy = 0.8. Note that the first and third images are essentially rendered using single anisotropic lobes.",
+      "translation": "从左到右：对于 primary anisotropy = 0.0、secondary anisotropy = 0.8 的单次散射体积，lobe blend factor 分别设为 0、0.5 和 1.0。注意，第一张和第三张图本质上使用单个 anisotropic lobe 渲染。"
+    },
+    {
+      "item_id": "c50df2d8c8:211",
+      "source": "From left to right: lobe blend factor set to 0, 0.5, and 1.0 for a multiple scattering volume with primary anisotropy = 0.0 and secondary anisotropy = 0.8. Note that the first and third images are essentially rendered using single anisotropic lobes.",
+      "translation": "从左到右：对于 primary anisotropy = 0.0、secondary anisotropy = 0.8 的 multiple scattering 体积，lobe blend factor 分别设为 0、0.5 和 1.0。注意，第一张和第三张图本质上使用单个 anisotropic lobe 渲染。"
+    },
+    {
+      "item_id": "c50df2d8c8:212",
+      "source": "Sampling Parameters",
+      "translation": "Sampling Parameters（采样参数）"
+    },
+    {
+      "item_id": "c50df2d8c8:216",
+      "source": "Equiangular Weight",
+      "translation": "Equiangular Weight"
+    },
+    {
+      "item_id": "c50df2d8c8:217",
+      "source": "Sets the probability of equiangular sampling being used instead of density sampling. Equiangular sampling improves the convergence of volumes close to light sources, while density sampling can be a better technique when dealing with volumes with dense or highly varying density. The default value of 0.5 means both techniques will be used equally and combined with multiple importance sampling. If the volumes are dense and far away from light sources then decreasing the equiangular weight may result in better convergence. This does not apply to multi-scatter volumes.",
+      "translation": "设置使用 equiangular sampling 而不是 density sampling 的概率。Equiangular sampling 可改善靠近光源的体积的收敛，而处理密集或密度高度变化的体积时，density sampling 可能是更好的技术。默认值 0.5 表示两种技术会同等使用，并通过 multiple importance sampling 组合。如果体积较密且远离光源，降低 equiangular weight 可能会改善收敛。此设置不适用于 multi-scatter volumes。"
+    },
+    {
+      "item_id": "c50df2d8c8:218",
+      "source": "min/max Samples",
+      "translation": "min/max Samples"
+    },
+    {
+      "item_id": "c50df2d8c8:220",
+      "source": "minSamples enforces a lower limit to sample, only valid with Single Scattering",
+      "translation": "minSamples 强制设置采样下限，仅在 Single Scattering 下有效"
+    },
+    {
+      "item_id": "c50df2d8c8:221",
+      "source": "maxSamples are the maximum limit per ray inside the Volume",
+      "translation": "maxSamples 是 Volume 内每条 ray 的最大限制"
+    },
+    {
+      "item_id": "c50df2d8c8:222",
+      "source": "Multiscatter Optimization",
+      "translation": "Multiscatter Optimization"
+    },
+    {
+      "item_id": "c50df2d8c8:223",
+      "source": "Multiscatter Optimization (Valid for PxrPathTracer)",
+      "translation": "Multiscatter Optimization (Valid for PxrPathTracer)（多重散射优化，适用于 PxrPathTracer）"
+    },
+    {
+      "item_id": "c50df2d8c8:225",
+      "source": "Extinction Multiplier",
+      "translation": "Extinction Multiplier"
+    },
+    {
+      "item_id": "c50df2d8c8:227",
+      "source": "Multiscatter",
+      "translation": "Multiscatter"
+    },
+    {
+      "item_id": "c50df2d8c8:229",
+      "source": "Contribution Multiplier",
+      "translation": "Contribution Multiplier"
+    },
+    {
+      "item_id": "c50df2d8c8:231",
+      "source": "Multiscatter",
+      "translation": "Multiscatter"
+    },
+    {
+      "item_id": "c50df2d8c8:233",
+      "source": "Using Meshlight",
+      "translation": "Using Meshlight（使用 Meshlight）"
+    },
+    {
+      "item_id": "c50df2d8c8:236",
+      "source": ". The PxrVolume material doesn't have a way to use a light filter so you can apply the",
+      "translation": "。PxrVolume material 无法使用 light filter，因此可以将"
+    },
+    {
+      "item_id": "c50df2d8c8:237",
+      "source": "PxrMeshlight",
+      "translation": "PxrMeshlight"
+    },
+    {
+      "item_id": "c50df2d8c8:238",
+      "source": "material to the volume object along with the PxrVolume for shading.",
+      "translation": "material 与用于 shading 的 PxrVolume 一起应用到 volume object 上。"
+    },
+    {
+      "item_id": "c50df2d8c8:243",
+      "source": "On the duplicate, assign a duplicate PxrVolume with the correct pattern connections to the original patterns you may be using to drive emission, density, etc",
+      "translation": "在副本上指定一个重复的 PxrVolume，并让它正确连接到原始 patterns；这些 patterns 可能用于驱动 emission、density 等"
+    },
+    {
+      "item_id": "c50df2d8c8:244",
+      "source": "Assign a PxrMeshlight to the volume using the DCC application options (SG Node, Material Builder, etc)",
+      "translation": "使用 DCC application options（SG Node、Material Builder 等）将 PxrMeshlight 指定给体积"
+    },
+    {
+      "item_id": "c50df2d8c8:245",
+      "source": "Hide this volume from indirect visibility, we only want the light contribution.",
+      "translation": "从 indirect visibility 中隐藏此体积，我们只需要 light contribution。"
+    },
+    {
+      "item_id": "c50df2d8c8:247",
+      "source": "Apply a light filter as needed to the duplicate volume with meshlight",
+      "translation": "按需将 light filter 应用于带有 meshlight 的副本体积"
+    },
+    {
+      "item_id": "c50df2d8c8:249",
+      "source": "Using Light Source",
+      "translation": "Using Light Source（使用 Light Source）"
+    },
+    {
+      "item_id": "c50df2d8c8:254",
+      "source": "above workflow",
+      "translation": "above workflow（上述工作流）"
+    },
+    {
+      "item_id": "c50df2d8c8:257",
+      "source": "PxrVolume also writes to the U2 user lobe as \"DiffuseAlbedo\"",
+      "translation": "PxrVolume 还会写入 U2 user lobe，名称为 “DiffuseAlbedo”"
+    }
+  ]
+}

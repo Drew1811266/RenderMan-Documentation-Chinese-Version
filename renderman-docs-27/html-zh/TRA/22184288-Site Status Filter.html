@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Site Status Filter</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Site Status Filter</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/TRA/22184288/Site+Status+Filter">https://rmanwiki-27.pixar.com/space/TRA/22184288/Site+Status+Filter</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<h3 id="SiteStatusFilter-Overview">概览</h3><p>站点可以通过 TractorSiteStatusFilter.py 中定义的类扩展 blade 的功能。自定义内容包括：</p><ul><li><p>添加用于判断 blade 是否已准备好请求更多工作的指标，</p></li><li><p>响应命令启动、启动失败、完成和错误等事件，以及</p></li><li><p>响应命令输出中的模式，例如抑制冗长输出，或由于发出警告而提前终止命令。<br/> </p></li></ul><h3 id="SiteStatusFilter-Installation">安装</h3><p>TractorSiteStatusFilter.py 必须安装在 blade 可见的目录中，理想情况下是 blade.config 中由 SiteModulesPath 定义的目录。</p><p>首先，从 Tractor 安装目录将 lib/python2.7/site-packages/tractor/apps/blade/TractorSiteStatusFilter.py 复制到 SiteModulesPath 目录。</p><p>请注意，需要重新加载 blade.config，blade 才能反映对 SiteModulesPath 或 TractorSiteStatusFilter.py 的更改。<br/> </p><h3 id="SiteStatusFilter-Scenario:NewMetrics">场景：新指标</h3><p>可以通过覆盖 FilterBasicState() 和 TestBasicState() 方法，使用新的指标来判断 blade 执行工作的能力。在下面的示例中， <a class="external-link" href="http://www.example.com" rel="nofollow">www.example.com</a> 可能表示 license server（许可证服务器）等资源；在 blade 考虑请求工作之前，需要能够访问该资源。</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="6e16ae5c-ccb7-45ce-8b44-ce47ff70e2e9" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">def FilterBasicState(self, stateDict, now):
+    if stateDict is not None:
+        rcode = os.system(&quot;ping -q -t 1 -c 1 www.example.com &gt;&amp; /dev/null&quot;)
+        stateDict[&quot;server_reachable&quot;] = (rcode == 0)
+    self.super.FilterBasicState(stateDict, now)
+
+def TestBasicState(self, stateDict, now):
+    if stateDict is not None and not stateDict.get(&quot;server_reachable&quot;):
+        return False
+    return self.super.TestBasicState(stateDict, now)</pre>
+</div></div><h3 id="SiteStatusFilter-Scenario:LoggingErrors">场景：记录错误</h3><p>可以通过覆盖 SubprocessEnded() 来维护一份单独的出错进程日志。</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="6bdf526f-b7ac-489d-a47d-28567be46a1e" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">def SubprocessEnded(self, cmd):
+    if cmd.exitcode:
+        with open(&quot;/tmp/errors.log&quot;, &quot;a&quot;) as f:
+            f.write(&quot;process %d errored with exit code %d\n&quot; % (cmd.pid, cmd.exitcode))
+    self.super.SubprocessEnded(cmd)</pre>
+</div></div><p /><h3 id="SiteStatusFilter-Scenario:EarlyProcessTermination">场景：提前终止进程</h3><p>blade 会针对进程输出的每一行调用 FilterSubprocessOutputLine()。</p><p>在此示例中，任何发出以 R10007 开头的行的 prman 进程都会立即终止。可以修改该逻辑以检查其他应用程序的输出、查找其他模式并执行其他操作。请注意，未匹配的情况应交由超类的 FilterSubprocessOutputLine() 处理。</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="cf2688d3-17ea-492d-aaef-f9d5e5c0b8be" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">def FilterSubprocessOutputLine (self, cmd, textline):
+    '''
+    Return a 2-tuple giving a disposition code and a value.
+    The pass-through result would be:  (self.TR_LOG_TEXT_EMIT, textline)
+    '''
+    if &quot;prman&quot; == cmd.app and textline.startswith(&quot;R10007&quot;):
+        # example:  immediately fail on prman warning number &quot;R10007&quot;
+        return (self.TR_LOG_FATAL_CODE, 10007, textline)
+    else:
+        # otherwise defer to the usual built-in filters
+        return self.super.FilterSubprocessOutputLine( cmd, textline )</pre>
+</div></div>
+  </article>
+</main>
+</body>
+</html>

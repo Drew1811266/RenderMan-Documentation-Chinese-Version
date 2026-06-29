@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Preset Browser in Solaris</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Preset Browser in Solaris</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFH27/544640927/Preset+Browser+in+Solaris">https://rmanwiki-27.pixar.com/space/RFH27/544640927/Preset+Browser+in+Solaris</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>Artists（艺术家）可以使用 RenderMan 的 Preset Browser，在不同 DCCs 和部门之间保存并共享 materials（材质）、dome lights（穹顶灯）和 light rigs（灯光装置）。</p><p>Preset Browser 可在 Solaris context（Solaris 上下文）中使用，并可在 RenderMan → Preset Browser 下找到。</p><p><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/544640927/RenderMan_PresetManager.gif" data-image-src="../../attachments/544640927/RenderMan_PresetManager.gif" data-unresolved-comment-count="0" data-linked-resource-id="544640951" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_PresetManager.gif" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/gif" data-linked-resource-container-id="544640927" data-linked-resource-container-version="1" data-media-id="e2343cf3-180b-4c4c-a422-71c8e180850b" data-media-type="file"></span></p><p><br/></p><hr/><h3 id="PresetBrowserinSolaris-LoadingHDRIs"><strong>Loading HDRIs（加载 HDRI）</strong></h3><p>Environment maps（环境贴图）可以很容易加载到现有 domelight 节点中：先选择要附加贴图的 domelight 节点，然后选择 <em>Import and Assign to Selected（导入并分配给选中项）</em></p><p>如果没有选择 domelight 节点时选择 Import，会自动创建一个 domelight 节点，并分配选中的 environment map（环境贴图）。<br/><em><br/><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/544640927/RenderMan_Solaris_PresetBrowser_AssignHDRI.jpg" data-image-src="../../attachments/544640927/RenderMan_Solaris_PresetBrowser_AssignHDRI.jpg" data-unresolved-comment-count="0" data-linked-resource-id="544640945" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Solaris_PresetBrowser_AssignHDRI.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544640927" data-linked-resource-container-version="1" data-media-id="1b63516c-b6b8-4b17-8067-33bacbacd578" data-media-type="file"></span><br/><br/></em></p><hr/><h3 id="PresetBrowserinSolaris-LoadingMaterials"><span style="font-size: 16.0px;font-weight: bold;letter-spacing: -0.006em;">Loading Materials（加载材质）</span></h3><p>如果已有一个 Solaris Material Library 节点，并希望把 preset material（预设材质）加载进去，只需选择 <em>materiallibrary </em>节点，然后选择 Import into Selected Material Library。  <br/>这会将选中的 material preset（材质预设）导入到选中的 Material Library 中。<br/><br/>如果 <em>materiallibrary </em>节点未被选择或不存在，可以选择 Import 或 Import and Assign to Selected，该 preset 会被加载到新创建的 Material Library 中。<br/><br/><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/544640927/RenderMan_Solaris_PresetBrowser_AssignMaterial.JPG" data-image-src="../../attachments/544640927/RenderMan_Solaris_PresetBrowser_AssignMaterial.JPG" data-unresolved-comment-count="0" data-linked-resource-id="544640942" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Solaris_PresetBrowser_AssignMaterial.JPG" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544640927" data-linked-resource-container-version="1" data-media-id="5c8f1236-2d23-4060-a100-abfc04debed0" data-media-type="file"></span><br/><br/></p><hr/><h3 id="PresetBrowserinSolaris-SavingMaterials"><span style="font-size: 16.0px;font-weight: bold;letter-spacing: -0.006em;">Saving Materials（保存材质） </span></h3><p>目前 Solaris 中有一个限制：从选中的 <em>materiallibrary</em>中只会导出一个材质。  <br/><br/>只需选择 <em>materiallibrary </em>节点，然后点击 Preset Browser 中的新建材质图标。<br/><br/><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/544640927/RenderMan_Solaris_SavePresets.png" data-image-src="../../attachments/544640927/RenderMan_Solaris_SavePresets.png" data-unresolved-comment-count="0" data-linked-resource-id="544640939" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Solaris_SavePresets.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544640927" data-linked-resource-container-version="1" data-media-id="e207a922-f26d-4b52-b9be-97f67966a95f" data-media-type="file"></span><br/><br/><br/></p><hr/><p><br/><br/></p><p><br/><br/><br/><br/></p><p><br/></p>
+  </article>
+</main>
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PxrDisplace</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>PxrDisplace</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/REN27/542221096/PxrDisplace">https://rmanwiki-27.pixar.com/space/REN27/542221096/PxrDisplace</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="contentLayout2">
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p>This is a displacement plugin that displaces the surface point P in the current space (typically object space). It supports both scalar and vector inputs. It sums up all the connected scalar and vector inputs before it does the actual displacement. </p><p>All <strong>displacement transform-related</strong> functions are in <a href="542223359-PxrDispTransform.html" rel="nofollow">PxrDispTransform</a> pattern. </p><p>All <strong>displacement layering function</strong> are <a href="542223338-PxrDispScalarLayer.html" rel="nofollow">PxrDispScalarLayer</a> and <a href="542223392-PxrDispVectorLayer.html" rel="nofollow">PxrDispVectorLayer</a> pattern. </p><p>Instead of including all the functions in one big displacement plugin, this modular design separates the transform and layering, providing more flexibility and efficiency for supporting different production displacement workflows.</p><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="af0aa541-e678-4659-9813-840cbfcb2638" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>You need to set your displacement bound in order to see displacement. For performance reasons, one is not always set by default. Use small values at first, if you have clipping, increase the value slowly.</p></div></div><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="bf82ae17-7b06-45ed-b996-43e71a63a82b" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>To match Displacement from the previous version of RenderMan, the following conversion may be of use:</p><p>To get a similar tessellation level, using a shading rate (deprecated) value of X would translate in using a micropolygonlength value of sqrt(X):</p><p>shading rate = 0.25, micropolygonlength = 0.5<br />shading rate = 1, micropolygonlength = 1<br />shading rate = 4, micropolygonlength = 2</p></div></div><h3 id="PxrDisplace-DisplacementSpace">Displacement Space</h3><p>We offer two rendering spaces for specifying displacement, world and object space. These are specified in the <a href="542223359-PxrDispTransform.html" rel="nofollow">PxrDispTransform</a> node but explained here.</p><p>By default, RenderMan will displace in Object space. This is typically desired for sculpted models. But for some objects, this can result in discontinuities. For example, a set of objects displaced together like a set of planes made into an environment piece. In object space, these may result in gaps or discontinuity between patches like below.<br/><br/></p><span class="confluence-embedded-file-wrapper image-center-wrapper"><img class="confluence-embedded-image image-center" loading="lazy" src="../../attachments/542221096/groundplanes_objectspace.jpg" data-image-src="../../attachments/542221096/groundplanes_objectspace.jpg" data-height="512" data-width="1024" data-unresolved-comment-count="0" data-linked-resource-id="542221131" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="groundplanes_objectspace.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542221096" data-linked-resource-container-version="1" data-media-id="4b70ec3e-3b71-402f-aedc-238ade2cc5bb" data-media-type="file"></span><p>To correct for this particular scenario, you can select World Space to achieve the result below using the same eight patches. This will solve issues like ocean planes, cliffs, and rocks, where displacement is shared across the shapes.<br/><br/><br/></p><span class="confluence-embedded-file-wrapper image-center-wrapper"><img class="confluence-embedded-image image-center" loading="lazy" src="../../attachments/542221096/groundplanes_worldspace.jpg" data-image-src="../../attachments/542221096/groundplanes_worldspace.jpg" data-height="512" data-width="1024" data-unresolved-comment-count="0" data-linked-resource-id="542221128" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="groundplanes_worldspace.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542221096" data-linked-resource-container-version="1" data-media-id="1628d272-2d32-496a-9fef-68e93dcdbeb7" data-media-type="file"></span><h3 id="PxrDisplace-DisplacementTypes"><br/>Displacement Types</h3><p>There are two types of displacement, scalar and vector: The source of both types of displacement can be procedural or textured.</p><ul><li><p>Scalar displacement is a float displacement. It has only one float value. Thus it displaces P either up or down.</p></li><li><p>Vector displacement displaces P in all three dimensions, XYZ.</p></li></ul><p>The examples below show using the same source of displacement values yield different result using the scalar (using a float, e.g. resultF, resultR, ...) vs vector displacement (using a vector, e.g.  resultRGB, resultXYZ).</p></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-right-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-right" alt="pxrdisplace_proc_scalar.png" width="406" loading="lazy" src="../../attachments/542221096/pxrdisplace_proc_scalar.png" data-image-src="../../attachments/542221096/pxrdisplace_proc_scalar.png" data-height="245" data-width="406" data-unresolved-comment-count="0" data-linked-resource-id="542221125" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrdisplace_proc_scalar.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542221096" data-linked-resource-container-version="1" data-media-id="83ec7407-7129-4718-a528-930af237f58c" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" alt="pxrdisplace_proc_vector.png" width="400" loading="lazy" src="../../attachments/542221096/pxrdisplace_proc_vector.png" data-image-src="../../attachments/542221096/pxrdisplace_proc_vector.png" data-height="244" data-width="400" data-unresolved-comment-count="0" data-linked-resource-id="542221122" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrdisplace_proc_vector.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542221096" data-linked-resource-container-version="1" data-media-id="9a3d6e47-ad49-4ad3-a83d-5212941bfeb8" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-right-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-right" alt="pxrdisplace_texture_scalar.png" width="404" loading="lazy" src="../../attachments/542221096/pxrdisplace_texture_scalar.png" data-image-src="../../attachments/542221096/pxrdisplace_texture_scalar.png" data-height="245" data-width="404" data-unresolved-comment-count="0" data-linked-resource-id="542221119" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrdisplace_texture_scalar.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542221096" data-linked-resource-container-version="1" data-media-id="6a0b42fa-cf53-4aa6-8b79-bfd6f3320000" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" alt="pxrdisplace_texture_vector.png" width="400" loading="lazy" src="../../attachments/542221096/pxrdisplace_texture_vector.png" data-image-src="../../attachments/542221096/pxrdisplace_texture_vector.png" data-height="243" data-width="400" data-unresolved-comment-count="0" data-linked-resource-id="542221116" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrdisplace_texture_vector.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542221096" data-linked-resource-container-version="1" data-media-id="f47eabf6-fe4c-4bd7-807d-02cfeed03cfe" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h3 id="PxrDisplace-InputParameters">Input Parameters</h3><h4 id="PxrDisplace-Enabled">Enabled</h4><p>If checked, displacement is enabled. This is useful for debugging where we sometimes want to turn off displacement.</p><h4 id="PxrDisplace-Gain">Gain</h4><p>Gain for the displacement. If it is zero, there will be no displacement. Higher amounts create larger displacement. Be aware this may cause problems if it exceeds the set Displacement Bounds and it will print a warning at render time.</p><h4 id="PxrDisplace-ScalarDisplacement">Scalar Displacement</h4><p>Scalar displacement input. This is a float displacement. We can connect this to a <a href="542225070-PxrTexture.html" rel="nofollow">PxrTexture</a> pattern node or any float pattern node. </p><h4 id="PxrDisplace-VectorDisplacement">Vector Displacement</h4><p>Vector displacement input. Vector displacement data is a three-channel data file,  XYZ. We can connect this to a <a href="542225070-PxrTexture.html" rel="nofollow">PxrTexture</a> pattern node or any pattern node that outputs a vector or color.</p><h4 id="PxrDisplace-ModelDisplacement">Model Displacement</h4><p>Model Displacement is a vector displacement for the model. This is added to the Vector Displacement above.</p><p>It is not uncommon where the modeler sculpts the model with either Mudbox or ZBrush. Then the shading artist look develops it by procedurally creating the vector displacement for more details.  So providing both Model Displacement and Vector Displacement allows this flexible workflow.</p><p><br/></p><h3 id="PxrDisplace-Hintsonperformance:">Hints on performance:</h3><p>Should you need better quality from the render camera (at the correct location for your final frame) you may decrease the size of the polygons by using Micropolygon Length and reducing this number slowly (decreasing the size of the resulting polygons for finer details).</p><p>Always use the smallest bounding box setting that produces the correct and full displacement.</p></div>
+</div>
+</div>
+</div>
+  </article>
+</main>
+</body>
+</html>

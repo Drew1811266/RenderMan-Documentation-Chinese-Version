@@ -1,0 +1,26 @@
+{"item_id":"3821e3b667:0","text":"Modeling（建模）"}
+{"item_id":"3821e3b667:1","text":"创建资产时，必须理解哪些对象属于特定类别，并据此为它们建模相应的细节层级："}
+{"item_id":"3821e3b667:2","text":"Hero assets（主角级资产）"}
+{"item_id":"3821e3b667:3","text":"例如主要角色，以及镜头或故事中的视觉焦点。"}
+{"item_id":"3821e3b667:4","text":"Set assets（场景资产与布景对象）"}
+{"item_id":"3821e3b667:5","text":"这些资产可能会根据它们在场景中的位置拥有不同细节级别。近景物体可能需要更多细节。"}
+{"item_id":"3821e3b667:6","text":"Props（道具）"}
+{"item_id":"3821e3b667:7","text":"这类对象通常会尽量保持简单。你会惊讶于优秀的 texturing 能把低细节资产提升到相当不错的观感。"}
+{"item_id":"3821e3b667:8","text":"RenderMan 被设计为在可能的情况下渲染 subdivision surfaces"}
+{"item_id":"3821e3b667:9","text":"，尤其适用于动画角色和 hero objects。这可以减少潜在撕裂，并改善近距离观看的角色和有机物体外观。在使用 displacement 时，这通常也是很好的选择。"}
+{"item_id":"3821e3b667:10","text":"Polygons 在 displacement 后容易分离，因此应转换为 Subdivision Surface。"}
+{"item_id":"3821e3b667:11","text":"为 Subdivision Surfaces 建模时，请记住以下事项，以获得想要的形状，同时不破坏性能："}
+{"item_id":"3821e3b667:12","text":"使用默认 Catmull-Clark 方案转换为 Subdivision Mesh 时，为避免过度 dicing，请只使用 quads。这意味着所有面都应为四边形。避免 triangles 和 N-sided faces。"}
+{"item_id":"3821e3b667:13","text":"在 base mesh 中只建模必需的最低限度细节，使细分后的表面形状正确即可，不要过度添加。"}
+{"item_id":"3821e3b667:14","text":"尽量减少 creased edges；它们可能代价较高。"}
+{"item_id":"3821e3b667:15","text":"利用更高的 micropolygonlength 设置。它会提供自动 level-of-detail，数值越高越粗糙，但仍可能足以获得良好效果。合理的制作质量可以尝试 1.5 到 3 之间的设置。（注意，如果它过于粗糙，尤其是在边缘附近会产生 shading artifacts，此时应缓慢降低该值。任何小于 1 的数值都是"}
+{"item_id":"3821e3b667:16","text":"非常高"}
+{"item_id":"3821e3b667:17","text":"的质量。）"}
+{"item_id":"3821e3b667:18","text":"Polygons 对任何带有 hard normals 的对象也很有用，例如许多无机物体的分面表面：建筑、道具、布景件等。近距离渲染时，你可以软化这些 normals，或添加更多建模细节让它看起来更好，但要注意，如果处理不足，shading 过程中可能出现 silhouette artifacts。"}
+{"item_id":"3821e3b667:19","text":"尽管有这些注意事项，背景和道具对象使用 polygons 仍能很好地渲染，并且性能相当不错。这些对象通常不会发生变形，而且在场景中数量很多。"}
+{"item_id":"3821e3b667:20","text":"把这些对象都做成 subdivision surfaces，可能会让内存占用膨胀，而视觉收益很小。"}
+{"item_id":"3821e3b667:21","text":"在 polygons 上优先使用 bump mapping 而不是 displacement；如果确实需要 displacement，则将它们转换为 subdivision surfaces。"}
+{"item_id":"3821e3b667:22","text":"布局 UVs 时，避免重叠 UVs，并注意带有翻转边的 UV shells，因为这可能在 displacement 时产生 artifacts，或在渲染期间触发警告。"}
+{"item_id":"3821e3b667:23","text":"我们的 texture caching 机制可以在场景中填充高质量纹理细节和 look，但整场景中用于光线追踪的几何体必须驻留在内存中。只要谨慎选择建模方式，你就能在场景中放入相当多的内容，并一次渲染大量纹理，规模可达许多 GB。"}
+{"item_id":"3821e3b667:24","text":"Next Steps（下一步）"}
+{"item_id":"3821e3b667:25","text":"现在你已经了解了建模最佳实践，以及 RenderMan 如何在渲染时细分几何体，接下来让我们介绍 PxrSurface。"}

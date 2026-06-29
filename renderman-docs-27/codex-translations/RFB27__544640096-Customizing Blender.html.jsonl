@@ -1,0 +1,36 @@
+{"id":"1bf678022ad7d257606497f63e3d6b185e738c65d44dd670aa2425d9bdb6da6e","item_id":"3c44f9c594:0","text":"RenderMan for Blender（RfB）的许多方面都可以通过 JSON（.json 文件）自定义，例如默认值和标签。"}
+{"id":"1124ecc667c5f22e3a6d6275c661d4c5f6fe66bc74ccc278a00ea0cccd8d3a5b","item_id":"3c44f9c594:1","text":"Environment Variables（环境变量）"}
+{"id":"e86e64cb31d53c85a4c0789e1a90fe9f4259716012115ccc605ad50a1f15058e","item_id":"3c44f9c594:2","text":"可以使用 rfb_envvars.json 文件设置环境变量。该文件会在启动时从用户的 config directory（配置目录）自动读取（参见："}
+{"id":"65dbfd3abf84e4f7129cb2bfa505a74dc77f40b7c1e40d5079742b2859a2d630","item_id":"3c44f9c594:3","text":"Blender 文档"}
+{"id":"91c041e3509a0bc78e612c64e93513b0f8e6477d348e640756e230d24d21da7c","item_id":"3c44f9c594:4","text":"）。注意，此方法不能用于设置任何标准 Blender 环境变量，包括 OCIO。"}
+{"id":"834176b0ec513336ab1a22d0ff55db3f87dde68bb0cb37367014a53e4854604c","item_id":"3c44f9c594:5","text":"文件格式示例："}
+{"id":"9f088dbebd6c3c70a5ddbc2c943b11e4ca9acea5757b0b4f2b32479f0dbb747e","item_id":"3c44f9c594:6","text":"高级"}
+{"id":"0a2ae1b6277262e56c13573c8c76603b0884b2f3b4e82cb07a93807e3ee5faba","item_id":"3c44f9c594:7","text":"：如果希望 RfB 忽略 rfb_envvars.json，请将环境变量 RFB_IGNORE_ENVVARS_JSON 设置为 1"}
+{"id":"eb0419fc4a1bbbd655e81c684a4ac2d2f17a8e2139a1ec9c63816f1be1e0a98f","item_id":"3c44f9c594:8","text":"Configuration Paths（配置路径）"}
+{"id":"3fa69a951f31b36fc9294d244598d743c77ce81f8057568a30180220f329be3a","item_id":"3c44f9c594:9","text":"为了查找配置 JSON 文件，RfB 会按以下顺序检查环境变量："}
+{"id":"742b7e4065ff4a729b6bf1ff65a35826e381ddb856b8b734b530247e778bbc61","item_id":"3c44f9c594:10","text":"RFB_SITE_PATH"}
+{"id":"e4aa96e015614c511e597b1a2b3e6e6b8fd9cebb3eb94b39c3abf82618c0c0a1","item_id":"3c44f9c594:11","text":"RFB_SHOW_PATH"}
+{"id":"ef734cea50c2eb7eef20ae7b0acaeaeab65a50d605b90274de1216b625547247","item_id":"3c44f9c594:12","text":"RFB_USER_PATH"}
+{"id":"1effc662d2709593d953d6b1cf6be8fa766f82ebaf5f0d4083b56b96b5c2d5b0","item_id":"3c44f9c594:13","text":"每个环境变量也可以包含多个以冒号分隔的路径（在 Windows 上，这些路径以分号分隔）。"}
+{"id":"2401421ea73880c929b3b2f79823d4ace806e8fcf811e0272d985e590d5db9c5","item_id":"3c44f9c594:14","text":"也可以在 RenderMan for Blender preferences（首选项）的 Advanced（高级）区段下指定配置路径（需要重启）。"}
+{"id":"e7dd4ed814a6b34e698b0ef3761556d6720065ffaaec3cf2e023dca52f538ef2","item_id":"3c44f9c594:15","text":"rfb.json"}
+{"id":"1dfd6b363acd033231e81010b7d56f4b456b8523b6015a8d8f058660ab810c02","item_id":"3c44f9c594:16","text":"这个 JSON 文件用于配置某些设置，例如站点的 Tractor engine configuration（Tractor 引擎配置）、目录映射，或添加额外的用户 token。下面是一个示例："}
+{"id":"b4838c6dde194a03b2268aa0c7a6b4b62784cf3d85bb9361a2cc6835995678b8","item_id":"3c44f9c594:17","text":"Configuring Panel Properties（配置面板属性）"}
+{"id":"03b3a06b1a79bdb7097e9c870b941b5db63e25df5fe40e3dcabec2181ec89268","item_id":"3c44f9c594:18","text":"某些 RenderMan 面板中的属性可以配置为使用不同的默认值。下面是一个示例。"}
+{"id":"340d43ca695e39570be97950d4d4c3b8eeb8695b2137b9b20651793793a83af5","item_id":"3c44f9c594:19","text":"\"name\" 应该是我们希望覆盖的配置名称（在此例中是 scene properties，场景属性）。\"params\" 应该跟在 name 后面。在示例中，第一个属性是已有属性，我们覆盖了 label（标签）、default（默认值）和 description（描述）。如果要添加新属性，还需要指定该属性应绘制在哪个面板中；在此例中，我们希望把它添加到场景的 custom options（自定义选项）面板。这个示例还展示了如何添加 RenderMan 用户选项。注意，在这种情况下，JSON 文件本身的名称并不重要；只要第一个 \"name\" 与已知配置匹配即可生效。应用上面的覆盖后，结果应如下所示："}
+{"id":"6a18a80e3dbd6fc55642c774be4de7900c32c6e6071e1942ca8623af5b1b3221","item_id":"3c44f9c594:20","text":"可以看到，Motion Blur 的标签及其默认值都已更改。Custom Options 下还新增了一个 FooBar 用户选项。"}
+{"id":"c121a15ac94230f382fcd92d7ba3ae43166c3bfada530e47e9c193bf12dfe038","item_id":"3c44f9c594:21","text":"要获取可配置面板列表，可以在 Blender 的 Python console（Python 控制台）中运行以下代码："}
+{"id":"9a44562b1c01dcff9f4d8092b7b121d886784889557f3f024465fe5e0714e097","item_id":"3c44f9c594:22","text":"Shader Defaults（着色器默认值）"}
+{"id":"2e8932d594dca7c9d5637c37c0452d0255786892a758ea182fb3a9d44aa506f5","item_id":"3c44f9c594:23","text":"还可以覆盖任意 RenderMan shader（着色器）的默认值（bxdf、patterns 等）。下面是覆盖 PxrEnvDayLight 参数的示例："}
+{"id":"55262802e0ecc375182a36e70e9873de39b543ebea3269e75d287616d8bf0807","item_id":"3c44f9c594:24","text":"在这个例子中，我们希望更改 sunDirection 的默认值，使其默认指向 Z 方向上方。\"name\" 应该是要覆盖的 Args 文件名称（也可以是 OSL shader 的名称），后面跟随要配置的参数。注意，在这种情况下，JSON 文件本身的名称并不重要；只要第一个 \"name\" 与已知 shader Args 文件匹配即可生效。"}
+{"id":"fb2e63905fb23e00bd691122ec68b83f6663b9514609cde084ad4a4fbfab252c","item_id":"3c44f9c594:25","text":"Display Channels（显示通道）"}
+{"id":"b15a21f059f4ec60df089866f9f9e49793ef1c4cc313d4528dc128258e7f0f37","item_id":"3c44f9c594:26","text":"最后，还可以添加可在 AOV 中使用的 custom display channels（自定义显示通道）。注意，这个 JSON 文件的名称"}
+{"id":"961eb43699731759fd0d04f177bb24f09971bddd41426702276e761269d0a5b9","item_id":"3c44f9c594:27","text":"确实"}
+{"id":"0a2b5f3cf6b322c96dac4a5f0de97e544908b1ed7bbabd1e93bb1a27acea8c1c","item_id":"3c44f9c594:28","text":"重要；它必须命名为："}
+{"id":"48c6be32b52d11fcd150b7a2781bfbd919d5dd677d81caacf09eef71de2a4f8f","item_id":"3c44f9c594:29","text":"rman_dspychan_definitions.json。"}
+{"id":"11ed2d9644dbfc3a3a753b68466ebd4bed73bf9e3d89d8268b77a553adba98c7","item_id":"3c44f9c594:30","text":"下面是添加名为 MyAOV 的新 channel（通道）的示例。"}
+{"id":"7d97d0b0156e671be744ce4f2a365fb084d549d56325ad5e356808add8008de4","item_id":"3c44f9c594:31","text":"Custom Shaders（自定义着色器）"}
+{"id":"cc9cf0acb49ca2c4b1138b5f6b1d5982e4ec890cb3409bd42d6a16a6dd0ef4c5","item_id":"3c44f9c594:32","text":"还可以使用环境变量 RMAN_SHADERPATH 添加自己的 custom shaders（自定义着色器，适用于 OSL shaders），并使用 RMAN_RIXPLUGINPATH 添加 C++ 着色器。对于后者，还需要配套的 Args 文件。"}
+{"id":"05d0c789aafa03fa87c0b75f20050ae46630d0621f928dffb17dd39f474d779d","item_id":"3c44f9c594:33","text":"Other Examples（其他示例）"}
+{"id":"07a22e58289b3dd964d93c8c6aecd02f7b71cf1b3f6831c8c72a0c591d082d9b","item_id":"3c44f9c594:34","text":"还可以在 Blender 的 Text Editor（文本编辑器）中查看一些其他 JSON 配置文件示例"}
+{"id":"156fba6130558e5385f19bf92196617487da1de6a86a42c87f5e488bf52d956f","item_id":"3c44f9c594:35","text":"，位置在 Templates 菜单下。"}

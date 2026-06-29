@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rendering in Katana</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Rendering in Katana</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFK27/546178966/Rendering+in+Katana">https://rmanwiki-27.pixar.com/space/RFK27/546178966/Rendering+in+Katana</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="contentLayout2">
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="704" loading="lazy" src="../../attachments/546178966/GalleonInBottle_Lama_shot03.jpg" data-image-src="../../attachments/546178966/GalleonInBottle_Lama_shot03.jpg" data-height="1280" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="546179002" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="GalleonInBottle_Lama_shot03.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="546178966" data-linked-resource-container-version="1" data-media-id="230d2894-4b99-46ca-9ca7-a62df7626803" data-media-type="file"></span><p /></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Halo_02_MPC_Viewport.jpg" width="686" loading="lazy" src="../../attachments/546178966/Halo_02_MPC_Viewport.jpg" data-image-src="../../attachments/546178966/Halo_02_MPC_Viewport.jpg" data-height="601" data-width="1068" data-unresolved-comment-count="0" data-linked-resource-id="546179014" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Halo_02_MPC_Viewport.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="546178966" data-linked-resource-container-version="1" data-media-id="4297af09-8c85-462f-b787-52de1e9b1223" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Halo_02_MPC_Render.jpg" width="686" loading="lazy" src="../../attachments/546178966/Halo_02_MPC_Render.jpg" data-image-src="../../attachments/546178966/Halo_02_MPC_Render.jpg" data-height="601" data-width="1068" data-unresolved-comment-count="0" data-linked-resource-id="546179011" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Halo_02_MPC_Render.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="546178966" data-linked-resource-container-version="1" data-media-id="228be27c-620e-44db-b217-0d564475cce9" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p style="text-align: center;">Halo © Paramount+</p><p /><p>There are many parts to rendering your completed scene. From handling quality to choosing the appropriate outputs for later compositing, this section handles all of those topics.</p><h3 id="RenderinginKatana-Quality">Quality</h3><p>To understand how noise removal and anti-aliasing works, we describe <a class="external-link" href="https://rmanwiki.pixar.com/display/REN26/Sampling+Modes" rel="nofollow">Sampling</a> and <a class="external-link" href="https://rmanwiki.pixar.com/display/REN26/Filtering" rel="nofollow">Filtering</a> for users. This is where the bulk of your tuning may happen and it's important to understand the balance between quality and performance.</p><h3 id="RenderinginKatana-TraceDepth">Trace Depth</h3><p>Controlling trace depth can alter the look and performance of your scene. Different integrators also handle these settings differently. RenderMan makes tuning of these parameters easy to achieve your required look within your resource constraints.</p><h3 id="RenderinginKatana-InteractiveRenderingandCheckpointing">Interactive Rendering and Checkpointing</h3><p>Progressive/<a class="external-link" href="https://rmanwiki.pixar.com/display/REN26/Interactive+Rendering" rel="nofollow">Interactive</a> Rendering makes easy work of tuning your scene materials and lights. <a class="external-link" href="https://rmanwiki.pixar.com/display/REN26/Checkpointing+and+Recovery" rel="nofollow">Checkpointing</a> and Recovery takes this progressive feature and extends it to final renders where you can create save points in your renders as they refine. You can use these for faster approval of incomplete frames and continue where you left off without wasting precious CPU cycles!</p><h3 id="RenderinginKatana-Diagnostics">Diagnostics</h3><p>RenderMan <a class="external-link" href="https://rmanwiki.pixar.com/display/REN26/Statistics+and+Diagnostics" rel="nofollow">diagnostics</a> helps you visualize your scene performance in an easy to read display. Sometimes it may not be clear where your scene is spending the most time or resources, but our diagnostic output will help you pinpoint even the most obscure performance information.</p><h3 id="RenderinginKatana-HoldoutsandOutputs">Holdouts and Outputs</h3><p><a class="external-link" href="https://rmanwiki.pixar.com/display/REN26/Holdouts" rel="nofollow">Holdout</a> workflow is essential for integration of CG objects into live action plates. In some applications this is as simple as a button click! To improve compositing integration and even fully rendered shots, RenderMan makes use of powerful <a class="external-link" href="https://rmanwiki.pixar.com/display/REN26/Outputs" rel="nofollow">outputs</a> to make adjustments in compositing easier and powerful with ultimate flexibility.</p><h3 id="RenderinginKatana-Baking">Baking</h3><p>Reusing certain data in rendering can simplify asset management as well as improve rendering efficiency. <a class="external-link" href="https://rmanwiki.pixar.com/display/REN26/Baking" rel="nofollow">Baking</a> provides ways to bake to a 2D or point cloud output.</p><h3 id="RenderinginKatana-NestedDielectrics">Nested Dielectrics</h3><p>When rendering surfaces that interact with one another, especially transparent/refractive ones, it's important to understand the <a class="external-link" href="https://rmanwiki.pixar.com/display/REN26/Nested+Dielectrics" rel="nofollow">Intersect Priority</a> settings. Intersect priority allows users to simply add attributes to get the correct refractions without tedious modeling to solve the problem.</p><p /></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="GalleonInBottle_Lama_shot01.jpg" width="686" loading="lazy" src="../../attachments/546178966/GalleonInBottle_Lama_shot01.jpg" data-image-src="../../attachments/546178966/GalleonInBottle_Lama_shot01.jpg" data-height="1500" data-width="1500" data-unresolved-comment-count="0" data-linked-resource-id="546179008" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="GalleonInBottle_Lama_shot01.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="546178966" data-linked-resource-container-version="1" data-media-id="b248a6d0-2e18-48f1-978a-1975e30ced6a" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="GalleonInBottle_Lama_shot02.jpg" width="686" loading="lazy" src="../../attachments/546178966/GalleonInBottle_Lama_shot02.jpg" data-image-src="../../attachments/546178966/GalleonInBottle_Lama_shot02.jpg" data-height="1500" data-width="1500" data-unresolved-comment-count="0" data-linked-resource-id="546179005" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="GalleonInBottle_Lama_shot02.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="546178966" data-linked-resource-container-version="1" data-media-id="bd49f206-02bc-4d81-bf49-ba33ef77eff0" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Bottle Three.jpg" width="686" loading="lazy" src="../../attachments/546178966/Bottle Three.jpg" data-image-src="../../attachments/546178966/Bottle Three.jpg" data-height="1500" data-width="1500" data-unresolved-comment-count="0" data-linked-resource-id="546178996" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Bottle Three.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="546178966" data-linked-resource-container-version="1" data-media-id="717d45fa-96f4-4687-ac66-d94ecceb4fd1" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="GalleonInBottle_Lama_shot04.jpg" width="686" loading="lazy" src="../../attachments/546178966/GalleonInBottle_Lama_shot04.jpg" data-image-src="../../attachments/546178966/GalleonInBottle_Lama_shot04.jpg" data-height="1500" data-width="1500" data-unresolved-comment-count="0" data-linked-resource-id="546178999" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="GalleonInBottle_Lama_shot04.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="546178966" data-linked-resource-container-version="1" data-media-id="2926f187-7ae7-4727-826d-d2f551768350" data-media-type="file"></span><p /></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p /></div>
+</div>
+</div>
+</div>
+  </article>
+</main>
+</body>
+</html>

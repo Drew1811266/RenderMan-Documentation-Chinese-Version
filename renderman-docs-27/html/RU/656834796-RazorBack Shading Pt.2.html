@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RazorBack Shading Pt.2</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>RazorBack Shading Pt.2</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RU/656834796/RazorBack+Shading+Pt.2">https://rmanwiki-27.pixar.com/space/RU/656834796/RazorBack+Shading+Pt.2</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>In the second phase, when working with specular components, employing three distinct lobes maximizes the shader's capabilities.</p><p>The first lobe, Primary Specular, is governed by a map that regulates the specularity in specific regions, such as the paws or the curvature of the scales. This same lobe is also influenced by a scalar roughness map, which determines the extent of specular roughness across scales.</p><p>The second lobe, Rough Specular, contributes to an overall specular effect across the entire model, exhibiting a significantly rougher appearance than the first lobe. This helps soften the spread of specular highlights over scales and spikes.</p><p>Finally, the Clearcoat lobe enhances extra specular highlights on the mucous membranes inside the mouth. This lobe is controlled by an ISO mask map, restricting it to designated areas where additional specular highlights are desired.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="shading_specular_lob.jpg" width="760" loading="lazy" src="../../attachments/656834796/shading_specular_lob.jpg" data-image-src="../../attachments/656834796/shading_specular_lob.jpg" data-height="372" data-width="1195" data-unresolved-comment-count="0" data-linked-resource-id="657555630" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="shading_specular_lob.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="656834796" data-linked-resource-container-version="1" data-media-id="a1423c5e-08ec-45e7-9d35-7c1c3a81bd0d" data-media-type="file"></span><p>Once the displacement and specular components are correctly configured on your assets, the final step is to refine the albedo to determine the color and subsurface characteristics of the scales. Varying the gain ensures that the sum of the color, subsurface, and single-scatter components approximates 1. </p><p>For the mucous membranes, accentuating the viscous aspect in the mouth is achieved using the single-scatter lobe.</p><p>Maintaining distinct parameters for scales and mucous membranes allows for maximum control over the shader, minimizing the need to switch back and forth between Mari and Renderman. </p><p>Leveraging the available parameters on the PxrSurface shader is essential, keeping in mind that the gain constrains parameters. </p><p>For instance, adjusting the mean free path distance in the subsurface requires adapting shader parameters to the gains on each lobe.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="shading_layering_color.jpg" width="760" loading="lazy" src="../../attachments/656834796/shading_layering_color.jpg" data-image-src="../../attachments/656834796/shading_layering_color.jpg" data-height="344" data-width="1221" data-unresolved-comment-count="0" data-linked-resource-id="657260824" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="shading_layering_color.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="656834796" data-linked-resource-container-version="1" data-media-id="1588b076-0449-488e-946b-5992205b4d56" data-media-type="file"></span><p>After completing these steps, thoroughly test the reliability of your shaders under various lighting conditions before proceeding to the shot and environment settings. This ensures the shaders perform consistently across different scenarios, guaranteeing optimal visual quality in your final renders.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="montage-feet.jpg" width="760" loading="lazy" src="../../attachments/656834796/montage-feet.jpg" data-image-src="../../attachments/656834796/montage-feet.jpg" data-height="720" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="657260831" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="montage-feet.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="656834796" data-linked-resource-container-version="1" data-media-id="2726039e-7532-4cee-b336-79294dfc3e43" data-media-type="file"></span><p>A higher resolution render at this point doesn't hurt either, as it helps us check for any texturing inconsistencies under ideal conditions.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Razorback_open_bty.jpg" width="760" loading="lazy" src="../../attachments/656834796/Razorback_open_bty.jpg" data-image-src="../../attachments/656834796/Razorback_open_bty.jpg" data-height="1080" data-width="1920" data-unresolved-comment-count="0" data-linked-resource-id="657162544" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Razorback_open_bty.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="656834796" data-linked-resource-container-version="1" data-media-id="6bd823e8-fe50-40b8-8e0d-bcba628caf5e" data-media-type="file"></span><p /><p />
+  </article>
+</main>
+</body>
+</html>

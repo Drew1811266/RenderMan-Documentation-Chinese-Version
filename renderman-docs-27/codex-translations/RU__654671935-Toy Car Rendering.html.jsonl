@@ -1,0 +1,7 @@
+{"item_id":"bed070bc1d:0","text":"匹配拍摄素材 Footage 与 Rendering 阶段"}
+{"item_id":"bed070bc1d:1","text":"在 Maya 中开始 rendering process 之前，我首先需要把 object 的 rotation 匹配到真实的 turntable footage。使用 Nuke 中的 motion tracking，我应用 bandpass filter 来隔离 platform 的 movement，并手动 tracked 关键点以识别 rotation axis，不过 data 仅限于 2D space。"}
+{"item_id":"bed070bc1d:2","text":"把 data 导入 Maya 后，我手动调整 scale 和 orientation，使实体 turntable 与 digital scene 对齐。通过把 2D tracks 投射到 3D plane 上，我能够准确同步 CG 中 object 的 rotation 与拍摄 footage。"}
+{"item_id":"bed070bc1d:3","text":"将 CG object 与 footage 对齐后，我为 final render 准备 scene。为了捕获 character 在地面上的 shadow 而不影响 alpha，我使用了 Holdout plane。这让 render 更容易整合到 background plate 中。"}
+{"item_id":"bed070bc1d:4","text":"rendering 之前，我运行了多帧 test frames，通过与 reference footage 比较 sharpness，确保 depth of field（DOF）和 motion blur 行为正确。最终 render 使用 RenderMan RIS 完成。"}
+{"item_id":"bed070bc1d:5","text":"为了 compositing flexibility，我使用 Light Path Expressions（LPE）导出了一组 AOVs，包括 diffuse direct、diffuse indirect、specular direct 和 specular indirect。我还使用 Cryptomatte 在 compositing 期间快速而准确地 masking。"}
+{"item_id":"bed070bc1d:6","text":"为了降低 sampling noise，我启用了 RenderMan Machine Learning Denoiser；它明显提升了 output 的 clarity，同时保持较低 render times。"}

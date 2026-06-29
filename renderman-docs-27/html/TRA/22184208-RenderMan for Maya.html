@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RenderMan for Maya</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>RenderMan for Maya</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/TRA/22184208/RenderMan+for+Maya">https://rmanwiki-27.pixar.com/space/TRA/22184208/RenderMan+for+Maya</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p style="margin-left: 60.0px;"><br/></p><h3 id="RenderManforMaya-Introduction">Introduction</h3><p>Assuming that your site happens to be using the default, straight-out-of-the-box configuration of Tractor, the default configuration of RenderMan for Maya (RfM) can distribute work via Tractor.  If, perchance, you think you're special and opted to change the default configuration, fear not. RfM provides all the hooks you need, via preferences and other doodads, to maintain a harmonious symbiosis between your RfM workstations and your Tractor work dispatching system.</p><hr class="docutils"/><h3 id="RenderManforMaya-RfMCustomConfiguration">RfM Custom Configuration</h3><p>Tractor configuration for RfM is done via the rfm.json file. For site configuration of RfM, we recommend not changing the shipped rfm.json file. Instead, sites should use the environment variables <span class="legacy-color-text-default">RFM_SHOW_PATH or RFM_SITE_PATH,</span><span class="legacy-color-text-default"> to source your custom overrides. For more information, please see the RenderMan for Maya documentation page, <a href="/wiki/spaces/RFM23/pages/21169908/Installing+Custom+Nodes" data-linked-resource-id="21169908" data-linked-resource-version="2" data-linked-resource-type="page">Installing Custom Nodes</a>.</span></p><p><br/></p><hr/><p><br/></p><h3 id="RenderManforMaya-EngineLocationandTractorUsers">Engine Location and Tractor Users</h3><p>The rfm.json file provides three preferences for sealing RfM and Tractor's bond, all under the &quot;tractor_cfg&quot; section. The defaults look like this:</p><p><br/></p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="c644c41b-42c9-4b42-b399-650d674f9b52" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">&quot;tractor_cfg&quot;: {
+    &quot;engine&quot;: &quot;tractor-engine&quot;, 
+    &quot;port&quot;: 80, 
+    &quot;user&quot;: &quot;&quot;
+}</pre>
+</div></div><p><br/></p><ul><li>&quot;engine&quot; is the hostname of the machine that is running your site's tractor engine. The default is &quot;tractor-engine&quot;</li><li>&quot;port&quot; is the port number your tractor engine is listening on. The default is 80.</li><li>&quot;user&quot; is the username that the job should be submitted as. The default is &quot;&quot;, meaning to submit the job as the current logged in user.<br/><br/></li></ul><p>Here's a full example of a rfm.json file that simply overrides the Tractor configuration settings for RfM and leaves everything else at default.</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="61da224d-a1be-410a-9528-46902f7228e8" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">{
+    &quot;tractor_cfg&quot;: {
+         &quot;engine&quot;: &quot;woody-engine&quot;, 
+         &quot;port&quot;: 8080, 
+         &quot;user&quot;: &quot;andy&quot;
+   }
+}</pre>
+</div></div><p><br/></p><pre style="margin-left: 25.0px;" class="literal-block"><br/></pre><hr class="docutils"/><h3 id="RenderManforMaya-DirectoryMapping">Directory Mapping</h3><p>As with setting the engine location and user, directory mappings are also specified in the rfm.json file. Multiple directory mappings can be listed under the &quot;dirmaps&quot; section. The default is a generic mapping:</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="08810248-2d83-4b1a-a253-01d964492a65" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">    &quot;dirmaps&quot;: {
+        &quot;myserver_to_z&quot;: {
+            &quot;to&quot;: &quot;Z:/&quot;, 
+            &quot;from&quot;: &quot;/myserver/&quot;, 
+            &quot;zone&quot;: &quot;UNC&quot;
+        }
+    }, </pre>
+</div></div><ul><li>&quot;myserver_to_z&quot; is a generic descriptive name for the dirmap</li><li>&quot;from&quot; is the part of the path you want to match and mapped to</li><li>&quot;to&quot; specifies what the substring in the &quot;from&quot; setting should be mapped to</li><li>The &quot;zone&quot; specifies the zone of the blade that should use this dirmap.</li></ul><p>For example, using this dirmapping, if RenderMan and/or Tractor sees this path and it is running on a blade that is in the &quot;UNC&quot; zone:</p><p>/myserver/path/to/maya/scenes/char_animation_01.ma</p><p>This will get translated to:</p><p>Z:/path/to/maya/scenes/char_animation_01.ma</p><p>Here's a full example of a rfm.json that combines the previous configuration with custom directory mappings. We have a mappings to go from Linux to a Windows blade for our project and texture paths, as well as the reverse Windows to Linux.</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="09fc54dc-aed4-412a-92f1-413547d51249" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">{
+    &quot;tractor_cfg&quot;: {
+         &quot;engine&quot;: &quot;woody-engine&quot;, 
+         &quot;port&quot;: 8080, 
+         &quot;user&quot;: &quot;andy&quot;
+   },
+    &quot;dirmaps&quot;: {
+        &quot;project_linux_to_windows&quot;: {
+            &quot;to&quot;: &quot;Z:/&quot;, 
+            &quot;from&quot;: &quot;/mnt/&quot;, 
+            &quot;zone&quot;: &quot;UNC&quot;
+        },
+        &quot;textures_linux_to_windows&quot;: {
+            &quot;to&quot;: &quot;Y:/&quot;, 
+            &quot;from&quot;: &quot;/texture_server/&quot;, 
+            &quot;zone&quot;: &quot;UNC&quot;
+        },
+        &quot;project_windows_to_linux&quot;: {
+            &quot;to&quot;: &quot;/mnt/&quot;, 
+            &quot;from&quot;: &quot;Z:/&quot;, 
+            &quot;zone&quot;: &quot;NFS&quot;
+        },
+        &quot;textures_windows_to_linux&quot;: {
+            &quot;to&quot;: &quot;/texture_server/&quot;, 
+            &quot;from&quot;: &quot;Y:/&quot;, 
+            &quot;zone&quot;: &quot;NFS&quot;
+        }
+    }
+}
+
+</pre>
+</div></div><p><br/><br/></p><p><br/></p><p><br/></p><p><br/></p>
+  </article>
+</main>
+</body>
+</html>

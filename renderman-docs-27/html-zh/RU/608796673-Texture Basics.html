@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Texture Basics</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Texture Basics</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RU/608796673/Texture+Basics">https://rmanwiki-27.pixar.com/space/RU/608796673/Texture+Basics</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><style>[data-colorid=gooygnnzf0]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=gooygnnzf0]{color:#004eb3}</style><img class="confluence-embedded-image image-center" alt="Pxrmanifold2d_header.jpg" width="760" loading="lazy" src="../../attachments/608796673/Pxrmanifold2d_header.jpg" data-image-src="../../attachments/608796673/Pxrmanifold2d_header.jpg" data-height="1075" data-width="1915" data-unresolved-comment-count="0" data-linked-resource-id="612303072" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Pxrmanifold2d_header.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="608796673" data-linked-resource-container-version="12" data-media-id="9302b835-cd73-465f-8bc9-9188074043f4" data-media-type="file" /></span><p>在 CG 中，纹理贴图的使用非常普遍，并且在资产或场景的着色工作流中发挥关键作用。</p><p /><div class="panel conf-macro output-block" data-hasbody="true" data-macro-id="37c61835-9027-42e7-a15c-611eaa48fa8e" data-macro-name="panel" style="background-color: #4C9AFF;border-width: 1px;"><div class="panelContent" style="background-color: #4C9AFF;">
+<p><strong><span class="legacy-color-text-inverse">Loading Textures（纹理加载与贴图读取流程）</span></strong></p>
+</div></div><p>在 RenderMan 中，加载纹理贴图主要依靠 <a class="external-link" href="../REN27/542225070-PxrTexture.html" rel="nofollow">PxrTexture </a>这一节点。虽然还有其他几个节点也能加载纹理，但 PxrTexture 节点是最主要、最适合首先使用的节点。</p><p /><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="4f5debf2-ec29-46fc-83bf-0bf3ee3f633c" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>在继续之前，有一点很重要：RenderMan 需要把你的纹理转换为它的原生纹理格式： <strong> .tex</strong><br /><br />当你把 .png、.jpg、exr、.tif 等文件加载并应用到 shading network 中时，RenderMan 会根据规则自动完成这一步。简单来说，它会替你处理所有转换工作。</p><p>如需进一步了解我们的 .tex 文件格式，可以阅读 <a class="external-link" href="../REN27/542236544-txmake.html" rel="nofollow">这里的文档页面</a></p></div></div><p /><p /><div class="panel conf-macro output-block" data-hasbody="true" data-macro-id="e276c860-d2c2-403b-a4e5-2d7361d5a810" data-macro-name="panel" style="background-color: #4C9AFF;border-width: 1px;"><div class="panelContent" style="background-color: #4C9AFF;">
+<p><strong><span class="legacy-color-text-inverse">Using Painted Texture Maps（使用绘制纹理贴图）</span></strong></p>
+</div></div><p>下面拆解几种纹理贴图的常见用途：</p><p>使用纹理贴图的一种方法，是把已经展开 UV 的模型导入 Mari 或 Substance Painter 这类纹理绘制软件。  </p><p>Substance Painter 对纹理贴图使用 PBR Metallic 工作流，因此你会导出若干可直接使用的纹理，例如：</p><ul><li><p>Diffuse（漫反射）</p></li><li><p>Metallic（金属度）</p></li><li><p>Roughness（粗糙度）</p></li><li><p>Normal（法线）</p></li><li><p>Height（高度）</p></li></ul><p>这些贴图可以从 Painter 导出后在你的 DCC 中分配；也可以使用面向 Substance Painter 的 RenderMan Preset Browser 插件，一键完成导出、转换为 .tex，并创建材质网络。  </p><p>预设创建完成后，就可以在你选择的 DCC 中把这个 RenderMan 着色器应用到对象上。非常快速，也非常简单。</p><p>在 Mari 中，你可以在两种 shading system 之间选择。</p><p>你可以采用类似 Substance Painter 的 PBR 工作流，也可以使用随 RenderMan 提供的 Mari 版 PxrSurface 材质，并直接绘制原生 PxrSurface lobes。</p><p>同样，你可以从 Mari 导出绘制好的贴图，并直接在 RenderMan 中使用；不过目前我们还没有在 Mari 中提供 Preset Browser。</p><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="93f16de2-9cef-4988-b20f-37367c74c129" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>如需了解在 Mari 中使用 PxrSurface 材质的更多信息， <a class="external-link" href="https://www.youtube.com/@MeshmenStudio" rel="nofollow">Peter Aversten（MeshMen）</a> 提供了大量关于这一主题的优秀教程。</p></div></div><p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="House1.jpg" width="760" loading="lazy" src="../../attachments/608796673/House1.jpg" data-image-src="../../attachments/608796673/House1.jpg" data-height="1166" data-width="1200" data-unresolved-comment-count="0" data-linked-resource-id="642678785" data-linked-resource-version="3" data-linked-resource-type="attachment" data-linked-resource-default-alias="House1.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="608796673" data-linked-resource-container-version="12" data-media-id="19816c2a-4afd-4a45-bb64-4af8119963de" data-media-type="file" /></span><p /><div class="panel conf-macro output-block" data-hasbody="true" data-macro-id="2b7a43c9-8288-4d64-97e6-28b3122e5f70" data-macro-name="panel" style="background-color: #4C9AFF;border-width: 1px;"><div class="panelContent" style="background-color: #4C9AFF;">
+<p><strong><span class="legacy-color-text-inverse">Using Layer Masks（使用层遮罩）</span></strong></p>
+</div></div><p>使用 layer masks 是设置道具和资产时推荐的工作流，并能带来许多创作优势。其中一个优势是，你可以轻松重新绘制 layer masks，而不必从纹理软件重新导出整个着色器；只需重新导出调整后的 layer mask，并重新加载纹理。</p><p>Layer masks 可以在 Painter/Mari 中绘制，也可以通过程序方式生成黑白遮罩，用来决定材质在资产上的显示位置以及如何分层。</p><p>Diffuse 等 lobes 可以通过程序方式生成；你可以使用 PxrSurfaceLayer 或 Lama shading workflows，这两种方式都会用遮罩驱动材质各层之间的视觉过渡。</p><p>把你的材质想象成真实世界中的结构</p><p>基础金属。</p><p>覆盖在上层的涂漆</p><p>灰尘 / 污垢</p><p>锈迹</p><p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Robot_full.png" width="760" loading="lazy" src="../../attachments/608796673/Robot_full.png" data-image-src="../../attachments/608796673/Robot_full.png" data-height="805" data-width="1435" data-unresolved-comment-count="0" data-linked-resource-id="642744323" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Robot_full.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="608796673" data-linked-resource-container-version="12" data-media-id="69215226-792d-4d8c-a0f8-6d60b1ac4d89" data-media-type="file" /></span><p /><hr /><h3 id="TextureBasics-ImageTexture"><span data-colorid="gooygnnzf0">Image Texture（图像纹理）</span></h3><p>使用纹理图像驱动图案。</p><ul><li><p><a class="external-link" href="../REN27/542224293-PxrMultiTexture.html" rel="nofollow"><u>PxrMultiTexture</u></a></p></li><li><p><a class="external-link" href="../REN27/542224380-PxrProjectionLayer.html" rel="nofollow"><u>PxrProjectionLayer</u></a></p></li><li><p><a class="external-link" href="../REN27/542224432-PxrPtexture.html" rel="nofollow"><u>PxrPtexture</u></a></p></li><li><p><a class="external-link" href="../REN27/542225070-PxrTexture.html" rel="nofollow"><u>PxrTexture</u></a></p></li></ul><p /><p /><p /><p /><p /><p /><p />
+  </article>
+</main>
+</body>
+</html>

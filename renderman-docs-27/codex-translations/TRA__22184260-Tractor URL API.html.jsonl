@@ -1,0 +1,188 @@
+{"item_id":"dad479bd6c:0","text":"各个 Tractor 组件使用 HTTP 请求进行通信。大多数查询响应都是 JSON-formatted（JSON 格式）的数据字典。"}
+{"item_id":"dad479bd6c:1","text":"下面汇总了查询 URL 及其响应："}
+{"item_id":"dad479bd6c:2","text":"ENGINE（引擎）"}
+{"item_id":"dad479bd6c:3","text":"下面的 \"hostname:port\" 表示 tractor-engine 的主机名和端口。"}
+{"item_id":"dad479bd6c:4","text":"BLADE（执行节点）"}
+{"item_id":"dad479bd6c:5","text":"下面的 \"hostname:port\" 表示命令所指向 blade 的主机名和端口。每个 tractor-blade 进程都会在一个特定且可能唯一的端口号上监听管理控制请求。"}
+{"item_id":"dad479bd6c:6","text":"NOTE（注意）"}
+{"item_id":"dad479bd6c:7","text":"- 许多"}
+{"item_id":"dad479bd6c:8","text":"edit（编辑）"}
+{"item_id":"dad479bd6c:9","text":"请求都需要使用 Tractor 当前的简单认证机制。这些请求 URL（或其表单数据）必须包含形如 \"&tsid=123abc-456\" 的登录 \"session identifier\" 会话标识符。实际的会话专用 tsid 值由 monitor 在初始登录交换期间生成。"}
+{"item_id":"dad479bd6c:10","text":"JSON 回复格式"}
+{"item_id":"dad479bd6c:11","text":"- 请注意，许多发往 engine 的 URL 指令会让 engine 生成 JSON-formatted（JSON 格式）的 HTTP 响应正文。默认情况下，响应 HTTP 头会按照典型 JSON 约定包含 \"Content-Type: application/json\"，这也是许多 JavaScript agent 或其他请求方所期望的格式。不过，如果你手动把下面某些查询输入到 Web 浏览器的 URL 字段中，浏览器可能会"}
+{"item_id":"dad479bd6c:12","text":"显示"}
+{"item_id":"dad479bd6c:13","text":"返回的 JSON 会显示为难以阅读、没有结构的纯文本块。在这些 \"manual\" 手动、非脚本化场景中，可以向 URL 请求添加一个额外参数，使响应在浏览器窗口中以 \"pretty-printed\" 美化格式显示：在请求 URL 中加入 \"&fmt=pre\" 会把响应 Content-Type 设为 \"text/html\"，并把整个响应放入 HTML \"<pre>\" 块中，从而保留结构化格式，便于人工阅读。请注意，这种格式不适合用于需要实际 JSON 文本的脚本化场景。"}
+{"item_id":"dad479bd6c:14","text":"Tractor Dashboard 用户界面"}
+{"item_id":"dad479bd6c:15","text":"要启动 Dashboard 会话，请将 Web 浏览器指向："}
+{"item_id":"dad479bd6c:16","text":"http://ENGINE/tractor/dashboard/"}
+{"item_id":"dad479bd6c:17","text":"队列控制"}
+{"item_id":"dad479bd6c:18","text":"登录并创建认证会话；某些类型的控制操作需要该会话："}
+{"item_id":"dad479bd6c:19","text":"http://ENGINE/Tractor/monitor?q=login&user=UUUU"}
+{"item_id":"dad479bd6c:20","text":"（注意：在使用登录密码的站点，还需要额外参数 \"c=CCCCC\"，用于提供站点指定的密码哈希或加密值。）"}
+{"item_id":"dad479bd6c:21","text":"Retire 一个作业，将其从活动分配队列和 Dashboard 中删除："}
+{"item_id":"dad479bd6c:22","text":"http://ENGINE/Tractor/queue?q=jretire&jid=1234&tsid=XXX"}
+{"item_id":"dad479bd6c:23","text":"（注意：tsid 值是先前 q=login 请求返回的认证令牌。）"}
+{"item_id":"dad479bd6c:24","text":"如果底层作业数据仍然存在，则恢复先前删除的作业："}
+{"item_id":"dad479bd6c:25","text":"http://ENGINE/Tractor/queue?q=jrestore&jid=1234&tsid=sss"}
+{"item_id":"dad479bd6c:26","text":"重试某个作业中所有出错的任务："}
+{"item_id":"dad479bd6c:27","text":"http://ENGINE/Tractor/queue?q=jretry&jid=1234&tsubset=error&tsid=sss"}
+{"item_id":"dad479bd6c:28","text":"Stop（停止）并重新排队某个作业中当前所有活动任务："}
+{"item_id":"dad479bd6c:29","text":"http://ENGINE/Tractor/queue?q=jretry&jid=1234&&tsubset=active&tsid=sss"}
+{"item_id":"dad479bd6c:30","text":"重试作业中的某个指定任务，例如 tid=22："}
+{"item_id":"dad479bd6c:31","text":"http://ENGINE/Tractor/queue?q=jretry&jid=1234&tsubset=22&tsid=sss"}
+{"item_id":"dad479bd6c:32","text":"Stop（停止）并重新排队某个 blade 上当前所有活动任务："}
+{"item_id":"dad479bd6c:33","text":"http://ENGINE/Tractor/queue?q=ejectall&blade=host/addr&tsid=sss"}
+{"item_id":"dad479bd6c:34","text":"跳过作业中的某个指定任务，允许其父级继续执行："}
+{"item_id":"dad479bd6c:35","text":"http://ENGINE/Tractor/queue?q=tskip&jid=1234&tid=22&tsid=sss"}
+{"item_id":"dad479bd6c:36","text":"（注意：使用 \"tid=error\" 可以跳过该作业中的所有错误任务，使用 \"tid=active\" 可以中断所有活动任务并越过它们继续执行。）"}
+{"item_id":"dad479bd6c:37","text":"完全重新启动（重新 spool）整个作业："}
+{"item_id":"dad479bd6c:38","text":"http://ENGINE/Tractor/queue?q=jrestart&jid=1234&&tsid=sss"}
+{"item_id":"dad479bd6c:39","text":"中断正在运行的作业，终止活动命令并暂停该作业以阻止进一步 dispatch："}
+{"item_id":"dad479bd6c:40","text":"http://ENGINE/Tractor/queue?q=jinterrupt&jid=1234&tsid=sss"}
+{"item_id":"dad479bd6c:41","text":"中断某个指定任务，使该任务进入错误状态，同时让其他任务继续运行："}
+{"item_id":"dad479bd6c:42","text":"http://ENGINE/Tractor/queue?q=jinterrupt&jid=1234&tid=9876&tsid=sss"}
+{"item_id":"dad479bd6c:43","text":"（注意：tid 参数也可以指定以逗号分隔的任务 ID 列表。）"}
+{"item_id":"dad479bd6c:44","text":"作业队列信息查询"}
+{"item_id":"dad479bd6c:45","text":"列出先前 spool 过作业的用户："}
+{"item_id":"dad479bd6c:46","text":"http://ENGINE/Tractor/monitor?q=users"}
+{"item_id":"dad479bd6c:47","text":"列出某个特定用户当前排队的作业："}
+{"item_id":"dad479bd6c:48","text":"http://ENGINE/Tractor/monitor?q=jobs&owner=name&filter=filtername&tsid=sss"}
+{"item_id":"dad479bd6c:49","text":"（注意：owner 和 filter 限制条件是可选的，但未过滤的"}
+{"item_id":"dad479bd6c:50","text":"列表可能很大。只有指定 filter 时才需要 tsid 参数。"}
+{"item_id":"dad479bd6c:51","text":"添加 \"&metadata=0\" 还可以抑制 metadata 块。）"}
+{"item_id":"dad479bd6c:52","text":"获取某个特定作业的任务树："}
+{"item_id":"dad479bd6c:53","text":"http://ENGINE/Tractor/monitor?q=jtree&jid=1234"}
+{"item_id":"dad479bd6c:54","text":"列出与某个任务关联的命令："}
+{"item_id":"dad479bd6c:55","text":"http://ENGINE/Tractor/monitor?q=taskdetails&jid=1234&tid=11"}
+{"item_id":"dad479bd6c:56","text":"获取某个特定任务的日志 URL："}
+{"item_id":"dad479bd6c:57","text":"http://ENGINE/Tractor/monitor?q=tasklogs&owner=name&jid=1234&tid=11"}
+{"item_id":"dad479bd6c:58","text":"编辑作业属性"}
+{"item_id":"dad479bd6c:59","text":"常规作业属性编辑"}
+{"item_id":"dad479bd6c:60","text":"- 作业的"}
+{"item_id":"dad479bd6c:61","text":"jobinfo.json 字典中列出的属性条目可以使用以下形式的 http URL 修改："}
+{"item_id":"dad479bd6c:62","text":"/Tractor/queue?q=jattr&set_ATTRNAME=VALUE&jid=NNNN&tsid=sss"}
+{"item_id":"dad479bd6c:63","text":"类似地，命令级别的属性可以使用 \"q=cattr&cid=...\" 变体修改（注意：目前只支持 set_service）："}
+{"item_id":"dad479bd6c:64","text":"/Tractor/queue?q=cattr&set_ATTRNAME=VALUE&jid=NNNN&cid=CCCC&tsid=sss"}
+{"item_id":"dad479bd6c:65","text":"请注意，crews.config 可以指定权限，将特定属性的编辑限制给特定 crew，例如只允许 Wranglers。"}
+{"item_id":"dad479bd6c:66","text":"更改作业级别的 Service Key 需求"}
+{"item_id":"dad479bd6c:67","text":"："}
+{"item_id":"dad479bd6c:68","text":"http://ENGINE/Tractor/queue?q=jattr&jid=5678&set_service=someKey&tsid=sss"}
+{"item_id":"dad479bd6c:69","text":"重新设置作业优先级："}
+{"item_id":"dad479bd6c:70","text":"http://ENGINE/Tractor/queue?q=jattr&jid=5678&set_priority=12.34&tsid=sss"}
+{"item_id":"dad479bd6c:71","text":"暂停作业中的新 dispatch："}
+{"item_id":"dad479bd6c:72","text":"http://ENGINE/Tractor/queue?q=jattr&jid=5678&set_pause=1&tsid=sss"}
+{"item_id":"dad479bd6c:73","text":"使用 \"&set_pause=0\" 可以取消作业暂停。这种 \"pause\" 会暂停新任务的 dispatch；在取消暂停之前，该作业会在 blade 分配遍历中被跳过。该作业中任何已经运行的任务都会继续运行。"}
+{"item_id":"dad479bd6c:74","text":"会话查询"}
+{"item_id":"dad479bd6c:75","text":"用户专用信息的多个文件存储在 tractor spool 文件夹下方的 user 区域中。以下查询允许 UI 保存和检索这些文件。"}
+{"item_id":"dad479bd6c:76","text":"列出指定类型用户的所有已存储 filter："}
+{"item_id":"dad479bd6c:77","text":"http://ENGINE/Tractor/monitor?q=filters&user=name&type=filtertype"}
+{"item_id":"dad479bd6c:78","text":"检索用户的命名 filter："}
+{"item_id":"dad479bd6c:79","text":"http://ENGINE/Tractor/monitor?q=getfilter&user=name&key=filtername"}
+{"item_id":"dad479bd6c:80","text":"存储用户的命名 filter："}
+{"item_id":"dad479bd6c:81","text":"http://ENGINE/Tractor/monitor?q=putfilter&user=name&key=filtername"}
+{"item_id":"dad479bd6c:82","text":"检索用户的 preference 偏好信息："}
+{"item_id":"dad479bd6c:83","text":"http://ENGINE/Tractor/monitor?q=getpreference&user=name&key=filename"}
+{"item_id":"dad479bd6c:84","text":"存储用户的 preference 偏好信息："}
+{"item_id":"dad479bd6c:85","text":"http://ENGINE/Tractor/monitor?q=putpreference&user=name&key=filename"}
+{"item_id":"dad479bd6c:86","text":"删除用户的 preference 偏好信息："}
+{"item_id":"dad479bd6c:87","text":"http://ENGINE/Tractor/monitor?q=delpreference&user=name&key=filename"}
+{"item_id":"dad479bd6c:88","text":"检索用户的 session 会话文件："}
+{"item_id":"dad479bd6c:89","text":"http://ENGINE/Tractor/monitor?q=getsession&user=name&key=filename"}
+{"item_id":"dad479bd6c:90","text":"存储用户的 session 会话文件："}
+{"item_id":"dad479bd6c:91","text":"http://ENGINE/Tractor/monitor?q=putsession&user=name&key=filename"}
+{"item_id":"dad479bd6c:92","text":"删除用户的 session 会话文件："}
+{"item_id":"dad479bd6c:93","text":"http://ENGINE/Tractor/monitor?q=delsession&user=name&key=filename"}
+{"item_id":"dad479bd6c:94","text":"检索可用 file rule 文件规则定义列表："}
+{"item_id":"dad479bd6c:95","text":"http://ENGINE/Tractor/monitor?q=filterrules&type=filtertype"}
+{"item_id":"dad479bd6c:96","text":"管理员控制"}
+{"item_id":"dad479bd6c:97","text":"重新加载配置文件（blade、crews、limits）："}
+{"item_id":"dad479bd6c:98","text":"http://ENGINE/Tractor/ctrl?q=reconfigure"}
+{"item_id":"dad479bd6c:99","text":"重新加载单个配置文件，例如 limits.config："}
+{"item_id":"dad479bd6c:100","text":"http://ENGINE/Tractor/ctrl?q=reconfigure&file=limits.config"}
+{"item_id":"dad479bd6c:101","text":"查询基本 engine 状态："}
+{"item_id":"dad479bd6c:102","text":"http://ENGINE/Tractor/ctrl?q=status"}
+{"item_id":"dad479bd6c:103","text":"查询当前活动 limit 计数："}
+{"item_id":"dad479bd6c:104","text":"http://ENGINE/Tractor/queue?q=limits"}
+{"item_id":"dad479bd6c:105","text":"NOTE：此查询开销相对较大，会锁定所有线程。添加 &full=1 还会包含 limits.config 中未定义且值为零的 \"transitory\" 临时 limits：**"}
+{"item_id":"dad479bd6c:106","text":"查询展开后的 crew 定义："}
+{"item_id":"dad479bd6c:107","text":"http://ENGINE/Tractor/monitor?q=crewdetails"}
+{"item_id":"dad479bd6c:108","text":"查询当前 Dispatching Tier 定义："}
+{"item_id":"dad479bd6c:109","text":"http://ENGINE/Tractor/monitor?q=enumtierlist"}
+{"item_id":"dad479bd6c:110","text":"查询展开后的 blade profile 定义："}
+{"item_id":"dad479bd6c:111","text":"http://ENGINE/Tractor/config?q=get&file=blade.config"}
+{"item_id":"dad479bd6c:112","text":"列出最近连接过的 Dashboard 用户（session mailbox）："}
+{"item_id":"dad479bd6c:113","text":"http://ENGINE/Tractor/monitor?q=mboxes"}
+{"item_id":"dad479bd6c:114","text":"跟踪 engine 分配决策："}
+{"item_id":"dad479bd6c:115","text":"http://ENGINE/Tractor/ctrl?q=tracer&fmt=plain"}
+{"item_id":"dad479bd6c:116","text":"-- 下一次 assignment pass 分配遍历"}
+{"item_id":"dad479bd6c:117","text":"添加 &t=bbbb -- 针对名为 bbbb 的 blade；添加 &t=jjjj -- 针对 jid 为 jjjj 的作业"}
+{"item_id":"dad479bd6c:118","text":"从显示的活动 blade 列表中移除旧条目："}
+{"item_id":"dad479bd6c:119","text":"http://ENGINE/Tractor/btrack?q=delist&id=hhhhh/aa.aa.aa.aa"}
+{"item_id":"dad479bd6c:120","text":"其中 hhhhh 是 blade 的 hostname 主机名，aa.aa.aa.aa 是该 blade 当前的 tcp/ip 地址。"}
+{"item_id":"dad479bd6c:121","text":"诊断：查询 engine 内部消息队列长度："}
+{"item_id":"dad479bd6c:122","text":"http://ENGINE/Tractor/ctrl?q=status&qlen=1"}
+{"item_id":"dad479bd6c:123","text":"NOTE：此查询开销相对较大，会锁定所有线程。"}
+{"item_id":"dad479bd6c:124","text":"Engine 日志级别："}
+{"item_id":"dad479bd6c:125","text":"更改 engine 自身诊断日志的日志阈值级别："}
+{"item_id":"dad479bd6c:126","text":"http://ENGINE/Tractor/ctrl?q=loglevel&v=debug"}
+{"item_id":"dad479bd6c:127","text":"可识别的级别名称包括：severe、notice、info、debug、trace"}
+{"item_id":"dad479bd6c:128","text":"Engine 数据库上下文："}
+{"item_id":"dad479bd6c:129","text":"重新建立 engine 自身到数据库服务器的内部客户端连接："}
+{"item_id":"dad479bd6c:130","text":"http://ENGINE/Tractor/ctrl?q=dbreconnect"}
+{"item_id":"dad479bd6c:131","text":"Blade 查询和控制"}
+{"item_id":"dad479bd6c:132","text":"列出当前所有已连接 blade，并包含最近的状态快照："}
+{"item_id":"dad479bd6c:133","text":"http://ENGINE/Tractor/monitor?q=blades"}
+{"item_id":"dad479bd6c:134","text":"Stop（停止）并重新排队某个特定 blade 上当前所有活动任务："}
+{"item_id":"dad479bd6c:135","text":"http://ENGINE/Tractor/queue?q=ejectall&blade=host/addr&tsid=sss"}
+{"item_id":"dad479bd6c:136","text":"向 engine 查询某个指定 blade 的信息："}
+{"item_id":"dad479bd6c:137","text":"http://ENGINE/Tractor/monitor?q=bdetails&b=NAME"}
+{"item_id":"dad479bd6c:138","text":"向 engine 查询 blade 信息，并包含对 blade 本身进行一次（开销较高的）直接探测所得结果："}
+{"item_id":"dad479bd6c:139","text":"http://ENGINE/Tractor/monitor?q=bdetails&b=NAME&probe=1"}
+{"item_id":"dad479bd6c:140","text":"请谨慎使用此查询，尤其是在脚本中，因为 engine 等待 blade 响应时可能产生处理延迟，特别是探测响应较慢的 blade 时。在这种查询形式中，NAME 参数可以是 \"hostname\" 或 \"hostname/address\"。address 部分是历史遗留内容，会被忽略；engine 会从 blade 数据库的最后一个条目推导 blade 地址。"}
+{"item_id":"dad479bd6c:141","text":"直接查询某个 blade 的当前状态："}
+{"item_id":"dad479bd6c:142","text":"http://BLADE/blade/status"}
+{"item_id":"dad479bd6c:143","text":"通过 engine 更改 blade 的 NIMBY 状态："}
+{"item_id":"dad479bd6c:144","text":"首先发送 login 请求以接收 session ID（tsid），然后："}
+{"item_id":"dad479bd6c:145","text":"http://ENGINE/Tractor/ctrl?q=battribute&tsid=SSS&b=BBB&nimby=NNN"}
+{"item_id":"dad479bd6c:146","text":"其中："}
+{"item_id":"dad479bd6c:147","text":"SSS = login 响应中的 tsid"}
+{"item_id":"dad479bd6c:148","text":"BBB = 标识 blade，格式如 \"blade_hname/192.168.0.1\""}
+{"item_id":"dad479bd6c:149","text":"NNN = 期望的新 nimby 状态："}
+{"item_id":"dad479bd6c:150","text":"nimby=1 -- blade 只接受来自该主机 spool 作业中的本地 Cmd"}
+{"item_id":"dad479bd6c:151","text":"nimby=0 -- 将 nimby 状态重置为不受限制"}
+{"item_id":"dad479bd6c:152","text":"nimby=jobOwner1,owner2,... -- blade 只接受指定用户拥有的作业"}
+{"item_id":"dad479bd6c:153","text":"通过与 blade 直接建立 http 连接来更改 blade 的 NIMBY 状态："}
+{"item_id":"dad479bd6c:154","text":"http://BLADE/blade/ctrl?nimby=NNN"}
+{"item_id":"dad479bd6c:155","text":"其中 NNN 与上面的 engine 代理情形相同。请注意，这种直接连接类型可能会被 blade.config 中的 NimbyConnectPolicy 设置禁止。"}
+{"item_id":"dad479bd6c:156","text":"Engine 指标和统计"}
+{"item_id":"dad479bd6c:157","text":"获取最新的 engine 健康统计："}
+{"item_id":"dad479bd6c:158","text":"http://ENGINE/Tractor/monitor?q=statistics"}
+{"item_id":"dad479bd6c:159","text":"该查询返回各种 tractor-engine 性能和状态指标。目前提供的值旨在为管理员提供一组 engine \"vital signs\" 关键体征，便于在查看整体 Tractor 健康状况或 engine 热点时快速检查。"}
+{"item_id":"dad479bd6c:160","text":"统计报告组织为 JSON 字典。字典中的每个 key 表示一种指标类型。每个 key 的 value 字段是该指标近期 sample 样本组成的数组。"}
+{"item_id":"dad479bd6c:161","text":"当前字典指标名称列在这里。该列表可能会随时间演变。"}
+{"item_id":"dad479bd6c:162","text":"\"dt\" - 每个 sampling interval 采样间隔的实际长度"}
+{"item_id":"dad479bd6c:163","text":"\"enla\" - engine normalized load avg，即 engine 主机上的 cpu load"}
+{"item_id":"dad479bd6c:164","text":"\"rtot\" - 该 interval 内 engine 入站查询总数"}
+{"item_id":"dad479bd6c:165","text":"\"asn\" - 该 interval 内完成的 assignment 分配数量"}
+{"item_id":"dad479bd6c:166","text":"\"nrun\" - 当前在 farm 上 dispatch 并运行的 cmd 数量"}
+{"item_id":"dad479bd6c:167","text":"\"nctot\" - 所有等待作业中未执行 command 的总 backlog 积压量"}
+{"item_id":"dad479bd6c:168","text":"\"ncrdy\" - 所有等待作业中 ready command 的总 backlog 积压量"}
+{"item_id":"dad479bd6c:169","text":"\"nslot\" - blade 报告的 farm 总 slot 数"}
+{"item_id":"dad479bd6c:170","text":"\"nsin\" - farm 上正在使用的总 slot 数"}
+{"item_id":"dad479bd6c:171","text":"\"tecpu\" - 当前 tractor-engine 造成的 CPU 利用率估计值"}
+{"item_id":"dad479bd6c:172","text":"\"temem\" - 当前 tractor-engine 造成的 RAM 利用率估计值"}
+{"item_id":"dad479bd6c:173","text":"\"dbcpu\" - 当前 job database 作业数据库造成的 CPU 利用率估计值"}
+{"item_id":"dad479bd6c:174","text":"\"dbmem\" - 当前 job database 作业数据库造成的 RAM 利用率估计值"}
+{"item_id":"dad479bd6c:175","text":"\"dbcqn\" - 待处理 job state 作业状态数据库 commit 的 backlog 积压量"}
+{"item_id":"dad479bd6c:176","text":"\"iqn\" - main intake queue 主接收队列上等待请求的 backlog 积压量"}
+{"item_id":"dad479bd6c:177","text":"\"sqn\" - shipper pool queue 发送池队列上等待请求的 backlog 积压量"}
+{"item_id":"dad479bd6c:178","text":"\"aqn\" - assigner queue 分配器队列上等待请求的 backlog 积压量"}
+{"item_id":"dad479bd6c:179","text":"\"qqn\" - job archive queue 作业归档队列上等待请求的 backlog 积压量"}
+{"item_id":"dad479bd6c:180","text":"\"jqn\" - job submission queue 作业提交队列上等待请求的 backlog 积压量"}
+{"item_id":"dad479bd6c:181","text":"\"mqn\" - monitor UI queue 监控 UI 队列上等待请求的 backlog 积压量"}
+{"item_id":"dad479bd6c:182","text":"\"nmbox\" - 已订阅的 UI session 会话"}
+{"item_id":"dad479bd6c:183","text":"获取 engine 统计的近期历史记录："}
+{"item_id":"dad479bd6c:184","text":"http://ENGINE/Tractor/monitor?q=statslog"}
+{"item_id":"dad479bd6c:185","text":"此查询类似于上面的 q=statistics，但它会返回每个指标数分钟的 sample 样本。"}
+{"item_id":"dad479bd6c:186","text":"注意：对于持续监控，请在周期性 q=subscribe 请求中添加 \"&stats=1\"；统计信息会作为 's' mbox 消息到达。"}
+{"item_id":"dad479bd6c:187","text":"每个数组中的最后一个条目是最新 sample。engine 会维护这些 sample 的一个简单 ring buffer，因此在下一次更新时，第一个数组元素会被丢弃，所有其他 sample 看起来会 \"shift left\" 左移，并在末尾出现新值。statslog 查询返回 buffer 中的所有 sample，使 UI 能够从单个查询生成完整图表。"}

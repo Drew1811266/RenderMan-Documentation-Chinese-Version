@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PxrAttribute</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>PxrAttribute</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/REN27/542222552/PxrAttribute">https://rmanwiki-27.pixar.com/space/REN27/542222552/PxrAttribute</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>PxrAttribute 允许用户读取附着（存储）在节点上的 attributes。一个例子是为一组对象添加 color attribute，稍后由材质读取。通过这种方式，材质可以根据正在渲染的对象改变其结果，而不必使用不同材质。下面的 shader ball 球体附着了 color attributes。单个 <a href="542213836-PxrSurface.html" data-linked-resource-id="542213836" data-linked-resource-version="2" data-linked-resource-type="page">PxrSurface 材质</a> 会根据每个形状定义的 attribute 指定值，以不同 diffuse color 渲染。下面提供使用示例。</p><p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" height="384" width="384" loading="lazy" src="../../attachments/542222552/pxrAttribute.jpg" data-image-src="../../attachments/542222552/pxrAttribute.jpg" data-unresolved-comment-count="0" data-linked-resource-id="542222568" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrAttribute.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542222552" data-linked-resource-container-version="1" data-media-id="8df93ef3-9f59-40d9-8f06-6b0c8e16a236" data-media-type="file"></span></p><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="18efa6b2-d51c-4aca-b570-5304385c159e" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>在场景中许多位置使用此节点可能会带来性能开销。若无必要，应避免过多求值 user attributes；效率是关键。</p></div></div><p><br/></p><h3 id="PxrAttribute-InputParameters">Input Parameters（输入参数）</h3><h4 id="PxrAttribute-Variablename">Variable name（变量名称）</h4><p>此字段接受一个用于标识 attribute 的字符串。该字符串应包含 attribute namespace 和 attribute 名称，两者用冒号分隔。例如 trace:maxdiffusedepth 或 user:Ball。</p><h4 id="PxrAttribute-VariableType">Variable Type（变量类型）</h4><p>这会指定要读取的变量类型，并且必须与前面在其他节点上指定的类型匹配。</p><ul><li>Integer（整数）</li><li>Float（浮点）</li><li>Float 2（双浮点）</li><li>Color（颜色）</li><li>Point（点）</li><li>Vector（向量）</li><li>Normal（法线）</li></ul><h4 id="PxrAttribute-DefaultFloat">Default Float（默认 Float）</h4><p>如果检索 float 类型的 attribute 时出错，将使用此值。</p><h4 id="PxrAttribute-Verbosity">Verbosity（详细程度）</h4><p>用于场景调试的诊断输出级别</p><ul><li>Silent（静默）</li><li>Warnings（警告）</li><li>Info（信息）</li></ul><h3 id="PxrAttribute-OutputParameters">Output Parameters（输出参数）</h3><h4 id="PxrAttribute-resultF">resultF</h4><p>float 结果。</p><h4 id="PxrAttribute-resultRGB">resultRGB</h4><p>color 结果。</p><p><br/></p><h3 id="PxrAttribute-ExampleUsage">Example Usage（示例用法）</h3><p>DCC 应用程序可能使用不同机制来应用 user attribute。下面是两个示例，演示如何把名为 “Ball” 的 color user attribute 应用到一个形状上：</p><h4 id="PxrAttribute-Maya:">Maya：</h4><p>从 Maya Attribute editor 的 transform node 添加 user attribute，Name: Ball，Type: color，Color: Light Pink。下面是生成的导出结果；请注意，我们会自动假定来自 Maya Editor 的 User attribute，因此无需显式指定。</p><pre>RiAttribute &quot;user&quot; &quot;color Ball&quot; 1 0.2 0.65</pre><h4 id="PxrAttribute-Katana:">Katana：</h4><p>下面是在 Katana 中设置相同 attribute 的 OpScript 示例</p><p>gb = GroupBuilder()<br/>gb:set(&quot;value&quot;, FloatAttribute({1.0, 0.2, 0.65}, 3))<br/>gb:set(&quot;type&quot;, StringAttribute(&quot;color&quot;))<br/>Interface.SetAttr(&quot;prmanStatements.attributes.user.Ball&quot;, gb:build())</p><h4 id="PxrAttribute-Houdini:">Houdini：</h4><p>请参见 <a href="https://rmanwiki-24.pixar.com/space/RFH24/21299353/Using+PxrMatteID" data-linked-resource-id="21299353" data-linked-resource-version="2" data-linked-resource-type="page">Using PxrMatteID</a> ，作为如何在 Houdini 中添加 user attribute 的示例。</p><pre><br/></pre>
+  </article>
+</main>
+</body>
+</html>

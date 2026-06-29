@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Procedural Edge Breakup</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Procedural Edge Breakup</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RU/502759691/Procedural+Edge+Breakup">https://rmanwiki-27.pixar.com/space/RU/502759691/Procedural+Edge+Breakup</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p /><p /><p /><p>给 props 添加 edge breakup 是一种常见做法，通常通过在 Adobe Painter 或 The Foundry 的 Mari 等 texturing software 中绘制 masks 来实现。  </p><p>不过在 Pixar，我们倾向于采用 procedural approach 来处理 edge breakup。  </p><p>这样可以保留 creative control，例如无需重新绘制和导出 edge masks，就能快速响应 director's notes；也可以在 props 上创建 shading variants，从看起来崭新的 prop 到不同阶段的磨损和损伤。</p><p>下面是一份 procedural edge masks 的快速指南。</p><p /><div class="panel conf-macro output-block" data-hasbody="true" data-macro-id="2d27b9c0-1712-469d-90d4-4728edae363d" data-macro-name="panel" style="background-color: #4C9AFF;border-width: 1px;"><div class="panelContent" style="background-color: #4C9AFF;">
+<p><strong><span class="legacy-color-text-inverse">Step One（步骤一）</span></strong></p>
+</div></div><p>先给我们的 geometry 添加一个使用默认设置的 PxrCurvature node。在这个示例中，我们将使用 RenderMan University shield。  </p><p>从第一次 render 可以看到，它并不算惊艳...但别担心，只需几个简单步骤，我们就能大幅改善效果。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="ProceduralEdgeBreak_1.jpg" width="760" loading="lazy" src="../../attachments/502759691/ProceduralEdgeBreak_1.jpg" data-image-src="../../attachments/502759691/ProceduralEdgeBreak_1.jpg" data-height="714" data-width="1695" data-unresolved-comment-count="0" data-linked-resource-id="623509665" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="ProceduralEdgeBreak_1.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="502759691" data-linked-resource-container-version="5" data-media-id="a02db951-19fc-4566-9151-76e1fdb8338f" data-media-type="file"></span><p /><div class="panel conf-macro output-block" data-hasbody="true" data-macro-id="81ad2bb6-9376-4f86-80ad-315fdc501070" data-macro-name="panel" style="background-color: #4C9AFF;border-width: 1px;"><div class="panelContent" style="background-color: #4C9AFF;">
+<p><strong><span class="legacy-color-text-inverse">Step Two（步骤二）</span></strong></p>
+</div></div><p>下一步是调整一些默认设置。</p><p>首先要让 curvature 更亮，因此把 Output Gain 从 1 提高到 10，会立即产生更强的 signal。  </p><p>把 samples 数量从 4 提高到 8（或 16）会减少 curvature 中的一些 grain，但会略微增加 render time。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="ProceduralEdgeBreak_2.jpg" width="760" loading="lazy" src="../../attachments/502759691/ProceduralEdgeBreak_2.jpg" data-image-src="../../attachments/502759691/ProceduralEdgeBreak_2.jpg" data-height="714" data-width="1695" data-unresolved-comment-count="0" data-linked-resource-id="623640714" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="ProceduralEdgeBreak_2.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="502759691" data-linked-resource-container-version="5" data-media-id="9dac6a72-bc59-4274-bc8a-246b2f68ee4a" data-media-type="file"></span><p /><p>接下来，我们会载入一张 map 来开始打散 curvature。在这个示例中，我使用了 Grunge Texture Vol 1 Pack 中的 grunge_04.tex，并采用 PxrRoundCube+PxrMultiTexture (Triplanar) approach 进行 mapping。</p><p>为了给 grunge map 增加一点 contrast，这里使用 PxrThreshold node 来实现该效果。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="ProceduralEdgeBreak_3.jpg" width="760" loading="lazy" src="../../attachments/502759691/ProceduralEdgeBreak_3.jpg" data-image-src="../../attachments/502759691/ProceduralEdgeBreak_3.jpg" data-height="714" data-width="1695" data-unresolved-comment-count="0" data-linked-resource-id="623575281" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="ProceduralEdgeBreak_3.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="502759691" data-linked-resource-container-version="5" data-media-id="c34d6be3-a181-4339-8f09-f7299a45d853" data-media-type="file"></span><p /><p>使用 PxrBlend node，并将 mode 设置为 Subtract，我们就可以从 curvature 中减去 grunge map。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="ProceduralEdgeBreak_4.jpg" width="760" loading="lazy" src="../../attachments/502759691/ProceduralEdgeBreak_4.jpg" data-image-src="../../attachments/502759691/ProceduralEdgeBreak_4.jpg" data-height="714" data-width="1695" data-unresolved-comment-count="0" data-linked-resource-id="623542499" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="ProceduralEdgeBreak_4.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="502759691" data-linked-resource-container-version="5" data-media-id="0cd9e3c5-8c58-493b-8fb7-9a19f0fb52e3" data-media-type="file"></span><p /><div class="panel conf-macro output-block" data-hasbody="true" data-macro-id="6a1d7a1b-3ba5-4d92-9248-c2f0d3cf1dc2" data-macro-name="panel" style="background-color: #4C9AFF;border-width: 1px;"><div class="panelContent" style="background-color: #4C9AFF;">
+<p><strong><span class="legacy-color-text-inverse">Step Three（步骤三，最后步骤）</span></strong></p>
+</div></div><p>现在结果开始变得有用了，可以作为两层之间的 mask，或为 shield 的 edges 添加 bump/displacement。</p><p>这个简单示例的最后一步是提高结果亮度；这里我们使用的是 PxrSplineMap node。 </p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="ProceduralEdgeBreak_5.jpg" width="760" loading="lazy" src="../../attachments/502759691/ProceduralEdgeBreak_5.jpg" data-image-src="../../attachments/502759691/ProceduralEdgeBreak_5.jpg" data-height="714" data-width="1695" data-unresolved-comment-count="0" data-linked-resource-id="623640727" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="ProceduralEdgeBreak_5.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="502759691" data-linked-resource-container-version="5" data-media-id="8239d83c-ec11-49e0-a8ee-4b5037daa5a9" data-media-type="file"></span><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="ProceduralEdgeBreak_nodes.jpg" width="760" loading="lazy" src="../../attachments/502759691/ProceduralEdgeBreak_nodes.jpg" data-image-src="../../attachments/502759691/ProceduralEdgeBreak_nodes.jpg" data-height="748" data-width="1517" data-unresolved-comment-count="0" data-linked-resource-id="623542508" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="ProceduralEdgeBreak_nodes.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="502759691" data-linked-resource-container-version="5" data-media-id="d59fe5a9-005a-4e1a-adb3-2cc482053f3f" data-media-type="file"></span><p /><p>很好，现在我们有了一个更符合目的的 mask，但值得注意的是，这个示例只是一个直接的做法。  </p><p /><div class="panel conf-macro output-block" data-hasbody="true" data-macro-id="f5eeeef4-8956-40fa-aea3-53c37fb8d7e9" data-macro-name="panel" style="background-color: #4C9AFF;border-width: 1px;"><div class="panelContent" style="background-color: #4C9AFF;">
+<p><strong><span class="legacy-color-text-inverse">Refine Details（细化细节）</span></strong></p>
+</div></div><p>为了提升真实感，你可以尝试用多张 grunge maps 从 curvature 中做减法，添加更多细节，并进一步打散 mask。</p><p>下面是一个示例：两张 grunge maps 分层叠加在 curvature 上，并使用 PxrLayeredBlend node 来处理 layered maps 的 blending modes。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="ProceduralEdgeBreak_6.jpg" width="760" loading="lazy" src="../../attachments/502759691/ProceduralEdgeBreak_6.jpg" data-image-src="../../attachments/502759691/ProceduralEdgeBreak_6.jpg" data-height="714" data-width="1695" data-unresolved-comment-count="0" data-linked-resource-id="623509685" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="ProceduralEdgeBreak_6.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="502759691" data-linked-resource-container-version="5" data-media-id="e4619d20-303e-4c52-a12e-ca8f61c48717" data-media-type="file"></span><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="ProceduralEdgeBreak_nodes2.jpg" width="760" loading="lazy" src="../../attachments/502759691/ProceduralEdgeBreak_nodes2.jpg" data-image-src="../../attachments/502759691/ProceduralEdgeBreak_nodes2.jpg" data-height="1075" data-width="1517" data-unresolved-comment-count="0" data-linked-resource-id="623542516" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="ProceduralEdgeBreak_nodes2.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="502759691" data-linked-resource-container-version="5" data-media-id="a39e65d7-b7fa-45f7-9a35-c3c5845348c2" data-media-type="file"></span><p /><p /><p />
+  </article>
+</main>
+</body>
+</html>

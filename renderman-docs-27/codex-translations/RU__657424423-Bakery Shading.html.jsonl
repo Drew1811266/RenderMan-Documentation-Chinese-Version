@@ -1,0 +1,7 @@
+{"item_id":"5d34b5dee5:0","text":"Bakery 烘焙坊场景着色流程（Shading）"}
+{"item_id":"5d34b5dee5:1","text":"Substance（或 Mari 等其他 3D paint softwares）的另一个优势是 preview capability，它可以让你很好地 overview material，并预先调整 maps。不过，这并不意味着一旦 maps 应用到 PxrSurface 上，我们只需要把它们连接到对应 channels，就可以认为 shading 完成了。Substance 中得到的 rendering 和 RenderMan 中得到的 rendering 之间可能存在差异。因此，在 refine final result 时，有时需要 remap、color correct，或用其他方式 manipulate textures。"}
+{"item_id":"5d34b5dee5:2","text":"复制与变化节点（Duplication and PxrVary）"}
+{"item_id":"5d34b5dee5:3","text":"当许多 duplicated elements 共享同一个 PxrSurface 时，我们必须找到方法让这些内容产生 variation。在这种情况下，最有用的 nodes 之一是 PxrVary。连接到 color base 时，这个 node 可以在 saturation、value 和 hue 上引入 variations。这样可以获得更高的 realism，并避免令人畏惧的 “perfect 3D” effect。例如，对于 breads 和 pastries，这让我们能够为 baked goods 添加 subtlety，因为 breads 从来不会 100% 相同……它们会因 flour、water、yeast 和 baking time 略有变化。"}
+{"item_id":"5d34b5dee5:4","text":"粗糙度与高光（Roughness and Specular）"}
+{"item_id":"5d34b5dee5:5","text":"我还有另一个 technique：在把 Roughness map 应用到 EdgeColor 之前，先使用 remap 将它 invert。然后可以根据需要调整 remap；在这个案例中，我降低它以保留 paint 的 gloss。这个技巧可以在 roughness 中提供更多 variation，并进一步丰富 texture。"}
+{"item_id":"5d34b5dee5:6","text":"最后，这个 set 的一个特殊之处是它的 viewpoint：它为 overall shot 设计，objects 看起来相对较远。正如我们在 UV section 中已经提到的，我们通过 export small maps 来优化 rendering time，同时也可以因此避免应用 Displacement maps。确实，在这个距离下，一个简单的 Normal map 已足以有效模拟 relief。"}

@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lama Metallic Workflow</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Lama Metallic Workflow</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RU/606208122/Lama+Metallic+Workflow">https://rmanwiki-27.pixar.com/space/RU/606208122/Lama+Metallic+Workflow</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="MetallicWorkflow_Banner.jpg" width="760" loading="lazy" src="../../attachments/606208122/MetallicWorkflow_Banner.jpg" data-image-src="../../attachments/606208122/MetallicWorkflow_Banner.jpg" data-height="1065" data-width="1894" data-unresolved-comment-count="0" data-linked-resource-id="625541181" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="MetallicWorkflow_Banner.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="606208122" data-linked-resource-container-version="5" data-media-id="563247dc-7007-4d2d-ae6b-ab8194375265" data-media-type="file"></span><p>Whether you’re using PBR maps from an online material library or texturing software like Substance Painter.  RenderMan ships with a handy node called <a class="external-link" href="../REN27/542224201-PxrMetallicWorkflow.html" rel="nofollow">PxrMetallicWorkflow</a>, which can be easily used with your PBR maps and a Lama workflow.</p><p>This lesson will guide you through the process.</p><p>The maps used in this lesson were kindly provided by our rendering friends at <a class="external-link" href="https://greyscalegorilla.com/" rel="nofollow">Greyscalegorilla</a>, and the example used is Copper Corroded Heavy 01</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="GSG_CorrodedCopper.jpg" width="760" loading="lazy" src="../../attachments/606208122/GSG_CorrodedCopper.jpg" data-image-src="../../attachments/606208122/GSG_CorrodedCopper.jpg" data-height="636" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="625508453" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="GSG_CorrodedCopper.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="606208122" data-linked-resource-container-version="5" data-media-id="4c7ded8b-2685-4e31-b86a-fcd2356274ca" data-media-type="file"></span><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="1c6b0834-8aef-4e6e-8bf9-253e034f8cfc" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>As the Eagle model doesn’t have any UVs, we’re using a triplanar approach to mapping the textures onto the model via the <a class="external-link" href="../REN27/542224293-PxrMultiTexture.html" rel="nofollow">PxrMultiTexture </a>node</p><p>If your model has UVs, you can use a <a class="external-link" href="../REN27/542225070-PxrTexture.html" rel="nofollow">PxrTexture </a>node instead of the PxrMultiTexture node.</p></div></div><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Lama_MatellicWorkflow.jpg" width="760" loading="lazy" src="../../attachments/606208122/Lama_MatellicWorkflow.jpg" data-image-src="../../attachments/606208122/Lama_MatellicWorkflow.jpg" data-height="985" data-width="2249" data-unresolved-comment-count="0" data-linked-resource-id="625508440" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Lama_MatellicWorkflow.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="606208122" data-linked-resource-container-version="5" data-media-id="2546376a-3cd3-4d6d-a1da-f37dc36f9674" data-media-type="file"></span><p /><div class="panel conf-macro output-block" data-hasbody="true" data-macro-id="" data-macro-name="panel" style="background-color: #EAE6FF;border-color: #998DD9;border-width: 1px;"><div class="panelContent" style="background-color: #EAE6FF;">
+<p>Note: Currently, exporting a Lama material network from Substance Painter requires updating the normal connections.  You can easily do this by selecting Update Lama Nodes from the RenderMan menu in your DCC</p>
+</div></div>
+  </article>
+</main>
+</body>
+</html>

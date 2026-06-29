@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tractor Spool Panel</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Tractor Spool Panel</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFH27/544642287/Tractor+Spool+Panel">https://rmanwiki-27.pixar.com/space/RFH27/544642287/Tractor+Spool+Panel</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="RfS_TractorSpool2.JPG" width="760" loading="lazy" src="../../attachments/544642287/RfS_TractorSpool2.JPG" data-image-src="../../attachments/544642287/RfS_TractorSpool2.JPG" data-height="712" data-width="1815" data-unresolved-comment-count="0" data-linked-resource-id="544642305" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RfS_TractorSpool2.JPG" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544642287" data-linked-resource-container-version="1" data-media-id="eb0ce907-059a-45d5-bbfd-9b0002bc3a22" data-media-type="file"></span><p /><p>Tractor 会将任务分发到由执行服务器组成的 render farm（渲染农场）。它会管理来自多个用户的大量并发 job queue（作业队列），同时执行依赖关系和调度策略。</p><p>在 Solaris 中，点击任意 UI pane（UI 面板）中的 + 图标即可打开 Tractor Spool panel（Tractor 提交面板）。</p><p /><p><strong>Spool to（提交到）</strong></p><p>选择将作业提交到 LocalQueue 还是 Tractor farm</p><p><strong>Render Node（渲染节点）</strong></p><p>选择要提交的 USD Render ROP 节点</p><p><strong>Render Threads（渲染线程）</strong></p><p>用于渲染的线程数。0 表示使用所有可用线程。</p><p><strong>Engine Host（Engine 主机）</strong></p><p>运行 Tractor Engine 的机器主机名。</p><p><strong>Engine Port（Engine 端口）</strong></p><p>Tractor Engine 监听的端口。默认值为 80</p><p><strong>User（用户）</strong></p><p>提交作业的用户名。</p><p><strong>Paused（暂停）</strong></p><p>选中此选项时，作业会以 paused（暂停）状态提交。</p><p><strong>Delete Temp Files（删除临时文件）</strong></p><p>删除批量渲染所需的所有临时文件</p><p><strong>Priority（优先级）</strong></p><p>作业的优先级。</p><p><strong>Service（服务）</strong></p><p>此作业的 Service keys（服务键）。</p><p><strong>Env Keys（环境键）</strong></p><p>可以指定多个 key，之间应以空格分隔。</p><p>LocalQueue 和 Tractor 开箱即可识别以下 environment keys（环境键）：<br/>- prman-*（例如 prman-24.0）<br/>- rmantree=*（例如 rmantree=$RMANTREE）</p><p><strong>After（之后）</strong></p><p>将作业处理的开始时间延迟到指定时间<br/>格式：MONTH/DAY HOUR:MINUTES </p><p>例如：11/24 13:45</p><p><strong>Crews（团队）</strong></p><p>Crews 列表。 <br/><a class="external-link" href="https://rmanwiki-26.pixar.com/space/TRA/22184294/Crews" rel="nofollow">请参见 Tractor 文档中的 'Crews'。</a><br/><strong>Tier（层级）</strong></p><p>该作业所属的 dispatching tier（调度层级）。 <br/><a class="external-link" href="https://rmanwiki-26.pixar.com/space/TRA/22184302/Scheduling+Modes" rel="nofollow">请参见 Tractor 文档中的 Scheduling Modes。</a></p><p><strong>Projects（项目）</strong></p><p>该作业所属的项目。 <br/><a class="external-link" href="https://rmanwiki-26.pixar.com/space/TRA/22184308/Limits+Configuration" rel="nofollow">请参见 Tractor 文档中的 'Limits Configuration'</a>。</p><p><strong>Comments（注释）</strong></p><p>关于该作业的附加注释</p><p><strong>Metadata（元数据）</strong></p><p>要添加到作业上的 metadata（元数据）。</p><p><strong>When Done Command（成功完成时命令）</strong></p><p>作业无错误完成时运行的命令。</p><p><strong>When Always Command（始终运行命令）</strong></p><p>无论作业完成时是否有错误都会运行的命令。</p>
+  </article>
+</main>
+</body>
+</html>

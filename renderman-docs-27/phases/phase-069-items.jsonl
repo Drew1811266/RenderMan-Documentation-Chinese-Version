@@ -1,0 +1,32 @@
+{"id": "c62c8ea7557face7a8fb1c808cc47d8eb14b741e50bd830ecee9a021cc8e6a51", "item_id": "d13c4ab165:0", "text": "Intersection priority is not yet supported in XPU."}
+{"id": "b4958139fde1fac4014285b22dbbb22c3888e2ab5cec059fe70727471cd06535", "item_id": "d13c4ab165:1", "text": "When rendering refractive objects, it's important to pay attention to the interface (where objects meet). Poor settings may show artifacts like air gaps, incorrect coloring, or have wrong results when using caustics. Times to consider this workflow are when you are rendering things like liquids in glass, air bubbles in champagne or ice, or complex fluid simulations."}
+{"id": "adf7eb3453d2b45f71574a56fe701ffdb67985de4cba8f7fe41147c7fb208663", "item_id": "d13c4ab165:2", "text": "Typically users model such things by creating a boolean operation so that these surfaces never really touch one another, it's either/or and not both at the same time. This can be complicated to set up and nearly impossible when trying to use a simulation like flowing water to do this effect. So in RenderMan you can add an attribute to the shape called"}
+{"id": "85d8f09fd233af058023502404c6b799087716c5bd55579ad4e6df5c3001020e", "item_id": "d13c4ab165:3", "text": "Intersection Priority."}
+{"id": "83fde434bb774eb3d3bdc2d09d32a102ac0f4d52fd82bf70ac44feac4b9c520f", "item_id": "d13c4ab165:4", "text": "It's a simple number to specify priority where higher numbers are higher priority."}
+{"id": "080b17fa23f2b4872a5b9e0ae76320a79c561a5606fb316b6ee66217bc22a0b4", "item_id": "d13c4ab165:5", "text": "You can find the paper for this topic here:"}
+{"id": "360d6a8efe2ee7a9c74d225cdf952b09e21ebcab3b1bddb678089ee4e2432ba3", "item_id": "d13c4ab165:6", "text": "Charles M Schmidt, Brian Budge."}
+{"id": "b4f2e5f344b55d3932c88d98b2a9be0da61a403fba26e0cd5e7b403a364e3d52", "item_id": "d13c4ab165:7", "text": "Simple Nested Dielectrics in Ray Traced Images"}
+{"id": "035bc0c423fe6c052ef939e373711e5966c9d766549352ef083eb3a12b6cb801", "item_id": "d13c4ab165:8", "text": "We cache the IOR set in the material to determine the bending of rays, you can override this with an attribute or let the material set it itself."}
+{"id": "bf6769cc471ae6a720b4c02b78fb8a82733e8309a4c768bed111e86df212cc09", "item_id": "d13c4ab165:9", "text": "Below are a few examples of different solutions."}
+{"id": "ba744794fc56e839d5e3c6e1f9fd7891b458a7bc5fa311b6cd742b6ca60a8669", "item_id": "d13c4ab165:10", "text": "Left to right:  Using intersection priority and overlap, the liquid overlaps the glass, the glass meets the liquid, liquid is slightly smaller than the glass"}
+{"id": "75ce5fa7e6b7239e065b0f035af1f78e64bfedf59ae94e8175be015ba960b159", "item_id": "d13c4ab165:11", "text": "To better understand the liquid placement, below are the possible options shown in a cross-section of the glass."}
+{"id": "91c07239f6f85d6cff73a195a2c5d66b6e92f8c76c6558e84ae9574ddc88cffe", "item_id": "d13c4ab165:12", "text": "Coincident"}
+{"id": "1d39c8bcfa9a27558b16901a51be347114311f688ddfc1fc7ff83b0dbe6c11ae", "item_id": "d13c4ab165:13", "text": "- This is where the surfaces perfectly meet. Notice the noisy artifacts where shading points fight one another in the same position."}
+{"id": "33435b9713584d37a9f446dba53b65844bbaaa56ca2a581b010dc272074bb1ca", "item_id": "d13c4ab165:14", "text": "Shrink"}
+{"id": "f5170539362d9506115ebf8e3c20b50a6bde394e8cc058b6ddfafc7ca2e6ca4f", "item_id": "d13c4ab165:15", "text": "- This example slightly shrinks the liquid inside the glass but creates air gaps."}
+{"id": "fd70ea6062fa49a8dd4e8d1f484abc508f85892d7bd92d099d5b7205c0035c41", "item_id": "d13c4ab165:16", "text": "Intersecting/Overlapping"}
+{"id": "3be413994eba38ad3b8de776f6391ab2c5ee11ba9e77303e175ab165db7c00e7", "item_id": "d13c4ab165:17", "text": "- This is the best placement to avoid problems but needs a better hint to the renderer that they have different priorities."}
+{"id": "8d52234fb66afe3fcc86e50377743ba93a52c2e86d89c31aa6a7c2b9339a0e2a", "item_id": "d13c4ab165:18", "text": "RenderMan intersection priority and IOR assumes models are built volumetrically (no two-dimensional objects) with outward-facing normals."}
+{"id": "37561ce00f640467e0bc4eecf2350d7371a2f1495aaf163eb56c6525546e8421", "item_id": "d13c4ab165:19", "text": "In the above examples, the overlapping liquid and glass are most similar to the correct method which uses overlapping but adds the"}
+{"id": "1ddd722b9bade028bafa5efdd45cb557c791e1150aa7076a014a1ad814ce3925", "item_id": "d13c4ab165:22", "text": "Intersection Priority"}
+{"id": "7fda4ddaca2dc7428f578061ee364a9fbbb240e76734617b4d7431aea27a6989", "item_id": "d13c4ab165:21", "text": "to the glass and liquid shapes. Notice the change in color for the liquid and how much better it captures the light and refractions. The glass has an"}
+{"id": "a36f76a11c8ca22431a7166b20fc1fbb076bda01664fde4bab414c9372fbc3d8", "item_id": "d13c4ab165:23", "text": "of 1 while the liquid is 2. If we were to add ice cubes those would be 3."}
+{"id": "6b96e22f2eae5f8385f0724bed2b6d9a07439e3747a2b89bce8db1c8706caab1", "item_id": "d13c4ab165:24", "text": "In some cases, you may experience a small dark line where the geometry overlaps. To solve this you can create a"}
+{"id": "a4903703fa694ed085a5223fea6a50de07801b38163e8ab98c6da5408036fcbd", "item_id": "d13c4ab165:25", "text": "Trace Bias"}
+{"id": "5509ffe8e783e2299bae9bed77e4783cea514806de363ff8bc218df710fc677c", "item_id": "d13c4ab165:26", "text": "attribute on the glass shape. By default, this value is 0.0001 but can be increased in very small increments until the artifact is gone. Note that the attribute for"}
+{"id": "0468dbf379f14d831bf6c69878145a045cff0b282e474e3445ddf64730be720b", "item_id": "d13c4ab165:31", "text": "Trace Auto Bias"}
+{"id": "54e617b3292ac0c2d88a3168333d6b92a68bbff140db5bc0cb0e3e946e0492e1", "item_id": "d13c4ab165:28", "text": "must be added to the object and turned off for manual trace bias settings to work unless the"}
+{"id": "e1591a8349c43cf81e6f0975294b1b733086c3b22ec0a1e0cf01fce2d7652199", "item_id": "d13c4ab165:29", "text": "global setting"}
+{"id": "10c22bcf4c768b515be4e94bcafc71bf3e8fb5f70b2584bcc8c7533217f2e7f9", "item_id": "d13c4ab165:30", "text": "for"}
+{"id": "9c6bbe28357741bb7f055f8805cf478736a2eb3a11abd3d0b0707ee05aa635c6", "item_id": "d13c4ab165:32", "text": "is already off."}
+{"id": "4a1e01785eb8994c3c2bfa9365db76a555cccebd79b73e7ceba2f87c62336a4f", "item_id": "d13c4ab165:33", "text": "The glass scene is courtesy of Julien Duval."}

@@ -1,0 +1,52 @@
+{"item_id":"700b34d013:0","text":"Enabling Holdouts in Maya（在 Maya 中启用 Holdouts）"}
+{"item_id":"700b34d013:1","text":"可以通过选择 holdout geometry，并点击 RenderMan shelf 中的"}
+{"item_id":"700b34d013:2","text":"Holdout 按钮"}
+{"item_id":"700b34d013:3","text":"来启用 RenderMan Holdouts。"}
+{"item_id":"700b34d013:4","text":"这会产生两个效果。它会启用所选 shape 的"}
+{"item_id":"700b34d013:5","text":"Hold-Out 属性"}
+{"item_id":"700b34d013:6","text":"："}
+{"item_id":"700b34d013:7","text":"同时还会启用 Advanced render settings 下的"}
+{"item_id":"700b34d013:8","text":"Output Shadow AOV 选项"}
+{"item_id":"700b34d013:9","text":"："}
+{"item_id":"700b34d013:10","text":"可以在 Maya 中使用"}
+{"item_id":"700b34d013:11","text":"image planes 图像平面对象"}
+{"item_id":"700b34d013:12","text":"并启用"}
+{"item_id":"700b34d013:13","text":"Image Plane As Sample Filter 高级渲染设置"}
+{"item_id":"700b34d013:14","text":"来 visualize holdouts。此 setting 默认启用。"}
+{"item_id":"700b34d013:15","text":"若要关闭 Holdout AOVs（阻止 output），可以如上所述在 \"Output Shadow AOV\" 中选择 \"None\"。"}
+{"item_id":"700b34d013:16","text":"About Holdouts（关于 Holdouts）"}
+{"item_id":"700b34d013:17","text":"VFX artists 经常需要将 CG objects composite 到 live action film plate 上。为了让观众相信 CG objects 真实存在并属于该 scene，需要使用 holdouts 来收集 CG objects 的 shadow 和 reflection，使其与 live action plate 中的 shadow 和 reflection 非常接近。"}
+{"item_id":"700b34d013:18","text":"Geometry（几何体设置）"}
+{"item_id":"700b34d013:19","text":"Holdout objects 用于代替 real world object，以捕捉来自 3D objects 的 light interactions。在 RenderMan 中，通过启用"}
+{"item_id":"700b34d013:20","text":"trace"}
+{"item_id":"700b34d013:21","text":"holdout"}
+{"item_id":"700b34d013:22","text":"attribute 属性来指定 holdout objects。"}
+{"item_id":"700b34d013:23","text":"Integrators and AOVs（积分器和 AOVs）"}
+{"item_id":"700b34d013:24","text":"Holdouts 是在 integrator level 实现的 illumination feature。它们能够捕捉多种 integrator-specific illumination effects，例如 diffuse 和 specular reflections、transmissions 以及 caustics。支持 holdouts 的可用 integrator 包括："}
+{"item_id":"700b34d013:25","text":"PxrPathTracer"}
+{"item_id":"700b34d013:26","text":"PxrVCM"}
+{"item_id":"700b34d013:27","text":"，以及 PxrUnified。"}
+{"item_id":"700b34d013:28","text":"对于 holdout geometry，LPE workflow 保持不变。"}
+{"item_id":"700b34d013:29","text":"由于 holdouts workflow 涉及多个 AOVs，在 rendering 时启用"}
+{"item_id":"700b34d013:30","text":"adapt all 全部自适应"}
+{"item_id":"700b34d013:31","text":"可以降低 noise，但代价是速度较慢，因为它可能会根据 noise 更高的 AOVs 触发更多 samples。"}
+{"item_id":"700b34d013:32","text":"Lights（灯光）"}
+{"item_id":"700b34d013:33","text":"默认情况下，light sources 会被视为 holdouts，并且不会直接 illuminate 其他 holdout objects。这可以防止用于 illuminate non-holdout geometry 的 lights 与 plate image 上已经捕获的 illumination 之间产生 double contribution。"}
+{"item_id":"700b34d013:34","text":"若要创建会直接 illuminate holdout objects 的 light source，请使用"}
+{"item_id":"700b34d013:35","text":"\"__illumholdout\""}
+{"item_id":"700b34d013:36","text":"作为 light group suffix。这会告诉 integrator plug-ins，在确定 illumination 时将此 light 视为 non-holdout light source。"}
+{"item_id":"700b34d013:37","text":"Alpha, Shadows, and Compositing（Alpha、阴影和合成）"}
+{"item_id":"700b34d013:38","text":"Holdout contribution 可以使用 alpha 和 shadow pass 作为 masks，composite 到 film plate 上。shadow pass 使用"}
+{"item_id":"700b34d013:39","text":"PxrShadowDisplayFilter"}
+{"item_id":"700b34d013:40","text":"plug-in 生成，并且可以选择写入自己的 AOV，或添加到 alpha 中。occluded 和 unoccluded input AOVs 应使用"}
+{"item_id":"700b34d013:41","text":"holdouts"}
+{"item_id":"700b34d013:42","text":"LPE prefix 进行 rendering，使它们只包含 holdout geometry 的 shadowing term。"}
+{"item_id":"700b34d013:43","text":"在 RenderMan 中，可以通过使用"}
+{"item_id":"700b34d013:44","text":"PxrImageDisplayFilter"}
+{"item_id":"700b34d013:45","text":"plug-in，在 RenderMan 中 interactively preview compositing。它会使用 alpha channel 和 holdout shadow AOV 作为 mask，将 film plate 与 beauty channel composite 在一起。"}
+{"item_id":"700b34d013:46","text":"Compositing Workflow（合成工作流）"}
+{"item_id":"700b34d013:47","text":"compositing image 时，如果 shadow matte 是 beauty 的一部分，那么它就是一个简单的 over operation。这会根据 render settings 提供正确的 shadow density 和 look。"}
+{"item_id":"700b34d013:48","text":"不过，这意味着调整 shadow density 会与你的 beauty alpha 绑定；你需要一个 mask，防止 shadow adjustments 破坏 CG object composite。Cryptomatte 可能可以作为你常用工具集的一部分处理这一点。"}
+{"item_id":"700b34d013:49","text":"如果单独 output shadow matte，就可以单独调整 shadow density；不过可能会遇到 coverage issue。解决方法是在 comp 中将 beauty 和 shadow matte 的 alphas merge 到一起。使用 Nuke 的示例在"}
+{"item_id":"700b34d013:50","text":"这里"}
+{"item_id":"700b34d013:51","text":"。"}

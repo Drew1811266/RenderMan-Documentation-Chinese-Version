@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>tq Cookbook</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>tq Cookbook</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/TRA/22184318/tq+Cookbook">https://rmanwiki-27.pixar.com/space/TRA/22184318/tq+Cookbook</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>可以通过无数方式使用 <a href="22184306-tq- Tractor Query tool.html" rel="nofollow">tq command-line tool</a> 来查询和管理 farm 的状态。借助强大的 <em>并且</em> 覆盖范围可按需要扩展的 <a href="22184262-Search Clauses.html" rel="nofollow">search clause syntax</a>，操作既可以非常精确，也可以覆盖很大范围。</p><p>本节提供若干 tq 可能有用的场景。<br/> </p><h3 id="tqCookbook-JobQueue">Job Queue（作业队列概述）<br/> </h3><h4 id="tqCookbook-QueueSize">Queue Size（队列大小说明）</h4><p>有多种方式可以评估剩余 work 的数量。下面的 command 会列出所有尚未 scheduled 的 tasks：</p><p><code>% tq tasks blocked or ready</code><sup>
+</sup></p><p>这里 blocked 和 ready aliases 会分别展开为 state=blocked 和 state=ready。</p><p>wc 可用于统计它们。使用 --noheader 或 --nh 是为了不把 headers 包含进计数。</p><p><code>% tq tasks --noheader blocked or ready | wc -l
+</code></p><p>对于某些站点，result set 可能因为 database 中的 configuration limit 而被截断。这是为了保护 engine、database server 和 client，避免极大 result sets 带来的 memory、cpu 和 bandwidth utilization 压力。可以使用 --limit flag 覆盖这个限制，或更谨慎地扩大它。</p><p><code>% tq tasks --noheader blocked or ready --limit 100000 | wc -l
+</code></p><p>这里我们把 result set 限制为 100,000 records。对于某些 queues，这可能仍然不够大。可以把 limit 设得更高；但对于这类 queries，可以使用 job 中维护的 task state counters。下面的 commands 会列出包含 blocked 和 ready tasks 的 jobs 及其数量。</p><p><code>% tq jobs --nh blocked or ready -c numblocked,numready
+</code></p><p>配合一些 option 和 shell-fu，可以把 result pipe 到 paste -sd+ | bc 来求和。--nocolor 确保特殊字符不会干扰 bc。--zeros 会让 zero values 显示为 0 而不是空白；当使用 + 连接 values 形成 bc 的 arithmetic expression 时，这一点是必需的。--delimiter + 会让 blocked 和 ready counters 以 + 分隔，而 paste -sd+ 会用 + 把多行连接起来。</p><p><code>% tq --nocolor --zeros jobs --noheader --delimiter + -c numready,numblocked ready or blocked | paste -sd+ | bc
+</code></p><p>注意，某些 options 出现在 jobs subcommand 之前，另一些出现在之后。Option 位置可通过 built-in help 验证。</p><p><code>% tq help usage
+% tq help jobs
+</code></p><p>仍需注意 result set sizes 可能被自动截断，因此可能需要使用 --limit option 以确保计算准确。<br/> </p><h4 id="tqCookbook-UndeletingaJob">取消删除 Job</h4><p>已删除的 job 可以从 archives 中恢复。第一步是发出 undelete command。</p><p><code>% tq --archives jobs undelete jid=1234
+</code></p><p>注意，--archives flag <em>必须</em> 使用，因为只能 undelete 已删除的 job，而 deleted jobs 只存在于 archives 中。</p><p>要让该 job 运行，必须 restart job 或 retry 特定 tasks。</p><p><code>% tq restart jid=1234
+</code></p><p>这里不需要 --archives flag，因为该 job 已不再被视为 deleted。<br/> </p><h3 id="tqCookbook-ResourceUtilization">Resource Utilization（资源利用率）<br/> </h3><h4 id="tqCookbook-FarmHogs">Farm Hogs（农场资源占用大户）</h4><p>下面的 command 会找到所有 active jobs，并按 active tasks 数量反向排序，让最忙的 jobs 排在前面。使用 active alias，它等价于 numactive &gt; 0。这里使用 limit option 来显示最忙的前 5 个 jobs。</p><p><code>% tq jobs active --sort -numactive --limit 5</code></p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="699fe1a3-0176-42dd-9b91-9b505fc57744" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">       jid user     title                        pri blkd redy actv err done spooled
+========== ======== =========================== ==== ==== ==== ==== === ==== ===========
+      2658 adamwg   turntable pollo                9   10    2  158        1 02/06|08:44
+        32 ratbuild feather sim x23_1             10         5   92       92 01/31|16:38
+      2659 adamwg   turntable ranch                9             67        1 02/06|08:44
+      2663 adamwg   turntable muffin              25             60        1 02/11|11:50
+       380 rdavis   mountain waterbottle sim x2  100             58        2 01/31|16:46
+</pre>
+</div></div><p /><h4 id="tqCookbook-ResourceHoarders">Resource Hoarders（资源囤积者）</h4><p>有时存在供应有限的特殊 computing resources，你可能想了解哪些 users 正在使用这些 resources。</p><p>假设有一些 high-performance blades 可以做 GPU rendering，并且这些 blades 有一个特殊 profile name gpu。可以按如下方式列出所有带该 profile 的 blades：</p><p><code>% tq blades profile=gpu
+</code></p><p>下面的 query 会列出所有 active tasks：</p><p><code>% tq tasks state=active
+</code></p><p>要只获取正在这些 GPU blades 上运行的 tasks：</p><p><code>% tq tasks state=active and profile=gpu
+</code></p><p>（注意：如果忘记 state=active 部分，最终会得到曾经在 gpu blades 上运行过的所有 tasks。）</p><p>tq 没有 built-in aggregation functions，但可以在 command-line 上使用 uniq -c（Linux 和 macOS）轻松执行这种 aggregation。下面的 command 匹配与上面相同的 tasks 列表，但只显示 task 的 owner。--noheader 避免 heading lines 被计入；--columns owner 使每行只显示 owner attribute；--sortby owner 按 owner 对 results 排序，以便 uniq -c 正常工作。</p><p><code>% tq tasks --noheader -state=active and profile=gpu -c owner -s owner | uniq -c</code></p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="7dcd621a-d4f7-49f3-b1d0-db93a8d2e1e6" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">   398 ringo
+    10 john
+     2 george
+     1 paul</pre>
+</div></div><p /><p>现在你可以看到谁在使用 gpu blades，便可以采取任何适当操作，例如重新调整 jobs 优先级、暂停 jobs、retry tasks，或调查某些 tasks 是否运行时间超出预期。<br/> </p><h3 id="tqCookbook-CommandHistory">Command History（命令历史记录）</h3><p>Tractor 会跟踪 farm 上每个 command 的执行，包括 blade name、start time、stop time，以及 process 的 memory 和 cpu utilization。每次 execution 都表示为一个独立的 <em>invocation</em>。Invocation 由三个 attributes 唯一标识： <em>jid</em>, <em>tid</em>和 <em>iid</em>。 <em>iid</em> 是 invocation id 调用编号，从 1 开始。</p><p> </p><h4 id="tqCookbook-findretriedtasksFindRetriedTasks"><span class="confluence-anchor-link conf-macro output-inline" data-hasbody="false" data-macro-id="91c767cf-4437-469e-9ef5-3bbb8dd9add4" data-macro-name="anchor" id="tqCookbook-findretriedtasks"><span class="confluence-anchor-link" id="findretriedtasks"> </span></span>查找 Retried Tasks 重试任务</h4><p>下面的 command 会找到特定 job 中所有由 retry 产生的 invocations。Retry 可能由 user、通过 API 的 script，或 engine 自动发起。Search string 周围使用 double quotes，是为了避免 &gt; sign 被 shell 解释。argv value 太长，无法在默认 column width 中显示，因此使用 ... 缩短它。</p><p><code>% tq invocations &quot;jid=52 and iid &gt; 1&quot;</code></p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="b592d9c0-9033-4b64-bfaf-64dfe1337f83" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">
+       jid  tid  cid  iid blade      starttime   stoptime    rcode argv
+========== ==== ==== ==== ========== =========== =========== ===== ========================================
+        52    1    1    2 c2221-8002 01/31|16:40 01/31|16:40     1 expandtest.py --exp...-time=100 --random
+        52    4    4    2 c1929-8000 01/31|16:40 01/31|16:40     1 expandtest.py --exp...-time=100 --random
+</pre>
+</div></div><p> </p><h4 id="tqCookbook-ResourceUtilizationofanInvocation">Invocation 的 Resource Utilization 资源利用率说明</h4><p>下面的 command 会列出所有使用超过 4G memory 的 commands 的 id、job owner、blade、timestamps 和 resource utilization。注意如何在 columns option 中使用 =6.3 formatter 指定 rss attribute 的 precision；6 指定 column width，3 指定 precision。Job</p><p>owner 也已添加，不需要为 attribute 加上 entity name 前缀（例如 Job.owner）。</p><p><code>% tq invocations 'rss&gt;4G' -c +rss=6.3,+vsz=6.3,+cpu=6.3,+owner</code></p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="a20ecd6b-de1a-4a1b-a414-4f98f5696178" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">
+       jid  tid  cid  iid blade      starttime   stoptime    rcode argv                                        rss    vsz    cpu owner
+========== ==== ==== ==== ========== =========== =========== ===== ======================================== ====== ====== ====== ======
+      2638    1    1    1 c1269-8000 02/04|11:02 02/04|11:03     0 sleep 10                                  8.891  0.000  0.000 adamwg
+      2639    1    1    1 c1269-8000 02/04|11:06 02/04|11:07     0 sleep 30                                  8.906  0.000  0.000 adamwg
+      2674    1    1    1 c1260-8000 02/11|22:00 02/11|22:00     0 /usr/bin/bc                               8.812  0.000  0.000 adamwg
+      2675    1    1    1 c1260-8000 02/17|08:01 02/17|08:01     0 sleep 1                                   4.680  0.000  0.000 adamwg
+      2683    2    2    1 c1260-8000 02/28|22:45 02/28|22:45     0 sleep 2                                   4.941  0.000  0.000 adamwg
+
+</pre>
+</div></div><h3 id="tqCookbook-FarmManagement">Farm Management（农场管理说明）<br/> </h3><h4 id="tqCookbook-DrainingtheFarm">Draining the Farm（排空农场流程）</h4><p>有时需要关闭全部或部分 farm，以执行 hardware maintenance 或 software upgrades 等 administrative activities。假设某站点需要升级 rack 3 和 rack 6 的 power supplies，并且这些 racks 中 hosts 的名称分别以 r3 和 r6 开头。</p><p>要让这些 racks 上正在运行的 tasks 排空，我们首先会使用 nimby command 阻止 blades 请求更多 work，如下所示：</p><p><code>% tq nimby &quot;name like ^r3 or name like ^r6&quot;
+</code></p><p>Admins 可以使用下面的 command 轮询这些 blades 上正在 active running 的 tasks。当 command 不返回结果时，他们就知道可以安全关闭这些 blades。</p><p><code>% tq tasks &quot;active and (blade like ^r3 or blade like ^r6)&quot;
+</code></p><p>管理员也可以不等待 tasks 完成，而是选择强制 retry 正在这些 blades 上运行的 tasks。</p><p><code>% tq retry &quot;active and (blade like ^r3 or blade like ^r6)&quot;
+</code></p><p>前面的 tq tasks command 可用于轮询 system，确保这些 racks 上没有剩余 active tasks，然后即可继续 maintenance。</p><p>Maintenance 完成后，可以使用与下线时类似的 command 让 blades 重新上线：</p><p><code>% tq unnimby &quot;name like ^r3 or name like ^r6&quot;
+</code></p><p>一些 regular expression 爱好者可能会很快指出 ^r[36] 应该匹配 rack 3 和 rack 6，这是正确的。不过，search clause syntax 要求包含 square brackets 的 expressions 放在 quotes 中，以免被解释为 search clause list 的分隔标记。因此，上面的 command（以及类似的其他 command）也可以写成这样：</p><p><code>% tq unnimby &quot;name like '^r[36]'&quot;
+</code></p>
+  </article>
+</main>
+</body>
+</html>

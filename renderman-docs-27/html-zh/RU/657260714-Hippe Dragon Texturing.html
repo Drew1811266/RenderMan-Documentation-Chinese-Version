@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hippe Dragon Texturing</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Hippe Dragon Texturing</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RU/657260714/Hippe+Dragon+Texturing">https://rmanwiki-27.pixar.com/space/RU/657260714/Hippe+Dragon+Texturing</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="contentLayout2">
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h3 id="HippeDragonTexturing-Texturing">Hippe Dragon 角色的贴图制作流程（Texturing）</h3><p>我喜欢从 Color/Albedo 开始 Texturing，并把它作为基础来驱动 secondary maps 上的大部分信息。对于 Color map，我更喜欢 Mari，因为它有一些很好的 procedural nodes；对于 Roughness 和 Displacement 等 secondary maps，我使用 Substance Painter。</p><p>对于 body，我使用 procedural tools 创建 textures 和 variation；对于 leaves 和 petals，我结合 Projecting images 与 procedural techniques。这就是我的 color map 从开始到结束逐步形成的过程。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image23.gif" width="760" loading="lazy" src="../../attachments/657260714/image23.gif" data-image-src="../../attachments/657260714/image23.gif" data-height="582" data-width="1126" data-unresolved-comment-count="0" data-linked-resource-id="656998798" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image23.gif" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/gif" data-linked-resource-container-id="657260714" data-linked-resource-container-version="1" data-media-id="675f0e4d-048e-4e56-89db-376496573ddf" data-media-type="file"></span><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image7.gif" width="760" loading="lazy" src="../../attachments/657260714/image7.gif" data-image-src="../../attachments/657260714/image7.gif" data-height="582" data-width="772" data-unresolved-comment-count="0" data-linked-resource-id="656998806" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image7.gif" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/gif" data-linked-resource-container-id="657260714" data-linked-resource-container-version="1" data-media-id="716e761b-74a6-4e28-b749-f78d2b03c14f" data-media-type="file"></span><p>对于 displacement/height map，我更喜欢 Substance Painter，因为它能在 viewport 中给出相当接近的 output 估计。这为每次小调整节省了大量 render iterations。为了更好控制 body 不同部位的 bump 和 displacement intensity，我使用了 Layer Displacement workflow。它允许我通过 Remap node 和用于控制区域的 mask，调整 body 特定部位的 intensity。</p><p>节省 render time 的一个 tip 是：尽量用 displacement 实现较大的 deformations，而 micro details 则通过 Bump 获得，即使两者使用同一张 height map 也是如此。如果试图只通过 Displacement 获取包括 micro details 在内的全部细节，最终可能会把 micropolygon length 降得过低，才能看见细节。另一方面，用 Bump 得到这些细节会轻得多。<br/>对于这个 asset，我的 base model 已经相当 high poly；为了让它更轻，我把 micropolygon length 从默认值 1 提高到 1.5。它可以在 Renderman 下的 Render Settings 中找到。</p><p>另一个需要注意的是勾选 “Watertight Dicing”。处理 Displacement 时，我开始在 seams 附近看到一些 holes；勾选这个选项后，问题得到了解决。</p><p>为了额外确保 geometry 中没有 holes，我还勾选了名为 “Prevent Polygon Cracking” 的选项；它位于 object 的 Attribute Editor 的 Shape node 中，在 Renderman 的 Displacement Tab 下。</p><p>这就是 base model 在 Displacement 前后的样子。</p></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image14.jpg" width="356" loading="lazy" src="../../attachments/657260714/image14.jpg" data-image-src="../../attachments/657260714/image14.jpg" data-height="1125" data-width="1999" data-unresolved-comment-count="0" data-linked-resource-id="656998812" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image14.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="657260714" data-linked-resource-container-version="1" data-media-id="3c9cf655-ba24-4cb6-bdee-7d61d10e3dd8" data-media-type="file"></span><p /></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image5.jpg" width="356" loading="lazy" src="../../attachments/657260714/image5.jpg" data-image-src="../../attachments/657260714/image5.jpg" data-height="1125" data-width="1999" data-unresolved-comment-count="0" data-linked-resource-id="656998818" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image5.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="657260714" data-linked-resource-container-version="1" data-media-id="70dcd431-ae04-47ff-b396-632323c0722d" data-media-type="file"></span><p /></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p>为所有希望单独控制的主要区域创建 RGB masks，对这种方法非常重要。它在 Lookdev 阶段非常有用，尤其是在调整 bump 和 displacement，或在不同区域分别控制 SSS 和 transmission 时。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image19.png" width="760" loading="lazy" src="../../attachments/657260714/image19.png" data-image-src="../../attachments/657260714/image19.png" data-height="829" data-width="1916" data-unresolved-comment-count="0" data-linked-resource-id="656998824" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image19.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="657260714" data-linked-resource-container-version="1" data-media-id="7a01c43c-9756-438c-808e-5df69df9bb3c" data-media-type="file"></span><p /><hr/></div>
+</div>
+</div>
+</div>
+  </article>
+</main>
+</body>
+</html>

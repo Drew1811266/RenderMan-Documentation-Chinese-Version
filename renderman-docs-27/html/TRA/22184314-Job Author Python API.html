@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Job Author Python API</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Job Author Python API</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/TRA/22184314/Job+Author+Python+API">https://rmanwiki-27.pixar.com/space/TRA/22184314/Job+Author+Python+API</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>tractor.api.author is a Python API for building Tractor jobs.</p><p>This module is installed with the Python interpreter that ships with Tractor, rmanpy. It may be used with other Python interpreters, but will require site-specific configuration to locate or install the required Tractor Python modules.</p><p>The following examples assume that the query module has been imported as follows:</p><p><code>&gt;&gt;&gt; import tractor.api.author as author</code><br/><sup>
+</sup></p><h3 id="JobAuthorPythonAPI-Overview">Overview</h3><p>A job is built using the Job, Task, Instance, and Command classes. It can then be spooled using the Job.spool() method or displayed using the Job.asTcl() method. Here is a simple example:</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="e942c7bf-d91e-44d5-bb50-55fe055eedc6" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">&gt;&gt;&gt; job = author.Job(title=&quot;a one-task render job&quot;, priority=100, service=&quot;PixarRender&quot;)
+&gt;&gt;&gt; job.newTask(title=&quot;A one-command render task&quot;, argv=[&quot;/usr/bin/prman&quot;, &quot;file.rib&quot;], service=&quot;pixarRender&quot;)
+&gt;&gt;&gt; print job.asTcl()
+Job -title {a one-task render job} -priority {100.0} -service {PixarRender} -subtasks {
+  Task {A one-command render task} -cmds {
+    RemoteCmd {{/usr/bin/prman} {file.rib}} -service {pixarRender}
+  }
+}</pre>
+</div></div><h3 id="JobAuthorPythonAPI-SpoolingaJob">Spooling a Job</h3><p>To spool a job, call the job's spool() method. The job id of the new job will be returned.</p><p><code>&gt;&gt;&gt; newJid = job.spool()
+</code></p><p>An exception will be raised if there is a problem communicating with the engine. If the job successfully spools, it will appear in the Dashboard or in tq jobs. Otherwise, the engine will log diagnostic information as to why the job could not be spooled.</p><p>Spooling can optionally be performed in blocking mode: spool(block=True) will not return until the job submission has been fully processed. If there is an error, an exception will be raised. The block=True option is useful for bringing more diagnostic information to the client. However, it does take longer to complete, and moreso when there are many other jobs concurrently being spooled. As such, blocking is most useful when debugging authoring scripts or developing new ones.</p><p>The owner keyword argument can be used to specify the job owner. The default job owner is the script's process owner.</p><p><code>&gt;&gt;&gt; job.spool(owner=&quot;cher&quot;)
+</code></p><h3 id="JobAuthorPythonAPI-SettingAttributes">Setting Attributes</h3><p>Attributes can be set using keyword arguments (as above) or using attribute assignment. The above job can also be specified as follows:</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="9b3cafc6-4c4b-49ee-b975-9a4f487ce462" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">&gt;&gt;&gt; job = author.Job()
+&gt;&gt;&gt; job.title = &quot;a one-task render job&quot;
+&gt;&gt;&gt; job.priority = 100
+&gt;&gt;&gt; job.service = &quot;PixarRender&quot;
+&gt;&gt;&gt; job.newTask(title=&quot;A one-command render task&quot;, argv=[&quot;/usr/bin/prman&quot;, &quot;file.rib&quot;])</pre>
+</div></div><p /><h3 id="JobAuthorPythonAPI-AddingTasks">Adding Tasks</h3><p>Adding a task to a job can be done using Job.newTask() as above, or in separate steps of creating a task and adding it as a child of the job.</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="f3cfc936-917f-4680-b95b-15cc08dd97dd" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">&gt;&gt;&gt; job = author.Job(title=&quot;a one-task render job&quot;, priority=100, service=&quot;PixarRender&quot;)
+&gt;&gt;&gt; task = author.Task(title=&quot;A one-command render task&quot;, argv=[&quot;/usr/bin/prman&quot;, &quot;file.rib&quot;])
+&gt;&gt;&gt; job.addChild(task)</pre>
+</div></div><p /><p>For tasks to run serially, such that one task finishes before another starts, the task to run first is declared as a child of the second.</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="a17f1128-8929-414b-90db-e7393d4b55be" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">&gt;&gt;&gt; parent = author.Task(title=&quot;parent runs second&quot;, argv=[&quot;/usr/bin/command&quot;])
+&gt;&gt;&gt; child = author.Task(title=&quot;child runs first&quot;, argv=[&quot;/usr/bin/command&quot;])
+&gt;&gt;&gt; parent.addChild(child)</pre>
+</div></div><p /><p>By default, sibling tasks are permitted to run in parallel.</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="1c112aae-db2a-4a64-b2c4-a88964350274" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">&gt;&gt;&gt; parent = author.Task(title=&quot;comp&quot;, argv=[&quot;/usr/bin/comp&quot;, &quot;fg.tif&quot;, &quot;bg.tif&quot;])
+&gt;&gt;&gt; child1 = author.Task(title=&quot;render fg&quot;, argv=[&quot;/usr/bin/prman&quot;, &quot;fg.rib&quot;])
+&gt;&gt;&gt; child2 = author.Task(title=&quot;render bg&quot;, argv=[&quot;/usr/bin/prman&quot;, &quot;bg.rib&quot;])
+&gt;&gt;&gt; parent.addChild(child1)
+&gt;&gt;&gt; parent.addChild(child2)</pre>
+</div></div><h3 id="JobAuthorPythonAPI-Serialsubtasks">Serialsubtasks</h3><p>Setting a task's serialsubttasks attribute to 1 causes its children to be run serially.</p><p><code>&gt;&gt;&gt; parent.serialsubtasks = 1
+</code></p><p>When a parent task has serialsubtasks set, a child task's entire subtree must be fully completed before its sibling task is allowed to run.<br/> </p><h3 id="JobAuthorPythonAPI-AddingCommands">Adding Commands</h3><p>Tasks typically have one or more commands. Adding a command to a task can be done using Task.newCommand(), or done in separate steps of creating a new command and adding it as a child of a task. The following examples build an equivalent task.</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="fee54b35-21f5-425a-8a0c-fc8d67a973ee" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">&gt;&gt;&gt; task = author.Task(title=&quot;render rib 1&quot;)
+&gt;&gt;&gt; command = author.Command(argv=[&quot;/usr/bin/prman&quot;, &quot;1.rib&quot;], service=&quot;pixarRender&quot;)
+&gt;&gt;&gt; task.addCommand(command)</pre>
+</div></div><p /><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="d5b76def-8c5e-408a-ad25-d5f89c5768aa" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">&gt;&gt;&gt; task = author.Task(title=&quot;render rib 1&quot;)
+&gt;&gt;&gt; command = task.newCommand(argv=[&quot;/usr/bin/prman&quot;, &quot;1.rib&quot;], service=&quot;pixarRender&quot;)</pre>
+</div></div><p><sup>
+</sup></p><p>Additionally, there is a shortcut in which a command can be instantiated and automatically associated with a task when the task is created. This is done by setting the argv attribute when initializing a new task. This approach also works in the author.newTask() method.</p><p><code>&gt;&gt;&gt; task = author.Task(title=&quot;render rib 1&quot;, argv=[&quot;/usr/bin/prman&quot;, &quot;1.rib&quot;], service=&quot;pixarRender&quot;)
+</code></p><p><code>&gt;&gt;&gt; task = otherTask.newTask(title=&quot;render rib 1&quot;, argv=[&quot;/usr/bin/prman&quot;, &quot;1.rib&quot;], service=&quot;pixarRender&quot;)
+</code></p><p>Because each command requires a service key, the API will push the assignment of the service attribute to the command when this shortcut is used.</p><p>If other attributes of a command need to be set, such as the envkey, commands must be built explicitly using author.Command() orauthor.Task.newCommand() instead of using this shortcut.</p><p>It is valid for a task to have no commands. For example, a task may serve to group a subtree of tasks, even though the task itself has no commands to execute.<br/> </p><h3 id="JobAuthorPythonAPI-Multi-commandTasks">Multi-command Tasks</h3><p>When a task has multiple commands, they will be executed serially. Multiple commands can be associated with a task using successive invocations of the author.Task.addCommand() or author.Task.newCommand() methods.</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="e014d18d-dd77-4532-b25e-5f75751a290b" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">&gt;&gt;&gt; task = author.Task(title=&quot;multi-command task&quot;, service=&quot;PixarRender&quot;)
+&gt;&gt;&gt; copyin = author.Command(argv=[&quot;scp&quot;, &quot;remote:/path/file.rib&quot;, &quot;/local/file.rib&quot;])
+&gt;&gt;&gt; task.addCommand(copyin)
+&gt;&gt;&gt; render = author.Command(argv=[&quot;/usr/bin/prman&quot;, &quot;/local/file.rib&quot;])
+&gt;&gt;&gt; task.addCommand(render)
+&gt;&gt;&gt; copyout = author.Command(argv=[&quot;scp&quot;, &quot;/local/file.tif&quot;, &quot;remote:/path/file.tif&quot;])
+&gt;&gt;&gt; task.addCommand(copyout)</pre>
+</div></div><p /><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="6f3de2ac-aded-43e7-bb6d-01ed418e8b90" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">&gt;&gt;&gt; task = author.Task(title=&quot;multi-command task&quot;, service=&quot;PixarRender&quot;)
+&gt;&gt;&gt; task.newCommand(argv=[&quot;scp&quot;, &quot;remote:/path/file.rib&quot;, &quot;/local/file.rib&quot;])
+&gt;&gt;&gt; task.newCommand(argv=[&quot;/usr/bin/prman&quot;, &quot;/local/file.rib&quot;])
+&gt;&gt;&gt; task.newCommand(argv=[&quot;scp&quot;, &quot;/local/file.tif&quot;, &quot;remote:/path/file.tif&quot;])
+
+</pre>
+</div></div><h3 id="JobAuthorPythonAPI-Exceptions">Exceptions</h3><p>When assigning a value to an element's attribute, an exception is raised if it is not a valid value.</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="c5d90ded-0eab-48eb-8986-6a25fb6493ed" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">&gt;&gt;&gt; try:
+&gt;&gt;&gt;     job.atmost = &quot;three&quot;
+&gt;&gt;&gt; except author.AuthorError, err:
+&gt;&gt;&gt;     print &quot;you can expect to see this message&quot;</pre>
+</div></div><p /><h3 id="JobAuthorPythonAPI-DirectoryMapping">Directory Mapping</h3><p>A directory map is a way to translate file system paths between different operating systems. Directory maps are specified as follows:</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="d1c14646-2843-4e2b-9052-b1050bd86c60" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">&gt;&gt;&gt; job.newDirMap(src=&quot;X:/&quot;, dst=&quot;//fileserver/projects&quot;, zone=&quot;UNC&quot;)
+&gt;&gt;&gt; job.newDirMap(src=&quot;X:/&quot;, dst=&quot;/fileserver/projects&quot;, zone=&quot;NFS&quot;)</pre>
+</div></div><p /><p>More information about directory mapping and this example can be found <a href="22184272-Directory Mapping.html" rel="nofollow">here</a>.<br/> </p><h3 id="JobAuthorPythonAPI-EngineConnectivity">Engine Connectivity</h3><p>The author module handles connectivity to the engine when a job is spooled. The engine hostname, port, connected user, password, and debug flag can be changed using setEngineClientParam().</p><p>The default target engine is set according to the TRACTOR_ENGINE environment variable; otherwise, tractor-engine:80 is used. It is possible a different default engine is used depending on whether <a href="https://renderman.atlassian.net/wiki/spaces/TRA/pages/22184316#Engine-enginediscovery" rel="nofollow">EngineDiscovery</a> has been configured.</p><p>The default user is set according to the USER environment variable; otherwise, it is root.</p><p>The default password is set according to the TRACTOR_PASSWORD environment variable; otherwise, it is not set.</p><p>The default debug flag is set according to the TRACTOR_DEBUG environment variable; othewise, it is False.</p><p>The following example demonstrates how to override certain connection values. Note that setEngineClientParam() should be called before spooling any jobs in order for the connection parameters to take effect.</p><p><code>&gt;&gt;&gt; author.setEngineClientParam(hostname=&quot;test-engine&quot;, port=8000, user=&quot;donovan&quot;, debug=True)
+</code></p><p>You can terminate the session by calling closeEngineClient(). This is helpful for reducing the number of sessions maintained by the engine.</p><p><code>&gt;&gt;&gt; author.closeEngineClient()
+</code></p><h3 id="JobAuthorPythonAPI-MoreHelp">More Help</h3><p>The file &lt;TractorInstallDir&gt;/lib/python2.7/site-packages/tractor/api/author/test.py contains additional examples of API usage.</p>
+  </article>
+</main>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rendering SOP Volumes</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Rendering SOP Volumes</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFH27/544640830/Rendering+SOP+Volumes">https://rmanwiki-27.pixar.com/space/RFH27/544640830/Rendering+SOP+Volumes</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p /><ul><li><p>Set SOP Path parameter on the SOP Import LOP.</p><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="a4da7339-8264-4811-b1f3-5e7d5cd9ed90" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>RenderMan only supports imported OpenVDB (VDB) volume SOPs. You must export the VDB simulation prior to rendering.</p></div></div></li></ul><p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="566" loading="lazy" src="../../attachments/544640830/rfh_solaris_sopimport.PNG" data-image-src="../../attachments/544640830/rfh_solaris_sopimport.PNG" data-height="382" data-width="566" data-unresolved-comment-count="0" data-linked-resource-id="544640847" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfh_solaris_sopimport.PNG" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544640830" data-linked-resource-container-version="1" data-media-id="19947ce1-97b8-4c54-850b-8b6618961d96" data-media-type="file"></span><p /><ul><li><p>Create volume material network inside the Material Library LOP using <a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661555" rel="nofollow">PxrVolume</a>. The network below is an example network for rendering a fireball using the density, temperature, and heat grids</p><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="dc3c312e-1680-4379-ad38-1f2eda4cabf4" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>Currently only float grids can be rendered. Volume motion blur is not yet supported since RenderMan requires velocity to be a single vector grid rather than 3 float grids.</p></div></div></li></ul><p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="803" loading="lazy" src="../../attachments/544640830/rfh_solaris_pxrvolume.PNG" data-image-src="../../attachments/544640830/rfh_solaris_pxrvolume.PNG" data-height="357" data-width="803" data-unresolved-comment-count="0" data-linked-resource-id="544640844" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfh_solaris_pxrvolume.PNG" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544640830" data-linked-resource-container-version="1" data-media-id="bb4c3e01-7187-4222-838d-1f8710ad5ab2" data-media-type="file"></span><p /><ul><li><p>Assign Material as usual using the path</p></li></ul><p />
+  </article>
+</main>
+</body>
+</html>

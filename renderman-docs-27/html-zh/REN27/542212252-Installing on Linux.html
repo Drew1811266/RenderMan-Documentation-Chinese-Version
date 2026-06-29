@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Installing on Linux</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Installing on Linux</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/REN27/542212252/Installing+on+Linux">https://rmanwiki-27.pixar.com/space/REN27/542212252/Installing+on+Linux</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<h3 id="InstallingonLinux-MinimumSystemRequirements"><style>[data-colorid=yi8hsvj7xs]{color:#1d1c1d} html[data-color-mode=dark] [data-colorid=yi8hsvj7xs]{color:#e3e2e3}[data-colorid=aosrod4mi0]{color:#2c2d30} html[data-color-mode=dark] [data-colorid=aosrod4mi0]{color:#cfd0d3}[data-colorid=gygma37fj9]{color:#2c2d30} html[data-color-mode=dark] [data-colorid=gygma37fj9]{color:#cfd0d3}[data-colorid=ae2uhsvnrz]{color:#2c2d30} html[data-color-mode=dark] [data-colorid=ae2uhsvnrz]{color:#cfd0d3}</style>最低系统要求</h3><p>此版本支持以下操作系统。RenderMan 也许可以在不满足这些要求的环境中运行，但可能不稳定，且不属于支持范围：</p><ul><li><p>兼容任何支持 gcc 11.2 和 glibc 2.34 或更高版本的 Linux 发行版（例如 RHEL9.x 及更新版本）</p></li></ul><p>RenderMan 的设计目标是在大量 CPU 核心之间高效扩展。因此，尽管以上只是最低要求，配备多个处理器的系统会获得最佳性能。</p><p>Pixar 的 RenderMan 软件以下列形式交付：&nbsp;</p><ul><li><p>RenderMan-Installer-<em>version</em>-linux<em>flavor</em>.rpm - RenderMan 渲染工具包。</p></li></ul><p>该&nbsp; <em>flavor</em> &nbsp;字符串包含常见发行版，例如 RHEL9，以及&nbsp; <em>gcc/icc</em> &nbsp;版本和微处理器指令集。把这些部分组合起来，例如会得到一个名为 RenderMan-Installer-27.0.0_2376203 的 RHEL 软件包<em>-linuxRHEL9_gcc11icx232.x86_64.rpm</em> 。</p><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="f90b7a86-5493-485c-94e7-8b037d1dfd86" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>请注意，在 Linux 上，用户必须手动设置环境变量，才能从终端窗口使用可执行文件。此过程会在下方的命令行安装部分说明。</p></div></div><p>你还必须满足顶层 <a href="542212198-Installation and Licensing.html" data-linked-resource-id="542212198" data-linked-resource-version="11" data-linked-resource-type="page">安装和授权</a> 页面列出的要求。</p><h3 id="InstallingonLinux-GUI-basedInstallation">基于 GUI 的安装</h3><p>尽管 RPM 软件包通常通过命令行安装，但某些 Linux 发行版提供基于 GUI 的软件包管理器，例如&nbsp; <strong>gnomerpm</strong> 。某些发行版还允许在目录浏览器中双击 RPM 文件，这会使用默认参数调用 RPM。你可以在自己的 Linux 系统上尝试这样做。如果安装没有自行开始（因为系统缺少双击 .rpm 所需的组件），则可以按下面的步骤开始安装过程。</p><div class="panel conf-macro output-block" data-hasbody="true" data-macro-id="" data-macro-name="panel" style="background-color: #EAE6FF;border-color: #998DD9;border-width: 1px;"><div class="panelContent" style="background-color: #EAE6FF;">
+<p>下面的流程适用于 27.0 正式版，而不适用于 Beta。27.0 Beta 不包含 GUI Installer。作为替代，你可以分别下载每个 RPM，并使用类似下面的命令安装（这里只展示 RenderManProServer 的命令，其他组件也可以用类似方式安装）。如果你的系统权限需要，请在命令前加上 <code>sudo</code> ：</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="b0981645-85a0-4504-8ae9-531e14d338aa" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">rpm -ivh RenderManProServer-27.0b1_2376203-linuxRHEL9_gcc11icx232.x86_64.rpm</pre>
+</div></div>
+</div></div><p>要使用 GUI Installer 安装 RenderMan（仅限 27.0 正式版），请运行：</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="62b86044-3b41-4370-bcf0-14ac5d04a110" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">rpm -ivh RenderMan-Installer-27.0_2376203-linuxRHEL9_gcc11icx232.x86_64.rpm</pre>
+</div></div><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="a78489fe-dcd0-4bc1-a390-b150a72f8111" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>由于 EL9 中的用户安全机制发生变化，如果 RenderMan Installer 应用在 sudo 下无法启动，可能需要先运行以下命令行：</p><p><code>$ xhost local:root</code></p></div></div><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="1c6f9f4e-a168-4e5f-bb86-5d1a7d5e7b2e" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>RenderMan 的 RtxSVG.so 插件要求安装 compat-expat1 软件包。如果你计划使用 SVG 纹理，请先安装 compat-expat1。</p></div></div><p>如果你已经解包 .rpm，则可以运行以下命令来启动基于 GUI 的安装器：</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="7c4f629c-8fd6-4837-89a8-fe6409ca6c7b" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">sudo /opt/pixar/RenderMan-Installer/bin/RenderManInstaller</pre>
+</div></div><p /><p>安装器会连接 RenderMan Pixar Server，并下载你已授权的组件。在安装过程中，你会看到默认安装位置是 /opt/pixar；它将成为上面列出的所有软件组件的根目录。</p><p>接下来我们将逐步说明这个过程。 <br /><br />首先，你必须使用论坛账户登录，并提供已购买许可证的序列号。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="644" loading="lazy" src="../../attachments/542212252/installer.jpg" data-image-src="../../attachments/542212252/installer.jpg" data-height="528" data-width="514" data-unresolved-comment-count="0" data-linked-resource-id="542212286" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="installer.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542212252" data-linked-resource-container-version="4" data-media-id="d225e394-79a2-4669-834f-b27e94b2b598" data-media-type="file" /></span><p><span data-colorid="aosrod4mi0">接下来，如果你是在浮动许可证服务器上 </span><strong><span data-colorid="ae2uhsvnrz">首次</span></strong><span data-colorid="gygma37fj9"> 安装，可能会看到以下内容：</span></p><span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="376" loading="lazy" src="../../attachments/542212252/licenseKeyV21.png" data-image-src="../../attachments/542212252/licenseKeyV21.png" data-height="290" data-width="376" data-unresolved-comment-count="0" data-linked-resource-id="542212289" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="licenseKeyV21.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542212252" data-linked-resource-container-version="4" data-media-id="20405707-ce3e-431f-a254-efb745266770" data-media-type="file" /></span><p>这表示安装器即将把你的许可证服务器绑定到当前运行安装器的主机。</p><div class="confluence-information-macro confluence-information-macro-warning conf-macro output-block" data-hasbody="true" data-macro-id="a954d20f-5cb3-496f-a7e0-b3db35c92af0" data-macro-name="warning"><span class="aui-icon aui-icon-small aui-iconfont-error confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p><span class="legacy-color-text-default">如果这台机器&nbsp;</span> <strong>不是</strong> <span class="legacy-color-text-default">&nbsp;你希望运行许可证服务器的机器，请按&nbsp;</span> <strong>Cancel </strong><span class="legacy-color-text-default">按钮，并在你希望指定为许可证服务器的机器上重新运行安装器。</span></p></div></div><p>如果你决定将这台机器作为许可证服务器，或者你正在安装节点锁定许可证，安装器随后会联系 Pixar 并获取你的许可证文件。默认情况下，它会把许可证文件放在：</p><ul><li><p>Windows: C:\Program Files\Pixar\pixar.license</p></li><li><p>macOS:  /Applications/Pixar/pixar.license</p></li><li><p>Linux: /opt/pixar/pixar.license</p></li></ul><p><br /><br />接下来，你会看到希望安装的软件包列表。&nbsp;</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="644" loading="lazy" src="../../attachments/542212252/installer_choices.jpg" data-image-src="../../attachments/542212252/installer_choices.jpg" data-height="528" data-width="514" data-unresolved-comment-count="0" data-linked-resource-id="542212283" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="installer_choices.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542212252" data-linked-resource-container-version="4" data-media-id="2efebec6-c006-4105-aeb7-e81e02226999" data-media-type="file" /></span><p>安装器还会尝试查找可安装的相应插件。不过，如果它找不到 Maya 安装，或者判断你已经安装了该软件的最新版本，它会显示一条警告，提示出现了异常情况。</p><p>现在你可以在这里决定要安装哪些软件和软件包。例如，如果你不希望安装 Katana 插件，可以取消选中它们。如果你 <strong>确实</strong> 希望为浮动许可证安装许可证服务器，可以选择 "Show All" 按钮，并同时选择许可证服务器软件包。&nbsp;<strong> </strong><a href="542212504-Installing The License Server.html" data-linked-resource-id="542212504" data-linked-resource-version="1" data-linked-resource-type="page"><strong>安装许可证服务器</strong></a><strong> </strong>会详细说明安装完成后必须在各个平台上执行哪些步骤，以确保浮动许可证服务器正常工作。</p><p>选定所需的软件包后，点击 <strong>Next</strong> 按钮即可进入下载和安装阶段。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="644" loading="lazy" src="../../attachments/542212252/installerInstalling.jpg" data-image-src="../../attachments/542212252/installerInstalling.jpg" data-height="528" data-width="514" data-unresolved-comment-count="0" data-linked-resource-id="542212277" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="installerInstalling.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542212252" data-linked-resource-container-version="4" data-media-id="77ed7c90-e6e3-4f86-8925-4a7f4d998831" data-media-type="file" /></span><p>此阶段完成后，会出现 <strong>Success!</strong> 屏幕。此时，你可以退出安装器。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="644" loading="lazy" src="../../attachments/542212252/installer_Done.jpg" data-image-src="../../attachments/542212252/installer_Done.jpg" data-height="528" data-width="514" data-unresolved-comment-count="0" data-linked-resource-id="542212274" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="installer_Done.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542212252" data-linked-resource-container-version="4" data-media-id="8f1b755d-d478-4a98-9ba1-4abfb1491371" data-media-type="file" /></span><div class="confluence-information-macro confluence-information-macro-warning conf-macro output-block" data-hasbody="true" data-macro-id="0d042b2c-3d39-4327-95a5-0abe72be60e6" data-macro-name="warning"><span class="aui-icon aui-icon-small aui-iconfont-error confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>安装器完成后，浮动许可证服务 <strong>尚未安装</strong> 或 <strong>尚未启动。</strong></p><p><strong> </strong><a href="542212557-Linux License Server.html" data-linked-resource-id="542212557" data-linked-resource-version="1" data-linked-resource-type="page"><strong>Linux 许可证服务器</strong></a><strong>&nbsp;</strong>会介绍安装和启动浮动许可证服务的所有细节。</p></div></div><p /><h4 id="InstallingonLinux-Downloads">下载</h4><p>除了 RenderMan、License Server 和 DCC 插件之外，安装器也可以下载其他类型的文件。其中包括 RenderMan Examples。这些文件会放在运行 RenderManInstaller 的用户的 Download 目录中。</p><h4 id="InstallingonLinux-Python">Python</h4><p>如果你计划使用 Python 绑定，需要从&nbsp;<a class="external-link" href="http://www.python.org/" rel="nofollow">www.python.org</a>下载 Python 安装器。RenderMan Pro Server 27 绑定兼容 3.7、 <span data-colorid="yi8hsvj7xs">3.9、3.10 和 3.11</span>。</p><h4 id="InstallingonLinux-Help">帮助</h4><p>如需进一步帮助，请查看&nbsp;<a class="external-link" href="https://renderman.pixar.com/forum/index.php" rel="nofollow">RenderMan Support Forum</a>。请注意，需要注册。</p><p />
+  </article>
+</main>
+</body>
+</html>

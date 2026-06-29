@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PxrBumpMixer</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>PxrBumpMixer</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/REN27/542222881/PxrBumpMixer">https://rmanwiki-27.pixar.com/space/REN27/542222881/PxrBumpMixer</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>此节点提供一种现代方式来生成并分层 bump maps（凹凸贴图），用 shading（着色）而不是建模来添加细小表面细节，成本较低。</p><p>传统选项不允许 order-independent mixing（与顺序无关的混合），而此节点可在需要时轻松混合多个输入。你也可以把这些节点串接起来，构建更复杂的网络，通过 masking（遮罩）在表面上改变 bump maps，同时只使用一个 material assignment（材质指定）。<br/><br/></p><p><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/542222881/pxrBumpMixer_Inputs.jpg" data-image-src="../../attachments/542222881/pxrBumpMixer_Inputs.jpg" data-unresolved-comment-count="0" data-linked-resource-id="542222897" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrBumpMixer_Inputs.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542222881" data-linked-resource-container-version="1" data-media-id="9c99922c-4be7-44b3-b64d-1592dd6edf91" data-media-type="file"></span><br/><br/></p><p><span>提供 </span><strong><em>resultNG</em></strong><span> 输出的节点可以连接到此节点，例如 </span><a href="542225070-PxrTexture.html" data-linked-resource-id="542225070" data-linked-resource-version="1" data-linked-resource-type="page">PxrTexture</a><span> 和 </span><span>许多 procedural patterns（程序化图案）</span><span>。 </span>这种新的 NG vector type 表达 signal 的 gradient（梯度），比传统 bump map 技术计算起来更准确、更高效。</p><p>此技术实现了以下论文中的许多发展： <a class="external-link" href="http://jcgt.org/published/0009/03/04/" rel="nofollow" style="letter-spacing: 0.0px;">Surface Gradient-Based Bump Mapping Framework</a>。</p><h3 id="PxrBumpMixer-InputParameters">Input Parameters（输入参数）</h3><h4 id="PxrBumpMixer-Mode">Mode（模式）</h4><ul><li><p><strong>Add（相加）</strong> - 将结果相加，A + B</p></li><li><p><strong>Over（叠加）</strong> - 将 A 置于 B 之上；mask（遮罩）在这里很有用，可用来显露下方图层，A+B(1-a)</p></li><li><p><strong>Subtract（减去）</strong> - Subtract（减去）结果，A - B</p></li></ul><h4 id="PxrBumpMixer-SurfaceGradient">Surface Gradient（表面梯度）</h4><p>将你的 pattern 或 texture 节点的 <em>resultNG</em> 连接到此处。</p><h4 id="PxrBumpMixer-Mask">Mask（遮罩）</h4><p>一个简单的 grayscale（灰阶，scalar 标量）pattern 或 texture channel（纹理通道）会用于遮罩你希望此特定图层生效的位置。使用 Over 模式时，这尤其有用。</p><h4 id="PxrBumpMixer-Amount"><strong>Amount（强度）</strong></h4><p>这表示你希望此图层的 bump effect（凹凸效果）有多强，可使用 pattern 或 texture channel 等 scalar input（标量输入）进行控制。</p><h3 id="PxrBumpMixer-Advanced">Advanced（高级）</h3><h4 id="PxrBumpMixer-AdjustAmount"><strong>Adjust Amount（调整量）</strong></h4><p>有时你可能会在表面上看到变暗现象，可能出现在 horizon（地平线/掠射边界）处，此时 normal（法线）可能背向摄像机。此控制项可以把这些法线推回朝向摄像机，以避免这种 artifact（伪影）。</p><h4 id="PxrBumpMixer-SurfaceNormalMix"><strong>Surface Normal Mix（表面法线混合）</strong></h4><p>此节点提供的 shading normals（着色法线）可以覆盖你的 surface geometry normals（表面几何法线）；如果你希望把这些 surface normals（表面法线）混入其中，可以使用此控制项。</p>
+  </article>
+</main>
+</body>
+</html>

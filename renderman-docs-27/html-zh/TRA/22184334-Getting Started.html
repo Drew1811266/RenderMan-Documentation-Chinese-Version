@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Getting Started</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Getting Started</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/TRA/22184334/Getting+Started">https://rmanwiki-27.pixar.com/space/TRA/22184334/Getting+Started</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p><span>本节介绍安装和运行 Tractor 的基础知识。</span></p><p><span><br/></span></p><div class="line"><a href="22184362-System Requirements.html" data-linked-resource-id="22184362" data-linked-resource-version="10" data-linked-resource-type="page"><span>S</span>ystem Requirements（系统要求说明页面）</a></div><div class="line"><a href="22184336-Installation.html" data-linked-resource-id="22184336" data-linked-resource-version="16" data-linked-resource-type="page">安装流程说明（Installation）</a></div><div class="line"><a href="22184326-Initial Configuration.html" data-linked-resource-id="22184326" data-linked-resource-version="5" data-linked-resource-type="page">初始配置说明（Initial Configuration）</a></div><div class="line"><a href="22184328-Setting Up Services.html" data-linked-resource-id="22184328" data-linked-resource-version="8" data-linked-resource-type="page">服务设置说明（Setting Up Services）</a></div><div class="line"><a href="22184278-Your First Job.html" data-linked-resource-id="22184278" data-linked-resource-version="6" data-linked-resource-type="page">Your First Job（你的第一个作业）</a></div><div class="line"><hr/></div><h2 class="line" id="GettingStarted-Initialoverviewandproblemavoidance">初始概览与问题规避</h2><h3 id="GettingStarted-TRACTORINSTALLATIONLOCATIONandSERVICES">TRACTOR INSTALLATION LOCATION and SERVICES（Tractor 安装位置和服务）</h3><p>Tractor 最常用于各组件作为 system services 运行的 studios，这些 services 设计为在其 hosts 重启时自动重启。</p><p>software 安装在哪里？如果你在 engine host 上本地运行 Tractor installer，并在每个 render blade node 上再次运行，那么在 Linux 上它会出现在 /opt/pixar/Tractor-2.x。如果你改为从 shared fileserver install 运行 Tractor，则必须在 services 自动重启之前挂载该安装位置。请参阅 <a href="22184336-Installation.html" data-linked-resource-id="22184336" data-linked-resource-version="16" data-linked-resource-type="page">installation</a> 和 admin docs，了解典型 service setup 和步骤。</p><p>你可以使用 command line command “ps -eaf | fgrep -i tractor” 来确认 Tractor processes 是否正在各台机器上运行。你需要 <em>一个</em> “tractor-engine” executable instance 在 engine host 上运行，并且每个 blade nodes 上都需要一个 “tractor-blade” process instance（它会显示为 “rmanpy -m tractor.apps.blade”）。</p><h3 id="GettingStarted-LICENSING">LICENSING（许可）</h3><p>Tractor 本身需要 licenses 才能 dispatch jobs，但启动不需要。Licenses 控制 tractor-engine 一次可 dispatch 的 concurrent tasks 数量。engine log 会显示找到的 licenses 数量。你也可以在 Dashboard 中看到该数量：点击左上角的小 tractor icon，显示的文本条目之一会是 “# Licenses”，它表示 engine 能够获取的 Tractor licenses 数量。如果该值为 zero，则不会发生 dispatching。如果你有有效 license，请检查 engine log 中关于连接 <a href="22184326-Initial Configuration.html" data-linked-resource-id="22184326" data-linked-resource-version="5" data-linked-resource-type="page">license server</a>的问题消息。</p><h3 id="GettingStarted-CONNECTIVITYTOTHEENGINE">CONNECTIVITY TO THE ENGINE（连接到 Engine）</h3><p>首先要确认的是，你确实有 route 和 firewall clearance，能从各种 clients（包括 blades）连接到具名 engine host。</p><p>通常第一项检查是用 web browser 连接到 engine，输入一个指向 engine “web server” 的 URL，例如 “http://tractor-engine.yoursite.com/tractor/”。</p><p>dashboard、blade hosts 和其他 Tractor clients 需要知道 engine host 的 name 才能连接。因此，你要么需要在每种情况下指定正在使用的 name，要么需要为 blades 默认尝试使用的 name（即 “tractor-engine”）设置 name server alias（例如在 DNS 中）。从长期看，设置 DNS alias 更容易，因为很多 Tractor utilities 默认都会尝试这个 name。alias 还允许你把 engine host 更改到另一台 machine 或不同 address，而不必更新所有 blades、dashboards 和其他 clients。blades 和其他 clients 还需要知道 engine 监听的 port；这也是可配置的，但在设置 engine 时使用默认 port 80 会更简单。</p><p>如果你有 DNS entry，并且 engine 正在 port 80 上监听，那么上面的 dashboard test 应该可以工作。在 blade hosts 上，另一个简单的 network sanity test 是运行：</p><p><code>/bin/tq ping</code></p><p>这会尝试连接到 tractor-engine process，并执行 connectivity sanity check。你可以在 blade nodes 或 user desktops 的 command line 上运行它来确认 connectivity。它会针对不同类型的 failure 生成各种 error messages。例如，“Unknown host” 表示 “tractor-engine” 无法解析为 host name。</p><p>如果你尚未设置 “tractor-engine” alias，则需要用一个指定 engine host 和 port 的 parameter 运行测试。如有必要，可以使用 hostname 或 address。例如：（non-working example！）</p><p><code>tq --engine=my-other-host:80 ping</code> <br/> <code>tq --engine=192.168.0.2:8888 ping</code></p><h3 id="GettingStarted-MATCHINGBLADESTOJOBS"><br/>MATCHING BLADES TO JOBS（将 Blades 匹配到 Jobs）</h3><p>将 Tractor work（commands）发送到 blades 的基本机制基于 <a href="22184278-Your First Job.html" data-linked-resource-id="22184278" data-linked-resource-version="6" data-linked-resource-type="page">Service Key matching</a>。Tractor 允许不同 blade nodes 宣告不同 capabilities，并非所有 tasks 都能在所有 machines 上运行。例如，一些 tasks 可能无法在 Windows 上运行，或者一些 tasks 需要安装某个 application software，比如 RenderMan！</p><p>Studios 可以开发自己的 keyword conventions，用这些 keywords 表示 capabilities。Jobs 会带着表示其 requirements 的 keywords 提交到 Tractor queue，而 blades 会在 render nodes 上用表示其 capabilities 的 keywords 启动。当两者匹配时，Tractor 会把 command 分配给 blade。默认情况下，jobs 会查找名为 “PixarRender” 的 keyword，并且所有 blades 默认都会宣告该 service。</p><p>可以在 job authoring time 指定不同的 Service Keys（如有需要，可按 command 指定），blade capabilities 则通过 blade.config file 中的 “Provides” entries 指定。如果没有 blades 宣告你的 job 所需的 service，则不会发生 dispatching。</p><p>如果 jobs 已经位于 queue 中并在 Dashboard 中可见，那么可以右键点击给定 job，并从 menu 中选择 “Trace Job”。右下角 output pane 会出现文本，描述应用到下一个恰好请求 work 的 blade 上的 matching tests。通常这个 diagnostic 足以确定典型的 dispatching issues。</p>
+  </article>
+</main>
+</body>
+</html>

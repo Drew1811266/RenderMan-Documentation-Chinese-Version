@@ -1,0 +1,258 @@
+{"item_id": "c50df2d8c8:0", "source": "PxrVolume is a Bxdf and should be used in the Material Connection of any Shading Group (SG) node. Connections to the Volume connection are not correct for RenderMan."}
+{"item_id": "c50df2d8c8:1", "source": "The OpenVDB node defaults to having its indirect visibility set to \"off\", this is because Maya's old defaults have imported objects as invisible to reflections/refractions in the Render Stats rollout of the attribute editor. Turn these on for correct rendering."}
+{"item_id": "c50df2d8c8:2", "source": "The Maya Cloud Pattern/Texture will not operate as expected in PxrVolume because of how it calculates the falloff effect."}
+{"item_id": "c50df2d8c8:3", "source": "You can also make an emissive volume operate as a light from the PxrVolume material as explained below, but in Maya you can assign a Meshlight to the shading group node (right-click and create). If your volume has emission values then it will emit light, you may also make use of the light filter controls on the mesh light shader while the PxrVolume option does not allow for light filters."}
+{"item_id": "c50df2d8c8:4", "source": "Moana Cloud"}
+{"item_id": "c50df2d8c8:5", "source": "rendered with RenderMan - VDB Asset Courtesy of"}
+{"item_id": "c50df2d8c8:6", "source": "Walt Disney Animation"}
+{"item_id": "c50df2d8c8:7", "source": "."}
+{"item_id": "c50df2d8c8:8", "source": "CC BY-SA 3.0"}
+{"item_id": "c50df2d8c8:9", "source": "License."}
+{"item_id": "c50df2d8c8:10", "source": "Basic Workflows"}
+{"item_id": "c50df2d8c8:11", "source": "Constant fog"}
+{"item_id": "c50df2d8c8:12", "source": "Smoke"}
+{"item_id": "c50df2d8c8:13", "source": "Clouds"}
+{"item_id": "c50df2d8c8:14", "source": "Advanced Workflows"}
+{"item_id": "c50df2d8c8:15", "source": "Crepuscular Beams"}
+{"item_id": "c50df2d8c8:16", "source": "Performance Suggestions"}
+{"item_id": "c50df2d8c8:17", "source": "Parameters"}
+{"item_id": "c50df2d8c8:18", "source": "Diffuse Color"}
+{"item_id": "c50df2d8c8:19", "source": "Emit Color"}
+{"item_id": "c50df2d8c8:20", "source": "Light Source"}
+{"item_id": "c50df2d8c8:21", "source": "Multiple Scattering"}
+{"item_id": "c50df2d8c8:22", "source": "Velocity and Motion Blur"}
+{"item_id": "c50df2d8c8:23", "source": "PxrVolume is a material that can be used to render volumetric effects which can vary wildly in complexity, including:"}
+{"item_id": "c50df2d8c8:24", "source": "Constant fog"}
+{"item_id": "c50df2d8c8:25", "source": "(a constant"}
+{"item_id": "c50df2d8c8:26", "source": "homogeneous"}
+{"item_id": "c50df2d8c8:27", "source": "volume with"}
+{"item_id": "c50df2d8c8:28", "source": "single scattering"}
+{"item_id": "c50df2d8c8:29", "source": "Smoke"}
+{"item_id": "c50df2d8c8:30", "source": "(a"}
+{"item_id": "c50df2d8c8:31", "source": "heterogeneous"}
+{"item_id": "c50df2d8c8:32", "source": "volume where single scattering suffices);"}
+{"item_id": "c50df2d8c8:33", "source": "Fire"}
+{"item_id": "c50df2d8c8:34", "source": "(a heterogeneous volume with"}
+{"item_id": "c50df2d8c8:35", "source": "emissive"}
+{"item_id": "c50df2d8c8:36", "source": "properties);"}
+{"item_id": "c50df2d8c8:37", "source": "Clouds"}
+{"item_id": "c50df2d8c8:38", "source": "(a heterogeneous volume where"}
+{"item_id": "c50df2d8c8:39", "source": "multiple scattering"}
+{"item_id": "c50df2d8c8:40", "source": "is usually required)"}
+{"item_id": "c50df2d8c8:41", "source": "PxrVolume is intended to be a basic material that takes as input a small number of volumetric properties. Modeling of complicated volume properties should either be handled by upstream nodes or baked into a volumetric file format such as OpenVDB by a simulation tool."}
+{"item_id": "c50df2d8c8:42", "source": "Users of PxrVolume should be aware of the difference between homogeneous volumes and heterogeneous volumes: homogenous volumes have a constant density and color, whereas heterogeneous volumes have varying density and/or color. Heterogeneous volumes are typically much slower (and noisier) to render than homogeneous volumes."}
+{"item_id": "c50df2d8c8:43", "source": "PxrVolume is a"}
+{"item_id": "c50df2d8c8:44", "source": "dedicated"}
+{"item_id": "c50df2d8c8:45", "source": "volume shader, optimized for dealing with \"pure\" volumes. It cannot deal with any surface effects such as refraction or reflection at a boundary between two different types of media, so you cannot use PxrVolume to render things like murky glass or water surfaces. If you are looking for a shader that can do surface effects, along with a limited amount of volumetric effects, take a look at the single scattering parameters of"}
+{"item_id": "c50df2d8c8:46", "source": "PxrSurface"}
+{"item_id": "c50df2d8c8:47", "source": "."}
+{"item_id": "c50df2d8c8:48", "source": "Basic Workflows"}
+{"item_id": "c50df2d8c8:49", "source": "Constant fog"}
+{"item_id": "c50df2d8c8:50", "source": "Fog effects that are constant (i.e. involving a homogeneous volume) can be easily modeled using just PxrVolume parameters, without any input connections. This provides the most efficient rendering."}
+{"item_id": "c50df2d8c8:51", "source": "For any fog effects that enclose the camera or envelop light sources, we require that PxrVolume be attached to a"}
+{"item_id": "c50df2d8c8:52", "source": "RiVolume"}
+{"item_id": "c50df2d8c8:53", "source": "object. Otherwise, PxrVolume can be attached to any closed piece of geometry in order to create simple effects such as a shaped region."}
+{"item_id": "c50df2d8c8:54", "source": "If depth attenuation is the only effect that is required, the"}
+{"item_id": "c50df2d8c8:55", "source": "Diffuse Color"}
+{"item_id": "c50df2d8c8:56", "source": "can be set to black: light is not scattered by the volume, it is only absorbed, and"}
+{"item_id": "c50df2d8c8:57", "source": "Density"}
+{"item_id": "c50df2d8c8:58", "source": "is the only parameter that is important. Otherwise, the diffuse color needs to be set to the color of the fog."}
+{"item_id": "c50df2d8c8:59", "source": "Smoke"}
+{"item_id": "c50df2d8c8:60", "source": "For heterogeneous media like smoke, the typical approach is to bake the properties of the smoke into a file like an OpenVDB file. The OpenVDB file would contain a small number of properties including the density, the velocity (if using motion blur), and possibly the albedo. The OpenVDB should be attached to a"}
+{"item_id": "c50df2d8c8:61", "source": "RiVolume"}
+{"item_id": "c50df2d8c8:62", "source": "and read using the impl_openvdb plugin. The name of the density property of the OpenVDB file is then used directly with the PxrVolume"}
+{"item_id": "c50df2d8c8:63", "source": "Density Float PrimVar"}
+{"item_id": "c50df2d8c8:64", "source": "parameter."}
+{"item_id": "c50df2d8c8:65", "source": "Smoke tends to have a very low albedo, so a dark color is used for the"}
+{"item_id": "c50df2d8c8:66", "source": "Diffuse Color"}
+{"item_id": "c50df2d8c8:67", "source": "parameter. (If the color is baked into the OpenVDB file, a PxrPrimVar node can be used to extract the color property from therein.) Because of this low albedo, there is usually very low amounts of light that have scattered multiple times in the volume, so"}
+{"item_id": "c50df2d8c8:68", "source": "Multiple Scattering"}
+{"item_id": "c50df2d8c8:69", "source": "can be left turned off, and"}
+{"item_id": "c50df2d8c8:70", "source": "Samples"}
+{"item_id": "c50df2d8c8:71", "source": "can be increased beyond 1 to provide faster rendering."}
+{"item_id": "c50df2d8c8:72", "source": "Since smoke is typically isotropic, the"}
+{"item_id": "c50df2d8c8:73", "source": "Anisotropy"}
+{"item_id": "c50df2d8c8:74", "source": "settings can be left at their default. The"}
+{"item_id": "c50df2d8c8:75", "source": "Equiangular weight"}
+{"item_id": "c50df2d8c8:76", "source": "can be left as is if it is expected that there are light sources near to, or within the volume, or set to 0.0 if no light sources are expected to be anywhere close to the volume."}
+{"item_id": "c50df2d8c8:77", "source": "Clouds"}
+{"item_id": "c50df2d8c8:78", "source": "Moana Cloud"}
+{"item_id": "c50df2d8c8:79", "source": "rendered with RenderMan - VDB Asset Courtesy of"}
+{"item_id": "c50df2d8c8:80", "source": "Walt Disney Animation"}
+{"item_id": "c50df2d8c8:81", "source": "."}
+{"item_id": "c50df2d8c8:82", "source": "CC BY-SA 3.0"}
+{"item_id": "c50df2d8c8:83", "source": "License."}
+{"item_id": "c50df2d8c8:84", "source": "Clouds are very difficult volumes to render because the aggregate behavior of water droplets and their interaction with light is a complicated phenomenon. Unlike smoke, the light that reaches the eye from a cloud has typically bounced inside the cloud tens or hundreds of times. On top of that, the scattering behavior (the way light bounces inside the cloud) is very complicated, as it involves both forward scattering and backward scattering, with multiple peaks for both."}
+{"item_id": "c50df2d8c8:85", "source": "A typical approach to modeling the cloud itself is to bake the density of the cloud into a file like an OpenVDB file, and the name of the density property of the OpenVDB file would then used directly with the PxrVolume"}
+{"item_id": "c50df2d8c8:86", "source": "Density Float PrimVar"}
+{"item_id": "c50df2d8c8:87", "source": "parameter. Clouds typically reflect all light, so a simple"}
+{"item_id": "c50df2d8c8:88", "source": "Diffuse Color"}
+{"item_id": "c50df2d8c8:89", "source": "of (1, 1, 1) is sufficient. In order to capture the complicated light behavior of the cloud itself,"}
+{"item_id": "c50df2d8c8:90", "source": "Multiple Scattering"}
+{"item_id": "c50df2d8c8:91", "source": "is required, along with setting a"}
+{"item_id": "c50df2d8c8:92", "source": "Primary and Secondary Anisotropy."}
+{"item_id": "c50df2d8c8:93", "source": "The settings for anisotropy below reflect a physics-based approximation to the complicated scattering behavior of real clouds. Because multiple scattering is used, the sample parameter is unused and can be set to 1. Finally, if there are no light sources inside the clouds themselves,"}
+{"item_id": "c50df2d8c8:94", "source": "Equiangular weight"}
+{"item_id": "c50df2d8c8:95", "source": "can be set to 0.0 as equiangular sampling would provide no benefit. (On the other hand, in the case of stormy weather where lights might be placed inside the clouds to simulate lightning flashes, equiangular sampling might prove beneficial.)"}
+{"item_id": "c50df2d8c8:96", "source": "Note that scattering in the volume is controlled by the Max Path Length parameter in the chosen integrator as well as the diffuse trace depth. You can find more information on this under the section below called"}
+{"item_id": "c50df2d8c8:97", "source": "Multiple Scattering"}
+{"item_id": "c50df2d8c8:98", "source": "."}
+{"item_id": "c50df2d8c8:99", "source": "Advanced Workflows"}
+{"item_id": "c50df2d8c8:100", "source": "Crepuscular Beams"}
+{"item_id": "c50df2d8c8:101", "source": "Crepuscular beams (sometimes called \"God rays\") are simply the result of light scattering in a volume. When this light is isolated into beams (for example, the few rays of sunlight that escape through a forest canopy) the contrast between the parts of the volume that scatter light and the rest of the volume leads to a striking effect."}
+{"item_id": "c50df2d8c8:102", "source": "In order to efficiently render crepuscular beams, it is important to try to maximize the effect of"}
+{"item_id": "c50df2d8c8:103", "source": "direct lighting"}
+{"item_id": "c50df2d8c8:104", "source": "- i.e. maximize the volume that can directly trace a path to a light source. If the volume must trace a path to a light source indirectly by going through another surface or material, the convergence of the beams may be very slow and unacceptably noisy. In the image above, the stained glass window on the right is modeled as"}
+{"item_id": "c50df2d8c8:105", "source": "\"thin glass\""}
+{"item_id": "c50df2d8c8:106", "source": ": instead of relying on a secondary material bounce to refract through the glass, shadow rays from the volume that traces towards the light source are unimpeded (do not refract), and rely only on the shadow tinting behavior of the stained glass material. The \"thin\" parameter of"}
+{"item_id": "c50df2d8c8:107", "source": "PxrSurface"}
+{"item_id": "c50df2d8c8:108", "source": "(located under the glass parameters) allows one to achieve exactly this optimization."}
+{"item_id": "c50df2d8c8:109", "source": "Performance Suggestions"}
+{"item_id": "c50df2d8c8:110", "source": "Density"}
+{"item_id": "c50df2d8c8:111", "source": "is the most critical property of a volume. It is a measure of both how much light is absorbed and scattered by the volume. Volume integration may require many billions of density evaluations over the course of a single render, so it is important to ensure that the renderer can evaluate the density as quickly as possible. This is where baking a complicated signal to a volumetric file format such as OpenVDB can be useful, as it means the renderer can simply look up the value from the data. For best performance, we highly recommend using the"}
+{"item_id": "c50df2d8c8:112", "source": "PrimVar density parameters"}
+{"item_id": "c50df2d8c8:113", "source": "if at all possible, rather than using an input connection, even if that input connection is just a single PxrPrimVar node."}
+{"item_id": "c50df2d8c8:114", "source": "For heterogeneous volumes using the RiVolume primitive, at the beginning of the render, PxrVolume will automatically compute density everywhere inside the volume and use this information over the course of the render to greatly speed up the density sampling. The accuracy of this computation (as well as the accuracy of deformation motion blur) is controlled by the"}
+{"item_id": "c50df2d8c8:115", "source": "dice"}
+{"item_id": "c50df2d8c8:116", "source": "attribute"}
+{"item_id": "c50df2d8c8:117", "source": "micropolygonlength"}
+{"item_id": "c50df2d8c8:118", "source": ". Setting the micropolygonlength to a low number will result in a very accurate density estimation, but may cause the initial computation to take a long time (manifesting as a slow first rendering iteration) and may also cause the renderer to use a lot of memory. Setting this value too high will lead to a less accurate density estimation, which may cause isolated pockets of very high density in the volume to be missed. For a 2K render, we recommend that a setting of 5 or more be used, unless deformation motion blur requires a lower setting. If the camera is passing through or near the volume it might be advisable to change the dicing projection from planar to world or spherical. You may lose some details near the camera but it might avoid creating lots of data near the lens."}
+{"item_id": "c50df2d8c8:119", "source": "Emissive volumes"}
+{"item_id": "c50df2d8c8:120", "source": "may be very slow to converge, especially if they are the only light source in the scene - it may require many hundreds or even thousands of camera samples to render a noise-free image. Until volumes are supported as full light sources that can be used for direct lighting, we suggest that emissive volumes be used very sparingly."}
+{"item_id": "c50df2d8c8:121", "source": "Multiple Scattering"}
+{"item_id": "c50df2d8c8:122", "source": "is a very costly effect, both because it means the light is bouncing that many more times in a volume, but also because PxrVolume cannot take more samples itself (the"}
+{"item_id": "c50df2d8c8:123", "source": "Samples"}
+{"item_id": "c50df2d8c8:124", "source": "parameter is ignored), and is at the mercy of the Integrator settings. Moreover, multiple scattering may slow down the convergence of objects behind the volume. Therefore we suggest that whenever possible, multiple scattering should be avoided. For media with low albedo, multiple scattering adds very little to the final render. For some media like clouds, whose light transport involves many tens or hundreds of light bounces, unfortunately, multiple scattering may be unavoidable."}
+{"item_id": "c50df2d8c8:125", "source": "When using"}
+{"item_id": "c50df2d8c8:126", "source": "single scattering"}
+{"item_id": "c50df2d8c8:127", "source": ", it is often much more cost-effective to increase the number of"}
+{"item_id": "c50df2d8c8:128", "source": "Samples"}
+{"item_id": "c50df2d8c8:129", "source": "taken in the volume in order to improve the convergence, rather than increase the number of camera samples."}
+{"item_id": "c50df2d8c8:130", "source": "Equiangular sampling"}
+{"item_id": "c50df2d8c8:131", "source": "improves the convergence of volumes that are lit by lights that are inside or near the volume but otherwise slow down the volume if the lights are far away. The default value of equiangular sampling (0.5) is a compromise that works acceptably across most scenes. If you know that there are no light sources near the volume, then the equiangular weight should be set to 0.0 in order to speed up the rendering. Equiangular sampling is disabled for multi-scatter volumes in versions 21.5 and later."}
+{"item_id": "c50df2d8c8:132", "source": "Equiangular sampling may cause negative values in the volume alpha with low samples. This is a side effect of how the parameter works. Two solutions would be to set the Equiangular Weight to 0.0 or allow more samples to be taken which will correctly average out to a positive number."}
+{"item_id": "c50df2d8c8:133", "source": "Anisotropic"}
+{"item_id": "c50df2d8c8:134", "source": "volumes tend to converge slower than isotropic volumes, simply by nature of the sampling that is involved."}
+{"item_id": "c50df2d8c8:135", "source": "Parameters"}
+{"item_id": "c50df2d8c8:136", "source": "Diffuse Color"}
+{"item_id": "c50df2d8c8:137", "source": "The color of the volume. Default is white (1,1,1). Making a connection on this parameter will create a heterogeneous volume."}
+{"item_id": "c50df2d8c8:138", "source": "If you are familiar with scattering, absorption, and extinction coefficients, note that the diffuse color here is the"}
+{"item_id": "c50df2d8c8:139", "source": "scattering albedo"}
+{"item_id": "c50df2d8c8:140", "source": ", which is the scattering coefficient divided by the extinction coefficient."}
+{"item_id": "c50df2d8c8:141", "source": "Emit Color"}
+{"item_id": "c50df2d8c8:142", "source": "The emissive color of the volume. This is useful for modeling effects such as phosphorescent fog or fire. Default is black (0,0,0), i.e. the volume will not emit light. The following images demonstrate an emit color setting of (1, 1, 1) and (5, 2.5, 2.5), with no other light sources in the scene."}
+{"item_id": "c50df2d8c8:143", "source": "Light Source"}
+{"item_id": "c50df2d8c8:144", "source": "When this option is selected, the emissive properties of the volume are sampled as a light source. This may brighten your scene through improved sampling. Note that the emit color cannot be black for this to operate. With a single scatter volume, even at maximum path length 1, it is equivalent to a multiscatter volume with the light source option turned off. Below is off versus on."}
+{"item_id": "c50df2d8c8:145", "source": "Volumes that are part of an"}
+{"item_id": "c50df2d8c8:146", "source": "aggregate volume"}
+{"item_id": "c50df2d8c8:147", "source": "cannot be treated as light sources. In certain DCCs, putting the volume into an aggregate means that selecting the light source option will have no effect, and the volume will need to be removed from the aggregate."}
+{"item_id": "c50df2d8c8:148", "source": "You will not be able to use the light source option if your volumetric light source also need to operate with advanced lighting features such as"}
+{"item_id": "c50df2d8c8:149", "source": "light filters"}
+{"item_id": "c50df2d8c8:150", "source": ". In these circumstances, you will need to create a copy of the volume and attach the"}
+{"item_id": "c50df2d8c8:151", "source": "PxrMeshLight"}
+{"item_id": "c50df2d8c8:152", "source": "shader. Please refer to the section below on Using Meshlight for more details on setting up this workflow."}
+{"item_id": "c50df2d8c8:153", "source": "Multiple Scattering"}
+{"item_id": "c50df2d8c8:154", "source": "This parameter has no effect when using"}
+{"item_id": "c50df2d8c8:155", "source": "aggregate volumes"}
+{"item_id": "c50df2d8c8:156", "source": ", since aggregate volumes always perform multiple scattering."}
+{"item_id": "c50df2d8c8:157", "source": "This parameter is used as a hint as to whether the volume should compute indirect illumination inside the volume (also known as"}
+{"item_id": "c50df2d8c8:158", "source": "multiple scattering"}
+{"item_id": "c50df2d8c8:159", "source": ", because light will scatter"}
+{"item_id": "c50df2d8c8:160", "source": "more than once inside the volume"}
+{"item_id": "c50df2d8c8:161", "source": "). If the multiple scattering parameter is set to 0, and the integrator respects this hint, PxrVolume will only perform"}
+{"item_id": "c50df2d8c8:162", "source": "single scattering"}
+{"item_id": "c50df2d8c8:163", "source": ": points inside the volume will only be lit directly by light sources. If set to 1, points inside the volume will be lit by indirect illumination as well. The first image below has multiple scattering set to 0, i.e. it is a single scatter volume. The middle image has multiple scattering turned on, with 2 bounces of light. The right image has multiple scattering turned on with 4 bounces of light."}
+{"item_id": "c50df2d8c8:164", "source": "For very dense volumes with high anisotropy, it is often the case that light will scatter many times inside the volume before reaching the eye, and multiple scattering is the only way to achieve the correct look. It is also often the only way to correctly render certain effects such as volume caustics. On the other hand, multiple scattering can be very expensive, which is why the parameter defaults to 0 (off). Moreover, when rendering homogeneous volumes, turning off multiple scattering may result in less noise for directly lit"}
+{"item_id": "c50df2d8c8:165", "source": "surfaces"}
+{"item_id": "c50df2d8c8:166", "source": "behind the volume."}
+{"item_id": "c50df2d8c8:167", "source": "Note that due to the nature of their algorithm, some integrators (in particular, bidirectional path tracers such as PxrVCM) have no choice but to implement multiple scattering of volumes, and therefore will ignore this hint."}
+{"item_id": "c50df2d8c8:168", "source": "Velocity and Motion Blur"}
+{"item_id": "c50df2d8c8:169", "source": "Unlike all other geometry types in RenderMan,"}
+{"item_id": "c50df2d8c8:170", "source": "deformation motion-blurred volumes are enabled primarily using Bxdf controls"}
+{"item_id": "c50df2d8c8:171", "source": ". Enabling deformation motion blur with PxrVolume is straightforward: specify a value for the velocity parameter, which is vector-valued. Under the hood, the renderer will automatically use the velocity vector to generate temporal varying data for all varying inputs. This preprocessing step occurs at the beginning of the render, and will increase the time to the first pixel; however, it is necessary in order to greatly increase the efficiency of rendering blurred volumes."}
+{"item_id": "c50df2d8c8:172", "source": "The renderer supports deformation motion-blurred volumes using the \"Eulerian\" method, added in 23.5 (and now the only supported method).  This method has low preprocessing time, very low memory overhead, has a low bias (assuming that the micropolygon length is set to a reasonable value), and is reasonably accurate. The downside of this technique is that the velocity values"}
+{"item_id": "c50df2d8c8:173", "source": "must be non-zero and supplied everywhere in the path of the motion"}
+{"item_id": "c50df2d8c8:174", "source": ", even if the volume has no \"presence\" in that path at the current baked shutter time. This is because the Eulerian technique assumes that the time-varying property of a volume (e.g. the time-varying density) can be approximated by using the velocity at the current time, backtracking using that velocity value, and looking up the density at the backtracked location. The following images from Houdini demonstrate these boundary velocity requirements for Eulerian motion blur. The 1st image shows two spheres with density and wireframe boxes representing the velocity field bounds. The green lines show the intended motion of the volume. If the velocity field is not fully written out over the range of motion, Eulerian motion blur will clip the velocity as shown on the right rendered images. Note that in some highly chaotic fluid scenes, even if this requirement is not satisfied, the rendered image may still look satisfactory (the clipping may not be obvious)."}
+{"item_id": "c50df2d8c8:175", "source": "The velocity vector value is expected to be relative to the entire shutter range. If you are working with velocity data measured in units per second and the shutter is not set to an entire second's worth of time, you may need to scale the data by the number of frames per second (i.e. 1/24.0) for a correct picture. We supply a control as a Velocity Multiplier to aid in conversion should your data be in the wrong measurement or allow you to make artistic tweaks to the motion blur. Alternatively, the Attribute \"volume\" \"fps\" may be set on the geometry directly to accomplish the same thing; in this case, the value of this attribute would be number of frames per second directly (24), not the inverse."}
+{"item_id": "c50df2d8c8:176", "source": "The following images were rendered using Eulerian motion blur, in conjunction with an OpenVDB file containing a velocity grid. The image on the left was rendered with no blur, while the image on the right has velocity supplied by a connection to the PxrPrimVar node reading a velocity grid from the file. The velocity has been exaggerated by a factor of 10. Note that this OpenVDB file (from"}
+{"item_id": "c50df2d8c8:177", "source": "openvdb.org"}
+{"item_id": "c50df2d8c8:178", "source": ") does not satisfy the boundary requirements of having velocity data in all areas of movement - this can be seen in the fact that the silhouette edges of the volume do not change significantly despite the exaggerated movement. However, there are no obvious objectionable artifacts, and the area of the volume away from the boundary conveys the desired velocity detail."}
+{"item_id": "c50df2d8c8:179", "source": "Density Parameters"}
+{"item_id": "c50df2d8c8:180", "source": "Extinction Distance"}
+{"item_id": "c50df2d8c8:181", "source": "This is the distance (in scene units) at which a homogeneous volume becomes opaque. If this is non-zero, it overrides the density connections, maintaining a homogeneous volume. This is great for creating fog/mist that fills a scene. Below we set the parameter to a low value and then increase it until the last light in the scene is clearly visible."}
+{"item_id": "c50df2d8c8:182", "source": "Density Float PrimVar"}
+{"item_id": "c50df2d8c8:183", "source": "A primvar from the geometry which overrides the density float of the volume, unset by default. Setting this overrides the densityFloat input, and is more efficient than simply using a PxrPrimVar pattern connection."}
+{"item_id": "c50df2d8c8:184", "source": "For workflows that use a baked volumetric representation (such as an OpenVDB file) we highly recommend the use of this parameter setting over the use of a noise pattern connected to the Density Float parameter."}
+{"item_id": "c50df2d8c8:185", "source": "Density Float"}
+{"item_id": "c50df2d8c8:186", "source": "The density of the volume directly controls how light is attenuated by the volume - i.e. it directly affects how the volume casts shadows. The density float parameter is overridden by the density color if the density color is changed from its default value. Unless you require colored shadows, you should prefer to set this parameter rather than the density color parameter as the volume will render more efficiently."}
+{"item_id": "c50df2d8c8:187", "source": "Making an input connection on this parameter will create a heterogeneous volume."}
+{"item_id": "c50df2d8c8:188", "source": "The density is also known as the extinction coefficient (the sum of the absorption and scattering coefficients)."}
+{"item_id": "c50df2d8c8:189", "source": "Below, from left to right: density of 0.1, 0.25, and 2.0."}
+{"item_id": "c50df2d8c8:190", "source": "Density Color PrimVar"}
+{"item_id": "c50df2d8c8:191", "source": "A primvar from the geometry which overrides the density color of the volume, unset by default. Setting this overrides the densityColor input, and is more efficient than simply using a PxrPrimVar pattern connection."}
+{"item_id": "c50df2d8c8:192", "source": "For workflows that use a baked volumetric representation (such as an OpenVDB file) we highly recommend the use of this parameter setting over the use of an input connected to the Density Color parameter."}
+{"item_id": "c50df2d8c8:193", "source": "Density Color"}
+{"item_id": "c50df2d8c8:194", "source": "The density of the volume directly controls how light is attenuated by the volume - i.e. it directly affects how the volume casts shadows. The density color parameter overrides the density float if the density color is changed from its default value. If you do not need colored shadows from the volume, then you should set the density float parameter and leave the density color parameter untouched; the volume will render more efficiently."}
+{"item_id": "c50df2d8c8:195", "source": "Making an input connection on this parameter will create a heterogeneous volume."}
+{"item_id": "c50df2d8c8:196", "source": "The density is also known as the extinction coefficient (the sum of the absorption and scattering coefficients)."}
+{"item_id": "c50df2d8c8:197", "source": "Below, from left to right: density color of (1.0, 0.25, 0.25), (2.0, 0.25, 0.25) and (5.0, 0.25, 0.25). Note that since the density of the volume is higher in the red channel, more red light is scattered away, leaving behind a cyan contribution."}
+{"item_id": "c50df2d8c8:198", "source": "Max Density"}
+{"item_id": "c50df2d8c8:199", "source": "The max density parameter is only used by heterogeneous volumes and controls the step size used to sample the volume. For correctly unbiased rendering, the max density must be higher than any density encountered inside the volume. A high value of max density may result in slower renders since more steps will be taken to sample the volume. Setting the max density too small will speed up your render, but will also lead to incorrect (biased) rendering as dense regions of the volume will be undersampled."}
+{"item_id": "c50df2d8c8:200", "source": "Starting in version 20.7, for RiVolumes only, PxrVolume will also automatically compute the density bounds over the subsections of the volume, and use this information to vary the step size over the ray. This means that more steps will only be taken in denser parts of the volume. Therefore, for very heterogeneous volumes, setting a higher value for max density will no longer have a detrimental effect over the entire volume; in practice, it is often possible to simply set this to a very high value and not worry about this parameter any further."}
+{"item_id": "c50df2d8c8:201", "source": "The default value of max density is 1.0."}
+{"item_id": "c50df2d8c8:202", "source": "Anisotropy Parameters"}
+{"item_id": "c50df2d8c8:203", "source": "Primary Anisotropy"}
+{"item_id": "c50df2d8c8:204", "source": "Controls the direction in which the volume scatters light. The anisotropy parameter has a range of -1 to 1, with the default being 0. A value of 0 means the volume is isotropic: light is scattered in all directions with equal probability. A positive value greater than 0 means the volume is forward scattering: incoming light has a higher chance of being scattered in the same direction (away from the incoming light). A value of anisotropy less than 0 means the volume is backward scattering: incoming light has a higher chance of being scattered in the reverse direction (back towards the direction of incoming light)."}
+{"item_id": "c50df2d8c8:205", "source": "Many volumes (such as smoke) are generally isotropic, but others can be highly isotropic. For example, organic materials like flesh and skin tend to have highly forward scattering characteristics. Note that the effects of high anisotropy diminish once multiple scattering is involved, as such materials tend to converge upon isotropic behavior after many bounces of light."}
+{"item_id": "c50df2d8c8:206", "source": "Below are examples at -0.8, 0.0, and 0.8 anisotropy for a single scattering volume."}
+{"item_id": "c50df2d8c8:207", "source": "Here are more examples at -0.8, 0.0, and 0.8 anisotropy for a multiple scattering volume."}
+{"item_id": "c50df2d8c8:208", "source": "Secondary Anisotropy and Lobe Blend Factor"}
+{"item_id": "c50df2d8c8:209", "source": "Some volumetric materials have scattering characteristics that cannot be captured by a single lobe of anisotropy. For example, clouds have a very complicated scattering behavior: they are mostly highly forward scattering, but still have a substantial backwards scattering component, which is largely responsible for the \"silver lining\" seen on otherwise dark clouds. In order to render such materials, a second anisotropy lobe can be enabled on the volume, along with a blend factor which determines how to blend between the two separate lobes. A blend factor of 0 (default) means that only the primary anisotropy will be considered. A blend factor of 1 means that only the secondary anisotropy will be used, and a blend factor of 0.5 means that each lobe will be considered equally."}
+{"item_id": "c50df2d8c8:210", "source": "From left to right: lobe blend factor set to 0, 0.5, and 1.0 for a single scattering volume with primary anisotropy = 0.0 and secondary anisotropy = 0.8. Note that the first and third images are essentially rendered using single anisotropic lobes."}
+{"item_id": "c50df2d8c8:211", "source": "From left to right: lobe blend factor set to 0, 0.5, and 1.0 for a multiple scattering volume with primary anisotropy = 0.0 and secondary anisotropy = 0.8. Note that the first and third images are essentially rendered using single anisotropic lobes."}
+{"item_id": "c50df2d8c8:212", "source": "Sampling Parameters"}
+{"item_id": "c50df2d8c8:213", "source": "These sampling parameters have no effect for"}
+{"item_id": "c50df2d8c8:214", "source": "aggregate volumes"}
+{"item_id": "c50df2d8c8:215", "source": "."}
+{"item_id": "c50df2d8c8:216", "source": "Equiangular Weight"}
+{"item_id": "c50df2d8c8:217", "source": "Sets the probability of equiangular sampling being used instead of density sampling. Equiangular sampling improves the convergence of volumes close to light sources, while density sampling can be a better technique when dealing with volumes with dense or highly varying density. The default value of 0.5 means both techniques will be used equally and combined with multiple importance sampling. If the volumes are dense and far away from light sources then decreasing the equiangular weight may result in better convergence. This does not apply to multi-scatter volumes."}
+{"item_id": "c50df2d8c8:218", "source": "min/max Samples"}
+{"item_id": "c50df2d8c8:219", "source": "This setting controls sample quality for single scatter volumes. A higher number of volume samples will improve the convergence of volumes at the cost of render time. However, the trade-off in scenes with other objects is that the volume will sample more without increasing costs elsewhere in the image and may improve your results. Note convergence rates vary within volumes as well, and this means some regions can converge reasonably well with a small number of volume samples, but others might need more help."}
+{"item_id": "c50df2d8c8:220", "source": "minSamples enforces a lower limit to sample, only valid with Single Scattering"}
+{"item_id": "c50df2d8c8:221", "source": "maxSamples are the maximum limit per ray inside the Volume"}
+{"item_id": "c50df2d8c8:222", "source": "Multiscatter Optimization"}
+{"item_id": "c50df2d8c8:223", "source": "Multiscatter Optimization (Valid for PxrPathTracer)"}
+{"item_id": "c50df2d8c8:224", "source": "On/Off, the default is off."}
+{"item_id": "c50df2d8c8:225", "source": "Extinction Multiplier"}
+{"item_id": "c50df2d8c8:226", "source": "This parameter is used during"}
+{"item_id": "c50df2d8c8:227", "source": "Multiscatter"}
+{"item_id": "c50df2d8c8:228", "source": "volume rendering. The value must be above 0.0 and defaults to 1.0 which is no modification. Values below 1 reduce the extinction coefficients while values above 1.0 increase them."}
+{"item_id": "c50df2d8c8:229", "source": "Contribution Multiplier"}
+{"item_id": "c50df2d8c8:230", "source": "This multiplier is used during"}
+{"item_id": "c50df2d8c8:231", "source": "Multiscatter"}
+{"item_id": "c50df2d8c8:232", "source": "volume rendering. This parameter multiplies the direct lighting contribution for multi scatter events. Values must be above 0.0 and defaults to 1.0 which is no modification. A value below 1.0 reduces the contribution of direct lighting while values above 1.0 increase them (this may make volumes appear softer and more translucent.)"}
+{"item_id": "c50df2d8c8:233", "source": "Using Meshlight"}
+{"item_id": "c50df2d8c8:234", "source": "The above parameter for \"Light Source\" is useful for many applications when using a volume with emission properties. But there may be times you need to control the influence of the light from the volume. This requires the use of a"}
+{"item_id": "c50df2d8c8:235", "source": "light filter"}
+{"item_id": "c50df2d8c8:236", "source": ". The PxrVolume material doesn't have a way to use a light filter so you can apply the"}
+{"item_id": "c50df2d8c8:237", "source": "PxrMeshlight"}
+{"item_id": "c50df2d8c8:238", "source": "material to the volume object along with the PxrVolume for shading."}
+{"item_id": "c50df2d8c8:239", "source": "In doing so this will light the scene but allow you to connect and use a light filter through the mesh light controls. But there is a caveat to this workflow that requires extra consideration in your setup."}
+{"item_id": "c50df2d8c8:240", "source": "When you apply the mesh light to the volume you may notice an increase in illumination and/or additional noise. This is because of the double contribution of the volume emission and the mesh light itself. Here are the current steps to reduce this issue."}
+{"item_id": "c50df2d8c8:241", "source": "If you do not need a light filter then this work is unnecessary, simple use the \"Light Source\" parameter."}
+{"item_id": "c50df2d8c8:242", "source": "Duplicate your original volume"}
+{"item_id": "c50df2d8c8:243", "source": "On the duplicate, assign a duplicate PxrVolume with the correct pattern connections to the original patterns you may be using to drive emission, density, etc"}
+{"item_id": "c50df2d8c8:244", "source": "Assign a PxrMeshlight to the volume using the DCC application options (SG Node, Material Builder, etc)"}
+{"item_id": "c50df2d8c8:245", "source": "Hide this volume from indirect visibility, we only want the light contribution."}
+{"item_id": "c50df2d8c8:246", "source": "In the original volume, disconnect the emission, this will now be lit by the duplicate volume's mesh light source. This prevents double light contribution"}
+{"item_id": "c50df2d8c8:247", "source": "Apply a light filter as needed to the duplicate volume with meshlight"}
+{"item_id": "c50df2d8c8:248", "source": "Examples:"}
+{"item_id": "c50df2d8c8:249", "source": "Using Light Source"}
+{"item_id": "c50df2d8c8:250", "source": "Adding the mesh light increases light in the scene and noise, this is the"}
+{"item_id": "c50df2d8c8:251", "source": "incorrect"}
+{"item_id": "c50df2d8c8:252", "source": "workflow"}
+{"item_id": "c50df2d8c8:253", "source": "This image is using the"}
+{"item_id": "c50df2d8c8:254", "source": "above workflow"}
+{"item_id": "c50df2d8c8:255", "source": "to create a well-converged render while allowing the use of a light filter"}
+{"item_id": "c50df2d8c8:256", "source": "User Lobes"}
+{"item_id": "c50df2d8c8:257", "source": "PxrVolume also writes to the U2 user lobe as \"DiffuseAlbedo\""}

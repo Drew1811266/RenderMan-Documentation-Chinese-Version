@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Analytic Lights in Blender</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Analytic Lights in Blender</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFB27/544638952/Analytic+Lights+in+Blender">https://rmanwiki-27.pixar.com/space/RFB27/544638952/Analytic+Lights+in+Blender</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<h3 id="AnalyticLightsinBlender-CreatingLights">Creating Lights（创建灯光）</h3><p>可以从 Add（添加）菜单创建 RenderMan 灯光。</p><h3 id="AnalyticLightsinBlender-"><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/544638952/RenderMan_Blender_Lights.jpg" data-image-src="../../attachments/544638952/RenderMan_Blender_Lights.jpg" data-unresolved-comment-count="0" data-linked-resource-id="544638982" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Blender_Lights.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544638952" data-linked-resource-container-version="1" data-media-id="9bf49fd0-2e8c-4ab3-9d79-2a912be32540" data-media-type="file"></span></h3><h3 id="AnalyticLightsinBlender-AnalyticLightTypes"><strong>Analytic Light Types（解析灯光类型）</strong></h3><p><span class="legacy-color-text-default">有关参数的详细信息，请参阅每种灯光类型对应的链接。</span></p><ul><li><p><a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661739" rel="nofollow">PxrRectLight</a> – 这是常用的矩形 area light（区域灯）</p></li><li><p><a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661745" rel="nofollow">PxrCylinderLight</a> – 这是常用的 cylinder area light（圆柱区域灯），用于模拟 fluorescent lights（荧光灯）和 light sabers（光剑）</p></li><li><p><a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661741" rel="nofollow">PxrDiskLight</a> – disk（圆盘）非常适合作为 area light（区域灯），也可与 filters（滤镜）组合来制作 spotlight（聚光灯）</p></li><li><p><a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661729" rel="nofollow">PxrDistantLight</a> – distant light（远距灯）非常适合用作 sun（太阳）或其他 distant source（远距光源）；其 light rays（光线）几乎平行，并覆盖整个场景</p></li><li><p><a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661751" rel="nofollow">PxrSphereLight</a> – 对于仍想使用 point light（点光源）的用户，此灯光可用于向所有方向照明</p></li><li><p><a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661731" rel="nofollow">PxrAovLight</a> – 这是用于 <span class="legacy-color-text-default">输出 AOV mask（AOV 遮罩）的 utility light（实用灯光）；由于它不照亮场景，因此没有 manipulator（操纵器）。它在场景中的位置并不重要</span></p></li><li><p><a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661747" rel="nofollow">PxrDomeLight</a> – dome light（穹顶灯）充当场景的 <em>environment light（环境光）</em> ，并使用 high dynamic range image（高动态范围图像，HDRI）进行映射，这是非常常见的工作流</p></li><li><p><a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661743" rel="nofollow">PxrPortalLight</a> – 对于间接照明室内等困难 lighting situations（照明场景），此灯光可与 PxrDomeLight 搭配使用，以提升渲染质量和速度。Portal lights（门户灯）需要与 dome light（穹顶灯）关联。只需在 outliner（大纲视图）中将 portal light object（门户灯对象）作为 dome light（穹顶灯）的子级。</p></li><li><p><a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661749" rel="nofollow">PxrEnvDayLight</a> – 这是一个 daylight simulation shader（日光模拟着色器）；你可以提供地球上的任意时间和位置，也可以直接把 sunlight（阳光）放在想要的位置。</p></li></ul>
+  </article>
+</main>
+</body>
+</html>

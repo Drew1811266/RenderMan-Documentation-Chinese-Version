@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PxrMatteID</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>PxrMatteID</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/REN27/542224176/PxrMatteID">https://rmanwiki-27.pixar.com/space/REN27/542224176/PxrMatteID</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p><span class="confluence-embedded-file-wrapper image-center-wrapper"><img class="confluence-embedded-image image-center" loading="lazy" src="../../attachments/542224176/PxrMatteID.gif" data-image-src="../../attachments/542224176/PxrMatteID.gif" data-unresolved-comment-count="0" data-linked-resource-id="542224190" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="PxrMatteID.gif" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/gif" data-linked-resource-container-id="542224176" data-linked-resource-container-version="1" data-media-id="9ec9809a-65a3-496b-af25-edbed55060f3" data-media-type="file"></span></p><p style="text-align: center;"><em>三个 MatteID AOV 设置，用于反映材质分配</em></p><p>此节点输出用于合成的 AOV。应将它连接到 <em>Utility Pattern</em> 参数，所属节点为 <a href="542213836-PxrSurface.html" data-linked-resource-id="542213836" data-linked-resource-version="2" data-linked-resource-type="page">PxrSurface</a> ；它会输出 MatteID AOV。</p><p>它最多输出八个 RGB 遮罩（24 个遮罩），命名为 <em>MatteID0</em>, <em>MatteID1</em> ... <em>MatteID7</em>。</p><p>MatteID AOV 可用作逐对象、逐对象组、逐材质的合成遮罩。它们会正确带有运动模糊或失焦效果，让你能在合成软件中隔离对象。</p><p>要将对象或着色器关联到 MatteIDx，需要向该对象或着色器添加一个特殊属性：</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="21ed0099-1c03-4570-b342-453fc6160d1e" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">Attribute &quot;user&quot; &quot;color MatteID0&quot; [1 0 0]</pre>
+</div></div><p><br/>在此示例中 <em>MatteID0</em> AOV 会让你的对象显示为红色，但你可以使用绿色和蓝色通道处理另外两组对象。</p><p>在 RenderMan for Maya (RfM) 中，可以通过 transform 上的 User <em>Attributes</em> 菜单添加这些属性；同时 <em>MatteID</em> 选项卡位于 <em>Outputs</em> 部分（RenderMan globals）。</p><h3 id="PxrMatteID-InputParameters">Input Parameters</h3><h4 id="PxrMatteID-InputAOV">Input AOV</h4><p>此输入只能用于串接其他不产生任何输出的节点。</p><h4 id="PxrMatteID-Enable">Enable</h4><p>控制 MatteID AOV 输出。</p><h4 id="PxrMatteID-MatteTexture(s)">Matte Texture(s)</h4><p><span class="legacy-color-text-default">这些参数允许为每个遮罩指定要输出的颜色或图案。该结果会乘以上述 user attribute 选择的颜色。如果将 user attribute 设为白色，此参数纹理会按原样渲染。</span></p><h5 id="PxrMatteID-Howtouseit">使用方法</h5><ol><li>将 MatteID 节点连接到 PxrSurface 的 utilityPattern[0] 插槽。</li></ol><h3 id="PxrMatteID-OutputParameters">Output Parameters（输出参数）</h3><h4 id="PxrMatteID-resultAOV">resultAOV</h4><p>一个整数。此输出仅用于触发图中该图案节点的执行。</p>
+  </article>
+</main>
+</body>
+</html>

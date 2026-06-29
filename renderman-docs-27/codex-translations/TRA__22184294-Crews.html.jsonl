@@ -1,0 +1,34 @@
+{"item_id":"a92b1b09ec:0","text":"crews.config 文件定义用户对 Tractor 的访问权限，指定谁可以 login 以及他们对系统各方面的控制级别。crews.config file 通常会完整复制到"}
+{"item_id":"a92b1b09ec:1","text":"site override directory"}
+{"item_id":"a92b1b09ec:2","text":"中，然后在那里 customized（自定义）。"}
+{"item_id":"a92b1b09ec:3","text":"配置定义说明（Definition）"}
+{"item_id":"a92b1b09ec:4","text":"crew 只是一个具名的 user list："}
+{"item_id":"a92b1b09ec:5","text":"Reserved Crew Names（保留 Crew 名称）"}
+{"item_id":"a92b1b09ec:6","text":"除了任何 site-defined crews 之外，Tractor 还使用四个 reserved crews names 作为特殊用途：ValidLogins、BannedLogins、Wranglers、Administrators。"}
+{"item_id":"a92b1b09ec:7","text":"ValidLogins crew 会枚举所有允许 login 到 Tractor 的 users。这个 crew"}
+{"item_id":"a92b1b09ec:8","text":"必须"}
+{"item_id":"a92b1b09ec:9","text":"存在。请参阅下面关于 meta-names @syslogins 和 @externlogins 的说明。"}
+{"item_id":"a92b1b09ec:10","text":"BannedLogins crew 列出被明确拒绝 login 的 user names。它主要在 ValidLogins 包含 @syslogins 或 @externlogins 这两个 meta-names 之一时，用于提供 exceptions。"}
+{"item_id":"a92b1b09ec:11","text":"Meta Crew Names（元 Crew 名称）"}
+{"item_id":"a92b1b09ec:12","text":"给定 crew 的 user name list 可以包含以下任一 special names。@syslogins 表示 engine host 上本地有效的所有 user login names（即可由 getpwnam(3) function 解析的名称），通常也包括可由 site nameservers（如 LDAP 或 NIS）解析的名称。"}
+{"item_id":"a92b1b09ec:13","text":"名称 @externlogins 会让 engine 跳过对潜在 Dashboard user names 的内部验证，而是把所有 login names 直接传递给站点的外部 trSiteLoginValidator.py script（或下面 SitePasswordValidator 指定的任意 validation app）。外部 validator 可以接受或拒绝给定的 name+password pair。"}
+{"item_id":"a92b1b09ec:14","text":"注意，user names 中的 wildcard characters（例如 *）在搜索 user access 时不会展开，也不会被特殊处理。不过，user names 列表也可以包含其他 CREW names，这些名称会递归展开，以包含那些 crews 中的 users。形成 “reference loops” 的 crew name references 会被截断，但可能造成 unexpected memberships。"}
+{"item_id":"a92b1b09ec:15","text":"crew membership list 中任何第一个字符为 minus-sign 的 user name 都会从该 crew definition 中移除；sub-crew names 也是如此。"}
+{"item_id":"a92b1b09ec:16","text":"name lists 中引用的 crews 可以用前导 $ 标记，以便明确区分它们是 crew names 而不是 user names。这种方法也让 tractor-engine 在引用的 crew 未知时能够输出更好的 diagnostic messages；否则该 name 只会被当作另一个 user name。"}
+{"item_id":"a92b1b09ec:17","text":"某个特定 user name 可以出现在多个 crew 中。"}
+{"item_id":"a92b1b09ec:18","text":"Job Edit Permissions（作业编辑权限）"}
+{"item_id":"a92b1b09ec:19","text":"默认情况下，每个具有 valid login 的用户都会获得 “standard” permissions，即运行和修改自己 jobs 的基本能力，以及查看 queue 和 blades 状态的能力。列在 Wranglers crew 中的 users 还可以修改一般 job queue，包括其他 users 的 jobs 状态。列在 Administrators crew 中的 users 可以通过 URL interface 更改 site-wide policies。permission levels 是累积的：Wranglers 拥有 “standard” access 以及额外的 wrangler permissions。Administrators 拥有 standard、wrangler 和 admin access。"}
+{"item_id":"a92b1b09ec:20","text":"可选 subdictionary JobEditAccessPolicies 可用于进一步限制或扩展对 job attributes（如 job priority）的 edit access。可以为每个 editable attribute 指定不同 access list；否则会应用名为 default 的 entry 设置。这些 edit lists 中的特殊 meta-crew name @owner 会授予每个 job owner 在自己 jobs 中编辑给定 attribute 的权限。"}
+{"item_id":"a92b1b09ec:21","text":"Edit permissions 被组织为具名"}
+{"item_id":"a92b1b09ec:22","text":"policies"}
+{"item_id":"a92b1b09ec:23","text":"，其中名为 defaultPolicy 的 policy 会默认应用。Job scripts 可以使用 Job -editpolicy {NAME} option 指定适用于它们的 policy。studio 的 job creation pipeline 通常会用它对来自特定 shows 或 administrative jobs 的 jobs 应用额外限制。如果 job 明确请求的 policy 在此处缺失，那么 engine 会应用 defaultPolicy entry 中的设置（如果存在），而不是在缺失 policy 定义之前拒绝所有 edits。Administrators crew 中的 users 始终对任何 job 拥有 edit control。"}
+{"item_id":"a92b1b09ec:24","text":"可识别的 fine-grained edit permission keywords 包括：argv、afterjids、aftertime、bnotes、jnotes、comment、crews、cwd、delete、envkey、interrupt、jrestart、jshuffle、lock、metadata、pause、priority、retract、retry、runsecsbounds、service、skip、slotbounds、tags、title"}
+{"item_id":"a92b1b09ec:25","text":"SitePasswordValidator"}
+{"item_id":"a92b1b09ec:26","text":"SitePasswordValidator 指定用于验证从 user interfaces 和 scripts 发送到 engine 的 passwords 的 validation scheme。使用空字符串 \"\" 可禁用 password checking，允许任何 valid user name 作为 client 继续访问（即 ValidLogins 中授权的 names）。"}
+{"item_id":"a92b1b09ec:27","text":"SitePasswordValidator 的任何非空值都会要求 passwords，并指定将应用的 validation 类型。所有 user+password validation 都发生在 tractor-engine host 上，因此这里的 values 都相对于 engine 的 environment、filesystem、operating system 等。"}
+{"item_id":"a92b1b09ec:28","text":"Tractor engine 内置支持 Linux 和 Mac OS 提供的 “PAM” authentication system。只有 engine 需要这种支持，clients 可以位于任何 platform。使用下面的 string value internal:PAM 可通过 engine host 上的 PAM modules 启用 password validation。"}
+{"item_id":"a92b1b09ec:29","text":"PAM scheme 本身要求你选择适当的 access policy module（见 /etc/pam.d 或 /etc/pam.conf）。Tractor 默认会尝试加载名为 “tractor” 的 module，你必须先用适合站点的 policies 定义该 module。或者，你也可以在这里指定不同的 PAM module name，只要它已经存在并支持你站点的 requirements。例如，要使用 su authentication rules，请使用下面的 internal:PAM:su。"}
+{"item_id":"a92b1b09ec:30","text":"Tractor-engine 会在你用 password 通过认证后，向 dashboard web browser 发送 session cookie。保存的 session information 后续可用于在刷新 dashboard page 时自动 login。可以通过更改 SitePasswordValidator setting 中的 prefix 来禁用这种 auto-login behavior，强制 users 在 dashboard page 重新加载时重新输入 passwords；将 “internal:” 改为 “internal_nocookie:”，或为 external validation scripts 添加 prefix “external_nocookie:”。"}
+{"item_id":"a92b1b09ec:31","text":"NOTE："}
+{"item_id":"a92b1b09ec:32","text":"PAM 方法要求 tractor-engine 在 engine host 本地向 PAM interface 交付 clear-text password。因此，它必须从 Dashboard 和其他 client scripts 接收可恢复的 password encoding。内置 transfer encoding 能对窥探提供适度保护，但主要的 password transport protection 预期来自你站点 private LAN 以及接入该 LAN 的 VPN connections 的安全性。"}
+{"item_id":"a92b1b09ec:33","text":"Tractor 还支持一种更复杂的 custom alternative solution：你提供自己的 client-side one way password hashing plug-in（根据需要使用 javascript 或 python），并提供一个 matching engine-side hash validator，在这里指定它的名称。更多细节请参阅 template examples 中的 comments 和 Tractor administrative docs。"}

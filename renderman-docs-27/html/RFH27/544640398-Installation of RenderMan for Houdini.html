@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Installation of RenderMan for Houdini</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Installation of RenderMan for Houdini</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFH27/544640398/Installation+of+RenderMan+for+Houdini">https://rmanwiki-27.pixar.com/space/RFH27/544640398/Installation+of+RenderMan+for+Houdini</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="1280" loading="lazy" src="../../attachments/544640398/RenderMan_Solaris_Volumes.jpg" data-image-src="../../attachments/544640398/RenderMan_Solaris_Volumes.jpg" data-height="666" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="544640416" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Solaris_Volumes.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544640398" data-linked-resource-container-version="7" data-media-id="5a86c710-b0d8-43b6-96ff-e79e76ea87c9" data-media-type="file"></span><p><br/></p><p>For supported Houdini versions, please visit <a class="external-link" href="../REN27/542212198-Installation and Licensing.html" rel="nofollow">Installation and Licensing</a>.<br/>RenderMan for Houdini can be installed using the RenderMan Installer, which manages the downloading, installation, and licensing of the RenderMan Pro Server (the actual renderer) along with all bridge products.<br/></p><hr/><h3 id="InstallationofRenderManforHoudini-PackageInstallation">Package Installation</h3><p>RenderMan for Houdini can be installed with a packages file, found in the RfH installation director. <br/><br/>Copy the packages json file to one of the following locations for Houdini to find on startup. Advanced package instructions by SideFX are <a class="external-link" href="https://www.sidefx.com/docs/houdini/ref/plugins.html" rel="nofollow">here</a>.</p><ul><li><p><code>$HOUDINI_USER_PREF_DIR/packages</code></p></li><li><p><code>$HFS/packages</code></p></li><li><p><code>$HSITE/houdinimajor.minor/packages</code> (for example, <code>$HSITE/houdini21.0/packages</code>)</p></li><li><p><code>$HOUDINI_PACKAGE_DIR</code><br/></p></li></ul><hr/><h3 id="InstallationofRenderManforHoudini-ManualInstallation">Manual Installation </h3><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="02a1b9cf-3e56-4fb6-8001-a357a9d37781" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>The environment variable for RfH must be listed first in the houdini.env file. (Windows requires a semi-colon) For example:</p><p>HOUDINI_PATH=$RFHTREE/3.11/21.0.512:&amp;</p><p><br /></p><p>RenderMan for Houdini with Solaris requires an additional line in the configuration file to be able to render in-memory vdbs:</p><p>RMAN_PROCEDURALPATH = $RFHTREE/3.11/21.0.512/openvdb:&amp;</p><p> </p><p> </p><p>From Houdini 21, in order to support reading COP textures in RenderMan, the following variable needs to be defined:</p><p>RMAN_TEXTUREPATH = $RFHTREE/3.11/21.0.512/rtxplugins:&amp;<br /></p><p> </p><p>RenderMan for Houdini on <strong>Windows</strong> requires an additional line in the configuration file:</p><p>PATH=$RMANTREE\bin;&amp;</p><p><br /></p><p><strong>Additional instructions and details are found below in this document.</strong></p></div></div><p><br/></p><p>After installing the plugin, Houdini requires a modification to the Houdini environment in your home directory to load the RenderMan plugin. Houdini specific environment variables can also be set in the houdini.env, found in the following locations for each operating system:</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="52d3ea4c-5008-4679-ada6-87bec194ff8a" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">Windows: %HOME%\Documents\houdiniXX.X\houdini.env
+Mac: ~/Library/Preferences/houdini/YY.Y/houdini.env
+Linux: ~/houdiniZZ.Z/houdini.env</pre>
+</div></div><p><strong>NOTE:</strong> When you run a new version of Houdini for the first time, you may have to run it twice before the houdini.env files appear in the locations mentioned above, once created you can add the lines mentioned below.</p><p><br/></p><p>You need to edit the houdini.env file with a text editor and place the following lines below in that file before you start Houdini. This only has to be done once for each new major version of Houdini that is being used.</p><p><br/><br/></p><hr/><p><br/><br/><strong>EXAMPLES</strong></p><p>For example on Linux, one would edit this file in: $HOME/houdini21.0/houdini.env:</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="68b9bbae-9f5a-4590-8304-aadbfc8bea69" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">RMANTREE=/opt/pixar/RenderManProServer-27.0
+RFHTREE=/opt/pixar/RenderManForHoudini-27.0
+RMAN_PROCEDURALPATH=$RFHTREE/3.11/21.0.512/openvdb:&amp;
+RMAN_TEXTUREPATH=$RFHTREE/3.11/21.0.512/rtxplugins:&amp;
+HOUDINI_PATH=$RFHTREE/3.11/21.0.512/:&amp;</pre>
+</div></div><p>On Windows, one would edit the file in: \Users\<em>myself</em>\Documents\houdini21.0\houdini.env:</p><p><strong>NOTE</strong>: Windows uses a semi-colon instead of a colon to separate the HOUDINI_PATH!</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="b00a8ff5-f314-42cf-9bd2-da811449a76a" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">RMANTREE=&quot;C:\Program Files\Pixar\RenderManProServer-27.0&quot;
+RFHTREE=&quot;C:\Program Files\Pixar\RenderManForHoudini-27.0&quot;
+RMAN_PROCEDURALPATH=$RFHTREE\3.11\21.0.512\openvdb;&amp;
+RMAN_TEXTUREPATH=$RFHTREE\3.11\21.0.512\rtxplugins:&amp;
+HOUDINI_PATH=$RFHTREE\3.11\21.0.512;&amp;
+PATH=$RMANTREE\bin;&amp;</pre>
+</div></div><p>Finally an example on macOS, one would edit this in: /Users/<em>myself</em>/Library/Preferences/houdini/21.0/houdini.env:</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="2abb3386-a741-496d-91ba-d5eefc611fc2" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">RMANTREE=/Applications/Pixar/RenderManProServer-27.0
+RFHTREE=/Applications/Pixar/RenderManForHoudini-27.0
+RMAN_PROCEDURALPATH=$RFHTREE/3.11/21.0.512/openvdb:&amp;
+RMAN_TEXTUREPATH=$RFHTREE/3.11/21.0.512/rtxplugins:&amp;
+HOUDINI_PATH=$RFHTREE/3.11/21.0.512:&amp;</pre>
+</div></div><p><br/></p><p><br/></p>
+  </article>
+</main>
+</body>
+</html>

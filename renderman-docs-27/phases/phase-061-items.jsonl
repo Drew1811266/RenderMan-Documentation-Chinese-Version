@@ -1,0 +1,13 @@
+{"id": "43a570553fecefe5c525e66974e02c7ade83d47e3dde53cf7e29df498bac9a88", "item_id": "99aed60823:0", "text": "This is a utility node primarily meant to allow you to route specific shading signals to the User lobes in a LaMa Material to be output to an AOV defined by a Light Path Expression.  If the full power of an LPE is not necessary, the PxrTee shading node or a custom node using the OSL debug() closure can be used instead."}
+{"id": "48bef9a1fe3317d431be86581684256716969fc3ea9a687fdd6b97adbf6eede8", "item_id": "99aed60823:1", "text": "However, if you want an AOV to contain the shading signal as seen only through particular light paths, you'll want to define a custom LPE to gather a particular User lobe in those light paths, and use the LamaLPE node to write your signal into that User lobe."}
+{"id": "6c6c4a49a779ae79559913235091b415ded281637ac4c400fd89e1a6baade028", "item_id": "99aed60823:2", "text": "LamaLPE Parameters"}
+{"id": "6b73191a0a4b67420e61d51c9f207c35277eaf18fbbf5beb52a320a23fe09653", "item_id": "99aed60823:3", "text": "Color"}
+{"id": "94192eae05ed4c8746c36f96a971f5fb001398103af00a7d097d361022490f05", "item_id": "99aed60823:4", "text": "The color to be accumulated in the specified LPE accessible lobe"}
+{"id": "ca2284f6b0a50dce105dcc5efe2a5fec9002645047c277f04ad4bf740e598ea0", "item_id": "99aed60823:5", "text": "LPE Lobe Name"}
+{"id": "8695f591ed45b2b4c3ee47aa0bb36e1acbc28aab4a2d513b0b720ebf11b85c24", "item_id": "99aed60823:6", "text": "The name of the lobe used to specify which LPEs will accumulate this lobe"}
+{"id": "c1790bf42184d8cda0a6ac3894681870256c1b29f23fbe95ff39b2d84de7490a", "item_id": "99aed60823:7", "text": "Example Usage"}
+{"id": "11a557d89e67f47e7b6b0e927a832f92b8b52a58b2aaa9ad8c1d8c901c41f1f4", "item_id": "99aed60823:8", "text": "Apply name to the lobes using Option \"lpe\" \"string <lobeslot>\""}
+{"id": "3b0a5cedae070e7c75e1cf2215278a15af89cca145726cc68e65890ef188f658", "item_id": "99aed60823:9", "text": "[\"Comma,Separated,Lobe,Names\"]"}
+{"id": "5e8429dca8fb28beb962be0c5eeb8b667ee9203545b9f5a1224a0144b15bb620", "item_id": "99aed60823:10", "text": "Then define a LPE that will get values from that <lobeslot>, using either a custom LPE or a displaychannel line then output it with a display line"}
+{"id": "f8a60f4ca5664b7c8391937bfe071043ed7972f556462cca2c092777733a8e5a", "item_id": "99aed60823:11", "text": "Use the LamaLPE node to write an input color to one of those slots, like Bxdf \"LamaLPE\" \"ucolor\" \"reference color LPEColor\" \"voronoise:resultRGB\" \"string LPELobeName\""}
+{"id": "1d5ec68bc1b5a979680d6727678ce3db25fa02034fdcaeacbe7385765accdb7d", "item_id": "99aed60823:12", "text": "[\"Comma\"]"}

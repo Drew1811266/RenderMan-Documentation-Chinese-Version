@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Implementation</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Implementation</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/TRA/22184356/Implementation">https://rmanwiki-27.pixar.com/space/TRA/22184356/Implementation</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="section"><h3 id="Implementation-Implementation">Implementation</h3><p>The engine (<em>tractor-engine</em>) is a high performance, multi-threaded C++ application. It responds to HTTP transaction requests, and maintains a database of spooled jobs.</p><p>The Blades are a straightforward execution server, written in Python, and providing site-extensible modules and role configuration.</p><p>The Dashboard provides job tracking, visualization, and control widgets developed on a modern HTML5/CSS3/JavaScript framework. Each user's Dashboard layout and preferences are maintained in a per-user section of the engine's data area.</p><p>New jobs are typically spooled into the queue as Alfred-format job scripts that are automatically processed by the engine and stored as job, task, and command records in a database (currently PostgreSQL). Jobs are usually spooled to the engine by running the supplied tractor-spool command-line script. There is also a supplied Python job authoring module that provides a scriptable API for creating jobs and submitting them.</p><p> </p></div><div class="section"><h3 id="Implementation-ReleaseDownloadContents">Release Download Contents</h3><p>The Tractor-2.0 download contains all of the system services, user interfaces, scripting tools, and other resources needed to deploy Tractor on your farm. However, each download is platform specific, so if your studio will be running Tractor components on several operating systems, then you will need to download one installer for each platform.</p><p>The Tractor system consists of these high-level parts:</p><ul class="simple"><li><em>tractor-engine</em> -- the main job queue manager executable</li><li><em>tv</em> -- the &quot;tractor viewer&quot; web-app implementation of the Tractor Dashboard</li><li><em>tractor-blade</em> -- the remote execution server that launches commands on each farm host</li><li><em>tractor-spool</em> -- sends job description files into the queue</li><li><em>tq</em> -- the job data query command-line interface and scripting module</li><li><em>rmanpy</em> -- a full Python 2.7.1 distribution, with extra built-in modules</li><li><em>job database</em> -- a PostgreSQL 9.3 database server distribution, located within the Tractor install area.</li><li><em>nimby</em> -- a small Qt-based user interface that helps control the use of workstations as auxilliary farm nodes</li></ul><p>NOTE! Not every Tractor component is needed on every host, but all of the components are installed together below a single versioned Tractor directory because they share so many resources. The actual Tractor applications themselves are nearly the smallest part of the install package.</p><p>Many studios will choose to install once on shared disk, and run it on each participating host via network shares. Others will install the package on each host separately, but only run the pieces that are needed specifically.</p><p> </p><div class="section"><h3 id="Implementation-bundleTractor-2.0BundleDetails"><span class="confluence-anchor-link conf-macro output-inline" data-hasbody="false" data-macro-id="f29924d1-b6ef-4bdd-9fd2-ac94ba6755d5" data-macro-name="anchor" id="Implementation-bundle"><span class="confluence-anchor-link" id="bundle"> </span></span>Tractor-2.0 Bundle Details</h3><p>The new Tractor 2.0 packaging and installation layout places a matched set engine, blade, spooler, user interaces, and scripting components all in one place, along with only one copy of shared resources including pre-built versions of several third-party subsystems. Tractor should be ready to go, with no additional external downloads, builds, or installs required.</p><p>The third-party components include a full Python 2.7.1 with built-in extension modules such as Qt and database support; a Tcl interpreter; and a full PostgreSQL 9.3 server to replace the prior job database. These components are provided as a convenience to our customers, and could be replaced on-site builds from source, should a studio wish to do so.</p><ul class="simple"><li>A <em>PostgreSQL database</em> is now bundled with the release. It replaces the prior job database and is used to store all spooled jobs as well as all collected data about command launch and disposition. The database underlies several important 2.0 features, most notably the <a href="/wiki/spaces/TRA/pages/22184306/tq+Tractor+Query+tool" data-linked-resource-id="22184306" data-linked-resource-version="4" data-linked-resource-type="page">tq</a> query variations. It also stores job data in a more compact footprint than before, and in some circumstances may permit a useful form of load-balancing. Operationally, the main tractor-engine process typically manages the database server as a subprocess and without the need for administrator assistance. That includes start-up and shutdown, table creation, and versioned schema updates. However, there are also advanced options for controlling specific aspects the database operation and administration. Only tractor-engine connects to the database, and so the default configuration only allows client connections from the localhost interface.</li><li><em>Python Update</em> -- many of the Tractor 2.0 tools, including the engine, now depend on access to a compliant Python interpreter. Tractor now takes advantage of the same <em>rmanpy</em> bundling scheme used by other Pixar RenderMan products. The version bundled into this Tractor release has been updated to Python 2.7.1, and includes several important built-in extension modules.<ul><li>The updated version Python by itself includes several important features such as improved unicode support and bug fixes.</li><li>All of the python-based Tractor tools and applications are now shipped as <em>site-packages</em> modules in the bundled rmanpy Python distribution. The shared utility modules are also located in the same Python library area so they can be easily imported by rmanpy-based scripts.</li><li>The rmanpy package includes Qt support, used by Tractor in the reimplementation of the small stand-alone &quot;nimby&quot; desktop UI (thus also removing some old X11 and Tk platform requirements).</li><li>There is a PostgreSQL access module, used internally by Tractor to manage the backend data store. External scripted access to the database should always be mediated through the Engine's own exposed access protocols in order to protect developers and their pipelines from release-to-release changes to the internal database schema.</li></ul></li><li><em>Job spooling support</em> --<ul><li>Another extension includes a bundled Tcl interpreter used to parse Alfred-style job scripts. This extension is actually packaged as an rmanpy python module, allowing the Tractor python-based spooler and handler system to process Tcl-formatted alfscript jobs directly, without any additional requirements for separately installed Tcl packages, especially on platforms that do not (or no longer) have built-in tclsh support. The Tcl extension also allows the <em>tractor-spool</em> script to sanity check new jobs directly on the user's spooling client system, before the job even leaves the their machine, flagging syntax errors and other problems before involving the engine or the job storage database.</li><li>The Tractor <em>rmanpy</em> Python bundle and the PostgresSQL bundle described above are combined in Tractor-2.0 to improve the system's backend job spooling throughput. Parallel peristent intake channels with direct access to the job database can process new jobs and &quot;expand&quot; fragments at a significantly faster rate than prior releases.</li></ul></li></ul></div></div>
+  </article>
+</main>
+</body>
+</html>

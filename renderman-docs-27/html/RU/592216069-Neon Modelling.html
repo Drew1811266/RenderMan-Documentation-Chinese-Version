@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Neon Modelling</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Neon Modelling</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RU/592216069/Neon+Modelling">https://rmanwiki-27.pixar.com/space/RU/592216069/Neon+Modelling</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>My aim with this project was to create a fully procedural Neon Sign maker, so that regardless of the letters or design I wanted to create, Houdini would generate the geometry procedurally for me.</p><p>I began by creating the vector designs in Illustrator, and once I was happy with the design, I exported a single SVG file. </p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="DemoSign_setup3.jpg" width="760" loading="lazy" src="../../attachments/592216069/DemoSign_setup3.jpg" data-image-src="../../attachments/592216069/DemoSign_setup3.jpg" data-height="540" data-width="1531" data-unresolved-comment-count="0" data-linked-resource-id="592117790" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="DemoSign_setup3.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="592216069" data-linked-resource-container-version="4" data-media-id="3d11b657-d51e-441a-b988-306fe9c94f21" data-media-type="file"></span><p /><p>This SVG file was imported into Houdini, and then each part of each letter was blasted out into separate pieces for the main letter panels, the inner and outer extrusion, and then one for each of the tubes.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="DemoSign_setup.jpg" width="760" loading="lazy" src="../../attachments/592216069/DemoSign_setup.jpg" data-image-src="../../attachments/592216069/DemoSign_setup.jpg" data-height="873" data-width="1830" data-unresolved-comment-count="0" data-linked-resource-id="591691807" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="DemoSign_setup.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="592216069" data-linked-resource-container-version="4" data-media-id="911f7d22-58f6-4b75-b229-b5131935030e" data-media-type="file"></span><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="DemoSign_parts.jpg" width="760" loading="lazy" src="../../attachments/592216069/DemoSign_parts.jpg" data-image-src="../../attachments/592216069/DemoSign_parts.jpg" data-height="960" data-width="2000" data-unresolved-comment-count="0" data-linked-resource-id="591921180" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="DemoSign_parts.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="592216069" data-linked-resource-container-version="4" data-media-id="31f5d051-0f89-4ff1-92a6-d3986a907d48" data-media-type="file"></span><p>I created a procedural system to find the first and last point on each neon tube curve using a <em>grouprange </em>node. </p><p>I also used a <em>carve </em>node to adjust the placement of these points along the curve, allowing me to change the break points in the neon sign.</p><p> I was able to use a <em>copytopoints </em>node to instance the neon hole geometry to the first and last points on my neon curves.</p><p>The neon tube holders, again, used a procedural approach using the <em>carve </em>and <em>copytopoints </em>nodes to place them along the neon tube curves.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="DemoSign_setup1.jpg" width="760" loading="lazy" src="../../attachments/592216069/DemoSign_setup1.jpg" data-image-src="../../attachments/592216069/DemoSign_setup1.jpg" data-height="866" data-width="1531" data-unresolved-comment-count="0" data-linked-resource-id="591822873" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="DemoSign_setup1.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="592216069" data-linked-resource-container-version="4" data-media-id="b5865509-1689-4059-9ba4-8efe46a1bff2" data-media-type="file"></span><p>The bolts were hand-placed using a node from Sidefx Labs called Labs Pick and Place.  This allowed me to add a touch of irregularity to the sign.</p><p>To add a final element of handcrafted imperfection to the signs, I used the <em>sculpt </em>node to introduce subtle bends and dents to the panels.</p><p>The UVs and Texel density were also procedural, using<em> Labs Auto UV</em> and <em>texeldensity </em>nodes</p><p>Once I had one letter done, it was a rapid and easy process to create all the other letters and arrow.  Note: The neon tubes themselves were imported separately into Solaris.  I wanted to keep them separated from the sign itself for the texturing and shading workflow.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="DemoSign_setup4.jpg" width="760" loading="lazy" src="../../attachments/592216069/DemoSign_setup4.jpg" data-image-src="../../attachments/592216069/DemoSign_setup4.jpg" data-height="907" data-width="1758" data-unresolved-comment-count="0" data-linked-resource-id="591822889" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="DemoSign_setup4.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="592216069" data-linked-resource-container-version="4" data-media-id="2aa509ca-4eb1-439f-a2ac-0de72ef36667" data-media-type="file"></span><p /><p />
+  </article>
+</main>
+</body>
+</html>

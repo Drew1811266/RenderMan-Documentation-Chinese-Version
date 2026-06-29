@@ -1,0 +1,91 @@
+{"item_id":"f456b1e88b:0","text":"RenderMan for Maya 改进了"}
+{"item_id":"f456b1e88b:1","text":"Alembic"}
+{"item_id":"f456b1e88b:2","text":"渲染工作流，将现有功能整合到一起。"}
+{"item_id":"f456b1e88b:3","text":"现在，在 RFM 中渲染 Alembic archives（Alembic 归档）有几种不同方式。我们会逐一介绍。"}
+{"item_id":"f456b1e88b:4","text":"本文档使用的是 Alembic archive（Alembic 归档）："}
+{"item_id":"f456b1e88b:5","text":"Rolling Teapot"}
+{"item_id":"f456b1e88b:6","text":"模型的 Alembic archive，该模型来自"}
+{"item_id":"f456b1e88b:7","text":"Brice Laville Saint Martin"}
+{"item_id":"f456b1e88b:8","text":"。"}
+{"item_id":"f456b1e88b:9","text":"你可以在此处下载它："}
+{"item_id":"f456b1e88b:10","text":"here（这里）"}
+{"item_id":"f456b1e88b:11","text":"从 Maya 将几何体导出为 Alembic"}
+{"item_id":"f456b1e88b:12","text":"首先，你需要导出几何体，以便 RenderMan 可以正确渲染它。"}
+{"item_id":"f456b1e88b:13","text":"为简化流程，我们在 RFM 中添加了一些导出函数，用于保证正确结果；如果你需要自定义，也可以基于我们的工作 roll out（推出/实现）自己的流程。"}
+{"item_id":"f456b1e88b:14","text":"你可以在 RenderMan 菜单的 Archive 部分找到它..."}
+{"item_id":"f456b1e88b:15","text":"...也可以右键点击 RenderMan shelf（RenderMan 工具架）中的 archive 图标。"}
+{"item_id":"f456b1e88b:16","text":"我们会导出许多 geometric options（几何选项）"}
+{"item_id":"f456b1e88b:17","text":"通过我们的菜单选择"}
+{"item_id":"f456b1e88b:18","text":"来为其他 bridge products（桥接产品）提供足够的数据，例如："}
+{"item_id":"f456b1e88b:19","text":"如你所见，根据 archive 的渲染方式不同，可用选项也不同："}
+{"item_id":"f456b1e88b:20","text":"Export for the gpuCache node（为 gpuCache 节点导出）"}
+{"item_id":"f456b1e88b:21","text":"为 gpuCache node（gpuCache 节点）导出时，Alembic archive 会直接发送给渲染器，而不会经过 RfM 处理。如果场景中包含已经平滑（使用 Smooth Mesh 控制）或带有 RenderMan subdivision surface attributes（细分曲面属性）的 polygon meshes（多边形网格），我们需要确保它们会作为 subdivision surfaces（细分曲面）而不是 poly meshes（多边形网格）导出。此菜单会在调用常规 Alembic 导出对话框之前包含一个预处理步骤。"}
+{"item_id":"f456b1e88b:22","text":"我们使用"}
+{"item_id":"f456b1e88b:23","text":"gpuCache"}
+{"item_id":"f456b1e88b:24","text":"节点来引用、显示并渲染常规的高质量 Alembic archives（Alembic 归档）。"}
+{"item_id":"f456b1e88b:25","text":"这不同于 Maya 的 GPU cache 工作流；后者会保存场景的简化版本，只是为了让大型场景保持更强的交互性。"}
+{"item_id":"f456b1e88b:26","text":"为获得最佳结果，请始终使用我们的 Alembic Export 菜单。如果你尝试渲染通过 Cache > GPU Cache > Export... 菜单保存的 alembic 文件，我们无法保证结果。"}
+{"item_id":"f456b1e88b:27","text":"Export for imported/referenced archives（为导入/引用的归档导出）"}
+{"item_id":"f456b1e88b:28","text":"当 alembic node（Alembic 节点）被导入或引用到 Maya 场景中时，archive 的节点会重建为 Maya shapes（Maya 形状），并且必须携带其原始 RenderMan attributes（RenderMan 属性），才能按预期渲染。我们的导出菜单包含一个设置步骤，用于确保所有相关属性都会保存到 alembic cache 中，同时保存 uv sets 以及 subdivision surface creases and corners（细分曲面的折痕和角点）。"}
+{"item_id":"f456b1e88b:29","text":"Rendering Imported or Referenced Caches（渲染导入或引用的缓存）"}
+{"item_id":"f456b1e88b:30","text":"Alembic archives 可以在 Maya 中导入或引用。你可以为它们附加材质，它们会像任何其他 Maya geometry（Maya 几何体）一样渲染。"}
+{"item_id":"f456b1e88b:31","text":"它们非常适合为 animated characters（动画角色）进行 lighting（布光）和 shading（着色），同时无需承担复杂 rig（绑定）求值的负担。但当 archive 包含大量节点和沉重几何体时，它们并不那么适合；这种情况下可以考虑改为渲染 GPU cache。"}
+{"item_id":"f456b1e88b:32","text":"Rendering gpuCache nodes（渲染 gpuCache 节点）"}
+{"item_id":"f456b1e88b:33","text":"Creating a new gpuCache node（创建新的 gpuCache 节点）"}
+{"item_id":"f456b1e88b:34","text":"The easy way（简单方法）"}
+{"item_id":"f456b1e88b:35","text":"右键点击 RenderMan shelf（RenderMan 工具架）中的 archive 图标，然后选择 \"Import GPU Cache...\"。文件选择器会打开，节点会被创建并设置为对 indirect rays（间接射线）可见。"}
+{"item_id":"f456b1e88b:36","text":"The hard way（手动方法）"}
+{"item_id":"f456b1e88b:37","text":"Start（开始）时，先通过"}
+{"item_id":"f456b1e88b:38","text":"GPU Cache"}
+{"item_id":"f456b1e88b:39","text":"菜单导入你的 alembic 文件。如果你的 Maya 中未出现该菜单，请转到"}
+{"item_id":"f456b1e88b:40","text":"Plug-in Manager（插件管理器）"}
+{"item_id":"f456b1e88b:41","text":"窗口启用它。"}
+{"item_id":"f456b1e88b:42","text":"对于 animated GPU caches（动画 GPU 缓存），请选择："}
+{"item_id":"f456b1e88b:43","text":"Use Global Time（使用全局时间）"}
+{"item_id":"f456b1e88b:44","text":"在此示例中，我导入了 Rolling Teapot 模型。请注意，整个模型现在是 Maya 中的单个节点，默认会由 RenderMan 渲染。"}
+{"item_id":"f456b1e88b:45","text":"默认属性会出现在 RenderMan 部分中："}
+{"item_id":"f456b1e88b:46","text":"Render Alembic Cache（渲染 Alembic 缓存）"}
+{"item_id":"f456b1e88b:47","text":"必须启用才能渲染。"}
+{"item_id":"f456b1e88b:48","text":"RLF File Name（RLF 文件名）"}
+{"item_id":"f456b1e88b:49","text":"将应用到 Alembic 文件上的 RenderMan Look File 的完整路径。你可以使用页面下方介绍的编辑器来创建并保存 RLF 文件。"}
+{"item_id":"f456b1e88b:50","text":"Edit RLF File（编辑 RLF 文件）"}
+{"item_id":"f456b1e88b:51","text":"打开独立的 RLF editor（RLF 编辑器），用于修改"}
+{"item_id":"f456b1e88b:52","text":"RLF File Name（RLF 文件名）"}
+{"item_id":"f456b1e88b:53","text":"中引用的文件。请参见"}
+{"item_id":"f456b1e88b:54","text":"Assign materials（分配材质）"}
+{"item_id":"f456b1e88b:55","text":"了解详情。"}
+{"item_id":"f456b1e88b:56","text":"Edit objects（编辑对象）"}
+{"item_id":"f456b1e88b:57","text":"打开 shape editor（形状编辑器），用于修改 alembic 文件的内容。请参见"}
+{"item_id":"f456b1e88b:58","text":"Geometric edits（几何编辑）"}
+{"item_id":"f456b1e88b:59","text":"了解详情。"}
+{"item_id":"f456b1e88b:60","text":"Inspect Alembic section（检查 Alembic 区段）"}
+{"item_id":"f456b1e88b:61","text":"Read archive contents（读取归档内容）"}
+{"item_id":"f456b1e88b:62","text":"点击此按钮解析 archive 的内容，并在 node lists（节点列表）中显示其内容。"}
+{"item_id":"f456b1e88b:63","text":"大型 alembic archives 可能需要许多秒才能解析。请耐心等待..."}
+{"item_id":"f456b1e88b:64","text":"node list（节点列表）可能会错误地显示大量深度嵌套的节点。为绕过这个 Maya bug，默认情况下我们只展开前 3 层，并建议使用 filter field（过滤字段）浏览 archive。"}
+{"item_id":"f456b1e88b:65","text":"解析后的数据会保存在节点上，因此可以快速显示而无需重新解析文件；但如果 archive 中有任何内容发生变化，你必须重新解析该 archive。"}
+{"item_id":"f456b1e88b:66","text":"你可以通过在列表中双击，对层级结构中的任意位置进行“solo”（只显示所选项）。若要再次显示全部内容，请双击顶层节点 (ABC)。这不会影响最终渲染。"}
+{"item_id":"f456b1e88b:67","text":"Filter（过滤）"}
+{"item_id":"f456b1e88b:68","text":"node list（节点列表）的内容可以使用 glob expression（glob 表达式）进行过滤。"}
+{"item_id":"f456b1e88b:69","text":"Pattern（模式）"}
+{"item_id":"f456b1e88b:70","text":"Meaning（含义）"}
+{"item_id":"f456b1e88b:71","text":"匹配所有内容"}
+{"item_id":"f456b1e88b:72","text":"? 匹配任意单个字符"}
+{"item_id":"f456b1e88b:73","text":"匹配以下集合中的任意字符："}
+{"item_id":"f456b1e88b:74","text":"seq"}
+{"item_id":"f456b1e88b:75","text":"匹配不在以下集合中的任意字符："}
+{"item_id":"f456b1e88b:76","text":"seq"}
+{"item_id":"f456b1e88b:77","text":"Node list（节点列表）"}
+{"item_id":"f456b1e88b:78","text":"archive 内容的 hierarchical view（层级视图）。"}
+{"item_id":"f456b1e88b:79","text":"每个节点都会以 annotation（注释）的形式显示其 properties（属性）。这有助于检查你的 archive 是否包含所需属性。"}
+{"item_id":"f456b1e88b:80","text":"这可以通过 node list 下方的"}
+{"item_id":"f456b1e88b:81","text":"View node annotations（查看节点注释）"}
+{"item_id":"f456b1e88b:82","text":"复选框进行切换。"}
+{"item_id":"f456b1e88b:83","text":"Batch Rendering（批渲染）"}
+{"item_id":"f456b1e88b:84","text":"为提高效率，RenderMan for Maya 不会导出所有 shaders（着色器），只会导出附加到 geometry（几何体）上的 materials（材质）。这会在 batch rendering GPU Caches（批渲染 GPU 缓存）时导致问题。"}
+{"item_id":"f456b1e88b:85","text":"要绕过此问题，请"}
+{"item_id":"f456b1e88b:86","text":"Enable \"Output All Shaders\"（启用“输出所有着色器”）"}
+{"item_id":"f456b1e88b:87","text":"在 RenderMan Render Settings 的 advanced menu（高级菜单）中启用。"}
+{"item_id":"f456b1e88b:88","text":"Debugging（调试）"}
+{"item_id":"f456b1e88b:89","text":"从 RFM 24.4 起，可以定义"}
+{"item_id":"f456b1e88b:90","text":"environment variable（环境变量，其值无关紧要；在启动 RFM 前设置），以便在 render-time（渲染时）获得 debugging output（调试输出）。"}

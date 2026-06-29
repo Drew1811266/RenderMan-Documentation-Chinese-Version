@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Aperture</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Aperture</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/REN27/542231487/Aperture">https://rmanwiki-27.pixar.com/space/REN27/542231487/Aperture</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="900" loading="lazy" src="../../attachments/542231487/PxrCamera_aperature.jpg" data-image-src="../../attachments/542231487/PxrCamera_aperature.jpg" data-height="720" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="542231501" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="PxrCamera_aperature.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542231487" data-linked-resource-container-version="1" data-media-id="b6d07f62-26ff-4e76-9760-48abfbad85a0" data-media-type="file"></span><p><br/><strong>Sides（边数）</strong><br/>diaphragm blades（光阑叶片）的数量从技术上并不控制 bokeh（散景），但会控制 blur circle（模糊圆）的形状（而不是光在其中的分布方式）。改变边数会让原本完美圆形的高光按指定边数产生分面（例如三条边会形成三角形）。</p><p><strong>Angle（角度）</strong><br/>此项会旋转 aperture（光圈），从而旋转失焦光点。</p><p><strong>Roundness（圆润度）</strong><br/>Roundness 会弯曲 aperture blades（光圈叶片）的边缘，使它们看起来更圆润。因此高光也会呈现更圆润的形状。</p><p><strong>Density</strong><br/>“good bokeh（优质散景）”在每个失焦光点中中心更亮，并向边缘衰减。不过并不是每个镜头都有 good bokeh。可以使用这个控制项模拟镜头中好的（或差的）光照衰减。默认值 0 会给出恒定亮度（neutral bokeh，中性散景）；-1 会让中心更亮并向边缘衰减（good bokeh）；1 会给出明亮边缘（bad bokeh，劣质散景）。</p><p>一些示例（注意 <a href="542231237-Depth of Field.html" data-linked-resource-id="542231237" data-linked-resource-version="1" data-linked-resource-type="page">Depth Of Field</a> 必须启用，Bokeh 效果才会生效）：</p><div class="table-wrap"><table data-table-width="1800" data-layout="default" data-local-id="c1c8d97f-527a-4f6e-b6cc-88a70100a5d3" class="confluenceTable"><tbody><tr><td class="confluenceTd"><p>默认 aperture（光圈）是圆形的；我们可以用一个失焦的小而明亮的点来看到这一点。通常，这样失焦的点并不可见，因为它的光会在胶片平面上扩散得太开，所以必须人为提高亮度才能显示出来。得到的图像如下：</p></td><td class="confluenceTd"><span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="883" loading="lazy" src="../../attachments/542231487/focused.png" data-image-src="../../attachments/542231487/focused.png" data-height="300" data-width="300" data-unresolved-comment-count="0" data-linked-resource-id="542231537" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="focused.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542231487" data-linked-resource-container-version="1" data-media-id="60c4e888-bb03-48f8-b443-9d748d3fd0d3" data-media-type="file"></span><p /><span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="883" loading="lazy" src="../../attachments/542231487/bokeh_0_0_0_0.png" data-image-src="../../attachments/542231487/bokeh_0_0_0_0.png" data-height="300" data-width="300" data-unresolved-comment-count="0" data-linked-resource-id="542231534" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="bokeh_0_0_0_0.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542231487" data-linked-resource-container-version="1" data-media-id="045be166-4c68-4221-a6b3-be4942c86fb3" data-media-type="file"></span><p style="text-align: center;">[0 0 0 0]</p></td></tr><tr><td class="confluenceTd"><p>将 sides 设置为 5 后，aperture 会变成五边形。</p></td><td class="confluenceTd"><span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="883" loading="lazy" src="../../attachments/542231487/bokeh_5_0_0_0.png" data-image-src="../../attachments/542231487/bokeh_5_0_0_0.png" data-height="300" data-width="300" data-unresolved-comment-count="0" data-linked-resource-id="542231531" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="bokeh_5_0_0_0.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542231487" data-linked-resource-container-version="1" data-media-id="d090e5b1-af31-4a5f-b257-4adda086b115" data-media-type="file"></span><p style="text-align: center;">[5 0 0 0]</p></td></tr><tr><td class="confluenceTd"><p>将 angle 设置为 36 会使 aperture 逆时针旋转 36 度。</p></td><td class="confluenceTd"><span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="883" loading="lazy" src="../../attachments/542231487/bokeh_5_36_0_0.png" data-image-src="../../attachments/542231487/bokeh_5_36_0_0.png" data-height="300" data-width="300" data-unresolved-comment-count="0" data-linked-resource-id="542231528" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="bokeh_5_36_0_0.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542231487" data-linked-resource-container-version="1" data-media-id="4318d179-ced5-4a18-89fb-cd6da09e69bc" data-media-type="file"></span><p style="text-align: center;">[5 36 0 0]</p></td></tr><tr><td class="confluenceTd"><p>正 roundness 值会让五边形的边向外弯曲。</p></td><td class="confluenceTd"><p> </p><span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="883" loading="lazy" src="../../attachments/542231487/bokeh_5_36_0.5_0.png" data-image-src="../../attachments/542231487/bokeh_5_36_0.5_0.png" data-height="300" data-width="300" data-unresolved-comment-count="0" data-linked-resource-id="542231525" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="bokeh_5_36_0.5_0.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542231487" data-linked-resource-container-version="1" data-media-id="c7ef907b-40e7-464c-8980-817d8fb0eff0" data-media-type="file"></span><p style="text-align: center;">[5 36 0.5 0]</p></td></tr><tr><td class="confluenceTd"><p>负 roundness 会让五边形的边向内弯曲。注意，由于光被分布到更小的区域，这里的 bokeh 会稍微更亮。</p></td><td class="confluenceTd"><span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="883" loading="lazy" src="../../attachments/542231487/bokeh_5_36_-0.8_0.png" data-image-src="../../attachments/542231487/bokeh_5_36_-0.8_0.png" data-height="300" data-width="300" data-unresolved-comment-count="0" data-linked-resource-id="542231522" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="bokeh_5_36_-0.8_0.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542231487" data-linked-resource-container-version="1" data-media-id="120c0db6-c02b-487e-b84b-ee67c52322c4" data-media-type="file"></span><p style="text-align: center;">[5 36 -0.8 0]</p></td></tr><tr><td class="confluenceTd"><p>正 density 会让 aperture 在边缘透过更多光。</p></td><td class="confluenceTd"><span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="883" loading="lazy" src="../../attachments/542231487/bokeh_5_36_-0.8_0.7.png" data-image-src="../../attachments/542231487/bokeh_5_36_-0.8_0.7.png" data-height="300" data-width="300" data-unresolved-comment-count="0" data-linked-resource-id="542231519" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="bokeh_5_36_-0.8_0.7.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542231487" data-linked-resource-container-version="1" data-media-id="2c146740-6134-46ba-9c15-2dce1bfdf47e" data-media-type="file"></span><p style="text-align: center;">[5 36 -0.8 0.7]</p></td></tr><tr><td class="confluenceTd"><p>负 density 会让 aperture 在中心透过更多光。</p></td><td class="confluenceTd"><span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="883" loading="lazy" src="../../attachments/542231487/bokeh_5_36_-0.8_-0.7.png" data-image-src="../../attachments/542231487/bokeh_5_36_-0.8_-0.7.png" data-height="300" data-width="300" data-unresolved-comment-count="0" data-linked-resource-id="542231516" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="bokeh_5_36_-0.8_-0.7.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542231487" data-linked-resource-container-version="1" data-media-id="3821ac7a-3140-457c-8457-aade80840c35" data-media-type="file"></span><p style="text-align: center;">[5 36 -0.8 -0.7]</p></td></tr><tr><td class="confluenceTd"><p>还可以使用 dofaspect 参数修改 “ellipse of confusion”（弥散椭圆）的 eccentricity（离心率），也就是胶片平面上由失焦对象采样命中的区域。大于 1 的值会让模糊在水平方向变大（例如这里的 2.0）：</p></td><td class="confluenceTd"><span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="883" loading="lazy" src="../../attachments/542231487/dofaspect_2.0.png" data-image-src="../../attachments/542231487/dofaspect_2.0.png" data-height="300" data-width="300" data-unresolved-comment-count="0" data-linked-resource-id="542231513" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="dofaspect_2.0.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542231487" data-linked-resource-container-version="1" data-media-id="070e41f6-799d-4a97-94f5-91d95348b945" data-media-type="file"></span></td></tr><tr><td class="confluenceTd"><p>0 到 1 之间的值会让模糊在垂直方向变大（例如这里的 0.5）。这会模拟 anamorphic lens（变形宽银幕镜头）产生的椭圆形 defocus blur（散焦模糊）。</p></td><td class="confluenceTd"><span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="883" loading="lazy" src="../../attachments/542231487/dofaspect_0.5.png" data-image-src="../../attachments/542231487/dofaspect_0.5.png" data-height="300" data-width="300" data-unresolved-comment-count="0" data-linked-resource-id="542231510" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="dofaspect_0.5.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542231487" data-linked-resource-container-version="1" data-media-id="5df1fab7-2a08-4ff0-bee5-5cbaedd1712c" data-media-type="file"></span></td></tr><tr><td class="confluenceTd"><p>虽然不能作为设置直接控制，但值得注意的是，当光源大小接近 circle of confusion（弥散圆）时，它自身的形状也会开始显著影响 bokeh 的形状。例如，如果我们通过默认圆形 aperture 看到的是一个更大的正方形，而不是一个微小点，bokeh 的形状会像这样（为了强调形状，这里未使用 tonemapping）：</p></td><td class="confluenceTd"><span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="883" loading="lazy" src="../../attachments/542231487/square_focused.png" data-image-src="../../attachments/542231487/square_focused.png" data-height="300" data-width="300" data-unresolved-comment-count="0" data-linked-resource-id="542231507" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="square_focused.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542231487" data-linked-resource-container-version="1" data-media-id="25601c33-25c9-4602-b108-9d343260aef1" data-media-type="file"></span><p /><span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="883" loading="lazy" src="../../attachments/542231487/square_bokeh.png" data-image-src="../../attachments/542231487/square_bokeh.png" data-height="300" data-width="300" data-unresolved-comment-count="0" data-linked-resource-id="542231504" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="square_bokeh.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542231487" data-linked-resource-container-version="1" data-media-id="d9def7fb-370b-463b-8266-7bdf7e670d55" data-media-type="file"></span></td></tr></tbody></table></div><p /><p><br/><strong>Number of Sides（边数）</strong></p><p>Disable（禁用）enhance mode（增强模式）下对光线原点的修改。RenderMan 仍然认为 DOF 已启用，因此 focus factor（对焦因子）会应用于几何细分，但不会发生 DOF 相关模糊。此选项以及下面的选项可让你获得完全准确的几何增强视图，而不会被镜头效果遮挡。</p><p />
+  </article>
+</main>
+</body>
+</html>

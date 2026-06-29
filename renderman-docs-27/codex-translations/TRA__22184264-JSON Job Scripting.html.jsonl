@@ -1,0 +1,38 @@
+{"item_id":"98016d128a:0","text":"脚本概要说明（Synopsis）"}
+{"item_id":"98016d128a:1","text":"Tractor Job files 通常表示为"}
+{"item_id":"98016d128a:2","text":"专用 TCL 作业脚本（special purpose TCL scripts）"}
+{"item_id":"98016d128a:3","text":"，并使用 Tractor job parser 可识别的额外 job definition operators。这种格式最初为 Alfred system 引入，而 Tractor 仍与几乎所有 Alfred constructs 兼容。"}
+{"item_id":"98016d128a:4","text":"Tractor 还支持一组不断演进的 JSON job specification formats，本文会对此进行说明。"}
+{"item_id":"98016d128a:5","text":"Introduction（介绍）"}
+{"item_id":"98016d128a:6","text":"Job scripts 描述将由 Tractor dispatch 和 monitor 的 work。它们通常由 content-creation applications 中的 plug-ins 在 spool 新 rendering jobs 时创建。因此，下面的 syntax discussion 可能只对开发 Tractor-compliant applications 的人员有用。"}
+{"item_id":"98016d128a:7","text":"不过，有一种非常"}
+{"item_id":"98016d128a:8","text":"简单的方法可以生成 basic Tractor job"}
+{"item_id":"98016d128a:9","text":"，可从 command-line 或 shell script 内完成。tractor-spool command-line tool 用于把 job scripts 发送到由 tractor-engine 管理的 job queue。你也可以让 tractor-spool 直接生成一个 simple job script："}
+{"item_id":"98016d128a:10","text":"-c 之后的任何 text 都会被包进 job definition，并发送到 farm 上可用的 tractor-blade server。还有多种"}
+{"item_id":"98016d128a:11","text":"additional command-line options（额外命令行选项）"}
+{"item_id":"98016d128a:12","text":"可用于修改 job 的具体细节。"}
+{"item_id":"98016d128a:13","text":"Job scripts 支持一种简单的 hierarchical structuring scheme，可编码 dependencies，而这些 dependencies 会决定 task execution 的顺序。"}
+{"item_id":"98016d128a:14","text":"A JSON Job Example（JSON 作业示例）"}
+{"item_id":"98016d128a:15","text":"下面是一个 simple script，用于定义示例 task hierarchy。假设我们需要计算两个 shadow maps，以及一个引用它们的 final frame；在这种情况下，必须先完成 shadow maps，final frame 的 rendering 才能开始。"}
+{"item_id":"98016d128a:16","text":"这个 job script 描述一个 two-level execution tree，其中名为"}
+{"item_id":"98016d128a:17","text":"Scene One"}
+{"item_id":"98016d128a:18","text":"的 task 会在它依赖的两个 tasks 成功完成后启动自己的 command（render frame.1.rib）（即两个"}
+{"item_id":"98016d128a:19","text":"Shadow"}
+{"item_id":"98016d128a:20","text":"tasks）。nested task descriptions 定义了（depth-first）execution order；因此会先启动 light.1.rib 的 render command，随后启动 light.2.rib 的 command。然后，当二者都完成后，再 render frame.1.rib。Commands 会按照它们在 script 中出现的顺序，作为独立 sub-processes 启动。"}
+{"item_id":"98016d128a:21","text":"请注意，这两个 shadow commands 彼此不依赖，也就是说，它们相互之间没有 nested 关系；因此它们代表一个 parallel processing opportunity。在资源充足时，Tractor 通常会同时启动这两个 commands，并允许它们 concurrent execution。因此，script 定义的是一种"}
+{"item_id":"98016d128a:22","text":"命令启动顺序（launching order）"}
+{"item_id":"98016d128a:23","text":"；某些 commands 在另一个 command 启动时可能仍在运行，而这些 concurrent commands 可以以任意顺序完成。不过无论如何，某个 Task 都不会启动自己的 commands，直到它的"}
+{"item_id":"98016d128a:24","text":"所有"}
+{"item_id":"98016d128a:25","text":"sub-tasks 都已成功完成各自的 commands。"}
+{"item_id":"98016d128a:26","text":"此示例中的 assumptions 如下："}
+{"item_id":"98016d128a:27","text":"存在一个名为"}
+{"item_id":"98016d128a:28","text":"render"}
+{"item_id":"98016d128a:29","text":"的 executable，位于当前 search path 中的某处。"}
+{"item_id":"98016d128a:30","text":"两个 shadow map images 会在 disk 上创建，并位于 frame.1.rib 期望找到它们的位置（即这些 RIB files 中的 file system references 是一致的）。"}
+{"item_id":"98016d128a:31","text":"Tractor"}
+{"item_id":"98016d128a:32","text":"不会"}
+{"item_id":"98016d128a:33","text":"尝试确认这些 assumptions；这是 job generator 的职责。如果确实发生 error，该 task 会变为 blocked，相应 UI widget 会转为 error state，所有依赖这个 broken task 的 tasks 都不会执行（不过不依赖它的其他 tasks 仍可继续）。"}
+{"item_id":"98016d128a:34","text":"关于 Tasks 需要注意的事项："}
+{"item_id":"98016d128a:35","text":"title string 会显示在 Dashboard 中，因此最好选择简短但描述性强的 title。"}
+{"item_id":"98016d128a:36","text":"child tasks 列在 -subtasks field 中；如果没有 dependencies，可以为空或省略。"}
+{"item_id":"98016d128a:37","text":"-cmds field 中的 RemoteCmd list 描述 dependencies 满足后要采取的实际 actions；它可以为空或省略；也可以包含多个（以 newline 分隔的）RemoteCmds，这些命令会按顺序处理。"}

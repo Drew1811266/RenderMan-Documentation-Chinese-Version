@@ -1,0 +1,54 @@
+{"item_id":"1ef88964c9:0","text":"提供对 per-face texture（逐面纹理）Ptex 文件的访问。与其他 texture nodes（纹理节点）不同，此纹理始终在表面的默认参数化上工作。不需要提供 manifold，而是使用名为 __faceindex 的特殊 primitive variable（primvar）。"}
+{"item_id":"1ef88964c9:1","text":"PxrPtexture"}
+{"item_id":"1ef88964c9:2","text":"Filename"}
+{"item_id":"1ef88964c9:3","text":"纹理的 filename。必须提供此参数。"}
+{"item_id":"1ef88964c9:4","text":"可以在 filename 中引用一个 constant string primvar，以便在不同几何体片段之间复用纹理；该 primvar 会决定文件名约定。"}
+{"item_id":"1ef88964c9:5","text":"<primstr:primvarname> - 会替换为指定 constant string primitive variable（常量字符串 primitive variable）的值。例如，在带有 \"const string model\" [\"apple\"] 的苹果模型上，\"/assets/<primstr:model>/diffuse.tex\" 中的资产名称会展开为 \"/assets/apple/diffuse.tex\"。"}
+{"item_id":"1ef88964c9:6","text":"First Channel Offset"}
+{"item_id":"1ef88964c9:7","text":"Offsets（偏移）要查找的第一个通道。"}
+{"item_id":"1ef88964c9:8","text":"Face Index Offset"}
+{"item_id":"1ef88964c9:9","text":"如果你在一个 Ptex 文件中放入了多组数据，可以按已知数量偏移索引。"}
+{"item_id":"1ef88964c9:10","text":"Invert Winding Order"}
+{"item_id":"1ef88964c9:11","text":"如果面被翻转或出现瑕疵，可能是你的 bridge application 反转了绕序；此选项会再次反转绕序，可能缓解这些瑕疵。"}
+{"item_id":"1ef88964c9:12","text":"Filter"}
+{"item_id":"1ef88964c9:13","text":"选择纹理查找期间可使用的不同重建过滤器。PxrPtexture 可用的过滤器包括："}
+{"item_id":"1ef88964c9:14","text":"0: Nearest"}
+{"item_id":"1ef88964c9:15","text":"1: Box"}
+{"item_id":"1ef88964c9:16","text":"2: Bilinear"}
+{"item_id":"1ef88964c9:17","text":"3: Bspline"}
+{"item_id":"1ef88964c9:18","text":"4: Mitchell"}
+{"item_id":"1ef88964c9:19","text":"5: Catmullrom"}
+{"item_id":"1ef88964c9:20","text":"6: Gaussian"}
+{"item_id":"1ef88964c9:21","text":"7: Lagrangian"}
+{"item_id":"1ef88964c9:22","text":"Blur"}
+{"item_id":"1ef88964c9:23","text":"指定从 Ptex 文件取回的图像要模糊多少。"}
+{"item_id":"1ef88964c9:24","text":"Mip Interpolate"}
+{"item_id":"1ef88964c9:25","text":"选择是否在多分辨率纹理的相邻分辨率之间插值，从而让层级之间的过渡更平滑。"}
+{"item_id":"1ef88964c9:26","text":"Missing Color"}
+{"item_id":"1ef88964c9:27","text":"如果打开纹理时出错，则使用此颜色。"}
+{"item_id":"1ef88964c9:28","text":"Missing Alpha"}
+{"item_id":"1ef88964c9:29","text":"如果打开纹理时出错，则使用此 alpha。"}
+{"item_id":"1ef88964c9:30","text":"Linearize"}
+{"item_id":"1ef88964c9:31","text":"对纹理应用反向 sRGB 变换。如果你在 sRGB 空间中绘制纹理（大多数绘制软件包的默认设置），但在数据线性空间中查看数据，纹理会显得发灰。此选项会对纹理应用 sRGB 变换，使其再次呈现为视觉上线性。"}
+{"item_id":"1ef88964c9:32","text":"Adjust Output"}
+{"item_id":"1ef88964c9:33","text":"Color Scale"}
+{"item_id":"1ef88964c9:34","text":"纹理中颜色值的 multiplier，可用于调整亮度或操控单个 color channel。"}
+{"item_id":"1ef88964c9:35","text":"Color Offset"}
+{"item_id":"1ef88964c9:36","text":"对结果应用 offset，使结果颜色发生偏移。"}
+{"item_id":"1ef88964c9:37","text":"Saturation"}
+{"item_id":"1ef88964c9:38","text":"提高（大于 1）或降低（小于 1）纹理结果的饱和度。"}
+{"item_id":"1ef88964c9:39","text":"Alpha Scale"}
+{"item_id":"1ef88964c9:40","text":"alpha channel 的 multiplier；当 alpha 用于驱动某个参数时很有用。"}
+{"item_id":"1ef88964c9:41","text":"Alpha Offset"}
+{"item_id":"1ef88964c9:42","text":"alpha channel 的 offset；当 alpha 用于驱动某个参数时很有用。"}
+{"item_id":"1ef88964c9:43","text":"Output Parameters"}
+{"item_id":"1ef88964c9:44","text":"resultRGB"}
+{"item_id":"1ef88964c9:45","text":"经过过滤的颜色结果。注意，所有结果都会从 startChannel offset 开始查找。"}
+{"item_id":"1ef88964c9:46","text":"resultR"}
+{"item_id":"1ef88964c9:47","text":"R channel 结果。"}
+{"item_id":"1ef88964c9:48","text":"resultG"}
+{"item_id":"1ef88964c9:49","text":"G channel 结果。"}
+{"item_id":"1ef88964c9:50","text":"resultB"}
+{"item_id":"1ef88964c9:51","text":"B channel 结果。"}
+{"item_id":"1ef88964c9:52","text":"resultA"}
+{"item_id":"1ef88964c9:53","text":"如果 alpha 存在且 resultRGB 已连接，则返回 RGB 后面的 channel。如果 RGB 未连接，则返回第一个 channel。"}

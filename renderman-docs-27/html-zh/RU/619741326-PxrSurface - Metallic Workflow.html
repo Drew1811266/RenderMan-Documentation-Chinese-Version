@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PxrSurface - Metallic Workflow</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>PxrSurface - Metallic Workflow</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RU/619741326/PxrSurface+-+Metallic+Workflow">https://rmanwiki-27.pixar.com/space/RU/619741326/PxrSurface+-+Metallic+Workflow</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="contentLayout2"><style>[data-colorid=hnok2uvc1r]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=hnok2uvc1r]{color:#004eb3}</style>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="MetallicWorkflow_Banner.jpg" width="760" loading="lazy" src="../../attachments/619741326/MetallicWorkflow_Banner.jpg" data-image-src="../../attachments/619741326/MetallicWorkflow_Banner.jpg" data-height="1065" data-width="1894" data-unresolved-comment-count="0" data-linked-resource-id="619413790" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="MetallicWorkflow_Banner.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="619741326" data-linked-resource-container-version="3" data-media-id="273c54f8-adc6-4993-9676-647f1ec6e98e" data-media-type="file" /></span><p>虽然 Pixar 不使用 PBR Metallic workflow，但无论你使用在线材质库中的 PBR maps，还是使用 Substance Painter 这类 texturing software，它仍然是艺术家中相当常见的工作流。幸运的是，RenderMan 附带了一个方便的节点，叫做 <a class="external-link" href="../REN27/542224201-PxrMetallicWorkflow.html" rel="nofollow">PxrMetallicWorkflow</a>，可以很容易地与 PBR maps 和 PxrSurface 一起使用。</p><p>本课将引导你完成这个过程。</p><p>本课使用的 maps 由我们的渲染朋友 <a class="external-link" href="https://greyscalegorilla.com/" rel="nofollow">Greyscalegorilla</a>慷慨提供，所用示例是 Copper Corroded Heavy 01。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="GSG_CorrodedCopper.jpg" width="760" loading="lazy" src="../../attachments/619741326/GSG_CorrodedCopper.jpg" data-image-src="../../attachments/619741326/GSG_CorrodedCopper.jpg" data-height="636" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="619479303" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="GSG_CorrodedCopper.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="619741326" data-linked-resource-container-version="3" data-media-id="ec1ef2fc-82f0-41d6-9668-31e9663dc7b4" data-media-type="file" /></span><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="0f42440a-787e-4834-855d-ecb9270571c2" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>由于 Eagle model 没有任何 UVs，我们采用 triplanar 方法，通过 <a class="external-link" href="../REN27/542224293-PxrMultiTexture.html" rel="nofollow">PxrMultiTexture </a>节点将 textures 映射到模型上。</p><p>如果你的模型有 UVs，可以使用 <a class="external-link" href="../REN27/542225070-PxrTexture.html" rel="nofollow">PxrTexture </a>节点，而不是 PxrMultiTexture 节点。</p></div></div><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="metallicworkflow_setup.jpg" width="760" loading="lazy" src="../../attachments/619741326/metallicworkflow_setup.jpg" data-image-src="../../attachments/619741326/metallicworkflow_setup.jpg" data-height="880" data-width="1542" data-unresolved-comment-count="0" data-linked-resource-id="619413806" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="metallicworkflow_setup.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="619741326" data-linked-resource-container-version="3" data-media-id="7bee2351-670c-446a-ae3d-72b024bded60" data-media-type="file" /></span><p>设置如下：</p><ol start="1"><li><p>创建一个 PxrSurface</p></li><li><p>创建一个 PxrMetallicWorkflow node</p></li><li><p>将 <em>resultdiffuse </em>从 PxrMetallicWorkflow 连接到 PxrSurface 的 <em>diffusecolor</em></p></li><li><p>为 diffuse map 使用 PxrTexture（或在本例中使用 PxrMultiTexture node）</p></li><li><p>将 diffuse texture 连接到 PxrMetallicWorkflow node 的 <em>basecolor </em>PxrMetallicWorkflow 节点的输入。</p></li><li><p>加载 Metallic texture map。</p></li><li><p>将 metallic map 中的 <em>resultr</em> 连接到 PxrMetallicWorkflow node 的 <em>metallic </em>PxrMetallicWorkflow 节点的输入。</p></li><li><p>将 PxrMetallicWorkflow 的 resultSpecularEdgeRGB 连接到 PxrSurface 的 specularEdgeColor。</p></li><li><p>将 PxrMetallicWorkflow 的 resultSpecularFaceRGB 连接到 PxrSurface 的 specularFaceColor。</p></li><li><p>加载 Roughness map。</p></li><li><p>将 roughness map（粗糙度贴图）中的 <em>resultr</em> 连接到 PxrSurface 的 <em>specularRoughness </em>PxrSurface 的输入。</p></li><li><p>使用 PxrNormalMap node 加载你的 Normal map。</p></li><li><p>将 PxrNormalMap node 中的 <em>resultN </em>从 PxrNormalMap 节点连接到 PxrSurface 的 <em>bumpNormal </em>PxrSurface 的输入。</p></li><li><p>点击 Render，尽情沐浴在 PBR 的荣耀中！</p></li></ol><p /></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Eagle_Close_1.jpg" width="356" loading="lazy" src="../../attachments/619741326/Eagle_Close_1.jpg" data-image-src="../../attachments/619741326/Eagle_Close_1.jpg" data-height="800" data-width="800" data-unresolved-comment-count="0" data-linked-resource-id="619446589" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Eagle_Close_1.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="619741326" data-linked-resource-container-version="3" data-media-id="95123c9e-ae1d-4375-a6de-927381b35a21" data-media-type="file" /></span><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Eagle_Close_3.jpg" width="356" loading="lazy" src="../../attachments/619741326/Eagle_Close_3.jpg" data-image-src="../../attachments/619741326/Eagle_Close_3.jpg" data-height="800" data-width="800" data-unresolved-comment-count="0" data-linked-resource-id="619512067" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Eagle_Close_3.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="619741326" data-linked-resource-container-version="3" data-media-id="b5ed7abd-31bd-4a67-bbce-d5d40122fd34" data-media-type="file" /></span><p /></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Eagle_Close_2.jpg" width="356" loading="lazy" src="../../attachments/619741326/Eagle_Close_2.jpg" data-image-src="../../attachments/619741326/Eagle_Close_2.jpg" data-height="800" data-width="800" data-unresolved-comment-count="0" data-linked-resource-id="619446595" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Eagle_Close_2.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="619741326" data-linked-resource-container-version="3" data-media-id="0f6feb62-939a-4e41-b7fd-1cdea45e2413" data-media-type="file" /></span><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Eagle_Close_4.jpg" width="356" loading="lazy" src="../../attachments/619741326/Eagle_Close_4.jpg" data-image-src="../../attachments/619741326/Eagle_Close_4.jpg" data-height="800" data-width="800" data-unresolved-comment-count="0" data-linked-resource-id="619446601" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Eagle_Close_4.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="619741326" data-linked-resource-container-version="3" data-media-id="ce7d7d58-ca84-4c60-9038-60b587c82b4d" data-media-type="file" /></span><p /></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<hr /><h3 id="PxrSurface-MetallicWorkflow-FurtherRefinements"><span data-colorid="hnok2uvc1r">Further Refinements（进一步优化）</span></h3><ul><li><p>在上面的示例中，我还使用了一个名为 EasyDust 的 Houdini Dust HDA，来自 <a class="external-link" href="https://timotheemaron.gumroad.com/" rel="nofollow"><u>Timothee Maron</u></a></p></li><li><p>的 Houdini Dust HDA，名为 EasyDust。可使用 PxrRemap、PxrThreshold 或 PxrSplineMap node，根据 lookdev 需求校正 roughness map。</p></li></ul><p /></div>
+</div>
+</div>
+</div>
+  </article>
+</main>
+</body>
+</html>

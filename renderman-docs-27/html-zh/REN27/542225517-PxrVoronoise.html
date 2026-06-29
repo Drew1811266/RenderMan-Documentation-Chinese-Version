@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PxrVoronoise</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>PxrVoronoise</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/REN27/542225517/PxrVoronoise">https://rmanwiki-27.pixar.com/space/REN27/542225517/PxrVoronoise</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/542225517/RenderMan_Voronoise.jpg" data-image-src="../../attachments/542225517/RenderMan_Voronoise.jpg" data-unresolved-comment-count="0" data-linked-resource-id="542225534" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Voronoise.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542225517" data-linked-resource-container-version="1" data-media-id="8017ff16-cfb6-49f8-8d25-455e1ecbeae6" data-media-type="file"></span></p><p><br/></p><p>与所有 texture style nodes（纹理样式节点）一样，此节点接收一个 manifold，用来描述应用 voronoise 纹理的 2D 或 3D 域。如果未连接 manifold，默认行为是在 3D 中沿 P 应用。此节点会计算 voronoise 函数，也就是 noise 与 <a class="external-link" href="http://www.iquilezles.org/www/articles/voronoise/voronoise.htm" rel="nofollow" style="text-decoration: underline;">Voronoi</a> 的混合，如 Inigo Quilez 所描述。</p><p>jitter 和 smoothness 参数允许你创建不同类型的图案。</p><ul class="simple"><li><code>jitter=0,smoothness=0</code> 会生成最小距离、未抖动的数值网格，类似 RSL 的 cellnoise。</li><li><code>jitter=0,smoothness=1</code> 会得到一个 noise 函数，类似 Perlin 噪声。</li><li><code>jitter=1,smoothness=0</code> 会生成抖动后的最小距离 Voronoi 图案。</li><li><code>jitter=1,smoothness=1</code> 会生成抖动 Voronoi 与 noise 的组合：“voronoise”！</li></ul><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="4e42fd16-f8f3-4e00-94de-ffb0aa2b63cd" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>与 Inigo 的代码相比，此版本还添加了 fractal octaves（分形倍频层）和 turbulence（湍流）</p></div></div><p><br/></p><p><span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image" height="400" loading="lazy" src="../../attachments/542225517/voronoise_space.png" data-image-src="../../attachments/542225517/voronoise_space.png" data-unresolved-comment-count="0" data-linked-resource-id="542225531" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="voronoise_space.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542225517" data-linked-resource-container-version="1" data-media-id="eef9b3d3-e176-4724-bf97-6affc350cd1e" data-media-type="file"></span> </p><div class="section"><h4 id="PxrVoronoise-Manifold">Manifold</h4><p><br/>用于应用 noise 的 manifold。（默认值为 P）。</p><h3 id="PxrVoronoise-Global">Global</h3><h4 id="PxrVoronoise-SurfacePosition">Surface Position</h4><h4 id="PxrVoronoise-Frequency">Frequency</h4>设置 noise layers（噪声层）的最低（起始）频率。<div class="line-block"><div class="line"><p><br/></p><p><br/></p></div></div><h4 class="section" id="PxrVoronoise-Octaves">Octaves</h4><div class="section">使用的 noise octaves（噪声倍频层）数量。更多 octaves 会逐级添加更多 noise。</div><div class="line-block"><div class="line"><p><br/></p><h3 id="PxrVoronoise-InnerLoop">Inner Loop</h3></div></div><h4 class="section" id="PxrVoronoise-Gain">Gain</h4><div class="section">也称为 persistence（持续度）。用于缩小或放大每个后续 noise octave 的振幅。当 gain = 1/lacunarity 时，可得到 1/f noise。</div><div class="line-block"><div class="line"><p><br/></p><p><br/></p></div></div><h4 class="section" id="PxrVoronoise-Lacunarity">Lacunarity</h4><div class="section">用于决定每个后续 noise octave 频率的缩放因子。较小值会使各层在频率上更紧密；较大值会使它们间隔更远。</div><div class="line-block"><div class="line"><p><br/></p><p><br/></p></div></div><h4 class="section" id="PxrVoronoise-Jitter">Jitter</h4><div class="section">控制应用的 jitter（抖动）量。0 给出规则网格，1 给出类似 Voronoi 的网格。</div><div class="line-block"><div class="line"><p><br/></p><p><br/></p></div></div><h4 class="section" id="PxrVoronoise-Smoothness">Smoothness</h4>使用 0 会产生 Voronoi/cellnoise 图案，1 会得到平滑 noise。<div class="line"><p><br/></p><p><br/></p></div><h4 class="section" id="PxrVoronoise-Turbulent">Turbulent</h4><div class="section">是否让 noise 呈现 turbulence（湍流）</div><h4 class="section" id="PxrVoronoise-BetterContrast">Better Contrast</h4><div class="line-block"><div class="line"><p>在 smoothness 增加时提升对比度</p><h3 id="PxrVoronoise-Octaves.1">Octaves</h3><h4 id="PxrVoronoise-SmoothnessOffset">Smoothness Offset</h4><p>按 octave 增加/减少 smoothness</p><p><br/></p><h4 id="PxrVoronoise-SmoothnessOffsetWrap">Smoothness Offset Wrap</h4><p>对 smoothness 范围（0-1）进行循环，或仅进行 clamp</p><h3 id="PxrVoronoise-Advanced">Advanced</h3><h4 id="PxrVoronoise-Filter">Filter</h4></div></div><p>更改 filter size（滤波尺寸）</p><p><br/></p><div class="section"><h3 id="PxrVoronoise-AdjustOutput">Adjust Output</h3><h4 id="PxrVoronoise-ColorScale">Color Scale</h4><p>纹理颜色值的乘数，可用于调整亮度或操控单独的颜色通道</p><p><br/></p><h4 id="PxrVoronoise-ColorOffset">Color Offset</h4><p>对结果应用 offset，使结果的颜色发生偏移</p><h4 id="PxrVoronoise-FloatScale">Float Scale</h4><p>标量 float 值 </p><h4 id="PxrVoronoise-FloatOffset">Float Offset</h4><p>Float Offset 值 </p><p><br/></p></div><div class="line-block"><h3 class="line" id="PxrVoronoise-OutputParameters"><span style="font-size: 16.0px;line-height: 1.5;">Output Parameters</span></h3><p><span style="font-size: 16.0px;line-height: 1.5;"><br/></span></p></div></div><div class="section"><h4 id="PxrVoronoise-resultF">resultF</h4><p>voronoise 纹理的结果。</p><h4 id="PxrVoronoise-resultRGB">resultRGB</h4><p>以单色颜色表示的 voronoise 纹理。</p></div>
+  </article>
+</main>
+</body>
+</html>

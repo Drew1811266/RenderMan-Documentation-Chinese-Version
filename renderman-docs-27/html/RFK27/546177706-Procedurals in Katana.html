@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Procedurals in Katana</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Procedurals in Katana</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFK27/546177706/Procedurals+in+Katana">https://rmanwiki-27.pixar.com/space/RFK27/546177706/Procedurals+in+Katana</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>RenderMan Procedurals give you the opportunity to dynamically create geometry and then pass it to RenderMan while rendering.  By passing geometry in to RenderMan at the very last second, you can save the time and memory it would take to generate and display the geometry in Katana, Maya, or other application.</p><p>Procedurals are most commonly used in fur/hair rendering, crowd rendering, dynamically grown vegetation, or procedurally created environments.  They can be used for anything.</p><p>While procedurals have many advantages, one of the disadvantages derives from its strength.  Because the geometry is generated only within RenderMan, Katana doesn't know anything about the geometry and can't display it.  If the application you are using to create the procedural has some sort of static representation, such as an Alembic file, we recommend that you use the Katana Viewer proxy feature so that you can see something other than a bounding box in the Viewer.  See the Katana Help for how to use Viewer proxies.</p><h3 id="ProceduralsinKatana-SettingUpaProceduralintheNodeGraph">Setting Up a Procedural in the Node Graph</h3><p>There are three main steps that you must do in order to tell Katana to properly pass a procedural to RenderMan.</p><ul><li><p>Set up a Scene Graph location of type &quot;renderer procedural&quot;.</p></li><li><p>Set the path of the shared library that contains the procedural code that RenderMan will call.</p></li><li><p>Set up any additional arguments that the procedural requires in order to do its work.</p></li></ul><p>Below each of the steps is detailed.</p><h4 id="ProceduralsinKatana-Step1:SetupaSceneGraphlocationoftype&quot;rendererprocedural&quot;"><em>Step 1:</em> Set up a Scene Graph location of type &quot;renderer procedural&quot;</h4><p>Within the Scene Graph, the &quot;type&quot; of each location controls how the Attributes for that location are passed to RenderMan.  For RenderMan to call the Procedural at runtime, you must add a Scene Graph location of type &quot;renderer procedural&quot;.</p><p>The easiest way for you to do this is to use the <em>PrimitiveCreate</em> node and set the type to &quot;renderer procedural&quot;.  Specify the name as well.  In the example below, I have set it to /root/world/geo/procedurals/myprocedural</p><span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="736" loading="lazy" src="../../attachments/546177706/PrimitiveCreateRendererProcedural.png" data-image-src="../../attachments/546177706/PrimitiveCreateRendererProcedural.png" data-height="153" data-width="736" data-unresolved-comment-count="0" data-linked-resource-id="546177733" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="PrimitiveCreateRendererProcedural.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="546177706" data-linked-resource-container-version="4" data-media-id="83a03af7-4a31-4861-b111-19e9fa92d9ad" data-media-type="file"></span><h4 id="ProceduralsinKatana-Step2:SetthepathofthesharedlibrarythatcontainstheproceduralcodethatRenderManwillcall"><em>Step 2:</em> Set the path of the shared library that contains the procedural code that RenderMan will call</h4><p>Developers of the application that you created your procedural geometry within will provide you with a RenderMan Procedural library.  Consult with the documentation for that application or consult your pipeline team for where you can find this path.  Below, I have specified a path to an imaginary library.  Use an <em>AttributeSet</em> node to do this.  The attribute name to use is: rendererProcedural.procedural</p><span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="734" loading="lazy" src="../../attachments/546177706/AttributeSetProceduralLocation.png" data-image-src="../../attachments/546177706/AttributeSetProceduralLocation.png" data-height="414" data-width="734" data-unresolved-comment-count="0" data-linked-resource-id="546177730" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="AttributeSetProceduralLocation.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="546177706" data-linked-resource-container-version="4" data-media-id="2f1ec09e-0e54-4d62-9dba-8dfc35d96278" data-media-type="file"></span><h4 id="ProceduralsinKatana-Step3:Setupanyadditionalargumentsthattheproceduralrequiresinordertodoitswork"><em>Step 3:</em> Set up any additional arguments that the procedural requires in order to do its work</h4><p>Each procedural will have a unique set of parameters that must be passed to it in order for the procedural to generate the correct geometry for the frame you are rendering.  These parameters are likely to be similar to what you would specify to a command-line utility.</p><p>Below I have specified some imaginary attributes using an <em>AttributeSet</em> node that the imaginary Procedural.so needs in order to execute properly.  The attribute name to use is: rendererProcedural.args.extraArgs</p><span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="736" loading="lazy" src="../../attachments/546177706/AttributeSetProceduralArgs.png" data-image-src="../../attachments/546177706/AttributeSetProceduralArgs.png" data-height="415" data-width="736" data-unresolved-comment-count="0" data-linked-resource-id="546177727" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="AttributeSetProceduralArgs.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="546177706" data-linked-resource-container-version="4" data-media-id="3a54384e-886f-4d7c-9bad-ca3ce6ba44d8" data-media-type="file"></span><p> </p><p>After you complete each of these steps above, you will end up with a Node Graph, Scene Graph, and Attributes similar to the example below.</p><span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="361" loading="lazy" src="../../attachments/546177706/NodeGraphToAddAProcedural.png" data-image-src="../../attachments/546177706/NodeGraphToAddAProcedural.png" data-height="199" data-width="361" data-unresolved-comment-count="0" data-linked-resource-id="546177724" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="NodeGraphToAddAProcedural.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="546177706" data-linked-resource-container-version="4" data-media-id="c5e97393-a6ca-4103-a716-fdd6896274ba" data-media-type="file"></span><span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="403" loading="lazy" src="../../attachments/546177706/SceneGraphForAProcedural.png" data-image-src="../../attachments/546177706/SceneGraphForAProcedural.png" data-height="172" data-width="403" data-unresolved-comment-count="0" data-linked-resource-id="546177721" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="SceneGraphForAProcedural.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="546177706" data-linked-resource-container-version="4" data-media-id="1794417d-f787-49d2-a643-239d314ae440" data-media-type="file"></span><span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="733" loading="lazy" src="../../attachments/546177706/AttributesTabForAProcedural.png" data-image-src="../../attachments/546177706/AttributesTabForAProcedural.png" data-height="446" data-width="733" data-unresolved-comment-count="0" data-linked-resource-id="546177718" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="AttributesTabForAProcedural.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="546177706" data-linked-resource-container-version="4" data-media-id="811c4963-d383-401e-8e13-fc956a16368b" data-media-type="file"></span><p> </p><h3 id="ProceduralsinKatana-GoingBeyondtheBasics">Going Beyond the Basics</h3><p>The information below only provides you with the most basic way to insert a RenderMan Procedural into your Katana scene.  There are other more advanced options that you or your pipeline team can pursue.  For each of the methods below, your mileage may vary.  Take a look at the Katana documentation available from the Help menu within Katana for more details on each of the methods below.</p><ul><li><p>Create + use Args files for renderer procedurals to make it easier to specify the parameters that the procedural needs to do its work.</p></li><li><p>Create a custom node that wraps the procedural – the ultimate in user-friendliness, but requires a developer.</p></li></ul><p> </p><p> </p>
+  </article>
+</main>
+</body>
+</html>

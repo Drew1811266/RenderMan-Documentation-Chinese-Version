@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Data Filtering</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Data Filtering</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/TRA/22184232/Data+Filtering">https://rmanwiki-27.pixar.com/space/TRA/22184232/Data+Filtering</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="section"><h3 id="DataFiltering-TooMuchData">数据量过大</h3><div class="figure align-left"><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/22184232/filter_limited.jpg" data-image-src="../../attachments/22184232/filter_limited.jpg" data-unresolved-comment-count="0" data-linked-resource-id="22195889" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="filter_limited.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="22184232" data-linked-resource-container-version="3" data-media-id="ca60074f-0efe-49dc-b4c6-4ed5b7de9b48" data-media-type="file"></span></div><p>Joblist pane 和 ServerList pane 都允许定义 filter，以限制从 monitor 返回给 UI 的信息量。</p><p>可以创建并保存 Custom filter definition 供个人使用，administrator 也可以创建通用 filter，并把它们放在共享区域，供站点内所有人使用（见下文）。</p><p>这些 filter 很重要，因为 UI 是一个运行在 web browser 中的 javascript application。必须限制从 monitor 发送到 UI 的数据量，防止 browser 崩溃。</p><p>通常，joblist 或 bladelist 会在各自 pane 中显示 entry 数量。当达到 data limit，并且 filtering 正在限制 record 总量时，计数后面会跟随 <em>+</em> 如上图所示。这表示当前 query 产生的数据超过 UI 可显示的数据量。</p><p>由于 Joblist pane 会订阅 event，并且 job 会不断添加到该 pane 或从该 pane 中移除，UI 会自行采取预防措施以避免 data overflow。</p><ul class="simple"><li>UI 会为 job list 实现一个 rolling window。随着新 job 进入 joblist，较旧的 job 会被挤出 list，从而使显示的 job 保持在最大 list size。</li><li>如果 job 被删除，且 job list 现在低于 threshold，则 UI 会自动向 engine 请求 job data，以确保始终显示尽可能多的 job。<br/> </li></ul></div><div class="section"><h3 id="DataFiltering-EditingFilters">编辑 Filter</h3><p>Tractor 使用 filter 来限制从 monitor 发送到 UI 的数据量，以防止 data overrun。Filter Lister dialog 会向用户提供可用 filter 列表，以及用于编辑现有 filter 的按钮。Filter Rule editor 允许你通过构建 tractor monitor 可理解的 rule list 来创建或编辑 filter。</p><div class="figure align-left"><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/22184232/filter_lister.jpg" data-image-src="../../attachments/22184232/filter_lister.jpg" data-unresolved-comment-count="0" data-linked-resource-id="22195893" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="filter_lister.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="22184232" data-linked-resource-container-version="3" data-media-id="3c0e0b33-e46d-4782-a219-8e0447cab75b" data-media-type="file"></span></div><p>选择 pull-down filter menu 时，会显示 Filter Lister dialog（如上图所示）。如果当前存在正确类型（joblist 或 bladelist）的已定义 filter，它们会显示出来。</p><p>操作 filter 时有几个选项：</p><ul class="simple"><li>New：打开 filter editor dialog，用于构建新 filter</li><li>Edit：打开 filter editor dialog，用于编辑所选 filter</li><li>Copy：在 filter manager 中打开所选 filter 的副本</li><li>Delete：从 UI 中删除所选 filter，并通知 engine 从用户的 filter directory 中移除该 filter。</li><li>Apply：将当前所选 filter 设置为 <cite>活动</cite> filter。</li><li>None：移除当前所选 filter。</li><li>Cancel：关闭 dialog，不执行任何操作。</li></ul><p>选择 <em>New</em>, <em>Edit</em> 或 <em>Copy</em>时会打开 Filter Editor dialog。Filter Editor 允许你使用一组已定义的 filter rule，针对当前 pane（Jobs 或 Blades）动态构建新 filter，或编辑现有 filter。</p><div class="figure align-left"><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/22184232/filter_editor.jpg" data-image-src="../../attachments/22184232/filter_editor.jpg" data-unresolved-comment-count="0" data-linked-resource-id="22195894" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="filter_editor.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="22184232" data-linked-resource-container-version="3" data-media-id="1493ad0a-8e4d-469e-86c8-fdc57fc57750" data-media-type="file"></span></div><ul class="simple"><li>Any/All Pulldown：在单个 filter 中使用多个 rule 时，此 control 定义是满足任意一个 rule 即可包含数据，还是必须满足所有 rule 才能包含数据。</li><li>+ Button：此按钮向当前 filter 添加一条新 rule。</li><li>- Button：此按钮从 filter 中移除关联的 rule。</li><li>First Column Pulldown：包含 rule 名称。更改此 pulldown 会改变 rule definition 的其余部分。选择所需 rule，然后在其他 entry 中设置适当的值。注意，有些 rule definition 需要输入值。例如上方的<em>Spool Time</em> 和 <em>Finish Time</em> rule 都有用于 duration 的 type-in value（当前选择单位为分钟）。</li><li>Cancel：中止当前 filter edit session，并返回 main UI。</li><li>Save：使用 <em>Filter Name</em>下定义的名称保存当前 ruleset 作为 filter。如果尚未指定名称，会显示 alert，并取消保存。</li></ul><p>定义任何 filter 后，它们会出现在 job pane 或 server pane 的 pulldown 中。<br/> </p></div><div class="section"><h3 id="DataFiltering-Site-wideSharedFilters">站点级共享 Filter</h3><p>administrator 可以把有用的通用 filter 复制到 tractor spool area 中的共享区域；当用户重新加载 Dashboard session 时，这些 filter 就会可用。此复制目前是手动操作。下面示例把用户 "yoda" 创建的名为 "NoDarkSide" 的 filter 复制到共享区域。此示例假定 tractor spool area 位于默认的 /var/spool/tractor；在你的站点上它可能位于其他位置。</p><ul class="simple"><li>cd /var/spool/tractor/users</li><li>mkdir -p _shared_/filters</li><li>cp yoda/filters/NoDarkSide.joblist _shared_/filters/</li></ul></div>
+  </article>
+</main>
+</body>
+</html>

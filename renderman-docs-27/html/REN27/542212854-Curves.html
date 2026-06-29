@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Curves</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Curves</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/REN27/542212854/Curves">https://rmanwiki-27.pixar.com/space/REN27/542212854/Curves</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="contentLayout2">
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="900" loading="lazy" src="../../attachments/542212854/RenderMan_PxrHairColor.jpg" data-image-src="../../attachments/542212854/RenderMan_PxrHairColor.jpg" data-height="500" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="542212911" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_PxrHairColor.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542212854" data-linked-resource-container-version="1" data-media-id="e23cce69-69f9-498f-9d1e-93932ad51568" data-media-type="file"></span><p><br/><strong>Introduction</strong></p><p>Curves can be used to render large numbers of thin strands of geometry very efficiently, making this primitive particularly well-suited for modeling fur, hair, and blades of grass. This geometry type is an approximate representation, designed to render more efficiently in both time and memory compared to an equivalent surface of circular cross-section. The trade-off is that curves do not support displacements and when viewing curve geometry up close, there can sometimes be geometric artifacts; these artifacts tend to not be perceptible as the curves become more distant from the camera. RenderMan supports both flat (ribbon-like) and round (tube-like) curves, and it is possible to choose from a variety of basis functions. </p><h3 id="Curves-Parameters"><strong>Parameters</strong></h3><h4 id="Curves-Width">Width</h4><p>The width of a curve can vary over the length of the curve. It is possible to specify a constant width that applies to all curve strands in the primitive, or widths can be specified to be different on a per-curve strand, per-segment, or per-vertex basis.</p></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="curves_widthvarying.jpg" width="572" loading="lazy" src="../../attachments/542212854/curves_widthvarying.jpg" data-image-src="../../attachments/542212854/curves_widthvarying.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542212899" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="curves_widthvarying.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542212854" data-linked-resource-container-version="1" data-media-id="071c492d-ac6a-4fda-a380-5a2ba4974e41" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="curves_widthconstant.jpg" width="573" loading="lazy" src="../../attachments/542212854/curves_widthconstant.jpg" data-image-src="../../attachments/542212854/curves_widthconstant.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542212896" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="curves_widthconstant.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542212854" data-linked-resource-container-version="1" data-media-id="845b39ea-e36e-40f0-b6cb-1c059dfa5128" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p>When specified per-segment or per-vertex, negative values for width can be used along curves: as the value of width is interpolated along the curve, the curve will taper to a sharp tip and the portion of curve with a negative width will disappear. This can be used to slightly randomize the length of hair in a clump without changing control points or their animation/simulation. </p><h4 id="Curves-Basis">Basis</h4><p>Given a set of control points that the user supplies as vertices, which compose the hull of the curve, the basis function determines how the actual rendered curve appears. For example, some basis functions, such as the Catmull-Rom basis, guarantee that the rendered curve will pass through all interior, non-endpoint control vertices, whereas others, such as B-spline, typically do not pass exactly through any of the control vertices. Each basis function has different trade-offs in terms of smoothness, controllability, and ease of use.</p><ul><li><p><strong>Bezier</strong> - A Bezier basis generates a 3D curve that passes through every third control vertex. The remaining control vertex positions are used to determine the incoming and outgoing tangent of the curve of the adjacent vertex that the curve does pass through. When using a Bezier basis with curves that contain multiple segments (that is, more than 4 control points), some care should be taken to ensure that incoming and outgoing tangents line up at vertices that are on the rendered curve, or there will be a discontinuity in the smoothness of the curve where it suddenly changes direction.</p></li><li><p><strong>B-Spline</strong> - While a B-Spline basis function can be somewhat less intuitive to use in that it generates a curve that typically only approximately comes close to passing through the given control vertices, an advantage is that this basis function tends to yield very smooth curves. Discontinuities in the smoothness of the curve are possible if multiple control vertices are repeated consecutively (aka multiplicity).</p></li><li><p><strong>Catmull-Rom</strong> - This basis function generates a curve that is guaranteed to pass through every interior, non-endpoint control vertex, and it tends to generate smooth curves, although there can sometimes be unexpected &quot;wobbles&quot; in areas of high curvature with this basis function choice (see images below for an example). Using a B-Spline basis instead can smooth out the wobbles, although a B-Spline basis typically produces a curve that does not pass through the control vertices exactly, unlike the Catmull-Rom basis (for non-endpoint control vertices).</p></li><li><p><strong>Linear</strong> - Specifying linear curves yields straight line segments, continuous linear segments in a curve are joined with a round cap.</p></li></ul><p>The example below shows how different basis affects the shape of a curve given the exact same control vertices: while control vertices and the curve hull is dawn in white, the curve is drawn in yellow.</p><div class="table-wrap"><table data-table-width="1800" data-layout="align-start" data-local-id="53b5a572-6365-4226-96ea-9e9ef07acbca" class="confluenceTable"><tbody><tr><td class="confluenceTd"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="curves_b-spline.jpg" width="256" loading="lazy" src="../../attachments/542212854/curves_b-spline.jpg" data-image-src="../../attachments/542212854/curves_b-spline.jpg" data-height="256" data-width="256" data-unresolved-comment-count="0" data-linked-resource-id="542212893" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="curves_b-spline.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542212854" data-linked-resource-container-version="1" data-media-id="ac36b422-4a96-45f0-98e6-4d516e46b3cd" data-media-type="file"></span></td><td class="confluenceTd"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="curves_bezier.jpg" width="256" loading="lazy" src="../../attachments/542212854/curves_bezier.jpg" data-image-src="../../attachments/542212854/curves_bezier.jpg" data-height="256" data-width="256" data-unresolved-comment-count="0" data-linked-resource-id="542212890" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="curves_bezier.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542212854" data-linked-resource-container-version="1" data-media-id="094de553-62e4-4215-99b0-f462bde12ffc" data-media-type="file"></span></td><td class="confluenceTd"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="curves_catmull-rom.jpg" width="256" loading="lazy" src="../../attachments/542212854/curves_catmull-rom.jpg" data-image-src="../../attachments/542212854/curves_catmull-rom.jpg" data-height="256" data-width="256" data-unresolved-comment-count="0" data-linked-resource-id="542212887" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="curves_catmull-rom.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542212854" data-linked-resource-container-version="1" data-media-id="68bdcb50-7758-4c73-a4d9-427d52439797" data-media-type="file"></span></td><td class="confluenceTd"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="curves_linear.jpg" width="256" loading="lazy" src="../../attachments/542212854/curves_linear.jpg" data-image-src="../../attachments/542212854/curves_linear.jpg" data-height="256" data-width="256" data-unresolved-comment-count="0" data-linked-resource-id="542212884" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="curves_linear.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542212854" data-linked-resource-container-version="1" data-media-id="c713323d-0dc6-4187-8ea2-fce5a980a741" data-media-type="file"></span></td></tr></tbody></table></div><p>It is common practice to use B-Spline and Catmull-Rom curves with multiplicity at curves extremities to better control where the curve begins and ends. Note that in order for such types of curve basis to end at the exact position of the first and last curve control vertex, these have to be repeated one more time Catmull-Rom and two more times for B-Splines.</p></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-right-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-right" alt="curves_b-spline_with_multiplicity.jpg" width="256" loading="lazy" src="../../attachments/542212854/curves_b-spline_with_multiplicity.jpg" data-image-src="../../attachments/542212854/curves_b-spline_with_multiplicity.jpg" data-height="256" data-width="256" data-unresolved-comment-count="0" data-linked-resource-id="542212881" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="curves_b-spline_with_multiplicity.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542212854" data-linked-resource-container-version="1" data-media-id="1a0c0fe0-544d-4980-aaae-0c7a2d6bda67" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" alt="curves_catmull-rom_with_multiplicity.jpg" width="256" loading="lazy" src="../../attachments/542212854/curves_catmull-rom_with_multiplicity.jpg" data-image-src="../../attachments/542212854/curves_catmull-rom_with_multiplicity.jpg" data-height="256" data-width="256" data-unresolved-comment-count="0" data-linked-resource-id="542212878" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="curves_catmull-rom_with_multiplicity.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542212854" data-linked-resource-container-version="1" data-media-id="109f7fc8-2cdd-436f-bdea-9be57afbb934" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h4 id="Curves-Mode">Mode</h4><p>RenderMan supports both flat (ribbon-like) curves and round (tube-like) curves, demonstrated in the images below.</p><ul><li><p><strong>Flat Curves</strong> - usually recommended for blades of grass or other geometry where the curve geometry is relatively more &quot;ribbon-like&quot; than tube-like in appearance. User-normals are specified for flat curves that will twist around so that their orientation always follows the user-specified normals (for both camera and other ray types). No-normal curves (always camera facing) are not supported. Flat curves are not appropriate for foliage or other &quot;flat&quot; surfaces where the geometry is roughly rectangular and the desired silhouette is obtained with a cut-out texture. For these it is much better end more efficient to use polygons instead.</p></li><li><p><strong>Round Curves</strong> - typically recommended for hair and fur since this usually represents the underlying hair geometry with greater fidelity (although not in all cases), and as a direct consequence round curves do tend to produce a more accurate reproduction of occlusion and shadowing for fur and hair compared to flat curves. If user-specified normals are provided, the curve will be flat (perpendicular to the normals) and as a result, the curve will be rendered as a twisting ribbon-like curve that follows the user-specified normals (e.g., a flat curve). Currently, round curves tend to exhibit better time and memory performance compared to flat curves. It is highly dependent on the BxDF and shading model, but in some cases, the tube-like varying normal produced when using round curves can yield more interesting shading results.</p></li></ul><p /></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="curves_modeflat.jpg" width="300" loading="lazy" src="../../attachments/542212854/curves_modeflat.jpg" data-image-src="../../attachments/542212854/curves_modeflat.jpg" data-height="300" data-width="300" data-unresolved-comment-count="0" data-linked-resource-id="542212875" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="curves_modeflat.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542212854" data-linked-resource-container-version="1" data-media-id="0715df99-6251-480e-b649-d1196efaa0ad" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="curves_modeflatnormals.jpg" width="300" loading="lazy" src="../../attachments/542212854/curves_modeflatnormals.jpg" data-image-src="../../attachments/542212854/curves_modeflatnormals.jpg" data-height="300" data-width="300" data-unresolved-comment-count="0" data-linked-resource-id="542212872" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="curves_modeflatnormals.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542212854" data-linked-resource-container-version="1" data-media-id="ad2a777a-9c67-4f2a-b03f-58073a51fdc5" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="curves_modeflatnormals.jpg" width="300" loading="lazy" src="../../attachments/542212854/curves_modeflatnormals.jpg" data-image-src="../../attachments/542212854/curves_modeflatnormals.jpg" data-height="300" data-width="300" data-unresolved-comment-count="0" data-linked-resource-id="542212872" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="curves_modeflatnormals.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542212854" data-linked-resource-container-version="1" data-media-id="ad2a777a-9c67-4f2a-b03f-58073a51fdc5" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h4 id="Curves-Opacity">Opacity</h4><p>Like all geometry in RenderMan, if the BxDF attached to a curves primitive computes presence or opacity, this will control whether the curves are present on-screen and to what percent. To improve raytracing performance, presence and opacity signals are always cached for curves. There is also an optimization implemented for round curves where if the opacity is specified in the &quot;Os&quot; primitive variable, then a more efficient code path is taken when computing shadowing which avoids the need to run any BxDFs or lookup into the opacity cache.</p><h4 id="Curves-MinimumWidth">Minimum Width</h4><p>An option can be used to specify the minimum width for curves. When specified, this artificially widens curves so that they are at least as wide as the specified minimum width (measured in pixels), with a corresponding decrease in presence. The effect is that the curve looks about the same when rendered, except that the high spatial frequency geometry is now band-limited thus minimizing aliasing artifacts, which just means that fewer camera samples are needed in order to anti-alias the curve (and thus fewer rays need to be traced, resulting in faster performance). Useful values for minimum hair width range from 0.0 to 1.0.</p><p /><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="88673039-456e-47c1-a15d-66df7a06eb8b" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">        Option &quot;curve&quot; &quot;float minwidth&quot; [0]</pre>
+</div></div><p><br/></p></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-right-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-right" width="500" loading="lazy" src="../../attachments/542212854/curves_minwidth10.jpg" data-image-src="../../attachments/542212854/curves_minwidth10.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542212869" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="curves_minwidth10.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542212854" data-linked-resource-container-version="1" data-media-id="85606c4a-f925-4ca1-98f5-7132a5a213de" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="500" loading="lazy" src="../../attachments/542212854/curves_minwidth02.jpg" data-image-src="../../attachments/542212854/curves_minwidth02.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542212866" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="curves_minwidth02.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542212854" data-linked-resource-container-version="1" data-media-id="debe77d2-748d-445a-b5d2-25a3350d60da" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p>Notice in the example images above that the render with curve:minwidth=1.0 has converged after 2.5 minutes using only 64 samples-per-pixel, whereas visual inspection reveals that the render with curve:minwidth=0.2 (also rendered using 64 samples-per-pixel) still has some areas with not-fully-converged aliasing artifacts after the same 2.5 minutes of rendering (which do ultimately resolve with more samples). Minwidth is not a physical-based control, you may notice the curve:minwidth=1.0 setting has introduced a perceptible amount of bias in the render (that is, it is slightly smoother in a few areas), although the introduced bias is not visually objectionable, in some cases it considered desirable as it produces a softer look.</p><p><br/></p><h3 id="Curves-BestPractices"><strong>Best Practices</strong></h3><p>When rendering hair or fur, it is recommended that:</p><ul><li><p>Round curves should typically be enabled when appropriate. Doing so will ensure high-quality hair shadowing in any lighting configuration by intersecting against cylindrical hair geometry instead of flat ribbons, resulting in significantly more realistic occlusion.  </p></li><li><p>Many hair or fur strands should be packed into relatively few Curves primitives (e.g., 10,000 or more strands per Curves primitive), rather than rendering millions of Curves primitives that each are composed of just one or a few strands of hair.</p></li><li><p>If a model is composed of several curves objects that substantially overlap in volume (e.g. fur coat and undercoat), the best performance is achieved when these objects share the same values for transformation, visibility flags, and group membership.</p></li></ul></div>
+</div>
+</div>
+</div>
+  </article>
+</main>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Treasure Rendering</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Treasure Rendering</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RU/657162324/Treasure+Rendering">https://rmanwiki-27.pixar.com/space/RU/657162324/Treasure+Rendering</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<h3 id="TreasureRendering-RenderingandCompositing">Rendering and Compositing</h3><p>Now that things have come together, it’s time to set up the Katana rendering, including collecting everything, setting up the different PrmanGlobalStatments, RenderSettings, AOVs, and streamlining the scene for different passes.</p><iframe allowfullscreen="" allowtransparency="true" class="fullscreen-video-iframe conf-macro output-block" data-hasbody="false" data-layout="wide" data-local-id="523cc5a7-b77f-4d59-a1af-9d69a969284f" data-macro-id="00f2d8c3-f013-4a9c-9360-e3c57b4807b7" data-macro-name="widget" frameborder="0" height="540" mozallowfullscreen="" src="https://player.vimeo.com/video/1055676670" style="border:none; margin:1em 0em;" webkitallowfullscreen="" width="960">
+</iframe>
+
+<p /><p>For maximum control in compositing, I decided to split the scene into three different passes, Character (Dragon), Gold (all treasure), Environment (columns, cave ceiling, etc), and AO.</p><p>For the import stage, I used mostly usdIN in Katana, it’s now a native node that comes with the pixarUSD installation that occurs automatically with Katana, and for some static assets, I used alembicIN.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="scene_in_A_v01.png" width="760" loading="lazy" src="../../attachments/657162324/scene_in_A_v01.png" data-image-src="../../attachments/657162324/scene_in_A_v01.png" data-height="1147" data-width="2084" data-unresolved-comment-count="0" data-linked-resource-id="657424524" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="scene_in_A_v01.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="657162324" data-linked-resource-container-version="1" data-media-id="723eac77-daa9-4bd9-a2a1-23ce7d67e462" data-media-type="file"></span><ul><li><p><strong>openUSD</strong> - For everything that had instances (e.g. the gold treasure, the gold treasure sim, the pillars for the environment) these were imported with USD. The reason for choosing USD is due to the low weight on disk, and versatility when it comes to primvars.</p></li><li><p><strong>Alembic</strong> - For the elements of static nature (e.g. the cave ceiling, the bottom layer of the gold treasure) these were exported out as ABC.</p></li></ul><p /><p>If you also notice in the screenshot below, there are some attributeCopy, attributeSet nodes. These were placed there to help me with the <strong>__Pref</strong> attribute as I forgot to add it properly from Houdini before the export. <strong>__Pref</strong> is really handy when doing localized grading in post and in the included Katana scene, you’ll be able to gain more perspective on these attributes and their contributions.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="scene_in_B_v01.png" width="760" loading="lazy" src="../../attachments/657162324/scene_in_B_v01.png" data-image-src="../../attachments/657162324/scene_in_B_v01.png" data-height="248" data-width="908" data-unresolved-comment-count="0" data-linked-resource-id="657424531" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="scene_in_B_v01.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="657162324" data-linked-resource-container-version="1" data-media-id="f5add103-63ac-4d62-aa81-6f4c3d6defd4" data-media-type="file"></span><hr/>
+  </article>
+</main>
+</body>
+</html>

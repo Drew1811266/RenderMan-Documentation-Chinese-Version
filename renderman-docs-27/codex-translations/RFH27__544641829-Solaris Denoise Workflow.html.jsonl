@@ -1,0 +1,62 @@
+{"id":"37ed6856d9851a837079440f3d67093f5ef673e512bc81ee1dd154fd77f51e4a","item_id":"150909e6ee:0","text":"RenderMan 要求启用特定 AOV，denoiser（降噪器）才能在 batch renders（批渲染）中正确工作。"}
+{"id":"b4db7cada0cf299acc039b6988a9082632cda15917b3286c71fce51384b42599","item_id":"150909e6ee:1","text":"这些 AOV 可以通过两种方式应用。"}
+{"id":"4e8d7d65713897ec8fe9d0c7456bf9baf8a99b756e59c4ef71207a66d07169f7","item_id":"150909e6ee:2","text":"可以使用"}
+{"id":"143e71f0f48d23a8cb1b9cb52585511b2e5436c2cb023bd933dacf126f1470b0","item_id":"150909e6ee:3","text":"rendermanrendervars"}
+{"id":"0c9e9527ed78d74a4525c58acd5958fa744e6ee0bdaee6ac765068821cd7cb47","item_id":"150909e6ee:4","text":"node，也可以通过"}
+{"id":"0b888fb68be194d75a46874b49364d72811e0dc4a3e74295221e88b0b31ba102","item_id":"150909e6ee:5","text":"rendermanrendersettings"}
+{"id":"a559ef5324dfa321d172608c6be1be99e68ec3819bb824ab50b53a396c204029","item_id":"150909e6ee:6","text":"node。两种都是有效 workflow（工作流）。"}
+{"id":"09d5a87313820074a103f500930b54430ce7752ecfc8522831f60b7c24a11703","item_id":"150909e6ee:7","text":"需要激活 Denoiser AOV，最简单的方法是点击右上角的蓝色 R（下方图片中以红色高亮）。"}
+{"id":"f873f7b34403b12c673698a65bea24aba1a9f3c56a1211f0424bc29fa088d5a7","item_id":"150909e6ee:8","text":"这会启用 Denoiser 所需的全部 AOV。"}
+{"id":"420cb020700c79321552e33d617835af2dcdac157219b0c7277758c305637f19","item_id":"150909e6ee:9","text":"激活所需的 denoising AOV 后，可以使用以下两种设置之一："}
+{"id":"c41cfc64d3c7adc4707a38590e78ae9a5bf25f58b919bbebd385995ac503d1b5","item_id":"150909e6ee:10","text":"Setup 1 - ROP Fetch Node（设置 1 - ROP Fetch 节点）"}
+{"id":"debd72916d54052e5e9c3f77fc9c832487deebb8b992c72eb933e834b07760c2","item_id":"150909e6ee:11","text":"在 OUT context（OUT 上下文）中创建一个 ROP"}
+{"id":"e7d3799ecc09f5cbc446aa0a79bb1fb9d0126395fa19a5903b7425f42e5e92e7","item_id":"150909e6ee:12","text":"fetch"}
+{"id":"545ea538461003efdc8c81c244531b003f6f26cfccf6c0073b3239fdedf49446","item_id":"150909e6ee:13","text":"node（节点）"}
+{"id":"0c4aef9f2fba18cffe21a6c07ebc4cd2445370f96386c3367c2a379674aa90b8","item_id":"150909e6ee:14","text":"将"}
+{"id":"0e570ca6fabe24f94e52c1833f3ffd25567022beb826fa16891f3322051bc221","item_id":"150909e6ee:15","text":"Source"}
+{"id":"16ee3ee2e4a781041aeac27a9e2e05f1ea3b9ca6a175a989133e9274453a8162","item_id":"150909e6ee:16","text":"parameter（参数）设置为所需的 LOP"}
+{"id":"6248980c0a349578c0510782126df298cc11dd98fba03664cbe95fdd66ed7997","item_id":"150909e6ee:17","text":"usdrender_rop"}
+{"id":"2790c5c46dae5ab0b2930f4aecb9cf10010a3484f02110a7604adbd79713e3eb","item_id":"150909e6ee:18","text":"node（节点），该节点位于 Solaris/Stage context（上下文）中。"}
+{"id":"175f8cc2c8aadac726053cad17418e3be0c49687d152dab097857dc4bc957df8","item_id":"150909e6ee:19","text":"将一个 ROP"}
+{"id":"bc56bb075d0cd5f5f26ccd7626d9c56da3a685ad4f4fc60bda9eee978f744d4f","item_id":"150909e6ee:20","text":"denoise"}
+{"id":"41fb6cfa98ab6814ace956298bc059e5e120863420c5af75f328b6d285df5e37","item_id":"150909e6ee:21","text":"node（节点）连接到 ROP"}
+{"id":"e7d3799ecc09f5cbc446aa0a79bb1fb9d0126395fa19a5903b7425f42e5e92e7","item_id":"150909e6ee:22","text":"fetch"}
+{"id":"aaaa0679a5f20ebbe64e67476270348a86408730afb27d915e976f800fbe0478","item_id":"150909e6ee:23","text":"node input（节点输入端）。"}
+{"id":"ca8e331b2b4d8c2b059fb52ab98d9c05068fddea73c5ff17616da00425088a7b","item_id":"150909e6ee:24","text":"在 ROP"}
+{"id":"bc56bb075d0cd5f5f26ccd7626d9c56da3a685ad4f4fc60bda9eee978f744d4f","item_id":"150909e6ee:25","text":"denoise"}
+{"id":"be7f96447bf8a8c16ef98b1204d122a75e54dd4de74bb300a028d9f4f4b82c9f","item_id":"150909e6ee:26","text":"node（节点）上设置 mode type（模式类型）、output location（输出位置）、asymmetry（非对称）、flow 和 debug 选项；准备渲染后，按 Denoise 按钮。"}
+{"id":"6960205c042f80611e85096d1a2ffa2c69917c7f5d1b6e8941f35edb0cca5536","item_id":"150909e6ee:27","text":"Houdini 将渲染 LOP"}
+{"id":"6248980c0a349578c0510782126df298cc11dd98fba03664cbe95fdd66ed7997","item_id":"150909e6ee:28","text":"usdrender_rop"}
+{"id":"a692b6bc35c7839b1c38e5f026f9776063380aa19126dc858bdc074d5ab6eacf","item_id":"150909e6ee:29","text":"node（节点），使用"}
+{"id":"bc56bb075d0cd5f5f26ccd7626d9c56da3a685ad4f4fc60bda9eee978f744d4f","item_id":"150909e6ee:30","text":"denoise"}
+{"id":"394d5ce993be5f0ed7ca15e1ed6f94c9f6a59c6b9259eb0a3de82770c4913643","item_id":"150909e6ee:31","text":"node 上的帧范围。所有帧渲染完成后，denoise process（降噪过程）将开始。"}
+{"id":"c18c00d7f79171e5f6acc0afe366f78255ec6885692b6d31f0b041ef5ddcb34f","item_id":"150909e6ee:32","text":"Setup 2 - ROP USD Render Node（设置 2 - ROP USD Render 节点）"}
+{"id":"debd72916d54052e5e9c3f77fc9c832487deebb8b992c72eb933e834b07760c2","item_id":"150909e6ee:33","text":"在 OUT context（OUT 上下文）中创建一个 ROP"}
+{"id":"3d3b0dc587c6b161dbf716f8d7923975e0ef47f2af14895a8eccfd84e8fd141b","item_id":"150909e6ee:34","text":"usdrender"}
+{"id":"b576f0eaad8310142d6d0aa1d27b0d486f631c86ffa17bd07daa9940f98dd330","item_id":"150909e6ee:35","text":"node（节点），并将 render delegate（渲染委托）改为 RenderMan RIS（Solaris 中的 denoising 目前不支持 XPU rendering（XPU 渲染））"}
+{"id":"0c4aef9f2fba18cffe21a6c07ebc4cd2445370f96386c3367c2a379674aa90b8","item_id":"150909e6ee:36","text":"将"}
+{"id":"a1dd9fe6a4b23763d3dfad658bfe92347a9ce9f527356e8c4c10892fd951a160","item_id":"150909e6ee:37","text":"LOP path"}
+{"id":"134bfc82ccbd7b211a23aea0225cd5b4cfd805fdd57213cc97deb3ee87e629a9","item_id":"150909e6ee:38","text":"parameter（参数）设置为 Solaris/Stage context（上下文）中包含某个"}
+{"id":"5c77ab11a4d3563103b7c94dd69570eb724627e6f688a5721ff23cb9d954bbb0","item_id":"150909e6ee:39","text":"RenderSettings"}
+{"id":"fe8563e6bb16e6c83bd268ecf15431459b823a08a7d9424410c455d6eeaac086","item_id":"150909e6ee:40","text":"primitive 的目标节点 (最可能的默认情况是"}
+{"id":"a40ec0ef3eb192fe14f970faeff8badd364fba3a2615dc0b1db7754577b373ce","item_id":"150909e6ee:41","text":"/stage/rendermanrendersettings"}
+{"id":"0c4aef9f2fba18cffe21a6c07ebc4cd2445370f96386c3367c2a379674aa90b8","item_id":"150909e6ee:42","text":"将"}
+{"id":"82e971defec02bee07dc78266c242eaf0a00426b8988dfdb2a864da6e8f8576c","item_id":"150909e6ee:43","text":"Render Settings（渲染设置）"}
+{"id":"741313eb25458d903f45418caabd16f4f315617395d2efeb759359e207613767","item_id":"150909e6ee:44","text":"parameter（参数）设置为场景图树中所需的"}
+{"id":"5c77ab11a4d3563103b7c94dd69570eb724627e6f688a5721ff23cb9d954bbb0","item_id":"150909e6ee:45","text":"RenderSettings"}
+{"id":"a2b22e0e66ffeefa3a6f50d978f185410f13dcedaaee71a8b966f911116a73ef","item_id":"150909e6ee:46","text":"primitive 所在的位置（最可能的默认情况是 /Render/rendersettings）"}
+{"id":"175f8cc2c8aadac726053cad17418e3be0c49687d152dab097857dc4bc957df8","item_id":"150909e6ee:47","text":"将一个 ROP"}
+{"id":"bc56bb075d0cd5f5f26ccd7626d9c56da3a685ad4f4fc60bda9eee978f744d4f","item_id":"150909e6ee:48","text":"denoise"}
+{"id":"bac9f5c0b84a50cff30290b74e9234df75825203bcca757246e888fea6b03a2b","item_id":"150909e6ee:49","text":"node（节点）连接到 ROP usdrender node input（节点输入端）"}
+{"id":"ca8e331b2b4d8c2b059fb52ab98d9c05068fddea73c5ff17616da00425088a7b","item_id":"150909e6ee:50","text":"在 ROP"}
+{"id":"bc56bb075d0cd5f5f26ccd7626d9c56da3a685ad4f4fc60bda9eee978f744d4f","item_id":"150909e6ee:51","text":"denoise"}
+{"id":"e333b9e7ddaccd9651224b453c3102cf3d6036eecebcbae5d58c8559dd9d08a4","item_id":"150909e6ee:52","text":"node（节点）上设置所需参数，然后点击 denoise 按钮，开始将帧渲染到磁盘并执行 denoise（降噪）。"}
+{"id":"bf64594a4a849a8128b5663d65f7d902f74a33f0ac243d78f76c064a79bb5aec","item_id":"150909e6ee:53","text":"Houdini 将渲染 ROP"}
+{"id":"3d3b0dc587c6b161dbf716f8d7923975e0ef47f2af14895a8eccfd84e8fd141b","item_id":"150909e6ee:54","text":"usdrender"}
+{"id":"a692b6bc35c7839b1c38e5f026f9776063380aa19126dc858bdc074d5ab6eacf","item_id":"150909e6ee:55","text":"node（节点），使用"}
+{"id":"bc56bb075d0cd5f5f26ccd7626d9c56da3a685ad4f4fc60bda9eee978f744d4f","item_id":"150909e6ee:56","text":"denoise"}
+{"id":"394d5ce993be5f0ed7ca15e1ed6f94c9f6a59c6b9259eb0a3de82770c4913643","item_id":"150909e6ee:57","text":"node 上的帧范围。所有帧渲染完成后，denoise process（降噪过程）将开始。"}
+{"id":"886d042b6b4ab2d003e8e49c264649da637b33944dd15d53d0258bda1b9e9a7b","item_id":"150909e6ee:58","text":"Note（注意）：目前还不支持在 TOPs / PDG 中使用 Solaris 的 denoising workflow（降噪工作流）。"}
+{"id":"1dac68aa77be7f85d1b2c235568d15f8d4e39e37fad6aee6c3f8909377ce770f","item_id":"150909e6ee:59","text":"1920 x 1080"}
+{"id":"65ca8f8807838bed2beff88a7321fea8abbd97ecea98c7eb6cfbcf26703cdf7e","item_id":"150909e6ee:60","text":"Pixel Variance（像素方差） = 0.26"}
+{"id":"42be81e9daa459a37fdb99f56108f11b3722964d8099f40fad486c9494b66fc2","item_id":"150909e6ee:61","text":"Max Samples（最大采样数） = 64"}

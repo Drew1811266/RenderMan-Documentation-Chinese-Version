@@ -1,0 +1,25 @@
+{"item_id":"1dadfef5b2:0","text":"PrmanCameraSettings 需要 locationPath 中有上游摄影机或 /root，才能填充摄影机参数。"}
+{"item_id":"1dadfef5b2:1","text":"PrmanCameraSettings"}
+{"item_id":"1dadfef5b2:2","text":"此节点用于设置摄影机选项和参数，例如景深控制、快门时序、渲染裁剪平面以及其他投影参数。PrmanCameraSettings 可按摄影机分配，也可以分配到 /root。"}
+{"item_id":"1dadfef5b2:3","text":"locationPath 应为 /root 或摄影机位置。如果希望将相同设置应用到多个摄影机，可以把所有摄影机路径添加到 CEL 参数。"}
+{"item_id":"1dadfef5b2:4","text":"如果在 /root 设置摄影机设置，场景中的摄影机会继承这些设置，包括投影参数以及 prmanCameraStatements。这些属性可以按摄影机在本地覆盖。"}
+{"item_id":"1dadfef5b2:5","text":"Projection Plugins（投影插件）"}
+{"item_id":"1dadfef5b2:6","text":"所有 RenderMan projection plugins 都可在 PrmanCameraSettings 的 prmanProjectionShader 下拉菜单中使用。如果使用 C++ 创建 custom projection plugins（自定义投影插件），只要它们具有"}
+{"item_id":"1dadfef5b2:7","text":"Args files"}
+{"item_id":"1dadfef5b2:8","text":"并可通过"}
+{"item_id":"1dadfef5b2:9","text":"RMAN_RIXPLUGINPATH"}
+{"item_id":"1dadfef5b2:10","text":"环境变量访问。"}
+{"item_id":"1dadfef5b2:11","text":"如果 prmanProjectionShader 参数留空，RfK 将使用通过"}
+{"item_id":"1dadfef5b2:12","text":"属性指定的投影，该属性位于 CameraCreate 节点或 Alembic_In 摄影机上。"}
+{"item_id":"1dadfef5b2:13","text":"或者，也可以将 projection plugins 创建为材质，并分配给"}
+{"item_id":"1dadfef5b2:14","text":"或某个摄影机位置，使用 MaterialAssign 节点。"}
+{"item_id":"1dadfef5b2:15","text":"Field of View (FOV)（视场角）"}
+{"item_id":"1dadfef5b2:16","text":"在 RenderMan 中，FOV 是 projection plugin 的一部分。由于 Katana 将摄影机的 field of view 作为"}
+{"item_id":"1dadfef5b2:17","text":"属性而不是材质提供，因此设置 FOV 有两种方式。默认情况下，RfK 会使用摄影机 geometry.fov 属性中的 FOV，并把该值推送到 projection plugin 的 material attribute 上。如果希望通过 material attribute 设置 FOV，可将 IntAttribute, prmanCameraStatements.useGeometryFov, 设为 1。此设置在 PrmanCameraSettings 中显示为 \"Use Camera FOV\"。"}
+{"item_id":"1dadfef5b2:18","text":"FOV Motion Blur（FOV 运动模糊）"}
+{"item_id":"1dadfef5b2:19","text":"FOV motion blur 仅支持"}
+{"item_id":"1dadfef5b2:20","text":"PxrCamera"}
+{"item_id":"1dadfef5b2:21","text":"projection shader。其"}
+{"item_id":"1dadfef5b2:22","text":"和"}
+{"item_id":"1dadfef5b2:23","text":"参数设置快门开始和结束时的 fov 值。"}
+{"item_id":"1dadfef5b2:24","text":"如果使用摄影机的 goemetry.fov 属性指定 fov，可以将 IntAttribute, prmanCameraStatements.fovMotionBlur, 设为 1 来启用运动模糊。此设置在 PrmanCameraSettings 中显示为 \"FOV Motion Blur\"。RfK 会把 projection plugin 的 fov 参数设置为 geometry.fov 第一个时间采样处的值，并把投影的 fovEnd 参数设置为 geometry.fov 最后一个时间采样处的值。如果未设置 projection shader 但启用了 FOV Motion Blur，RfK 会自动将投影设置为 PxrCamera。"}

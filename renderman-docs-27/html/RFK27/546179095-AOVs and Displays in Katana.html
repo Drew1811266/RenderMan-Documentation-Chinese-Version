@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AOVs and Displays in Katana</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>AOVs and Displays in Katana</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFK27/546179095/AOVs+and+Displays+in+Katana">https://rmanwiki-27.pixar.com/space/RFK27/546179095/AOVs+and+Displays+in+Katana</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="toc-macro client-side-toc-macro  conf-macro output-block" data-hasbody="false" data-headerelements="H1,H2,H3,H4,H5,H6,H7" data-layout="default" data-local-id="0a48e6d0-6701-4b9f-943c-6aafd32f29c4" data-macro-id="2224561a-8a66-471f-9fb9-c6f5bde799e3" data-macro-name="toc"> </div><p>Follow these sets to set up AOVs in RenderMan for Katana:</p><ul><li><p>Create a PrmanOuputChannelDefine node for each AOV channel. This sets up the channel name for RiDisplayChannel.</p></li></ul><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="684" loading="lazy" src="../../attachments/546179095/rfkMatteID0ChannelDefine.png" data-image-src="../../attachments/546179095/rfkMatteID0ChannelDefine.png" data-height="96" data-width="637" data-unresolved-comment-count="0" data-linked-resource-id="546179122" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfkMatteID0ChannelDefine.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="546179095" data-linked-resource-container-version="1" data-media-id="d3e3bd9a-a05c-4394-aa4a-a2d553ce14cf" data-media-type="file"></span><ul><li><p><a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661883" rel="nofollow">LPE</a> will require a source to define the light path to collect. For example, Indirect Diffuse would be</p></li></ul><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="f16266ad-04a2-45e2-a860-1f390d061273" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">color lpe:C&lt;RD&gt;.+[&lt;L.&gt;O]</pre>
+</div></div><ul><li><p>Next, Create a RenderOutputDefine (Display Driver) node for each AOV file. This sets up the output file name and channel name be used for RiDisplay.</p></li></ul><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="684" loading="lazy" src="../../attachments/546179095/rfkMatteID0OutputDefine.png" data-image-src="../../attachments/546179095/rfkMatteID0OutputDefine.png" data-height="314" data-width="640" data-unresolved-comment-count="0" data-linked-resource-id="546179119" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfkMatteID0OutputDefine.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="546179095" data-linked-resource-container-version="1" data-media-id="eb4dee79-676e-4460-8602-48103d9902bb" data-media-type="file"></span><ul><li><p>Wire the PrmanOutputChannelDefine node into RenderOutputDefine to see the added channel in the RenderOutputDefine's channel drop down (MatteID0 in the example above).</p></li></ul><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="687" loading="lazy" src="../../attachments/546179095/rfkAOVChannelDefines.png" data-image-src="../../attachments/546179095/rfkAOVChannelDefines.png" data-height="154" data-width="389" data-unresolved-comment-count="0" data-linked-resource-id="546179116" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfkAOVChannelDefines.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="546179095" data-linked-resource-container-version="1" data-media-id="267c4148-6eeb-411c-b9ea-23855a4873ec" data-media-type="file"></span><p><br/></p><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="b7ebd80a-b7dc-44d8-8460-2f111905ed09" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>To correctly render per-lobe <a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661883" rel="nofollow">LPE</a> in Katana, you need to use an <a class="external-link" href="https://help.thefoundry.co.uk/katana/dev-guide/OpsAndOpScript/CookInterface/OpScript.html" rel="nofollow">OpScript</a> to declare how these are routed to the outputs. Below is the full OpScript to use for the lobe names defined by PxrSurface and PxrMarschnerHair. If your studio has its own bxdfs with different names, you will need to add those names to these Options.</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="9885070f-0d6c-49ab-9c15-cbf0371f76cb" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">Interface.SetAttr('prmanGlobalStatements.options.lpe.diffuse2', StringAttribute(&quot;Diffuse,HairDiffuse,diffuse,translucent,hair4,irradiance&quot;))
+Interface.SetAttr('prmanGlobalStatements.options.lpe.diffuse3', StringAttribute(&quot;Subsurface,subsurface&quot;))
+Interface.SetAttr('prmanGlobalStatements.options.lpe.specular2', StringAttribute(&quot;Specular,HairSpecularR,specular,hair1&quot;))
+Interface.SetAttr('prmanGlobalStatements.options.lpe.specular3', StringAttribute(&quot;RoughSpecular,HairSpecularTRT,hair3&quot;))
+Interface.SetAttr('prmanGlobalStatements.options.lpe.specular4', StringAttribute(&quot;Clearcoat&quot;))
+Interface.SetAttr('prmanGlobalStatements.options.lpe.specular5', StringAttribute(&quot;Iridescence&quot;))
+Interface.SetAttr('prmanGlobalStatements.options.lpe.specular6', StringAttribute(&quot;Fuzz,HairSpecularGLINTS&quot;))
+Interface.SetAttr('prmanGlobalStatements.options.lpe.specular7', StringAttribute(&quot;SingleScatter,HairSpecularTT,hair2&quot;))
+Interface.SetAttr('prmanGlobalStatements.options.lpe.specular8', StringAttribute(&quot;Glass,specular&quot;))
+Interface.SetAttr('prmanGlobalStatements.options.lpe.user2', StringAttribute(&quot;Albedo,DiffuseAlbedo,SubsurfaceAlbedo,HairAlbedo&quot;))
+Interface.SetAttr('prmanGlobalStatements.options.lpe.user3', StringAttribute(&quot;Position&quot;))
+Interface.SetAttr('prmanGlobalStatements.options.lpe.user4', StringAttribute(&quot;UserColor&quot;))
+Interface.SetAttr('prmanGlobalStatements.options.lpe.user6', StringAttribute(&quot;Normal,DiffuseNormal,HairTangent,SubsurfaceNormal,SpecularNormal,RoughSpecularNormal,SingleScatterNormal,FuzzNormal,IridescenceNormal,GlassNormal&quot;))
+
+</pre>
+</div></div></div></div><p><br/></p><ul><li><p>To make this AOV render interactively you can add it to the interactiveOutputs selection in the RenderSettings node.</p></li></ul><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="687" loading="lazy" src="../../attachments/546179095/rfk_addInteractAOV.png" data-image-src="../../attachments/546179095/rfk_addInteractAOV.png" data-height="615" data-width="1018" data-unresolved-comment-count="0" data-linked-resource-id="546179113" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfk_addInteractAOV.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="546179095" data-linked-resource-container-version="1" data-media-id="b927ce95-67a4-45b6-a833-40b76529e163" data-media-type="file"></span><p><br/></p><ul><li><p><strong>Advanced:</strong> You can also add a statistics selection to the node. Typically used for diagnosis and tuning:</p></li></ul><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="683" loading="lazy" src="../../attachments/546179095/rfkAOV_Stats.png" data-image-src="../../attachments/546179095/rfkAOV_Stats.png" data-height="294" data-width="1024" data-unresolved-comment-count="0" data-linked-resource-id="546179125" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfkAOV_Stats.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="546179095" data-linked-resource-container-version="1" data-media-id="e56e8bc9-8545-4c53-8fa0-fb0d4dc043fc" data-media-type="file"></span><ul><li><p /><ul><li><p><strong>&quot;variance&quot;</strong> – estimates the statistical variance of values contributing to the pixel in associated source channel.</p></li><li><p><strong>&quot;mse&quot;</strong> – like variance, but diminishes towards zero as the number of samples increases. Though somewhat noisy itself, this can provide an estimate for the amount of mean-squared-error versus a hypothetical ground-truth image.</p></li><li><p><strong>&quot;even&quot;</strong> – an image produced using only one half of the camera samples</p></li><li><p><strong>&quot;odd&quot;</strong> – an image produced using just the other half of the camera samples</p></li></ul></li></ul><h3 id="AOVsandDisplaysinKatana-EXRMetadata">EXR Metadata</h3><p>You can add metadata to the EXR file to facilitate pipeline functions. The Foundry documents this <a class="external-link" href="https://learn.foundry.com/katana/current/Content/ug/rendering_scene/openexr_header_metadata.html" rel="nofollow">here.</a></p><p>Essentially, on the Render Settings node:</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="aa817eec-ab1e-47b3-b64e-d44aee705013" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">SetAttr(&quot;renderSettings.ouputs.primary.rendererSettings.exrheaders.test_string&quot;,[ &quot;Your string&quot; ] )</pre>
+</div></div><h3 id="AOVsandDisplaysinKatana-SettingCustomDisplayData">Setting Custom Display Data</h3><p>You can pass a custom Katana attribute into the display driver using an OpScript at the /root. Below is a simple example setting &quot;myParam&quot; onto a display called &quot;myDisplay&quot;</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="16c383be-f518-420a-be88-673516080211" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">Interface.SetAttr(&quot;renderSettings.outputs.myDisplay.rendererSettings.displayOptions.myParam&quot;, StringAttribute(&quot;paramValue&quot;))</pre>
+</div></div><p><br/></p><p><br/></p>
+  </article>
+</main>
+</body>
+</html>

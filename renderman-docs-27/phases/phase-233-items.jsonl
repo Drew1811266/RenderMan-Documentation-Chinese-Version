@@ -1,0 +1,34 @@
+{"id": "8d45bf43d1a584611d3c06fc1e65f3594a3d989b92f3da5297c2ca24d9bb23c1", "item_id": "89d73ae848:0", "text": "When rendering, you usually must set a default pose or position for your object to become a reference for later renders even if the object deforms or moves around."}
+{"id": "9910717f70f050426ce7e9bbd7e34c09ec06785ec671d0b8289e3b68abb34d37", "item_id": "89d73ae848:1", "text": "This prevents a texture from appearing to “slide” or “swim” across the object as it animates. This sticking of the texture, is typically referred to by its technical name of"}
+{"id": "6da94174e57953caefa056edbe4464a689cba8828d28db8677be5eeb0fe0fc0e", "item_id": "89d73ae848:2", "text": "Pref"}
+{"id": "07c0a972f5556a205085089344062a0e64e20e5f5df9f28ce065ab987d7a1148", "item_id": "89d73ae848:3", "text": "(piː rɛf). Other 3D apps might call this a “texture reference.”"}
+{"id": "db7fea166c1b223457042efef0767d331a62102836c8cbad4a3c7010ad6333f1", "item_id": "89d73ae848:4", "text": "Pref Setup"}
+{"id": "4b56bcfbe7321818b17ff06af3227aaf919194d651f62f7cfa5acba99904d22c", "item_id": "89d73ae848:5", "text": "Here’s a basic scene that we have set up."}
+{"id": "e34fb89b1252f176f863de0deb41678ac1bce24c0e8688f47805d14b46b79d8f", "item_id": "89d73ae848:6", "text": "In the scene, we have a cylinder that’s parented under the armature system."}
+{"id": "47009ab50e9f3585a10f108b85b045016a4a74b5f136e96e7ed67065b16cc2ec", "item_id": "89d73ae848:7", "text": "We have a camera that’s acting as a texture projector, which we use as our manifold or texture placement in order to reference our camera projector and connect the manifold to our PxrTexture node."}
+{"id": "9af86e266b7760d70357353df93c45ea5884946ff31363634c7924c018f380d3", "item_id": "89d73ae848:8", "text": "Here’s a closer look at the shading network."}
+{"id": "c3a9ad6946c71c3a51f0997584720c4c68f68fc3ca72b7928012c28037a5fa54", "item_id": "89d73ae848:9", "text": "Notice, that we connect both PxrTexture and PxrProjector to a PxrMix node. We use the PxrProjector’s resultMask output as the Mixer value. This is so that any areas outside of the projection are colored with Color 1 of the PxrMix node."}
+{"id": "34b8e6b91dddb65d366f91680569072468ff7e61ba4d12cdc5ea147e69feb9ac", "item_id": "89d73ae848:10", "text": "We put in the name of the texture projection camera, as our Coordinate System for our PxrProjector (in this case it’s named “TextureProjection”)"}
+{"id": "916d3f152ca7231c0d47769fe0d7782ed006dc02a22deece68948bee6b028e91", "item_id": "89d73ae848:11", "text": "If we render, you should see something like this."}
+{"id": "f316c8e6dd120f42d5f81190ef8d9818b8e9685bbd802557fa3b2be8f97956ae", "item_id": "89d73ae848:12", "text": "However, if we start posing the cylinder with the armature, you’ll notice that the texture doesn’t look as one would expect:"}
+{"id": "cc4b7ff81d96bd1c502a4eb540a10f1672081b341f29f55d53fa7b1746d4a840", "item_id": "89d73ae848:13", "text": "The texture is not bending with the cylinder, instead it’s swimming on top of it."}
+{"id": "7b24e466bd3db37f8e54d79d055aa69fe5c7106c70db204c54b269cf1ec4fa94", "item_id": "89d73ae848:14", "text": "Freeze Reference Pose"}
+{"id": "79b4547c4cb232f5ec9aa651492c402252356216c853ff06cdf685e62a6d65a6", "item_id": "89d73ae848:15", "text": "In order to compensate for this, we need to freeze a reference pose. Go back to the unposed version of the cylinder."}
+{"id": "805c1e4f8c66df1900388d4daf60cf8b617a883f2474340b1ab7e14840be9906", "item_id": "89d73ae848:16", "text": "In the data properties tab for the cylinder, under Primitive Variables, you should see a Freeze Reference Pose button."}
+{"id": "048029d894f2a73c8d58d76028d3f02075cdcca18fc2c9c4d47d126b0d338be2", "item_id": "89d73ae848:17", "text": "This will bring up a dialog box like this."}
+{"id": "eb840f7a0bcdc10cdb64b17ff70ff2c4758f4e7aa1523b071ba8412420cb46de", "item_id": "89d73ae848:18", "text": "Here we can select the data we want to freeze."}
+{"id": "81c4326b3a11a112bc64dcd29e472429b4c0e43aef11942af19a7d550eebf75b", "item_id": "89d73ae848:23", "text": "__Pref"}
+{"id": "6ff9cc73fd201b71e3a75162dba62f9b89a86213733b491e1f06c68fac052f9c", "item_id": "89d73ae848:20", "text": "- is the reference position points."}
+{"id": "cc583efe69f59c09fd6b307beed6f1ecc820e3dafc8394447cbc75d2bd001907", "item_id": "89d73ae848:21", "text": "__WPref"}
+{"id": "c8449a565af419d5a8a3428d864820f0b73f33b72f001a584771cfb507b95857", "item_id": "89d73ae848:22", "text": "- is the same as"}
+{"id": "fd1e589e9a842794df6f8ae0392ff2485079997ece2b30063f040935318b1d16", "item_id": "89d73ae848:30", "text": "but in world space."}
+{"id": "65a9515a3c3e0847aa367244b256f0f9d3d337418026e72428734edd0e813ded", "item_id": "89d73ae848:29", "text": "__Nref"}
+{"id": "8a3a704fe0ac274a2f6d80eecf616f68e93505086632060f12f96ee3733a0846", "item_id": "89d73ae848:26", "text": "- is the reference normals."}
+{"id": "9d0134de57a8b3901ba0bf112f28f0dbb29b6d2002ffa1d38decebaede04a06d", "item_id": "89d73ae848:27", "text": "__WNRef"}
+{"id": "654a5d51919f12961878b0faca4b6a9dcb3da11ffa044d71d5a868f5f2482e66", "item_id": "89d73ae848:28", "text": "- is the same"}
+{"id": "89a95e9623bed776bc18ce1e570fb88083405d35cf8565072308c427984595e5", "item_id": "89d73ae848:31", "text": "Note, these are the names that you will reference in your shading network."}
+{"id": "b7435e9ecb07cfdbb990ddfc37894d3113b004a9c24d5e506260cb73c03294b2", "item_id": "89d73ae848:32", "text": "Going back to our example scene’s shading network, if we go to the PxrProjector node, we can tell the node to use the reference pose, by changing"}
+{"id": "663ea1bfffe5038f3f0cf667f14c4257eff52d77ce7f2a218f72e9286616ea39", "item_id": "89d73ae848:34", "text": "to"}
+{"id": "614109dc2873e75851e053ab91ab8f72e390d206e16ade0302cdcf39408b5617", "item_id": "89d73ae848:35", "text": "Deform (__Pref + __Nref)"}
+{"id": "3c7ab0646ea539497832a27681f5f54de3c9a4847b71a9321e4b10eb000465a7", "item_id": "89d73ae848:37", "text": "Now, if we repose our cylinder and render you can now see the texture properly bending with the cylinder."}
+{"id": "072cc3919457a93363f9ea6bc59f779168beaf25385975ae6a2b0336e6e8ce6b", "item_id": "89d73ae848:38", "text": "The reference pose will need to be re-frozen if the mesh changes (ex: more points were added). You can do this by going back to the data properties tab and clicking on Re-Freeze Reference Pose."}

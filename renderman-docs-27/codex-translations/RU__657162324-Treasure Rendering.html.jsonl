@@ -1,0 +1,13 @@
+{"item_id":"5047b3acd0:0","text":"Rendering and Compositing（渲染与合成）"}
+{"item_id":"5047b3acd0:1","text":"现在一切都组合起来了，是时候设置 Katana rendering 了，包括收集所有内容、设置不同的 PrmanGlobalStatments、RenderSettings、AOVs，并为不同 passes streamline scene。"}
+{"item_id":"5047b3acd0:2","text":"为了在 compositing 中获得最大 control，我决定把 scene 拆成三个不同 passes：Character（Dragon）、Gold（all treasure）、Environment（columns、cave ceiling 等），以及 AO。"}
+{"item_id":"5047b3acd0:3","text":"在 import stage，我主要在 Katana 中使用 usdIN；它现在是随 pixarUSD installation 自动随 Katana 安装的 native node。对于一些 static assets，我使用 alembicIN。"}
+{"item_id":"5047b3acd0:4","text":"openUSD"}
+{"item_id":"5047b3acd0:5","text":"- 所有带 instances 的内容（例如 gold treasure、gold treasure sim、environment 的 pillars）都使用 USD 导入。选择 USD 的原因是它在 disk 上 weight 很低，并且在 primvars 方面很 versatile。"}
+{"item_id":"5047b3acd0:6","text":"Alembic"}
+{"item_id":"5047b3acd0:7","text":"- 对于 static nature 的 elements（例如 cave ceiling、gold treasure 的 bottom layer），它们被导出为 ABC。"}
+{"item_id":"5047b3acd0:8","text":"如果你也注意到下面 screenshot 中有一些 attributeCopy、attributeSet nodes，它们被放在那里是为了帮助我处理"}
+{"item_id":"5047b3acd0:9","text":"__Pref"}
+{"item_id":"5047b3acd0:10","text":"attribute，因为我在从 Houdini export 之前忘记正确添加它。"}
+{"item_id":"5047b3acd0:11","text":"__Pref"}
+{"item_id":"5047b3acd0:12","text":"在 post 中做 localized grading 时非常 handy；在包含的 Katana scene 中，你将能更深入了解这些 attributes 以及它们的 contributions。"}

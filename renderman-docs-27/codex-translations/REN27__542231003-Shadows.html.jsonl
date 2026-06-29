@@ -1,0 +1,42 @@
+{"item_id":"152f5d2724:0","text":"Shadows（阴影）在图像中传达大量信息。从一天中的时间到场景中有多少灯光，都可以从阴影中推断出来。来自间接照明的柔和阴影，以及来自画面外对象的阴影，也可以令人愉悦并显得真实。下面的指南说明 RenderMan 中阴影的工作方式，以及阴影类型和质量。"}
+{"item_id":"152f5d2724:1","text":"RenderMan 生成的阴影类型基于"}
+{"item_id":"152f5d2724:2","text":"灯光"}
+{"item_id":"152f5d2724:3","text":"中的控制项，以及"}
+{"item_id":"152f5d2724:4","text":"积分器"}
+{"item_id":"152f5d2724:5","text":"可用的功能。除以下说明外，还需要知道阴影柔和度由光源尺寸（或 HDRI 中的表观尺寸）控制。更大的光源会产生更柔和的阴影。"}
+{"item_id":"152f5d2724:6","text":"Thin Shadows"}
+{"item_id":"152f5d2724:7","text":"通常用户会使用"}
+{"item_id":"152f5d2724:8","text":"PxrPathTracer"}
+{"item_id":"152f5d2724:9","text":"Integrator 以及默认灯光设置 \"Thin Shadow\" 进行渲染。这个组合可以为 transparent/refractive（透明/折射）对象快速生成较为可信的图像。它也会遵循对象颜色，例如透明红玻璃或绿色祖母绿等。你可以为了艺术指导调整阴影，包括阴影颜色、距离、衰减和 gamma（示例见各灯光页面）。"}
+{"item_id":"152f5d2724:10","text":"如果要在灯光上禁用"}
+{"item_id":"152f5d2724:11","text":"Thin Shadows"}
+{"item_id":"152f5d2724:12","text":"并选择"}
+{"item_id":"152f5d2724:13","text":"Trace Light Paths"}
+{"item_id":"152f5d2724:14","text":"，再使用 PxrPathTracer 渲染，就会看到实心阴影。"}
+{"item_id":"152f5d2724:15","text":"此时积分器会渲染物理正确的阴影，但 PxrPathTracer 默认不会生成光子，因此若仅使用"}
+{"item_id":"152f5d2724:16","text":"Allow Caustics"}
+{"item_id":"152f5d2724:17","text":"来解析会非常困难，如下所示。"}
+{"item_id":"152f5d2724:18","text":"Trace Light Paths"}
+{"item_id":"152f5d2724:19","text":"在灯光上使用"}
+{"item_id":"152f5d2724:20","text":"Trace Light Paths"}
+{"item_id":"152f5d2724:21","text":"时，应将它与"}
+{"item_id":"152f5d2724:22","text":"PxrVCM"}
+{"item_id":"152f5d2724:23","text":"或 PxrUnified 积分器配合，并有选择地启用这个参数来为真实阴影生成光子。下面的 dome light 正在使用 Trace Light Paths。"}
+{"item_id":"152f5d2724:24","text":"为焦散追踪光子可能非常昂贵，也很难进行艺术指导。在某些情况下，主角对象可能得不到足够的光子，因为光子会散射到整个场景中。其他时候，它可能进入非常明亮的灯光路径，突然使焦散散布到整个场景中，从而造成干扰。通过有选择地决定哪些灯光使用 Trace Light Paths，艺术家可以更好地指导他们希望光子出现的位置以及强度。"}
+{"item_id":"152f5d2724:25","text":"PxrVCM 和 PxrUnified 积分器还提供"}
+{"item_id":"152f5d2724:26","text":"Guiding"}
+{"item_id":"152f5d2724:27","text":"参数，允许艺术家指定希望在场景中集中光子的位置。这个参数可能会让"}
+{"item_id":"152f5d2724:28","text":"渲染产生 bias（偏差）"}
+{"item_id":"152f5d2724:29","text":"（使其在物理上不正确），但用于艺术指导时，它可以显著改善收敛。下面两张图都使用 32 个采样。注意左图收敛程度低得多：Photon Guiding 设为 0.00；右图使用玻璃包围盒信息作为 Photon Guiding BBox，并将 Photon Guiding 设为 0.900。"}
+{"item_id":"152f5d2724:30","text":"场景由 Julien Duval 提供。"}
+{"item_id":"152f5d2724:31","text":"The Manifold Walk"}
+{"item_id":"152f5d2724:32","text":"PxrUnified 提供一种新颖方式，可以使用"}
+{"item_id":"152f5d2724:33","text":"Manifold Walk"}
+{"item_id":"152f5d2724:34","text":"技术选择性地生成焦散。"}
+{"item_id":"152f5d2724:35","text":"Shadow Falloff 技巧"}
+{"item_id":"152f5d2724:36","text":"使用某些灯光时，你可能会想调整 Shadow Falloff 参数。在很多情况下，这纯粹是艺术手法，但对于"}
+{"item_id":"152f5d2724:37","text":"PxrDomeLight"}
+{"item_id":"152f5d2724:38","text":"它可以作为快速室内渲染的实用技巧。由于它作为整体环境光工作，你可以降低 Shadow Falloff（基于场景范围）让更多光线进入室内，其效果可能类似 ambient occlusion（环境光遮蔽）。下面是一些示例。注意图像右侧的阴影如何直接消失。"}
+{"item_id":"152f5d2724:39","text":"默认设置下的典型渲染，没有 falloff 或 portal lights（门户灯）"}
+{"item_id":"152f5d2724:40","text":"Shadow Falloff 设为 500 个单位"}
+{"item_id":"152f5d2724:41","text":"Shadow Falloff 设为 50 个单位"}

@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Texture Manager</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Texture Manager</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFM27/544541201/Texture+Manager">https://rmanwiki-27.pixar.com/space/RFM27/544541201/Texture+Manager</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>The Texture Manager has one simple role: convert images to RenderMan's texture format, using OpenImageIO or <a href="/wiki/spaces/REN26/pages/19661963/txmake" data-linked-resource-id="19661963" data-linked-resource-version="4" data-linked-resource-type="page">txmake</a>. It handles single images as well as texture atlases (UDIM, Mudbox, ZBrush).</p><h2 id="TextureManager-Userinterface">User interface</h2><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Group 1.png" width="1071" loading="lazy" src="../../attachments/544541201/Group 1.png" data-image-src="../../attachments/544541201/Group 1.png" data-height="625" data-width="1397" data-unresolved-comment-count="0" data-linked-resource-id="546799697" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Group 1.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544541201" data-linked-resource-container-version="10" data-media-id="d2a2c07e-efa4-4690-8d17-b21961b2a659" data-media-type="file"></span><p /><p>When you open a new scene, the Texture Manager will find all images used as textures and add them to a queue to convert them. The conversion settings will be based on a set of rules defined in a <a href="544541201-Texture Manager.html" rel="nofollow">json file</a> (see below). Use the Settings pane to modify the settings for the currently selected image(s), then the Apply button to re-convert the image(s) with the new settings.</p><p>Just press <strong>Parse Scene</strong> whenever you want new textures to be converted. <strong>Pick Images</strong> and <strong>Pick Directories</strong> allow you to pre-convert images without having to know how to use OpenImageIO or <a class="external-link" href="../REN27/542236544-txmake.html" rel="nofollow">txmake</a>.</p><h3 id="TextureManager-Stop/Starttheconversionqueue">Stop / Start the conversion queue</h3><p>By default, the conversion queue is always running, but sometimes you may want to stop the conversion process.</p><p>The conversion queue can be stopped and restarted by clicking on the icon on the right of the progress bar. When the queue is stopped, the running worker processes are immediately killed but existing textures are intact. When you restart, it pick up where it left.</p><h3 id="TextureManager-Conversioninformation">Conversion information</h3><p>There is a disk usage and progress indicator at the bottom of the Texture Manager window.</p><p>Each file in the list also has a status icon.</p><h3 id="TextureManager-InteractiveversusBatchrendering">Interactive versus Batch rendering</h3><ul><li><p>During interactive renders, the texture manager will add new textures to the queue and return a temporary texture until the conversion is done. Once done, it will send an update to the renderer and your texture will appear.</p></li><li><p>When you start a <strong>Batch</strong> or a <strong>Preview</strong> render, you need all your textures to be converted first. Starting with 22.3, RfM will stop the conversion queue and add any remaining conversion task to the LocalQueue or Tractor job to ensure you always get the expected image.</p></li></ul><h2 id="TextureManager-Settings">Settings</h2><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="900" loading="lazy" src="../../attachments/544541201/txmanager_prefs.png" data-image-src="../../attachments/544541201/txmanager_prefs.png" data-height="483" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="544541229" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="txmanager_prefs.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544541201" data-linked-resource-container-version="10" data-media-id="c0d4641e-9132-4a56-a950-088af58d3982" data-media-type="file"></span><p><strong>Backend</strong>: OpenImageIO will use the OpenImageIO library for texture conversion, launching rmanoiiotool processes. Legacy will use RenderMan’s txmake processes. This change will take effect after Maya is restarted.</p><p><strong>Number of processes</strong>: How many worker processes will be launched at the same time. The default is 2 but it is often beneficial to add more processes to speed up the queue.</p><p><strong>Fallback Texture Path</strong>: By default, the texture manager saves the texture next to the source image. If, for any reason, it is impossible to save in that directory, the fallback texture path will be used.</p><p><strong>Always Fallback</strong>: Always save converted textures in the fallback texture directory.</p><p><strong>Show Advanced Options</strong>: Show more advanced options in the user interface.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="900" loading="lazy" src="../../attachments/544541201/txmanager_extraSettings.png" data-image-src="../../attachments/544541201/txmanager_extraSettings.png" data-height="391" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="544541226" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="txmanager_extraSettings.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544541201" data-linked-resource-container-version="10" data-media-id="c7d562fa-7731-46a7-b40f-ae2066fdd7f0" data-media-type="file"></span><p><strong>Texture extensions</strong>: All texture file extensions so the texture manage knows which files can be marked as already converted.</p><h2 id="TextureManager-txmakeconfigTextureManagerConfiguration"><span class="confluence-anchor-link conf-macro output-inline" data-hasbody="false" data-local-id="a7a2f58c-12b9-45e4-a3ef-2c6403f1cdfd" data-macro-id="30013bc6-1e66-41b4-991d-a45d561dd2f8" data-macro-name="anchor" id="TextureManager-txmakeconfig"><span class="confluence-anchor-link" id="txmakeconfig"> </span></span>Texture Manager Configuration</h2><p>The texture manager uses a set of rules to choose optimal OpenImageIO/txmake parameters based on:</p><ul><li><p>The type of node using the texture: <code>pattern</code>, <code>light</code>, <code>lightfilter</code> or <code>imageplane</code>.</p></li><li><p>A set of base parameters for that type of node</p></li><li><p>one or more rules to modify the base parameters when considering the file's name, the bit depth, etc.</p></li></ul><p>Custom settings can be defined by the <a class="external-link" href="../REN27/542236770-Custom OCIO Config.html" rel="nofollow">ocio configuration</a>.</p><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="d7a511fe-25f5-4fa0-9058-3eb75783502c" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>The default rules are built for efficiency and you shouldn't have to modify them unless you have specific pipeline requirements</p></div></div><p />
+  </article>
+</main>
+</body>
+</html>

@@ -1,0 +1,32 @@
+{"id":"c62c8ea7557face7a8fb1c808cc47d8eb14b741e50bd830ecee9a021cc8e6a51","text":"XPU 尚不支持 intersection priority（交点优先级）。"}
+{"id":"b4958139fde1fac4014285b22dbbb22c3888e2ab5cec059fe70727471cd06535","text":"渲染折射对象时，需要特别注意界面（对象彼此接触的位置）。设置不佳可能显示空气间隙、颜色错误等伪影，或者在使用焦散时得到错误结果。当你渲染玻璃中的液体、香槟或冰块中的气泡，或复杂流体模拟时，就需要考虑这种工作流程。"}
+{"id":"adf7eb3453d2b45f71574a56fe701ffdb67985de4cba8f7fe41147c7fb208663","text":"通常，用户会通过创建布尔操作来建模这类对象，使这些表面不会真正彼此接触；它们要么存在其一，要么存在另一方，不会同时存在。这样设置可能很复杂，而当尝试用流动水体这样的模拟来实现这种效果时，几乎不可能。因此在 RenderMan 中，可以向 shape 添加一个名为"}
+{"id":"85d8f09fd233af058023502404c6b799087716c5bd55579ad4e6df5c3001020e","text":"Intersection Priority。"}
+{"id":"83fde434bb774eb3d3bdc2d09d32a102ac0f4d52fd82bf70ac44feac4b9c520f","text":"它是一个简单数值，用来指定优先级；数值越高，优先级越高。"}
+{"id":"080b17fa23f2b4872a5b9e0ae76320a79c561a5606fb316b6ee66217bc22a0b4","text":"可以在这里找到该主题的论文："}
+{"id":"360d6a8efe2ee7a9c74d225cdf952b09e21ebcab3b1bddb678089ee4e2432ba3","text":"Charles M Schmidt、Brian Budge。"}
+{"id":"b4f2e5f344b55d3932c88d98b2a9be0da61a403fba26e0cd5e7b403a364e3d52","text":"Simple Nested Dielectrics in Ray Traced Images"}
+{"id":"035bc0c423fe6c052ef939e373711e5966c9d766549352ef083eb3a12b6cb801","text":"我们会缓存材质中设置的 IOR，用它确定光线弯折；你可以用属性覆盖此值，也可以让材质自行设置。"}
+{"id":"bf6769cc471ae6a720b4c02b78fb8a82733e8309a4c768bed111e86df212cc09","text":"下面是几种不同解决方案的示例。"}
+{"id":"ba744794fc56e839d5e3c6e1f9fd7891b458a7bc5fa311b6cd742b6ca60a8669","text":"从左到右：使用 intersection priority（交点优先级）和重叠；液体与玻璃重叠；玻璃与液体相接；液体略小于玻璃"}
+{"id":"75ce5fa7e6b7239e065b0f035af1f78e64bfedf59ae94e8175be015ba960b159","text":"为了更好地理解液体放置方式，下面用玻璃横截面展示了几种可能选项。"}
+{"id":"91c07239f6f85d6cff73a195a2c5d66b6e92f8c76c6558e84ae9574ddc88cffe","text":"Coincident（重合）"}
+{"id":"1d39c8bcfa9a27558b16901a51be347114311f688ddfc1fc7ff83b0dbe6c11ae","text":"- 这种方式中，表面完全相接。注意同一位置上的着色点彼此争抢时产生的噪点伪影。"}
+{"id":"33435b9713584d37a9f446dba53b65844bbaaa56ca2a581b010dc272074bb1ca","text":"Shrink（收缩）"}
+{"id":"f5170539362d9506115ebf8e3c20b50a6bde394e8cc058b6ddfafc7ca2e6ca4f","text":"- 这个示例将玻璃内部的液体略微缩小，但会产生空气间隙。"}
+{"id":"fd70ea6062fa49a8dd4e8d1f484abc508f85892d7bd92d099d5b7205c0035c41","text":"Intersecting/Overlapping（相交/重叠）"}
+{"id":"3be413994eba38ad3b8de776f6391ab2c5ee11ba9e77303e175ab165db7c00e7","text":"- 这是避免问题的最佳放置方式，但需要向渲染器提供更好的提示，说明它们具有不同优先级。"}
+{"id":"8d52234fb66afe3fcc86e50377743ba93a52c2e86d89c31aa6a7c2b9339a0e2a","text":"RenderMan 的 intersection priority（交点优先级）和 IOR 假定模型按体积方式构建（没有二维对象），并使用朝外法线。"}
+{"id":"37561ce00f640467e0bc4eecf2350d7371a2f1495aaf163eb56c6525546e8421","text":"在上面的示例中，重叠的液体和玻璃最接近正确方法：使用重叠，同时将"}
+{"id":"1ddd722b9bade028bafa5efdd45cb557c791e1150aa7076a014a1ad814ce3925","text":"Intersection Priority"}
+{"id":"7fda4ddaca2dc7428f578061ee364a9fbbb240e76734617b4d7431aea27a6989","text":"添加到玻璃和液体 shape 上。注意液体颜色的变化，以及它捕捉光线和折射的效果好了多少。玻璃的"}
+{"id":"a36f76a11c8ca22431a7166b20fc1fbb076bda01664fde4bab414c9372fbc3d8","text":"为 1，而液体为 2。如果加入冰块，则冰块为 3。"}
+{"id":"6b96e22f2eae5f8385f0724bed2b6d9a07439e3747a2b89bce8db1c8706caab1","text":"在某些情况下，你可能会在几何体重叠处看到一条很细的暗线。要解决这个问题，可以创建一个"}
+{"id":"a4903703fa694ed085a5223fea6a50de07801b38163e8ab98c6da5408036fcbd","text":"Trace Bias"}
+{"id":"5509ffe8e783e2299bae9bed77e4783cea514806de363ff8bc218df710fc677c","text":"属性并添加到 glass shape 上。默认值为 0.0001，但可以用非常小的增量提高，直到伪影消失。请注意，"}
+{"id":"0468dbf379f14d831bf6c69878145a045cff0b282e474e3445ddf64730be720b","text":"Trace Auto Bias"}
+{"id":"54e617b3292ac0c2d88a3168333d6b92a68bbff140db5bc0cb0e3e946e0492e1","text":"的属性必须添加到对象并关闭，手动 trace bias 设置才会生效，除非"}
+{"id":"e1591a8349c43cf81e6f0975294b1b733086c3b22ec0a1e0cf01fce2d7652199","text":"global setting"}
+{"id":"10c22bcf4c768b515be4e94bcafc71bf3e8fb5f70b2584bcc8c7533217f2e7f9","text":"中的"}
+{"id":"9c6bbe28357741bb7f055f8805cf478736a2eb3a11abd3d0b0707ee05aa635c6","text":"已经关闭。"}
+{"id":"4a1e01785eb8994c3c2bfa9365db76a555cccebd79b73e7ceba2f87c62336a4f","text":"玻璃场景由 Julien Duval 提供。"}

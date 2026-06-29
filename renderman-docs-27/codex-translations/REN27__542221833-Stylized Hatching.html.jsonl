@@ -1,0 +1,210 @@
+{"item_id": "16e9375358:0", "text": "Stylized Hatching 主要发生在一个 DisplayFilter 节点中，并可通过 PxrStylizedControl 获取逐对象的可选信息。"}
+{"item_id": "16e9375358:1", "text": "它可以单独用于简单、酷炫的风格，也可以与其他 Hatching 节点或 Toon & Lines 节点组合（串联）。将 Hatching 与其他 Stylized 节点串联时，理想顺序是先 Hatching，再把 Lines 叠在上面。你可以组合多个 Hatching，并使用节点上的 Mask/Input Mask 功能，根据不同输入信号（光源、摄像机范围，等等）把它们遮罩在一起。"}
+{"item_id": "16e9375358:4", "text": "- 关闭此节点；如果前面已连接另一个 DisplayFilter，则显示该串联链之前的 beauty，否则在没有其他 DisplayFilter 节点连接时显示常规 beauty 渲染。"}
+{"item_id": "16e9375358:5", "text": "Hatching On Color"}
+{"item_id": "16e9375358:6", "text": "- 忽略 base color 的 albedo color，改为对所有对象使用给定颜色。"}
+{"item_id": "16e9375358:7", "text": "Hatch On Color - 对所有对象使用此颜色。"}
+{"item_id": "16e9375358:8", "text": "Hatch On Background - 使用背景颜色或纹理作为对象的 albedo color。如果有运动，纹理会游移。"}
+{"item_id": "16e9375358:9", "text": "Add Spec - 将 specular contribution 添加到排线"}
+{"item_id": "16e9375358:10", "text": "Hatching Comp"}
+{"item_id": "16e9375358:11", "text": "- 自动合成，将排线添加到上一个 beauty"}
+{"item_id": "16e9375358:12", "text": "Hatching Blend"}
+{"item_id": "16e9375358:13", "text": "- 灰度显示，仅显示排线纹理混合（如果显示为红色，说明排线纹理需要是 3 色 RGB，而不是单通道 float）"}
+{"item_id": "16e9375358:14", "text": "Signal Luminance"}
+{"item_id": "16e9375358:15", "text": "- 用于将颜色转换为灰度的正确 RGB 权重；目前未在任何模式中使用，只作为 visualizer"}
+{"item_id": "16e9375358:16", "text": "Signal Energy"}
+{"item_id": "16e9375358:17", "text": "- 此节点创建并用于混合排线的内部 white shader pass"}
+{"item_id": "16e9375358:18", "text": "Triplanar Test Colors"}
+{"item_id": "16e9375358:19", "text": "- 使用纯色预览 triplanar 混合"}
+{"item_id": "16e9375358:20", "text": "Input Page"}
+{"item_id": "16e9375358:21", "text": "Signal"}
+{"item_id": "16e9375358:22", "text": "用于驱动排线 Signal 的 color AOV 名称。通常是 diffuse；也可以在这里放入任何 light AOV。此 AOV 必须在 Maya/Katana/Houdini 中设置，否则 DisplayFilter 会退出。"}
+{"item_id": "16e9375358:118", "text": "Mode"}
+{"item_id": "16e9375358:24", "text": "在底层，会基于 Signal AOV 创建一个白色 shader 近似来驱动 Hatching。"}
+{"item_id": "16e9375358:25", "text": "mono"}
+{"item_id": "16e9375358:26", "text": "- 单通道"}
+{"item_id": "16e9375358:27", "text": "average"}
+{"item_id": "16e9375358:28", "text": "- Signal AOV 的 RGB 分量平均值"}
+{"item_id": "16e9375358:29", "text": "Div Albedo AOV"}
+{"item_id": "16e9375358:30", "text": "- 用 NPRalbedo AOV 或 albedo AOV 中的纯 albedo，去除 Signal AOV 光照结果中的 albedo 分量"}
+{"item_id": "16e9375358:31", "text": "Div NPRalbedo AOV"}
+{"item_id": "16e9375358:32", "text": "- 用 NPRalbedo AOV 或 albedo AOV 中的纯 albedo，去除 Signal AOV 光照结果中的 albedo 分量。必须在 PxrStylizedControl Pattern 节点中设置 Albedo Color。"}
+{"item_id": "16e9375358:33", "text": "Invert Signal"}
+{"item_id": "16e9375358:34", "text": "反转灰度输入 Signal。见"}
+{"item_id": "16e9375358:37", "text": "Override Signal by Camera Range"}
+{"item_id": "16e9375358:38", "text": "不读取 Input Signal，而是替换为 Camera Range。见"}
+{"item_id": "16e9375358:40", "text": "在 Maya 中和"}
+{"item_id": "16e9375358:43", "text": "Camera Range Page"}
+{"item_id": "16e9375358:44", "text": "Camera Range Mask Switch"}
+{"item_id": "16e9375358:45", "text": "按下面 Z_min 和 Z_max 定义的 Camera Range 遮罩常规排线（当 Visualizer 为 Hatching On Color、Hatching Final 时）"}
+{"item_id": "16e9375358:46", "text": "Z Depth Mode"}
+{"item_id": "16e9375358:47", "text": "来自这 2 个源的 Z depth 数据略有不同"}
+{"item_id": "16e9375358:48", "text": "Cam Dist Z Min"}
+{"item_id": "16e9375358:49", "text": "Z 上的 Linstep Min（来自 lineNZ 的蓝色通道）"}
+{"item_id": "16e9375358:50", "text": "Cam Dist Z Max"}
+{"item_id": "16e9375358:51", "text": "Z 上的 Linstep Max（来自 lineNZ 的蓝色通道）"}
+{"item_id": "16e9375358:52", "text": "Remap Spline Swatch Select 用于使用下面的 Ramp spline"}
+{"item_id": "16e9375358:53", "text": "Flip Min Max"}
+{"item_id": "16e9375358:54", "text": "Flip Min with Max"}
+{"item_id": "16e9375358:55", "text": "Z Min Hatch Frequency"}
+{"item_id": "16e9375358:56", "text": "Cam Dist Z Min 处的 Frequency"}
+{"item_id": "16e9375358:57", "text": "Z Max Hatch Frequency"}
+{"item_id": "16e9375358:58", "text": "Cam Dist Z Max 处的 Frequency"}
+{"item_id": "16e9375358:59", "text": "Input Remap Page"}
+{"item_id": "16e9375358:61", "text": "对传入 Signal 预先应用 gain（来自 Input/Signal）"}
+{"item_id": "16e9375358:63", "text": "对传入 Signal 预先应用 gamma（来自 Input/Signal）"}
+{"item_id": "16e9375358:64", "text": "Enable Ramp"}
+{"item_id": "16e9375358:65", "text": "使用下面的 float spline ramp"}
+{"item_id": "16e9375358:66", "text": "Ramp"}
+{"item_id": "16e9375358:67", "text": "使用下面的 float spline ramp，在 Gain & Gamma 之后重映射传入的 Input/Signal"}
+{"item_id": "16e9375358:68", "text": "Hatching Projection Page"}
+{"item_id": "16e9375358:121", "text": "Frequency"}
+{"item_id": "16e9375358:70", "text": "数值越高，Frequency 越高。对于"}
+{"item_id": "16e9375358:72", "text": "从 1 开始。对于"}
+{"item_id": "16e9375358:78", "text": "Triplanar"}
+{"item_id": "16e9375358:74", "text": "从 0.005 开始。"}
+{"item_id": "16e9375358:75", "text": "Projection"}
+{"item_id": "16e9375358:77", "text": "- 使用 “Screen” 或 “NDC” 坐标来投影 Hatching 纹理。动画和摄像机移动时纹理会游移。非常适合静帧或不运动的几何体。"}
+{"item_id": "16e9375358:79", "text": "- 从 NPRPtriplanar 与 NPRNtriplanar AOV 创建三平面投影（由 PxrStylizedControl 写出）。"}
+{"item_id": "16e9375358:80", "text": "NPRtexture Coords AOV"}
+{"item_id": "16e9375358:81", "text": "- 使用 NPRtextureCoords AOV 的 RED 与 GREEN 通道中的 XY 坐标（在 PxrStylizedControl 中设置）。这便于用户设置任何自定义坐标系统，例如摄像机投影。"}
+{"item_id": "16e9375358:82", "text": "Flip"}
+{"item_id": "16e9375358:83", "text": "使用 Triplanar Projection 时，在 “t” 方向翻转纹理"}
+{"item_id": "16e9375358:95", "text": "Triplanar P"}
+{"item_id": "16e9375358:85", "text": "NPRPtriplanar -"}
+{"item_id": "16e9375358:86", "text": "使用 NPRPtriplanar AOV（由 PxrStylizedControl 设置）。默认情况下这是 object space 中的 P。"}
+{"item_id": "16e9375358:87", "text": "P -"}
+{"item_id": "16e9375358:88", "text": "使用 factory P AOV"}
+{"item_id": "16e9375358:89", "text": "__Pref -"}
+{"item_id": "16e9375358:90", "text": "使用 __Pref AOV。必须在 DCC（Maya/Houdini/Katana）中作为 “rest position” 设置，并创建该 AOV。"}
+{"item_id": "16e9375358:112", "text": "aov"}
+{"item_id": "16e9375358:92", "text": "- 要用于 P 的 triplanar 混合的自定义 color AOV 名称。如果设置为 “NPRPtriplanar”：需要将 PxrManifold3d 插入 PxrStylizedControl 节点，以提供自定义坐标系统。也可以是 factory “P”、“__Pref”、“Pworld”，前提是这些 AOV 已设置。"}
+{"item_id": "16e9375358:93", "text": "Triplanar P String"}
+{"id": "899917ebcc54814805661cb8c34fba7e2c739cdc950fec3f983d1e19c4424003", "text": "条件可见性：当"}
+{"item_id": "16e9375358:109", "text": "条件可见性：当"}
+{"id": "fb63e99a8d1faf6e9a93679c3f833e6a05c46da1b6fe181ada890b1d7e2d37d6", "text": "设为"}
+{"item_id": "16e9375358:146", "text": "设为"}
+{"item_id": "16e9375358:98", "text": "时，P 的 triplanar 混合使用的 color AOV 名称。如果设置为 “NPRPtriplanar”：需要将 PxrManifold3d 插入 PxrStylizedControl 节点，以提供自定义坐标系统。也可以是 factory “P”、“__Pref”、“Pworld”，前提是这些 AOV 已设置。"}
+{"item_id": "16e9375358:110", "text": "Triplanar N"}
+{"item_id": "16e9375358:100", "text": "NPRNtriplanar -"}
+{"item_id": "16e9375358:101", "text": "使用 NPRNtriplanar AOV（由 PxrStylizedControl 设置）"}
+{"item_id": "16e9375358:102", "text": "Nn -"}
+{"item_id": "16e9375358:103", "text": "使用 factory surface normal N AOV"}
+{"item_id": "16e9375358:104", "text": "__Nref -"}
+{"item_id": "16e9375358:105", "text": "使用 __Nref AOV。必须在 DCC（Maya/Houdini/Katana）中作为 “rest position” 设置，并创建该 AOV。"}
+{"item_id": "16e9375358:107", "text": "- 要用于 N 的 triplanar 混合的自定义 color AOV 名称。如果设置为 “NPRNtriplanar”：需要将 PxrManifold3d 插入 PxrStylizedControl 节点，以提供自定义坐标系统。也可以是 factory “N”、“__Nref”，前提是这些 AOV 已设置。"}
+{"item_id": "16e9375358:108", "text": "Triplanar N String"}
+{"item_id": "16e9375358:113", "text": "时，N 的 triplanar 混合使用的 color AOV 名称。如果设置为 “NPRNtriplanar”：需要将 PxrManifold3d 插入 PxrStylizedControl 节点，以提供自定义坐标系统。也可以是 factory “N”、“__Nref”，前提是这些 AOV 已设置。"}
+{"item_id": "16e9375358:114", "text": "您的浏览器不支持 HTML5 视频元素"}
+{"item_id": "16e9375358:115", "text": "在上方视频中，左侧列 N 显示由于对象变形，纹理在 triplanar Normal mask 中游移。右侧列 __Nref 显示变形几何体表面上的原始 N，因此即使面朝向不同方向，纹理仍保持一致。排线纹理只会在对象进入或离开阴影时发生变化，因为排线基于光照。"}
+{"item_id": "16e9375358:116", "text": "Triplanar Blending"}
+{"item_id": "16e9375358:117", "text": "值为 0 表示没有混合，逐渐到 1 表示完全混合。"}
+{"item_id": "16e9375358:119", "text": "1 value -"}
+{"item_id": "16e9375358:120", "text": "所有排线纹理使用 1 个 Frequency。使用"}
+{"item_id": "16e9375358:122", "text": "上方参数。"}
+{"item_id": "16e9375358:123", "text": "8 values -"}
+{"item_id": "16e9375358:124", "text": "8 个不同 Frequency，分别用于每个单独的排线纹理，以获得自定义结果"}
+{"item_id": "16e9375358:125", "text": "Camdist Range -"}
+{"item_id": "16e9375358:126", "text": "使用摄像机距离驱动排线纹理的 Frequency"}
+{"item_id": "16e9375358:127", "text": "Light Signal Range -"}
+{"item_id": "16e9375358:128", "text": "使用 Input/Signal 驱动排线的 Frequency"}
+{"item_id": "16e9375358:129", "text": "Hatching Freq Tex 1 - Tex 8"}
+{"item_id": "16e9375358:130", "text": "条件可见性：当"}
+{"item_id": "16e9375358:131", "text": "Mode = 8 values"}
+{"item_id": "16e9375358:132", "text": "时，纹理 1-8 的排线 Frequency。每个纹理都可以有自己的 Frequency。对于 Screen 从 1 开始。对于 Triplanar 从 0.005 开始。"}
+{"item_id": "16e9375358:133", "text": "Hatch Tex Color Mix"}
+{"item_id": "16e9375358:134", "text": "从预定义集合中选择一组协调的排线纹理。也可以指定你自己的自定义纹理集目录名（会展开为 dirname/dirname-01.tex 等）。或者分别选择 8 个单独纹理。"}
+{"item_id": "16e9375358:135", "text": "Hatching Color Page"}
+{"item_id": "16e9375358:140", "text": "Color From"}
+{"item_id": "16e9375358:137", "text": "选择哪个 AOV 决定排线的着色"}
+{"item_id": "16e9375358:139", "text": "排线颜色，当"}
+{"item_id": "16e9375358:141", "text": "为"}
+{"item_id": "16e9375358:142", "text": "Color Swatch"}
+{"item_id": "16e9375358:147", "text": "Hatch On Color"}
+{"item_id": "16e9375358:144", "text": "用于在纹理背后承载排线的底色 Color。仅当"}
+{"item_id": "16e9375358:149", "text": "Hatching Canvas Page"}
+{"item_id": "16e9375358:150", "text": "Enable"}
+{"item_id": "16e9375358:151", "text": "开启 Canvas mode 的开关"}
+{"item_id": "16e9375358:153", "text": "alpha 外部的背景或 “paper” 颜色"}
+{"item_id": "16e9375358:155", "text": "提供背景 “paper” 纹理。如果留空，则自动使用 Canvas Color。"}
+{"item_id": "16e9375358:156", "text": "Hatching Textures Page"}
+{"item_id": "16e9375358:157", "text": "Type"}
+{"item_id": "16e9375358:158", "text": "Standard -"}
+{"item_id": "16e9375358:159", "text": "从多个随附预设中选择排线"}
+{"item_id": "16e9375358:160", "text": "Custom -"}
+{"item_id": "16e9375358:161", "text": "提供你自己的包含 8 个纹理的目录（必须命名为"}
+{"item_id": "16e9375358:162", "text": "pxrStylized-customname-01.tex"}
+{"item_id": "16e9375358:163", "text": "）。示例请见："}
+{"item_id": "16e9375358:164", "text": "C:\\Program Files\\Pixar\\RenderManProServer-25.0\\lib\\textures\\StylizedLooks\\"}
+{"item_id": "16e9375358:165", "text": "Individual -"}
+{"item_id": "16e9375358:166", "text": "提供你自己的独立纹理，使用"}
+{"item_id": "16e9375358:167", "text": ".tex"}
+{"item_id": "16e9375358:168", "text": "格式"}
+{"item_id": "16e9375358:169", "text": "Texture Set"}
+{"item_id": "16e9375358:170", "text": "从多个预设中选择排线"}
+{"item_id": "16e9375358:171", "text": "Toon Mode"}
+{"item_id": "16e9375358:172", "text": "自动用平面颜色替换纹理，以获得卡通赛璐璐外观。仍使用所有混合重映射设置来分布平面颜色。忽略纹理。"}
+{"item_id": "16e9375358:173", "text": "Progressive"}
+{"item_id": "16e9375358:174", "text": "如果纹理最初不是这样创建的，则把纹理彼此叠加合成（每个纹理会逐步添加到前一个纹理上）。在使用"}
+{"item_id": "16e9375358:175", "text": "8-val"}
+{"item_id": "16e9375358:176", "text": "Frequency mode 时很有用。"}
+{"item_id": "16e9375358:177", "text": "Invert"}
+{"item_id": "16e9375358:178", "text": "反转排线纹理查找的渐进顺序。对于 diffuse 信号，通常保持关闭（默认）。"}
+{"item_id": "16e9375358:179", "text": "Blending Page"}
+{"item_id": "16e9375358:180", "text": "Color Blend Signal"}
+{"item_id": "16e9375358:181", "text": "用 RED、ORANGE、YELLOW、GREEN、BLUE、INDIGO、VIOLET、TURQUOISE 替换 tex1-tex8，用于预览混合"}
+{"item_id": "16e9375358:182", "text": "Blending Mode"}
+{"item_id": "16e9375358:183", "text": "在 Mix 与 Weighted 混合之间选择。Mix 会在所有纹理之间自动混合。Weighted 使用自定义加权函数，并带有 Blending Hold 和 Blending Overlap"}
+{"item_id": "16e9375358:184", "text": "First Texture is White"}
+{"item_id": "16e9375358:185", "text": "在最亮的纹理之前，"}
+{"item_id": "16e9375358:186", "text": "tex1"}
+{"item_id": "16e9375358:187", "text": "，添加纯白色"}
+{"item_id": "16e9375358:188", "text": "Last Texture is Black"}
+{"item_id": "16e9375358:189", "text": "在最暗的纹理之后，"}
+{"item_id": "16e9375358:190", "text": "tex8"}
+{"item_id": "16e9375358:191", "text": "，添加纯黑色"}
+{"item_id": "16e9375358:192", "text": "Hold"}
+{"item_id": "16e9375358:193", "text": "大于 0 的值会让每个纹理更加突出"}
+{"item_id": "16e9375358:194", "text": "Overlap"}
+{"item_id": "16e9375358:195", "text": "Bell Curve 加权函数的 Overlap。0.125 是最小值，会混合 2 个纹理；更高的值会混合更多纹理，最多 8 个。"}
+{"item_id": "16e9375358:196", "text": "Output Page"}
+{"item_id": "16e9375358:197", "text": "AOV"}
+{"item_id": "16e9375358:198", "text": "此特定 Hatching 节点使用的 color AOV 名称。默认写入"}
+{"item_id": "16e9375358:199", "text": "GREEN"}
+{"item_id": "16e9375358:200", "text": "通道，位于"}
+{"item_id": "16e9375358:201", "text": "NPRhatchOut"}
+{"item_id": "16e9375358:202", "text": "；用于合成时的额外 AOV 支持。"}
+{"item_id": "16e9375358:203", "text": "Channel"}
+{"item_id": "16e9375358:204", "text": "写入灰度排线输出的 Channel"}
+{"item_id": "16e9375358:205", "text": "Mask Page"}
+{"item_id": "16e9375358:206", "text": "Light Mask Switch"}
+{"item_id": "16e9375358:207", "text": "使用上面 signal_aov_string 中定义的 light aov，作为先前串联的 Stylized shaders 和/或基于物理的照明的遮罩"}
+{"item_id": "16e9375358:208", "text": "Alpha Hatch Switch"}
+{"item_id": "16e9375358:209", "text": "使用 Light Mask 时，排线的黑色区域对先前串联的层或基于物理的层透明"}
+{"item_id": "16e9375358:210", "text": "NPR Mix"}
+{"id": "9450e170e15843c97bc2d9947caacef15b4c2ee367426cd79d390f6b4d03f84d", "text": "0：禁用此 Hatching Node；如果已串联，则显示前一个节点，否则在没有前一个 Stylized Looks 节点时显示原始 beauty。1：显示此节点的完整 Hatching。"}
+{"item_id": "16e9375358:214", "text": "0：禁用此 Hatching Node；如果已串联，则显示前一个节点，否则在没有前一个 Stylized Looks 节点时显示原始 beauty。1：显示此节点的完整 Hatching。"}
+{"item_id": "16e9375358:216", "text": "应用到最终排线的 Gamma；较小数值会提高对比度。可尝试 0.5。"}
+{"item_id": "16e9375358:217", "text": "Hatching Tips"}
+{"id": "6e7d50e84f4731ef74187cf8cfa2672184eed8866b0b0074a772f4a64e0f4ba2", "item_id": "16e9375358:2", "text": "Result（结果）"}
+{"id": "b7e3e4aa4257b9a11a82f59faf34c8450ca10d4116885b0a29fedf60842d81d5", "item_id": "16e9375358:3", "text": "Disable（禁用）"}
+{"id": "5e23ec6a300dc60a79641769017e16e9bf042cbd8fd0a54586a048ab9da972ff", "item_id": "16e9375358:23", "text": "Mode"}
+{"id": "850e76ec03beadce1c7f4c6f2e2d1a82a99d4c2115b666a9a007b75a56252b87", "item_id": "16e9375358:35", "text": "示例演示视频"}
+{"id": "e7ac0786668e0ff0f02b62bd04f45ff636fd82db63b1104601c975dc005f3a67", "item_id": "16e9375358:36", "text": "："}
+{"id": "2a35ee9463d44929a97b6172c4d05540a7c21deb5f145303f8d284d19bbdd440", "item_id": "16e9375358:41", "text": "Katana"}
+{"id": "cdb4ee2aea69cc6a83331bbe96dc2caa9a299d21329efb0336fc02a82e1839a8", "item_id": "16e9375358:42", "text": "。"}
+{"id": "4e125a3ef68a00b029459c9aa8aa94aa07e74cc54188ffef7f60f38f016e61ca", "item_id": "16e9375358:60", "text": "Gain"}
+{"id": "a8ab3d5805c9214bc66b794f599cbccd5a5958dc5a6a322ee81e3a68344c6db7", "item_id": "16e9375358:62", "text": "Gamma"}
+{"id": "16b6668d9831a1b8d2d003496db6a62b7f525df6c556d7c04681fbed2251c845", "item_id": "16e9375358:69", "text": "Frequency"}
+{"id": "6e56137e21d3222a2e3135fc3458286fc3fb6b2e2c679e9ae28db268fe982af7", "item_id": "16e9375358:71", "text": "Screen"}
+{"id": "fd34e978355d8e81a33fc1ad523666d4b93a7ecd36076acc8a86f20692137310", "item_id": "16e9375358:73", "text": "Triplanar"}
+{"id": "a80d58393c48977e23a4c259af93203c8a36e4896a737b66a371117027246b76", "item_id": "16e9375358:84", "text": "Triplanar P"}
+{"id": "6acc035c9ec0bc71c63b8fb0fba411a988d68150bea8c7e361775e97dff84eb8", "item_id": "16e9375358:91", "text": "aov"}
+{"id": "db8d5604010e7a34f7ad8a63b1c61d69ae347396dbdccf8abe4c381538ab3417", "item_id": "16e9375358:99", "text": "Triplanar N"}
+{"id": "ce15c2f5d41387aac89d5b30b247feadf3ef10fefd2b765e158caccf47c06183", "item_id": "16e9375358:136", "text": "Color From"}
+{"id": "6b73191a0a4b67420e61d51c9f207c35277eaf18fbbf5beb52a320a23fe09653", "item_id": "16e9375358:138", "text": "Color"}
+{"id": "fd4680532829c933017955085fd130c51b7682568818cb12c19f56236a5826c0", "item_id": "16e9375358:143", "text": "Hatch On Color"}
+{"id": "5566f1273a5a2c87c24f5b59a74c290e1012df173038e59741f65c2f46941147", "item_id": "16e9375358:152", "text": "Canvas Color"}
+{"id": "19873e306cc63e02c7e831ee0154baebb632c3b233a8569a6c274965c6b02c9a", "item_id": "16e9375358:154", "text": "Canvas Texture"}
+{"id": "d5764c31ff0b6faa4f60837dff874ca6edbb8f0be99cb4ae444c01b68150c254", "item_id": "16e9375358:212", "text": "Compositing Page（合成页面）"}
+{"id": "dce6eb4447ef655f33b7baeb0a16ab3d27257c65bf45f760a44b9bff8d5b6663", "item_id": "16e9375358:213", "text": "Mix"}

@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cryptomatte in Solaris</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Cryptomatte in Solaris</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFH27/544642079/Cryptomatte+in+Solaris">https://rmanwiki-27.pixar.com/space/RFH27/544642079/Cryptomatte+in+Solaris</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-local-id="dfd08e0b4d30" data-macro-id="60a889d6-3dad-4032-a2a4-9458c9fc68fa" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p local-id="5f955a3c1102">Note: Cryptomatte is not currently implemented in XPU / R27 </p></div></div><span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="1591" loading="lazy" src="../../attachments/544642079/RenderMan_Solaris_Cryptomatte_image.jpg" data-image-src="../../attachments/544642079/RenderMan_Solaris_Cryptomatte_image.jpg" data-height="894" data-width="1591" data-unresolved-comment-count="0" data-linked-resource-id="544642098" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Solaris_Cryptomatte_image.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544642079" data-linked-resource-container-version="7" data-media-id="9bd23e3f-74ae-4aa9-a625-8ab96fe776e0" data-media-type="file"></span><p local-id="64ca69dc9d11" /><p local-id="05a8b141c988">Using the <a class="external-link" href="../REN27/542235274-PxrCryptomatte.html" rel="nofollow">PxrCryptomatte </a>workflow, you can output IDs in Solaris for easy selection in a compositing application, which you can then use that selection as a mask to make changes selectively in post-production.</p><p local-id="afa58db079f0">PxrCryptomatte is supplied as a<a class="external-link" href="544642120-Solaris Sample and Display Filters.html" rel="nofollow"> Sample Filter</a> plugin. As such, the output for Cryptomatte is stored as a separate EXR file from your beauty or denoise outputs. Please note an OpenEXR is required to store the values correctly.</p><p local-id="796ecbebbc93" /><hr local-id="a6e5fe8e6df2"/><p local-id="55ac9c5ffdd4">See <a href="/wiki/spaces/RFH27/pages/544642120/Solaris+Sample+and+Display+Filters" data-linked-resource-id="544642120" data-linked-resource-version="6" data-linked-resource-type="page">Solaris Sample and Display Filters</a> to create and assign a PxrCryptomatter sample filter.</p><hr local-id="6af577d3308e"/><p local-id="171b2419fbad">The above example will output a separate Cryptomatte exr file and assign a unique matId for each material in the Solaris scene.<br/><br/>Once rendered, you can then use software like The Foundry's Nuke to isolate a particular material or object in the scene.  In this example, we have selected the back wall in the studio, using the Cryptomatte Nuke Gizmo<br/><br/><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/544642079/RenderMan_Solaris_Cryptomatte_image2.jpg" data-image-src="../../attachments/544642079/RenderMan_Solaris_Cryptomatte_image2.jpg" data-unresolved-comment-count="0" data-linked-resource-id="544642101" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Solaris_Cryptomatte_image2.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544642079" data-linked-resource-container-version="7" data-media-id="972f9cf0-1ef8-4b18-b868-22e96a8ca79b" data-media-type="file"></span><br/><br/><br/>And from there, we can use that output as a mask to drive a ColorCorrect node to gamma-correct that particular part of the image, enabling the foreground elements to stand out further from the background.</p><p local-id="dab73eb48c9e" /><p local-id="2ae775c982c4"><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/544642079/RenderMan_Solaris_Cryptomatte_image3.jpg" data-image-src="../../attachments/544642079/RenderMan_Solaris_Cryptomatte_image3.jpg" data-unresolved-comment-count="0" data-linked-resource-id="544642104" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Solaris_Cryptomatte_image3.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544642079" data-linked-resource-container-version="7" data-media-id="9fba9f65-771a-4dec-96bd-481fe73c7c66" data-media-type="file"></span><br/><br/>More detailed information about the Cryptomatte Sample filter can be found on the dedicated <a class="external-link" href="../REN27/542235274-PxrCryptomatte.html" rel="nofollow">PxrCryptomatte </a>page<br/><br/></p>
+  </article>
+</main>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RenderMan Render Settings</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>RenderMan Render Settings</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFH27/634748959/RenderMan+Render+Settings">https://rmanwiki-27.pixar.com/space/RFH27/634748959/RenderMan+Render+Settings</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>在 USD 中，通常应针对 AOV 使用 <em>Render Var（渲染变量）</em> primitive（图元）进行描述，并将这些 primitive 连接到一个 <em>Render Product（渲染产品）</em> primitive，在其中设置输出图像文件路径以及 display driver（显示驱动）。该 <em>Render Product（渲染产品）</em> primitive 随后必须连接到一个 <em>Render Settings（渲染设置）</em> primitive。请注意， <em>Render Settings（渲染设置）</em> primitive 也可以连接 integrator（积分器）、display filter（显示过滤器）和 sample filter（采样过滤器）。为了快速上手，Pixar 提供 <em>RenderMan Render Settings</em> LOP 节点，用来完成上面提到的全部 primitive 创建和连接。该 <em>RenderMan Render Settings</em> LOP 在内部使用 <em>RenderMan Render Vars</em> LOP，用于快速定义最常见的 RenderMan AOV。 <em>RenderMan Render Vars</em> LOP 也可以单独使用：如果你决定设置 <em>Render Product（渲染产品）</em> 和 <em>Render Settings（渲染设置）</em> primitive，并直接使用 SideFX 的 LOP 节点，而不是使用 <em>RenderMan Render Settings</em> LOP。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="RenderManRenderSettingsLOP.png" width="760" loading="lazy" src="../../attachments/634748959/RenderManRenderSettingsLOP.png" data-image-src="../../attachments/634748959/RenderManRenderSettingsLOP.png" data-height="933" data-width="1250" data-unresolved-comment-count="0" data-linked-resource-id="662503453" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderManRenderSettingsLOP.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="634748959" data-linked-resource-container-version="4" data-media-id="9c935fff-d6ba-4fb6-84d2-2a4e634cbe4f" data-media-type="file"></span><p /><p><strong>Image Settings（图像设置）</strong></p><p>输出图像的渲染设置，例如分辨率以及从哪台相机渲染。</p><p /><p><strong>Render Settings（渲染设置）</strong></p><p>用于设置渲染采样的选项卡</p><p /><p><strong>Render Product（渲染产品）</strong></p><p>用于指定使用哪个 USD Render Product、filename（Render Name）等内容的选项卡</p><p /><p><strong>Render Vars（渲染变量）</strong></p><p>用于设置 AOV 的选项卡</p><p /><p><strong>PxrPathTracer</strong></p><p>Integrator（积分器）设置</p><p /><p><strong>Denoiser（降噪器）</strong></p><p>你可以启用 Interactive Denoiser（交互式降噪器），并配置降噪设置。</p><p /><p>有关 RenderMan 的 Render Settings 的更多信息， <a class="external-link" href="../REN27/542232451-Rendering.html" rel="nofollow">请访问此链接</a></p><p />
+  </article>
+</main>
+</body>
+</html>

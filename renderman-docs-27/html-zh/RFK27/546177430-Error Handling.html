@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Error Handling</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Error Handling</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFK27/546177430/Error+Handling">https://rmanwiki-27.pixar.com/space/RFK27/546177430/Error+Handling</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>在 Katana scenegraph（场景图）遍历期间遇到错误时，RfK 会根据相关场景和/或位置上的具体设置执行 warn（警告）或 abort（中止）。RfK 还允许使用 custom AttributeFunction（自定义 AttributeFunction）覆盖此行为。</p><h3 id="ErrorHandling-KatanaErrorHandling">Katana Error Handling（Katana 错误处理）</h3><p>Katana scenegraph 遍历中的错误会由该位置上的 "errorMessage" 属性表示（来自 Katana 或 scene recipe）。当位置的 "type" 被设置为 "error"，或属性 "errorSeverity" 被设置为 "critical" 时，表示 fatal error（致命错误）。默认情况下，RfK 会跳过错误位置，这可能导致渲染中缺失几何体。如果希望 RfK 在遇到错误位置时中止渲染，可以将 <code>prmanGlobalStatements.errorHandler</code> 设置为 "<code>abortall</code>"。设置此属性后，所有错误位置都会导致渲染中止。不过，如果你希望更精细地控制哪些具体错误应导致 abort（中止），可以添加一个 custom override handler（自定义覆盖处理器）来拦截并重新解释错误位置。可以向 RfK 注入一个 attribute function（属性函数），由它最终决定某个位置错误是否为致命错误。此 attribute function 会在 RfK 完成推导错误致命性的工作后运行，实质上给予作者最终决定权。</p><p>attribute function 会接收位置路径和该位置的属性作为输入，并应返回一个包含整数 "abort" 属性的属性，用于指示是否应终止渲染。</p><p>下面是一个覆盖 attribute function 的示例。通过在 /root 设置以下字符串属性来激活该函数：</p><p><code>&quot;prmanGlobalStatements.plugin.katanaErrorHandlerAttrFncs&quot; = &quot;MyOverrideKatanaErrorHandler&quot;</code></p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="a130be05-5cd7-4d67-8418-b6c66076856f" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: cpp; gutter: false; theme: Confluence" data-theme="Confluence">class MyOverrideKatanaErrorHandlerFnc : public Foundry::Katana::AttributeFunction
+{
+
+public:
+    
+    static FnAttribute::Attribute run(FnAttribute::Attribute args)
+    {
+        FnAttribute::GroupAttribute errorHandlerArgs = args;
+
+        // Incoming arguments include location's attributes and the location path
+        FnAttribute::GroupAttribute locationAttrs = errorHandlerArgs.getChildByName(&quot;attrs&quot;);
+        FnAttribute::StringAttribute pathAttr = errorHandlerArgs.getChildByName(&quot;locationPath&quot;);
+
+        std::string path = pathAttr.getValue(&quot;&quot;, false);
+
+        // Return the integer &quot;abort&quot; attribute true to abort render, false to continue 
+        FnAttribute::GroupBuilder gb;
+		if (dont_want_to_abort_on_error) // for example, if(path == &quot;/root/world&quot;)
+		{
+        	gb.set(&quot;abort&quot;, FnAttribute::IntAttribute(false));
+        }
+		else
+		{
+        	gb.set(&quot;abort&quot;, FnAttribute::IntAttribute(true));
+        }
+		return gb.build();
+    }
+};
+
+DEFINE_ATTRIBUTEFUNCTION_PLUGIN(MyOverrideKatanaErrorHandlerFnc)
+
+void registerMyKatanaOverride()
+{
+    REGISTER_PLUGIN(MyOverrideKatanaErrorHandlerFnc, &quot;MyOverrideKatanaErrorHandler&quot;, 0, 1);
+}</pre>
+</div></div><h3 id="ErrorHandling-RenderManErrorHandling">RenderMan Error Handling（RenderMan 错误处理）</h3><p>RenderMan 中的错误包含 error code（错误代码）和 error message（错误消息）。默认情况下，这些错误会显示在 Render Log 中，但渲染不会终止。可以使用 <code>prmanGlobalStatements.errorHandler</code> PrmanGlobalStatements 中的选项更改此偏好。将该值设置为 "abort" 或 "abortall" 会终止渲染。为了进行更精细的控制，RfK 提供一种机制，可根据具体 error codes 和 error messages 覆盖设置为 abort 或 arbortall 的 errorHander。一个 attribute function 会被注入 prman 的错误处理系统，用于判断某个错误是否应导致渲染终止。</p><p>attribute function 的参数是 error code 和 error message。该函数应返回一个包含整数 "abort" 属性的属性，用于指示是否应终止渲染。</p><p><code>&quot;prmanGlobalStatements.plugin.rendermanErrorHandlerAttrFncs&quot; = &quot;MyOverridePrmanErrorHandler&quot;</code></p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="4c37cb67-189b-4a08-a32f-cae782454ad2" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: cpp; gutter: false; theme: Confluence" data-theme="Confluence">class MyOverridePrmanErrorHandlerFnc : public Foundry::Katana::AttributeFunction
+{
+
+public:
+    
+    static FnAttribute::Attribute run(FnAttribute::Attribute args)
+    {
+        FnAttribute::GroupAttribute errorHandlerArgs = args;
+
+        // Incoming arguments include the error code and error message
+        FnAttribute::StringAttribute errorMessageAttr = errorHandlerArgs.getChildByName(&quot;errorMessage&quot;);
+        FnAttribute::StringAttribute rmanCodeAttr = errorHandlerArgs.getChildByName(&quot;rmanCode&quot;);
+
+        std::string rmanCode = rmanCode.getValue(&quot;&quot;, false);
+
+        // Return the integer &quot;abort&quot; attribute true to abort render, false to continue 
+        FnAttribute::GroupBuilder gb;
+		if (dont_want_to_abort_on_error) // for example, if(rmanCode == &quot;X00002&quot;)
+		{
+        	gb.set(&quot;abort&quot;, FnAttribute::IntAttribute(false));
+        }
+		else
+		{
+        	gb.set(&quot;abort&quot;, FnAttribute::IntAttribute(true));
+        }
+		return gb.build();
+    }
+};
+
+DEFINE_ATTRIBUTEFUNCTION_PLUGIN(MyOverridePrmanErrorHandlerFnc)
+
+void registerMyPrmanOverride()
+{
+    REGISTER_PLUGIN(MyOverridePrmanErrorHandlerFnc, &quot;MyOverridePrmanErrorHandler&quot;, 0, 1);
+}</pre>
+</div></div><p /><p />
+  </article>
+</main>
+</body>
+</html>

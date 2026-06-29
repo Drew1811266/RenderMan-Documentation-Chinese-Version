@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Iridescence Parameters</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Iridescence Parameters</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/REN27/542215885/Iridescence+Parameters">https://rmanwiki-27.pixar.com/space/REN27/542215885/Iridescence+Parameters</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="contentLayout2">
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="5aad5c8f-794f-4da5-bc1d-6db0ca031205" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>在下方参数中，有些参数可在连接到 <a href="542217837-PxrLayer.html" rel="nofollow">PxrLayer</a> 后，通过 <strong>Input Material </strong>被覆盖，或通过 <a href="542218974-PxrLayerMixer.html" rel="nofollow">PxrLayerMixer</a>覆盖。 <a href="542216714-PxrLayerSurface.html" rel="nofollow">PxrLayerSurface</a> 设计用于更清楚地展示哪些参数不能在层中被覆盖：它只包含全局参数。当你确定要进行分层时，建议使用这种材质。这些设置的结果保持不变。</p><ul><li><p><strong>Bold Face</strong> 参数是可分层的，可以按层覆盖。</p></li><li><p><em>Italicized</em> 参数不能分层或覆盖。所有层都会全局遵循这些参数。例如：选择 GGX 作为 Specular 模型时，所有层在该参数上都会使用 GGX。</p></li></ul></div></div><p><span class="confluence-anchor-link conf-macro output-inline" data-hasbody="false" data-local-id="90dbeb50-3a7e-4baf-9e76-ec1f767ba2d8" data-macro-id="145c7799-de1c-43b8-9af9-b7867b46b0c1" data-macro-name="anchor" id="IridescenceParameters-top"><span class="confluence-anchor-link" id="top"> </span></span></p><h3 id="IridescenceParameters-Iridescence">Iridescence</h3><p>Iridescence 是一种视角相关的光散射，会造成颜色偏移。肥皂泡、孔雀羽毛或发亮甲虫上的颜色旋涡都来自同一种效果。“Holographic”或变色涂料也会使用这种效果。</p><p><em>Iridescence Mode</em></p><p>选择要使用的 Iridescence 模式：<strong> Artistic</strong> 或 <strong>Physical</strong>。</p><p>在 <strong>Artistic mode</strong>下，我们只设置 2 种颜色。根据 Iridescence 的缩放因子，会看到 N 条“彩虹”。默认的红色和蓝色适合获得最大的颜色跨度，但你可以通过修改这些默认值减少渲染出的颜色数量。除非另有说明，或正在演示某个 <strong>Artistic</strong> 参数，否则示例使用 <strong>Physical</strong> mode。</p><p>在 <strong>Physical mode</strong>下，我们传入薄膜厚度（纳米）。当物理厚度接近可见光谱时，就会产生 Iridescence 效果。可以从约 800nm 开始增加数值来观察效果。这个选项很好用，因为它减少了需要调节的参数，但代价是灵活性降低。除非另有说明，或正在演示某个 <strong>Artistic</strong> 参数，否则示例使用 <strong>Physical</strong> mode。 <br/><br/>下方为 <strong>Artistic</strong> （左）和 <strong>Physical</strong> （右）模式。</p><p><br/></p></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="463" loading="lazy" src="../../attachments/542215885/rman_pxrsurf_iridArtstMode.jpg" data-image-src="../../attachments/542215885/rman_pxrsurf_iridArtstMode.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215954" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_iridArtstMode.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215885" data-linked-resource-container-version="1" data-media-id="2cb5f273-a4ed-4703-9b98-8431337e3ac7" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="463" loading="lazy" src="../../attachments/542215885/rman_pxrsurf_iridPhysMode.jpg" data-image-src="../../attachments/542215885/rman_pxrsurf_iridPhysMode.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215951" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_iridPhysMode.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215885" data-linked-resource-container-version="1" data-media-id="2635cdaa-f266-4b28-a390-cf764ce76824" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><br/></p><p><strong>Face Gain</strong></p><p>面向角（0 度入射）处的 Iridescence Gain。</p><p><br/></p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="463" loading="lazy" src="../../attachments/542215885/rman_pxrsurf_iridPhys0.jpg" data-image-src="../../attachments/542215885/rman_pxrsurf_iridPhys0.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215960" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_iridPhys0.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215885" data-linked-resource-container-version="1" data-media-id="0947d2c1-68c9-4d70-bc38-99bcce622e56" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="463" loading="lazy" src="../../attachments/542215885/rman_pxrsurf_iridPhys05.jpg" data-image-src="../../attachments/542215885/rman_pxrsurf_iridPhys05.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215963" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_iridPhys05.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215885" data-linked-resource-container-version="1" data-media-id="33b1f6a0-525c-4473-97a2-97c2d0a20d97" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="463" loading="lazy" src="../../attachments/542215885/rman_pxrsurf_iridPhys10.jpg" data-image-src="../../attachments/542215885/rman_pxrsurf_iridPhys10.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215957" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_iridPhys10.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215885" data-linked-resource-container-version="1" data-media-id="54176937-aa82-4de6-81f3-3285d5e7cbd0" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><br/></p><p><strong>Edge Gain</strong></p><p>掠射角（90 度入射）处的 Iridescence Gain。</p><p><br/></p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="463" loading="lazy" src="../../attachments/542215885/rman_pxrsurf_iridPhysEdge0.jpg" data-image-src="../../attachments/542215885/rman_pxrsurf_iridPhysEdge0.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215966" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_iridPhysEdge0.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215885" data-linked-resource-container-version="1" data-media-id="8450f7fc-d7e3-4386-8704-a1b2e5facdfb" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="463" loading="lazy" src="../../attachments/542215885/rman_pxrsurf_iridPhysEdge05.jpg" data-image-src="../../attachments/542215885/rman_pxrsurf_iridPhysEdge05.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215969" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_iridPhysEdge05.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215885" data-linked-resource-container-version="1" data-media-id="4e7a25e3-fa79-44c2-81b0-625dfac6a239" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="463" loading="lazy" src="../../attachments/542215885/rman_pxrsurf_iridPhysEdge10.jpg" data-image-src="../../attachments/542215885/rman_pxrsurf_iridPhysEdge10.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215972" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_iridPhysEdge10.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215885" data-linked-resource-container-version="1" data-media-id="a67217bf-7f6d-4438-a95b-b3cf0294cb59" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><br/></p><p><em>Fresnel Exponent</em></p><p>该参数控制 Face 与 Edge 之间的衰减，类似于 <strong>Fresnel Exponent</strong> 在 Specular Lobes 中的作用。通常保留默认值 <em>5.0</em></p><p><br/></p><p><strong>Primary Color</strong></p><p>这仅适用于 <strong>Artistic mode</strong> 。</p><p>Iridescence 在色相环上的起始主颜色。从这里开始，颜色会在 Primary Color 和 Secondary Color 之间经过其他可用色相而偏移。你在色相环上选择得越近，渲染出的颜色就越少。下面三个示例分别从红色、黄色，最后从绿色开始。色条显示这些选择之间可用的颜色。</p><p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="512" loading="lazy" src="../../attachments/542215885/colorHueLinePrimIrid.jpg" data-image-src="../../attachments/542215885/colorHueLinePrimIrid.jpg" data-height="64" data-width="512" data-unresolved-comment-count="0" data-linked-resource-id="542215990" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="colorHueLinePrimIrid.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215885" data-linked-resource-container-version="1" data-media-id="4b2f52b6-aeca-4f89-bad0-98847f5ca545" data-media-type="file"></span><p /></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="463" loading="lazy" src="../../attachments/542215885/rman_pxrsurf_iridArtPrimRed.jpg" data-image-src="../../attachments/542215885/rman_pxrsurf_iridArtPrimRed.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215975" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_iridArtPrimRed.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215885" data-linked-resource-container-version="1" data-media-id="f63d36f4-0b8d-41d3-a852-1a01c813c6c0" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="463" loading="lazy" src="../../attachments/542215885/rman_pxrsurf_iridArtPrimYel.jpg" data-image-src="../../attachments/542215885/rman_pxrsurf_iridArtPrimYel.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215978" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_iridArtPrimYel.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215885" data-linked-resource-container-version="1" data-media-id="407e9f7a-463c-4072-bd12-e8612465aa81" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="463" loading="lazy" src="../../attachments/542215885/rman_pxrsurf_iridArtPrimGrn.jpg" data-image-src="../../attachments/542215885/rman_pxrsurf_iridArtPrimGrn.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215981" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_iridArtPrimGrn.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215885" data-linked-resource-container-version="1" data-media-id="0bd4887a-431e-4aac-ac82-23e3bf4d2884" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><br/></p><p><strong>Secondary Color</strong></p><p>这仅适用于 <strong>Artistic mode</strong> 。</p><p>Iridescence 在色相环上的结束次颜色。如上所示，可以用它限制渲染出的颜色。下面三个示例中，Secondary Color 从紫色变为蓝色，最后变为绿色。色相条以 ramp 展示这种变化。</p><p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="512" loading="lazy" src="../../attachments/542215885/colorHueLineSecIrid.jpg" data-image-src="../../attachments/542215885/colorHueLineSecIrid.jpg" data-height="64" data-width="512" data-unresolved-comment-count="0" data-linked-resource-id="542215987" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="colorHueLineSecIrid.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215885" data-linked-resource-container-version="1" data-media-id="0a94909c-a85d-4f62-9975-f75ee9d762b7" data-media-type="file"></span><p /></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="463" loading="lazy" src="../../attachments/542215885/rman_pxrsurf_iridArtSecViol.jpg" data-image-src="../../attachments/542215885/rman_pxrsurf_iridArtSecViol.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215984" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_iridArtSecViol.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215885" data-linked-resource-container-version="1" data-media-id="b2edf6db-7380-4900-88a0-5e6107513172" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="463" loading="lazy" src="../../attachments/542215885/rman_pxrsurf_iridArtSecBlue.jpg" data-image-src="../../attachments/542215885/rman_pxrsurf_iridArtSecBlue.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215903" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_iridArtSecBlue.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215885" data-linked-resource-container-version="1" data-media-id="05c9d92c-0cb7-4949-8b4e-b7c178e387f8" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="463" loading="lazy" src="../../attachments/542215885/rman_pxrsurf_iridArtSecGreen.jpg" data-image-src="../../attachments/542215885/rman_pxrsurf_iridArtSecGreen.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215906" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_iridArtSecGreen.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215885" data-linked-resource-container-version="1" data-media-id="bc03fb15-ff25-4be3-9d16-a84786b08c31" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><strong> </strong><br/></p><p><em>Falloff Speed</em></p><p>这仅适用于 <strong>Artistic mode</strong> 。</p><p>从 Primary Color 到 Secondary Color 的衰减速度。数值越大，衰减越慢。下面使用 <strong>Artistic Mode</strong> 的默认值，但将 Falloff Speed 从 0.1 改为 0.5，再改为 1.0。</p><p><br/></p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="463" loading="lazy" src="../../attachments/542215885/rman_pxrsurf_iridArtFallSpd01.jpg" data-image-src="../../attachments/542215885/rman_pxrsurf_iridArtFallSpd01.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215909" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_iridArtFallSpd01.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215885" data-linked-resource-container-version="1" data-media-id="cd8fca45-dce8-4987-be5a-b9fb3f0ec8fa" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="463" loading="lazy" src="../../attachments/542215885/rman_pxrsurf_iridArtFallSpd05.jpg" data-image-src="../../attachments/542215885/rman_pxrsurf_iridArtFallSpd05.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215912" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_iridArtFallSpd05.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215885" data-linked-resource-container-version="1" data-media-id="7b968b28-adaf-4f7f-9b27-f9359ffbee91" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="463" loading="lazy" src="../../attachments/542215885/rman_pxrsurf_iridArtFallSpd10.jpg" data-image-src="../../attachments/542215885/rman_pxrsurf_iridArtFallSpd10.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215915" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_iridArtFallSpd10.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215885" data-linked-resource-container-version="1" data-media-id="13a0dfed-98f1-430e-9e14-bef1cc3dd267" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><br/></p><p><em>Falloff Scale</em></p><p>这仅适用于 <strong>Artistic mode</strong> 。</p><p>此参数设置 Iridescence “彩虹”颜色重复的次数。下面从 0.5 到 1.0，最后到 3.0。请注意，较高的值会开始重复彩虹效果。这对于模拟油膜图案很有用，例如水面上的油或肥皂泡。</p><p><br/></p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="463" loading="lazy" src="../../attachments/542215885/rman_pxrsurf_iridArtFallScl05.jpg" data-image-src="../../attachments/542215885/rman_pxrsurf_iridArtFallScl05.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215918" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_iridArtFallScl05.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215885" data-linked-resource-container-version="1" data-media-id="25569ae7-618f-4ae9-a03d-75f2b93b879d" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="463" loading="lazy" src="../../attachments/542215885/rman_pxrsurf_iridArtFallScl10.jpg" data-image-src="../../attachments/542215885/rman_pxrsurf_iridArtFallScl10.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215921" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_iridArtFallScl10.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215885" data-linked-resource-container-version="1" data-media-id="88cfaa1f-affe-4480-a9de-1599e0d3e960" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="463" loading="lazy" src="../../attachments/542215885/rman_pxrsurf_iridArtFallScl30.jpg" data-image-src="../../attachments/542215885/rman_pxrsurf_iridArtFallScl30.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215924" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_iridArtFallScl30.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215885" data-linked-resource-container-version="1" data-media-id="c65de60c-0205-4d78-acfa-a547c8c1e8dc" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><br/></p><p><em>Flip Hue Direction</em></p><p>这仅适用于 <strong>Artistic mode</strong> 。</p><p>在 Primary Color 和 Secondary Color 之间翻转色相环方向。默认情况下，色相环方向为逆时针。左侧为 <em>off</em>，右侧为 <em>on</em>。</p><p><br/></p></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="463" loading="lazy" src="../../attachments/542215885/rman_pxrsurf_iridArtFlipOff.jpg" data-image-src="../../attachments/542215885/rman_pxrsurf_iridArtFlipOff.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215927" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_iridArtFlipOff.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215885" data-linked-resource-container-version="1" data-media-id="863950c4-e322-4c60-a06e-437bfe49db13" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="463" loading="lazy" src="../../attachments/542215885/rman_pxrsurf_iridArtFlipOn.jpg" data-image-src="../../attachments/542215885/rman_pxrsurf_iridArtFlipOn.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215930" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_iridArtFlipOn.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215885" data-linked-resource-container-version="1" data-media-id="31338dd8-26fb-489a-98ff-6f04a91acec1" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><br/></p><p><em>Thin Film Thickness</em></p><p>这仅适用于 <strong>Physical mode</strong> 。</p><p>薄膜厚度，单位为纳米。从左到右，我们从 400 开始，然后是 800，最后是 1600 纳米。请注意，在 1600 时开始看到彩虹效果重复。这类似于在 <strong>Falloff Scale</strong> 中使用 <strong>Artistic Mode</strong>的效果。</p><p><br/></p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="463" loading="lazy" src="../../attachments/542215885/rman_pxrsurf_iridPhysThin_400.jpg" data-image-src="../../attachments/542215885/rman_pxrsurf_iridPhysThin_400.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215933" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_iridPhysThin_400.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215885" data-linked-resource-container-version="1" data-media-id="11592bac-a3c8-4acc-8738-e378e04846b1" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="463" loading="lazy" src="../../attachments/542215885/rman_pxrsurf_iridPhysThin_800.jpg" data-image-src="../../attachments/542215885/rman_pxrsurf_iridPhysThin_800.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215936" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_iridPhysThin_800.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215885" data-linked-resource-container-version="1" data-media-id="13835232-8de4-48f4-a16b-839316456f10" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="463" loading="lazy" src="../../attachments/542215885/rman_pxrsurf_iridPhysThin_1600.jpg" data-image-src="../../attachments/542215885/rman_pxrsurf_iridPhysThin_1600.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215939" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_iridPhysThin_1600.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215885" data-linked-resource-container-version="1" data-media-id="3b009d17-14be-4b44-b38e-03f4a2884091" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><br/></p><p><strong>Roughness</strong></p><p>Iridescence Roughness 与其他 Roughness 参数类似，可以从 0.0 的镜面般反射过渡到 1.0 的 Diffuse 反射。下面示例从左到右为 0.0、0.5 和 1.0。较柔和的外观会让人联想到变色妆容和类似粉末。</p><p><br/></p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="463" loading="lazy" src="../../attachments/542215885/rman_pxrsurf_iridRgh_00.jpg" data-image-src="../../attachments/542215885/rman_pxrsurf_iridRgh_00.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215942" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_iridRgh_00.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215885" data-linked-resource-container-version="1" data-media-id="94dbcde3-03f6-4c6a-a6c5-4987cd2b0884" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="463" loading="lazy" src="../../attachments/542215885/rman_pxrsurf_iridRgh_05.jpg" data-image-src="../../attachments/542215885/rman_pxrsurf_iridRgh_05.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215945" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_iridRgh_05.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215885" data-linked-resource-container-version="1" data-media-id="9d2be7ec-a0e0-44ef-b1c7-bd9ce558c5ca" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="463" loading="lazy" src="../../attachments/542215885/rman_pxrsurf_iridRgh_10.jpg" data-image-src="../../attachments/542215885/rman_pxrsurf_iridRgh_10.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215948" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_iridRgh_10.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215885" data-linked-resource-container-version="1" data-media-id="d22e844a-2350-419c-ae05-31d0ce1f2804" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><br/></p><p><em>Double Sided</em></p><p>如果开启，会为该 Iridescence 波瓣照亮表面的两侧。这对于羽毛、叶片等无厚度建模的薄开口表面很有用。</p><p><br/></p><hr/><p><span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image" height="64" loading="lazy" src="../../attachments/542215885/RenderManFundamentals_logo.png" data-image-src="../../attachments/542215885/RenderManFundamentals_logo.png" data-unresolved-comment-count="0" data-linked-resource-id="542215993" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderManFundamentals_logo.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542215885" data-linked-resource-container-version="1" data-media-id="3df2970f-d509-49a6-8f05-38c96c968d2f" data-media-type="file"></span><br/><strong>RenderMan Fundamentals</strong><br/><br/></p><p><br/><br/><br/><br/></p><iframe align="middle" allowfullscreen="" class="conf-macro output-block" data-hasbody="false" data-layout="default" data-local-id="f3c29693-75e1-408b-bc5d-dfd4f10a44a2" data-macro-id="fbb8eaf656cc6194a8d761d084439ed3c27ea51b07828f3ce8085483f629c160" data-macro-name="iframe" frameborder="0" height="600" sandbox="allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-popups-to-escape-sandbox allow-presentation allow-same-origin allow-scripts allow-top-navigation-by-user-activation" scrolling="yes" src="https://player.vimeo.com/video/471545420?h=d9fe405f6b&amp;title=0&amp;byline=0&amp;portrait=0" width="960">
+    
+</iframe>
+<p><a href="https://rmanwiki-26.pixar.com/space/REN26/19661447#IridescenceParameters-top" rel="nofollow">返回顶部</a></p></div>
+</div>
+</div>
+</div>
+  </article>
+</main>
+</body>
+</html>

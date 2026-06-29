@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Denoising guide</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Denoising guide</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RU/399343692/Denoising+guide">https://rmanwiki-27.pixar.com/space/RU/399343692/Denoising+guide</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="contentLayout2"><style>[data-colorid=ks5khuasjx]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=ks5khuasjx]{color:#004eb3}[data-colorid=org98w397m]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=org98w397m]{color:#004eb3}[data-colorid=rmw2qyr40m]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=rmw2qyr40m]{color:#004eb3}[data-colorid=b4s3wmre1x]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=b4s3wmre1x]{color:#004eb3}[data-colorid=m0cdkxty5i]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=m0cdkxty5i]{color:#004eb3}</style>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p /><p /><p>RenderMan features an entirely new state-of-the-art Denoiser from Disney Research, which uses machine learning to resolve partially converged images while maintaining image detail and temporal coherence, making the final result nearly indistinguishable from full convergence.</p><p /><p><strong><span data-colorid="org98w397m">Denoiser Highlights:&nbsp;</span></strong></p><p><strong>Machine Learning &mdash;</strong> Pixar&rsquo;s RenderMan Denoiser uses machine learning to remove noise from partially converged images with high accuracy and temporal coherence, resulting in a final image that is nearly indistinguishable from fully converged images. The denoiser has been trained on a broad range of production datasets from VFX at ILM to feature animation at Pixar and Disney.</p><p><strong>Production Proven &mdash;</strong> This advanced denoising technology is reliable, having been developed by Disney Research and used in production at Pixar, Walt Disney Animation Studios (WDAS), and Industrial Light and Magic, where it has proven highly effective.</p><p><strong>Highest Fidelity &mdash;</strong> The Denoiser excels at preserving intricate details that could otherwise be lost, making it ideal for demanding applications such as feature animation and VFX. It significantly reduces rendering times while maintaining high fidelity, and has been occasionally called &ldquo;magic&rdquo; by industry veterans.</p><p /><hr /><p><strong><span data-colorid="m0cdkxty5i">Denosing the Luxo Ball</span></strong></p><p>Now that we have some background information on the denoiser, let&rsquo;s put this into practice by testing the denoiser on our bouncing Luxo Ball animation.  The animation was rendered in XPU with DOF and Motion Blur turned on.  The denoiser mode was set to Cross Frame (as we&rsquo;re rendering an animation)</p><p /><div class="panel conf-macro output-block" data-hasbody="true" data-macro-id="dc809e8e-9576-4dbd-ab11-dfa055d7bb1f" data-macro-name="panel" style="background-color: #4C9AFF;border-width: 1px;"><div class="panelContent" style="background-color: #4C9AFF;">
+<p><strong><span class="legacy-color-text-inverse">Test One</span></strong></p>
+</div></div></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><strong>Pixel Variance</strong></p><p>0.2</p></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><strong>Min Samples</strong></p><p>16</p><p /></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><strong>Max Samples</strong></p><p>4096</p><p /><p><strong>Av. Frame Times</strong></p><p>30secs</p></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><a href="/wiki/download/attachments/399343692/IntialTest_wide.mov?version=1&amp;modificationDate=1761309103786&amp;cacheVersion=1&amp;api=v2&amp;width=760">IntialTest_wide.mov</a></span><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><a href="/wiki/download/attachments/399343692/IntialTest_cropped.mov?version=1&amp;modificationDate=1761309451288&amp;cacheVersion=1&amp;api=v2&amp;width=760">IntialTest_cropped.mov</a></span><p>Once we feed this through the RenderMan Denoiser, we end up with a denoised version with an equivalent quality to a render with an adaptive threshold of .01, which is perfect for broadcast.</p><p /><div class="panel conf-macro output-block" data-hasbody="true" data-macro-id="" data-macro-name="panel" style="background-color: #EAE6FF;border-color: #998DD9;border-width: 1px;"><div class="panelContent" style="background-color: #EAE6FF;">
+<p>As we saw in the <a href="/wiki/spaces/RU/pages/405733531/Samples+made+Simple" data-linked-resource-id="405733531" data-linked-resource-version="50" data-linked-resource-type="page">Samples Made Simple</a> lesson, when we reduce the threshold, the renders become increasingly longer. The general rule of thumb is that for every time you double the image quality, you will quadruple the render time. </p><p>And so the denoiser allows you to short-circuit those long render times and produce usable animations in a fraction of the render time.</p>
+</div></div><p /><hr /><p /><p><strong><span data-colorid="ks5khuasjx">Denosing for final quality</span></strong></p><div class="panel conf-macro output-block" data-hasbody="true" data-macro-id="12c6b8d9-dae6-4d38-ab69-5298d7bc86cf" data-macro-name="panel" style="background-color: #4C9AFF;border-width: 1px;"><div class="panelContent" style="background-color: #4C9AFF;">
+<p><strong><span class="legacy-color-text-inverse">Final Frame Render Settings</span></strong></p>
+</div></div></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><strong>Pixel Variance</strong></p><p>0.1 - 0.2</p></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><strong>Min Samples</strong></p><p>8</p></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><strong>Max Samples</strong></p><p>64 - 512</p><p /><p /></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p /><p /><p><strong><span data-colorid="b4s3wmre1x">Denosing for dailies / quick reviews.</span></strong></p><p>Denoising is not just for final renders.  It&rsquo;s also possible to make very cheap test renders with far too much noise to be pleasant to view or useful for a review loop, and then run them through the denoiser.</p><p>Below are base render settings values that are a good place to start for daily previews.</p><p /><div class="panel conf-macro output-block" data-hasbody="true" data-macro-id="b149fc90-4f37-440c-82c3-5fa9869832a4" data-macro-name="panel" style="background-color: #4C9AFF;border-width: 1px;"><div class="panelContent" style="background-color: #4C9AFF;">
+<p><strong><span class="legacy-color-text-inverse">Dailies Render Settings</span></strong></p>
+</div></div></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><strong>Pixel Variance</strong></p><p>0.4</p></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><strong>Min Samples</strong></p><p>8</p></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><strong>Max Samples</strong></p><p>512</p><p><strong>ExitAt</strong></p><p>1 hour</p></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p /><p>The raw (un-denoised) frames can produce fairly unwatchable footage, but once run through the denoiser, you won't end up with final-quality renders; the frames are more than suitable for your team or director to review and provide feedback.</p><div class="panel conf-macro output-block" data-hasbody="true" data-macro-id="" data-macro-name="panel" style="background-color: #EAE6FF;border-color: #998DD9;border-width: 1px;"><div class="panelContent" style="background-color: #EAE6FF;">
+<p>Note: By setting ExitAt to 1 hour, we tell the renderer to spend no more than 1 hour per frame, allowing us to set a fixed rendering time. </p>
+</div></div><p /><hr /><p><strong><span data-colorid="rmw2qyr40m">Further Testing</span></strong></p><p>Just to demonstrate how amazing the denoiser is &hellip; let&rsquo;s do some further testing to see how low we can go on the samples and the results.</p><div class="panel conf-macro output-block" data-hasbody="true" data-macro-id="95368d19-84d7-405e-ad20-c5799dfad9bf" data-macro-name="panel" style="background-color: #4C9AFF;border-width: 1px;"><div class="panelContent" style="background-color: #4C9AFF;">
+<p><strong><span class="legacy-color-text-inverse">4 x 4 Samples</span></strong></p>
+</div></div></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><strong>Pixel Variance</strong></p><p>0.2</p></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><strong>Min Samples</strong></p><p>4</p></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><strong>Max Samples</strong></p><p>4</p></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><a href="/wiki/download/attachments/399343692/4x4_Test2.mov?version=1&amp;modificationDate=1761307371417&amp;cacheVersion=1&amp;api=v2&amp;width=760">4x4_Test2.mov</a></span><p /><p>And let&rsquo;s do one more &hellip; this time really pushing the denoiser with a render at 1x1 Samples!</p><p /><div class="panel conf-macro output-block" data-hasbody="true" data-macro-id="54f69d94-c881-48da-969d-93e229c424d9" data-macro-name="panel" style="background-color: #4C9AFF;border-width: 1px;"><div class="panelContent" style="background-color: #4C9AFF;">
+<p><strong><span class="legacy-color-text-inverse">1 x 1 Sample</span></strong></p>
+</div></div></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><strong>Pixel Variance</strong></p><p>0.2</p></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><strong>Min Samples</strong></p><p>1</p></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><strong>Max Samples</strong></p><p>1</p></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><a href="/wiki/download/attachments/399343692/1x1_Test.mov?version=1&amp;modificationDate=1761308442466&amp;cacheVersion=1&amp;api=v2&amp;width=760">1x1_Test.mov</a></span><p>Ok &hellip; this is very noisy, and the denoised result looks very smudgy, but it demonstrates how the denoiser&rsquo;s 'magic' sees through the noise and still refines some details in the wood and ball highlights.</p><p /><p /><p /><div class="panel conf-macro output-block" data-hasbody="true" data-macro-id="" data-macro-name="panel" style="background-color: #EAE6FF;border-color: #998DD9;border-width: 1px;"><div class="panelContent" style="background-color: #EAE6FF;">
+<p>Tip: Every production is different, so before you embark, it&rsquo;s advisable to run a series of tests to determine the best render settings for both dailies and final frame renders.</p>
+</div></div><p /><p /><p /><p /><p /><p>1 / 4 / 8 / </p><p /><p /><p /><p /><p /><p /><p /><p /><p /><p /><p /><p /><p /><p /><p /><p /><p /><p>image</p><p>lpes and aovs</p><p>machine learning magic</p><p>result</p><p /><p /><p>the higher the varience the harder the denoiser has to work resulting in smudger </p><p /><p>lower varienace, results in finer results</p><p /><p /></div>
+</div>
+</div>
+</div>
+  </article>
+</main>
+</body>
+</html>

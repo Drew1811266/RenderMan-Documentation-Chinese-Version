@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Modeling Guidelines</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Modeling Guidelines</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/REN27/542213625/Modeling+Guidelines">https://rmanwiki-27.pixar.com/space/REN27/542213625/Modeling+Guidelines</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="contentLayout2">
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h1 id="ModelingGuidelines-Picktherighttoolforthejob">为任务选择合适的工具</h1><p>一般来说， <a href="542213016-Subdivision Surfaces.html" rel="nofollow">细分曲面</a> 有很多优势，但有时确实需要使用多边形网格。</p><h3 id="ModelingGuidelines-Subdivisionsurfaces">细分曲面</h3><ul><li><p><strong>优点</strong></p><ul><li><p>在任意分辨率下都能保持完全平滑。</p></li><li><p>可以通过折痕和角点实现锐利或半锐利特征。</p></li><li><p>内存占用可以非常轻量。</p></li><li><p>置换裂缝更少（水密）。</p></li></ul></li><li><p><strong>缺点</strong></p><ul><li><p>需要不同的建模技术/技能。</p></li><li><p>需要标记锐利边和顶点。</p></li><li><p>存在一些拓扑约束（四边形或三角形，不能有非流形几何体）。</p></li></ul></li></ul><h3 id="ModelingGuidelines-Polygonmeshes">多边形网格</h3><ul><li><p><strong>优点</strong></p><ul><li><p>非常适合 3D 扫描网格这类重型几何体。</p></li><li><p>最适合会被破碎或模拟的几何体。</p></li><li><p>适合只有锐利边且不需要置换的模型。</p></li><li><p>如果不进行置换，就不会生成微多边形。</p></li></ul></li><li><p><strong>缺点</strong></p><ul><li><p>重型模型会占用大量内存，无论它们在图像中看起来多小。</p></li><li><p>在低分辨率的平滑对象上可能会看到阴影终止线。</p></li><li><p>可能会看到置换裂缝。</p></li></ul></li></ul><h3 id="ModelingGuidelines-NURBs">NURBS</h3><ul><li><p><strong>优点</strong></p><ul><li><p>在任意分辨率下都能保持完全平滑。</p></li><li><p>内存占用轻量。</p></li></ul></li><li><p><strong>缺点</strong></p><ul><li><p>只能使用四边形建模。</p></li><li><p>XPU 不支持。</p></li><li><p>如今已不太常用。</p></li></ul></li></ul><p>推荐阅读：</p><ul><li><p><a href="542212781-Geometry.html" rel="nofollow">几何体</a></p></li><li><p><a href="542213016-Subdivision Surfaces.html" rel="nofollow">细分曲面</a></p></li><li><p><a href="542212981-Polygons.html" rel="nofollow">多边形</a></p></li></ul><p /><h1 id="ModelingGuidelines-Subdivisionmodeling">细分建模</h1><ul><li><p>始终尽可能建模出 <u>最简单的控制笼</u> 。</p></li><li><p>始终以平滑方式查看模型，或使用 <a href="542232400-PxrVisualizer.html" rel="nofollow">PxrVisualizer</a>。</p><ul><li><p>甚至可以在实时 PxrVisualizer 渲染中进行建模！</p></li></ul></li><li><p>使用折痕来制作锐利或半锐利边，而无需添加额外的边循环。</p></li></ul></div>
+</div>
+</div>
+<div class="columnLayout two-left-sidebar" data-layout="two-left-sidebar">
+<div class="cell aside" data-type="aside">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="isocahedron_creases.gif" width="410" loading="lazy" src="../../attachments/542213625/isocahedron_creases.gif" data-image-src="../../attachments/542213625/isocahedron_creases.gif" data-height="542" data-width="505" data-unresolved-comment-count="0" data-linked-resource-id="542213651" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="isocahedron_creases.gif" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/gif" data-linked-resource-container-id="542213625" data-linked-resource-container-version="1" data-media-id="e29c0a95-6447-42f5-99de-d4d47097a091" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<div class="table-wrap"><table data-table-width="1800" data-layout="align-start" data-local-id="6f8a3189-241e-4bfa-a1b5-5e0ee5d676bb" class="confluenceTable"><tbody><tr><td data-highlight-colour="#f4f5f7" class="confluenceTd"><p>细分折痕演示</p></td></tr><tr><td class="confluenceTd"><p>我们选择了一个二十面体的所有边，并将它们的折痕值从 0.0 动画到 5.0。</p><p>所有边都可以具有不同的折痕值，并且仍能在最终曲面上保持平滑过渡。</p></td></tr></tbody></table></div></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<ul><li><p>角点对顶点的作用类似于折痕。</p></li></ul></div>
+</div>
+</div>
+<div class="columnLayout two-left-sidebar" data-layout="two-left-sidebar">
+<div class="cell aside" data-type="aside">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="isocahedron_corners.gif" width="410" loading="lazy" src="../../attachments/542213625/isocahedron_corners.gif" data-image-src="../../attachments/542213625/isocahedron_corners.gif" data-height="441" data-width="476" data-unresolved-comment-count="0" data-linked-resource-id="542213648" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="isocahedron_corners.gif" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/gif" data-linked-resource-container-id="542213625" data-linked-resource-container-version="1" data-media-id="9e61c63a-7f58-4498-a90d-67413b8dde97" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<div class="table-wrap"><table data-table-width="1800" data-layout="align-start" data-local-id="497d6868-746d-4926-85df-4073f23dd0d8" class="confluenceTable"><tbody><tr><td data-highlight-colour="#f4f5f7" class="confluenceTd"><p>细分角点演示</p></td></tr><tr><td class="confluenceTd"><p>在这段动画中，一个三角形面的 3 条边具有 5.0 的折痕值。</p><p>我们将该三角形顶点的角点值从 0 提高到 5.0。</p><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="b8d3bddf-eab5-4965-b067-42d463432d88" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>请注意收紧区域周围非常平滑的过渡。</p></div></div></td></tr></tbody></table></div></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<ul><li><p>细分曲面有 3 种类型。</p><ul><li><p>Catmull-Clark 是最灵活也最常用的一种。</p></li><li><p>Loop 是基于三角形的细分曲面。</p><ul><li><p>没有折痕或角点。</p></li><li><p>适用于布料模拟。</p></li></ul></li><li><p>Bilinear 类似于在所有边上具有无限硬折痕的 Catmull-Clark。</p></li></ul></li></ul></div>
+</div>
+</div>
+<div class="columnLayout two-left-sidebar" data-layout="two-left-sidebar">
+<div class="cell aside" data-type="aside">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="410" loading="lazy" src="../../attachments/542213625/subdiv_types.gif" data-image-src="../../attachments/542213625/subdiv_types.gif" data-height="536" data-width="527" data-unresolved-comment-count="0" data-linked-resource-id="542213654" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="subdiv_types.gif" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/gif" data-linked-resource-container-id="542213625" data-linked-resource-container-version="1" data-media-id="4126c6b4-472b-4937-8f04-5c507495af3e" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p /></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p /><h1 id="ModelingGuidelines-Tesselation">镶嵌细分</h1><p>如果你来自需要手动设置细分级别的其他渲染器，可以忘掉那套做法： <strong>曲面的镶嵌细分是自动的，</strong> 在 RenderMan 中（我们称之为 <strong>切分</strong>）。</p><p>主要控制项是 <strong>微多边形长度</strong>。</p><ul><li><p>默认情况下，它以像素表示；micropolygonlength 为 1（默认值）意味着每个微多边形大约为 1 像素宽。</p></li><li><p>如果不希望镶嵌细分动态变化，可以将它设置在对象空间或世界空间中，或者定义一个切分相机。</p></li></ul><div class="confluence-information-macro confluence-information-macro-tip conf-macro output-block" data-hasbody="true" data-macro-id="9600e2ba-13e8-4b1b-b3a9-bbdc485e4f24" data-macro-name="tip"><span class="aui-icon aui-icon-small aui-iconfont-approve confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>除非看到伪影，否则建议禁用 “raster-oriented dicing”。</p></div></div></div>
+</div>
+</div>
+<div class="columnLayout two-left-sidebar" data-layout="two-left-sidebar">
+<div class="cell aside" data-type="aside">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="mpl.gif" width="410" loading="lazy" src="../../attachments/542213625/mpl.gif" data-image-src="../../attachments/542213625/mpl.gif" data-height="504" data-width="507" data-unresolved-comment-count="0" data-linked-resource-id="542213645" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="mpl.gif" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/gif" data-linked-resource-container-id="542213625" data-linked-resource-container-version="1" data-media-id="1eb9b154-3454-499b-8658-ac8cb34a23ee" data-media-type="file"></span><p /><p /><p /><p /></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<div class="table-wrap"><table data-table-width="1800" data-layout="align-start" data-local-id="9ea3188d-aac8-499b-9980-94d91073a6bd" class="confluenceTable"><tbody><tr><td data-highlight-colour="#f4f5f7" class="confluenceTd"><p><strong>细分与多边形切分演示</strong></p></td></tr><tr><td class="confluenceTd"><p>我们比较了一个带折痕和置换的 Catmull-Clark 细分曲面与一个等效的多边形网格。</p><p>增加微多边形长度等同于让对象在图像中的尺寸变小。</p><ul><li><p>当对象很大时，它会被精细镶嵌细分为数百万个微多边形，从而显示细致的置换细节。</p></li><li><p>当对象变得小于一个像素时，只会保留基础网格。</p></li></ul><p><strong>微多边形长度</strong> 有点像一种“自动细节层级”；当对象在屏幕上小到不需要完整细节表示时，它可以节省内存。</p><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="4367681a-8bf3-472d-89af-b0812c0daef0" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>请注意， <u>细分曲面会退化为少得多的面</u>，从而节省内存并加快光线追踪。</p></div></div><p>这就是所谓的 <strong>数据放大</strong>：紧凑的几何表示可以按需扩增，以创建更多细节。</p></td></tr></tbody></table></div></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p /><h1 id="ModelingGuidelines-Modeldetailing">模型细节</h1><p>通常，更好的做法是依靠置换和凹凸贴图来添加细节。</p><ul><li><p>置换可以添加较大的几何特征，这些特征会影响对象的轮廓和投影。</p><ul><li><p>置换会影响首个像素时间（微多边形生成），但不会拖慢着色。</p></li></ul></li><li><p>凹凸贴图或法线贴图会添加小尺度细节。</p><ul><li><p>凹凸贴图会在着色期间增加少量成本（每次光线命中时都会重新计算）。</p></li><li><p>请注意，如果入射光线过于“模糊”，我们的凹凸贴图节点不会计算 bump；这意味着没有 bump 也不会被注意到。</p></li></ul></li></ul><p>如果你在 ZBrush 中建模了一个高度详细的对象，应考虑：</p><ul><li><p>重新拓扑以创建轻量模型</p></li><li><p>从高分辨率网格中提取置换贴图。</p></li></ul><div class="confluence-information-macro confluence-information-macro-tip conf-macro output-block" data-hasbody="true" data-macro-id="6b208969-21f2-444f-a1b6-ef0f9ba0905d" data-macro-name="tip"><span class="aui-icon aui-icon-small aui-iconfont-approve confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>我们的置换节点具有一个 “model displacement” 输入，用于连接提取出的置换贴图。 </p></div></div><p /><h1 id="ModelingGuidelines-Memoryusageandperformance">内存使用与性能</h1><h3 id="ModelingGuidelines-Polygonmeshes.1">多边形网格</h3><ul><li><p>如果没有置换，则 <strong>首个像素时间</strong> （TTFP）最短。</p></li><li><p>进行置换时，网格会被切分并生成微多边形。</p></li><li><p>未置换的重型网格会使用相同数量的 RAM，无论它是全屏显示还是只有 2 像素高。</p></li></ul><h3 id="ModelingGuidelines-Subdivisionsurfaces.1">细分曲面</h3><ul><li><p>TTFP 略长，但切分是多线程的，且效率很高。</p></li><li><p>在顶点数量相同的情况下，会比网格多使用一点内存。</p></li><li><p>稀疏建模的细分曲面在只有 2 像素高时，只会包含基础网格面。</p><ul><li><p>这种自适应性会降低内存使用并加快光线追踪。</p></li></ul></li></ul></div>
+</div>
+</div>
+</div>
+  </article>
+</main>
+</body>
+</html>

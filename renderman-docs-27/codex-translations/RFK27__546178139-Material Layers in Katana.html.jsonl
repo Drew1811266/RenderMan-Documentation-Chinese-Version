@@ -1,0 +1,86 @@
+{"item_id":"b540cf835e:0","text":"RenderMan 支持通过材质分层创建复杂的外观效果。这意味着车漆、瓶身标签、污垢或泥浆等效果，都可以高效地以分层方式组合并用于渲染。"}
+{"item_id":"b540cf835e:1","text":"下面是一个逐步示例，演示如何在青铜雕像上制作铜绿。在本教程底部，可以下载一个 Katana 场景，其中包含复现此图像所需的部分。"}
+{"item_id":"b540cf835e:2","text":"Basic（基本）场景准备"}
+{"item_id":"b540cf835e:3","text":"加载"}
+{"item_id":"b540cf835e:4","text":"layeredMaterial_prep.katana"}
+{"item_id":"b540cf835e:5","text":"教程场景，其中包含用于加载雕像几何体、地面平面和 spot lights（聚光灯）的框架。此时场景已经可以渲染；但是我们还没有给雕像分配任何材质，因此它会使用 RenderMan 的默认 Bxdf shader：PxrDiffuse 进行渲染。"}
+{"item_id":"b540cf835e:6","text":"步骤 1：PxrLayerSurface"}
+{"item_id":"b540cf835e:7","text":"创建一个 shading network（着色网络），并为对象分配一个"}
+{"item_id":"b540cf835e:8","text":"PxrLayerSurface"}
+{"item_id":"b540cf835e:9","text":"Bxdf。这一框架会告知 RenderMan 要为已分配的对象渲染哪些材质（新节点以红色显示）："}
+{"item_id":"b540cf835e:10","text":"此时你可以使用新的 shading network 进行渲染，但这个材质单独使用时可调整的内容并不多；该节点的属性集有限。原因是 PxrLayerSurface 被设计为一个顶层 Bxdf，用来组合多层 pattern（图案）。PxrLayerSurface 只包含会应用到所有层的全局属性。颜色和纹理等逐层属性来自连接到"}
+{"item_id":"b540cf835e:11","text":"inputMaterial"}
+{"item_id":"b540cf835e:12","text":"属性的上游材质。"}
+{"item_id":"b540cf835e:13","text":"从这里开始，为避免重复工作，并让材质网络尽可能简单实用，规划就非常重要。研究如何在铜或其他金属上制作铜绿时，你会发现这通常是一个多阶段项目，可能涉及多种方法。根据目标外观不同，材质的布局也会变化。例如，通过加热金属产生不同颜色，可以使用"}
+{"item_id":"b540cf835e:14","text":"iridescence"}
+{"item_id":"b540cf835e:15","text":"属性在 PxrLayerSurface 中复现。制作铜绿的另一种方法是使用醋和盐在金属上形成结壳，这也是我们在这里要试验的效果。"}
+{"item_id":"b540cf835e:16","text":"需要两个基本材质层："}
+{"item_id":"b540cf835e:17","text":"类似青铜或铜的金属层"}
+{"item_id":"b540cf835e:18","text":"铜绿层，一个略带结壳感、颜色偏蓝绿色的 diffuse layer（漫反射层）"}
+{"item_id":"b540cf835e:19","text":"下面分别显示这些层："}
+{"item_id":"b540cf835e:20","text":"步骤 2：PxrLayerMixer"}
+{"item_id":"b540cf835e:21","text":"创建一个"}
+{"item_id":"b540cf835e:22","text":"PxrLayerMixer"}
+{"item_id":"b540cf835e:23","text":"并将它的"}
+{"item_id":"b540cf835e:24","text":"out"}
+{"item_id":"b540cf835e:25","text":"端口连接到"}
+{"item_id":"b540cf835e:26","text":"inputMaterial"}
+{"item_id":"b540cf835e:27","text":"端口，这是 PxrLayerSurface 上的输入端口。这样会建立一个节点，我们将在其中连接所有层。我们来看一下 PxrLayerMixer shading node 的默认状态："}
+{"item_id":"b540cf835e:28","text":"其中有一个"}
+{"item_id":"b540cf835e:29","text":"BaseLayer"}
+{"item_id":"b540cf835e:30","text":"以及另外四个编号为 1-4 的层。请注意"}
+{"item_id":"b540cf835e:31","text":"Layer 1"}
+{"item_id":"b540cf835e:32","text":"默认是启用的，因为通常假定至少会有两层输入到 PxrLayerMixer。如果某个层已启用但未连接，整个渲染会变黑。我们先专注于构建基础层，因此先禁用"}
+{"item_id":"b540cf835e:33","text":"Layer 1"}
+{"item_id":"b540cf835e:34","text":"，直到我们接入铜绿层。请注意，你可以把其他 PxrLayerMixers 连接到这些层中，用于组合外观集合并一起使用 mask（遮罩）。这在你想在其他位置复用网络时非常有用。本例只使用两个层："}
+{"item_id":"b540cf835e:35","text":"Base"}
+{"item_id":"b540cf835e:36","text":"和"}
+{"item_id":"b540cf835e:37","text":"Layer 1"}
+{"item_id":"b540cf835e:38","text":"。"}
+{"item_id":"b540cf835e:39","text":"步骤 3：Base Layer（基础层）"}
+{"item_id":"b540cf835e:40","text":"Copper/Bronze（铜/青铜）将作为我们的“base”层。创建一个"}
+{"item_id":"b540cf835e:41","text":"PxrLayer"}
+{"item_id":"b540cf835e:42","text":"并将它的"}
+{"item_id":"b540cf835e:43","text":"pxrMaterialOut"}
+{"item_id":"b540cf835e:44","text":"端口连接到"}
+{"item_id":"b540cf835e:45","text":"Base Layer"}
+{"item_id":"b540cf835e:46","text":"输入端口，也就是 PxrLayerMixer 的对应输入。"}
+{"item_id":"b540cf835e:47","text":"为了近似铜材质，我们设置 diffuse（漫反射）和 specular（镜面反射），然后加入一些 procedural bump（程序化凹凸），让铜表面带有合适的质感。这些设置有一定任意性，因为它们是按艺术方向调整的；我们的目标是较陈旧、暗哑的铜或青铜外观："}
+{"item_id":"b540cf835e:48","text":"步骤 4：Patina Layer（铜绿层）"}
+{"item_id":"b540cf835e:49","text":"Patina（铜绿）将作为我们的“Layer 1”，位于基础层之上。创建另一个 PxrLayer node，并将它的"}
+{"item_id":"b540cf835e:50","text":"pxrMaterialOut"}
+{"item_id":"b540cf835e:51","text":"输出端口连接到"}
+{"item_id":"b540cf835e:52","text":"Layer 1"}
+{"item_id":"b540cf835e:53","text":"输入端口（在你的 PxrLayerMixer 上）。请注意，如果你在处理基础层时禁用了 Layer 1，可能需要重新启用它。铜绿 shading 的 diffuse color 取样自真实图像，并加入了一些 diffuse roughness，以帮助呈现铜绿结壳的“粉状”外观。我们添加了 PxrFractal 和一个 bump pattern 来提高真实感。前面的 bump pattern 在这一层中再次使用以保持一致，不过你也可以在这里使用不同的 pattern，进一步提高真实感。"}
+{"item_id":"b540cf835e:54","text":"这一层会完全覆盖"}
+{"item_id":"b540cf835e:55","text":"Base"}
+{"item_id":"b540cf835e:56","text":"层，直到我们给"}
+{"item_id":"b540cf835e:57","text":"Layer 1 Mask"}
+{"item_id":"b540cf835e:58","text":"添加输入。"}
+{"item_id":"b540cf835e:59","text":"步骤 5：Patina（铜绿）Mask（遮罩）"}
+{"item_id":"b540cf835e:60","text":"我们可以用 textures（纹理）完成这个遮罩，但这里改用"}
+{"item_id":"b540cf835e:61","text":"PxrDirt"}
+{"item_id":"b540cf835e:62","text":"节点来控制哪些位置显示铜绿、哪些位置显示金属。PxrDirt 是一种 occlusion shader（遮挡 shader），可让 shading effects（着色效果）受几何体局部拓扑影响（也就是凹处和缝隙）。创建一个新的 PrmanShadingNode，并将 node type 设置为 PxrDirt。它的输出是 color，但因为这里是在创建 mask（遮罩），可以把"}
+{"item_id":"b540cf835e:63","text":"resultR"}
+{"item_id":"b540cf835e:64","text":"连接到"}
+{"item_id":"b540cf835e:65","text":"Layer 1 Mask"}
+{"item_id":"b540cf835e:66","text":"（位于 PxrLayerMixer 上；也可以使用 PxrToFloat 将 color 转换为标量值）。"}
+{"item_id":"b540cf835e:67","text":"为了产生最终图像中的风化图案，我们提高"}
+{"item_id":"b540cf835e:68","text":"Bias Normal"}
+{"item_id":"b540cf835e:69","text":"属性在 PxrDirt 中的 Y 分量，使结果沿垂直方向拉伸，就像雨水和风化痕迹顺着雕像向下流过一样。PxrDirt 的"}
+{"item_id":"b540cf835e:70","text":"Unoccluded"}
+{"item_id":"b540cf835e:71","text":"属性由 PxrFractal 和 PxrGamma 驱动，分别用于打散结果并控制强度。请注意 PxrDirt 下方额外放置的 PSN_PxrConstant 节点。通过将 PxrDirt 输出"}
+{"item_id":"b540cf835e:72","text":"resultRGB"}
+{"item_id":"b540cf835e:73","text":"连接到"}
+{"item_id":"b540cf835e:74","text":"emitColor"}
+{"item_id":"b540cf835e:75","text":"（位于 PxrConstant 上），我们就可以把 PxrLayerSurface Bxdf 替换为 PxrConstant Bxdf，从而单独渲染 dirt layer mask（污垢层遮罩）。"}
+{"item_id":"b540cf835e:76","text":"下面是单独从 PxrDirt 渲染出的结果 mask："}
+{"item_id":"b540cf835e:77","text":"步骤 6：渲染！"}
+{"item_id":"b540cf835e:78","text":"步骤 7：调整参数，重复步骤 6"}
+{"item_id":"b540cf835e:79","text":"备注"}
+{"item_id":"b540cf835e:80","text":"该模型免费来自"}
+{"item_id":"b540cf835e:81","text":"Three D Scans"}
+{"item_id":"b540cf835e:82","text":"。"}
+{"item_id":"b540cf835e:83","text":"在上方查找 Katana 场景"}
+{"item_id":"b540cf835e:84","text":"链接"}
+{"item_id":"b540cf835e:85","text":"，并通过 Three D Scans 链接获取一些几何体。"}

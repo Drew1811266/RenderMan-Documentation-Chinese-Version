@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Integrators</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Integrators</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/REN27/542231922/Integrators">https://rmanwiki-27.pixar.com/space/REN27/542231922/Integrators</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="contentLayout2">
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="elio-27-banner.jpg" width="1280" loading="lazy" src="../../attachments/542231922/elio-27-banner.jpg" data-image-src="../../attachments/542231922/elio-27-banner.jpg" data-height="361" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="572915741" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="elio-27-banner.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542231922" data-linked-resource-container-version="2" data-media-id="87c614f6-1f55-4a11-a50e-b941354d1786" data-media-type="file"></span><p>The RenderMan integrator system is an incredibly versatile tool, which takes the camera rays and returns results to the renderer. For the main integrators these are estimates of the light energy (radiance) from the surfaces seen from the outside along the rays. These main integrators are responsible for computing the overall light transport, that is, light that travels from a light source through your scene from object to object (or through objects and volumes) to reach the camera. Interior integrators assist in specialized cases by handling the light within surfaces or volumes. We provide three main production quality integrators, though users can substitute their own.</p><p><a href="/wiki/spaces/REN27/pages/542231984/PxrPathTracer" data-linked-resource-id="542231984" data-linked-resource-version="2" data-linked-resource-type="page">PxrPathTracer</a> implements a unidirectional path tracer. This combines information from the materials at the hit points with light samples to estimate direct lighting and shadowing, then spawns/shoots additional rays to handle indirect lighting. This works well with environment lights, and large direct light sources. Typically exterior scenes, scenes lit by dome lights/HDRI, and many typical visual effects shots are rendered with this integrator.</p><p><a href="/wiki/spaces/REN27/pages/542232008/PxrVCM" data-linked-resource-id="542232008" data-linked-resource-version="2" data-linked-resource-type="page">PxrVCM</a> extends this with bidirectional path tracing. In addition to the paths from the camera, it traces paths from the light sources and tries to connect them. It can resolve complicated indirect paths that may be slow to converge with PxrPathTracer. In particular, it is designed to handle specular caustics. Caustics are an effect of light being refocused after reflecting or refracting off a surface. The above image illustrates both of these effects. If your scene requires these effects or you have complex lighting where some lights may be covered or hidden in fixtures, then the PxrVCM integrator is your most likely efficient choice.</p><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="ab1c2c09-4613-4c69-b1a2-0ac13be4a826" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>PxrUnified is available but currently experimental until it supports all the features of commercial RenderMan.</p></div></div><p /><h3 id="Integrators-Examples">Examples</h3><p>PRMan includes example RIB files and shaders demonstrating the integrators, at the heart of RenderMan. These examples can be found in the PixarRenderMan-Examples-XX.X/scenes/integrator directory. Some of the examples are discussed in detail in the pages below. Whether or not you're inclined to open up a terminal window and render along, these pages serve as a broad overview of the features and capabilities of PRMan.</p></div>
+</div>
+</div>
+<div class="columnLayout two-left-sidebar" data-layout="two-left-sidebar">
+<div class="cell aside" data-type="aside">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Integrators_image2.png" width="200" loading="lazy" src="../../attachments/542231922/Integrators_image2.png" data-image-src="../../attachments/542231922/Integrators_image2.png" data-height="200" data-width="200" data-unresolved-comment-count="0" data-linked-resource-id="542231949" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Integrators_image2.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542231922" data-linked-resource-container-version="2" data-media-id="4281e8b2-a763-44be-8a05-023dd2536863" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><a class="external-link" href="https://rmanwiki-26.pixar.com/space/REN26/19661809/Integrator+Examples#Soho" rel="nofollow">Soho</a> - a teapot and emissive geometry in a volume, with reflections all around, this scene demonstrates improved volume sampling capabilities in a complicated lighting scenario. This example uses the <a class="external-link" href="https://rmanwiki-26.pixar.com/space/REN26/19661775/PxrPathTracer" rel="nofollow">PxrPathTracer</a> integrator</p></div>
+</div>
+</div>
+<div class="columnLayout two-left-sidebar" data-layout="two-left-sidebar">
+<div class="cell aside" data-type="aside">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Integrators_image3.png" width="200" loading="lazy" src="../../attachments/542231922/Integrators_image3.png" data-image-src="../../attachments/542231922/Integrators_image3.png" data-height="200" data-width="200" data-unresolved-comment-count="0" data-linked-resource-id="542231946" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Integrators_image3.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542231922" data-linked-resource-container-version="2" data-media-id="ccef4678-e8ab-4c84-8f5c-89e508382fc0" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><a class="external-link" href="https://rmanwiki-26.pixar.com/space/REN26/19661809/Integrator+Examples#Skulls" rel="nofollow">Skulls</a> - This example demonstrates the ability of the <a class="external-link" href="https://rmanwiki-26.pixar.com/space/REN26/19661785/PxrVCM" rel="nofollow">PxrVCM</a> integrator to resolve complex light paths, in particular the specular-diffuse-specular that arise from reflections or refractions of caustics.</p></div>
+</div>
+</div>
+</div>
+  </article>
+</main>
+</body>
+</html>

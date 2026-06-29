@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PxrVCM</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>PxrVCM</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/REN27/542232008/PxrVCM">https://rmanwiki-27.pixar.com/space/REN27/542232008/PxrVCM</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="contentLayout2">
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="900" loading="lazy" src="../../attachments/542232008/PxrVCM_fresnel_loop.gif" data-image-src="../../attachments/542232008/PxrVCM_fresnel_loop.gif" data-height="324" data-width="576" data-unresolved-comment-count="0" data-linked-resource-id="542232053" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="PxrVCM_fresnel_loop.gif" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/gif" data-linked-resource-container-id="542232008" data-linked-resource-container-version="2" data-media-id="779a441f-52fb-4582-b999-676f1e94eceb" data-media-type="file"></span><p style="text-align: center;">使用 PxrVCM 积分器渲染的 fresnel lens（菲涅耳透镜），并为带纹理区域光将 Trace Light Paths 设为 <em>on。</em> </p><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="34fe35e1-7182-4ed7-b311-bfa9ce224715" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>此积分器目前在 RenderMan XPU 中不可用。</p></div></div><p>PxrVCM 是 RenderMan 中的核心最终质量积分器。它将双向路径追踪与渐进式光子映射（也称为顶点合并）结合起来。这些技术各自都能比纯正向路径追踪算法更高效地捕获某一范围的光传输路径：</p><ul><li><p>对于室内场景，或具有显著间接照明的场景，双向路径追踪可能比正向路径追踪收敛更快。尤其是当正向路径追踪不容易找到通往主导光源的间接路径时，双向路径追踪会很有帮助，特别是在主导光源距离照亮场景只差“一次反弹”时。它还可能整体加快间接照明，因为双向路径追踪可以在 light path（光路径）与 eye path（视线路径）之间建立多次连接，并复用 shader 评估。（正向路径追踪器必须在每次反弹处运行 shader，因此无法复用 shader 评估。）请注意，如果 pattern 评估很昂贵，这种收益会更明显；没有 pattern 输入的 Bxdfs 不会从中受益。</p></li><li><p>对于 specular-diffuse-specular（镜面-漫反射-镜面）照明（焦散的反射或折射），渐进式光子映射收敛更快，尤其是在处理相对较小的光源时。</p></li></ul><p>这些采样技术会与直接照明（将 eye vertex（视线顶点）直接连接到光源）一起，通过多重重要性采样进行组合；这种组合方式使综合算法在大量镜头中都比单独使用任一技术更稳健，并且收敛更快。</p><p>PxrVCM 积分器在默认运行模式下会启用所有这些技术；但在需要时，也可以通过 connectPaths 和 mergePaths 参数禁用连接和/或合并，使其作为纯双向路径追踪器、纯单向路径追踪器运行，甚至只使用纯渐进式光子映射。<br/><br/><br/></p><hr/><p /><p /></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="box_teapots_sconce_image1.jpg" width="512" loading="lazy" src="../../attachments/542232008/box_teapots_sconce_image1.jpg" data-image-src="../../attachments/542232008/box_teapots_sconce_image1.jpg" data-height="512" data-width="512" data-unresolved-comment-count="0" data-linked-resource-id="542232041" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="box_teapots_sconce_image1.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542232008" data-linked-resource-container-version="2" data-media-id="732a9baa-0b32-4218-8b48-a6b51a371995" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="box_teapots_sconce_image2.jpg" width="512" loading="lazy" src="../../attachments/542232008/box_teapots_sconce_image2.jpg" data-image-src="../../attachments/542232008/box_teapots_sconce_image2.jpg" data-height="512" data-width="512" data-unresolved-comment-count="0" data-linked-resource-id="542232038" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="box_teapots_sconce_image2.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542232008" data-linked-resource-container-version="2" data-media-id="09ce8bc8-c5ea-4567-b5e8-8628ee750b97" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p>上方图像展示了一个由壁灯中小型光源照亮的盒子。由于壁灯遮挡了大量直接光，此场景中的大部分照明都是间接照明。等时长渲染对比：左图只使用正向路径追踪（mergePaths=0，connectPaths=0），每像素 2048 次采样。右图使用双向路径追踪（connectPaths=1，mergePaths=0），每像素 600 次采样。<br/><br/><br/></p><hr/><p /><p /></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="PxrVCM_image1.png" width="512" loading="lazy" src="../../attachments/542232008/PxrVCM_image1.png" data-image-src="../../attachments/542232008/PxrVCM_image1.png" data-height="384" data-width="512" data-unresolved-comment-count="0" data-linked-resource-id="542232035" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="PxrVCM_image1.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542232008" data-linked-resource-container-version="2" data-media-id="e581acaf-72be-4cf3-83e2-264f9e040031" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="PxrVCM_image2.png" width="512" loading="lazy" src="../../attachments/542232008/PxrVCM_image2.png" data-image-src="../../attachments/542232008/PxrVCM_image2.png" data-height="384" data-width="512" data-unresolved-comment-count="0" data-linked-resource-id="542232032" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="PxrVCM_image2.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542232008" data-linked-resource-container-version="2" data-media-id="7d85451f-53e1-4c32-8844-5bc0234bc095" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p>左侧骷髅图像只使用正向路径追踪（connectPaths=0，mergePaths=0）渲染，每像素 512 次采样。由于高度镜面的金属骷髅带来了难以积分的照明，焦散噪声很强，并且存在大量 fireflies（亮点噪声）。右侧图像使用完整的顶点连接与合并算法（connectPaths=1，mergePaths=1）渲染，同样为每像素 512 次采样。fireflies 几乎不存在，焦散也被解析得好得多。<br/><br/><br/></p><hr/><p /><p><br/></p></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="spherecapCaustic_closeup.jpg" width="666" loading="lazy" src="../../attachments/542232008/spherecapCaustic_closeup.jpg" data-image-src="../../attachments/542232008/spherecapCaustic_closeup.jpg" data-height="1024" data-width="1024" data-unresolved-comment-count="0" data-linked-resource-id="542232029" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="spherecapCaustic_closeup.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542232008" data-linked-resource-container-version="2" data-media-id="8f57e1c7-67a0-4db0-951e-d7fdeab73cb2" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="sphereCaustic_closeup.jpg" width="666" loading="lazy" src="../../attachments/542232008/sphereCaustic_closeup.jpg" data-image-src="../../attachments/542232008/sphereCaustic_closeup.jpg" data-height="1024" data-width="1024" data-unresolved-comment-count="0" data-linked-resource-id="542232026" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="sphereCaustic_closeup.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542232008" data-linked-resource-container-version="2" data-media-id="6e0a2540-4c5c-4da0-a5b7-5116b510e511" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p>上方两张图展示了 PxrVCM 渲染出的一些有趣焦散。左图中，一个 glass lens（玻璃透镜）被 matte plane（哑光平面）切开，右侧还有一个垂直的 matte plane。来自小型光源的光被透镜折射，在哑光表面上形成拉长的焦散。右图中，透镜被替换为玻璃球。</p><p>对于直接照明，PxrVCM 会查看 numLightSamples 和 numBxdfSamples 参数值，以确定 light（灯光）与 Bxdf 直接照明采样数量。为了获得最低噪声，numLightSamples 和 numBxdfSamples 应设置为相同值。更深光线深度和/或更低 throughput（吞吐量）下的直接照明采样削减默认启用，所用方案可通过 reduceDirectSamples 参数控制。</p><p>PxrVCM 会强制在体积中使用多重散射；尤其是双向路径追踪非常适合体积中的多重散射。不过，PxrVCM 目前不支持体积光子；因此，体积焦散等效果可能收敛较慢。</p><p>需要注意，此积分器与 <a href="542231984-PxrPathTracer.html" data-linked-resource-id="542231984" data-linked-resource-version="2" data-linked-resource-type="page">PxrPathTracer 之间有几项重要差异</a>：</p><ul><li><p>PxrVCM 不显式支持像 PxrPathTracer 那样全局关闭焦散光路的能力。不过，默认情况下，场景的渲染结果可能与使用 PxrPathTracer 时相同。这是因为灯光会使用 <strong>Trace Light Paths</strong> 参数控制这些光线的追踪，而该参数默认关闭。你应该有选择地开启此功能，以生成视觉上所需的效果，而不是全部开启；全部开启可能成本较高，也更难进行艺术指导。（LPE 可用于在 PxrVCM 中移除焦散路径，但计算仍然会执行。） </p></li><li><p>与 PxrPathTracer 相比，PxrVCM 对 numLightSamples 与 numBxdfSamples 取不同值的容忍度更低。这两个参数（几乎）应始终设置为相同值，否则可能出现不必要的噪声。</p></li><li><p>由于双向路径追踪的性质，PxrVCM 不暴露任何控制间接光线采样数量的选项；所有顶点最多只生成一条间接光线。</p></li><li><p>渲染裁剪窗口得到的质量可能不同于完整帧渲染。这是因为 light path（光路径）按像素生成，并存储在 photon map（光子图）中。渲染较小区域时，保存的光子会相应减少。在理论上可以生成全部 light path，但这样对性能的影响会开始削弱渲染最终图像小区域所带来的收益。</p></li></ul><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="900" loading="lazy" src="../../attachments/542232008/PxrVCM_image3.png" data-image-src="../../attachments/542232008/PxrVCM_image3.png" data-height="240" data-width="704" data-unresolved-comment-count="0" data-linked-resource-id="542232047" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="PxrVCM_image3.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542232008" data-linked-resource-container-version="2" data-media-id="6fa5919b-1c35-4416-aae1-99fde68fc5d7" data-media-type="file"></span><hr/><p /><p>更多信息请参考相关论文：</p><ul><li><p>Iliyan Georgiev、Jaroslav Křivánek、Tomáš Davidovič 和 Philipp Slusallek。 <a class="external-link" href="https://cgg.mff.cuni.cz/~jaroslav/papers/2012-vcm/2012-vcm-paper.pdf" rel="nofollow">Light Transport Simulation with Vertex Connection and Merging（使用顶点连接与合并的光传输模拟）</a>。《ACM Transactions on Graphics》（SIGGRAPH Asia 2012）。</p></li><li><p>Toshiya Hachisuka、Jacopo Pantaleoni 和 Henrik Wann Jensen。 <a class="external-link" href="http://graphics.ucsd.edu/~henrik/papers/path_space_extension_for_robust_light_transport.pdf" rel="nofollow">A Path Space Extension for Robust Light Transport Simulation（用于稳健光传输模拟的路径空间扩展）</a>。《ACM Transactions on Graphics》（SIGGRAPH Asia 2012）。<br/><br/><br/><br/></p><hr local-id="376bbf7f-9907-421a-a7c6-3d8539ae3063"/><p><br/><br/></p></li></ul><h3 id="PxrVCM-Parameters">Parameters（参数）</h3><div class="table-wrap"><table data-table-width="1800" data-layout="default" data-local-id="729b7046-b3c7-4127-8fbd-f3ba608f8f85" class="confluenceTable"><tbody><tr><th class="confluenceTh"><p><strong>参数</strong></p></th><th class="confluenceTh"><p><strong>说明</strong></p></th></tr><tr><td class="confluenceTd"><p><strong>connectPaths</strong></p></td><td class="confluenceTd"><p>控制是否使用“顶点连接”。双向路径追踪相对于正向路径追踪的优势，在于它能够通过在 eye path（视线路径）与 light path（光路径）之间反复建立连接，沿完整的组合路径重复复用间接贡献，从而让具有显著间接照明的室内场景更快收敛。将此参数设为 0（关闭顶点连接）或 1（开启顶点连接）。默认情况下，顶点连接已启用。 </p><p>没有顶点合并、但启用路径连接时，VCM 只作为双向路径追踪器运行。 </p></td></tr><tr><td class="confluenceTd"><p><strong>mergePaths</strong></p></td><td class="confluenceTd"><p>控制是否使用“顶点合并”。顶点合并会启用渐进式光子映射的一种变体，它在 specular-diffuse-specular（镜面-漫反射-镜面）（焦散）照明中比路径追踪收敛更快。通常建议启用顶点合并，但这会为 photons（光子）带来额外的时间和内存开销；在 specular-diffuse-specular 传输很少的场景中，它可能并非必要。将此参数设为 0（关闭顶点合并）或 1（开启顶点合并）。默认情况下，顶点合并已启用。请注意，光子生成要求 Hider 的 incremental 标志处于开启状态；当前 iteration（迭代）中生成的光子会用作下一次 iteration 的 photon map（光子图）。</p><p>启用顶点合并并禁用顶点连接时，VCM 会实现双向渐进式光子映射的一种变体；通常不推荐此模式，因为它不会在 eye vertex（视线顶点）与 light（灯光）之间建立直接连接，因此直接照明通常比其他所有模式收敛更慢。</p><p>同时禁用顶点合并与顶点连接时，VCM 只作为正向的单向路径追踪器运行（不会生成 light path（光路径））。</p><p /></td></tr><tr><td class="confluenceTd"><p><strong>mergeRadius</strong></p></td><td class="confluenceTd"><p>指定顶点合并中使用的半径。它以 screen-space（屏幕空间）像素为单位测量（不是 world space）。增大此半径会把光子的影响模糊到更宽区域，这可能有助于降低焦散噪声。不过，增大半径也会减慢合并速度，并增加渐进式光子映射的初始偏差，需要更多 iteration 才能得到无偏结果。默认值 5.0 会以一定初始偏差为代价显著降低噪声，而该偏差会随采样增加而降低。使用较低采样数时，如果这些偏差伪影不可接受，降低 mergeRadius 可以减少这些伪影，但代价是噪声增加。</p></td></tr><tr><td class="confluenceTd"><p><strong>timeRadius</strong></p></td><td class="confluenceTd"><p>指定光子可被合并时允许的最大时间差，以快门区间的比例来测量。默认情况下，timeRadius 为 1.0：eye vertex（视线顶点）可以与任意时刻发射的 photons（光子）合并。这可能导致运动物体产生的焦散结果不准确（即在时间上被拖抹）。将 timeRadius 设为较小值，会在时间维度上收紧可合并光子的搜索半径，从而为运动模糊焦散带来更好结果；代价是静态对象需要更多光子才能解析焦散。</p></td></tr><tr><td class="confluenceTd"><p><strong>maxIndirectBounces</strong></p></td><td class="confluenceTd"><p>控制组合后的 light path（光路径）与 eye path（视线路径）的最大长度，包括连接光线。例如，值为 4 时允许最多 4 次全局照明反弹。此参数值为 0 时只允许直接照明，这意味着不会生成 light path（光路径）（因为 eye path 顶点始终会直接连接到光源）。此参数的默认值为 10。</p></td></tr><tr><td class="confluenceTd"><p><strong>numLightSamples</strong></p></td><td class="confluenceTd"><p>控制 eye path（视线路径）上每个顶点用于直接照明的灯光采样数量。默认值为 1。</p></td></tr><tr><td class="confluenceTd"><p><strong>numBxdfSamples</strong></p></td><td class="confluenceTd"><p>控制 eye path（视线路径）上每个顶点用于直接照明的 Bxdf 采样数量。默认值为 1。</p></td></tr><tr><td class="confluenceTd"><p><strong>rouletteDepth</strong></p></td><td class="confluenceTd"><p>控制积分器从哪个路径长度开始执行 Russian roulette（俄罗斯轮盘），以降低整体路径长度。默认值为 4。请注意，Russian roulette 会分别应用于 eye path（视线路径）和 light path（光路径）。</p></td></tr><tr><td class="confluenceTd"><p><strong>rouletteThreshold</strong></p></td><td class="confluenceTd"><p>控制 path throughput（路径吞吐量）阈值；低于该阈值时开始执行 Russian roulette（俄罗斯轮盘）。默认值为 0.2。提高阈值会缩短路径长度，从而整体提升速度，但代价是噪声更高。</p></td></tr><tr><td class="confluenceTd"><p><strong>clampDepth</strong></p></td><td class="confluenceTd"><p>如果指定了 clampLuminance 参数值，则 clampDepth 控制从哪个光线深度开始基于逐光线亮度进行钳制。例如，将此参数设为 2，并同时为 clampLuminance 指定值 4，将确保在所有间接照明中，每条光线贡献的亮度不超过 4，同时不会影响或钳制直接照明。默认值为 2。</p></td></tr><tr><td class="confluenceTd"><p><strong>clampLuminance</strong></p></td><td class="confluenceTd"><p>默认情况下，PxrVCM 积分器会把任何技术在任何顶点上计算出的亮度钳制到最多 10.0。不过，可以通过为 clampLuminance 参数指定不同的值来改变此行为。为 clampLuminance 参数指定相对较低的值（例如 2 到 20 之间）可以大幅加快收敛。在某些情况下，间接照明光路可能会因为钳制而明显变暗；这在特定情况下可能是可以接受的折衷。将此参数设为非常大的数字（例如 1e30）会有效禁用所有钳制。默认值为 10.0。</p></td></tr><tr><td class="confluenceTd"><p><strong>photonGuiding</strong></p></td><td class="confluenceTd"><p>设置光子发射期间使用 photon guiding（光子引导）的概率。值为 0.0 表示不使用 photon guiding。0.0 到 1.0 之间的值会组合 photon guiding 与标准光子发射。最后，值为 1.0 表示所有光子都被引导，这可能生成有偏图像。默认值为 0.0。</p></td></tr><tr><td class="confluenceTd"><p><strong>photonGuidingBBoxMin</strong></p><p><strong>photonGuidingBBoxMax</strong></p></td><td class="confluenceTd"><p>这两个值可用于显式指定 photons（光子）应朝向其发射的包围盒（以 world-space（世界空间）坐标表示）。如果未指定此包围盒，系统会自动计算一个稍微宽松的包围盒，覆盖场景中直接可见的部分。photonGuidingBBoxMin 的默认值为 (1e30, 1e30, 1e30)，photonGuidingBBoxMax 的默认值为 (-1e30, -1e30, -1e30)。</p></td></tr></tbody></table></div><p /><h3 id="PxrVCM-StandardAOVs">Standard AOVs（标准 AOV）</h3><p>除了常规的基于 LPE 的 AOV 之外，此积分器还会输出若干合成师通常使用的标准 AOV。</p><div class="table-wrap"><table data-table-width="1800" data-layout="default" data-local-id="317ef7c8-b2ec-4f05-907f-db87b7e3dccf" class="confluenceTable"><tbody><tr><th class="confluenceTh"><p><strong>声明</strong></p></th><th class="confluenceTh"><p><strong>内容</strong></p></th><th class="confluenceTh"><p><strong>Channels（通道）</strong></p></th></tr><tr><td class="confluenceTd"><p>color __Pworld</p></td><td class="confluenceTd"><p>P，位于 world-space（世界空间）</p></td><td class="confluenceTd"><p>__Pworld.r：x 分量</p><p>__Pworld.g：y 分量</p><p>__Pworld.b：z 分量</p></td></tr><tr><td class="confluenceTd"><p>color __Nworld</p></td><td class="confluenceTd"><p>Nn，位于 world-space（世界空间）</p></td><td class="confluenceTd"><p>__Nworld.r：x 分量</p><p>__Nworld.g：y 分量</p><p>__Nworld.b：z 分量</p></td></tr><tr><td class="confluenceTd"><p>color __depth</p></td><td class="confluenceTd"><p>多用途 AOV</p></td><td class="confluenceTd"><p>__depth.r：从摄影机算起、位于 world-space（世界空间）的深度</p><p>__depth.g：world-space（世界空间）中的高度</p><p>__depth.b：几何朝向比：abs(Nn.V)</p></td></tr><tr><td class="confluenceTd"><p>color __st</p></td><td class="confluenceTd"><p>纹理坐标</p></td><td class="confluenceTd"><p>__st.x：s</p><p>__st.y：t</p><p>__st.z：0.0</p></td></tr><tr><td class="confluenceTd"><p>color __Pref</p></td><td class="confluenceTd"><p>Reference Position primvar（参考位置 primvar，如可用）</p></td><td class="confluenceTd"><p>__Pref.r：x 分量</p><p>__Pref.g：y 分量</p><p>__Pref.b：z 分量</p></td></tr><tr><td class="confluenceTd"><p>color __Nref</p></td><td class="confluenceTd"><p>Reference Normal primvar（参考法线 primvar，如可用）</p></td><td class="confluenceTd"><p>__Nref.r：x 分量</p><p>__Nref.g：y 分量</p><p>__Nref.b：z 分量</p></td></tr><tr><td class="confluenceTd"><p>color __WPref</p></td><td class="confluenceTd"><p>Reference World Position primvar（参考世界位置 primvar，如可用）</p></td><td class="confluenceTd"><p>__WPref.r：x 分量</p><p>__WPref.g：y 分量</p><p>__WPref.b：z 分量</p></td></tr><tr><td class="confluenceTd"><p>color __WNref</p></td><td class="confluenceTd"><p>Reference World Normal primvar（参考世界法线 primvar，如可用）</p></td><td class="confluenceTd"><p>__WNref.r：x 分量</p><p>__WNref.g：y 分量</p><p>__WNref.b：z 分量</p></td></tr></tbody></table></div><p /><p /><p /><p /><p /></div>
+</div>
+</div>
+</div>
+  </article>
+</main>
+</body>
+</html>

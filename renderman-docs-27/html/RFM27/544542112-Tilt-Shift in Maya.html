@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tilt-Shift in Maya</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Tilt-Shift in Maya</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFM27/544542112/Tilt-Shift+in+Maya">https://rmanwiki-27.pixar.com/space/RFM27/544542112/Tilt-Shift+in+Maya</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="contentLayout2">
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="cc746226-e172-46fc-b67e-20dc02323b43" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>Do you need help setting up <a href="/wiki/spaces/RFM27/pages/544541982/Depth+of+Field+in+Maya" data-linked-resource-id="544541982" data-linked-resource-version="2" data-linked-resource-type="page">Depth of Field in Maya</a> or tuning the look of <a href="/wiki/spaces/RFM27/pages/544542056/Bokeh+in+Maya" data-linked-resource-id="544542056" data-linked-resource-version="1" data-linked-resource-type="page">Bokeh in Maya</a> effects?</p></div></div><p><br/></p><p>Download an <a href="/wiki/download/attachments/21037626/tilt_shift.ma.zip?version=1&amp;modificationDate=1694024005590&amp;cacheVersion=1&amp;api=v2" rel="nofollow">Example Maya Scene</a></p><p><br/></p><p>Tilt-Shift options are actually two different options in the camera. Tilt and Roll controls are designed to allow the user to point the lens in a different direction than the camera body. The Shift Options allow the user to move the lens in X (cross) and Y (rise and fall) while pointing it in the same direction as the camera. Focus 1, 2, and 3 allow the user to define an arbitrary plane of focus as a triangle (related to the Tilt controls). More explanation can be found below on each of these options.</p><p /><p>You can access the controls by opening the Camera Attribute Editor and under the RenderMan rollout select &quot;Enable Camera Projection&quot;</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rfm_camProjectionControls.png" width="600" loading="lazy" src="../../attachments/544542112/rfm_camProjectionControls.png" data-image-src="../../attachments/544542112/rfm_camProjectionControls.png" data-height="680" data-width="482" data-unresolved-comment-count="0" data-linked-resource-id="544542178" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfm_camProjectionControls.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544542112" data-linked-resource-container-version="1" data-media-id="fc6fa3e6-38cc-4f16-990b-adfc24d1a855" data-media-type="file"></span><p /><p>You will notice the Camera Projection field is empty. If you right-click you'll get two options: Omnidirectionalstereo (for VR and similar applications) and PxrCamera, choose the latter.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rfm_pxrCamera.png" width="600" loading="lazy" src="../../attachments/544542112/rfm_pxrCamera.png" data-image-src="../../attachments/544542112/rfm_pxrCamera.png" data-height="641" data-width="482" data-unresolved-comment-count="0" data-linked-resource-id="544542175" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfm_pxrCamera.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544542112" data-linked-resource-container-version="1" data-media-id="ec556088-7f68-4fa4-89b8-b1848f9e8a8e" data-media-type="file"></span><p /><p>It's important to match your <strong>Field of View</strong> with your Maya Camera or you may not get the same framing as what you are using in your viewport. You may also select the &quot;Use Camera Settings&quot; on the camera editor.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rfm_pxrCameraTiltShift.png" width="600" loading="lazy" src="../../attachments/544542112/rfm_pxrCameraTiltShift.png" data-image-src="../../attachments/544542112/rfm_pxrCameraTiltShift.png" data-height="717" data-width="482" data-unresolved-comment-count="0" data-linked-resource-id="544542172" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfm_pxrCameraTiltShift.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544542112" data-linked-resource-container-version="1" data-media-id="bf923199-89fe-4c32-89f0-d9d8a67bedbf" data-media-type="file"></span><p /><p><strong>Tilt Angle:</strong> This allows pointing the lens in a different direction than the camera body. If you noticed in the <a href="/wiki/spaces/RFM27/pages/544541982/Depth+of+Field+in+Maya" data-linked-resource-id="544541982" data-linked-resource-version="2" data-linked-resource-type="page">Depth of Field in Maya</a> section, the focal plane is parallel to the imaging plane. But what if you have a subject that is not parallel to the image plane? In architecture it's possible you have a wall that recedes at an angle away from the camera and you want to keep its length in focus without changing the camera framing. Tilt allows you to do this by angling the lens so that it's no longer perpendicular to the image plane.</p><p>In the below example the first image shows the focal plane as a dark bar and objects as blue and red spheres and to the right is the resulting render. This is parallel to the image plane in the camera. However, if you wanted the blue spheres to be in focus without changing the framing you can <em>tilt</em> the lens to alter the focal plane as shown in the second row of images.</p><p style="text-align: center;"></p></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="maya_focalPlaneA.png" width="445" loading="lazy" src="../../attachments/544542112/maya_focalPlaneA.png" data-image-src="../../attachments/544542112/maya_focalPlaneA.png" data-height="473" data-width="445" data-unresolved-comment-count="0" data-linked-resource-id="544542169" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="maya_focalPlaneA.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544542112" data-linked-resource-container-version="1" data-media-id="ee457b49-6e86-4454-83f0-59eb55633b32" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="maya_shiftedPlaneA.png" width="445" loading="lazy" src="../../attachments/544542112/maya_shiftedPlaneA.png" data-image-src="../../attachments/544542112/maya_shiftedPlaneA.png" data-height="473" data-width="445" data-unresolved-comment-count="0" data-linked-resource-id="544542166" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="maya_shiftedPlaneA.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544542112" data-linked-resource-container-version="1" data-media-id="fe456125-8d3b-4f41-ae37-95b76d9f0f07" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p style="text-align: center;"><br/></p></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="maya_standardDOF.jpg" width="686" loading="lazy" src="../../attachments/544542112/maya_standardDOF.jpg" data-image-src="../../attachments/544542112/maya_standardDOF.jpg" data-height="450" data-width="731" data-unresolved-comment-count="0" data-linked-resource-id="544542163" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="maya_standardDOF.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544542112" data-linked-resource-container-version="1" data-media-id="09cf9a9f-95b1-46a5-a895-1bd2e24f32e1" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="maya_TiltDOF.jpg" width="686" loading="lazy" src="../../attachments/544542112/maya_TiltDOF.jpg" data-image-src="../../attachments/544542112/maya_TiltDOF.jpg" data-height="450" data-width="731" data-unresolved-comment-count="0" data-linked-resource-id="544542160" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="maya_TiltDOF.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544542112" data-linked-resource-container-version="1" data-media-id="fb18156e-5058-41e4-8afb-3c6ef6ab1b17" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p style="text-align: center;"><strong>See the difference when applying a tilt and roll to the lens.</strong></p><p><br/></p><p><strong>Roll Angle: </strong>This option allows the user to rotate the lens clockwise and is only effective if there's some degree of Tilt applied. Combining Tilt and Roll means the lens can be pointed in a somewhat limited hemisphere from the camera body.</p><p /><p><strong>Focus Points: </strong>You probably remember from geometry class that three points define a plane or triangle. This triangle can be user-defined in RenderMan to create any arbitrary plane of focus. Below we show how to do this more interactively in Maya using locators for perfect selective focus.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rfm_pxrCameraFocusPoints.png" width="600" loading="lazy" src="../../attachments/544542112/rfm_pxrCameraFocusPoints.png" data-image-src="../../attachments/544542112/rfm_pxrCameraFocusPoints.png" data-height="717" data-width="482" data-unresolved-comment-count="0" data-linked-resource-id="544542157" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfm_pxrCameraFocusPoints.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544542112" data-linked-resource-container-version="1" data-media-id="b30c020f-8d8d-493e-82f7-b857a8501f25" data-media-type="file"></span><p /><p>These points are all located in world space in your scene. Adjusting these manually can be very tedious so the below workflow is suggested to create a visual way to define the focal plane:</p><ol start="1"><li><p>Create a polygonal triangle.</p></li><li><p>Using the Animation Deformer menu, create a <em>cluster handle</em> on each vertex. Select the vertex first then <strong>Animation Menu &gt; Anim Deform &gt; Open Full Deform Menu &gt; Cluster</strong></p></li><li><p>Create a locator under the<strong> Create Menu &gt; Locator</strong> and snap it to the vertex. Make the cluster handle a child of the locator transform. Now moving your locator moves the cluster and its vertex.</p></li></ol><p>You should now have a polygonal triangle that changes position when you move a locator. Note that the locators are an extra step, you could simply use the cluster handles. However, locators are easy to select in the viewport and exclude from view using the <strong>Show Menu</strong>. Remember to Hide the triangle before rendering using a pre-render script or it will render in your scene, or you can select the triangle shape and turn off all of the<strong> Render Stats</strong> so that it doesn't render. RenderMan will report a warning at render time that it's not visible.</p><p>Now that you have a way to see your focal plane, you need to connect the transform outputs of locators (or cluster handles) to the <em>Focus Parameters</em> for the PxrCamera.</p><ol start="1"><li><p>Select the PxrCamera from the Outliner (you can make it visible by <em>deselecting</em> <strong>Display &gt; DAG Object Only</strong> in the Outliner Window) or by using this handy script: </p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="e29256e1-7869-4b09-a073-cce626236a9b" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">select -r PxrCamera ;</pre>
+</div></div><p /></li><li><p>Load this and a locator transform into the Connection Editor. Connect the Locator <em>Translate</em> to a PxrCamera <em>Focus</em> for each locator.<br/></p></li></ol><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="maya_connectLocatorTrans.png" width="684" loading="lazy" src="../../attachments/544542112/maya_connectLocatorTrans.png" data-image-src="../../attachments/544542112/maya_connectLocatorTrans.png" data-height="467" data-width="445" data-unresolved-comment-count="0" data-linked-resource-id="544542133" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="maya_connectLocatorTrans.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544542112" data-linked-resource-container-version="1" data-media-id="4921c22d-b00f-4e64-8676-bd4a8a07633f" data-media-type="file"></span><p /><ol start="3"><li><p>The resulting setup can be seen below in the Maya Viewport where the red triangle represents the new focal plane. Be sure you've enabled <a class="external-link" href="https://rmanwiki.pixar.com/display/RFM26/Depth+of+Field+in+Maya" rel="nofollow">Depth of Field in Maya</a> in your render camera and render away!<br/></p></li></ol><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="maya_arbitraryFocalPlane.jpg" width="683" loading="lazy" src="../../attachments/544542112/maya_arbitraryFocalPlane.jpg" data-image-src="../../attachments/544542112/maya_arbitraryFocalPlane.jpg" data-height="473" data-width="445" data-unresolved-comment-count="0" data-linked-resource-id="544542130" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="maya_arbitraryFocalPlane.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544542112" data-linked-resource-container-version="1" data-media-id="a8d9aa67-deef-475c-b717-95d64a57da34" data-media-type="file"></span><p /><p>The below images were rendered using the above setup.</p><p /></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="maya_arbitraryFocalPlaneExA.jpg" width="686" loading="lazy" src="../../attachments/544542112/maya_arbitraryFocalPlaneExA.jpg" data-image-src="../../attachments/544542112/maya_arbitraryFocalPlaneExA.jpg" data-height="450" data-width="731" data-unresolved-comment-count="0" data-linked-resource-id="544542154" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="maya_arbitraryFocalPlaneExA.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544542112" data-linked-resource-container-version="1" data-media-id="6eedff16-862f-44d4-ab2a-683d88193b80" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="maya_arbitraryFocalPlaneRenA.jpg" width="686" loading="lazy" src="../../attachments/544542112/maya_arbitraryFocalPlaneRenA.jpg" data-image-src="../../attachments/544542112/maya_arbitraryFocalPlaneRenA.jpg" data-height="450" data-width="731" data-unresolved-comment-count="0" data-linked-resource-id="544542151" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="maya_arbitraryFocalPlaneRenA.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544542112" data-linked-resource-container-version="1" data-media-id="a113d3ba-86f5-4a9e-8e80-e63efe223ef0" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="maya_arbitraryFocalPlaneExB.jpg" width="686" loading="lazy" src="../../attachments/544542112/maya_arbitraryFocalPlaneExB.jpg" data-image-src="../../attachments/544542112/maya_arbitraryFocalPlaneExB.jpg" data-height="450" data-width="731" data-unresolved-comment-count="0" data-linked-resource-id="544542148" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="maya_arbitraryFocalPlaneExB.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544542112" data-linked-resource-container-version="1" data-media-id="1aec7508-01af-4d55-868c-f74159a8827b" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="maya_arbitraryFocalPlaneRenB.jpg" width="686" loading="lazy" src="../../attachments/544542112/maya_arbitraryFocalPlaneRenB.jpg" data-image-src="../../attachments/544542112/maya_arbitraryFocalPlaneRenB.jpg" data-height="450" data-width="731" data-unresolved-comment-count="0" data-linked-resource-id="544542145" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="maya_arbitraryFocalPlaneRenB.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544542112" data-linked-resource-container-version="1" data-media-id="96937513-8c4e-444b-a954-316e9f211127" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<div class="confluence-information-macro confluence-information-macro-warning conf-macro output-block" data-hasbody="true" data-macro-id="5ce48370-3490-448f-ad8b-86956c6eee38" data-macro-name="warning"><span class="aui-icon aui-icon-small aui-iconfont-error confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>This arbitrary focal plane method is not without risk. If your focal plan is too narrow/perpendicular to the camera image plan, your render will fail to output despite slowly rendering a black image. Below is an example where the plane generates an empty image.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="700" loading="lazy" src="../../attachments/544542112/maya_arbitraryFocalPlaneFail.jpg" data-image-src="../../attachments/544542112/maya_arbitraryFocalPlaneFail.jpg" data-height="450" data-width="731" data-unresolved-comment-count="0" data-linked-resource-id="544542199" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="maya_arbitraryFocalPlaneFail.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544542112" data-linked-resource-container-version="1" data-media-id="1cda1dc6-c825-443e-8e19-cb173c27310d" data-media-type="file" /></span></div></div><p /><p><strong>Shift X Y: </strong>This control shifts the lens up and down or back and forth. In architecture this control has been used to maintain parallel lines in a composition. For example: In some cases a building that's tall may look like it's falling backwards because the top of it appears to converge at a point. Shifting can correct for this perspective view.</p><p>In the below images, imagine framing a building with your camera but the building is just too tall to fit in your view. So you tilt the whole camera upwards and frame the whole building. But now you have perspective distortion. In the last frame the lens is <em>shifted</em> to correct for the distortion.</p><p /></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="maya_unShiftedLens.png" width="445" loading="lazy" src="../../attachments/544542112/maya_unShiftedLens.png" data-image-src="../../attachments/544542112/maya_unShiftedLens.png" data-height="473" data-width="445" data-unresolved-comment-count="0" data-linked-resource-id="544542139" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="maya_unShiftedLens.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544542112" data-linked-resource-container-version="1" data-media-id="10aaab1b-73c8-4546-bfa9-0a8e6e482e01" data-media-type="file"></span><p /></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="maya_unShiftedLensPersp.png" width="445" loading="lazy" src="../../attachments/544542112/maya_unShiftedLensPersp.png" data-image-src="../../attachments/544542112/maya_unShiftedLensPersp.png" data-height="473" data-width="445" data-unresolved-comment-count="0" data-linked-resource-id="544542136" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="maya_unShiftedLensPersp.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544542112" data-linked-resource-container-version="1" data-media-id="0b733c23-cf99-41f2-a241-fc0f2d0c4585" data-media-type="file"></span><p /></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="maya_shiftedLens.png" width="445" loading="lazy" src="../../attachments/544542112/maya_shiftedLens.png" data-image-src="../../attachments/544542112/maya_shiftedLens.png" data-height="473" data-width="445" data-unresolved-comment-count="0" data-linked-resource-id="544542142" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="maya_shiftedLens.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544542112" data-linked-resource-container-version="1" data-media-id="887eba29-56a2-4f34-a469-4ec3121496a3" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><br/></p><p /></div>
+</div>
+</div>
+</div>
+  </article>
+</main>
+</body>
+</html>

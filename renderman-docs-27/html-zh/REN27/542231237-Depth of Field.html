@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Depth of Field</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Depth of Field</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/REN27/542231237/Depth+of+Field">https://rmanwiki-27.pixar.com/space/REN27/542231237/Depth+of+Field</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="900" loading="lazy" src="../../attachments/542231237/lenschart.jpg" data-image-src="../../attachments/542231237/lenschart.jpg" data-height="300" data-width="960" data-unresolved-comment-count="0" data-linked-resource-id="542231249" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="lenschart.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542231237" data-linked-resource-container-version="1" data-media-id="99dce070-4772-4b61-9654-9fefaa177eed" data-media-type="file"></span><p><strong>Aperture:</strong> 摄影机的 aperture（光圈）会限制能够到达图像平面的光量（卷片摄影机中的胶片，或数码摄影机中的传感器）。aperture 的每个位置称为一个 “stop” 或 <em>f-stop</em>。在物理摄影机中，aperture 会与快门速度共同决定胶片曝光。为了保持 constant exposure level（恒定曝光水平），更快的快门速度需要更大的 aperture 尺寸，以补偿因快门速度增加而损失的光量。相反，更慢的快门速度需要更小的 aperture，以避免胶片过曝。</p><p>改变 aperture 尺寸的一个副作用是 depth of field（景深）会发生变化。Depth of field 描述摄影机能够产生的有限对焦范围，这是由光线穿过 aperture 后的聚焦方式决定的。针孔摄影机几乎具有无限 depth of field，而具有大 aperture（小 f-stop）的摄影机则具有较窄的 depth of field。减小 aperture 尺寸（更小的 aperture 对应更大的 f-stop 数值）会增加 depth of field，使离焦点更远的对象也显得处于焦内。每个 f-stop 都表示相对于前一个 stop，光照强度减半。<br/><br/></p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="900" loading="lazy" src="../../attachments/542231237/f_36.jpg" data-image-src="../../attachments/542231237/f_36.jpg" data-height="345" data-width="690" data-unresolved-comment-count="0" data-linked-resource-id="542231255" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="f_36.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542231237" data-linked-resource-container-version="1" data-media-id="3dbc6f5d-1907-462e-82fe-4bfc6522e688" data-media-type="file"></span><p>RenderMan 的摄影机投影可以使用指定的 <strong>fstop</strong>, <strong>focallength</strong>，以及 <strong>focaldistance</strong> 来创建 depth of field（景深）的错觉或真实的电影摄影效果。这些值以 scene units（场景单位）指定。focal distance 是从投影中心穿过到对焦平面的距离。focal length 与 fstop 的比率决定 lens aperture（镜头光圈）的大小（因此也决定模糊量），而 focal distance 与 focal length 之间的关系决定 depth of field。下图使用的摄影机设置为：fstop 为 1.0、focaldistance 为 100、focallength 为 1.3。</p><p style="text-align: center;"><span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image" width="960" loading="lazy" src="../../attachments/542231237/lensDOFRuler.png" data-image-src="../../attachments/542231237/lensDOFRuler.png" data-unresolved-comment-count="0" data-linked-resource-id="542231258" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="lensDOFRuler.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542231237" data-linked-resource-container-version="1" data-media-id="20e11d34-7000-437f-b61a-c292f4ce0988" data-media-type="file"></span></p><p style="text-align: center;">fstop = 1.0, focalDistance = 100, focalLength = 1.3</p>
+  </article>
+</main>
+</body>
+</html>

@@ -1,0 +1,43 @@
+{"item_id":"6ad60b3b91:0","text":"Aggregate volumes（聚合体积）"}
+{"item_id":"6ad60b3b91:1","text":"是一项新技术，可让你更高效地渲染 overlapping volumes（重叠体积），并降低 time to first pixel（首像素时间）。它还允许 PxrSurface 在其 interior integrator（内部积分器）中使用 heterogeneous volume（非均匀体积）。"}
+{"item_id":"6ad60b3b91:2","text":"聚合渲染在 Maya 中需要特定设置。"}
+{"item_id":"6ad60b3b91:3","text":"Aggregate Membership（聚合成员关系）"}
+{"item_id":"6ad60b3b91:4","text":"所有可渲染的 volumetric primitives（体积图元）都必须位于同一个 rmanVolumeAggregateSet set 中。该节点的工作方式与普通 Maya set 类似，并且每个新场景都会创建一个"}
+{"item_id":"6ad60b3b91:5","text":"globalVolumeAggregate"}
+{"item_id":"6ad60b3b91:6","text":"set（集合）。"}
+{"item_id":"6ad60b3b91:7","text":"该 set（集合）应包含 shapes（形状），NOT（而不是）transforms（变换）。"}
+{"item_id":"6ad60b3b91:8","text":"任何 volumetric primitive（体积图元）"}
+{"item_id":"6ad60b3b91:9","text":"not（未）"}
+{"item_id":"6ad60b3b91:10","text":"包含在 integrator（积分器）的 set（集合）中时，将会"}
+{"item_id":"6ad60b3b91:11","text":"不会渲染。"}
+{"item_id":"6ad60b3b91:12","text":"Integrator Settings（积分器设置）"}
+{"item_id":"6ad60b3b91:13","text":"从 RenderMan 24.2 开始，PxrPathTracer 支持 volume aggregates（体积聚合）。"}
+{"item_id":"6ad60b3b91:14","text":"将所有 volumes（体积）添加到你的"}
+{"item_id":"6ad60b3b91:15","text":"globalVolumeAggregate"}
+{"item_id":"6ad60b3b91:16","text":"set（集合）后，请在 PxrPathTracer 的"}
+{"item_id":"6ad60b3b91:17","text":"Volume Aggregate Name（体积聚合名称）"}
+{"item_id":"6ad60b3b91:18","text":"中输入该 set（集合）的名称。"}
+{"item_id":"6ad60b3b91:19","text":"如果名称字段留空，将使用旧的体积渲染方法。"}
+{"item_id":"6ad60b3b91:20","text":"Volume aggregates（体积聚合）速度更快，因为它们会忽略传统 visibility settings（可见性设置）（camera、transmission、indirect）。如果需要覆盖一个或多个 visibility flags（可见性标志），必须："}
+{"item_id":"6ad60b3b91:21","text":"为每个 override（覆盖）创建一个新的 rmanVolumeAggregateSet node，其中包含应当可见的 volumes（体积）。"}
+{"item_id":"6ad60b3b91:22","text":"在 PxrPathTracer 中对应的 field（字段）里输入该 set name（集合名称）："}
+{"item_id":"6ad60b3b91:23","text":"Camera Aggregate Override：对 camera rays（相机光线）可见的一组 volumes（体积）"}
+{"item_id":"6ad60b3b91:24","text":"Indirect Aggregate Override：对 indirect rays（间接光线）可见的一组 volumes（体积）"}
+{"item_id":"6ad60b3b91:25","text":"Transmission Aggregate Override：对 transmission rays（透射光线）可见的一组 volumes（体积）"}
+{"item_id":"6ad60b3b91:26","text":"同一个 set name（集合名称）可以用于多个 visibility fields（可见性字段）。"}
+{"item_id":"6ad60b3b91:27","text":"Joint Sampling（联合采样）"}
+{"item_id":"6ad60b3b91:28","text":"：启用 visibility（可见性）和光源的 importance sampling（重要性采样）。当灯光靠近 thin volume（薄体积），或 thin volume 由远处灯光照亮时，这很有用。Joint sampling 有成本，不需要时应禁用。"}
+{"item_id":"6ad60b3b91:29","text":"Node parameters（节点参数）"}
+{"item_id":"6ad60b3b91:30","text":"Aggregate Membership（聚合成员关系）"}
+{"item_id":"6ad60b3b91:31","text":"：显示当前 node（节点）属于哪个 aggregate（聚合）。可以使用 side menu（侧边菜单）修改 membership（成员关系）。"}
+{"item_id":"6ad60b3b91:32","text":"DSO Min/Max（DSO 最小/最大）"}
+{"item_id":"6ad60b3b91:33","text":"：启用后，procedural nodes（程序节点）（例如 openVDB）会构建 spatial acceleration structure（空间加速结构）以加快渲染。"}
+{"item_id":"6ad60b3b91:34","text":"以下 parameters（参数）仅在 openVDB volumes（openVDB 体积）上受支持："}
+{"item_id":"6ad60b3b91:35","text":"Filter Width（滤波宽度）"}
+{"item_id":"6ad60b3b91:36","text":"：Volume aggregates（体积聚合）会使用一种 volume mip-mapping（体积 mip-mapping）形式，使你可以偏置最佳 level of detail（细节层级）。"}
+{"item_id":"6ad60b3b91:37","text":"Density Scale（密度缩放）"}
+{"item_id":"6ad60b3b91:38","text":"：在 renderer（渲染器）加载 volume data（体积数据）时，动态缩放 density（密度）。"}
+{"item_id":"6ad60b3b91:39","text":"Density Rolloff（密度衰减）"}
+{"item_id":"6ad60b3b91:40","text":"：Remap density（重映射密度），使较低密度区域更 wispy（稀薄飘散）或更 dense（浓密）。"}
+{"item_id":"6ad60b3b91:41","text":"PxrSurface Interior Aggregate Volume（PxrSurface 内部聚合体积）"}
+{"item_id":"6ad60b3b91:42","text":"PxrSurface 允许你将 aggregate volume set（聚合体积集合）绑定到其 interior integrator（内部积分器），用于渲染 cloudy water（浑浊水体）、gemstones（宝石）等。"}

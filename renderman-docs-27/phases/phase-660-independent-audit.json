@@ -1,0 +1,93 @@
+{
+  "phase": 660,
+  "file": "RU/656834683-Hippie Dragon Shading.html",
+  "file_id": "b1a7eec5d7",
+  "source_items": 12,
+  "translation_rows": 12,
+  "source_items_match_translation_rows": true,
+  "duplicate_rows": [],
+  "missing_item_ids": [],
+  "extra_item_ids": [],
+  "tag_fingerprint_identical": true,
+  "rendered_markup_matches_target_markup": true,
+  "glossary_violations": [],
+  "direct_placement_missing": [],
+  "actionable_long_source_residuals": [],
+  "accepted_long_source_residuals": [],
+  "actionable_ascii_heavy_residuals": [],
+  "accepted_ascii_heavy_residuals": [
+    {
+      "item_id": "b1a7eec5d7:1",
+      "text": "为了让这个 asset 看起来可信，我需要处理许多不同 materials，但没有不同 geometries 可供分配这些 materials。所有不同 materials 都需要合并在一个 single master shader 下，因此我认为这类 asset 的最佳方法，是使用 “PxrLayerMixer” 和 “PxrLayer” nodes 进行 layer shading，以分离这些不同 properties，并使用 masks 在 materials 之间实现平滑 transition。",
+      "ascii_letters": 137,
+      "cjk_chars": 78
+    },
+    {
+      "item_id": "b1a7eec5d7:2",
+      "text": "我为 body 的不同区域分别设置了 shader control，例如 Petals、Leaves、Feet、Eyes 周围区域、Belly、Neck、Antenna、Tongue、Mouth 等。",
+      "ascii_letters": 64,
+      "cjk_chars": 19
+    },
+    {
+      "item_id": "b1a7eec5d7:4",
+      "text": "petals 的 lookdev 是更关键的 materials 之一，因为它既要看起来很薄，也要像 flower petals 那样 transmit light。最初我尝试借助 mask 通过 SSS 来实现这种 look。",
+      "ascii_letters": 58,
+      "cjk_chars": 37
+    },
+    {
+      "item_id": "b1a7eec5d7:7",
+      "text": "leaves 的 geometry 比 Petals 稍厚，因此不像 petals 的 material，我不需要使用 transmission 来获得类似 petal 的 backlit look。下面是我仅使用 SSS parameter 得到的结果。",
+      "ascii_letters": 74,
+      "cjk_chars": 33
+    },
+    {
+      "item_id": "b1a7eec5d7:9",
+      "text": "我在许多 references 中注意到，frogs 和一些其他 reptiles 的 eyes 有一种 metallic look。其中一些还有类似 gold foil 的 flakes。我觉得这很有趣，并尝试在 Hippie 的 eyes 中实现类似 look。",
+      "ascii_letters": 67,
+      "cjk_chars": 43
+    },
+    {
+      "item_id": "b1a7eec5d7:10",
+      "text": "对于 Iris 和 Sclera，我同时使用 SSS 和 Specular Edge Color。为了获得 metallic look，我略微提高了 IOR。这给了我 semi metallic look。虽然 eye 有这种 metallic shine，但它仍不是真正的 metal。归根结底，它是 organic material，因此我没有只让 Specularity 驱动 color，而是将其与 subsurface 结合，以便也获得一些来自 SSS 的贡献。",
+      "ascii_letters": 126,
+      "cjk_chars": 70
+    }
+  ],
+  "required_phrase_missing": [],
+  "section_order_positions": [
+    {
+      "pattern": "Shading（着色）",
+      "position": 2102
+    },
+    {
+      "pattern": "PxrLayerMixer",
+      "position": 2265
+    },
+    {
+      "pattern": "Petals（花瓣）",
+      "position": 4121
+    },
+    {
+      "pattern": "SSS",
+      "position": 4238
+    },
+    {
+      "pattern": "Leaves（叶片）",
+      "position": 6055
+    },
+    {
+      "pattern": "Eyes（眼睛）",
+      "position": 8239
+    },
+    {
+      "pattern": "Iris",
+      "position": 8398
+    },
+    {
+      "pattern": "golden flakes",
+      "position": 8641
+    }
+  ],
+  "section_order_ok": true,
+  "passed": true
+}

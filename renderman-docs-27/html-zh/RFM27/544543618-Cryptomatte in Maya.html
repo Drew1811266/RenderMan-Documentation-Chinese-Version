@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cryptomatte in Maya</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Cryptomatte in Maya</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFM27/544543618/Cryptomatte+in+Maya">https://rmanwiki-27.pixar.com/space/RFM27/544543618/Cryptomatte+in+Maya</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>使用 <a href="https://rmanwiki-26.pixar.com/space/REN26/19661911/PxrCryptomatte" data-linked-resource-id="19661911" data-linked-resource-version="2" data-linked-resource-type="page">PxrCryptomatte</a> workflow（工作流），你可以在 Maya 中输出 IDs，以便在合成应用程序中轻松选择。随后可以将该选择用作 mask，在后期软件包中有选择地进行修改。</p><p>PxrCryptomatte 作为 <a href="https://rmanwiki-26.pixar.com/space/REN26/19661887/Sample+and+Display+Filters" data-linked-resource-id="19661887" data-linked-resource-version="2" data-linked-resource-type="page">Sample Filter</a> plugin 提供。因此，Cryptomatte 的输出会作为一个独立的 EXR 文件保存，与 beauty 或 denoise outputs 分开。请注意，需要 OpenEXR 才能正确存储这些值。</p><span class="confluence-embedded-file-wrapper image-center-wrapper"><img class="confluence-embedded-image image-center" loading="lazy" src="../../attachments/544543618/rfmMakeCryptomatte.png" data-image-src="../../attachments/544543618/rfmMakeCryptomatte.png" data-height="608" data-width="478" data-unresolved-comment-count="0" data-linked-resource-id="544543640" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfmMakeCryptomatte.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544543618" data-linked-resource-container-version="1" data-media-id="2a809594-adb0-4960-b007-c0b823203bc1" data-media-type="file"></span><p>在 <strong>Features Tab</strong> 的 <strong>Render Settings</strong>下，导航到 <strong>Images / Sample Filters</strong> 选项卡，并在空槽位上右键单击以选择 <strong>create a PxrCryptomatte</strong>。</p><span class="confluence-embedded-file-wrapper image-center-wrapper"><img class="confluence-embedded-image image-center" loading="lazy" src="../../attachments/544543618/rfmMakeCryptomatteOptions.png" data-image-src="../../attachments/544543618/rfmMakeCryptomatteOptions.png" data-height="435" data-width="477" data-unresolved-comment-count="0" data-linked-resource-id="544543637" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfmMakeCryptomatteOptions.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544543618" data-linked-resource-container-version="1" data-media-id="736b62cc-e68e-40ef-a6d5-5ef090d97f91" data-media-type="file"></span><p>上方选项为默认值。你可以访问 <a href="https://rmanwiki-26.pixar.com/space/REN26/19661911/PxrCryptomatte" data-linked-resource-id="19661911" data-linked-resource-version="2" data-linked-resource-type="page">PxrCryptomatte</a> 页面了解更多关于这些选项的信息。</p><p>请注意，创建 Sample Filter 后，会再创建一个空连接，使你可以使用不同条件输出 Cryptomatte 文件。例如，如果你想要一个 per-object 输出和另一个 per-material 输出，可以再创建一个用于输出的 PxrCryptomatte，并为该文件指定另一个名称。</p><p>目前，每个 plugin 都需要输出一个单独的 OpenEXR，并与 denoise 或 beauty EXRs 分开。你可以使用正确的 token 创建序列，例如：cryptomatte.&lt;f4&gt;.exr 会创建一个 padding 为 4 位的渲染序列，即 cryptomatte.0001.exr。</p><p>下面是在 Nuke 中使用 Robot Room Community Scene 的示例。</p><span class="confluence-embedded-file-wrapper image-center-wrapper"><img class="confluence-embedded-image image-center" loading="lazy" src="../../attachments/544543618/nuke-select-1.png" data-image-src="../../attachments/544543618/nuke-select-1.png" data-height="1060" data-width="1180" data-unresolved-comment-count="0" data-linked-resource-id="544543634" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="nuke-select-1.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544543618" data-linked-resource-container-version="1" data-media-id="c04d7b68-d014-4319-a7ba-a0215e64e4cc" data-media-type="file"></span><p><br/></p><p>如果你想为几何体分配 ID，可以通过多种方式设置 user string attribute。示例如下：</p><p>如果希望它们匹配，可以使用预先分配的 LPE group。</p><p>告诉 Cryptomatte 你要使用：identifier:lpegroup。</p><p>选择 identifier:name 时，它会返回 instance（transform）。</p><p>选择 identifier:object 时，它会返回叶级 shape node。</p><p> <br/></p><p><br/></p>
+  </article>
+</main>
+</body>
+</html>

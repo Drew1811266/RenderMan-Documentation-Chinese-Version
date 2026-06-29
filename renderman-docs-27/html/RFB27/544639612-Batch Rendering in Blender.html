@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Batch Rendering in Blender</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Batch Rendering in Blender</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFB27/544639612/Batch+Rendering+in+Blender">https://rmanwiki-27.pixar.com/space/RFB27/544639612/Batch+Rendering+in+Blender</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/544639612/RenderManForBlender_batchrender.png" data-image-src="../../attachments/544639612/RenderManForBlender_batchrender.png" data-unresolved-comment-count="0" data-linked-resource-id="544639626" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderManForBlender_batchrender.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544639612" data-linked-resource-container-version="1" data-media-id="30a46db2-95ea-449e-bd19-47b79907c0ce" data-media-type="file"></span></p><p>Just finished your new amazing animation and now it's time to render it out?<br/><br/>Batch Rendering is the place to come to render out all your beautiful frames onto disc.<br/><br/>Batch rendering with RenderMan for Blender can be done from the External Rendering panel, in the render properties. <br/>Let's take a look at some of the options available.<br/><br/></p><p><br/></p><hr/><h3 id="BatchRenderinginBlender-BatchRender"><br/>Batch Render</h3><p>Starts and spools a batch render job</p><h3 id="BatchRenderinginBlender-BatchBakeRender">Batch Bake Render</h3><p>Starts and spools a bake render job</p><h3 id="BatchRenderinginBlender-RenderAnimation">Render Animation</h3><p>Whether you want to render a full animation (i.e.: multiple frames) or a desired in / out frame sequence. <br/>The frame range should be set with the <strong>Start</strong> and <strong>End</strong> settings.<br/>Leaving By to the default of 1 will render every frame, but if you want every, say, 5th frame in your sequence, just enter 5 here.</p><h3 id="BatchRenderinginBlender-SpoolStyle">Spool Style</h3><p>Select between Blender Batch or RIB. <br/>Blender Batch will spawn a separate blender process to render. For RIB, RenderMan for Blender will write out external RIB files to disk first before rendering (Blender is not involved with rendering). Each mode has advantages and disadvantages. </p><h3 id="BatchRenderinginBlender-SpoolTo">Spool To</h3><p>Choose between Local Queue or <a href="/wiki/spaces/TRA">Tractor</a>. <br/>Local Queue is our local render queue manager; all renders are done on the local machine. Tractor is our render farm job queue and work distribution system and this choice requires that you have Tractor installed on your local machine, as well as a Tractor Engine and Tractor blades installed on your local network.</p><h3 id="BatchRenderinginBlender-FrameChunking">Frame Chunking</h3><p>This only applies to the Blender Batch style. <br/>This determines how many frames each Blender Batch process will render. For example, if you are rendering a 10-frame sequence, a frame chunk setting of 1 will produce 10 separate blender batch processes, whereas a frame chunking setting of 5, will produce only 2 blender batch processes, with each rendering 5 frames. Frame Chunking, with the <strong>Persistent Data</strong> option, turned on, can help speed up batch renders.</p><h3 id="BatchRenderinginBlender-UseBlenderCompositor">Use Blender Compositor</h3><p>This only applies to the Blender Batch style. If this is turned on, all RenderMan Displays options will be ignored and only the final composited image will be saved. If off, then any compositing operators in the Compositor are ignored. If the composited image needs to be denoised, turn on the Optix denoise option.</p><h3 id="BatchRenderinginBlender-BlenderBatchAOVs">Blender Batch AOVs</h3><p>Only applies to Blender Batch style, and Use Blender Compositor is on. If enabled, AOVs will also be written to disk (if using RenderMan Displays, AOVs will be written out as EXR's).</p><h3 id="BatchRenderinginBlender-EnableRecovery">Enable Recovery</h3><p>This only applies when Spool Style is set to RIB. Whether you want to attempt a recovery render. For more information see <a href="/wiki/spaces/REN26/pages/19661833/Checkpointing+and+Recovery" data-linked-resource-id="19661833" data-linked-resource-version="3" data-linked-resource-type="page">Checkpointing and Recovery</a>. The checkpoint setting can be found under the Sampling panel.</p><h3 id="BatchRenderinginBlender-CustomRenderCommands">Custom Render Commands</h3><p>Allows you to add any other arguments you want to add to the render command</p><h3 id="BatchRenderinginBlender-RIBFormat">RIB Format</h3><p>If Spool Style is set to RIB, this controls whether RIB is written as ASCII or Binary formats. Binary can save on disk space, but cannot be inspected with a text editor.</p><h3 id="BatchRenderinginBlender-RIBCompression">RIB Compression</h3><p>If Spool Style is set to RIB, this controls whether or not you want to also GZip the RIB files, to save additional disk space.<br/><br/></p><p><br/></p>
+  </article>
+</main>
+</body>
+</html>

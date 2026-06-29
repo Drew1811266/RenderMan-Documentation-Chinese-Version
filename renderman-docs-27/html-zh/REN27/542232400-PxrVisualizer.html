@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PxrVisualizer</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>PxrVisualizer</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/REN27/542232400/PxrVisualizer">https://rmanwiki-27.pixar.com/space/REN27/542232400/PxrVisualizer</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/542232400/PxrVisualizer_image1.png" data-image-src="../../attachments/542232400/PxrVisualizer_image1.png" data-unresolved-comment-count="0" data-linked-resource-id="542232412" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="PxrVisualizer_image1.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542232400" data-linked-resource-container-version="1" data-media-id="b6be8dec-f842-4254-8112-98fe9b8fcf37" data-media-type="file"></span></p><p><br/></p><p>PxrVisualizer 是一种工具积分器，可在 Interactive re-rendering（交互式重渲染）期间用于导航大型场景并检查几何体。它允许使用不同的查看 style（样式），包括 shaded、flat、normals、st、wireframe。为了获得最佳结果，请 Disable（禁用） pretessellate（预细分）（在 Renderman for Maya、RfM 中会自动执行）。在 RfM 中将 PxrVisualizer 与 IPR 一起使用时，务必在 IPR Options 中将 Update Mode 设置为“Continuous”。对于复杂 Maya 场景，在 viewport（视口）中隐藏几何体可改善使用 PxrVisualizer 重渲染时的场景导航。</p><p><br/></p><div class="section"><h3 id="PxrVisualizer-Parameters">Parameters（参数）</h3><div class="table-wrap"><table class="wrapped confluenceTable"><tbody><tr><th class="confluenceTh">参数</th><th class="confluenceTh">说明</th></tr><tr><td class="confluenceTd"><p><strong>int wireframe</strong></p></td><td class="confluenceTd"><p>[1]：（默认）可视化几何体的线框。</p></td></tr><tr><td style="text-align: left;" class="confluenceTd"><p><strong>color wireframeColor</strong></p></td><td class="confluenceTd"><p>线框颜色</p></td></tr><tr><td style="text-align: left;" class="confluenceTd"><p><strong>float wireframeOpacity</strong></p></td><td class="confluenceTd"><p>线框不透明度</p></td></tr><tr><td style="text-align: left;" class="confluenceTd"><p><strong>float wireframeWidth</strong></p></td><td class="confluenceTd"><p>线框宽度</p></td></tr><tr><td class="confluenceTd"><p><strong>string style</strong></p></td><td class="confluenceTd"><p>["shaded"]：（默认）简单的 N dot V shading（N 点乘 V 着色）。</p><p>["bxdf"]：使用虚拟灯光渲染场景，不计算阴影或间接照明。类似于 PxrDefault 积分器。</p><p>["flat"]：根据 object id（对象 ID）为每个对象渲染不同的 flat color（平面颜色）。</p><p>["st"]：渲染归一化的 st。</p><p>["normals"]：在 object space（对象空间）中渲染 normals（法线）。</p></td></tr><tr><td class="confluenceTd"><p><strong>int normalCheck</strong></p></td><td class="confluenceTd"><p>[1]：以亮橙色显示反转法线区域。此选项默认关闭。</p></td></tr><tr><td class="confluenceTd"><p><strong>int normalMap</strong></p></td><td class="confluenceTd"><p>将 normal 的坐标从 [-1;1] 映射到 [0;1]，以避免黑色。</p></td></tr><tr><td class="confluenceTd"><p><strong>string shadedPrimVar</strong></p></td><td class="confluenceTd"><p>"shaded" style 的 tint color（着色颜色）。</p></td></tr><tr><td class="confluenceTd"><p><strong>string matCap</strong></p></td><td class="confluenceTd"><p>style 为 "matcap" 时使用的 Material capture environment map（材质捕获环境贴图）。表面法线用于在此纹理中查找颜色。</p></td></tr></tbody></table></div><p><br/></p></div><div class="section"><h3 id="PxrVisualizer-StandardAOVs">标准 AOV</h3><p>除常规基于 LPE 的 AOV 之外，此积分器还会输出若干合成师通常使用的标准 AOV。</p><div class="table-wrap"><table class="wrapped confluenceTable"><thead><tr><th class="confluenceTh">声明</th><th class="confluenceTh">内容</th><th class="confluenceTh">Channels（通道）</th></tr></thead><tbody><tr><td class="confluenceTd">color __Pworld</td><td class="confluenceTd">world-space（世界空间）中的 P</td><td class="confluenceTd"><div class="first last line-block"><div class="line">__Pworld.r：x 分量</div><div class="line">__Pworld.g：y 分量</div><div class="line">__Pworld.b：z 分量</div></div></td></tr><tr><td class="confluenceTd">color __Nworld</td><td class="confluenceTd">world-space（世界空间）中的 Nn</td><td class="confluenceTd"><div class="first last line-block"><div class="line">__Nworld.r：x 分量</div><div class="line">__Nworld.g：y 分量</div><div class="line">__Nworld.b：z 分量</div></div></td></tr><tr><td class="confluenceTd">color __depth</td><td class="confluenceTd">多用途 AOV</td><td class="confluenceTd"><div class="first last line-block"><div class="line">__depth.r：world-space（世界空间）中从摄像机算起的深度</div><div class="line">__depth.g：world-space（世界空间）中的高度</div><div class="line">__depth.b：几何朝向比：abs(Nn.V)</div></div></td></tr><tr><td class="confluenceTd">color __st</td><td class="confluenceTd">纹理坐标</td><td class="confluenceTd"><div class="first last line-block"><div class="line">__st.x：s</div><div class="line">__st.y：t</div><div class="line">__st.z：0.0</div></div></td></tr><tr><td class="confluenceTd">color __Pref</td><td class="confluenceTd">Reference Position primvar（参考位置 primvar，如可用）</td><td class="confluenceTd"><div class="first last line-block"><div class="line">__Pref.r：x 分量</div><div class="line">__Pref.g：y 分量</div><div class="line">__Pref.b：z 分量</div></div></td></tr><tr><td class="confluenceTd">color __Nref</td><td class="confluenceTd">Reference Normal primvar（参考法线 primvar，如可用）</td><td class="confluenceTd"><div class="first last line-block"><div class="line">__Nref.r：x 分量</div><div class="line">__Nref.g：y 分量</div><div class="line">__Nref.b：z 分量</div></div></td></tr><tr><td class="confluenceTd">color __WPref</td><td class="confluenceTd">Reference World Position primvar（参考世界位置 primvar，如可用）</td><td class="confluenceTd"><div class="first last line-block"><div class="line">__WPref.r：x 分量</div><div class="line">__WPref.g：y 分量</div><div class="line">__WPref.b：z 分量</div></div></td></tr><tr><td class="confluenceTd">color __WNref</td><td class="confluenceTd">Reference World Normal primvar（参考世界法线 primvar，如可用）</td><td class="confluenceTd"><div class="first last line-block"><div class="line">__WNref.r：x 分量</div><div class="line">__WNref.g：y 分量</div><div class="line">__WNref.b：z 分量</div></div></td></tr></tbody></table></div></div>
+  </article>
+</main>
+</body>
+</html>

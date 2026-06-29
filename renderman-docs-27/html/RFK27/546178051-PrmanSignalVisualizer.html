@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PrmanSignalVisualizer</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>PrmanSignalVisualizer</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFK27/546178051/PrmanSignalVisualizer">https://rmanwiki-27.pixar.com/space/RFK27/546178051/PrmanSignalVisualizer</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="a2b92b95-c489-449d-bd16-c1294bf48e53" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>The signal input mode is not available for materials created with NetworkMaterialCreate in Katana 3.2+.  There is no way to connect an output of a shading node to a node outside the NetworkMaterialCreate group.</p></div></div><p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="1299" loading="lazy" src="../../attachments/546178051/rfk_psv_header.png" data-image-src="../../attachments/546178051/rfk_psv_header.png" data-height="418" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="546178069" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfk_psv_header.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="546178051" data-linked-resource-container-version="1" data-media-id="f3561e5b-48b1-4101-b699-f6e53c6da4dc" data-media-type="file"></span><p>PrmanSignalVisualizer is a debugging node lets you inspect the effect of patterns on materials in your scene.  The node isolates a selected pattern output and visualizes it as a constant color on the objects where the material is assigned.  It can also be used to isolate a vstruct output from PxrLayer or PxrLayerMixer. This is similar to the &quot;solo&quot; operation found in other bridge products.</p><h2 id="PrmanSignalVisualizer-Parameters">Parameters</h2><h4 id="PrmanSignalVisualizer-Mode">Mode</h4><p>PrmanSignalVisualizer has two modes - <em>select port</em> and <em>signal input</em>.</p><h4 id="PrmanSignalVisualizer-MaterialLocation">Material Location </h4><p>The scenegraph location of the material that you wish to inspect.</p><h4 id="PrmanSignalVisualizer-KeepDisplacement">Keep Displacement</h4><p>When enabled, this will keep the displacement on the object where the material is visualized.  When disabled, the object will render without displacement.</p><h3 id="PrmanSignalVisualizer-&quot;SelectPort&quot;mode-onlyparameters">&quot;Select Port&quot; mode-only parameters</h3><h4 id="PrmanSignalVisualizer-SetfromScenegraphSelection">Set from Scenegraph Selection</h4><p>With a location selected in the Scene Graph, press this button to populate the <em>Material Location</em>, <em>Shading Node</em>, and <em>Output Port</em> parameters.</p><h4 id="PrmanSignalVisualizer-ShadingNode">Shading Node</h4><p>The name of the selected pattern. This will be automatically filled when you select an output port in the <em>Set from Scenegraph Selection</em> popup window.</p><h4 id="PrmanSignalVisualizer-OutputPort">Output Port </h4><p>The name of the selected output. This will be automatically filled when you select an output port in the <em>Set from Scenegraph Selection</em> popup window.</p><h4 id="PrmanSignalVisualizer-ClearNodeandPort">Clear Node and Port </h4><p>This button will reset the read-only <em>Shading Node</em> and <em>Output Port</em> parameters</p><h2 id="PrmanSignalVisualizer-Usingthenode">Using the node</h2><h3 id="PrmanSignalVisualizer-SelectPortmode">Select Port mode</h3><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="500" loading="lazy" src="../../attachments/546178051/rfk_psv_layeredMaterialImage.png" data-image-src="../../attachments/546178051/rfk_psv_layeredMaterialImage.png" data-height="852" data-width="953" data-unresolved-comment-count="0" data-linked-resource-id="546178072" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfk_psv_layeredMaterialImage.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="546178051" data-linked-resource-container-version="1" data-media-id="1c6c82e0-23bf-4168-8a8b-a874af75b71c" data-media-type="file"></span><ol start="1"><li><p>Add the node in the Node Graph downstream of where your material is created</p></li><li><p>Select a location in the Scene Graph - a material location or a location with a local or inherited material assigned</p></li><li><p>Press the <em>Set from Scenegraph Selection</em> button on PrmanSignalVisualizer</p></li></ol><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rfk_psv_selectport.png" width="800" loading="lazy" src="../../attachments/546178051/rfk_psv_selectport.png" data-image-src="../../attachments/546178051/rfk_psv_selectport.png" data-height="366" data-width="658" data-unresolved-comment-count="0" data-linked-resource-id="546178066" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfk_psv_selectport.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="546178051" data-linked-resource-container-version="1" data-media-id="f92a0198-9ee6-4cc0-8415-bb75117c3542" data-media-type="file"></span><ol start="4"><li><p>A window will pop up and display the shading network of the material at the selected location.  The nodes are automatically laid out by Katana, so the layout may not match the layout of your original material.</p></li><li><p>In this window, choose the output of a shading node that you wish to visualize. This will populate the <em>Material Location</em>, <em>Shading Node</em>, and<em> Output Port</em> parameters of PrmanSignalVisualizer.</p></li></ol><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rfk_psv_selectport_popup.png" width="500" loading="lazy" src="../../attachments/546178051/rfk_psv_selectport_popup.png" data-image-src="../../attachments/546178051/rfk_psv_selectport_popup.png" data-height="887" data-width="1033" data-unresolved-comment-count="0" data-linked-resource-id="546178063" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfk_psv_selectport_popup.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="546178051" data-linked-resource-container-version="1" data-media-id="a3fd29c4-a9ca-4b1c-b214-3730ad3b91a9" data-media-type="file"></span><ol start="6"><li><p>All locations with that material assigned will now render with the isolated signal.</p></li></ol><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="500" loading="lazy" src="../../attachments/546178051/rfk_psv_isolatedSignal.png" data-image-src="../../attachments/546178051/rfk_psv_isolatedSignal.png" data-height="852" data-width="953" data-unresolved-comment-count="0" data-linked-resource-id="546178075" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfk_psv_isolatedSignal.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="546178051" data-linked-resource-container-version="1" data-media-id="a69d920c-2273-4f16-87c2-da9c79bc73e3" data-media-type="file"></span><h3 id="PrmanSignalVisualizer-SignalInputmode">Signal Input mode</h3><ol start="1"><li><p>Add the node in the Node Graph downstream of where your material is created.  Right after the NetworkMaterial node works well for this mode.</p></li><li><p>Wire a shading node output into the <em>signal</em> input of PrmanSignalVisualizer </p></li></ol><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="800" loading="lazy" src="../../attachments/546178051/rfk_psv_signalinput.png" data-image-src="../../attachments/546178051/rfk_psv_signalinput.png" data-height="644" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="546178081" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfk_psv_signalinput.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="546178051" data-linked-resource-container-version="1" data-media-id="46119f6e-69b2-4330-ad9b-070e88a20823" data-media-type="file"></span><ol start="3"><li><p>Add the scene graph location of the material into the <em>Material Location </em>parameter</p></li></ol><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="800" loading="lazy" src="../../attachments/546178051/rfk_psv_signalinput_materialLocation.png" data-image-src="../../attachments/546178051/rfk_psv_signalinput_materialLocation.png" data-height="208" data-width="510" data-unresolved-comment-count="0" data-linked-resource-id="546178078" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfk_psv_signalinput_materialLocation.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="546178051" data-linked-resource-container-version="1" data-media-id="a1c0be7a-d39d-4225-9da9-89d5767f5f0c" data-media-type="file"></span><ol start="4"><li><p>All locations with that material assigned will now render with the isolated signal</p></li></ol>
+  </article>
+</main>
+</body>
+</html>

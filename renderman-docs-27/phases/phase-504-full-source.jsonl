@@ -1,0 +1,53 @@
+{"item_id": "0c652c5c0b:0", "source": "The Texture Manager has one simple role: convert images to RenderMan's texture format, using OpenImageIO or"}
+{"item_id": "0c652c5c0b:1", "source": "txmake"}
+{"item_id": "0c652c5c0b:2", "source": ". It handles single images as well as texture atlases (UDIM, Mudbox, ZBrush)."}
+{"item_id": "0c652c5c0b:3", "source": "User interface"}
+{"item_id": "0c652c5c0b:4", "source": "When you open a new scene, the Texture Manager will find all images used as textures and add them to a queue to convert them. The conversion settings will be based on a set of rules defined in a"}
+{"item_id": "0c652c5c0b:5", "source": "json file"}
+{"item_id": "0c652c5c0b:6", "source": "(see below). Use the Settings pane to modify the settings for the currently selected image(s), then the Apply button to re-convert the image(s) with the new settings."}
+{"item_id": "0c652c5c0b:7", "source": "Just press"}
+{"item_id": "0c652c5c0b:8", "source": "Parse Scene"}
+{"item_id": "0c652c5c0b:9", "source": "whenever you want new textures to be converted."}
+{"item_id": "0c652c5c0b:10", "source": "Pick Images"}
+{"item_id": "0c652c5c0b:11", "source": "and"}
+{"item_id": "0c652c5c0b:12", "source": "Pick Directories"}
+{"item_id": "0c652c5c0b:13", "source": "allow you to pre-convert images without having to know how to use OpenImageIO or"}
+{"item_id": "0c652c5c0b:14", "source": "txmake"}
+{"item_id": "0c652c5c0b:15", "source": "."}
+{"item_id": "0c652c5c0b:16", "source": "Stop / Start the conversion queue"}
+{"item_id": "0c652c5c0b:17", "source": "By default, the conversion queue is always running, but sometimes you may want to stop the conversion process."}
+{"item_id": "0c652c5c0b:18", "source": "The conversion queue can be stopped and restarted by clicking on the icon on the right of the progress bar. When the queue is stopped, the running worker processes are immediately killed but existing textures are intact. When you restart, it pick up where it left."}
+{"item_id": "0c652c5c0b:19", "source": "Conversion information"}
+{"item_id": "0c652c5c0b:20", "source": "There is a disk usage and progress indicator at the bottom of the Texture Manager window."}
+{"item_id": "0c652c5c0b:21", "source": "Each file in the list also has a status icon."}
+{"item_id": "0c652c5c0b:22", "source": "Interactive versus Batch rendering"}
+{"item_id": "0c652c5c0b:23", "source": "During interactive renders, the texture manager will add new textures to the queue and return a temporary texture until the conversion is done. Once done, it will send an update to the renderer and your texture will appear."}
+{"item_id": "0c652c5c0b:24", "source": "When you start a"}
+{"item_id": "0c652c5c0b:25", "source": "Batch"}
+{"item_id": "0c652c5c0b:26", "source": "or a"}
+{"item_id": "0c652c5c0b:27", "source": "Preview"}
+{"item_id": "0c652c5c0b:28", "source": "render, you need all your textures to be converted first. Starting with 22.3, RfM will stop the conversion queue and add any remaining conversion task to the LocalQueue or Tractor job to ensure you always get the expected image."}
+{"item_id": "0c652c5c0b:29", "source": "Settings"}
+{"item_id": "0c652c5c0b:30", "source": "Backend"}
+{"item_id": "0c652c5c0b:31", "source": ": OpenImageIO will use the OpenImageIO library for texture conversion, launching rmanoiiotool processes. Legacy will use RenderMan’s txmake processes. This change will take effect after Maya is restarted."}
+{"item_id": "0c652c5c0b:32", "source": "Number of processes"}
+{"item_id": "0c652c5c0b:33", "source": ": How many worker processes will be launched at the same time. The default is 2 but it is often beneficial to add more processes to speed up the queue."}
+{"item_id": "0c652c5c0b:34", "source": "Fallback Texture Path"}
+{"item_id": "0c652c5c0b:35", "source": ": By default, the texture manager saves the texture next to the source image. If, for any reason, it is impossible to save in that directory, the fallback texture path will be used."}
+{"item_id": "0c652c5c0b:36", "source": "Always Fallback"}
+{"item_id": "0c652c5c0b:37", "source": ": Always save converted textures in the fallback texture directory."}
+{"item_id": "0c652c5c0b:38", "source": "Show Advanced Options"}
+{"item_id": "0c652c5c0b:39", "source": ": Show more advanced options in the user interface."}
+{"item_id": "0c652c5c0b:40", "source": "Texture extensions"}
+{"item_id": "0c652c5c0b:41", "source": ": All texture file extensions so the texture manage knows which files can be marked as already converted."}
+{"item_id": "0c652c5c0b:42", "source": "Texture Manager Configuration"}
+{"item_id": "0c652c5c0b:43", "source": "The texture manager uses a set of rules to choose optimal OpenImageIO/txmake parameters based on:"}
+{"item_id": "0c652c5c0b:44", "source": "The type of node using the texture:"}
+{"item_id": "0c652c5c0b:45", "source": "or"}
+{"item_id": "0c652c5c0b:46", "source": "."}
+{"item_id": "0c652c5c0b:47", "source": "A set of base parameters for that type of node"}
+{"item_id": "0c652c5c0b:48", "source": "one or more rules to modify the base parameters when considering the file's name, the bit depth, etc."}
+{"item_id": "0c652c5c0b:49", "source": "Custom settings can be defined by the"}
+{"item_id": "0c652c5c0b:50", "source": "ocio configuration"}
+{"item_id": "0c652c5c0b:51", "source": "."}
+{"item_id": "0c652c5c0b:52", "source": "The default rules are built for efficiency and you shouldn't have to modify them unless you have specific pipeline requirements"}

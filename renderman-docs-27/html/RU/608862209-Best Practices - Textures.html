@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Best Practices - Textures</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Best Practices - Textures</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RU/608862209/Best+Practices+-+Textures">https://rmanwiki-27.pixar.com/space/RU/608862209/Best+Practices+-+Textures</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="contentLayout2"><style>[data-colorid=uqre7dbhsk]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=uqre7dbhsk]{color:#004eb3}</style>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="CookiesNMilk_new_Banner.jpg" width="760" loading="lazy" src="../../attachments/608862209/CookiesNMilk_new_Banner.jpg" data-image-src="../../attachments/608862209/CookiesNMilk_new_Banner.jpg" data-height="1073" data-width="1074" data-unresolved-comment-count="0" data-linked-resource-id="608862218" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="CookiesNMilk_new_Banner.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="608862209" data-linked-resource-container-version="6" data-media-id="3e145042-d6d7-4071-a667-8de41449b2b0" data-media-type="file" /></span><h2 id="BestPractices-Textures-Thebasicsoftexturemaps.">The basics of texture maps.</h2><p>Take a look at the table as a basic material with a wooden color and glossy finish, using textures,</p><p /><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="03689e08-cdea-42db-bee8-673769d483ed" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p> At Pixar, we don&rsquo;t use a Metallic workflow.  These texture lessons aim to teach you the Pixar way using the PxrSurface. </p></div></div><p /><p>And while it's slightly reflective&nbsp;like polished wood, it's not too shiny. References are key to be sure you achieve the correct look prescribed by your art director or your own goals. </p><p>At first, this seems simple, but there are many things to take into account by breaking it down with some quick tips and hints, and then the examples.</p><p><strong>Standard texture naming, recommendations, and usage ideas:</strong></p><ul><li><p>Textures should be named appropriately based on their intended effect and object assignment. <br /><br />For example: &lt;object&gt;_&lt;effect&gt;.jpg or possibly tableTop_specular.jpg<br /></p><ul><li><p>Do not use spaces and special characters in names like: theCar&amp;boat.jpg or &quot;the Car and Boat.jpg&quot;<br /></p></li><li><p>Do not use spaces and special characters in file paths either. These textures may fail to load.<br /></p></li><li><p>Texture sequences should have a clear naming convention for frame number. mySequence.0001.jpg is correct rather than mySequence0001.jpg or mySequence.jpg.0001<br /></p></li></ul></li><li><p>Most formats can be used such as .png, exr, .tif, and .jpg, but to be rendered they must be converted to the <a class="external-link" href="https://rmanwiki-26.pixar.com/space/REN26/19661963" rel="nofollow"><u>.tex format</u></a>. <br />In all RenderMan-compliant DCCs, this occurs when you initiate a render and is cached on disk to be reused until it is modified or updated in the scene. Scenes with many textures may take a while to convert the first time when you render.<br />Solaris is the exception here.  You&rsquo;ll need to convert them using the Texture Manager manually.<br /></p></li><li><p>Occasionally, interchangeable naming pairs occur; consistency is important to your pipeline and the artist's ability to work accurately.<br /></p><ul><li><p>Diffuse and Albedo<br /></p></li><li><p>Roughness and Glossiness (please take note that RenderMan uses the standard &quot;Roughness&quot; convention where 0 = mirrored and 1 = rough or nearly diffuse) <br />Roughness also applies to a Diffuse parameter, so occasionally artists substitute Glossiness as the name.<br /></p></li></ul></li><li><p>Textures can be color (RGB) and scalar (greyscale), and color channels can be connected to matching parameters to drive them. For example, the Red channel of an image can be used to drive a scalar (float slider) if it's useful.<br /></p></li><li><p>Normal maps are typically preferred over bump maps (scalar or grayscale) for their detail.<br /></p></li><li><p><a class="external-link" href="../REN27/542236678-Color Management.html" rel="nofollow"><u>ACESCG</u> </a>is highly recommended<em>.  </em>Textures used as data, like bump, masks, and displacement, should <em>not</em> be linearized.<br /></p></li><li><p>Displacement maps and other data textures should be the highest precision possible to avoid artifacts from texture quantization. Usually these are exported from modeling applications as floating point EXR or Tiff. See <a class="external-link" href="https://rmanwiki-26.pixar.com/space/RFM26/21037442" rel="nofollow"><u>workflows</u></a> for normal and scalar displacement.</p></li></ul><p /><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="6eaa2ce0-14ac-4b8b-88ab-0920eee4373a" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>There is no particular reason not to use the Maya File Node for texturing if it has the features you require or you enjoy the simplicity of using the Maya workflow for things like texture sequences. Both the Maya file node and the PxrTexture node will display textures in the viewport. However, only the Maya file node will display UDIM/tiled textures in the viewport and apply a corrected gamma to the viewport.</p></div></div><p /><hr /><h3 id="BestPractices-Textures-NextSteps"><span data-colorid="uqre7dbhsk">Next Steps</span></h3><p>Taking all this information in can be daunting, so let&rsquo;s move on to actually putting all this knowledge into practice by looking at the wooden table in the next lesson.</p><p /></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<a href="/wiki/spaces/RU/pages/608796697/Best+Practices+-+PxrSurface" data-linked-resource-id="608796697" data-linked-resource-version="3" data-linked-resource-type="page"><span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" alt="previousLesson.png" width="200" loading="lazy" src="../../attachments/608862209/previousLesson.png" data-image-src="../../attachments/608862209/previousLesson.png" data-height="67" data-width="286" data-unresolved-comment-count="0" data-linked-resource-id="607945166" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="previousLesson.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="608862209" data-linked-resource-container-version="6" data-media-id="813508d3-8a67-4e92-a241-d7a459135339" data-media-type="file" /></span></a><p /></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<a href="/wiki/spaces/RU/pages/608829457/Best+Practices+-+Wood+Table" data-linked-resource-id="608829457" data-linked-resource-version="3" data-linked-resource-type="page"><span class="confluence-embedded-file-wrapper image-right-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-right" alt="nextLesson.png" width="200" loading="lazy" src="../../attachments/608862209/nextLesson.png" data-image-src="../../attachments/608862209/nextLesson.png" data-height="67" data-width="286" data-unresolved-comment-count="0" data-linked-resource-id="607945173" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="nextLesson.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="608862209" data-linked-resource-container-version="6" data-media-id="927668f8-0a76-4478-85bd-1512f8a8500f" data-media-type="file" /></span></a><p /></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<hr /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="RenderManUniversity_logo_Small.png" width="100" loading="lazy" src="../../attachments/608862209/RenderManUniversity_logo_Small.png" data-image-src="../../attachments/608862209/RenderManUniversity_logo_Small.png" data-height="100" data-width="100" data-unresolved-comment-count="0" data-linked-resource-id="607945179" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderManUniversity_logo_Small.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="608862209" data-linked-resource-container-version="6" data-media-id="1a1e3122-8a27-460b-aaf0-71cfdd832684" data-media-type="file" /></span></div>
+</div>
+</div>
+</div>
+  </article>
+</main>
+</body>
+</html>

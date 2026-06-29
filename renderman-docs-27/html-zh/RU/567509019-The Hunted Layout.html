@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The Hunted Layout</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>The Hunted Layout</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RU/567509019/The+Hunted+Layout">https://rmanwiki-27.pixar.com/space/RU/567509019/The+Hunted+Layout</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="SolarisUSD_Layout.png" width="760" loading="lazy" src="../../attachments/567509019/SolarisUSD_Layout.png" data-image-src="../../attachments/567509019/SolarisUSD_Layout.png" data-height="1043" data-width="2346" data-unresolved-comment-count="0" data-linked-resource-id="657228552" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="SolarisUSD_Layout.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="567509019" data-linked-resource-container-version="9" data-media-id="c8a286b9-8f2f-49e8-86ce-74324b5753db" data-media-type="file"></span><p>一旦我把每个 prop 的 initial proxy version 都做成 USD files，就可以开始处理 scene 的 layout。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><a href="https://renderman.atlassian.net/wiki/download/attachments/567509019/HuntedLayout.mov?version=1&amp;modificationDate=1762679854958&amp;cacheVersion=1&amp;api=v2&amp;width=760">HuntedLayout.mov</a></span><p>Houdini 和 Solaris 非常适合处理单个 set-dressing assets，也适合 scattering 大量 instances。</p><p>我实现了这两种 workflows：用于 grass、rocks、general plants 和 background trees 的 Scattering（散布）与 instancing techniques。</p><p>我通过 <em>layout</em> node 手动放置 hero objects，例如 powerbox、railroad sign 和 mailbox。我也手动放置了 grass，以及 foreground trees 和 rocks，以确保 scene composition 符合我的目标。当你不太在意 Scattering（散布）的 creative composition 时，Scattering 非常适合 instancing objects。不过很多时候，你仍需要依靠 hand-placing 或移动 scattered objects，来适配 shot 和 story。</p><p>借助 R27 中 XPU 的最新 advances，我能够在 Solaris 中使用简单 skydome 运行 interactive viewport，从而获得快速且交互式的 layout session。再加上 interactive denoiser 的力量，你就拥有了一套能轻松吞下 layout 工作的 interactive toolkit。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><a href="https://renderman.atlassian.net/wiki/download/attachments/567509019/stagemanager.mov?version=1&amp;modificationDate=1762679897174&amp;cacheVersion=1&amp;api=v2&amp;width=760">stagemanager.mov</a></span><p>额外 tip：做 layout 时，如果 assets 已经应用了许多 textures，可以使用 RenderMan 中的 Occlusion Integrator。这会提供非常快速的 occlusion IPR session，而不必把所有 shaders override 成简单的 grey material。  </p><p>感谢 RenderMan 的 Dylan Sisson 提供这个 tip！</p><hr/><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="RenderManUniversity_logo_Small.png" width="100" loading="lazy" src="../../attachments/567509019/RenderManUniversity_logo_Small.png" data-image-src="../../attachments/567509019/RenderManUniversity_logo_Small.png" data-height="100" data-width="100" data-unresolved-comment-count="0" data-linked-resource-id="588840970" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderManUniversity_logo_Small.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="567509019" data-linked-resource-container-version="9" data-media-id="a6220c87-05ec-409e-b90a-90f4e49ebe21" data-media-type="file"></span>
+  </article>
+</main>
+</body>
+</html>

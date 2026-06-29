@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RenderMan for Maya</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>RenderMan for Maya</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/TRA/22184208/RenderMan+for+Maya">https://rmanwiki-27.pixar.com/space/TRA/22184208/RenderMan+for+Maya</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p style="margin-left: 60.0px;"><br/></p><h3 id="RenderManforMaya-Introduction">简介（Introduction）</h3><p>假设你的站点正好使用 Tractor 默认的、开箱即用的 configuration，那么 RenderMan for Maya（RfM）的默认 configuration 可以通过 Tractor 分发工作。如果你认为自己比较特殊，并且选择更改默认 configuration，也不用担心。RfM 通过 preferences 和其他相关设置提供所需的 hooks，让你的 RfM workstations 与 Tractor work dispatching system 保持协调配合。</p><hr class="docutils"/><h3 id="RenderManforMaya-RfMCustomConfiguration">RfM 自定义配置（RfM Custom Configuration）</h3><p>RfM 的 Tractor configuration 通过 rfm.json 文件完成。对于 RfM 的 site configuration，我们建议不要修改随附的 rfm.json 文件。相反，站点应使用 environment variables <span class="legacy-color-text-default">RFM_SHOW_PATH 或 RFM_SITE_PATH，</span><span class="legacy-color-text-default"> 来加载你的 custom overrides。更多信息请参阅 RenderMan for Maya 文档页面： <a href="https://rmanwiki-23.pixar.com/space/RFM23/21169908/Installing+Custom+Nodes" data-linked-resource-id="21169908" data-linked-resource-version="2" data-linked-resource-type="page">Installing Custom Nodes</a>。</span></p><p><br/></p><hr/><p><br/></p><h3 id="RenderManforMaya-EngineLocationandTractorUsers">Engine 位置和 Tractor 用户（Engine Location and Tractor Users）</h3><p>rfm.json 文件在 "tractor_cfg" section 下提供三个 preferences，用于绑定 RfM 与 Tractor。默认值如下：</p><p><br/></p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="c644c41b-42c9-4b42-b399-650d674f9b52" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">&quot;tractor_cfg&quot;: {
+    &quot;engine&quot;: &quot;tractor-engine&quot;, 
+    &quot;port&quot;: 80, 
+    &quot;user&quot;: &quot;&quot;
+}</pre>
+</div></div><p><br/></p><ul><li>"engine" 是运行你站点 tractor engine 的机器 hostname。默认值为 "tractor-engine"。</li><li>"port" 是 tractor engine 正在监听的 port number。默认值为 80。</li><li>"user" 是提交 job 时使用的 username。默认值为 ""，表示以当前登录用户提交 job。<br/><br/></li></ul><p>下面是一个完整 rfm.json 示例，它只覆盖 RfM 的 Tractor configuration settings，其余所有设置保持默认。</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="61da224d-a1be-410a-9528-46902f7228e8" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">{
+    &quot;tractor_cfg&quot;: {
+         &quot;engine&quot;: &quot;woody-engine&quot;, 
+         &quot;port&quot;: 8080, 
+         &quot;user&quot;: &quot;andy&quot;
+   }
+}</pre>
+</div></div><p><br/></p><pre style="margin-left: 25.0px;" class="literal-block"><br/></pre><hr class="docutils"/><h3 id="RenderManforMaya-DirectoryMapping">目录映射设置（Directory Mapping）</h3><p>与设置 engine location 和 user 类似，directory mappings 也在 rfm.json 文件中指定。可以在 "dirmaps" section 下列出多个 directory mappings。默认值是一个通用 mapping：</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="08810248-2d83-4b1a-a253-01d964492a65" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">    &quot;dirmaps&quot;: {
+        &quot;myserver_to_z&quot;: {
+            &quot;to&quot;: &quot;Z:/&quot;, 
+            &quot;from&quot;: &quot;/myserver/&quot;, 
+            &quot;zone&quot;: &quot;UNC&quot;
+        }
+    }, </pre>
+</div></div><ul><li>"myserver_to_z" 是 dirmap 的通用描述名称。</li><li>"from" 是你想匹配并映射出去的 path 部分。</li><li>"to" 指定 "from" setting 中的 substring 应映射到什么位置。</li><li>"zone" 指定应使用此 dirmap 的 blade 所属 zone。</li></ul><p>例如，使用这个 dirmapping 时，如果 RenderMan 和/或 Tractor 看到此 path，并且它运行在 "UNC" zone 中的 blade 上：</p><p>/myserver/path/to/maya/scenes/char_animation_01.ma</p><p>它会被转换为：</p><p>Z:/path/to/maya/scenes/char_animation_01.ma</p><p>下面是一个完整 rfm.json 示例，将前面的 configuration 与 custom directory mappings 结合起来。这里为 project 和 texture paths 提供从 Linux 到 Windows blade 的 mappings，也提供反向的 Windows 到 Linux mappings。</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="09fc54dc-aed4-412a-92f1-413547d51249" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">{
+    &quot;tractor_cfg&quot;: {
+         &quot;engine&quot;: &quot;woody-engine&quot;, 
+         &quot;port&quot;: 8080, 
+         &quot;user&quot;: &quot;andy&quot;
+   },
+    &quot;dirmaps&quot;: {
+        &quot;project_linux_to_windows&quot;: {
+            &quot;to&quot;: &quot;Z:/&quot;, 
+            &quot;from&quot;: &quot;/mnt/&quot;, 
+            &quot;zone&quot;: &quot;UNC&quot;
+        },
+        &quot;textures_linux_to_windows&quot;: {
+            &quot;to&quot;: &quot;Y:/&quot;, 
+            &quot;from&quot;: &quot;/texture_server/&quot;, 
+            &quot;zone&quot;: &quot;UNC&quot;
+        },
+        &quot;project_windows_to_linux&quot;: {
+            &quot;to&quot;: &quot;/mnt/&quot;, 
+            &quot;from&quot;: &quot;Z:/&quot;, 
+            &quot;zone&quot;: &quot;NFS&quot;
+        },
+        &quot;textures_windows_to_linux&quot;: {
+            &quot;to&quot;: &quot;/texture_server/&quot;, 
+            &quot;from&quot;: &quot;Y:/&quot;, 
+            &quot;zone&quot;: &quot;NFS&quot;
+        }
+    }
+}
+
+</pre>
+</div></div><p><br/><br/></p><p><br/></p><p><br/></p><p><br/></p>
+  </article>
+</main>
+</body>
+</html>

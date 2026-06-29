@@ -1,0 +1,69 @@
+{"id": "538839a01e282727fdb03640a3f7d993ba74b7dbbc4eaf98a4d03e584f21440f", "item_id": "51646742d1:0", "text": "RenderMan allows for creating complex looks through layering materials. This means effects like car paint, labels on bottles, dirt or mud, can all be layered efficiently for rendering."}
+{"id": "66368f97812e7c4641ca0d80f739351b26d2a835e961982029ccf3cc225eafdf", "item_id": "51646742d1:1", "text": "Below you can find a step by step example of creating a patina on a bronze statue. At the bottom of this tutorial you can find a Katana scene to download with the parts necessary to reproduce this image."}
+{"id": "584d2445ed79de785b44828282db3dbbcb51c4c9e457a57d6a87922f99d4ab45", "item_id": "51646742d1:2", "text": "Basic Scene Prep"}
+{"id": "d5e70a63599d7a5601c4800f5e7216a22c3aa87bff613ea0bc134a2c5fe8feb7", "item_id": "51646742d1:3", "text": "Load the"}
+{"id": "381e7e2517c2cd9b1c68e200115678a68d1fd049b09589465f092c3d2a47dc70", "item_id": "51646742d1:4", "text": "layeredMaterial_prep.katana"}
+{"id": "54f8be45fa0bee710ee0d03e8dfbb799c0507b709319dd4af58b1695596722af", "item_id": "51646742d1:5", "text": "tutorial scene which contains the framework for loading the statue geometry, a ground plane and spot lights.  The scene is renderable at this point, however we have no materials assigned to the statue so it will render with RenderMan's default Bxdf shader: PxrDiffuse."}
+{"id": "fe53cac377ac8a4640a6836e7a6bedb259a8e76f4475ad66bbfd1863e2b5881b", "item_id": "51646742d1:6", "text": "Step 1: PxrLayerSurface"}
+{"id": "6385b8576ebae4c642815dc9e868c12d0147fbb83ca1b66ce3999e75809a84e6", "item_id": "51646742d1:7", "text": "Create a shading network and assign a"}
+{"id": "b7ec5c3dd2824cd278b17988092285709226f237a2256873ff3abf63746e1b5a", "item_id": "51646742d1:8", "text": "PxrLayerSurface"}
+{"id": "4f90262c3b33c650189415cd4cdcedff484ffb7763b885cb1dd1f906ac62b8e5", "item_id": "51646742d1:9", "text": "Bxdf to your object. This is the framework that will inform RenderMan which materials will be rendered for the assigned object (new nodes are colored with red):"}
+{"id": "aa58204f7839bcacbabcf4852e885a1fccb0c63eba31ebfc14a3cf7cf4bc5392", "item_id": "51646742d1:10", "text": "At this point you could render with our new shading network but there's not much you can do with this material on its own; this node has a limited set of attributes.  The reason for this is that PxrLayerSurface is designed as the Bxdf on top of which layers of patterns are combined.  PxrLayerSurface contains only global attributes which would apply to all layers. Layer-specific attributes such as color and texture come from upstream materlal(s) connected into the"}
+{"id": "cedf7c598261670a2d834ba0833bbc142df45968d2e23098f5d9d3f8d8cea4a7", "item_id": "51646742d1:26", "text": "inputMaterial"}
+{"id": "72edc84c35a6c1027b837c939c33bdf6a364180523c506871e903e5ebebe3e67", "item_id": "51646742d1:12", "text": "attribute."}
+{"id": "fb79fa6e2f3c937d1f90336421e4f79aa12934a7b6fdcff1a51fff355bf51b82", "item_id": "51646742d1:13", "text": "From here planning is very important to avoid duplicating work and making your material network as simple and useful as possible. In researching the creation of a patina on copper or other metal you will find it is a multi-stage project which can involve a variety of methods.  Depending on the look you are aiming for the layout of the materials will vary. For example, heating a metal to produce different colors could be replicated using the"}
+{"id": "001b7fc54d8777407b94cc5fdddc182d365ad97abb36d3b7e5c42a8052038913", "item_id": "51646742d1:14", "text": "iridescence"}
+{"id": "15cf30ac700addffb8f4b7e6b4cb0242ba67a409d5faddc5c3d3f8ce16600091", "item_id": "51646742d1:15", "text": "attributes in PxrLayerSurface.  Another method for creating a patina is to use vinegar and salt to create a crust on the metal, which is the look we'll experiment with here."}
+{"id": "6ed36360b21788c1ffb844c0f0bd0aefeabd9fa91c381474e78d3422b18ecb52", "item_id": "51646742d1:16", "text": "Two basic layers of materials are needed:"}
+{"id": "2a4c729475a3e098f33fd7bd7b45a31873c89274ecc757d4960c8cbc942b2d2a", "item_id": "51646742d1:17", "text": "A metal layer like bronze or copper"}
+{"id": "c0274b8b0b866f7b868e78a6aa32749ca44eda930bd0e17fc911ba9765a118da", "item_id": "51646742d1:18", "text": "A patina, a diffuse layer that's a bit crusty and blue-green in color"}
+{"id": "8618e05a4340cca687aca98f8df9016b2139575586ace60e33c27cfe458d7fe4", "item_id": "51646742d1:19", "text": "Below are the layers seen separately:"}
+{"id": "0f14ad28bfd73fd1b01280388f38727192e516975a7d4c1576d87c6bd07e7620", "item_id": "51646742d1:20", "text": "Step 2: PxrLayerMixer"}
+{"id": "a2a769e959cfd33c6744a4099fd4d901e8e2814f5dce4ca3f330aece5991d1ef", "item_id": "51646742d1:21", "text": "Create a"}
+{"id": "244f48b3e1671c5e156f17919f1e85fb70be4f1606f82ff6821b6bf83ff4c6be", "item_id": "51646742d1:22", "text": "PxrLayerMixer"}
+{"id": "90666c6254883171f772ba4c54dfd966cb2747bca43333e94bd234c17c196265", "item_id": "51646742d1:42", "text": "and connect its"}
+{"id": "762069bc07a6e1b5df123a5ae7bd91c10daa04694fbaa17fba0cd6a8dcce8f22", "item_id": "51646742d1:24", "text": "out"}
+{"id": "679008f2821b4446e93974d3d81eeb352ad72aac99f8f67c49c4def0a8fc40d7", "item_id": "51646742d1:44", "text": "port to the"}
+{"id": "3853dcbf67e8eb84922db90d691d16c24d45255aa9e4e9eb719f0cf3be315094", "item_id": "51646742d1:27", "text": "port of the PxrLayerSurface.  This sets up the node where we will be connecting all the layers. Let's take a look at the default state of a PxrLayerMixer shading node:"}
+{"id": "f24775259c21249bb681fea6d5fadf5e11e8d24eefcada3014cf03cd9fd73edc", "item_id": "51646742d1:28", "text": "There is a"}
+{"id": "dd530c3cdd49e5bdf0fbeaf774c0c63d484250ee5ae4b101647f6757bf1e180d", "item_id": "51646742d1:29", "text": "BaseLayer"}
+{"id": "bd734559a77f17a53aa466433e37d24eed1176d6b2adf7effe02a9ce7a3b5456", "item_id": "51646742d1:30", "text": "plus four other layers, numbered 1-4. Note that"}
+{"id": "ca900bb0437e1b6c3df9f9591b5393553738dd8cb25cd66d43b2ef1745ac1bf3", "item_id": "51646742d1:52", "text": "Layer 1"}
+{"id": "7f9cf8de08d105a552d2c0e69adc0ef615d706dee1a42843aa36e0d918b2b781", "item_id": "51646742d1:32", "text": "is enabled by default with the assumption being that there will usually be at least two layers coming in to the PxrLayerMixer.  If a layer is enabled but not connected the entire render will go black.  We will focus on building our base layer first so let's disable"}
+{"id": "789fd30f91742958be3f12ca9ace26e99db040ed3173708877b272413f2b2043", "item_id": "51646742d1:34", "text": "until we wire our patina layer in. Note you can connect other PxrLayerMixers into the layers for using collections of looks and masking them together. This is great if you want to reuse networks somewhere else. For this example we're just using two layers, the"}
+{"id": "7b47361aad19bb483aeab081a7df0a55f7cb0fdb3327efe6dd016e6353a17880", "item_id": "51646742d1:55", "text": "Base"}
+{"id": "c976a46b90de128d70ffb0d1170463b9142ffb8015fa41fc0d121dad2435eec7", "item_id": "51646742d1:39", "text": "Step 3: Base Layer"}
+{"id": "a694cf67845b6acb512139d871633b807bbd4c2e239a171c423f2441905e8a48", "item_id": "51646742d1:40", "text": "The Copper/Bronze will be our \"base\" layer. Create a"}
+{"id": "1543d66e96e19d476bc59f361ad04207a1a63a2a212195ca316427e5af664ea9", "item_id": "51646742d1:41", "text": "PxrLayer"}
+{"id": "5753170acaee4b667977213aed591ce64281968d1c05807615740d56a42b0234", "item_id": "51646742d1:50", "text": "pxrMaterialOut"}
+{"id": "43224036a8bb3fab67633e101dbb3bae876e63daf0e71ddc5000a6c7434d4511", "item_id": "51646742d1:45", "text": "Base Layer"}
+{"id": "49bcd32e6ffaf8985da22ac5d4ea39908571f26104c59d911b3d0388ebb30eaf", "item_id": "51646742d1:46", "text": "input port of the PxrLayerMixer."}
+{"id": "56c246c6f9d6b38be6e00c6ebac46088fa38d973d536cf68c4f8b434c897b187", "item_id": "51646742d1:47", "text": "To approximate a copper material we set the diffuse and specular then add some procedural bump so the copper has a nice texture to it.   The settings are somewhat arbitrary since they are art directed, but we're looking for an older dull copper or bronze look:"}
+{"id": "ccfcc5156cf16a0fcb3a0b59c2d965e44f0527ee452d10af4f3473616b46ce84", "item_id": "51646742d1:48", "text": "Step 4: Patina Layer"}
+{"id": "a7f392200e13a3d598640538b5d5c135324b31eb11f4cc4fb541d7c6d9c0a9a5", "item_id": "51646742d1:49", "text": "The Patina will be our \"Layer 1\", sitting on top of the base layer.  Create another PxrLayer node and connect its"}
+{"id": "39a44a4b0159593a1d0945e7815779aff11d7ac7ed8e5dc9f5a004c6283a1661", "item_id": "51646742d1:51", "text": "output port to the"}
+{"id": "fbf23defbcfba5eeb7fe9750c3ee7d9fe45387a8148226f87949a202adad4c86", "item_id": "51646742d1:53", "text": "input port of your PxrLayerMixer. Note that you may have to re-enable Layer 1 if you had disabled it while working on the base layer.  The patina shading is a diffuse color is sampled from a real image with some diffuse roughness to help bring out the \"powdery\" look from the patina crust.  We've added a PxrFractal and a bump pattern to increase the realism.  The previous bump pattern is used again in this layer to be consistent but you could actually use a different one here to really improve the realism."}
+{"id": "454a0ba71e4a72eec9b2dbe69b02a496579e313dd5978196d99c5c554d4ef73b", "item_id": "51646742d1:54", "text": "This layer will completely cover the"}
+{"id": "7ea237c9be9c12a03eb495ef154ce165794db950205027b62138bfeaca81820c", "item_id": "51646742d1:56", "text": "layer until we add an input to"}
+{"id": "0e00d0bf859028fcac2f3e40461eeecd49100016a9e4938e16f065f096a7a303", "item_id": "51646742d1:65", "text": "Layer 1 Mask"}
+{"id": "35f42f567f92403f52f07a267086bb271021aa8b2be33277dbddce5bed7a16bc", "item_id": "51646742d1:59", "text": "Step 5: Patina Mask"}
+{"id": "48deeb24f481ee34a27953fe5301f2a63bca26f37ed66c3c299a4a2302038bef", "item_id": "51646742d1:60", "text": "We could accomplish this using textures but instead we make use of the"}
+{"id": "2dca470b9f0735410e01917d889c120f92105293ff60f2c4691417c9ba40ed08", "item_id": "51646742d1:62", "text": "node to control where the patina and metal are seen.  PxrDirt is an occlusion shader which allows us shading effects affected by the local topology in the geometry (i.e. nooks & crannies). Create a new PrmanShadingNode and set the node type to PxrDirt. Its output is a color but since we're creating a mask you can wire the"}
+{"id": "3674fb6960c6fdbd3fdaeff18b1d910f236f90e4268c01f0ca94fd4993d3c987", "item_id": "51646742d1:73", "text": "into the"}
+{"id": "c85ae3ac2bb491149ad0b75852720248ffcc69dfb5cf1e56163d975719adf2fb", "item_id": "51646742d1:66", "text": "of the PxrLayerMixer (you could also use a PxrToFloat to convert the color into a scalar value)."}
+{"id": "91bce91c940f294ea794a7983382bf332b822ede3133bec6ee73408c029105a2", "item_id": "51646742d1:67", "text": "To produce the weathering pattern seen in the final image we increase the Y component of the"}
+{"id": "6c5e307a0ecdb9a15359a05f07e013f5b4257fca7387136a469b8df5a2d9b823", "item_id": "51646742d1:68", "text": "Bias Normal"}
+{"id": "0b9466587f0e63344b390b6f9e33644f8850024e7d3a1f4db4dcec59043f399e", "item_id": "51646742d1:69", "text": "attribute in PxrDirt to stretch out the result vertically as if rain and weathering has run down the statue. The PxrDirt"}
+{"id": "2a356d735f83bf176796187378cbcb344a42bdb90ef0854aa51b10352bec9622", "item_id": "51646742d1:70", "text": "Unoccluded"}
+{"id": "fe137b111dd89dc8bb94818dbb60c7b57f8eb30f08595c44f14172922a99b385", "item_id": "51646742d1:71", "text": "attribute is driven by a PxrFractal and PxrGamma to break up the result some and control the strength respectively. Note the extra PSN_PxrConstant node that is sitting below PxrDirt.  By connecting the PxrDirt output"}
+{"id": "38dcbe2bc7affacc48c05a2cb288f4168dfb039b961ae13ebf655b53cdcd4e9a", "item_id": "51646742d1:74", "text": "emitColor"}
+{"id": "c2c2502fb91b408c8935f7864b6c49996a7b3c08290029685ccb05510fcc94ed", "item_id": "51646742d1:75", "text": "of the PxrConstant we could swap the PxrLayerSurface Bxdf for the PxrConstant Bxdf to see the dirt layer mask rendered independently."}
+{"id": "5d3a0faf92f2cbf2f5afa8ef9b34666f10482493110de51e28e0857556e39ce5", "item_id": "51646742d1:76", "text": "Below is the resulting mask rendered alone from PxrDirt:"}
+{"id": "8276b06922812a3e27c596751982ccb05b94a02948777e58abe0ab3e142a2bd7", "item_id": "51646742d1:77", "text": "Step 6: Render!"}
+{"id": "ed7d756598195fdb31a85055f69c94abff960e93cda9c454f4c9d9d29f619d18", "item_id": "51646742d1:78", "text": "Step 7: Tweak Parameters, Repeat Step 6"}
+{"id": "8a7525b1492fb84833f5c4a69b30f4bfbb134f9b666b61a2c1872d63d234c085", "item_id": "51646742d1:79", "text": "Notes"}
+{"id": "44657c1ab4ae1bfbbc639c439cef4ab8e40295f6c4e0920f00d0af2e88b23588", "item_id": "51646742d1:80", "text": "The model is free from"}
+{"id": "c7ae935153cb2b727cb9a6e8585f1efebf80533b05d365694df75577dc041c1b", "item_id": "51646742d1:81", "text": "Three D Scans"}
+{"id": "ab99ee170fc3ee17b15ce41ba214c62ee9d638a520c61ad13ab907a3947f958f", "item_id": "51646742d1:83", "text": "Find the Katana scene"}
+{"id": "b1b1bdb480c61d075300d9bff7d9cb69cf31695ea048e478facadf426e8d0fb0", "item_id": "51646742d1:84", "text": "link"}
+{"id": "56389930e749f0bd7a7778f7620f9af510e60d2c75c552612ff63c5fbc384b08", "item_id": "51646742d1:85", "text": "above, and the Three D Scans link to obtain some geometry."}

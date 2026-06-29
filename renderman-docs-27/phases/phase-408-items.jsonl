@@ -1,0 +1,60 @@
+{"id": "db3e3c5935258690c2be14881409ee6622e7d1c7faf09ff0554d08cbd0abd228", "item_id": "88611926e0:0", "text": "Subdivision surfaces provide you with a great way to use the simplicity of polygonal-style modeling, together with the smoothness of a mathematically defined surface.  They are used heavily when modeling organic or curved surfaces.  The RenderMan documentation for"}
+{"id": "07a8ec1c9566d237d6cfd01372f6a08e4a4e32a76296552cbdb1fd636f38d800", "item_id": "88611926e0:1", "text": "Subdivision Surfaces"}
+{"id": "f5fe247ad4c2a6399659753fb2790f57db99ebc41524d5c067e0a9514cabdf94", "item_id": "88611926e0:2", "text": "will give you a great primer on them."}
+{"id": "e91843e5a54624de8bab94592888bf06822c861c977205a69b846e06a8b0df22", "item_id": "88611926e0:3", "text": "In Katana, you will most likely bring in a subdivision surface via Alembic or some other geometry format that supports them.  You as an artist are not likely to have to do anything special to utilize them in Katana. In Maya, using the RenderMan Archive workflow, you can embed the settings used on your geometry and RfK should simply use them as set."}
+{"id": "7f136b72c5acce08ac016bec97874ba6f782601c8dd96206478cef203a6899a9", "item_id": "88611926e0:4", "text": "Any texture coordinates or other primitive variables that you need for look development must be added upstream in your pipeline.  They will be available when you import your geometry into Katana."}
+{"id": "621f997b3c17103e9f0630d71b639ad2c8fe4f8b01fe510449601a5695a8d0f3", "item_id": "88611926e0:5", "text": "To set an object that is ingested as a polymesh into a subdivision mesh requires you use an AttributeSet node with the string value set to subdmesh and the path to your required object. The PrmanObjectStatements can be added to specify the type of SubD Mesh (Catmull-Clark, Loop, etc.) The default is Catmull-Clark."}
+{"id": "4ba6083f6381d6e47ac13dce14693c4b678a0d90b0a4bb9f94b9596527d085f2", "item_id": "88611926e0:6", "text": "However, the OpScript provided below on this page should match the default from Maya and Houdini should you need to match them (recommended)"}
+{"id": "9e2c6d9e65adba4c72f2514efdcd96ee169a64d607deaa6288ff7615a33bb369", "item_id": "88611926e0:7", "text": "Speed Trick"}
+{"id": "c6d29f3bb42f1ccc33110db8f64e26d5ec6622c3e1de3abee0f13ec54e87bde5", "item_id": "88611926e0:8", "text": ": If your subdivision surface is off-screen or the pixel coverage is very small, it may make sense to convert the subdivision surface to a polygonal surface.  This will save memory in your render, will shorten the time to seeing the first pixel, and depending on your scene complexity, will reduce render times."}
+{"id": "8c24f0be50054762b53a6081e9e16a13aa5b13330b29ad2fd11de1ae60bd8fe5", "item_id": "88611926e0:9", "text": "To change your geometry from a subdivision surface to a polygonal surface, use an AttributeSet node to set the \"type\" of the geometry to polymesh.  Below is a screen snapshot of what you will need to do."}
+{"id": "16d706403104bcb8243568b2c44f1109464c515cc8280649dd12e0c0d2bf89ba", "item_id": "88611926e0:10", "text": "Normals and faceting"}
+{"id": "eb50c4f58d17792d64655119c92963508bb287a4ba42cc252ebd9d1474b2b108", "item_id": "88611926e0:11", "text": "When rendering surfaces in Katana, you may need to discard normals. The basic workflow for rendering smooth-looking surfaces is below:"}
+{"id": "cb006b189d4255f5ddff28be928c7ba5f275da3680ebb4256ba78867f75c0714", "item_id": "88611926e0:12", "text": "Export normals for polymeshes with smoothed normals that you wish to preserve when they are"}
+{"id": "254bb97b57f12e1608fefc4517de768427b2fd6d2cffbbfcbc09f3c818198d5f", "item_id": "88611926e0:13", "text": "not"}
+{"id": "377962d8c95c28842c89b13c22233521ffc37d08c901668cd9e2f00e43777465", "item_id": "88611926e0:14", "text": "going to being subdivided. This is a common \"fake\" for low-poly surfaces that need to look smooth. No normals export is needed when you only require hard edges/faceting."}
+{"id": "f59a1b940dffa7dd92efb948c6cdb35c53c2914eaf94f7a7c8bc6746fedf2073", "item_id": "88611926e0:15", "text": "Going to subdivide the mesh? Do not export normals for these polymeshes, let PRMan calculate them new when they are subdivided. This also saves space for the exported file since you don't need the normals."}
+{"id": "32ab610986d8652dd867f4eaca12462200950db08ce66311e2f21f238bab37a9", "item_id": "88611926e0:16", "text": "The presence/absence of normals may affect tessellation. Otherwise, remove unwanted faceting by deleting normals in Katana if they were exported despite your intent to subdivide."}
+{"id": "6684eb4e9c26dbc65c054273de0cb202e9937b2e079de04d598e10e9d923bb46", "item_id": "88611926e0:18", "text": "To match Displacement from previous versions of RenderMan, the following conversion may be of use:"}
+{"id": "8387ae22b6c309c92cacd4218f37f1a6dc282fc441f20e872e6bb530f0c33fef", "item_id": "88611926e0:23", "text": "To Duplicate the Geometry Settings from Maya"}
+{"id": "09005e738b47c6fe140817c40bd0a81a45f2538a5e473e1b780d407551f3665d", "item_id": "88611926e0:24", "text": "It may be useful to match what you're seeing in Maya since it may be your primary modeling package. Below are the settings necessary to achieve the same look if you asset was not exported with the data."}
+{"id": "cf8fbc706e07ae27e91fa81bf77d5c53635f387e8c8c4d1fce8e407002b78b1e", "item_id": "88611926e0:25", "text": "Create an OpScript node"}
+{"id": "cae725fe45d01922a164cb69c743bde1c2d929d92a8c9fec47d6e887e013faf3", "item_id": "88611926e0:26", "text": "In the CEL section, select the mesh(es) where you wish to apply the attributes. In this case we've added the subdmeshes from Maya"}
+{"id": "d96bcfab164bb34285883fe90ec70789835205a78d01016d7890107184c5392e", "item_id": "88611926e0:27", "text": "Custom CEL statements"}
+{"id": "4ea140e951252031b56d199e78513c0e3f1728dbb7c2baa0e100351a3c14f25f", "item_id": "88611926e0:28", "text": "/root/world/geo//*{@type == \"polymesh\"}"}
+{"id": "4c0e19f854a97688df9602b7ae0352e98a466314fce7291d30c1827a1d26baf4", "item_id": "88611926e0:29", "text": "/root/world/geo//*{@type == \"subdmesh\"}"}
+{"id": "d96283637fc2582242aa2bd2d4cf7983ebea7114bd15674709cbdd78ed00e4f4", "item_id": "88611926e0:30", "text": "In the script section add the following:"}
+{"id": "7b7e8b2ccab74f234cf3f3fcfb33284ff2f58e3e4697daf5c83fabb2c9149783", "item_id": "88611926e0:31", "text": "We set several attributes above to match the Maya settings. Below we list the other options should you need to experiment."}
+{"id": "19fbcca0ebdda1d9679031bcf44087284ce9488dae82025d33dcbd8b1363895a", "item_id": "88611926e0:32", "text": "Options for geometry.facevaryinterpolateboundary"}
+{"id": "366f8aca2099839e20c4cf3881e44946aa8e55053aba4e5642fef31c29aba5a2", "item_id": "88611926e0:33", "text": "0 (old style)"}
+{"id": "8a3db34cbf555045c28c3a74f040b49e868daaa8b96082f1957d2dab2adecfdc", "item_id": "88611926e0:34", "text": "1 (new style)"}
+{"id": "851ec4dc22dcf327b5537e6ac55fe5b489f3deef244a302e3dd83bd1aa2d4f5e", "item_id": "88611926e0:35", "text": "2 (new style, no corners)"}
+{"id": "c4b46cd37a561f0ca2987beaa5e6ad22a3ef90e9e9cf60c9bb32fe4deeb801d4", "item_id": "88611926e0:36", "text": "3 (new style, smooth internal only)"}
+{"id": "cc9ec36f33832d346acf134d05be445944f583b3ee4f719f5082a35b1cfe5b90", "item_id": "88611926e0:37", "text": "This is the current Maya default"}
+{"id": "3a762f7cf19e939f52175491b2a17aeac0081515004a19376d59d1ab1a2c9ed4", "item_id": "88611926e0:38", "text": "Options for 'geometry.facevaryingpropogatecorners'"}
+{"id": "96423bf43cfd74ffdcd7f53674e3aa1108e8e24820eeb02010fbcaa2bbbf280d", "item_id": "88611926e0:39", "text": "0 (off)"}
+{"id": "797ba098556270e318a8060be2126f62c5894a2d94b839c9b8197703ab6241cb", "item_id": "88611926e0:40", "text": "This is Maya default"}
+{"id": "676fb90e0fd3d5c4de5b327b4ce4817b21e604573c1a011a3e34bf17ee2fb2d2", "item_id": "88611926e0:41", "text": "1 (on)"}
+{"id": "25364a61c1041f53a6ed6ffbd8f68ffb3b7c1e8c3eb13a0f2b49968f1d4e1123", "item_id": "88611926e0:42", "text": "Options for 'geometry.interpolateBoundary'"}
+{"id": "0d0b1d64dd0c06e494bb427d2724387bb5c961be7f5afcb555a91ead670d5689", "item_id": "88611926e0:43", "text": "0(no interpolation)"}
+{"id": "b4f0e137a8498118d9160b12abae02d44f075f9bf37f05333024db756d55ed73", "item_id": "88611926e0:44", "text": "1(edge crease, corner crease)"}
+{"id": "56c8a657db07d633063eb2719fed69776bdc125f5a7c45c97d72cff18c546629", "item_id": "88611926e0:45", "text": "This is the Maya default"}
+{"id": "39a6ce385f4a1dcfcdb696bc334ddb7d3de470b4adc446f53358ea4b7b01ac9a", "item_id": "88611926e0:46", "text": "2(edge crease only)"}
+{"id": "d8f6ca3f74c16df2d4d3960eedd9f3d627bfceb7fd1aa4c22a6945a6265bc48e", "item_id": "88611926e0:47", "text": "geometry.vertex.N"}
+{"id": "670d88b6be42565ba1ca6109f8d2646cab7cb9e4172d4162cfd60c6fded37794", "item_id": "88611926e0:48", "text": "We delete the existing normals off the mesh as RenderMan will create its own for a subdivision mesh. This is explained in the above section."}
+{"id": "1303c06b0b014d0ce7b988ab173a13f31227d417058ff4bbe6f8c222b4ad913c", "item_id": "88611926e0:49", "text": "type"}
+{"id": "87e9094721052f180eff20edaabefa49a8d9f93ba39641919db138e32bdc227d", "item_id": "88611926e0:50", "text": "Changes the mesh to a subdivision surface"}
+{"id": "32e75f28b513c8169b58ffb28c4316df346ee4ab6461fbacab310d46681ab65d", "item_id": "88611926e0:51", "text": "For Developers"}
+{"id": "e2772f09a0b1498377586713175ca21c4ce0a84c810d4250cf7cd5397088638a", "item_id": "88611926e0:52", "text": "If you are implementing support in a custom Katana plugin for subdivision surfaces, you will be interested in how RenderMan for Katana translates geometry attributes to RenderMan's subdivision format.  See the developer documentation"}
+{"id": "7371f76ac692687f0443b9b357421810b93a0a8d578ecaf30b9bda52b74e7fed", "item_id": "88611926e0:55", "text": "We support the following attributes, which are converted to RenderMan's internal format."}
+{"id": "402b71a43e63a4d88c219087b8db2ca491aedfa45df47132a23c247031cb156d", "item_id": "88611926e0:56", "text": "prmanStatements.primAttributes.subdivisionMesh.scheme"}
+{"id": "7e1384e777b4218ceeb346a7c7080c3df75e8e317bf7d7639017db7c31040db0", "item_id": "88611926e0:57", "text": "geometry.holePolyIndices"}
+{"id": "aa273dfcd8a009ca0244287acce60df87a4645084b47ecbceddb22eadb4b7f33", "item_id": "88611926e0:58", "text": "geometry.creaseLengths"}
+{"id": "5cb63f83fab5a62e31dbaae4ebcbf84a91ec97b791a10f776e12438747b78678", "item_id": "88611926e0:59", "text": "geometry.creaseIndices"}
+{"id": "24e90c00dc95f7a335932a6a7bf8055a0b783c24bf9952e9512b01a17add761b", "item_id": "88611926e0:60", "text": "geometry.creaseSharpness"}
+{"id": "663edbde8fe2b599e654ec835b054db71554a7d9ab99332fca81b5147dcc6afe", "item_id": "88611926e0:61", "text": "geometry.creaseSharpnessLengths"}
+{"id": "824e9e97ae43039dc6be35085475f0638cac871284626aa8164567add2b380c6", "item_id": "88611926e0:62", "text": "geometry.cornerIndices"}
+{"id": "25598785ad9f078996192e449c6291cce22c6159f285245daeccc3050462602a", "item_id": "88611926e0:63", "text": "geometry.cornerSharpness"}
+{"id": "d3b5a07a6a196c597465ba840d774a6e1eb1bdde3e5ee3a7dbd9bbefc2a2c5e3", "item_id": "88611926e0:64", "text": "geometry.facevaryinginterpolateboundary"}
+{"id": "313fc2cbc599b4ac567e24c2419ff4badadbb93500e6e62be2d734c8c6cfb994", "item_id": "88611926e0:65", "text": "geometry.facevaryingpropagatecorners"}
+{"id": "903761af21bb015c095bb8958a5c9d324d048a2975a86f5bf7a660fa11699132", "item_id": "88611926e0:66", "text": "geometry.interpolateBoundary"}

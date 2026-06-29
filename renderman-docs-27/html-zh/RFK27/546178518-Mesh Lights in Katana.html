@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mesh Lights in Katana</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Mesh Lights in Katana</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFK27/546178518/Mesh+Lights+in+Katana">https://rmanwiki-27.pixar.com/space/RFK27/546178518/Mesh+Lights+in+Katana</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<h3 id="MeshLightsinKatana-CreatingMeshLights">创建 Mesh Lights（网格灯）</h3><p>RenderMan 中的 Mesh Lights 是使用 <a href="https://rmanwiki-26.pixar.com/space/REN26/19661735/PxrMeshLight" data-linked-resource-id="19661735" data-linked-resource-version="2" data-linked-resource-type="page">PxrMeshLight</a> 创建的。任何一段 geometry 都可以用作 mesh light（也称为 "geometric area light"）。下面介绍在 RfK 中创建 mesh lights 的两个主要工作流。 </p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="512" loading="lazy" src="../../attachments/546178518/rfkShaderBallMeshLight.png" data-image-src="../../attachments/546178518/rfkShaderBallMeshLight.png" data-height="512" data-width="512" data-unresolved-comment-count="0" data-linked-resource-id="546178538" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfkShaderBallMeshLight.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="546178518" data-linked-resource-container-version="4" data-media-id="bef19192-c023-427d-9c3e-320b6b84fd87" data-media-type="file"></span><h4 id="MeshLightsinKatana-Method1:PxrMeshLightGafferThreePackage">方法 1：PxrMeshLight GafferThree Package</h4><p>使用这种方法创建 mesh lights 很简单。首先，在 Scenegraph 中选择要转换为 mesh light 的 geometry。然后在 GafferThree 中添加一个 PxrMeshLight。</p><span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="1065" loading="lazy" src="../../attachments/546178518/rfkPxrMeshLight.png" data-image-src="../../attachments/546178518/rfkPxrMeshLight.png" data-height="498" data-width="1065" data-unresolved-comment-count="0" data-linked-resource-id="546178535" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfkPxrMeshLight.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="546178518" data-linked-resource-container-version="4" data-media-id="5ac89ab0-275d-497d-bcb2-0849f1555425" data-media-type="file"></span><p /><p>Mesh Light Geometry 参数也可以引用带有 Scene Graph location 的节点。如果 geometry 的名称或 location 发生变化，Node Graph 引用会自动更新该参数。</p><p /><h4 id="MeshLightsinKatana-Method2:Thegeometry.areaLightGeometrySourceAttribute">方法 2：geometry.areaLightGeometrySource Attribute</h4><p>Mesh light geometry 需要使用 RfK 在处理 lights 时会查找的特定 attribute 附加到 light。该 attribute 名为 "geometry.areaLightGeometrySource"。此 attribute 是 light 上的 string attribute，其值应为 geometry location。为方便起见，RfK 发行版中的 PrmanMeshLightCreate macro 演示了这种设置。</p><span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="834" loading="lazy" src="../../attachments/546178518/rfkMeshLightAS.png" data-image-src="../../attachments/546178518/rfkMeshLightAS.png" data-height="423" data-width="834" data-unresolved-comment-count="0" data-linked-resource-id="546178532" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfkMeshLightAS.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="546178518" data-linked-resource-container-version="4" data-media-id="b8695ca4-c9e9-4a0c-a6a4-ca67007f5a9f" data-media-type="file"></span><h4 id="MeshLightsinKatana-Method3:AssignaPxrMeshLightMaterial">方法 3：指定 PxrMeshLight Material</h4><p>你可以为对象指定 PxrMeshLight material 来创建 mesh light。不过，这样将无法利用 light linking 和 light filter 选项。</p><h3 id="MeshLightsinKatana-InstancingMeshLights">实例化 Mesh Lights</h3><p>如果你使用上面描述的方法 1 或方法 2 创建了 mesh light，场景中会有两个 location 与同一个 mesh light 关联。那么应该 instance 哪个 location？始终应当 instance geometry location。</p><p>如果使用 hierachical instancing 或 instance arrays，请确保 mesh light 位于 instance source location 之下，这样 RfK 才会保留与 light location 关联的 material properties 和 light filters。</p><p>Mesh lights 也可以用于 light arrays。在这种情况下，RfK 使用来自 light array location 的 material，而不是 geometry location 上的 material。</p><p /><h3 id="MeshLightsinKatana-AdditionalNotes">其他说明</h3><p>geometry 可以在有或没有 Bxdf 的情况下渲染。如果没有指定其他 Bxdf，RfK 会为 mesh lights 指定 PxrBlack（不适用于方法 3）。如果 geometry 指定了 Bxdf，则会根据该 shader 的特性渲染该 geometry。</p><p>建议提高 mesh light 上的 micropolygonlength，以改善性能。此 attribute 可在 PxrMeshLight GafferThree package 的 Object Tab 中找到。</p><p>如果要使用 PxrMeshLight 的 Texture Color 参数，可以使用 PrmanShadingNodes 和 NetworkMaterial 节点创建 shading network。然后，在创建该 light 的 GafferThree 下游，使用 MaterialAssign 节点将 NetworkMaterial 指定给 light location。</p>
+  </article>
+</main>
+</body>
+</html>

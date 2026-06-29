@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PxrBump</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>PxrBump</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/REN27/542222840/PxrBump">https://rmanwiki-27.pixar.com/space/REN27/542222840/PxrBump</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="960" loading="lazy" src="../../attachments/542222840/lmPlasticTiles.png" data-image-src="../../attachments/542222840/lmPlasticTiles.png" data-unresolved-comment-count="0" data-linked-resource-id="542222856" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="lmPlasticTiles.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542222840" data-linked-resource-container-version="1" data-media-id="b4875dca-ff3c-43d5-b15b-f3895e1187c4" data-media-type="file"></span></p><p style="text-align: center;"><em style="text-align: center;">PxrBump used to provide the secondary bump on displaced tiles.</em></p><p><br/></p><p><span style="letter-spacing: 0.0px;"><br/>Bump mapping is an inexpensive way to apply details to an object without modeling it or using displacement to change its shape. This is a shading &quot;trick&quot; where a supplied pattern can give the illusion of details.</span></p><p>This produces a bumped normal from a bump map (a scalar displacement map, so only the first channel is used for the displacement). Bumps are applied in <em>object</em> space. The change in scale between <em>object</em> space and <em>current</em> space is automatically applied by the node.</p><p>Texture atlas format files can be read in either UDIM (Mari) format or Mudbox format. This plugin also supports Rtx procedural texture plugins.</p><p><br/></p><h3 id="PxrBump-InputParameters">Input Parameters</h3><h4 id="PxrBump-Scale">Scale</h4><p>An object-space scale applied to the bump.</p><h4 id="PxrBump-Disabled">Disabled</h4><p>Turn off the bump effect, useful for debugging. Uses the geometric normal instead.</p><h4 id="PxrBump-InputBump">Input Bump</h4><p>If <em>Input Bump</em> is connected (and <em>Filename</em> is not specified), the pattern executes the upstream pattern netowrk connected to <em>Input Bump</em> three times, once at the shading point and once at <code>P+du</code> and <code>P+dv</code>. Then it crosses the results to get the bump normal.</p><p>Note that if you have a fixed texture and UV, it is highly recommended to use the <em>Filename</em> parameter below because it is 3 times faster!</p><p>If <em>Filename</em> is specified, <em>Input Bump</em> is ignored.</p><h4 id="PxrBump-Filename">Filename</h4><p>The filename of the texture. If not provided, <em>Input Bump</em> is used instead.</p><p>If <em>Filename</em> is specified, the pattern has no upstream graph connected. Instead it reads the bump value from the texture file. The input file can be a color or monochrome file; if the file is RGB, only a single channel (as specified by the <em>First Channel Offset</em> parameter) is read. The bump pattern gets the derivatives from the texture at the same time it filters it, which provides a performance benefit over using <em>Input Bump</em>.</p><p>The PxrBump pattern currently does not allow modifying the manifold of the texture, use the below control.</p><h4 id="PxrBump-BumpManifold">Bump Manifold</h4><p>This takes an incoming connection of the <a href="/wiki/spaces/REN27/pages/542222866/PxrBumpManifold2D" data-linked-resource-id="542222866" data-linked-resource-version="1" data-linked-resource-type="page">PxrBumpManifold2D</a></p><p><br/></p><h4 id="PxrBump-AdvancedTextureSettings">Advanced Texture Settings</h4><h4 id="PxrBump-MIPBias"><span class="legacy-color-text-default">MIPBias</span></h4><p><span class="legacy-color-text-default">Bias MIP selection chosen for rendering to either a higher (negative integers) or lower resolution (positive integers) selection.</span></p><h4 id="PxrBump-MaxResolution"><span class="legacy-color-text-default">MaxResolution</span></h4><p><span class="legacy-color-text-default">Clamp MIP selection to a preferred maximum level. This may prevent the highest resolutions from being rendered depending on your selection.</span></p><h4 id="PxrBump-"><span class="legacy-color-text-default"> </span></h4><h4 id="PxrBump-Advanced">Advanced</h4><h4 id="PxrBump-InputNormal">Input Normal</h4><p>An additional normal to be added to the bump normal.</p><h4 id="PxrBump-ReverseNormal">Reverse Normal</h4><p>Reverse the resulting normal.</p><h4 id="PxrBump-AdjustAmount">Adjust Amount</h4><p>Amount to adjust the normals when the geometric normals are facing away from the camera. This is useful when we see cracks in the normals. You can find an example <a href="/wiki/spaces/REN27/pages/542222488/PxrAdjustNormal" data-linked-resource-id="542222488" data-linked-resource-version="1" data-linked-resource-type="page">here</a>.</p><h4 id="PxrBump-SurfaceNormalMix">Surface Normal Mix</h4><p>The amount to mix the resulting normals with the original surface normals. Toward 1.0 will mix in more surface normals. You can find an example <a href="/wiki/spaces/REN27/pages/542222488/PxrAdjustNormal" data-linked-resource-id="542222488" data-linked-resource-version="1" data-linked-resource-type="page">here</a>.</p><h3 id="PxrBump-OutputParameters">Output Parameters</h3><h4 id="PxrBump-resultN">resultN</h4><p>The bumped normal.</p>
+  </article>
+</main>
+</body>
+</html>

@@ -1,0 +1,56 @@
+{"item_id":"edb93fc31a:0","text":"Engine 维护中央 job queue，并把 tasks 分配给 farm 上的 servers。它也是 blades 上报 status information 的中央 clearinghouse。Engine 还会交付 Tractor Dashboard 所需的 web content。Usage: tractor-engine [options]（用法）"}
+{"item_id":"edb93fc31a:1","text":"选项："}
+{"item_id":"edb93fc31a:2","text":"Option（选项）"}
+{"item_id":"edb93fc31a:3","text":"说明"}
+{"item_id":"edb93fc31a:4","text":"--version"}
+{"item_id":"edb93fc31a:5","text":"打印版本信息，然后退出。"}
+{"item_id":"edb93fc31a:6","text":"-h,"}
+{"item_id":"edb93fc31a:7","text":"--help"}
+{"item_id":"edb93fc31a:8","text":"打印用法摘要，然后退出。"}
+{"item_id":"edb93fc31a:9","text":"--configdir=path"}
+{"item_id":"edb93fc31a:10","text":"或"}
+{"item_id":"edb93fc31a:11","text":"-c"}
+{"item_id":"edb93fc31a:12","text":"path"}
+{"item_id":"edb93fc31a:13","text":"指定包含 Tractor configuration files 的目录，默认值为 /var/spool/tractor/config。Tractor-engine 也会检查环境变量 TRACTOR_CONFIG。"}
+{"item_id":"edb93fc31a:14","text":"--log=filename"}
+{"item_id":"edb93fc31a:15","text":"指定用于记录 engine 自身 diagnostics 的 filename。默认值为 stderr。"}
+{"item_id":"edb93fc31a:16","text":"--verbose"}
+{"item_id":"edb93fc31a:17","text":"或"}
+{"item_id":"edb93fc31a:18","text":"-v"}
+{"item_id":"edb93fc31a:19","text":"将 logging level 从 NOTICE 提高到 INFO。"}
+{"item_id":"edb93fc31a:20","text":"--quiet"}
+{"item_id":"edb93fc31a:21","text":"或"}
+{"item_id":"edb93fc31a:22","text":"-q"}
+{"item_id":"edb93fc31a:23","text":"将 logging level 从 NOTICE 降低到 SEVERE。"}
+{"item_id":"edb93fc31a:24","text":"--debug"}
+{"item_id":"edb93fc31a:25","text":"将日志 logging level 提高到 DEBUG。"}
+{"item_id":"edb93fc31a:26","text":"--trace"}
+{"item_id":"edb93fc31a:27","text":"将日志 logging level 提高到 TRACE。"}
+{"item_id":"edb93fc31a:28","text":"--httpdebug"}
+{"item_id":"edb93fc31a:29","text":"记录传入的 http requests"}
+{"item_id":"edb93fc31a:30","text":"--nshippers=n"}
+{"item_id":"edb93fc31a:31","text":"或"}
+{"item_id":"edb93fc31a:32","text":"-n"}
+{"item_id":"edb93fc31a:33","text":"nnn"}
+{"item_id":"edb93fc31a:34","text":"设置为处理 i/o 而创建的 thread 数量（default=ncores）。"}
+{"item_id":"edb93fc31a:35","text":"--maxdispatch=n"}
+{"item_id":"edb93fc31a:36","text":"或"}
+{"item_id":"edb93fc31a:37","text":"-D"}
+{"item_id":"edb93fc31a:38","text":"nnn"}
+{"item_id":"edb93fc31a:39","text":"限制并发 dispatches（以及 license use）。"}
+{"item_id":"edb93fc31a:40","text":"--port=n"}
+{"item_id":"edb93fc31a:41","text":"指定 engine 的 inbound connection port（default=80）。"}
+{"item_id":"edb93fc31a:42","text":"--port=addr:port"}
+{"item_id":"edb93fc31a:43","text":"将 inbound listener port 限制到由 address 给出的 network interface，并使用 port number port。默认情况下，engine 会在所有 interfaces 的 port 80 上监听 connections。示例用法：--port=8080 或 --port=127.0.0.1:9999"}
+{"item_id":"edb93fc31a:44","text":"--supersede"}
+{"item_id":"edb93fc31a:45","text":"允许新启动的 engine process 平稳接管仍在运行的先前 engine。新 engine 会向旧 engine 发送 drain and exit 消息，然后等待旧 engine 退出，再继续成为新的 engine service。在 drain mode 中，旧 engine 停止向发出请求的 blades 分配新工作，并在所有之前启动的 tasks 完成后退出。部分完成的 jobs 会保留在 queue 中，并在新 engine 接管后继续处理。"}
+{"item_id":"edb93fc31a:46","text":"--paused"}
+{"item_id":"edb93fc31a:47","text":"使新重启的 engine 立即进入 pause all dispatching 状态。因此，在管理员使用 Dashboard 的 Gears->Admin 标签页中的红色 play 按钮手动重新启用 dispatching 之前，不会有新的 commands 分配给 blades。即使 engine 以 --paused mode 重启，job database 中标记为 still-active 的任何现有 commands 仍会被新 engine 视为 active。在这些情况下，仍在运行的 blades 会与新 engine 通信，以确认这些 commands 中哪些实际仍在运行。"}
+{"item_id":"edb93fc31a:48","text":"--startupdelay=n"}
+{"item_id":"edb93fc31a:49","text":"Engine 在 startup 时简单 sleep n 秒。"}
+{"item_id":"edb93fc31a:50","text":"--daemon"}
+{"item_id":"edb93fc31a:51","text":"Engine 在 system service mode 中自动进入 background。"}
+{"item_id":"edb93fc31a:52","text":"--pidfile=filename"}
+{"item_id":"edb93fc31a:53","text":"在 daemon mode 中，将最终 PID 写入 filename。"}
+{"item_id":"edb93fc31a:54","text":"--sigdfl=1"}
+{"item_id":"edb93fc31a:55","text":"不要覆盖默认的 SEGV/BUS handlers。"}

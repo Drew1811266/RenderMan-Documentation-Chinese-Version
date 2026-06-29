@@ -1,0 +1,8 @@
+{"id":"fbdf45cc19c3414bedea6d1aa8332eb9f5a438e0c8d0428c9d8d440b11441d9c","item_id":"5748831765:0","text":"有关 RenderMan 中 display filters（显示过滤器）和 sample filters（采样过滤器）的一般信息："}
+{"id":"a91048733abfea0ed6c1e20c3c6f0f38441b7b57b916eb21fad4ca1a911ff149","item_id":"5748831765:1","text":"Sample and Display Filters（采样与显示过滤器）"}
+{"id":"b781c4c9650beb3eb62e293a278175141428a2d1c81a06bd990272e4b25dd523","item_id":"5748831765:2","text":"要添加 sample filter（采样过滤器）或 display filter（显示过滤器），只需添加一个专用 LOP 节点来创建对应的 USD filter primitive（过滤器图元）。"}
+{"id":"249042bb44aed2feaafdabdb8e0e94a677dfb96226f96a57d56d735421032df0","item_id":"5748831765:3","text":"以前添加 filter（过滤器）的方式（通过 Render Settings LOP 上的专用选项卡，或通过 PxrSampleFilter 和 PxrDisplayFilter LOP）仍受支持，但已 deprecated（弃用）。"}
+{"id":"ed49557559fd80717cc59820b73c594835634e583763240c3a7589859890c15f","item_id":"5748831765:4","text":"然后将其分配给 render settings primitive（渲染设置图元）："}
+{"id":"e7029413e4b43f076018958c8d3cadd8d5afaa1eb1497cf9154808474a928593","item_id":"5748831765:5","text":"Houdini 20.5 及以下版本：使用 PxrAssign LOP（或别名 PxrAssignSampleFilter / PxrAssignDisplayFilter）将过滤器图元分配给渲染设置图元。执行分配前，渲染设置图元必须已经存在。"}
+{"id":"e4163a4f5ad5c1fc79eb5b1f119442cf8fa5ae6c5a6f8e672590aa1ede159d60","item_id":"5748831765:6","text":"Houdini 21.0 及以上版本：PxrAssign LOP workflow 仍然有效，但也可以直接在 Render Settings LOP 上分配 filter。"}
+{"id":"2e3bfa0a925be5c7d11ec3bccbbb6d3023870154ae6b74ca807429419f2f7840","item_id":"5748831765:7","text":"如果分配正确完成，在 Scene Graph（场景图）中，Render Settings primitive（渲染设置图元）上的过滤器图元应列在较新版的 ri:sampleFilters 或 ri:displaytFilters 属性中；H20.5 及以下则应列在 outputs:ri:sampleFilters 或 outputs:ri:displayFilters 属性中。也就是说，场景图会通过这些属性记录过滤器分配，用于确认过滤器已经写入对应的渲染设置图元。"}

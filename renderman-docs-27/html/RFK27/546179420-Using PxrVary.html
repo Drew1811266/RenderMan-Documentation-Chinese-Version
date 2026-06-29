@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Using PxrVary</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Using PxrVary</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFK27/546179420/Using+PxrVary">https://rmanwiki-27.pixar.com/space/RFK27/546179420/Using+PxrVary</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p style="text-align: center;"><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/546179420/RenderMan_PxrVary_one.jpg" data-image-src="../../attachments/546179420/RenderMan_PxrVary_one.jpg" data-unresolved-comment-count="0" data-linked-resource-id="546179451" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_PxrVary_one.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="546179420" data-linked-resource-container-version="1" data-media-id="fdb15de6-6c61-49a4-b1a2-bdebb069364d" data-media-type="file"></span></p><p style="text-align: center;">PxrVary Example</p><p style="text-align: left;">One of the most common requirements of shading in animation or visual effects is varying the shader attributes efficiently for many objects. This can be anything from crowd simulations to leaves in a forest. This variation can make scenes more realistic and visually appealing. However, having to hand-alter dozens to hundreds of shaders can be prohibitive. This is where <a href="/wiki/spaces/REN26/pages/19661737/PxrVary" data-linked-resource-id="19661737" data-linked-resource-version="1" data-linked-resource-type="page">PxrVary</a> comes in!</p><p style="text-align: left;"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" height="400" loading="lazy" src="../../attachments/546179420/pxrVary_UI_Katana.png" data-image-src="../../attachments/546179420/pxrVary_UI_Katana.png" data-unresolved-comment-count="0" data-linked-resource-id="546179439" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrVary_UI_Katana.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="546179420" data-linked-resource-container-version="1" data-media-id="0d7f699c-3b0e-41e6-8452-8eb70adbb111" data-media-type="file"></span></p><p style="text-align: left;">Attached is a Katana example file showing how to use OpScripts to generate the source variables when using the pattern. Read about the logic of the scene setup below.</p><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="2f7f2aa7-67dd-4a65-b23d-714de8098d4e" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><ul><li>Notice that Identifier ID will work without OpScripts to define the ID.  We auto-generate both identifier ID and identifier Name, so they will work without an OpScript.</li></ul><p><br /></p><ul><li>For Attribute selections, be sure and prefix with &quot;user:&quot; in the PxrVary node. In our example we use, user:rmanFloatAttr</li></ul><p><br /></p><ul><li>You may find more useful information on Primvars in the <a class="external-link" href="https://learn.foundry.com/katana/current/dev-guide/AttributeConventions/ArbitraryAttributes.html" rel="nofollow">Katana documentation</a>.</li></ul></div></div><p><br/></p><p>This is an example OpScript used to create an ID on a sphere.</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="c66bac8a-14ba-48de-8cc9-c093bb22c270" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">Interface.SetAttr('prmanStatements.attributes.identifier.id', IntAttribute(1))
+
+Interface.SetAttr('prmanStatements.attributes.user.rmanFloatAttr', FloatAttribute(3))
+
+gb = GroupBuilder()
+gb:set(&quot;value&quot;, FloatAttribute(1))
+gb:set(&quot;scope&quot;, StringAttribute(&quot;primitive&quot;))
+gb:set(&quot;inputType&quot;, StringAttribute(&quot;float&quot;))
+Interface.SetAttr(&quot;geometry.arbitrary.FloatPrimvar&quot;, gb:build())</pre>
+</div></div><p><br/></p><p>The OpScript is assigned just below the primitive create. Each one is slightly different to ensure variation.</p><p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" height="250" loading="lazy" src="../../attachments/546179420/opscriptAssign_PxrVary.png" data-image-src="../../attachments/546179420/opscriptAssign_PxrVary.png" data-unresolved-comment-count="0" data-linked-resource-id="546179442" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="opscriptAssign_PxrVary.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="546179420" data-linked-resource-container-version="1" data-media-id="0fc6be14-351b-4070-acd9-d45945604f3a" data-media-type="file"></span></p><p>From here you will notice there are four different outputs, illustrating the different results from using different PxrVary sources (Name, ID, PrimVar, Attribute). Rendering each of these will produce different colored spheres. Download the scene to experiment!</p><p><a href="/wiki/download/attachments/546179420/PxrVary.katana?version=1&amp;modificationDate=1754531544852&amp;cacheVersion=1&amp;api=v2" data-linked-resource-id="546179445" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="PxrVary.katana" data-linked-resource-content-type="application/octet-stream" data-linked-resource-container-id="546179420" data-linked-resource-container-version="1">PxrVary Katana 2.6v4 scene</a></p><p><br/></p>
+  </article>
+</main>
+</body>
+</html>

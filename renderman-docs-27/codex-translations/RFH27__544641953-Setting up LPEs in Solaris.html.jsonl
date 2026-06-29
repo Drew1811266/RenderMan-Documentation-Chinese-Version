@@ -1,0 +1,22 @@
+{"id":"8b23e3a37e874733ff5083b5ec89a8e896ee2b68f2c04a1e1203afe93b0d9bca","item_id":"b3c9640537:0","text":"在 production（制作）中，经常需要为镜头创建非物理效果和 art-directed（艺术指导）的调整。Light Path Expressions（LPE，光路表达式）是一种强大的方式，可收集并输出特定 light paths（光路），以便之后修改。"}
+{"id":"ae9849593f5d25ea27b01355c47b1902810765dfbb113c67eed7f05a4f107798","item_id":"b3c9640537:1","text":"LPE 的能力包括："}
+{"id":"4ad08dbebe4997bd6ade3f89549627925c53aeae7561e62b148bbb02ec6d92ca","item_id":"b3c9640537:2","text":"支持 additive compositing（加法合成），保留图像的物理属性，并避免在后期处理中通过乘法或除法造成 artifact（伪影）。"}
+{"id":"9c7179039a321ab29d12d4948da851754358cb31ab74f565705a61fc0a82e037","item_id":"b3c9640537:3","text":"Output（输出）特定 light bounce（光线反弹）（第 2、第 3 次等），甚至一段反弹范围（第 4 到第 8 次光线反弹）。你可以用它来隔离效果，甚至隔离带噪声的反弹以便做减法处理。"}
+{"id":"5ff1b14235eb308c9857963812ddf72c7e7cb475d45f765625afdeb031b4da5a","item_id":"b3c9640537:4","text":"Output（输出）特定对象到 LPE。虽然可以使用"}
+{"id":"0cc1a25fc7c898dbe2eb2390eaac650749c3d3bd30f0cbf3134f0dc7742f377d","item_id":"b3c9640537:5","text":"Cryptomatte"}
+{"id":"8e1a04744a686229899f87ab7e96b1354d5efba45d554648319a740bc2ee35e4","item_id":"b3c9640537:6","text":"通过 ID 隔离对象，但也可以分别输出对象或对象集合及其贡献。"}
+{"id":"c7bf969fdaa228adf5f1f6ab29b9389216a2dd08a36916bd5ce5afcb311d5ee3","item_id":"b3c9640537:7","text":"隔离某条带噪声的特定 light path，用于在 comp（合成）中做减法；或者输出一个不包含这些 light paths 的 LPE 用于合成。"}
+{"id":"1c61509fcd6a0755ca46ed5777b2b9a3d17806efd24a566e0a497fb31ee7d4b5","item_id":"b3c9640537:8","text":"创建非物理效果，例如让 caustics（焦散）按来源呈现不同颜色，改变对象的 color cast（偏色），或缩放 lighting（照明）。"}
+{"id":"1474481c335f53c58f6428dbd2ba702816dd89668fea2bd6051013573a97c8e7","item_id":"b3c9640537:9","text":"Output per-light AOVs（输出逐灯光 AOV），以便后续调整。"}
+{"id":"69643b601788a56c93020a15876707311e16eb8136da8d47dc3e116f1efd823d","item_id":"b3c9640537:10","text":"在此示例中，我们会在 studio scene（摄影棚场景）里，从单个 light（灯光）创建一个 LPE。"}
+{"id":"1ddd64f144d482a56b2bec5be84408d49ad21fec5e6f8a26f217ac4bcfab4d6b","item_id":"b3c9640537:11","text":"首先，选择要创建 Light Group 的灯光，然后在 RenderMan 选项卡 → Light Group 下为 light group 命名。注意，可以把多个灯光添加到一个 light group 中，以创建不同的 isolated lighting setup（隔离照明设置）。"}
+{"id":"530db6a63cdb82b36b21b2bc71d24e4b8674a8490da33c1fc901bb060574b5d5","item_id":"b3c9640537:12","text":"接下来，需要创建实际的 LPE expression（LPE 表达式），以便在 AOV channels（AOV 通道）中隔离此灯光。"}
+{"id":"32ac3326fe2efc56769c0697b2200d92f3df3c0569b88f6af5223607dc0f4bc9","item_id":"b3c9640537:13","text":"使用 Render Var LOP"}
+{"id":"f59547a0ce05cb8929e1765269184d0c2dca357ff629a23fbc7e7f5806fe0676","item_id":"b3c9640537:14","text":"，你可以在这里输入所需信息来创建 LPE。如图所示，该 LPE 将命名为 SideRoom_LPE，source name（源名称）定义 LPE 的结构；表达式中还包含 SideRoomLight，它指向我们之前创建的 Light Group。"}
+{"id":"1fa0cc70835cd64847bbfa06db37f81f8a401f2c72658460dc20e0bf012ca5c3","item_id":"b3c9640537:15","text":"有关 LPE expressions（LPE 表达式）的更多信息可见"}
+{"id":"fcec91509759ad995c2cd14bcb26b2720993faf61c29d379b270d442d92290eb","item_id":"b3c9640537:16","text":"此处"}
+{"id":"cdb4ee2aea69cc6a83331bbe96dc2caa9a299d21329efb0336fc02a82e1839a8","item_id":"b3c9640537:17","text":"。"}
+{"id":"1a08dd13f20e096a056e05a4dd4a911c4fd1ac2c15044d99e903e919a9f55ccd","item_id":"b3c9640537:18","text":"只需将 Render Var LOP 连接到 RenderMan Render Settings LOP 的第一个输入端，就足以让创建的 Render Product primitive 将其加入"}
+{"id":"8143906b839a4d53c5f4ae8d4dff900a05538ede00aff030724f4349267c9364","item_id":"b3c9640537:19","text":"orderedVars"}
+{"id":"f39b00f5a618dd2f56f48abb44b64385ef6045d5b6ee804b3ff09dc5a3ac68bc","item_id":"b3c9640537:20","text":"attribute（属性）（如下方 Scene Graph 所示）。"}
+{"id":"da773e8ea0d5bf52ce82b7fc307e373d801a95775dac6f198212e8ea80e1b202","item_id":"b3c9640537:21","text":"下图展示了 SideRoomLight LPE 的贡献。"}

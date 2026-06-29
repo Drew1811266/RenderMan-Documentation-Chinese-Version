@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PxrMatteID</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>PxrMatteID</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/REN27/542224176/PxrMatteID">https://rmanwiki-27.pixar.com/space/REN27/542224176/PxrMatteID</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p><span class="confluence-embedded-file-wrapper image-center-wrapper"><img class="confluence-embedded-image image-center" loading="lazy" src="../../attachments/542224176/PxrMatteID.gif" data-image-src="../../attachments/542224176/PxrMatteID.gif" data-unresolved-comment-count="0" data-linked-resource-id="542224190" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="PxrMatteID.gif" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/gif" data-linked-resource-container-id="542224176" data-linked-resource-container-version="1" data-media-id="9ec9809a-65a3-496b-af25-edbed55060f3" data-media-type="file"></span></p><p style="text-align: center;"><em>Three MatteID AOVs setup to reflect material assignments</em></p><p>This node outputs AOVs for compositing. It should be plugged into the <em>Utility Pattern</em> parameter of a <a href="/wiki/spaces/REN27/pages/542213836/PxrSurface" data-linked-resource-id="542213836" data-linked-resource-version="2" data-linked-resource-type="page">PxrSurface</a> and will output MatteID AOVs.</p><p>It outputs at most eight RGB mattes (24 mattes) named <em>MatteID0</em>, <em>MatteID1</em> ... <em>MatteID7</em>.</p><p>MatteID AOVs are used as per-objects/per-object groups/per-material compositing mattes. They will be properly motion-blurred or defocused to allow you to isolate objects in your compositing software.</p><p>To associate an object or a shader to a MatteIDx, you need to add a special attribute to that object or shader:</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="21ed0099-1c03-4570-b342-453fc6160d1e" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">Attribute &quot;user&quot; &quot;color MatteID0&quot; [1 0 0]</pre>
+</div></div><p><br/>In this example, the <em>MatteID0</em> AOV will be red for your object, but you can use the green and blue channel for two other sets of objects.</p><p>In RenderMan for Maya (RfM), these attributes can be added via the User <em>Attributes</em> menu on the transform, and there is a <em>MatteID</em> tab in the <em>Outputs</em> section of the RenderMan globals.</p><h3 id="PxrMatteID-InputParameters">Input Parameters</h3><h4 id="PxrMatteID-InputAOV">Input AOV</h4><p>This input can only be used to daisy-chain other nodes that don't produce any output.</p><h4 id="PxrMatteID-Enable">Enable</h4><p>Controls MatteID AOV output.</p><h4 id="PxrMatteID-MatteTexture(s)">Matte Texture(s)</h4><p><span class="legacy-color-text-default">These parameters allow the assignment of colors or patterns to be output for each matte. This is multiplied against the color chosen as the user attribute mentioned above. If you choose white as the user attribute then this parameter texture is rendered as-is.</span></p><h5 id="PxrMatteID-Howtouseit">How to use it</h5><ol><li>connect a MatteID node to PxrSurface's utilityPattern[0] slot.</li></ol><h3 id="PxrMatteID-OutputParameters">Output Parameters</h3><h4 id="PxrMatteID-resultAOV">resultAOV</h4><p>A single integer. This output only exists to trigger the execution of the pattern in the graph.</p>
+  </article>
+</main>
+</body>
+</html>

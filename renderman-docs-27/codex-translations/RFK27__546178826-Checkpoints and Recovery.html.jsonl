@@ -1,0 +1,36 @@
+{"item_id":"bc5ef07cec:0","text":"Recovery（恢复）"}
+{"item_id":"bc5ef07cec:1","text":"有两种方式可以启用 prman 的"}
+{"item_id":"bc5ef07cec:2","text":"recover"}
+{"item_id":"bc5ef07cec:3","text":"mode（恢复模式）"}
+{"item_id":"bc5ef07cec:4","text":"1. 对于 interactive disk rendering（交互式磁盘渲染），使用"}
+{"item_id":"bc5ef07cec:5","text":"attribute（属性），该属性位于 PrmanGlobalStatements 中："}
+{"item_id":"bc5ef07cec:6","text":"2. 对于 farm rendering（农场渲染），有一个 environment variable（环境变量）："}
+{"item_id":"bc5ef07cec:7","text":"启用 recover mode 后，'-recover' 标志会传递给 prman 命令行。该标志告诉 prman 从已有渲染停止的位置继续，而不是覆盖现有输出文件。如果找不到输出文件，则会执行普通渲染。"}
+{"item_id":"bc5ef07cec:8","text":"Checkpoints（检查点）"}
+{"item_id":"bc5ef07cec:9","text":"Render recovery（渲染恢复）通常与 checkpointing（检查点机制）一起使用，可通过 PrmanGlobalStatements 的 \"checkpoint\" options（选项）启用："}
+{"item_id":"bc5ef07cec:10","text":"Caveats（注意事项）"}
+{"item_id":"bc5ef07cec:11","text":"Live Rendering（实时渲染）"}
+{"item_id":"bc5ef07cec:12","text":"在 live rendering 期间，所有 checkpoint 和 recover options 都会被忽略。"}
+{"item_id":"bc5ef07cec:13","text":"Output Type and Render Post-processing（输出类型和渲染后处理）"}
+{"item_id":"bc5ef07cec:14","text":"由于 prman 需要原始文件名才能 recover（恢复）渲染，因此对于 \"color\" outputs，checkpoint 和 recover options 都会被忽略。注意，这意味着 Katana 正常的 \"copy and convert\" 渲染后处理流程不会运行。"}
+{"item_id":"bc5ef07cec:15","text":"Incremental Renders（增量渲染）"}
+{"item_id":"bc5ef07cec:16","text":"如果未启用 checkpointing（检查点机制），incremental renders 无法 recover（恢复）。当 incremental 开启而 checkpoints 关闭时，buckets 在渲染结束前不会写出。见下表："}
+{"item_id":"bc5ef07cec:17","text":"incremental（增量）"}
+{"item_id":"bc5ef07cec:18","text":"checkpoints（检查点）"}
+{"item_id":"bc5ef07cec:19","text":"recoverable?（可恢复？）"}
+{"item_id":"bc5ef07cec:20","text":"on（开启）"}
+{"item_id":"bc5ef07cec:21","text":"disabled（禁用）"}
+{"item_id":"bc5ef07cec:22","text":"NO（否）"}
+{"item_id":"bc5ef07cec:23","text":"on（开启）"}
+{"item_id":"bc5ef07cec:24","text":"enabled（启用）"}
+{"item_id":"bc5ef07cec:25","text":"YES（是）"}
+{"item_id":"bc5ef07cec:26","text":"off（关闭）"}
+{"item_id":"bc5ef07cec:27","text":"disabled（禁用）"}
+{"item_id":"bc5ef07cec:28","text":"YES（是）"}
+{"item_id":"bc5ef07cec:29","text":"off（关闭）"}
+{"item_id":"bc5ef07cec:30","text":"enabled（启用）"}
+{"item_id":"bc5ef07cec:31","text":"YES（是）"}
+{"item_id":"bc5ef07cec:32","text":"Recoverable Render Settings（可恢复的渲染设置）"}
+{"item_id":"bc5ef07cec:33","text":"Recovery 和 'keepfiles'"}
+{"item_id":"bc5ef07cec:34","text":"如果想使用 recover capability（恢复能力），不要为 checkpointing 启用 keepfiles option。"}
+{"item_id":"bc5ef07cec:35","text":"keepfiles option 会让 prman 为调试目的保存一系列 checkpoints，并为每个 checkpoint image 赋予一个唯一文件名，文件名中带有 increment 和 elapsed render time 标记。但是，当尝试 recover 一个文件时，prman 不会扫描目录寻找 checkpointed files，也不会尝试从中选择；它只会按原始 render output name 查找该文件。"}

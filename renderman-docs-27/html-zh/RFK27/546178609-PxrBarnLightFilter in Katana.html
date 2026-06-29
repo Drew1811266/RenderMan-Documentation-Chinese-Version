@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PxrBarnLightFilter in Katana</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>PxrBarnLightFilter in Katana</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFK27/546178609/PxrBarnLightFilter+in+Katana">https://rmanwiki-27.pixar.com/space/RFK27/546178609/PxrBarnLightFilter+in+Katana</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p><a href="https://renderman.atlassian.net/wiki/pages/createpage.action?spaceKey=RFK24&amp;title=PxrBarnLightFilter" rel="nofollow">PxrBarnLightFilter</a> 有两种模式：Physical 和 Analytic。Physical Barn 提供物理准确的阴影，而 Analytic Barn 提供更精确的用户控制。</p><h2 id="PxrBarnLightFilterinKatana-PhysicalBarn">Physical Barn</h2><h3 id="PxrBarnLightFilterinKatana-Summary">概要</h3><p>Physical Barn 可用于模拟片场中的实际做法。可以把它看作会投射 shadows（阴影）的物理图元。Physical Barn 的作用就像一扇窗口，只允许灯光通过开口形状进入。</p><h3 id="PxrBarnLightFilterinKatana-Uses">用途</h3><ul><li><p>让光线穿过空间中的开口，从而产生物理准确的阴影。</p></li><li><p>在大型场景中约束光线反弹。</p></li></ul><h3 id="PxrBarnLightFilterinKatana-Shaping">Shaping（塑形）</h3><p>灯光的尺寸以及 barn 相对于灯光的位置，都会改变灯光在片场上“投射阴影”的方式。光线穿过 barn 后，会根据这个尺寸和位置形成本影与半影区域。Viewer Modifier 引导线会在你调整灯光尺寸或移动 barn 时显示本影和半影区域。理解其作用时，请观察 barn 起始处的形状（也就是光线穿过的窗口）。该形状边缘在空间中相对于灯光尺寸和距离的位置，决定了本影和半影的大小。</p><p>影响灯光本影和半影质量的两个主要因素：</p><ol start="1"><li><p>灯光尺寸</p><ol start="1"><li><p>小尺寸灯光穿过 barn 形状时会投射清晰阴影（小半影），并产生更大的本影。</p></li><li><p>大尺寸灯光穿过 barn 形状时会投射柔和阴影（大半影），并缩小本影。</p></li></ol></li><li><p>Barn 到灯光的距离：</p><ol start="1"><li><p>靠近灯光的 barn 会产生较大的本影。</p></li><li><p>远离灯光的 barn 会产生较小的本影。</p></li></ol></li></ol><h4 id="PxrBarnLightFilterinKatana-Increasingtheedge">增大 edge 参数</h4><p>默认情况下，基于物理的 barn 将 edge 参数设为 0。你会在表面上看到来自灯光的衰减，因为它是真正的阴影。这种阴影柔和度由上文说明的灯光尺寸/barn 位置决定，而不是由 edge 参数设置决定。回到 barn 开口只是一个物理图元的概念。edge 参数就像放在 barn 边缘外侧的一张透明片。它允许光线通过，但不会改变半影大小（不会改变阴影的锐利/柔和程度）。</p><p>开始增大 edge 时，你会看到 Viewer 中出现一个新的引导环。这是 edge 区域的半影终点。该环表示灯光不再产生影响的位置。 </p><p>关于 edge 参数最重要的几点：</p><ul><li><p>Start：从 0 开始，看看能否通过改变 barn 位置或灯光尺寸得到想要的柔和度</p></li><li><p>用它允许更多光线通过 barn，以创建更柔和/更大的衰减</p></li><li><p>它不会改变阴影质量（阴影有多柔和或多紧）</p></li></ul><h4 id="PxrBarnLightFilterinKatana-ViewerModifierGuides">Viewer Modifier 引导线</h4><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="411" loading="lazy" src="../../attachments/546178609/rfkBarnLightFilterGuides.png" data-image-src="../../attachments/546178609/rfkBarnLightFilterGuides.png" data-height="1100" data-width="1132" data-unresolved-comment-count="0" data-linked-resource-id="546178623" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfkBarnLightFilterGuides.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="546178609" data-linked-resource-container-version="5" data-media-id="04bef4a4-cf76-44c4-aa10-ce67fc4ae8e5" data-media-type="file"></span><ul><li><p>内环内部是本影</p></li><li><p>内侧引导环是本影的结束和半影的开始</p></li><li><p>中间引导环是半影的结束</p></li><li><p>外侧引导环是 edge 区域的结束，也就是灯光不再产生影响的位置</p></li><li><p>本影引导环与半影引导环之间的距离表示灯光会投射出的 shadows（阴影）大小。</p></li></ul><p> </p><h4 id="PxrBarnLightFilterinKatana-ShapingGuide">Shaping Guide（塑形指南）</h4><div class="table-wrap"><table data-table-width="760" data-layout="default" data-local-id="4e046f1d-03d1-4f0e-aa13-915127b97467" class="confluenceTable"><tbody><tr><th class="confluenceTh"><p><strong> </strong></p></th><th class="confluenceTh"><p><strong>本影</strong></p></th><th class="confluenceTh"><p><strong>半影</strong></p></th><th class="confluenceTh"><p><strong>shadows（阴影）</strong></p></th></tr><tr><td data-highlight-colour="#f0f0f0" class="confluenceTd"><p>将 barn 移离灯光</p></td><td class="confluenceTd"><p>尺寸减小</p></td><td class="confluenceTd"><p>尺寸减小</p></td><td class="confluenceTd"><p>shadows（阴影）更紧</p></td></tr><tr><td data-highlight-colour="#f0f0f0" class="confluenceTd"><p>将 barn 移向灯光</p></td><td class="confluenceTd"><p>尺寸增大</p></td><td class="confluenceTd"><p>尺寸增大</p></td><td class="confluenceTd"><p>shadows（阴影）更柔和</p></td></tr><tr><td data-highlight-colour="#f0f0f0" class="confluenceTd"><p>增大灯光尺寸</p></td><td class="confluenceTd"><p>尺寸减小</p></td><td class="confluenceTd"><p>尺寸增大</p></td><td class="confluenceTd"><p>shadows（阴影）更柔和</p></td></tr><tr><td data-highlight-colour="#f0f0f0" class="confluenceTd"><p>减小灯光尺寸</p></td><td class="confluenceTd"><p>尺寸增大</p></td><td class="confluenceTd"><p>尺寸减小</p></td><td class="confluenceTd"><p>shadows（阴影）更紧</p></td></tr><tr><td data-highlight-colour="#f0f0f0" class="confluenceTd"><p>半径/宽度/高度尺寸增大</p></td><td class="confluenceTd"><p>尺寸增大</p></td><td class="confluenceTd"><p>尺寸保持不变</p></td><td class="confluenceTd"><p>shadows（阴影）保持不变</p></td></tr><tr><td data-highlight-colour="#f0f0f0" class="confluenceTd"><p>半径/宽度/高度尺寸减小</p></td><td class="confluenceTd"><p>尺寸减小</p></td><td class="confluenceTd"><p>尺寸保持不变</p></td><td class="confluenceTd"><p>shadows（阴影）保持不变</p></td></tr><tr><td data-highlight-colour="#f0f0f0" class="confluenceTd"><p>edge 增大</p></td><td class="confluenceTd"><p>尺寸保持不变</p></td><td class="confluenceTd"><p>尺寸增大</p></td><td class="confluenceTd"><p>shadows（阴影）保持不变</p></td></tr><tr><td data-highlight-colour="#f0f0f0" class="confluenceTd"><p>edge 减小</p></td><td class="confluenceTd"><p>尺寸保持不变</p></td><td class="confluenceTd"><p>尺寸减小</p></td><td class="confluenceTd"><p>shadows（阴影）保持不变</p></td></tr></tbody></table></div><h4 id="PxrBarnLightFilterinKatana-preBarn"><strong> preBarn</strong></h4><ul><li><p>no light：灯光只从 barn 的起始处开始发射。这是默认行为。</p></li><li><p>no effect：灯光从光源位置开始发射；如果 barn 被放在偏离灯光的位置（很可能如此），那么光线会在 barn 起始处受到 barn 形状影响</p></li><li><p>cone：灯光从光源位置开始发射。如果 barn 位于灯光前方，所发射的光会受到约束，就像 barn 的边缘向后延伸到灯光位置一样。</p></li></ul><h4 id="PxrBarnLightFilterinKatana-Skewing"><strong>偏斜</strong></h4><ul><li><p>向上偏斜：在 Viewer 中选择 barn，然后向上移动</p></li><li><p>向下偏斜：在 Viewer 中选择 barn，然后向下移动</p></li></ul><h3 id="PxrBarnLightFilterinKatana-Gotchas">注意事项</h3><ul><li><p>如果 Physical Barn 位置与灯光位置完全对齐，引导线只会变成一条围绕灯光位置的线。把它稍微移离灯光一点，引导线就应该会显示出来。</p></li><li><p>没有引导线时，很难判断 Physical Barn 正在做什么。请在 PrmanLightFilterCreate 的查看器区段中设置 Guide Size 参数，以控制引导线长度。</p></li></ul><h2 id="PxrBarnLightFilterinKatana-AnalyticBarn">Analytic Barn</h2><h3 id="PxrBarnLightFilterinKatana-Summary.1">概要</h3><p>Analytic Barn 使用起来非常直接，但不会提供 Physical Barn 那样的 physical shadows（物理阴影）。请参阅 <a href="https://renderman.atlassian.net/wiki/pages/createpage.action?spaceKey=RFK24&amp;title=PxrBarnLightFilter" rel="nofollow">PxrBarnLightFilter</a> 文档，查看 Analytic Barn 参数如何影响灯光形状的示例。</p>
+  </article>
+</main>
+</body>
+</html>

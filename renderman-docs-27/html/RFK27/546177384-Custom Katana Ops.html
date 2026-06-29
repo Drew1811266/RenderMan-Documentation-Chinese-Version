@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Custom Katana Ops</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Custom Katana Ops</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFK27/546177384/Custom+Katana+Ops">https://rmanwiki-27.pixar.com/space/RFK27/546177384/Custom+Katana+Ops</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<h3 id="CustomKatanaOps-ConfiguringRfKwithCustomOps">Configuring RfK with Custom Ops</h3><p>In order to configure RfK to use custom Ops you must build a configuration file to specify your Ops and the order in which they should be evaluated. The file:</p><p><code>$KATANA_RESOURCES/RfK/config.xml
+</code></p><p>is read from any location relative to an entry in the KATANA_RESOURCES path. The results are combined in the order read.</p><p>The configuration currently supports specification of additional &quot;terminal Op&quot; instances added onto the scene as visible to rendering and live render update observation.</p><p>The config.xml file format is:</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="a6dbab36-d794-492b-a91d-75c2ca584981" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">&lt;rfkConfig format=&quot;1&quot;&gt;
+    &lt;!-- Ops which affect the scene as seen at ribgen time --&gt;
+    &lt;renderTerminalOps&gt;
+        &lt;op type=&quot;SomeOpName&quot; insertWhen=&quot;beforeVstructExpansion&quot;/&gt;
+        &lt;op type=&quot;AnotherOpName&quot; insertWhen=&quot;last&quot; needsSystemArgs=&quot;true&quot;/&gt;
+        &lt;op type=&quot;AnOpWithArgs&quot; insertWhen=&quot;last&quot;&gt;
+            &lt;attr type=&quot;GroupAttr&quot;&gt;
+                &lt;attr name=&quot;taco&quot; tupleSize=&quot;1&quot; type=&quot;IntAttr&quot;&gt;
+                    &lt;sample size=&quot;1&quot; time=&quot;0&quot; value=&quot;1 &quot;/&gt;
+                &lt;/attr&gt;
+                &lt;attr name=&quot;cheese&quot; tupleSize=&quot;1&quot; type=&quot;StringAttr&quot;&gt;
+                    &lt;sample size=&quot;1&quot; time=&quot;0&quot;&gt;
+                        &lt;str value=&quot;salsa&quot;/&gt;
+                    &lt;/sample&gt;
+                &lt;/attr&gt;
+            &lt;/attr&gt;
+        &lt;/op&gt;
+   &lt;/renderTerminalOps&gt;
+
+   &lt;!-- Ops which are evaluated during live render updates --&gt;
+   &lt;liveRenderTerminalOps&gt;
+        &lt;op type=&quot;SomeOpName&quot; insertWhen=&quot;beforeVstructExpansion&quot;/&gt;
+   &lt;/liveRenderTerminalOps&gt;
+&lt;/rfkConfig&gt;</pre>
+</div></div><p /><p>Ops can be added as either renderTerminalOps or liveRenderTerminalOps. The format of the Ops within each type are the same, the only difference is when the Ops are evaluated by Katana.</p><p /><p><code>renderTerminalOps</code></p><p>The &quot;op&quot; elements added here affect the scene as seen at render time.</p><p /><p><code>liveRenderTerminalOps</code></p><p>The &quot;op&quot; elements here are added to the live render observer within the Katana process. If you need to manipulate the scene in any manner unique to live render updates, you may do this here.</p><p>An &quot;op&quot; element has two required properties:</p><ul><li><p>type a string containing the name of a registered Op type = insertWhen a string indicating where among the terminal ops added by RfK itself the op should be inserted. See table below for a list of valid string values.</p></li></ul><p>An &quot;op&quot; element may have these optional properties:</p><ul><li><p>needsSystemArgs values of &quot;yes&quot;, &quot;true&quot; or &quot;1&quot; result in the &quot;system&quot; GroupAttribute being added to the Op's arguments. This contains information about the current frame and shutter information.</p></li></ul><p>An &quot;op&quot; element may also have a child element of type &quot;attr&quot;. This is expected to be the XML serialization of an FnAttribute::GroupAttribute, which can be generated from Python or C++ via the attr's getXML() method.<br/><br/></p><p><strong>Valid insertWhen Options</strong></p><div class="table-wrap"><table data-table-width="760" data-layout="default" data-local-id="9acd8be6-2b62-4504-9b0b-f46eb2542067" class="confluenceTable"><tbody><tr><th class="confluenceTh"><p><strong>Option</strong></p></th><th class="confluenceTh"><p><strong>Description</strong></p></th></tr><tr><td class="confluenceTd"><p>first</p></td><td class="confluenceTd"><p>Before all other terminal Ops</p></td></tr><tr><td class="confluenceTd"><p>beforeVstructExpansion</p></td><td class="confluenceTd"><p>Before virtual struct connections are expaned (i.e. before the Op PRManResolveVirtualStructConnections is called)</p></td></tr><tr><td class="confluenceTd"><p>afterVstructExpansion</p></td><td class="confluenceTd"><p>After virtual struct connections are expaned (i.e. after the Op PRManResolveVirtualStructConnections is called)</p></td></tr><tr><td class="confluenceTd"><p>last</p></td><td class="confluenceTd"><p>Append your Op after all others.</p></td></tr></tbody></table></div><p /><h3 id="CustomKatanaOps-SupportedConfigurationOptions">Supported Configuration Options</h3><p>In addition to the renderTerminalOps and liveRenderTerminalOps hooks there are several other specialized options that are recognized by the RfK plugin. The first two are a simple configuration/extension options. The last two enable the passage of non-standard information from args files to custom terminal Ops.</p><p /><p><strong>shaderPathRecursionLimit</strong><br/>Searching through the shader search paths will, by default, recurse down 3 levels before terminating the search in that path. This is configurable through the shaderPathRecursionLimit option in config.xml. Setting the value to 0 (zero) will disable recursion when searching the shader paths.</p><p>Example entry in config.xml:</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="f4019f53-2bd2-4ca8-9ebd-047e080c92d3" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">&lt;!-- Turn off shader search path recursion →
+&lt;int name=&quot;shaderPathRecursionLimit&quot; value=&quot;0&quot;/&gt;</pre>
+</div></div><p /><p><strong>shaderPostProcessFunctionName</strong><br/>A shader's &quot;info&quot; attribute can be modified using a function to run after a shader has been loaded and configured. The shaderPostProcessFunctionName refers to an attribute function which takes a group attribute in (the existing info attribute) and returns a new info attribute.</p><p>Example entry in config.xml:</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="9fe4c641-3b64-425d-964b-eb201b178e1b" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">&lt;int name=&quot;shaderPostProcessFunctionName&quot; value=&quot;MyFunc&quot;/&gt;</pre>
+</div></div><p /><p><strong>hintPassthroughNames</strong><br/>Non-standard parameter hints can be passed from args file through to an Op using shader parameter info mechanism (PRManAddShaderParameterInfoOp) and the hintPassthroughNames list. </p><p /><p><strong>outputTagPassthroughNames</strong><br/>Non-standard per-shader, per-output tags can be passed from args file through to an Op using shader parameter info mechanism (PRManAddShaderParameterInfoOp) and the outputTagPassthroughNames list.</p>
+  </article>
+</main>
+</body>
+</html>

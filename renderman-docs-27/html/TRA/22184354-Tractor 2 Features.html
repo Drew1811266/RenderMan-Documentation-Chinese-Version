@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tractor 2 Features</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Tractor 2 Features</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/TRA/22184354/Tractor+2+Features">https://rmanwiki-27.pixar.com/space/TRA/22184354/Tractor+2+Features</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Halo_02_MPC_Render.jpg" width="1068" loading="lazy" src="../../attachments/22184354/Halo_02_MPC_Render.jpg" data-image-src="../../attachments/22184354/Halo_02_MPC_Render.jpg" data-height="601" data-width="1068" data-unresolved-comment-count="0" data-linked-resource-id="67272806" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Halo_02_MPC_Render.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="22184354" data-linked-resource-container-version="16" data-media-id="ccb319f3-3cb0-4b34-8661-49e29541f698" data-media-type="file"></span><p /><p><strong>Tractor-2.0 added significant new features</strong> to the core <a href="22184339-About Tractor.html" rel="nofollow">Tractor system</a> established in the 1.0 family of releases. There are a broad range of new additions and improvements, from productive new command line and scripting interfaces for wranglers, to simple user interface changes; from upgrading the entire job database to a new high-performance, high-capability format, to new studio-wide resource sharing and allocation controls.</p><p>Here are some highlights:</p><ul><li><p><a href="https://renderman.atlassian.net/wiki/spaces/TRA/pages/22184356#Implementation-bundle" rel="nofollow"><strong>Improved Tractor Product Layout</strong></a> -- <em>Single Release Directory, Single Download per platform, Bundled Subsystem Updates</em> -- The new Tractor 2.0 packaging and installation layout places a matched set engine, blade, spooler, user interaces, and scripting components all in one place, along with only one copy of shared resources including pre-built versions of several third-party subsystems.</p></li></ul><p> </p><ul><li><p><a href="22184306-tq- Tractor Query tool.html" rel="nofollow"><strong>Tractor Query Tools</strong></a> -- Introducing tq the <em>tractor query</em> command line tool and modules. Based on proven Pixar studio tools, tq is the best way to query live Tractor data from your terminal shell, from your Python scripts, or from a new tab in the Dashboard.</p></li></ul><p> </p><ul><li><p><a href="https://renderman.atlassian.net/wiki/spaces/TRA/pages/22184308#LimitsConfiguration-l" rel="nofollow"><strong>Adaptive Farm Allocations</strong></a> -- A new way to dynamically allocate abstract resources between people or projects using Tractor's flexible *Limits* system. If two films are in production, 60% of the farm can be allocated to one of them, 30% to the other, leaving the remaining 10% for other projects. If one show is idle the others can be allowed to temporarily expand their shares, then they shrink back to the nominal levels when all projects are active.</p></li></ul><p> </p><ul><li><p><a href="22184302-Scheduling Modes.html" rel="nofollow"><strong>Dispatching Tiers</strong></a> -- A simple way to organize broad sets of jobs into a descending set of site-defined priority groups. The default tiers are named: <strong>admin, rush, default, batch.</strong> Create your own!</p></li></ul><p> </p><ul><li><p><a href="22184304-Custom Menu Items.html" rel="nofollow"><strong>Custom Menu Actions </strong></a>-- Add site-defined Dashboard menu items that can invoke your centralized scripts, parameterized by the user's current list selection.</p></li></ul><p> </p><ul><li><p><a href="22184314-Job Author Python API.html" rel="nofollow"><strong>Job Authoring API </strong></a>-- A new tractor.api.author module allows your Python scripts to easily create Job, Task, and Command objects linked together according to your dependency requirements. The Job.spool() method then sends the resulting job to the tractor-engine job queue.</p></li></ul><p /><ul><li><p><a href="https://renderman.atlassian.net/wiki/spaces/TRA/pages/22184316#Engine-enginediscovery" rel="nofollow"><strong>Simple Engine Discovery</strong></a> -- A simple new &quot;zero-config&quot; announcement capability for small studios allows tractor-blades and other Tractor tools to find tractor-engine on the local network without requiring manual nameserver (DNS/LDAP) configuration changes. Tractor-engine will automatically disable this SSDP-style traffic at studios where the hostname alias &quot;tractor-engine&quot; has already been created by an administrator in the site nameserver database.</p></li></ul><p> </p><ul><li><p><a href="22184310-Checkpoint-Resume and Incremental Processing.html" rel="nofollow"><strong>Checkpoint-Resume Support</strong></a> -- New extensions to job scripting, dispatching, and the Dashboard add interesting new capabilities related to incremental computation. Tractor also supports a general &quot;retry from last checkpoint&quot; scheme. Both features integrate with the new RenderMan 19 RIS checkpoint and incremental rendering features.</p></li></ul><p> </p><ul><li><p><a href="22184312-Server Profiles.html" rel="nofollow"><strong>Blade Auto-Update</strong></a> -- A new tractor-blade patch management system allows administrators to &quot;pin&quot; the farm to a particular blade patch version, and automatically push out a new version to the entire farm. Out of date blades restart themselves using the new module version.</p></li></ul><p> </p><ul><li><p><a href="https://renderman.atlassian.net/wiki/spaces/TRA/pages/22184322#LoginManagement-pam" rel="nofollow"><strong>Pluggable Authentication Module (PAM) support </strong></a>-- The engine's optional new built-in PAM support delegates password validation directly to the operating system on the engine host. This alternative makes it simple to enable password support at studios where the LAN already provides adequate credential transport security.</p></li></ul><p> </p><ul><li><p><a href="https://renderman.atlassian.net/wiki/spaces/TRA/pages/22184316#Engine-engineowner" rel="nofollow"><strong>Privilege Insulation</strong></a> -- A new <em>EngineOwner</em> setting in tractor.config specifies the login identity under which tractor-engine should operate. This setting is important because it allows the engine to drop root privileges immediately after it has acquired any protected network ports that it may need. The engine's normal day-after-day operations will then occur under the restrictions associated with the specified login name.</p></li></ul><p> </p><ul><li><p><a href="22184324-Advanced Blade Capability Advertisement.html" rel="nofollow"><strong>Dynamic Service Key Advertisement</strong></a> -- Several new blade profile <strong>&quot;Provides&quot;</strong> modes have been added to support some advanced usage cases. For example, blades can dynamically advertise a different set of service key capabilities depending on which keys have already been &quot;consumed&quot; by previously launched commands.</p></li></ul><p> </p><ul><li><p><a href="22184318-tq Cookbook.html" rel="nofollow"><strong>Resource Usage Tracking</strong></a> -- The CPU, RSS, and VSZ <em>rusage</em> process metrics are now recorded into the job database for each launched command. Currently supported on Linux and OSX tractor-blades.</p></li></ul><p> </p><ul><li><p><a href="22184318-tq Cookbook.html" rel="nofollow"><strong>Command Retry History</strong></a> -- A unique tracking record is now created in the job database for every command launch attempt. So the history of retries on a given task can be reviewed using the tq tool, for example.</p></li></ul><p> </p><ul><li><p><a href="22184210-Configuration.html" rel="nofollow"><strong>Configuration File Loading</strong></a> -- A streamlined override system can help to reduce clutter and improve clarity about which files have been modified from their original &quot;factory settings&quot; at your studio.</p></li></ul><p> </p><ul><li><p><a href="22184308-Limits Configuration.html" rel="nofollow"><strong>Task Concurrency Throttle</strong></a> -- Each job has a new &quot;maxActive&quot; attribute that constrains the maximum number of tasks allowed to run concurrently from that job. This optional control over the &quot;footprint&quot; size of the job on the farm may provide useful temporary wrangling control over a few jobs in cases where changing site-wide Limits settings might not be appropriate.</p></li></ul><p /><ul><li><p><a href="22184312-Server Profiles.html" rel="nofollow"><strong>Automatic Blade Error Throttle</strong></a> -- A new blade profile setting that can prevent blades from picking up new work if they encounter too many errors within a given time interval.</p></li></ul><p> </p><ul><li><p><a href="https://renderman.atlassian.net/wiki/spaces/TRA/pages/22184356#Implementation-bundle" rel="nofollow"><strong>Job Spooling Improvements</strong></a> -- Job processing upgrades include faster processing, better error checking, and bundling of required subsystems. A parallelized job intake and database staging scheme can dramatically reduce backlogs when many jobs are spooled simultaneously, or when many &quot;expand&quot; tasks are running in parallel. A self-contained Tcl interpreter bundled with the spooler simplifies site install requirements and can perform client-side error checking prior to job delivery to the engine. A new JSON job spooing format will also supported (but is currently unavailable pending changes).</p></li></ul>
+  </article>
+</main>
+</body>
+</html>

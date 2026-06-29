@@ -1,0 +1,34 @@
+{
+  "parentType": "page",
+  "parentId": "604569807",
+  "ownerId": "712020:9d5ecfb2-d6a8-470c-8147-e3a49ba45e31",
+  "lastOwnerId": null,
+  "createdAt": "2025-11-08T08:30:47.339Z",
+  "authorId": "712020:9d5ecfb2-d6a8-470c-8147-e3a49ba45e31",
+  "position": 1492,
+  "version": {
+    "number": 1,
+    "message": "",
+    "minorEdit": false,
+    "authorId": "712020:9d5ecfb2-d6a8-470c-8147-e3a49ba45e31",
+    "createdAt": "2025-11-08T08:31:07.532Z",
+    "ncsStepVersion": "11"
+  },
+  "spaceId": "476282890",
+  "status": "current",
+  "body": {
+    "view": {
+      "representation": "view",
+      "value": "<h3 id=\"TreasureRendering-RenderingandCompositing\">Rendering and Compositing</h3><p>Now that things have come together, it’s time to set up the Katana rendering, including collecting everything, setting up the different PrmanGlobalStatments, RenderSettings, AOVs, and streamlining the scene for different passes.</p><iframe allowfullscreen=\"\" allowtransparency=\"true\" class=\"fullscreen-video-iframe conf-macro output-block\" data-hasbody=\"false\" data-layout=\"wide\" data-local-id=\"523cc5a7-b77f-4d59-a1af-9d69a969284f\" data-macro-id=\"00f2d8c3-f013-4a9c-9360-e3c57b4807b7\" data-macro-name=\"widget\" frameborder=\"0\" height=\"540\" mozallowfullscreen=\"\" src=\"https://player.vimeo.com/video/1055676670\" style=\"border:none; margin:1em 0em;\" webkitallowfullscreen=\"\" width=\"960\">\n</iframe>\n\n<p /><p>For maximum control in compositing, I decided to split the scene into three different passes, Character (Dragon), Gold (all treasure), Environment (columns, cave ceiling, etc), and AO.</p><p>For the import stage, I used mostly usdIN in Katana, it’s now a native node that comes with the pixarUSD installation that occurs automatically with Katana, and for some static assets, I used alembicIN.</p><span class=\"confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size\"><img class=\"confluence-embedded-image image-center\" alt=\"scene_in_A_v01.png\" width=\"760\" loading=\"lazy\" src=\"https://renderman.atlassian.net/wiki/download/thumbnails/657162324/scene_in_A_v01.png?version=1&amp;modificationDate=1762590657577&amp;cacheVersion=1&amp;api=v2&amp;width=760&amp;height=418\" data-image-src=\"https://renderman.atlassian.net/wiki/download/attachments/657162324/scene_in_A_v01.png?version=1&amp;modificationDate=1762590657577&amp;cacheVersion=1&amp;api=v2\" data-height=\"1147\" data-width=\"2084\" data-unresolved-comment-count=\"0\" data-linked-resource-id=\"657424524\" data-linked-resource-version=\"1\" data-linked-resource-type=\"attachment\" data-linked-resource-default-alias=\"scene_in_A_v01.png\" data-base-url=\"https://renderman.atlassian.net/wiki\" data-linked-resource-content-type=\"image/png\" data-linked-resource-container-id=\"657162324\" data-linked-resource-container-version=\"1\" data-media-id=\"723eac77-daa9-4bd9-a2a1-23ce7d67e462\" data-media-type=\"file\" srcset=\"https://renderman.atlassian.net/wiki/download/thumbnails/657162324/scene_in_A_v01.png?version=1&amp;modificationDate=1762590657577&amp;cacheVersion=1&amp;api=v2&amp;width=1520&amp;height=836 2x, https://renderman.atlassian.net/wiki/download/thumbnails/657162324/scene_in_A_v01.png?version=1&amp;modificationDate=1762590657577&amp;cacheVersion=1&amp;api=v2&amp;width=760&amp;height=418 1x\"></span><ul><li><p><strong>openUSD</strong> - For everything that had instances (e.g. the gold treasure, the gold treasure sim, the pillars for the environment) these were imported with USD. The reason for choosing USD is due to the low weight on disk, and versatility when it comes to primvars.</p></li><li><p><strong>Alembic</strong> - For the elements of static nature (e.g. the cave ceiling, the bottom layer of the gold treasure) these were exported out as ABC.</p></li></ul><p /><p>If you also notice in the screenshot below, there are some attributeCopy, attributeSet nodes. These were placed there to help me with the <strong>__Pref</strong> attribute as I forgot to add it properly from Houdini before the export. <strong>__Pref</strong> is really handy when doing localized grading in post and in the included Katana scene, you’ll be able to gain more perspective on these attributes and their contributions.</p><span class=\"confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size\"><img class=\"confluence-embedded-image image-center\" alt=\"scene_in_B_v01.png\" width=\"760\" loading=\"lazy\" src=\"https://renderman.atlassian.net/wiki/download/thumbnails/657162324/scene_in_B_v01.png?version=1&amp;modificationDate=1762590657623&amp;cacheVersion=1&amp;api=v2&amp;width=760&amp;height=207\" data-image-src=\"https://renderman.atlassian.net/wiki/download/attachments/657162324/scene_in_B_v01.png?version=1&amp;modificationDate=1762590657623&amp;cacheVersion=1&amp;api=v2\" data-height=\"248\" data-width=\"908\" data-unresolved-comment-count=\"0\" data-linked-resource-id=\"657424531\" data-linked-resource-version=\"1\" data-linked-resource-type=\"attachment\" data-linked-resource-default-alias=\"scene_in_B_v01.png\" data-base-url=\"https://renderman.atlassian.net/wiki\" data-linked-resource-content-type=\"image/png\" data-linked-resource-container-id=\"657162324\" data-linked-resource-container-version=\"1\" data-media-id=\"f5add103-63ac-4d62-aa81-6f4c3d6defd4\" data-media-type=\"file\" srcset=\"https://renderman.atlassian.net/wiki/download/thumbnails/657162324/scene_in_B_v01.png?version=1&amp;modificationDate=1762590657623&amp;cacheVersion=1&amp;api=v2&amp;width=908&amp;height=248 2x, https://renderman.atlassian.net/wiki/download/thumbnails/657162324/scene_in_B_v01.png?version=1&amp;modificationDate=1762590657623&amp;cacheVersion=1&amp;api=v2&amp;width=760&amp;height=207 1x\"></span><hr/>"
+    }
+  },
+  "title": "Treasure Rendering",
+  "id": "657162324",
+  "_links": {
+    "editui": "/pages/resumedraft.action?draftId=657162324",
+    "webui": "/spaces/RU/pages/657162324/Treasure+Rendering",
+    "edituiv2": "/spaces/RU/pages/edit-v2/657162324",
+    "tinyui": "/x/VIArJw",
+    "base": "https://renderman.atlassian.net/wiki"
+  }
+}

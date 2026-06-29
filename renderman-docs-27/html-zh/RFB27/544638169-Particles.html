@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Particles</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Particles</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFB27/544638169/Particles">https://rmanwiki-27.pixar.com/space/RFB27/544638169/Particles</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="RenderMoon_rough.jpg" width="760" loading="lazy" src="../../attachments/544638169/RenderMoon_rough.jpg" data-image-src="../../attachments/544638169/RenderMoon_rough.jpg" data-height="1080" data-width="1920" data-unresolved-comment-count="0" data-linked-resource-id="544638209" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMoon_rough.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544638169" data-linked-resource-container-version="1" data-media-id="53aeb30a-445f-4e86-aa11-361aff148025" data-media-type="file"></span><p>point（点）或 particle primitive（粒子图元）用于火花、雪花或雨滴这类微小对象。它们针对目标粒子在屏幕上只占几个像素的情况做了优化。</p><p>RfB 支持 Blender 的粒子系统，包括 instancing（实例化）；这是 particles（粒子）非常常见的一种用途。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="RenderMan_Particles_1.JPG" width="760" loading="lazy" src="../../attachments/544638169/RenderMan_Particles_1.JPG" data-image-src="../../attachments/544638169/RenderMan_Particles_1.JPG" data-height="1147" data-width="2384" data-unresolved-comment-count="0" data-linked-resource-id="544638212" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Particles_1.JPG" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544638169" data-linked-resource-container-version="1" data-media-id="4a7be2e0-2aeb-4c41-a7de-82266e3d1221" data-media-type="file"></span><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="4aa610cc-7e6a-4a1b-b5e6-47ba1c998acc" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>对于 Halo 类型，我们会将粒子系统渲染为 RiPoints。 </p></div></div><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="356b2a47-fde5-4ab1-a879-12f61a5c0c28" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>注意，运动模糊通过 velocity vector（速度向量）完成。</p></div></div><p /><h3 id="Particles-Visibility">Visibility（可见性）</h3><p>很多时候，你会希望只渲染 particles（粒子），而不渲染 emitter geometry（发射器几何体）。在 RfB 中实现这一点的最佳方式是关闭 Camera Visibility（摄像机可见性）；有时也需要关闭 Indirect Visibility（间接可见性）和 Transmission Visibility（透射可见性）。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="RenderMan_Particles_2.JPG" width="760" loading="lazy" src="../../attachments/544638169/RenderMan_Particles_2.JPG" data-image-src="../../attachments/544638169/RenderMan_Particles_2.JPG" data-height="1257" data-width="3182" data-unresolved-comment-count="0" data-linked-resource-id="544638206" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Particles_2.JPG" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544638169" data-linked-resource-container-version="1" data-media-id="1f2dbd05-07cb-4292-b95d-bb9046333877" data-media-type="file"></span><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="RenderMan_Particles_4.JPG" width="760" loading="lazy" src="../../attachments/544638169/RenderMan_Particles_4.JPG" data-image-src="../../attachments/544638169/RenderMan_Particles_4.JPG" data-height="557" data-width="1156" data-unresolved-comment-count="0" data-linked-resource-id="544638203" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Particles_4.JPG" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544638169" data-linked-resource-container-version="1" data-media-id="15f8c993-c950-40fe-9795-0cd70412f4cf" data-media-type="file"></span><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="RenderMan_Particles_3.JPG" width="760" loading="lazy" src="../../attachments/544638169/RenderMan_Particles_3.JPG" data-image-src="../../attachments/544638169/RenderMan_Particles_3.JPG" data-height="1263" data-width="3178" data-unresolved-comment-count="0" data-linked-resource-id="544638200" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Particles_3.JPG" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544638169" data-linked-resource-container-version="1" data-media-id="b5e91046-88e1-48a3-b217-de40d26bfa9d" data-media-type="file"></span><p />
+  </article>
+</main>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Treasure Scattering</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Treasure Scattering</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RU/656834654/Treasure+Scattering">https://rmanwiki-27.pixar.com/space/RU/656834654/Treasure+Scattering</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<h3 id="TreasureScattering-TreasureScatter">Treasure Scatter</h3><p>Let’s start with the scattering of the gold sea that was static. In this portion, I used the height-field scatter technique. I started with a pre-simulated clump of coins, armor pieces, and other miscellaneous assets to create the look of not just coins, but a busy cluster of treasures.</p><p>After doing a quick sim to relax the pieces in a ground plane, I exported the results to a single USD file. To reach the shape of the Gold Sea quickly, I used a few very simple height-field techniques to sculpt the final shape.</p><p>Using the same output, and utilizing the amazing heightfield scatter node, with some mask painting and after some trial and error trying to figure out scatter density, I was able to find the right ratio of coverage for the composition, while not leaving any gaps…and since this is never perfect, I applied the same gold material on the base geometry to fill in any remaining treasure gaps.</p><p /><hr/><h3 id="TreasureScattering-CoinSimulation">Coin Simulation</h3><p>At the beginning of this journey, I started to experiment with ways to create a simulation with a fluid-like coin motion. In one of my first tries, I created a flip fluid tank and ran the simulation with very low particle separation density. This gave me a manageable amount of points to instance from. From there, I tried running rigid body dynamic sims.</p><p>This ended up being highly computationally expensive, so instead, I distilled my approach from separate, multi-million-points that clogged my 256 GB of RAM, to creating clusters of treasures (same technique as I used in the scattering step) and with very efficient usage of collision geometry to avoid long and accurate collisions. This method resulted in a much faster, albeit a less accurate simulation.</p><p>To speed things up even more, I localized where I wanted to sim using separate caches which were all timed to run in a sequential manner to suit the art direction I was looking for according to the camera movement.</p>
+  </article>
+</main>
+</body>
+</html>

@@ -1,0 +1,34 @@
+{"item_id":"97be43e66a:0","text":"texture maps（纹理贴图）的基础。"}
+{"item_id":"97be43e66a:1","text":"我们先把桌子看作一个基础材质：它带有木质颜色和有光泽的饰面，并使用 textures。"}
+{"item_id":"97be43e66a:2","text":"在 Pixar，我们不使用 Metallic workflow。这些 texture 课程旨在用 PxrSurface 教你 Pixar 的工作方式。"}
+{"item_id":"97be43e66a:3","text":"虽然它像抛光木材一样有轻微反射，但并不过于闪亮。References 非常关键，它们能确保你实现 art director 或你自己目标中规定的正确 look。"}
+{"item_id":"97be43e66a:4","text":"一开始这看起来很简单，但通过一些快速 tips 和 hints 以及后续示例来拆解时，会发现有很多事情需要考虑。"}
+{"item_id":"97be43e66a:5","text":"标准 texture naming、建议和使用思路："}
+{"item_id":"97be43e66a:6","text":"Textures 应根据其预期效果和分配对象来恰当命名。"}
+{"item_id":"97be43e66a:7","text":"例如：<object>_<effect>.jpg，或者 tableTop_specular.jpg。"}
+{"item_id":"97be43e66a:8","text":"不要在名称中使用空格和特殊字符，例如：theCar&boat.jpg 或 “the Car and Boat.jpg”。"}
+{"item_id":"97be43e66a:9","text":"文件路径中也不要使用空格和特殊字符。这些 textures 可能会加载失败。"}
+{"item_id":"97be43e66a:10","text":"Texture sequences 应该为帧号使用清晰的命名约定。mySequence.0001.jpg 是正确写法，而不是 mySequence0001.jpg 或 mySequence.jpg.0001。"}
+{"item_id":"97be43e66a:11","text":"大多数格式都可以使用，例如 .png、exr、.tif 和 .jpg，但要用于渲染，它们必须转换为"}
+{"item_id":"97be43e66a:12","text":".tex format"}
+{"item_id":"97be43e66a:13","text":"。"}
+{"item_id":"97be43e66a:14","text":"在所有符合 RenderMan 规范的 DCCs 中，当你启动渲染时会发生这种转换，并且结果会缓存在磁盘上，直到它在场景中被修改或更新后才需要重新使用。包含大量 textures 的场景，首次渲染时转换可能需要一段时间。"}
+{"item_id":"97be43e66a:15","text":"Solaris 是这里的例外。你需要使用 Texture Manager 手动转换它们。"}
+{"item_id":"97be43e66a:16","text":"有时会出现可互换的命名对；保持一致性对 pipeline 以及艺术家准确工作都很重要。"}
+{"item_id":"97be43e66a:17","text":"Diffuse 和 Albedo"}
+{"item_id":"97be43e66a:18","text":"Roughness 和 Glossiness（请注意，RenderMan 使用标准的 “Roughness” 约定，其中 0 = mirrored，1 = rough 或接近 diffuse）"}
+{"item_id":"97be43e66a:19","text":"Roughness 也适用于 Diffuse 参数，因此艺术家有时会用 Glossiness 作为名称替代。"}
+{"item_id":"97be43e66a:20","text":"Textures 可以是 color（RGB）或 scalar（greyscale），颜色通道可以连接到匹配的参数来驱动它们。例如，如果有用，一张图像的 Red channel 可以用来驱动一个 scalar（float slider）。"}
+{"item_id":"97be43e66a:21","text":"Normal maps 通常因其细节表现而优先于 bump maps（scalar 或 grayscale）。"}
+{"item_id":"97be43e66a:22","text":"ACESCG"}
+{"item_id":"97be43e66a:23","text":"是强烈推荐的"}
+{"item_id":"97be43e66a:24","text":"。"}
+{"item_id":"97be43e66a:25","text":"作为数据使用的 textures，例如 bump、masks 和 displacement，"}
+{"item_id":"97be43e66a:26","text":"不应"}
+{"item_id":"97be43e66a:27","text":"被 linearized（线性化处理）。"}
+{"item_id":"97be43e66a:28","text":"Displacement maps 和其他 data textures 应使用尽可能高的精度，以避免 texture quantization 造成 artifacts。通常它们会从建模应用导出为 floating point EXR 或 Tiff。关于 normal 和 scalar displacement，请参见"}
+{"item_id":"97be43e66a:29","text":"workflows"}
+{"item_id":"97be43e66a:30","text":"。"}
+{"item_id":"97be43e66a:31","text":"如果 Maya File Node 具备你需要的功能，或者你喜欢 Maya workflow 在 texture sequences 等方面的简单性，那么没有特别的理由不能用它来做 texturing。Maya file node 和 PxrTexture node 都会在 viewport 中显示 textures。不过，只有 Maya file node 会在 viewport 中显示 UDIM/tiled textures，并对 viewport 应用校正后的 gamma。"}
+{"item_id":"97be43e66a:32","text":"Next Steps（下一步）"}
+{"item_id":"97be43e66a:33","text":"一次吸收所有这些信息可能有些困难，所以接下来我们通过下一课中的 wooden table，把这些知识真正付诸实践。"}

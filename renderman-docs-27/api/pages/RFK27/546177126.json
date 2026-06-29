@@ -1,0 +1,34 @@
+{
+  "parentType": "page",
+  "parentId": "546177107",
+  "spaceId": "544342019",
+  "ownerId": "62462b56699649006ae7453f",
+  "lastOwnerId": null,
+  "createdAt": "2025-08-07T01:51:55.670Z",
+  "authorId": "62462b56699649006ae7453f",
+  "position": 187,
+  "version": {
+    "number": 5,
+    "message": "",
+    "minorEdit": false,
+    "authorId": "712020:a163a1ff-c9c1-4e30-8c12-91021183fde1",
+    "createdAt": "2025-10-30T21:00:35.395Z",
+    "ncsStepVersion": "35"
+  },
+  "id": "546177126",
+  "status": "current",
+  "body": {
+    "view": {
+      "representation": "view",
+      "value": "<h3 id=\"EnvironmentVariablesinKatana-InstallationPathVariables\">Installation Path Variables</h3><p>You will need to set a few environment variables to get RfK up and running with PRMan and Katana. RfK looks for RenderMan on the $RMANTREE environment variable.  As long as $RMANTREE is set correctly, RfK will find the appropriate PRMan libraries and commands.  Katana finds RfK in the same way it would find any other plugin - through the $KATANA_RESOURCES environment variable.  The paths for these environment variables will depend on whether or not you install RfK/PRMan in the default locations.  </p><div class=\"table-wrap\"><table data-table-width=\"955\" data-layout=\"center\" data-local-id=\"9b00ffba-4caf-4e18-a743-0d1a5cdd02b4\" class=\"confluenceTable\"><colgroup><col style=\"width: 335.0px;\"/><col style=\"width: 620.0px;\"/></colgroup><tbody><tr><th class=\"confluenceTh\"><p><strong>Environment Variable</strong></p></th><th class=\"confluenceTh\"><p><strong>Default Installation Paths</strong></p></th></tr><tr><td class=\"confluenceTd\"><p><strong> </strong><code>RMANTREE</code><strong> </strong></p></td><td class=\"confluenceTd\"><p><code>/opt/pixar/RenderManProServer-27.0</code></p></td></tr><tr><td class=\"confluenceTd\"><p><strong> </strong><code>KATANA_RESOURCES</code><strong> </strong></p></td><td class=\"confluenceTd\"><p><code>/opt/pixar/RenderManForKatana-27.0/plugins/katana8.0</code></p></td></tr></tbody></table></div><p>Default shader search paths for RenderMan match the default paths in the rendermn.ini file. If additional search paths are needed then you will need to set up the <code>RMAN_SHADERPATH</code> and/or <code>RMAN_RIXPLUGINPATH</code> environment variables to include your specific paths.  These environment variables replace rather than append to the default paths, so you will need to include the default paths as well.</p><h3 id=\"EnvironmentVariablesinKatana-OutputPathVariable\">Output Path Variable</h3><p>You can direct the render log output to another location if necessary using the following environment variable: <code>RFK_REDIRECT_OUTPUT</code></p><h3 id=\"EnvironmentVariablesinKatana-ShaderDiscovery\">Shader Discovery</h3><p>During startup RenderMan for Katana will automatically load all &quot;discoverable&quot; shaders. Shaders are discoverable if they are found in a search path and (for non-OSL shaders) have an associated Args file.  The standard shader search path mechanism is used when searching for shaders on the specified environment variable search paths:</p><div class=\"table-wrap\"><table data-table-width=\"1800\" data-layout=\"default\" data-local-id=\"6a8a0e33-619d-49bf-8612-e44e9d207561\" class=\"confluenceTable\"><tbody><tr><th class=\"confluenceTh\"><p><strong>ShaderType</strong></p></th><th class=\"confluenceTh\"><p><strong>Environment Variable</strong></p></th><th class=\"confluenceTh\"><p><strong>Default Path</strong></p></th></tr><tr><td class=\"confluenceTd\"><p><strong>OSL</strong></p></td><td class=\"confluenceTd\"><p><code>RMAN_SHADERPATH</code></p></td><td class=\"confluenceTd\"><p><code>$RMANTREE/lib/shaders</code></p></td></tr><tr><td class=\"confluenceTd\"><p><strong>Plugin (C++)</strong></p></td><td class=\"confluenceTd\"><p><code>RMAN_RIXPLUGINPATH</code></p></td><td class=\"confluenceTd\"><p><code>$RMANTREE/lib/plugins</code></p></td></tr></tbody></table></div><p>If both the environment variable and the search path attribute in PrmanGlobalStatements are set, the resulting search path will be the union of the two strings with the environment variable taking precedence.</p><h3 id=\"EnvironmentVariablesinKatana-Recursion\">Recursion</h3><p>RfK will automatically recurse down a shader path to find shaders in subdirectories. By default it will recurse down 3 subdirectories. This is configurable using the <code>shaderPathRecursionLimit</code> setting in the RfK config file, <code>config.xml</code>.</p><h3 id=\"EnvironmentVariablesinKatana-ArgsFiles\">Args Files</h3><p>The args files need to be in an Args directory. See the setup in RMANTREE/lib/plugins for an example. Something like this:</p><div class=\"table-wrap\"><table data-table-width=\"1800\" data-layout=\"default\" data-local-id=\"5676f103-6dfb-4c5b-9ad2-4aa0f15d612e\" class=\"confluenceTable\"><tbody><tr><td class=\"confluenceTd\"><p><code>$RMAN_RIXPLUGINPATH/pattern_remap.so</code></p></td></tr><tr><td class=\"confluenceTd\"><p><code>$RMAN_RIXPLUGINPATH/Args/pattern_remap.args</code></p></td></tr></tbody></table></div><p>You can find out more about Args files in the developer docs <a href=\"/wiki/spaces/REN24/pages/21758047/Developers+Guide\" data-linked-resource-id=\"21758047\" data-linked-resource-version=\"6\" data-linked-resource-type=\"page\">download</a>.</p>"
+    }
+  },
+  "title": "Environment Variables in Katana",
+  "_links": {
+    "editui": "/pages/resumedraft.action?draftId=546177126",
+    "webui": "/spaces/RFK27/pages/546177126/Environment+Variables+in+Katana",
+    "edituiv2": "/spaces/RFK27/pages/edit-v2/546177126",
+    "tinyui": "/x/ZgCOI",
+    "base": "https://renderman.atlassian.net/wiki"
+  }
+}

@@ -1,0 +1,52 @@
+{"id":"a2daa6c5cd4d6cf3a5b18a86ab6743fe2b0aeb52e124181f3f2fc1d4da8e159c","item_id":"2bd46aca88:0","text":"在 Blender 中，可以从 Add 菜单创建 RenderMan lights。"}
+{"id":"dd1d8a9d349b32b193832c6b9b8475451e5b8b862d7d962b26393e0e0778e516","item_id":"2bd46aca88:1","text":"虽然 RenderMan for Blender 会转换一部分 Blender 原生灯光，但强烈建议用户使用 \"Pxr\" lights。"}
+{"id":"2267ef57151c70d8fc228a4a1b9244c38f059bc3e54481ab2acbacf84fa88be1","item_id":"2bd46aca88:2","text":"RenderMan 中的 Lighting（灯光）既灵活，对用户来说也非常直接。"}
+{"id":"543769e77f5dc8a61bc188af90d9f79b701fda5fb08f87707152509e01d0b2ab","item_id":"2bd46aca88:3","text":"RenderMan 内置一组基础 geometric lights（几何灯）。这些专用形状包括"}
+{"id":"7c8bd2dbc669b72f82af5de8802f6f4d16b2fa30ac9946dcf2c2965dc067c3e3","item_id":"2bd46aca88:4","text":"DomeLight、DistantLight、RectLight"}
+{"id":"6201111b83a0cb5b0922cb37cc442b9a40e24e3b1ce100a4bb204f4c63fd2ac0","item_id":"2bd46aca88:5","text":"以及"}
+{"id":"be6dd9e7a7f4f254f3a3ba207e7e5ffbe9a47b6058e17d36f5d9843b0aa981e7","item_id":"2bd46aca88:6","text":"SphereLight"}
+{"id":"310aaf92719c28c111091a4f5017c5a5522e03f79c1ffc52c7ed6e4d5b5116eb","item_id":"2bd46aca88:7","text":"（尤其是后两者）。与任意几何体（即附加了 light Bxdf 的标准几何基元）相比，它们可以提供更好的采样行为。此外还有"}
+{"id":"1fc21012a91c0a2c0a921db3019e911ff29b08e8be4b07f307bb7b95c41a4eec","item_id":"2bd46aca88:8","text":"PortalLight"}
+{"id":"1d32bac4936214e19be08a6ac7015e22f60abde704b4520b3b5ea22ce3f103ea","item_id":"2bd46aca88:9","text":"，用于改善通过窗户、天窗等开口间接照亮的室内场景照明，以及"}
+{"id":"30dfa1dd5d120984b43fa7d79997665d9bc6dc7a0c94dc6c87b106a804127aab","item_id":"2bd46aca88:10","text":"Daylight"}
+{"id":"75da97d03cb0be240a205bbb6f3f26c36d82db0fcb27f3b3daaf11146fbc7158","item_id":"2bd46aca88:11","text":"模拟。"}
+{"id":"2a3461826c4d17fd952c28f72b03a2e89c2b7cc7b3d0beba215ff278003dc7c6","item_id":"2bd46aca88:12","text":"Light Filters（灯光滤镜）"}
+{"id":"8d6a1f48d487305e0e26da3338333583750f0d995055132250bbf43d4f35e5d2","item_id":"2bd46aca88:13","text":"还可以通过更多控制和艺术选项修改并引导灯光。你可以找到现实中常用的做法，例如"}
+{"id":"a063c5752bdc5b26aa51eba5947435c4902ee7220a682c89f1c622584ac79b24","item_id":"2bd46aca88:14","text":"Gobos（遮片）"}
+{"id":"6201111b83a0cb5b0922cb37cc442b9a40e24e3b1ce100a4bb204f4c63fd2ac0","item_id":"2bd46aca88:15","text":"和"}
+{"id":"141395eb35564fe50baa1839eb43315ec1880ae19f53b926611a483029a5a603","item_id":"2bd46aca88:16","text":"Cookies（投影纹理）"}
+{"id":"8fcaddfea781c63ceb72957287f64428c77ec2b444f291e5a01d75ec6c404bd4","item_id":"2bd46aca88:17","text":"，还包括通过更高级的方式链接并控制结果，例如针对特定对象的"}
+{"id":"326dfe0e5db51bdc6b0eaaaedec5726817c0b4c9d37a6dae6a43c804c88fe09a","item_id":"2bd46aca88:18","text":"强度"}
+{"id":"1fa522cfe35e4694551d8ca99bd9a9e154e3f7f0b66f8e46412a2268fc22f25e","item_id":"2bd46aca88:19","text":"，这些强度来自单个灯光。"}
+{"id":"105e69b076421a076199b98865db63899a235110e70edf6f68530339dca2e492","item_id":"2bd46aca88:20","text":"请注意，由于这些优化，spherelight（球形灯）要求所有 scale transforms（缩放变换）都是统一的，也就是说 X、Y 和 Z 缩放必须完全相同，以免把球形扭曲成椭圆或其他形状。"}
+{"id":"93d08d87f3c53bf46d2a84417dbbc89f54d8566fae1d6cc67ae66fe454a5d16d","item_id":"2bd46aca88:21","text":"默认情况下，灯光在 refraction/transmission（折射/透射）中不可见。可以在 light visibility settings（灯光可见性设置）中启用。"}
+{"id":"550763d2484bb7f40faa0f3a21160c013e96331011d974d1d4d322cee3a8747c","item_id":"2bd46aca88:22","text":"请注意，照亮场景主要有三种方式："}
+{"id":"6a65f7b293b58b1eae8979d4f17e9010f9d18b37f51498b6df0aab269f3de698","item_id":"2bd46aca88:23","text":"Analytic Lights（解析灯）- 这是首选方式，内存占用、灵活性和速度都更好。它们的可见性只有针对 camera visibility（摄像机可见性）的简单开关。"}
+{"id":"9e7cef46dbcdb11a2817410c6f6be5d7ff8c54990d5b37394e5bf5c52dbedd6b","item_id":"2bd46aca88:24","text":"Mesh Lights（网格灯）- 它们非常适合使用任意形状来照明。由于它们本身是几何体，会消耗更多内存，复杂形状也可能增加噪点。它们可以像任何其他对象一样使用可见性控制：camera visibility（摄像机可见性）、shadow/transmission（阴影/透射）以及 indirect visibility（间接可见性）。"}
+{"id":"0cd67b7be9019d40b764629d15f00c88e1995fe258524a9f34a75647d053f94d","item_id":"2bd46aca88:25","text":"Emissive Surfaces（发光表面）- 这类方式通常使用 constant bxdf 或 \"glow\" 参数来间接照亮场景。它效率较低，通常应避免使用；但如果要把 \"lights\"（灯光）作为纹理映射到未来感对象或面板上，它可能会有帮助！"}
+{"id":"ae3a1931315bbebd992d62f09b814bb6edb4c3d36eba294025dd480f29801ecc","item_id":"2bd46aca88:26","text":"Analytic Light Types（解析灯类型）"}
+{"id":"1212e2ab64a08ec5ced8175eb4e0b702d7cfc550ede4593bd2ead1444ee69a02","item_id":"2bd46aca88:27","text":"PxrDomeLight"}
+{"id":"64961f7ce9e943e3c59ee135e6f599802babe14248e4b683f9a6031d15ba88fe","item_id":"2bd46aca88:28","text":"- domelight 充当场景的 environment light（环境光），通常会映射一张 high dynamic range image（HDRI，高动态范围图像）。"}
+{"id":"bce6ad691d4917ed8e21735ee38c09a3c0cb591bd13de9520c6f7f55f9d4bef9","item_id":"2bd46aca88:29","text":"PxrRectLight"}
+{"id":"e29808a753e94773764346a3de46104185d1b151cf0b8c7696e3b82aa74c4628","item_id":"2bd46aca88:30","text":"- 这种灯通常用于矩形 area lights（区域灯）。"}
+{"id":"c0eb10eb381af128b5545089127bac4730878814b3f8f90234e161d8bb4fbc3a","item_id":"2bd46aca88:31","text":"PxrDistantLight"}
+{"id":"e7224ccdaf100000fc8983d19e00832b05c3a4bfa37624ea69e7f5b0a01064c6","item_id":"2bd46aca88:32","text":"- 这种灯非常适合作为 Sunlight（阳光）或其他 distant source（远距离光源），此时光线近乎平行并覆盖整个场景。"}
+{"id":"2098ffa4ac05d3f62dad7a01cb5066bbb463b84e5cb2cd9c4364c5bf27fafa8b","item_id":"2bd46aca88:33","text":"PxrDiskLight"}
+{"id":"9a284744621e6b0617a74a92aa8a17c2745acb0e0b025fab6da686d4cee5994d","item_id":"2bd46aca88:34","text":"- 非常适合用作 area light（区域灯），或与 filters（滤镜）组合来制作 spotlight（聚光灯）。"}
+{"id":"52d7ea5640dedc6b78c114b4b9c95c38e8727f28cd01e63a0982a561cd2d54bf","item_id":"2bd46aca88:35","text":"PxrSphereLight"}
+{"id":"bc53067f222c85b5266d4d173b5af12eab21838eb7c1fcd9c5ff5268abba233f","item_id":"2bd46aca88:36","text":"- 对于怀念 point light（点光源）的用户，这种灯可用于向所有方向照明。"}
+{"id":"08a051eaf7f289892ec1cbcd76ce3d0522171bf3fb121ea8e57238deb6bae836","item_id":"2bd46aca88:37","text":"PxrEnvDaylight"}
+{"id":"f9b8aae253a8297d68b6a54fce234d568c43659563017df0b29573149fd1a7d1","item_id":"2bd46aca88:38","text":"- 这是一个 daylight simulation shader（昼光模拟着色器），你可以提供地球上的任意时间和地点，或直接把 sunlight（阳光）放在你想要的位置。"}
+{"id":"902e1d2a62eb9be4cffa7a5918aa7e9aecd6188f0c9abb1f12534471f681ec4c","item_id":"2bd46aca88:39","text":"PxrPortalLight"}
+{"id":"d521ead0c38c249978113ca78f2ab4ea4e3edd374e25c9690572674a187123cf","item_id":"2bd46aca88:40","text":"- 对于间接照亮室内等困难灯光场景，这种灯可以与 PxrDomeLight 配合使用，提高渲染质量和速度。"}
+{"id":"6f535a11b45106e55fa4c3a1881675c08b0e69342ff16322cf58966fd53ec6ed","item_id":"2bd46aca88:41","text":"Geometric Light Types（几何灯类型）"}
+{"id":"42754252184d273e59c48701940421e789ad52e9628610b6318c1bc4a6b82e91","item_id":"2bd46aca88:42","text":"PxrMeshLight"}
+{"id":"4e270a8dfdaeadb824b82481dbc798d904ea24e7b79df6fe283cf43fa1210f43","item_id":"2bd46aca88:43","text":"- mesh light（网格灯）使用一块几何体并将其转换为光源。这比使用来自 bxdf 的 glow 或 emission 更高效，非常适合霓虹灯之类的效果！"}
+{"id":"4f75e125f2cb3003b2fe77ed403237077a75d1954a2d97fc69db3d90eb81cfe4","item_id":"2bd46aca88:44","text":"Utility Light Types（实用灯类型）"}
+{"id":"fe5c837bc1312943444e33b94d85912089afbdb83a44af0d9da05c80be4ae58d","item_id":"2bd46aca88:45","text":"PxrAOVLight"}
+{"id":"7d2be256664312a52b34b5f1681024035b83974a3e11b107bf093cbd915b04db","item_id":"2bd46aca88:46","text":"- 这是一个被识别为 light type（灯光类型）的实用工具，但它"}
+{"id":"ff884419b76c440b8031f8892f58077f6ef6fc3707ac36c9448ae7a6892954c6","item_id":"2bd46aca88:47","text":"不会"}
+{"id":"73c17004bb620b15486b2560e7a24fdbaf39b4728867cde73dc3e4b0d00d5902","item_id":"2bd46aca88:48","text":"照亮任何对象。它是一个很有用的工具，可通过 light linking（灯光链接）为对象快速创建遮罩。"}
+{"id":"dccf6380d3ee709b0c7deda87496a2399184279012780d19685ce2fd56dc5f77","item_id":"2bd46aca88:49","text":"灯光还有一些与 shadows（阴影）和 bidirectional path tracing（双向路径追踪）相关的特殊参数，这些参数由 PxrVCM 和 PxrUnified integrators（积分器）提供支持。可参考这篇技术备忘录："}
+{"id":"9bfa04f2790043c88ca8bb4c967ef848b84a6badb3a668717be84b381c9c09fe","item_id":"2bd46aca88:50","text":"Christophe Hery, Ryusuke Villemin, Florian Hecht."}
+{"id":"9004004582f511ac91580de4fcf7deffdaec51aae3b2df02b7ee054bf8dd6685","item_id":"2bd46aca88:51","text":"Towards Bidirectional Pathtracing at Pixar（Pixar 双向路径追踪探索）"}

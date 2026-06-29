@@ -1,0 +1,75 @@
+{"item_id":"6e61bad444:0","text":"Industrial Light & Magic 在所有制作中都使用 Lama，包括"}
+{"item_id":"6e61bad444:1","text":"The Irishman"}
+{"item_id":"6e61bad444:2","text":"（© Netflix）中的照片级真实皮肤。"}
+{"item_id":"6e61bad444:3","text":"Skin Presets"}
+{"item_id":"6e61bad444:4","text":"RenderMan 现在随附实用的 procedural 皮肤预设，可在 Preset Browser 中查看。你也可以从我们的资源页面下载更完整的套装："}
+{"item_id":"6e61bad444:5","text":"下载"}
+{"item_id":"6e61bad444:6","text":"Subsurface scattering 是一种创建类似皮肤、蜡以及其他表面外观的方法；这些表面允许光线进入对象内部并发生散射。例如，蜡烛点燃时，火焰的光也会照亮蜡本身，使光线能够穿过蜡。这也是为什么当耳朵或手指对着手电筒时，你能看到光透过它们。以微妙的方式来说，这正是让皮肤显得柔和且真实的原因。"}
+{"item_id":"6e61bad444:7","text":"这里提供了几种光散射模型，因此你可以选择最适合目标的模型。"}
+{"item_id":"6e61bad444:8","text":"Color Parameters"}
+{"item_id":"6e61bad444:9","text":"Color"}
+{"item_id":"6e61bad444:10","text":"Color 通常用于连接纹理或 pattern，以创建对象的散射颜色。你可以在这里创建蜡烛蜡的颜色，或雀斑、嘴唇皮肤等皮肤变化。RGB 值对应光在该颜色波段中传播的距离。例如，RGB 值 0.8 0.65 0.5 表示红色传播最远，为 0.8；然后是绿色，最后蓝色在对象散射结果中传播距离最短。下表可能会有帮助。"}
+{"item_id":"6e61bad444:11","text":"材质"}
+{"item_id":"6e61bad444:12","text":"Color (Albedo)"}
+{"item_id":"6e61bad444:13","text":"Radius (Diffuse Mean Free Path)"}
+{"item_id":"6e61bad444:14","text":"苹果"}
+{"item_id":"6e61bad444:15","text":"鸡肉1"}
+{"item_id":"6e61bad444:16","text":"鸡肉2"}
+{"item_id":"6e61bad444:17","text":"奶油"}
+{"item_id":"6e61bad444:18","text":"番茄酱"}
+{"item_id":"6e61bad444:19","text":"大理石"}
+{"item_id":"6e61bad444:20","text":"土豆"}
+{"item_id":"6e61bad444:21","text":"脱脂牛奶"}
+{"item_id":"6e61bad444:22","text":"皮肤1"}
+{"item_id":"6e61bad444:23","text":"皮肤2"}
+{"item_id":"6e61bad444:24","text":"全脂牛奶"}
+{"item_id":"6e61bad444:25","text":"Normal/Bump"}
+{"item_id":"6e61bad444:26","text":"在这里提供一个 signal（texture 或 procedural pattern），用于在表面上创建 bump，以“伪造”小凸起或划痕等表面细节。这意味着美术师无需对模型中这些繁琐且经常重复的部分进行建模。"}
+{"item_id":"6e61bad444:27","text":"Subsurface Parameters"}
+{"item_id":"6e61bad444:28","text":"Radius (DMFP)"}
+{"item_id":"6e61bad444:29","text":"当光进入表面时，它可以在停止（被吸收或离开）之前传播一定距离。此控制项指定以 scene units 计的传播距离。较大的值允许光更深入表面，并增强该效果。这也可能让对象看起来更柔和，并且随着光散射越过细节，导致一些建模出的细小细节丢失。"}
+{"item_id":"6e61bad444:30","text":"此值会像调制光路一样调制 RGB 值，并以 scene units 表示。例如，值 <0.5,0.4,0.2> 会让红光散射 0.5 scene units。这些值会乘以 Unit Length attribute；如果设置过高，它们会逃逸出表面并产生意外结果。"}
+{"item_id":"6e61bad444:31","text":"注意：SSS 默认关闭（0,0,0），并会创建漫反射。增大 radius 可添加 SSS。"}
+{"item_id":"6e61bad444:32","text":"Scale"}
+{"item_id":"6e61bad444:33","text":"这是上方 Radius 效果的简单乘数。它适合快速调整结果，尤其是在用 texture 驱动 Radius 且不想重新绘制时。当在不同 scale 的场景之间转移已着色资产时，它也很有用。"}
+{"item_id":"6e61bad444:34","text":"Scale 示例：0.0 / 0.5 / 1.0 / 1.5 / 2.0 / 5.0"}
+{"item_id":"6e61bad444:35","text":"Mode"}
+{"item_id":"6e61bad444:36","text":"此项会改变用于计算散射效果的技术。有两个 path-traced 版本是现代选择，但可能需要更长时间才能解析；还有一个较旧的扩散模型，常用于真实皮肤。请注意，可用参数会根据所选 Mode 而不同。"}
+{"item_id":"6e61bad444:37","text":"Path-traced Davis (non-exponential)"}
+{"item_id":"6e61bad444:38","text":"- 此方法提供稳健的光传输方案来产生散射。该技术适用于薄几何体和边缘，可替代某些需要组合多种方法的情况。请注意，过大的 Radius 设置可能会在最终渲染中产生亮点噪声或亮点。Davis 或 Non-Exponential mode 会更明亮，因为光会被带入对象更深处。"}
+{"item_id":"6e61bad444:39","text":"Path-traced exponential"}
+{"item_id":"6e61bad444:40","text":"- 与上方 Davis mode 相同，但光线衰减更快，因此结果可能更暗。除云之外，此模型更符合现实中的典型情况。"}
+{"item_id":"6e61bad444:41","text":"Diffusion Burley"}
+{"item_id":"6e61bad444:42","text":"- 在保留细节的同时产生准确效果。由于它不是 path-traced，可能看起来解析更快，但不太适合非常薄的对象，并且可能显得“斑驳”。不过，它在大多数其他用途中非常常见。你可以在这里找到关于此模型技术细节的更多信息"}
+{"item_id":"6e61bad444:44","text":"Path-traced Modes Parameters"}
+{"item_id":"6e61bad444:45","text":"IOR - Index of Refraction"}
+{"item_id":"6e61bad444:46","text":"在某些情况下，进入对象的光可能会向后弯折并再次传播到表面。如果它携带足够能量，某些细节可能会因返回的光而显得“发光”。你可以调整 IOR 来弯折这些光线，直到效果受控并符合你的需求。"}
+{"item_id":"6e61bad444:47","text":"IOR 示例：1.0 / 1.2 / 1.3 / 1.4 / 1.5 / 2.0"}
+{"item_id":"6e61bad444:48","text":"专业提示"}
+{"item_id":"6e61bad444:49","text":"皮肤的 IOR 约为 1.4。"}
+{"item_id":"6e61bad444:50","text":"Anisotropy"}
+{"item_id":"6e61bad444:51","text":"光可以在表面内部向前或向后散射。使用 anisotropy 时，可以让光沿光线方向更强地向前散射。这可能会产生让对象显得更透明的效果。"}
+{"item_id":"6e61bad444:52","text":"此 attribute 在不同的 Albedo Inversion Models 下行为略有不同。对于人类皮肤，使用 Pixar's Albedo Inversion Model 时建议值为 0.7，使用 Chiang Albedo Inversion Model 时建议值为 0.2。"}
+{"item_id":"6e61bad444:53","text":"Bleed (Davis Mode Only)"}
+{"item_id":"6e61bad444:54","text":"这可以增加光传播的距离，就像 Radius 控制项一样。不过，此控制项会尝试在让光散射得更远的同时保留更细小的细节。"}
+{"item_id":"6e61bad444:55","text":"Blend 示例：0.0 / 0.2 / 0.8 / 0.6 / 0.8 / 1.0"}
+{"item_id":"6e61bad444:56","text":"Burley Mode Parameter"}
+{"item_id":"6e61bad444:57","text":"Follow Topology"}
+{"item_id":"6e61bad444:58","text":"这会在计算散射时考虑表面法线（形状和隐含细节）。这可能有助于保留原本会丢失的细节。"}
+{"item_id":"6e61bad444:59","text":"Common Parameters"}
+{"item_id":"6e61bad444:60","text":"Subset"}
+{"item_id":"6e61bad444:61","text":"在这里设置值可以控制哪些对象可随着光从一个表面传播到另一个表面而彼此间接贡献。有时对象彼此穿插时会产生光晕或变暗，而此控制项会根据它们的值指定哪些对象参与贡献、哪些不参与。"}
+{"item_id":"6e61bad444:62","text":"Unit Length"}
+{"item_id":"6e61bad444:63","text":"此值应与你的 3D 应用中的单位匹配。例如，Maya 单位是厘米，因此 unit length 应设置为 0.1。"}
+{"item_id":"6e61bad444:64","text":"默认值为 0.003，最适合英尺。"}
+{"item_id":"6e61bad444:65","text":"Continuation Rays"}
+{"item_id":"6e61bad444:66","text":"有时你可能有相互嵌入的对象，例如骨骼或牙齿。如果这些对象导致伪影或不想要的结果，将此项设置为“on”会忽略内部对象。"}
+{"item_id":"6e61bad444:67","text":"Advanced Parameters"}
+{"item_id":"6e61bad444:68","text":"Albedo Inversion Method"}
+{"item_id":"6e61bad444:69","text":"Pixar"}
+{"item_id":"6e61bad444:70","text":"- Pixar 使用的 Albedo inversion model，优先将 albedo 颜色作为最终结果。"}
+{"item_id":"6e61bad444:71","text":"Chiang"}
+{"item_id":"6e61bad444:72","text":"- 更接近传统 random walk model 的 Albedo inversion model"}
+{"item_id":"6e61bad444:73","text":"发表于 2016 年"}
+{"id": "fcec91509759ad995c2cd14bcb26b2720993faf61c29d379b270d442d92290eb", "item_id": "6e61bad444:43", "text": "此处"}
+{"id": "cdb4ee2aea69cc6a83331bbe96dc2caa9a299d21329efb0336fc02a82e1839a8", "item_id": "6e61bad444:74", "text": "。"}

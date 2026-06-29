@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Crews</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Crews</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/TRA/22184294/Crews">https://rmanwiki-27.pixar.com/space/TRA/22184294/Crews</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>The crews.config file defines user access to Tractor, defining who can login and their level of control over aspects of the system. The crews.config file is typically copied in its entirety to the <a class="external-link" href="https://renderman.pixar.com/resources/current/tractor/tractor_configuration.html#site-specific-configuration-overrides" rel="nofollow">site override directory</a> and then customized there.</p><h3 id="Crews-Definition">Definition</h3><p>A crew is simply a named list of users:</p><p><code>&quot;the_crew_name&quot;:  [&quot;john&quot;, &quot;paul&quot;, &quot;george&quot;, &quot;ringo&quot;],
+</code></p><h3 id="Crews-ReservedCrewNames">Reserved Crew Names</h3><p>In addition to any site-defined crews, there are four reserved crews names used for special purposes by Tractor: ValidLogins, BannedLogins, Wranglers, Administrators.</p><p>The ValidLogins crew enumerates all user's who are allowed to login to Tractor. This crew <em>must</em> exist. See the note regarding the meta-names @syslogins and @externlogins below.</p><p>The BannedLogins crew lists user names that are explicitly denied login. It is mostly only useful for providing exceptions whenValidLogins contains either of the meta-names @syslogins or @externlogins.</p><h3 id="Crews-MetaCrewNames">Meta Crew Names</h3><p>The user name list for a given crew can include either of these special names. @syslogins stands for all user login names that are valid locally on the engine host (i.e. resolvable by the function getpwnam(3)), which frequently includes those resolvable by the site nameservers, such as LDAP or NIS.</p><p><code>&quot;ValidLogins&quot;: [&quot;@syslogins&quot;],
+</code></p><p>The name @externlogins causes the engine to skip its internal validation of a potential Dashboard user names, and instead the engine passes all login names directly to the site's external trSiteLoginValidator.py script (or whichever validation app is named as the SitePasswordValidator below). The external validator can accept or deny a given name+password pair.</p><p><code>&quot;ValidLogins&quot;: [&quot;@externlogins&quot;],
+</code></p><p>Note that wildcard characters in user names (e.g. *) are NOT expanded or treated specially when searching for user access. However, the list of user names can also contain OTHER CREW names, which will be expanded recursively to include the users in those crews. Crew name references that form &quot;reference loops&quot; will be truncated, but may cause unexpected memberships.</p><p>Any user name in a crew's membership list whose first character is a minus-sign will be removed from that crew definition, similarly for sub-crew names.</p><p><code>&quot;ourRestrictedCrew&quot;: [&quot;ourBigCrew&quot;, &quot;-knownMiscreants&quot;],
+</code></p><p>Crews that are referenced in name lists can be denoted with a leading $ in order to make them clearly distinguished as crew names rather than user names. This approach also allows tractor-engine to issue better diagnostic messages when a referenced crew is unknown -- otherwise than name is just treated as another user name.</p><p><code>&quot;theLuncheon&quot;: [&quot;terry&quot;, &quot;vandana&quot;, &quot;$theGuysFromShipping&quot;],
+</code></p><p>A particular user name may appear in more than one crew.</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="7a2f5e12-5291-492b-8292-8b5b2cff3d9e" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">&quot;Crews&quot;: {
+    &quot;ValidLogins&quot;: [&quot;@syslogins&quot;],
+    &quot;BannedLogins&quot;: [],
+
+    &quot;Wranglers&quot;: [],
+    &quot;Administrators&quot;: [&quot;root&quot;]
+},</pre>
+</div></div><h3 id="Crews-JobEditPermissions">Job Edit Permissions</h3><p>By default, everyone with a valid login is given &quot;standard&quot; permissions, meaning the basic ability to run and modify their own jobs and to view the state of the queue and the blades. Users listed in the Wranglers crew are also allowed to alter the general job queue, including the state of other user's jobs. Users listed in the Administrators crew are allowed to change site-wide policies through the URL interface. The permission levels are cumulative: Wranglers have &quot;standard&quot; access plus the additional wrangler permissions. Administrators have standard, wrangler, and admin access.</p><p>The optional subdictionary JobEditAccessPolicies can be used to further restrict or extend edit access to job attributes, such as job priority. A different access list can be specified for each editable attribute, otherwise the settings for the entry named default will apply. The special meta-crew name @owner in these edit lists grants each job owner the permission edit the given attribute in their own jobs.</p><p>Edit permissions are organized into named <em>policies</em> with the one named defaultPolicy applied by default. Job scripts can specify the policy that applies to them using the Job -editpolicy {NAME} option. Typically this is used by a studio's job creation pipeline to apply additional restrictions on jobs from particular shows or administrative jobs. In cases where the job's specifically requested policy is missing here, then the engine applies the settings from the defaultPolicy entry, if it exists, rather than denying all edits until the missing policy becomes defined. Users in the Administrators crew will always have edit control over any job.</p><p>The recogonized fine-grained edit permission keywords include: argv, afterjids, aftertime, bnotes, jnotes, comment, crews, cwd, delete, envkey, interrupt, jrestart, jshuffle, lock, metadata, pause, priority, retract, retry, runsecsbounds, service, skip, slotbounds, tags, title</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="7c656443-1386-483f-b3a3-221922e93393" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">&quot;JobEditAccessPolicies&quot;: {
+Note:  don't forget commas after each entry!
+
+    &quot;defaultPolicy&quot;: {
+    &quot;priority&quot;: [&quot;Wranglers&quot;, &quot;Administrators&quot;],
+    &quot;tier&quot;:     [&quot;Wranglers&quot;, &quot;Administrators&quot;],
+        &quot;default&quot;:  [&quot;@owner&quot;, &quot;Wranglers&quot;, &quot;Administrators&quot;]
+    },
+
+    &quot;SomeCustomPolicyName&quot;: {
+        &quot;priority&quot;: [&quot;Wranglers&quot;, &quot;Administrators&quot;],
+        &quot;tier&quot;:     [&quot;Wranglers&quot;, &quot;Administrators&quot;],
+        &quot;default&quot;:  [&quot;jedi&quot;, &quot;Administrators&quot;]
+    }
+},</pre>
+</div></div><h3 id="Crews-SitePasswordValidator">SitePasswordValidator</h3><p>SitePasswordValidator specifies a validation scheme for passwords sent to the engine from user interfaces and scripts. Use an empty string &quot;&quot; to disable password checking, allowing any valid user name to proceed as a client (the names authorized in ValidLogins).</p><p>Any non-empty value for SitePasswordValidator will cause passwords to be required, and specifies the type of validation that will be applied. All user+password validation occurs on the tractor-engine host, so values here are relative to the engine's environment, filesystem, operating system, etc.</p><p>Tractor engine has built-in support for the &quot;PAM&quot; authentication system provided by Linux and Mac OS. Only the engine needs this support, clients can be on any platform. Use the string value internal:PAM below to enable password validation through the PAM modules on your engine host.</p><p>The PAM scheme itself requires you to choose an appropriate access policy module (see /etc/pam.d or /etc/pam.conf). Tractor will attempt to load a module named &quot;tractor&quot; by default, and you must define that module first, using appropriate policies for your site. Alternatively, you can specify a different PAM module name here, one that may already exist and support your site's requirements. For example to get the su authentication rules, use internal:PAM:su below.</p><p>Tractor-engine sends a session cookie to the dashboard web browser after you authenticate with a password. The saved session information can be used later for automatic login when a fresh dashboard page is reloaded. This auto-login behavior can be disabled, forcing users to reenter their passwords when the dashboard page is reloaded, by changing the prefix in the SitePasswordValidator setting; change &quot;internal:&quot; to &quot;internal_nocookie:&quot;, or add the prefix &quot;external_nocookie:&quot; for external validation scripts.</p><p><strong>NOTE:</strong> The PAM approach requires tractor-engine to deliver a clear-text password to the PAM interface locally on the engine host. Thus it must receive a recoverable password encoding from the Dashboard and other client scripts. The built-in transfer encoding provides modest protection from snooping, but your principal password transport protection is expected to come from the security of your site's private LAN and VPN connections into it.</p><p>Tractor also supports a more involved custom alternative solution in which you provide your own client-side one way password hashing plug-in (javascript or python, as appropriate), and a matching engine-side hash validator that you name here. See the comments in the template examples, and the Tractor administrative docs for more details.</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="dbbc7dfe-fe72-4a75-94fa-cf8012dcfc70" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">&quot;SitePasswordValidator&quot;: &quot;&quot;
+&quot;SitePasswordValidator&quot;: &quot;internal:PAM:tractor&quot;
+&quot;SitePasswordValidator&quot;: &quot;internal:PAM:su&quot;
+&quot;SitePasswordValidator&quot;: &quot;internal_nocookie:PAM:su&quot;
+&quot;SitePasswordValidator&quot;: &quot;python ${TractorConfigDirectory}/trSiteLoginValidator.py&quot;,
+&quot;SitePasswordValidator&quot;: &quot;python ${TractorConfigDirectory}/trSiteLdapLoginValidator.py&quot;</pre>
+</div></div>
+  </article>
+</main>
+</body>
+</html>

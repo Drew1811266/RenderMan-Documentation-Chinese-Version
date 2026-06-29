@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Blade List Pane</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Blade List Pane</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/TRA/22184222/Blade+List+Pane">https://rmanwiki-27.pixar.com/space/TRA/22184222/Blade+List+Pane</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="figure align-center"><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/22184222/serverlist_pane.jpg" data-image-src="../../attachments/22184222/serverlist_pane.jpg" data-unresolved-comment-count="0" data-linked-resource-id="22195913" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="serverlist_pane.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="22184222" data-linked-resource-container-version="4" data-media-id="66d8cf45-eea2-488f-bbdc-62c70d4c4246" data-media-type="file"></span></div><p>The Blade List pane provides the primary interface to monitoring servers and their activity. Unlike the Job List pane, which receives real-time updates from the Engine, the blade list is refreshed in bulk either manually or by a timer managed by the Dashboard. A manual refresh is triggered by selecting the blade list icon in the toolbar.</p><p>By default, the blade list is automatically refreshed every 60 seconds. This value can be changed in the preferences pane. At large sites the amount of data returned from this query can be quite large, so a reload interval should be selected with care to avoid network bottlenecks.<br/> </p><div class="section"><h3 id="BladeListPane-SpecialFunctions">Special Functions</h3><p>The Blade List pane responds to several mouse operations:</p><ul><li><p class="first">Select</p><p>Clicking on any row will cause information about the selected blade to be displayed in the Blade Info pane, below the Blade List pane.<br/> </p></li><li><p class="first">Multi-select</p><p>The Blade List pane also responds to standard multi-click controls. This is typically useful in conjunction with a context senstive menu select.<br/> </p></li><li><p class="first">Context-sensitive menu</p><p>Right-clicking (or Control-click) will bring up a context sensitive menu that allows you to operate on the selected blades.</p><div class="figure"><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/22184222/serverlist_contextmenu.jpg" data-image-src="../../attachments/22184222/serverlist_contextmenu.jpg" data-unresolved-comment-count="0" data-linked-resource-id="22195911" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="serverlist_contextmenu.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="22184222" data-linked-resource-container-version="4" data-media-id="8d55a590-679c-411c-b45f-6e8768bd9643" data-media-type="file"></span></div></li><li><p class="first">Clear Earlier Blade Data</p><p>Tells the engine to remove the selected blades from memory. This is a good way to clear out blades which were started, but are no longer active. If an active blade is cleared it will re-appear when it checks in with the engine.<br/> </p></li><li><p class="first">NIMBY Restriction (On | Off)</p><p>Sends a request to the selected blades to set their NIMBY (Not-In-My-Backyard) mode. When NIMBY is set &quot;on&quot; a blade will only accept work from jobs that were spooled from that host, typically a user's desktop. NIMBY &quot;off&quot; allows any jobs that match the usual profile criteria to be accepted. Note that it is possible to restrict the mode to a specific user as well, through an http directive to the blade.<br/> </p></li><li><p class="first">Assignment Tracer</p><div class="figure align-center"><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/22184222/tracer.jpg" data-image-src="../../attachments/22184222/tracer.jpg" data-unresolved-comment-count="0" data-linked-resource-id="22195882" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="tracer.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="22184222" data-linked-resource-container-version="4" data-media-id="2408d374-feb1-4bbe-a3ef-06b45b9f4f80" data-media-type="file"></span></div><p>The assignment tracer provides a mechanism to help debug when blades are not picking up new tasks.</p><p>When selecting a blade and choosing &quot;Assignment Tracer&quot; from the context menu, a tracer dialog will open. It will remain blank until the selected blade requests a job from the engine. The engine will then document how it traces through the existing jobs to determine whether or not to give work to the blade.</p><p>This history is detailed in the tracer dialog as shown above. In this trace we see that several jobs had no dispatchable tasks, and one job required a specific (different) host.<br/> </p></li></ul></div><div class="section"><h3 id="BladeListPane-KeyboardShortcuts">Keyboard Shortcuts</h3><p>The following keyboard shortcuts are available in the Blade List pane:</p><ul><li><p class="first">Control/Command-A</p><p>Selects all blades.<br/> </p></li><li><p class="first">F5</p><p>Refreshes the blade list.</p></li></ul></div>
+  </article>
+</main>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Particles in Maya</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Particles in Maya</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFM27/544539956/Particles+in+Maya">https://rmanwiki-27.pixar.com/space/RFM27/544539956/Particles+in+Maya</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><style>[data-colorid=kj66vkufoc]{color:#808284} html[data-color-mode=dark] [data-colorid=kj66vkufoc]{color:#7b7d7f}[data-colorid=wf54ywdnqs]{color:#808284} html[data-color-mode=dark] [data-colorid=wf54ywdnqs]{color:#7b7d7f}</style><img class="confluence-embedded-image image-center" width="900" loading="lazy" src="../../attachments/544539956/RfM_Particles.jpg" data-image-src="../../attachments/544539956/RfM_Particles.jpg" data-height="614" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="544539971" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RfM_Particles.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544539956" data-linked-resource-container-version="1" data-media-id="48ea82b8-be55-48ff-9ba2-11a6b2a9a4c0" data-media-type="file" /></span><p style="text-align: center;"><span data-colorid="wf54ywdnqs">充满 particle spheres（粒子球）的 RenderMan Walking Teapot</span></p><p><br /></p><p>RenderMan for Maya 会自动支持 Maya particles（Maya 粒子），包括 Maya particle instancing（Maya 粒子实例化）。</p><p>支持以下 particle types（粒子类型）。</p><ul><li><p>Points（点）</p></li><li><p>Spheres（球体）</p></li><li><p>Streak（条纹）</p></li><li><p>Multistreak（多重条纹）</p></li><li><p>Sprites（精灵）</p></li></ul><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="900" loading="lazy" src="../../attachments/544539956/rfm-particle-types.jpg" data-image-src="../../attachments/544539956/rfm-particle-types.jpg" data-height="256" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="544539968" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfm-particle-types.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544539956" data-linked-resource-container-version="1" data-media-id="ead4ff4d-0fb3-44f1-882a-e28d5199b642" data-media-type="file" /></span><h3 id="ParticlesinMaya-RealPrimitives">Real Primitives（真实基元）</h3><p>RfM 会把 particles（粒子）渲染为真实的 geometric primitives（几何基元）。RenderMan 高度优化的 particle primitives（粒子基元）快速而高效，并带来许多优势，包括：</p><ul><li><p>Antialiasing（抗锯齿）、motion blur（运动模糊），并且完全整合到场景中。</p></li><li><p>Particles（粒子）可以 cast shadows（投射阴影）</p></li><li><p>可以附加任意 shaders（着色器）</p></li></ul><p>此外，通过 RenderMan 渲染 particles（粒子）时，可以控制粒子在 world space units（世界空间单位）中的物理尺寸。这是因为 Pixar 的 RenderMan 与分辨率无关，而 hardware rendering modes（硬件渲染模式）通常使用 pixel units（像素单位）。</p><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="2adf1824-ac28-41e7-89b9-b8f988719328" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><h3 id="ParticlesinMaya-RayVisibility">Ray Visibility（光线可见性）</h3><p>请务必强制让 particles（粒子）对 indirect rays（间接光线）可见，因为 Maya 默认会关闭这一项。可以使用 Maya 的 attribute spreadsheet（属性电子表格），在粒子的 Render Stats 中启用 "visible in refraction" 和 "visible in reflection"。</p></div></div><h3 id="ParticlesinMaya-ParticleInstancing">Particle Instancing（粒子实例化）</h3><p>RenderMan for Maya 支持 Maya particle instancing（Maya 粒子实例化）。关于如何为 particle instancing 设置场景的完整细节，请参阅 Maya 文档。</p><p>在某些情况下，RenderMan for Maya 无法正确转换 Maya 的 configuration（配置）。一般来说，只要遵循规定步骤并避免晦涩的 orientation configurations（方向配置），就能得到良好结果。</p><p><br /></p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="900" loading="lazy" src="../../attachments/544539956/RfM_Particles_Instancing.jpg" data-image-src="../../attachments/544539956/RfM_Particles_Instancing.jpg" data-height="615" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="544539974" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RfM_Particles_Instancing.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544539956" data-linked-resource-container-version="1" data-media-id="6b8f9250-81c0-4afa-89c3-e29cf7fd7c24" data-media-type="file" /></span><p style="text-align: center;"><span data-colorid="kj66vkufoc">充满 particle spheres（粒子球）的 RenderMan Walking Teapot……现在用微型 RenderMan Walking Teapots 进行了 instancing（实例化）！</span></p><p style="text-align: center;"><br /></p><h3 id="ParticlesinMaya-Per-ParticleEffects&amp;ArbitraryAttributes">Per-Particle Effects（逐粒子效果）与 Arbitrary Attributes（任意属性）</h3><p>RenderMan for Maya 会为 particle color（粒子颜色）、opacity（不透明度）和 radius（半径）的变化自动建立正确的 rendering context（渲染上下文）。附加粒子的 color 和 opacity 的一种有效方法，是使用 Cs 和 Os primvars。可以使用 PxrPrimvar pattern（PxrPrimvar 图案）把这些 primvars 附加到 material（材质）上。</p><p>可以编写 MEL expressions（MEL 表达式）来计算 per-particle radii（逐粒子半径）（<strong>radiusPP</strong>）、color（颜色）（<strong>rgbPP</strong>）、opacity（不透明度）（<strong>opacityPP</strong>）和 lifespan（生命周期）（<strong>lifespanPP</strong>&nbsp;和&nbsp;<strong>useLifespanPP</strong>）。还可以使用 Maya 设置 procedural ramps（程序 ramp），对这些值进行 remap（重映射）。</p><p>最后，可以创建 arbitrary attributes（任意属性），并将它们与 particle objects（粒子对象）的 RenderMan representation（RenderMan 表示）关联起来。如果你打算编写 custom shader（自定义着色器），用 per-particle（逐粒子）或 per-particle-object attributes（逐粒子对象属性）执行计算，这可能会很有用。若要进一步了解通过 RenderMan 传递 arbitrary primitive attributes（任意基元属性）的一般机制，请参阅 primitive variables reference（基元变量参考）。</p>
+  </article>
+</main>
+</body>
+</html>

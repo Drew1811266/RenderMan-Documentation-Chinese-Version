@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Flashy Neons</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Flashy Neons</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RU/638877713/Flashy+Neons">https://rmanwiki-27.pixar.com/space/RU/638877713/Flashy+Neons</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="NeonSign_Banner.jpg" width="760" loading="lazy" src="../../attachments/638877713/NeonSign_Banner.jpg" data-image-src="../../attachments/638877713/NeonSign_Banner.jpg" data-height="1080" data-width="1920" data-unresolved-comment-count="0" data-linked-resource-id="638877781" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="NeonSign_Banner.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="638877713" data-linked-resource-container-version="6" data-media-id="ec2e9edd-f89d-4379-b3c3-0e08b00268a6" data-media-type="file"></span><p /><p>接续上一课，现在让我们在 Solaris 中用一些很酷的 VEX code 让 neon sign 活起来！</p><a class="external-link" href="https://downloads.renderman.pixar.com/RU/Resources/USD/NeonR.zip" rel="nofollow"><span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" alt="DownloadButton2.png" width="158" loading="lazy" src="../../attachments/638877713/DownloadButton2.png" data-image-src="../../attachments/638877713/DownloadButton2.png" data-height="68" data-width="286" data-unresolved-comment-count="0" data-linked-resource-id="638877751" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="DownloadButton2.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="638877713" data-linked-resource-container-version="6" data-media-id="995f31c5-f337-49f0-a079-d87895da9dfb" data-media-type="file"></span></a><p>在本课中，我们将修改来自 Glow <a href="392953857-Neons.html" data-linked-resource-id="392953857" data-linked-resource-version="6" data-linked-resource-type="page">Neons </a>课程的四个 Glow shaders，使其能够用 Primvar 控制 PxrSurface Glow Intensity。完成后，我们就能使用一些巧妙的 VEX code 来控制 neons 的 animation。</p><p /><div class="panel conf-macro output-block" data-hasbody="true" data-macro-id="402da4ac-ee20-452f-960d-557aea2b22f2" data-macro-name="panel" style="background-color: #4C9AFF;border-width: 1px;"><div class="panelContent" style="background-color: #4C9AFF;">
+<p><strong><span class="legacy-color-text-inverse">USD Asset Setup（USD 资产设置）</span></strong></p>
+</div></div><p>我们想要的是动态控制 neon tubes 的“chasing” animation。  </p><p /><p>首先需要编辑 Glow shaders。在 Solaris 中，可以通过创建一个 <em>editmaterialproperties</em> node 来完成。我们可以把 glow shader 加到这个 node 中，并进一步编辑它。  </p><p>在第一个 Glow Shader 内，创建一个 PrimVar node，将 Variable type 保持为 Float，但一定要把 Float value 设置为 0.1。这会给我们一个初始 intensity value。  </p><p>在这个示例中，我们的 PrimVar 名为 Outer_INT</p><p>然后把 Primvar 的 resultR 连接到 PxrSurface 的 glowgain。</p><p /><p>我们需要对其他每个 Glow shaders 重复这些步骤，并确保每个 PrimVar 都有唯一名称。 </p><p>我使用了 </p><p>Outer_INT<br/>Mid_INT</p><p>Inner_INT</p><p>White_INT</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Solaris_Animate_Solaris_AddPrimvar.jpg" width="760" loading="lazy" src="../../attachments/638877713/Solaris_Animate_Solaris_AddPrimvar.jpg" data-image-src="../../attachments/638877713/Solaris_Animate_Solaris_AddPrimvar.jpg" data-height="404" data-width="1435" data-unresolved-comment-count="0" data-linked-resource-id="638615916" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Solaris_Animate_Solaris_AddPrimvar.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="638877713" data-linked-resource-container-version="6" data-media-id="ac946a5f-a09e-4840-81d3-84614072b416" data-media-type="file"></span><p>完成后，需要重新 publish USD asset，然后把它 reload 到我们的 main network 中。</p><p /><div class="panel conf-macro output-block" data-hasbody="true" data-macro-id="a48239e7-1bdb-4d39-90e5-5c5803fbcaf4" data-macro-name="panel" style="background-color: #4C9AFF;border-width: 1px;"><div class="panelContent" style="background-color: #4C9AFF;">
+<p><strong><span class="legacy-color-text-inverse">Time to Animate!（开始制作动画！）</span></strong></p>
+</div></div><p>手动 animate 这些 neons 会花不少时间，但既然我们在 Solaris 中有 VEX 的力量，为什么还要手动做呢？</p><p>Start：先创建一个 AttributeWrangle node，并把下面的 code 粘贴到 VEXpression box 中。</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="5fe65425-f8b1-4337-bf58-52e3a9af3e4f" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">int off = chi(&quot;off&quot;);
+int on = chi(&quot;on&quot;);
+int transition = chi(&quot;transition&quot;);
+int A = off;
+int B = off + transition;
+int C = off + transition + on;
+int D = off + 2 * transition + on;
+
+float val = 0;
+int frame = int(@Frame - $FSTART + chi(&quot;frameOffset&quot;) * @elemnum) % (D + 1);
+
+if(frame &lt; A)
+    val = 0;
+else if (frame &gt;= A &amp;&amp; frame &lt; B)
+    val = 1 - (B - frame) / float(B - A);
+else if(frame &gt;= B &amp;&amp; frame &lt; C)
+    val = 1;
+else if (frame &gt;= C &amp;&amp; frame &lt; D)
+    val = (D - frame) / float(D - C);
+val *= ch(&quot;intensity&quot;);
+
+@inputs:defaultFloat = val;
+//@inputs:intensity = val;</pre>
+</div></div><p /><p>编译完成后，你会看到下面的 interface！</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Solaris_Animate_Solaris_VEX.jpg" width="760" loading="lazy" src="../../attachments/638877713/Solaris_Animate_Solaris_VEX.jpg" data-image-src="../../attachments/638877713/Solaris_Animate_Solaris_VEX.jpg" data-height="905" data-width="941" data-unresolved-comment-count="0" data-linked-resource-id="638779776" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Solaris_Animate_Solaris_VEX.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="638877713" data-linked-resource-container-version="6" data-media-id="867aa90a-5e60-4bca-9ece-32eb298fe16c" data-media-type="file"></span><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Solaris_Animate_Solaris_1.jpg" width="760" loading="lazy" src="../../attachments/638877713/Solaris_Animate_Solaris_1.jpg" data-image-src="../../attachments/638877713/Solaris_Animate_Solaris_1.jpg" data-height="1293" data-width="2557" data-unresolved-comment-count="0" data-linked-resource-id="639139908" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Solaris_Animate_Solaris_1.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="638877713" data-linked-resource-container-version="6" data-media-id="b10a26ab-2b0f-45fd-9891-aa10b28acf20" data-media-type="file"></span><p>最后一件事是指定我们希望在哪些 Primitives 上运行 code。</p><p /><p>使用一个方便的 wildcard 作为 </p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="c10ad039-b5c4-48d1-b8ae-fb07e18e79e3" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">/NeonR/materials/**/**_INT</pre>
+</div></div><p>会遍历所有 materials，并找到名称中带有 _INT 的 nodes。这样我们就能轻松快速地拾取 Glow Shaders 中的所有 primvars。</p><p /><p>下面是 parameters 的快速说明 </p><p><strong>OFF</strong></p><p>每个 neon 保持 OFF 的 frames 数</p><p><strong>ON</strong></p><p>neons 保持 ON 的 frames 数</p><p><strong>Transition</strong></p><p>向上/向下渐变（ramp up / ramp down）所需的 frames 数</p><p><strong>FrameOffset</strong></p><p>更改这个 value 可调整所有 neons 之间的 offset time</p><p><strong>Intensity</strong></p><p>neons 应达到的最大 intensity</p><p /><p>就是这样……可以自由调整 parameters 来创建你自己的 chasing times，也可以把这段 code 用到所有 neons 上。  </p><p>只要确保你有一个 PrimVar 连接到 <em>你的 surfaces 里的 glowgain 参数， </em>就可以开始了。</p><p /><div class="panel conf-macro output-block" data-hasbody="true" data-macro-id="" data-macro-name="panel" style="background-color: #EAE6FF;border-color: #998DD9;border-width: 1px;"><div class="panelContent" style="background-color: #EAE6FF;">
+<p>感谢 Pixar 的 Damien Maupu 提供这段很酷的 VFX code！</p>
+</div></div><p /><p /><p /><p /><p /><p />
+  </article>
+</main>
+</body>
+</html>

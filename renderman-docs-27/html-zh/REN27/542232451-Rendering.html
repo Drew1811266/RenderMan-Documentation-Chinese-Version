@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rendering</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Rendering</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/REN27/542232451/Rendering">https://rmanwiki-27.pixar.com/space/REN27/542232451/Rendering</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="elio-23-banner.webp" width="1280" loading="lazy" src="../../attachments/542232451/elio-23-banner.webp" data-image-src="../../attachments/542232451/elio-23-banner.webp" data-height="361" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="573833232" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="elio-23-banner.webp" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/webp" data-linked-resource-container-id="542232451" data-linked-resource-container-version="4" data-media-id="367bd48f-69ae-4d57-a0a8-e084f31d94c1" data-media-type="file"></span><p>渲染已完成场景涉及许多环节。从处理质量到为后续合成选择合适的输出，本节会覆盖所有这些主题。</p><h3 id="Rendering-Quality">Quality（质量）</h3><p>为了理解噪声去除和抗锯齿的工作方式，我们为用户说明 <a href="https://rmanwiki-27.pixar.com/space/REN27/542233011/Sampling+Modes" data-linked-resource-id="542233011" data-linked-resource-version="1" data-linked-resource-type="page">Sampling（采样）</a> 和 <a href="https://rmanwiki-27.pixar.com/space/REN27/542233098/Filtering" data-linked-resource-id="542233098" data-linked-resource-version="1" data-linked-resource-type="page">Filtering（滤波）。</a> 这也是大部分调校可能发生的位置，因此理解质量与性能之间的平衡非常重要。</p><h3 id="Rendering-TraceDepth">Trace Depth</h3><p>控制 trace depth（追踪深度）可以改变场景的外观和性能。不同积分器也会以不同方式处理这些设置。RenderMan 让这些参数的调校更容易完成，从而在资源约束内实现所需外观。</p><h3 id="Rendering-InteractiveRenderingandCheckpointing">Interactive Rendering and Checkpointing（交互式渲染与检查点）</h3><p>渐进式 /<a href="https://rmanwiki-27.pixar.com/space/REN27/542233147/Interactive+Rendering" data-linked-resource-id="542233147" data-linked-resource-version="1" data-linked-resource-type="page">Interactive（交互式）</a> Rendering（渲染）让调校场景材质和灯光变得轻松。 <a href="https://rmanwiki-27.pixar.com/space/REN27/542233167/Checkpointing+and+Recovery" data-linked-resource-id="542233167" data-linked-resource-version="1" data-linked-resource-type="page">Checkpointing（检查点）</a> 和 Recovery（恢复）会把这个渐进式功能扩展到最终渲染中，让你可以在渲染逐步细化时创建保存点。你可以用它更快地审批未完成帧，并从上次停止的位置继续，而不会浪费宝贵的 CPU 周期！</p><h3 id="Rendering-Diagnostics">Diagnostics（诊断）</h3><p>RenderMan <a href="https://rmanwiki-27.pixar.com/space/REN27/542233411/Statistics+and+Diagnostics" data-linked-resource-id="542233411" data-linked-resource-version="5" data-linked-resource-type="page">diagnostics（诊断）</a> 可帮助你在易读的显示中可视化场景性能。有时你可能不清楚场景在哪些地方消耗了最多时间或资源，但我们的诊断输出会帮助你定位甚至最隐蔽的性能信息。</p><h3 id="Rendering-HoldoutsandOutputs">Holdouts and Outputs（遮挡保留与输出）</h3><p><a href="https://rmanwiki-27.pixar.com/space/REN27/542233206/Holdouts" data-linked-resource-id="542233206" data-linked-resource-version="1" data-linked-resource-type="page">Holdout（遮挡保留）</a> 工作流对于把 CG 对象整合到实拍底板中至关重要。在某些应用中，这只需点击一个按钮即可完成！为了改善合成整合，甚至改善完整渲染的镜头，RenderMan 会使用强大的 <a href="https://rmanwiki-27.pixar.com/space/REN27/542234234/Outputs" data-linked-resource-id="542234234" data-linked-resource-version="1" data-linked-resource-type="page">outputs（输出），</a> 以终极灵活性让合成中的调整更轻松、更强大。</p><h3 id="Rendering-Baking">Baking（烘焙）</h3><p>在渲染中复用某些数据可以简化资产管理，同时提升渲染效率。 <a href="https://rmanwiki-27.pixar.com/space/REN27/542232768/Baking" data-linked-resource-id="542232768" data-linked-resource-version="1" data-linked-resource-type="page">Baking（烘焙）</a> 提供了烘焙到 2D 输出或点云输出的方式。</p><h3 id="Rendering-NestedDielectrics">Nested Dielectrics</h3><p>渲染彼此交互的表面时，尤其是透明/折射表面时，理解 <a href="542221623-Nested Dielectrics.html" data-linked-resource-id="542221623" data-linked-resource-version="2" data-linked-resource-type="page">Intersect Priority（相交优先级）设置</a> 非常重要。Intersect Priority（相交优先级）允许用户只需添加属性即可获得正确的折射，而无需通过繁琐建模来解决该问题。</p>
+  </article>
+</main>
+</body>
+</html>

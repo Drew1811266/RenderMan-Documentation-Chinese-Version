@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Stirling Rendering</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Stirling Rendering</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RU/657424403/Stirling+Rendering">https://rmanwiki-27.pixar.com/space/RU/657424403/Stirling+Rendering</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<h3 id="StirlingRendering-Rendering">Stirling 项目的渲染设置流程（Rendering）</h3><p>现在 layering 已经设置好，rendering settings 中只剩少数事项需要考虑。由于我们正在做 plate matching，motion blur 是必须牢记的重要因素。</p><p>花时间检查 footage，并评估 images 的 sharp 程度。即使 frames 看起来干净且 crisp，也始终要运行 test renders，确保你的 motion blur 与 plate 中的 motion blur 匹配。</p><p>我强烈建议至少加入少量 motion blur，因为它有助于在 frames 之间创建更平滑的 interpolations，增强整体 believability 和 realism。motion blur 的量取决于你的 footage，所以务必调整到匹配状态。</p><p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image20.jpg" width="760" loading="lazy" src="../../attachments/657424403/image20.jpg" data-image-src="../../attachments/657424403/image20.jpg" data-height="411" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="657227827" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image20.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="657424403" data-linked-resource-container-version="1" data-media-id="564bbba2-52e5-41c6-9ba7-9e96c0501ef5" data-media-type="file"></span><p>进入 compositing 之前，我也建议你花时间 render 一个 Occlusion pass 和 Cryptomattes。这会在 compositing 中节省大量时间，避免许多小时繁琐的 rotoscopy。可以阅读关于如何设置 <strong>Cryptomattes</strong>的文档。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image4.jpg" width="760" loading="lazy" src="../../attachments/657424403/image4.jpg" data-image-src="../../attachments/657424403/image4.jpg" data-height="720" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="657227834" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image4.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="657424403" data-linked-resource-container-version="1" data-media-id="8291af2f-754d-498b-943c-ff39b3658b23" data-media-type="file"></span><p>我最后一个 rendering tip 是关于一些有用的 overrides（没错，又是 layer overrides！）。虽然使用 LPE（Light Path Expression）render passes 会非常强大，但在我们的案例中，没有必要为所有 layers 都 render 它们。由于 reflectors 主要由 specular surfaces 组成，生成数百个占用大量存储的 EXR files 几乎没有价值。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image19.jpg" width="760" loading="lazy" src="../../attachments/657424403/image19.jpg" data-image-src="../../attachments/657424403/image19.jpg" data-height="720" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="657227840" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image19.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="657424403" data-linked-resource-container-version="1" data-media-id="5bbde590-b4df-40d7-9ade-6de974ea986b" data-media-type="file"></span><p>为了优化 workflow，你可以停用 LPE display，将某些 layers 限制为只 render beauty pass。只要确保每次都 double-check 自己正在调整正确 layer 的 render settings；你不会想在周一早上回到办公室检查 renders 时遇到不愉快的惊喜！</p>
+  </article>
+</main>
+</body>
+</html>

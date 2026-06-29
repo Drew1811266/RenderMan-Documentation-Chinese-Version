@@ -1,0 +1,41 @@
+{"id":"b5465d619dd991ebed349f03942e545d9c9c59fa1ea66f7485ef9ca6e9e5fc94","text":"这是一个简单而实用的 pattern 节点，用于创建边缘效果，以及基于曲率的结果，例如边缘磨损和与其他表面接触的物体。"}
+{"id":"7025f1d6a009bfba4938f5750926414b34b8937b45e9be885ef289a8dd3f45e7","text":"Num Samples"}
+{"id":"7682fbf35a58d6a3fd92e00443d2324162666e18497fbaa19330781196781e85","text":"控制用于计算曲率的采样数量。更多采样可以降低噪声，但代价是增加渲染时间。"}
+{"id":"3883f2e68311061e49300f83b81dc7843e4d23786d21a329ac593fd99a4c6386","text":"Max Distance"}
+{"id":"8ceed01e76861688a51f6599b19d7d37ae9ce05c2e5c3d6f0a61b07f757a7917","text":"采样在终止前会行进一定距离。较低值往往产生更锐利的变化；较大值会扩散效果，并可能丢失细节。随着距离增大，其他物体可能遮挡结果。内部空间是观察这种效果最明显的方式。0.0 表示 \"infinite\"（无限），本质上就是你的场景范围。"}
+{"id":"b68ff3972bcc5f20aff696ce76c4a1b8b4a4069ac77c4620876832a911bce38c","text":"Trace Set"}
+{"id":"2a90eccaf183c147fd95aed90caf7666883e5bc3cb113d2d8b392fa8fa0a9872","text":"你可以使用"}
+{"id":"51903daae04cbc3b110cb12236a14009f72e2872b39b8812765dbb00abe8839d","text":"Trace Sets"}
+{"id":"ace175046562d992951005d252bbb8dde7135652398e254123b0105e361930af","text":"将其他物体包含进被追踪的光线中。当你需要较大的 Max Distance，但不希望其他物体遮挡结果时，这很有用。注意，这不是排除，而是包含指定集合。"}
+{"id":"37419a8c25660f7ad38e8a5faec5341370fc233afad21943bbd6ee8ecc502114","text":"Sample Distribution"}
+{"id":"3bf408197e12f650a7a479e393137d5b5d30c9cc6395af2bcc97c7db8ef33344","text":"可用值依次为"}
+{"id":"ef379363dd0cb7be66638cf7f8726872c8f9f6f2b41ad218192c763c062d310a","text":"uniform"}
+{"id":"ad9897a115cfe7e49d73c282eb7282bf2bf5aa724ea7ea766dda157ebbe9ef0c","text":"cosine"}
+{"id":"6ece6ae33b8de857f97f1ae7c907fb74aa936aaf4c05882728c9e10204003046","text":"(Lambertian)。"}
+{"id":"526e0087cc3f254d9f86f6c7d8e23d954c4dfda2b312efc29194ae8a860106ba","text":"说明"}
+{"id":"6a22b156718da1a50982d1b95ad694619ac5612ee78d74b7619a96c9eeb0bc33","text":"Uniform"}
+{"id":"d6fb301519205602db67a43ea137ce34b8049b63f19d4b9fa40a3211f1565f8e","text":"光线不会在任何特定方向上加权。"}
+{"id":"452caef78df9d7b4ec51e2959b63280050afdfa12b533e1f7b79eba3f50e51c7","text":"Cosine"}
+{"id":"cd68f2cae336b028f4f5b964ee164f3486fe02e5118e0075556fd8825a4655e0","text":"光线会根据下面的 Cosine Spread 参数，沿法线方向加权。"}
+{"id":"26f907153e3b83e2aeb2f1982518a69466f9bc1e4e9204e56d2a281b0f2efeb9","text":"Cosine Spread"}
+{"id":"97d6a8c1661e57ee259fab52db1f7203805abd837df2082a246d2298cdb8f54a","text":"使用"}
+{"id":"aa114ef92107af5c651d28e11d2c2b71d1f9ca0469c6dde663c1e6e1cade2974","text":"分布时的光线采样扩散。值 1.0 会给出完美的 Lambertian 分布。较低值会沿曲线收缩或“收紧”效果；较大数值会扩散效果。"}
+{"id":"5c2470002888bd8e7f0965f8d11c9e0ba6372a06eaad763b70d77b7dc029268d","text":"Bias"}
+{"id":"57b8ae41715d3f0ad7a865d6970e6f673711eacfc94506b78072c73fd6ef886d","text":"Bias 会影响曲率的衰减，并且这种衰减是线性的，会随着离着色点的距离增加而降低。Bias 可用于让更远的采样或多或少地计入结果，而附近点具有更高权重。"}
+{"id":"41922ca120e6333add63caae35f31bb8cf74d65afc11d5b2208b30fec22f7dd1","text":"越接近 0.0，只有最靠近着色点的点会产生贡献。"}
+{"id":"64c715ad8c95dd3c0f457d05ba4aa284ed7fc86f9a96d820dda33efe44509e52","text":"使用默认值 0.5 时，靠近 Max Distance 的任何点贡献较少，靠近着色点的点贡献较多。"}
+{"id":"7df17ed8978b3e833dd7b36f859bfddaec76f3c9e9736c5b377914c7d8444f6c","text":"越接近 1.0，所有采样点贡献越多。正好为 1.0 时，所有距离上的采样点会等量贡献。"}
+{"id":"2d122208b5702a692ef429f6685289ee2871e565be2ef1489344edf4d99f2622","text":"Convex Threshold"}
+{"id":"6bec39f10d0b431dc5a19d0d5fc9709211b61a4d59fe06eb45c845af8e1fd007","text":"增大此参数会侵蚀结果，缩小可见效果。"}
+{"id":"06d0300c21611b607dae937e7b11c7612cb28bbdf5003a04f8bbf05de8f3b840","text":"Concave Threshold"}
+{"id":"b2439bcb8dee14b685f137f294b0e0cb62f5aadf45143ce01d79777d435a93b4","text":"Output"}
+{"id":"304da48dc119c35042f278521b8ba19fb81af3bc58b9d110d40ce7a496c81b34","text":"Output Gain"}
+{"id":"19049c68d9504a0cbcbbbef7421eff67bc4d7496f7ed9dc0aa44174b10014827","text":"结果曲率效果的乘数（没有曲率的区域自然不受影响）"}
+{"id":"6f632f27fbbf08063be83c9237ed33c58bb45dd9986d069845bf9d46937bef99","text":"Output Type"}
+{"id":"d5e4c370c5456458b4590bb57b9f92d7bb908e9cfddc58d9b7285613e827bda1","text":"设为 \"Concave\" 时，只输出凹曲率。设为 \"Convex\" 时，只输出凸曲率。\"Both\" 会同时显示凸曲率和凹曲率。"}
+{"id":"3330b67ce6f427e597db62eaea4e4cabe3d223266892be5eebe643bdd795f921","text":"Monochrome Output"}
+{"id":"2d71505e0cf0f521fdf99bd3d3bb57d231ff3f439a0b4ff9e377bcb878a56c1f","text":"对于凹和凸结果，输出都是简单的白色或灰度值。Off 会将 Convex 输出为 Red，将 Concave 输出为 Green"}
+{"id":"178be866e216d8c7da41c281a5167e638d4c536dbb37c9c1db2ca21ec6f7b508","text":"默认情况下，值会被钳制到 0-1 范围。如果需要扩展范围（也许配合 gain 控制，或用于驱动另一个参数连接），可以禁用此选项。"}
+{"id": "e68b36b17cbd990802f57741cb75cf3a73fa66a61999b0cd70e3cf7d26cfb25f", "item_id": "60b7209553:1", "text": "Parameters（参数）"}
+{"id": "6201111b83a0cb5b0922cb37cc442b9a40e24e3b1ce100a4bb204f4c63fd2ac0", "item_id": "60b7209553:13", "text": "和"}
+{"id": "79dc22e6ed3847c8ad58d2465a5b2897aa5d9033fdf3f4b131d51621133273f7", "item_id": "60b7209553:41", "text": "Clamp Output"}

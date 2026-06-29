@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PostgreSQL</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>PostgreSQL</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/TRA/22184296/PostgreSQL">https://rmanwiki-27.pixar.com/space/TRA/22184296/PostgreSQL</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>db.config 文件包含配置参数，用于控制后端 PostgreSQL 数据库的启动和关闭行为，以及客户端连接参数。</p><h3 id="PostgreSQL-DBStartup">DBStartup</h3><p>如果 engine 启动时尚未运行 postgresql server，则必须将 DBStartup 设置为 True，engine 才会启动一个 postgresql server。</p><p><code>&quot;DBStartup&quot;: True,
+</code></p><h3 id="PostgreSQL-DBUseExisting">DBUseExisting</h3><p>如果 engine 启动时要使用已经运行的数据库服务器进程，则必须将 DBUseExisting 设置为 True。有些站点可能希望即使 engine 停止也保持作业数据库运行；另一些站点可能会将此值设置为 False，以断言新的 engine 调用不应写入一个不是由它自己启动的数据库服务器。</p><p><code>&quot;DBUseExisting&quot;: True,
+</code></p><h3 id="PostgreSQL-DBAutoUpgrade">DBAutoUpgrade</h3><p><strong>注意：此功能在 Beta 0 中不可用。</strong></p><p>必须将 DBAutoUpgrade 设置为 False，才能在新版 Tractor（带有新的 schema 版本）首次启动时抑制数据库 schema 的自动升级。如果设置为 False 且需要 schema 升级，engine 将不会运行。站点管理员需要手动运行 tractor-dbctl --upgrade 来执行升级；否则必须运行较旧的、schema 兼容的 Tractor 版本。如果管理员不希望保存现有作业数据，可以使用 tractor-dbctl --destroy 删除整个数据库；之后，当数据库由 engine 启动或手动启动时，会自动创建采用新 schema 的空数据库。tractor-dbctl --start 也会遵循此变量。</p><p><code>&quot;DBAutoUpgrade&quot;: True,
+</code></p><h3 id="PostgreSQL-DBInit">DBInit</h3><p>如果 engine 启动时未找到数据库，则必须将 DBInit 设置为 true，才会创建新数据库。站点可能希望将其设置为 False，以避免在挂载保存现有数据库的文件系统出现问题时创建一个全新的数据库。</p><p><code>&quot;DBInit&quot;: True,
+</code></p><h3 id="PostgreSQL-DBShutdown">DBShutdown</h3><p>如果希望 engine 停止时关闭 postgresql server，则必须将 DBShutdown 设置为 true。站点可能希望将其设置为 False，以便在 engine 已关闭或崩溃时仍允许 postgresql clients 对数据库运行查询。请注意，基于 URL 的查询会通过 engine 代理，因此 engine 停止时无法运行。</p><p><code>&quot;DBShutdown&quot;: True,
+</code></p><h3 id="PostgreSQL-DBArchiving">DBArchiving</h3><p>当 DBArchiving 为 True 时，已删除的作业及其关联的任务、命令和 invocation 会被移动到 postgresql 数据库中的特殊分区。要查看它们，用户需要在 tq 中使用 --archives 标志，在 Python query API 中使用 archives 关键字参数，或在 Dashboard query pane 中选择 archives 按钮。</p><p><code>&quot;DBArchiving&quot;: True,
+</code></p><h3 id="PostgreSQL-DBDebug">DBDebug</h3><p>当 DBDebug 为 True 时，在创建、启动、同步和停止 postgresql server 时会输出调试信息。</p><p><code>&quot;DBDebug&quot;: False,
+</code></p><h3 id="PostgreSQL-DBDataDir">DBDataDir</h3><p>DBDataDir 表示用于存储数据库表的目录。可以指定指向其他位置的完整路径。</p><p><code>&quot;DBDataDir&quot;: &quot;${TractorDataDirectory}/psql&quot;,
+</code></p><h3 id="PostgreSQL-DBConnection">DBConnection</h3><p>DBConnection 是客户端侧 postgres 连接参数。可以按需编辑或添加此字典中的值。# 'host' 指定 tractor-engine 应在哪里找到其 PostgreSQL server 的主机名。通常情况下，作业数据库与 tractor-engine 位于同一主机并由其管理，此时使用 "localhost"。# 'port' 表示 postgresql server 监听的端口。默认情况下，它设置为标准 PostgreSQL "postmaster" 端口，但如果有其他服务已经使用该端口，例如另一个 PostgreSQL server，或者在同一主机上测试两个 tractor-engines 这种不常见情况（不推荐），则可以更改。请注意，应在 postgres.conf 中进行相应更改。# 'dbname' 指定存储表的数据库名称，除非在特殊情况下，否则应始终为 "tractor"。#</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="b4d723d4-8730-4bfa-ae8b-9d46b9d9213a" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">{
+  &quot;DBConnection&quot;: {
+     &quot;host&quot;: &quot;localhost&quot;,
+     &quot;port&quot;: 9876,
+     &quot;dbname&quot;: &quot;tractor&quot;
+  }
+}</pre>
+</div></div><p /><h3 id="PostgreSQL-DBRolePasswords">DBRolePasswords</h3><p>站点可以用多种方式限制对 Tractor 作业数据库的外部访问。一种方式是在上面指定 "localhost" 以阻止网络访问。另一种方式是为各种数据库登录角色添加密码。Tractor-engine 需要知道这些密码，因此必须在此处列举。显然，当这里指定敏感密码时，必须将此配置文件的读取权限限制给管理员（以及 Tractor "EngineOwner"）。#</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="e87a57e5-2fc4-4edb-9fca-bd5e5fa5a97f" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">&quot;DBRolePasswords&quot;: {
+  &quot;root&quot;:        &quot;&quot;,
+  &quot;bootstrap&quot;:   &quot;&quot;,
+  &quot;dispatcher&quot;:  &quot;&quot;,
+  &quot;spooler&quot;:     &quot;&quot;,
+  &quot;dashboard&quot;:   &quot;&quot;,
+  &quot;reader&quot;:      &quot;&quot;,
+  &quot;dev_read&quot;:    &quot;&quot;,
+  &quot;dev_write&quot;:   &quot;&quot;
+}</pre>
+</div></div><p /><h4 id="PostgreSQL-SimpleConfigurationExample">Simple Configuration Example（简单配置示例）</h4><p>以下设置适合开箱即用体验：站点希望在管理员很少或无需干预的情况下，将 postgresql 的管理交给 engine。这里 postgres server 与 engine 运行在同一主机上，并且仅在 engine 运行时运行。</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="304e3bd1-996c-4d8c-bcc7-65e46cd263c6" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">{
+  &quot;DBStartup&quot;: True,
+  &quot;DBUseExisting&quot;: True,
+  &quot;DBAutoUpgrade&quot;: True,
+  &quot;DBInit&quot;: True,
+  &quot;DBShutdown&quot;: True,
+  &quot;DBDebug&quot;: False,
+
+  &quot;DBDataDir&quot;: &quot;${TractorDataDirectory}/psql&quot;,
+  &quot;DBConnection&quot;: {
+    &quot;host&quot;: &quot;localhost&quot;,
+    &quot;port&quot;: 9876,
+    &quot;dbname&quot;: &quot;tractor&quot;
+  }
+}</pre>
+</div></div><p /><h4 id="PostgreSQL-ComplexConfigurationExample">Complex Configuration Example（复杂配置示例）</h4><p>以下设置适合希望管理 custom（自定义）postgresql server，并希望在 engine 停止时仍保持 postgresql server 运行的站点，原因可能包括：(a) 服务未通过 engine 代理的查询，(b) postgresql server 运行在不同主机上并需要不同的启动/关闭方式，(c) 其他数据库服务由中央 postgresql server 管理，(d) 其他需要手动管理 postgresql server 的原因。在此示例中，schema 升级由人工处理；这样，当安装新的 Tractor 版本且存在 schema 变更时，不会因为等待 schema 升级操作完成而出现意外停机。请注意，管理员需要观察到新版 engine 启动失败，并需要手动启动旧版本。</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="a58a1097-de10-4866-8d5d-69909401a3c4" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">{
+  &quot;DBStartup&quot;: False,
+  &quot;DBUseExisting&quot;: True,
+  &quot;DBAutoUpgrade&quot;: False,
+  &quot;DBInit&quot;: False,  # switch to True later
+  &quot;DBShutdown&quot;: False,
+  &quot;DBDebug&quot;: False,
+
+  &quot;DBDataDir&quot;: &quot;/path/to/fast/filesystem/psql&quot;,
+  &quot;DBConnection&quot;: {
+    &quot;host&quot;: &quot;otherhost&quot;,
+    &quot;port&quot;: 9876,
+    &quot;dbname&quot;: &quot;tractor&quot;
+  }
+}</pre>
+</div></div>
+  </article>
+</main>
+</body>
+</html>

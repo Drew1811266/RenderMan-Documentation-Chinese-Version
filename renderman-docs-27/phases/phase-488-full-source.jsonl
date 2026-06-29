@@ -1,0 +1,117 @@
+{"item_id": "ecc93dfe22:0", "source": "About PrimVars for Maya"}
+{"item_id": "ecc93dfe22:1", "source": "It is often useful to attach data to the surface of an object. In RenderMan this is done by including the data as a token value pair when a surface primitive is declared. Once data is attached it is available as parameters to the shaders that are assigned to the surface primitive. Parameters that are attached to surface geometry in this way are called primitive variables, or primvars, for short. RenderMan for Maya provides both simple and flexible access to primvars."}
+{"item_id": "ecc93dfe22:2", "source": "At the simplest level, RfM includes Prim Var nodes, accessible via the Maya Hypershade, that can be attached to Maya nodes as needed. The various tools can then leverage those primvars at shading time. This effectively drives parameters or provides them with the data they need to achieve special effects. One such example could be to supply a color based on vertices locations on the mesh"}
+{"item_id": "ecc93dfe22:3", "source": "Nodes are provided for Color, Float (1, 2, and 3), Normal, Point, and Vector types of primvars."}
+{"item_id": "ecc93dfe22:4", "source": "Under the Covers"}
+{"item_id": "ecc93dfe22:5", "source": "RenderMan for Maya infers the request for a primitive variable by combining the Maya attribute type with the naming convention:"}
+{"item_id": "ecc93dfe22:6", "source": "A special character must be provided to hint at the Ri primvar type. Additional special characters can be provided to request specific detail and array representation. It is up to the user to provide properly sized Maya attributes."}
+{"item_id": "ecc93dfe22:7", "source": "The three forms for special names are:"}
+{"item_id": "ecc93dfe22:8", "source": "rmanTprimvarName: where T is one of:"}
+{"item_id": "ecc93dfe22:9", "source": "which are interpreted as the RenderMan types:"}
+{"item_id": "ecc93dfe22:10", "source": "float, color, vector, normal, point, hpoint, matrix, string"}
+{"item_id": "ecc93dfe22:11", "source": "rmanDTprimvarname: where T is as above and D provides a detail hint:"}
+{"item_id": "ecc93dfe22:12", "source": "indicating standard RenderMan details:"}
+{"item_id": "ecc93dfe22:13", "source": "constant, uniform, facevarying, varying, vertex"}
+{"item_id": "ecc93dfe22:14", "source": "rmanaDTprimvarname: where T and D are as above and the letter"}
+{"item_id": "ecc93dfe22:15", "source": "indicates that an array of the given type and detail is requested."}
+{"item_id": "ecc93dfe22:16", "source": "Available (or possible) PrimVars"}
+{"item_id": "ecc93dfe22:17", "source": "Some of these options are automatically provided even if they are empty but some, like radiusPP or Radius Per Particle, must be supplied by the user in any case. Below are some of these settings not included on the"}
+{"item_id": "ecc93dfe22:18", "source": "Geometric Settings"}
+{"item_id": "ecc93dfe22:19", "source": "page since they may already be provided or have limited or special use."}
+{"item_id": "ecc93dfe22:20", "source": "Meshes"}
+{"item_id": "ecc93dfe22:21", "source": "Cs, each color set goes out as a primvar"}
+{"item_id": "ecc93dfe22:22", "source": "This could be used to provide color based on the mesh data"}
+{"item_id": "ecc93dfe22:23", "source": "The one-dimensional S texture value"}
+{"item_id": "ecc93dfe22:24", "source": "The one-dimensional T texture value"}
+{"item_id": "ecc93dfe22:25", "source": "u_uvSet"}
+{"item_id": "ecc93dfe22:26", "source": "The one-dimensional U texture value if UVsets are defined"}
+{"item_id": "ecc93dfe22:27", "source": "v_uvSet"}
+{"item_id": "ecc93dfe22:28", "source": "The one-dimensional V texture value if UVsets are defined"}
+{"item_id": "ecc93dfe22:29", "source": "tangent"}
+{"item_id": "ecc93dfe22:30", "source": "Tangent space normals if specified"}
+{"item_id": "ecc93dfe22:31", "source": "Shape Normals if supplied by the mesh"}
+{"item_id": "ecc93dfe22:32", "source": "NURBS"}
+{"item_id": "ecc93dfe22:33", "source": "The one-dimensional S texture value"}
+{"item_id": "ecc93dfe22:34", "source": "The one-dimensional T texture value"}
+{"item_id": "ecc93dfe22:35", "source": "Subdivision Surfaces"}
+{"item_id": "ecc93dfe22:36", "source": "The one-dimensional S texture value"}
+{"item_id": "ecc93dfe22:37", "source": "The one-dimensional T texture value"}
+{"item_id": "ecc93dfe22:38", "source": "Hair (does not apply to Xgen)"}
+{"item_id": "ecc93dfe22:39", "source": "Position"}
+{"item_id": "ecc93dfe22:40", "source": "varying color Os"}
+{"item_id": "ecc93dfe22:41", "source": "Opacity"}
+{"item_id": "ecc93dfe22:42", "source": "varying color Cs"}
+{"item_id": "ecc93dfe22:43", "source": "Color"}
+{"item_id": "ecc93dfe22:44", "source": "varying float width"}
+{"item_id": "ecc93dfe22:45", "source": "Hair width"}
+{"item_id": "ecc93dfe22:46", "source": "vertex float t"}
+{"item_id": "ecc93dfe22:47", "source": "Vertex number"}
+{"item_id": "ecc93dfe22:48", "source": "constant string linetype"}
+{"item_id": "ecc93dfe22:49", "source": "Returns the type of PaintFX curve"}
+{"item_id": "ecc93dfe22:50", "source": "uniform float diffuseRand"}
+{"item_id": "ecc93dfe22:51", "source": "Diffuse Randomization/Noise"}
+{"item_id": "ecc93dfe22:52", "source": "uniform float specularRand"}
+{"item_id": "ecc93dfe22:53", "source": "Specular Randomization/Noise"}
+{"item_id": "ecc93dfe22:54", "source": "uniform float hueRand"}
+{"item_id": "ecc93dfe22:55", "source": "Randomized Hue"}
+{"item_id": "ecc93dfe22:56", "source": "uniform float satRand"}
+{"item_id": "ecc93dfe22:57", "source": "Randomized Saturation"}
+{"item_id": "ecc93dfe22:58", "source": "uniform float valRand"}
+{"item_id": "ecc93dfe22:59", "source": "Randomized Value"}
+{"item_id": "ecc93dfe22:60", "source": "uniform float scalpS"}
+{"item_id": "ecc93dfe22:61", "source": "One-dimensional scalp S coordinate"}
+{"item_id": "ecc93dfe22:62", "source": "uniform float scalpT"}
+{"item_id": "ecc93dfe22:63", "source": "One-dimensional scalp T coordinate"}
+{"item_id": "ecc93dfe22:64", "source": "vertex normal N"}
+{"item_id": "ecc93dfe22:65", "source": "Hair vertex normals"}
+{"item_id": "ecc93dfe22:66", "source": "Particles"}
+{"item_id": "ecc93dfe22:67", "source": "Position"}
+{"item_id": "ecc93dfe22:68", "source": "varying float width"}
+{"item_id": "ecc93dfe22:69", "source": "Varying particle width (if they have assigned radii)"}
+{"item_id": "ecc93dfe22:70", "source": "constant float width"}
+{"item_id": "ecc93dfe22:71", "source": "If there is no specified radii"}
+{"item_id": "ecc93dfe22:72", "source": "varying color Cs"}
+{"item_id": "ecc93dfe22:73", "source": "Varying color if there is colorRed, colorGreen, colorBlue, or rgbPP"}
+{"item_id": "ecc93dfe22:74", "source": "varying color Os"}
+{"item_id": "ecc93dfe22:75", "source": "Varying opacity if there is opacity or opacityPP"}
+{"item_id": "ecc93dfe22:76", "source": "constant float __threshold"}
+{"item_id": "ecc93dfe22:77", "source": "Specified particle threshold"}
+{"item_id": "ecc93dfe22:78", "source": "ageNormPP*"}
+{"item_id": "ecc93dfe22:79", "source": "Particle Age Normalized (0-1) per particle"}
+{"item_id": "ecc93dfe22:80", "source": "incandescencePP*"}
+{"item_id": "ecc93dfe22:81", "source": "Incandescence specified per particle"}
+{"item_id": "ecc93dfe22:82", "source": "spriteNumPP*"}
+{"item_id": "ecc93dfe22:83", "source": "The assigned sprite number per particle"}
+{"item_id": "ecc93dfe22:84", "source": "falloffpower"}
+{"item_id": "ecc93dfe22:85", "source": "Used to create \"fuzzy\" particles"}
+{"item_id": "ecc93dfe22:86", "source": "These attributes influence other settings, like Cs, Os, orientation of particle:"}
+{"item_id": "ecc93dfe22:87", "source": "opacityPP*"}
+{"item_id": "ecc93dfe22:88", "source": "Opacity specified per particle"}
+{"item_id": "ecc93dfe22:89", "source": "radiusPP*"}
+{"item_id": "ecc93dfe22:90", "source": "Radius specified per particle"}
+{"item_id": "ecc93dfe22:91", "source": "spriteScaleXPP*"}
+{"item_id": "ecc93dfe22:92", "source": "Sprite scale in X axis"}
+{"item_id": "ecc93dfe22:93", "source": "spriteScaleYPP*"}
+{"item_id": "ecc93dfe22:94", "source": "Sprite scale in Y axis"}
+{"item_id": "ecc93dfe22:95", "source": "spriteTwistPP*"}
+{"item_id": "ecc93dfe22:96", "source": "Sprite twist if specified"}
+{"item_id": "ecc93dfe22:97", "source": "Attributes marked with an asterisk * must be supplied by the user. An example of this are Per Particle attributes added to Maya particles in the attribute editor."}
+{"item_id": "ecc93dfe22:98", "source": "Fluids"}
+{"item_id": "ecc93dfe22:99", "source": "color Cs"}
+{"item_id": "ecc93dfe22:100", "source": "Fluid color"}
+{"item_id": "ecc93dfe22:101", "source": "float density"}
+{"item_id": "ecc93dfe22:102", "source": "Fluid density"}
+{"item_id": "ecc93dfe22:103", "source": "vector dPdtime"}
+{"item_id": "ecc93dfe22:104", "source": "Motion vector"}
+{"item_id": "ecc93dfe22:105", "source": "vector velocity"}
+{"item_id": "ecc93dfe22:106", "source": "Motion velocity"}
+{"item_id": "ecc93dfe22:107", "source": "float pressure"}
+{"item_id": "ecc93dfe22:108", "source": "Fluid pressure"}
+{"item_id": "ecc93dfe22:109", "source": "float temperature"}
+{"item_id": "ecc93dfe22:110", "source": "Fluid temperature"}
+{"item_id": "ecc93dfe22:111", "source": "float fuel"}
+{"item_id": "ecc93dfe22:112", "source": "Fluid fuel"}
+{"item_id": "ecc93dfe22:113", "source": "float falloffField"}
+{"item_id": "ecc93dfe22:114", "source": "Falloff"}
+{"item_id": "ecc93dfe22:115", "source": "float[3] UVW"}
+{"item_id": "ecc93dfe22:116", "source": "UVW output"}

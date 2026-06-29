@@ -1,0 +1,71 @@
+{"item_id":"9050f49616:0","text":"升级 engine 就像用新版本重启它一样简单。除非另有说明，active tasks 可以在 restart 期间继续运行。新的 engine 与较旧的 blades 兼容；只有在需要利用新的 blade functionality 时，才需要重启 blades。"}
+{"item_id":"9050f49616:1","text":"某些站点可能希望在 upgrading 前备份 job data。这样做有两个好处：backup 可以在 upgrade 期间发生意外问题（例如 software 或 hardware failure）时防止 historical job data 丢失；另外，如果需要 downgrade，system 可以恢复到 pre-upgrade state。Backups 和 downgrades 会在下文讨论。"}
+{"item_id":"9050f49616:2","text":"停机时间说明（Down Time）"}
+{"item_id":"9050f49616:3","text":"执行 upgrade 所需时间主要受修改 database schema 所需 operations 影响。特定 upgrade 的 documentation 会提示何时可能需要较长时间（例如超过一分钟）来执行 upgrade。Upgrade 期间，active tasks 可以继续运行；不过不会 schedule 新 work，不能 submit 新 jobs，Dashboard、command-line 和 API 与 engine 的通信会 block。"}
+{"item_id":"9050f49616:4","text":"备份操作说明（Backing Up）"}
+{"item_id":"9050f49616:5","text":"备份 job database 前，请确保 tractor engine 和 postgresql database 已停止。除非站点在其 db.config 文件中将 DBShutdown 设置为 False，或 engine 难以与 database server 通信，否则 engine 会自动关闭 database server。"}
+{"item_id":"9050f49616:6","text":"tractor-dbctl"}
+{"item_id":"9050f49616:7","text":"--status"}
+{"item_id":"9050f49616:8","text":"可用于验证 database server 是否已停止。如果它仍在运行，可以用"}
+{"item_id":"9050f49616:9","text":"tractor-dbctl"}
+{"item_id":"9050f49616:10","text":"--stop"}
+{"item_id":"9050f49616:11","text":"停止。"}
+{"item_id":"9050f49616:12","text":"要备份 job database，请运行"}
+{"item_id":"9050f49616:13","text":"tractor-dbctl"}
+{"item_id":"9050f49616:14","text":"--backup"}
+{"item_id":"9050f49616:15","text":"<path-to-backup-file>"}
+{"item_id":"9050f49616:16","text":"。请确保有足够空间存储 backup file。Backup file 是 engine data directory 的 psql/ subdirectory 的 compressed tarball，因此只需要该 directory 所用空间的一小部分。"}
+{"item_id":"9050f49616:17","text":"降级操作说明（Downgrading）"}
+{"item_id":"9050f49616:18","text":"Downgrading 时，如果现有 database 已经历 schema change，可能无法继续使用。在这种情况下，需要从新的 job database 开始，或从 backup restore。如果必须保留 upgrade 后发生的 job submissions 和 state changes，请联系 Customer Support。"}
+{"item_id":"9050f49616:19","text":"要执行 downgrade，请按上文"}
+{"item_id":"9050f49616:20","text":"Backing Up"}
+{"item_id":"9050f49616:21","text":"所述停止现有 engine 和 database server。然后用以下命令 destroy job database："}
+{"item_id":"9050f49616:22","text":"tractor-dbctl"}
+{"item_id":"9050f49616:23","text":"--destroy"}
+{"item_id":"9050f49616:24","text":"。"}
+{"item_id":"9050f49616:25","text":"要从 backup restore job database，请使用"}
+{"item_id":"9050f49616:26","text":"tractor-dbctl"}
+{"item_id":"9050f49616:27","text":"--restore"}
+{"item_id":"9050f49616:28","text":"<path-to-backup-file>"}
+{"item_id":"9050f49616:29","text":"并以适用版本的 engine 启动；job IDs 会从创建 backup 时最后使用的 job ID 继续。Backup 时处于 queued 状态的 jobs 会在 system 恢复到 backup 后重新 scheduled。Backup 之后提交的 jobs 不会出现在 restored job database 中。"}
+{"item_id":"9050f49616:30","text":"如果 job database 没有从 backup restore，它就只是一个空 job database，job IDs 从 1 开始。"}
+{"item_id":"9050f49616:31","text":"注意，如果 job ID 被 reused，其 log file output 会 append 到之前同 ID job 的 log files 中。因此，建议移除与将被 reused 的 job IDs 相关的 log files。"}
+{"item_id":"9050f49616:32","text":"Job ID sequence 可以从不同 value 恢复，以避免 reusing job IDs。首先用以下命令启动 database server："}
+{"item_id":"9050f49616:33","text":"tractor-dbctl"}
+{"item_id":"9050f49616:34","text":"--start-for-engine"}
+{"item_id":"9050f49616:35","text":"然后运行"}
+{"item_id":"9050f49616:36","text":"tractor-dbctl"}
+{"item_id":"9050f49616:37","text":"--set-job-counter"}
+{"item_id":"9050f49616:38","text":"概括来说，downgrade 的步骤如下："}
+{"item_id":"9050f49616:39","text":"在 Dashboard admin panel 管理面板中暂停 dispatching 调度。"}
+{"item_id":"9050f49616:40","text":"Retry 重试所有 active tasks 活动任务：tq"}
+{"item_id":"9050f49616:41","text":"--force"}
+{"item_id":"9050f49616:42","text":"--yes"}
+{"item_id":"9050f49616:43","text":"retry active"}
+{"item_id":"9050f49616:44","text":"使用 Kill 命令终止 engine 进程。"}
+{"item_id":"9050f49616:45","text":"Destroy job database："}
+{"item_id":"9050f49616:46","text":"tractor-dbctl"}
+{"item_id":"9050f49616:47","text":"--destroy"}
+{"item_id":"9050f49616:48","text":"可选地 restore 恢复 backed up database 备份数据库："}
+{"item_id":"9050f49616:49","text":"tractor-dbctl"}
+{"item_id":"9050f49616:50","text":"--restore"}
+{"item_id":"9050f49616:51","text":"<path-to-backup-file>"}
+{"item_id":"9050f49616:52","text":"Start 启动 database server："}
+{"item_id":"9050f49616:53","text":"tractor-dbctl"}
+{"item_id":"9050f49616:54","text":"--start-for-engine"}
+{"item_id":"9050f49616:55","text":"用以下命令查看最后使用的 job ID："}
+{"item_id":"9050f49616:56","text":"tractor-dbctl"}
+{"item_id":"9050f49616:57","text":"--show-params"}
+{"item_id":"9050f49616:58","text":"并移除 job ID 更高的 jobs 的任何 log files。"}
+{"item_id":"9050f49616:59","text":"可选地设置 job counter："}
+{"item_id":"9050f49616:60","text":"tractor-dbctl"}
+{"item_id":"9050f49616:61","text":"--set-job-counter"}
+{"item_id":"9050f49616:62","text":"Start 启动适用的 engine。"}
+{"item_id":"9050f49616:63","text":"注意，这里描述的所有 tractor-dbctl commands 都需要使用 --configdir option 指定 site configuration directory。"}
+{"item_id":"9050f49616:64","text":"多个 Engines 引擎说明（Multiple Engines）"}
+{"item_id":"9050f49616:65","text":"可以同时运行不同版本的 Tractor engines，例如在部署到 production 前测试新版本。多个 engines 可以在同一 host 上运行；不过它们必须具有不同的 ports、configuration directories、data directories 和 database directories。即使 engines 不在同一 host 上运行，只要它们对上述任一 directories 使用相同的 network-sharable volumes，就可能发生 corruption。这里重要的 configuration settings 是 tractor.config 中的 TractorDataDirectory 和 db.config 中的 DBDataDir。还需要管理不同的 log files locations，以及让 blades 指向合适的 engine。"}
+{"item_id":"9050f49616:66","text":"附加信息说明（Additional Information）"}
+{"item_id":"9050f49616:67","text":"有关特定版本的 upgrade information，请参阅以下 documents。"}
+{"item_id":"9050f49616:68","text":"Upgrading from 1.x"}
+{"item_id":"9050f49616:69","text":"Upgrading to 2.1"}
+{"item_id":"9050f49616:70","text":"Upgrading to 2.2"}

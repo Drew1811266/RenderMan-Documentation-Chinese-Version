@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Checkpoints and Recovery</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Checkpoints and Recovery</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFH27/544645601/Checkpoints+and+Recovery">https://rmanwiki-27.pixar.com/space/RFH27/544645601/Checkpoints+and+Recovery</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p /><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="dc91e5fe-2a75-43d6-8900-a34f69bd06a5" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>For Rendering to Disk only. Checkpoints and recovery are ignored for interactive rendering.</p></div></div><h3 id="CheckpointsandRecovery-Recovery">Recovery</h3><p>Recovery allows us to resume/recover from the previously paused or incomplete stopped render.  To turn it on, check <strong>Recover Render</strong><span class="legacy-color-text-default"> in RenderMan RIS ROP's </span><strong>Advanced </strong><span class="legacy-color-text-default">Tab. </span></p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="900" loading="lazy" src="../../attachments/544645601/recover.PNG" data-image-src="../../attachments/544645601/recover.PNG" data-height="174" data-width="850" data-unresolved-comment-count="0" data-linked-resource-id="544645628" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="recover.PNG" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544645601" data-linked-resource-container-version="1" data-media-id="deb55507-6ec4-4529-b230-113d9ddc43c2" data-media-type="file"></span><p /><h3 id="CheckpointsandRecovery-Checkpoints">Checkpoints</h3><p>Render recovery is often used with checkpointing.  To turn it on, check <strong>Recover Render</strong><span class="legacy-color-text-default"> in RenderMan RIS ROP's </span><strong>Advanced</strong> &gt; <strong>Render </strong>Tab<span class="legacy-color-text-default">.</span></p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="900" loading="lazy" src="../../attachments/544645601/checkpoint.PNG" data-image-src="../../attachments/544645601/checkpoint.PNG" data-height="390" data-width="841" data-unresolved-comment-count="0" data-linked-resource-id="544645631" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="checkpoint.PNG" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544645601" data-linked-resource-container-version="1" data-media-id="de55c9a6-32a5-446c-99ed-21c58146eb13" data-media-type="file"></span><p /><ul><li><p>Interval - the time between checkpoint saves</p></li><li><p>Exit At - Exit the render at this time and render no more</p></li><li><p>As Final - Even if the render completes, save the data necessary to pick up the render. This will result in a larger file</p></li><li><p>Keep Files - Name and preserve all the past checkpoints instead of only the more recent one</p></li><li><p>Command - Command for the RIB file location (if one is generated)</p></li></ul><p /><p><strong>Incremental Renders</strong></p><div class="confluence-information-macro confluence-information-macro-warning conf-macro output-block" data-hasbody="true" data-macro-id="9a981336-bda8-443a-bff1-900564561122" data-macro-name="warning"><span class="aui-icon aui-icon-small aui-iconfont-error confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>Incremental renders are not recoverable without checkpointing enabled. With incremental on and checkpoints off, the buckets are not written out until the end of the render. See table below:</p></div></div><p /><p /><div class="table-wrap"><table data-table-width="1800" data-layout="default" data-local-id="5b512d38-b1a4-410e-a9d1-29a0f59cd0f7" class="confluenceTable"><tbody><tr><th class="confluenceTh"><p><strong>incremental</strong></p></th><th class="confluenceTh"><p><strong>checkpoints</strong></p></th><th class="confluenceTh"><p><strong>recoverable</strong></p></th></tr><tr><td class="confluenceTd"><p>On</p></td><td class="confluenceTd"><p>Disabled</p></td><td class="confluenceTd"><p>No</p></td></tr><tr><td class="confluenceTd"><p>On</p></td><td class="confluenceTd"><p>Enabled</p></td><td class="confluenceTd"><p>Yes</p></td></tr><tr><td class="confluenceTd"><p>Off</p></td><td class="confluenceTd"><p>Disabled</p></td><td class="confluenceTd"><p>Yes</p></td></tr><tr><td class="confluenceTd"><p>Off</p></td><td class="confluenceTd"><p>Enabled</p></td><td class="confluenceTd"><p>Yes</p></td></tr></tbody></table></div><p><em>Recoverable Render Settings</em></p><p /><p /><p><strong>Recovery and 'keepfiles'</strong></p><div class="confluence-information-macro confluence-information-macro-warning conf-macro output-block" data-hasbody="true" data-macro-id="347ed2ad-c399-44c7-9b70-56ee7b7d7316" data-macro-name="warning"><span class="aui-icon aui-icon-small aui-iconfont-error confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>Do not enable the keepfiles option for checkpointing if you want to use the recover capability.</p><p><sup>Option &quot;checkpoint&quot; &quot;uniform int keepfiles&quot; [0]</sup></p></div></div><p /><p>The keepfiles option causes prman to save a sequence of checkpoints for debugging purposes giving each checkpoint image a unique file name tagged with increment and elapsed render time. However, when attempting to recover a file, prman won't scan your directory for checkpointed files or try to choose one. It will only look for the file by the original render output name.</p><p><em> </em><br/></p>
+  </article>
+</main>
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Search Clauses</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Search Clauses</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/TRA/22184262/Search+Clauses">https://rmanwiki-27.pixar.com/space/TRA/22184262/Search+Clauses</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>Tractor search clauses are used in the <a href="22184282-Dashboard App.html" rel="nofollow">Dashboard's</a> query page, the <a href="22184266-Query Python API.html" rel="nofollow">Python query API</a>, and the <a href="22184306-tq- Tractor Query tool.html" rel="nofollow">tq command-line tool</a>. They employ a high-level syntax that simplfies the search of job and blade information from the engine. The syntax uses Pythonic conventions for boolean expressions and comparison operators; however, there are additional conveniences to reduce syntactic overhead, which will be explained below. The result is a terse search syntax that is easy to write, read, and remember.</p><p>Note that when used on the command-line, some characters my need to be escaped or the expression needs to be enclosed in quotes so as to avoid interpretation by the shell.<br/> </p><h3 id="SearchClauses-BooleanExpressions">Boolean Expressions</h3><p>Standard comparison operators, boolean terms, and parentheses are used to build the search clause.</p><p>This matches jobs with active tasks:</p><p><code>numactive &gt; 0
+</code></p><p>This matches active jobs with no errored tasks:</p><p><code>numactive &gt; 0 and numerror = 0
+</code></p><p>This matches jobs that are active or could become active, with errored tasks. These are jobs that will use up more compute time on the farm but can't completely finish due to errors:</p><p><code>(numactive &gt; 0 or numready &gt; 0) and numerror &gt; 0</code><br/><code>
+</code></p><h3 id="SearchClauses-Stand-aloneTerms">Stand-alone Terms</h3><p>Numeric attributes can be stand-alone to mean &quot;not equal to zero&quot;. Given than numactive can't be negative, the following two clauses are equivalent</p><p><code>numactive &gt; 0 and numerror = 0
+numactive and not numerror</code><br/><sup>
+</sup></p><h3 id="SearchClauses-StringMatching">String Matching</h3><p>String attributes can be matched for equality. The following matches all jobs owned by adamwg:</p><p><code>owner=&quot;adamwg&quot;
+</code></p><p>String attributes can also be matched with regular expressions using like. The following matches jobs with candy in the title:</p><p><code>title like &quot;candy&quot;
+</code></p><p>The following matches jobs with RHEL followed by an integer:</p><p><code>title like &quot;RHEL\d+&quot;</code><br/><code>
+</code></p><h3 id="SearchClauses-OptionalQuotes">Optional Quotes</h3><p>Quotes are not required for single-word literals that do not conflict with attribute names or aliases.</p><p>For example, the following clauses matches jobs owned by adamwg:</p><p><code>owner=&quot;adamwg&quot;
+owner=adamwg
+</code></p><p>The following clause uses quotes because Smith Tower is a multi-word literal:</p><p><code>title=&quot;Smith Tower&quot;
+</code></p><p>The following clause uses quotes in order to find jobs with the literal owner in its title. Without quotes, jobs with its actual owner in its title would be found because owner is an attribute of a job.</p><p><code>title like &quot;owner&quot;</code><sup>
+</sup></p><p>Double quotes are not required in this clause because adamwg is not an attribute of a Tractor entity.</p><p><code>title like adamwg</code><br/><sup>
+</sup></p><h3 id="SearchClauses-ListMatching">List Matching</h3><p>The in operator can be used to seach fields that store a list of values. The following matches jobs with prman in its tags:</p><p><code>prman in tags
+</code></p><p>List matching can be used to simplify certain queries. The following clauses match jobs owned by tom, dick, or harry:</p><p><code>owner=tom or owner=dick or owner=harry
+owner in [tom dick harry]</code><sup>
+</sup></p><p>The has operator can be used to search arrays for multiple values. The following two clauses matches jobs with prman and linux in their keys:</p><p><code>prman in tags and linux in tags
+tags has [prman linux]</code><br/><sup>
+</sup></p><h3 id="SearchClauses-Aliases">Aliases</h3><p>Certain commonly typed arguments can be replaced with aliases. There are four kinds of aliases supported by tq: <em>attribute</em>, <em>search</em>,<em>argument</em>, and <em>command</em> aliases.</p><p>Attribute aliases are merely alternative names for an attribute. For example, file can be used in lieu of a job's spoolfile, or user can be used instead of owner. These aliases can be used in search clauses and in lists specifying column names or sort order. The following search clauses are equivalent:</p><p><code>owner in [adamwg dml]
+user in [adamwg dml]</code><sup>
+</sup></p><p>Search aliases represent a substitution for a boolean expression, and can be combined with other clauses and aliases. For example, when searching for jobs, active means numactive &gt; 0. The following search clauses are equivalent:</p><p><code>numactive &gt; 0 and error=0
+active and not error</code><sup>
+</sup></p><p>Clause aliases can change meaning depending on which command is used. To contrast with the above example, when searching for tasks, active means state=active.</p><p>Argument and command aliases are beyond the scope of this document concerning the search clause syntax; however it can be stated that such aliases include a search clause as a part of their definition.</p><p>All known aliases can be listed on the command line using:</p><p><code>% tq aliases</code><br/><sup>
+</sup></p><h3 id="SearchClauses-AffiliatedEntities">Affiliated Entities</h3><p>Sometimes a search involves attributes of related entities. For example, the following clause matches tasks that are active:</p><p><code>state=active</code><sup>
+</sup></p><p>But one may be interested in active tasks of jobs of a certain owner. The following clause matches tasks of jobs owned by adamwg:</p><p><code>state=active and owner=adamwg</code><sup>
+</sup></p><p>The system will automatically determine that the owner attribute is associated with the job. However, if two entities have the same attribute name, it will be necessary to qualify attributes with their entity.</p><p>For example, the following clause matches active tasks with &quot;render&quot; in the task title:</p><p><code>state=active and title like render</code><sup>
+</sup></p><p>While the following clause matchs active tasks with &quot;render&quot; in the job title:</p><p><code>state=active and Job.title like render</code><br/><code>
+</code></p><h3 id="SearchClauses-TimeComparisons">Time Comparisons</h3><p>Several shortcuts exist for comparing database fields that represent time or elapsed seconds. Below is a breakdown of acceptable formats.</p><p><sup>10am        - 10am on the current day
+5pm         - 5pm on the current day
+11:37       - 11:37am on the current day
+16:21       - 4:21pm on the current day
+4:21pm      - same thing
+3/15        - midnight on March 15 of the year closest to the current date
+3/15|4pm    - 4pm on March 15 of the year closest to the current date
+3/15.4pm    - 4pm on March 15 of the year closest to the current date
+3/15|17:37  - 5:37pm on March 15 of the year closest to the current date
+3/15/05     - midnight on March 15, 2005
+3/15/05|4am - 4am on March 15, 2005
+-1s         - 1 seconds ago
+-1m         - 1 minutes ago
+-1h         - 1 hours ago
+-1d         - 1 day ago
+-1w         - 1 week ago
+</sup></p><p>The following matches all jobs spooled after January 6, 2014:</p><p><code>spooltime &gt; 1/6/14
+</code></p><p>The following matches all tasks started in the past hour:</p><p><code>starttime &gt; -1h
+</code></p><p>The following matches all blades that haven't registered with the engine since 9am this morning:</p><p><code>heartbeattime &lt; 9am</code><br/><code>
+</code></p><h3 id="SearchClauses-Units">Units</h3><p>The syntax supports different units for time and space related attributes.</p><p>For example, the following matches invocations that ran with a wall clock time of over 1 hour:</p><p><sup>elapsedreal &gt; 3600
+elapsedreal &gt; 3600s
+elapsedreal &gt; 60m
+elapsedreal &gt; 1h
+</sup></p><p>The following matches blades with less that 1G of available memory:</p><p><sup>availmemory &lt; 1
+availmemory &lt; 1G
+availmemory &lt; 1024M
+availmemory &lt; 1048576K
+</sup></p>
+  </article>
+</main>
+</body>
+</html>

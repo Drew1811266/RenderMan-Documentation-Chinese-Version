@@ -1,0 +1,6 @@
+{"item_id":"ef4a94f6c6:0","text":"交互性优化（Interactivity Optimizations）"}
+{"item_id":"ef4a94f6c6:1","text":"让这 2 亿多枚 coins 以快速且优化的方式 render 出来极其重要；更关键的是，高效解析 scene 对 interactivity 至关重要。使用 instancing 来实现这一点确实帮助我们守住 deadline，因为 first pixel 从 2 小时缩短到只有 5 分钟，对一台朴素的 single node render machine 来说差别巨大。"}
+{"item_id":"ef4a94f6c6:2","text":"Houdini 非常适合用来 scatter 大量 gold coins 和 treasure。我从一个简单的 for-each loop 开始，用它变化 gold coins、cups、swords、helmets 等的 shapes。利用一些 height-field scatter 技巧，我成功创建了 underlying terrain geometry，并且同样给它应用 gold shader……欢迎来到 CGI，这里的一切都在于巧妙伪装！"}
+{"item_id":"ef4a94f6c6:3","text":"到这个阶段，我的直觉是 export 一个 single USD file；它在磁盘上的 footprint 小得令人惊讶（甚至可以说让人满意）。遗憾的是，这个 workflow 最终好得不真实，因为它会独立加载每一件 treasure……乘以 1.5 亿次。"}
+{"item_id":"ef4a94f6c6:4","text":"这个意外结果让我去请教一些专家，看看我是不是漏掉了某个 optimization step。Nemanja Stavric（一位亲爱的朋友兼同事）给了我一个思路：把它们组合起来，也就是 instance 更大的 treasure clumps，而不是 instance 单个 pieces。"}
+{"item_id":"ef4a94f6c6:5","text":"这个方案帮助我降低了 first pixel times，代价是 memory usage 略有增加。"}

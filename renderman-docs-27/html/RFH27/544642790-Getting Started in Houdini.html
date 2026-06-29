@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Getting Started in Houdini</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Getting Started in Houdini</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFH27/544642790/Getting+Started+in+Houdini">https://rmanwiki-27.pixar.com/space/RFH27/544642790/Getting+Started+in+Houdini</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="toc-macro client-side-toc-macro  conf-macro output-block" data-hasbody="false" data-headerelements="H1,H2,H3,H4,H5,H6,H7" data-layout="default" data-local-id="14113631-dd45-4005-b817-2eeb0c0d24ce" data-macro-id="1044894f-0fa2-4f18-829c-faa327954f95" data-macro-name="toc"> </div><p><br/></p><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="9b82b813-35ef-492b-b2e8-0e16e6d50b51" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>Please note that different versions of Houdini have different workflows, please be sure and follow the directions for your version.</p></div></div><h3 id="GettingStartedinHoudini-AddingaLight"><br/>Adding a Light</h3><p>To add a light, select one of the light tools from the <a href="544643009-RenderMan Shelf.html" rel="nofollow">RenderMan Shelf</a> or the <a href="544643524-RenderMan Menu.html" rel="nofollow">RenderMan Menu</a> which automatically creates a Pxr light OBJ. </p><p>See <a href="544644982-Lighting in Houdini.html" rel="nofollow">Lighting in Houdini</a> for more information.</p><hr/><p><br/></p><h3 id="GettingStartedinHoudini-AddingaMaterial">Adding a Material</h3><p>To add a material, we need to first create a shading Network.  Note that RIS material is<strong> not a SHOP</strong> but it is a <strong>VOP</strong> inside a<strong> RIS Network</strong>.</p><p>A PxrMaterialBuilder is just a container for RIS VOPs.  It is required for Houdini to work with RIS materials. <br/><br/> <em>Important</em>: A material is represented by a PxrMaterialBuilder VOP with a BxDF output_collect VOP input.</p><p>To add a material, you can add a PxrSurface from the <a href="544643009-RenderMan Shelf.html" rel="nofollow">RenderMan Shelf</a>, which automatically creates the nodes, or select another BxDF from the <a href="544643524-RenderMan Menu.html" rel="nofollow">RenderMan Menu</a> to wire into the output_collect VOP inside of a PxrMaterialBuilder.</p><p>These tools also automatically create a RIS Network if it does not exist as well as the selected VOP.</p><span class="confluence-embedded-file-wrapper image-left-wrapper"><img class="confluence-embedded-image image-left" loading="lazy" src="../../attachments/544642790/RenderMan_Houdini_MaterialBuilder.jpg" data-image-src="../../attachments/544642790/RenderMan_Houdini_MaterialBuilder.jpg" data-height="487" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="544642818" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Houdini_MaterialBuilder.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544642790" data-linked-resource-container-version="1" data-media-id="7577911f-5740-44d9-a10e-466e5db26e95" data-media-type="file"></span><span class="confluence-embedded-file-wrapper image-left-wrapper"><img class="confluence-embedded-image image-left" loading="lazy" src="../../attachments/544642790/RenderMan_Houdini_PxrSurface_Material.JPG" data-image-src="../../attachments/544642790/RenderMan_Houdini_PxrSurface_Material.JPG" data-height="498" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="544642815" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Houdini_PxrSurface_Material.JPG" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544642790" data-linked-resource-container-version="1" data-media-id="54aba3c5-4070-4633-b382-dd2695180877" data-media-type="file"></span><p><br/></p><hr/><h3 id="GettingStartedinHoudini-AssigningaMaterial">Assigning a Material</h3><p>To assign the material to your object, simply drag the PxrMaterialBuilder VOP you just created to the Material parameter of your object.</p><span class="confluence-embedded-file-wrapper image-left-wrapper"><img class="confluence-embedded-image image-left" loading="lazy" src="../../attachments/544642790/RenderMan_Houdini_PxrSurface_Assign.jpg" data-image-src="../../attachments/544642790/RenderMan_Houdini_PxrSurface_Assign.jpg" data-height="488" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="544642812" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Houdini_PxrSurface_Assign.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544642790" data-linked-resource-container-version="1" data-media-id="2fe113b3-8cdf-4071-b7bb-981fc83d749d" data-media-type="file"></span><p><br/></p><hr/><h3 id="GettingStartedinHoudini-Render">Render</h3><p>To render, add a RenderMan ROP from the <a href="544643009-RenderMan Shelf.html" rel="nofollow">RenderMan Shelf</a>. </p><p>If you want to render using Stylized Looks, then you'll need to add a Stylized Looks ROP from the RenderMan shelf.</p><p>This tool also creates a RIS Network and sets the integrator to <a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661775" rel="nofollow">PxrPathTracer</a>.</p><p>Make sure the Camera parameter is set to the render camera (you must create one in Houdini as the default cannot be used), then press the Render button to see your render interactively in the Image Tool.<br/><br/>See <a href="544645281-Rendering in Houdini.html" rel="nofollow">Rendering in Houdini</a> for more information.</p>
+  </article>
+</main>
+</body>
+</html>

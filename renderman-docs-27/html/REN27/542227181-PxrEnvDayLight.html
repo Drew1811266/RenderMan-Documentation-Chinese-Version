@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PxrEnvDayLight</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>PxrEnvDayLight</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/REN27/542227181/PxrEnvDayLight">https://rmanwiki-27.pixar.com/space/REN27/542227181/PxrEnvDayLight</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="contentLayout2"><style>[data-colorid=qon4wz5bsa]{color:#3e3f40} html[data-color-mode=dark] [data-colorid=qon4wz5bsa]{color:#bfc0c1}[data-colorid=yr1mwbxbq2]{color:#3e3f40} html[data-color-mode=dark] [data-colorid=yr1mwbxbq2]{color:#bfc0c1}[data-colorid=fhz7xwmy2j]{color:#3e3f40} html[data-color-mode=dark] [data-colorid=fhz7xwmy2j]{color:#bfc0c1}[data-colorid=yum2p9whrt]{color:#3e3f40} html[data-color-mode=dark] [data-colorid=yum2p9whrt]{color:#bfc0c1}[data-colorid=oesho7rklz]{color:#3e3f40} html[data-color-mode=dark] [data-colorid=oesho7rklz]{color:#bfc0c1}[data-colorid=t86nyifdfe]{color:#3e3f40} html[data-color-mode=dark] [data-colorid=t86nyifdfe]{color:#bfc0c1}[data-colorid=wjtuqtump5]{color:#3e3f40} html[data-color-mode=dark] [data-colorid=wjtuqtump5]{color:#bfc0c1}[data-colorid=s6w19tc486]{color:#3e3f40} html[data-color-mode=dark] [data-colorid=s6w19tc486]{color:#bfc0c1}[data-colorid=b2icbnq9d9]{color:#3e3f40} html[data-color-mode=dark] [data-colorid=b2icbnq9d9]{color:#bfc0c1}[data-colorid=z2zhhkmwyo]{color:#3e3f40} html[data-color-mode=dark] [data-colorid=z2zhhkmwyo]{color:#bfc0c1}[data-colorid=vqws4l4iw6]{color:#3e3f40} html[data-color-mode=dark] [data-colorid=vqws4l4iw6]{color:#bfc0c1}[data-colorid=vxqviiprh6]{color:#3e3f40} html[data-color-mode=dark] [data-colorid=vxqviiprh6]{color:#bfc0c1}[data-colorid=h3p4jyg79l]{color:#3e3f40} html[data-color-mode=dark] [data-colorid=h3p4jyg79l]{color:#bfc0c1}[data-colorid=c3zzgtdzt2]{color:#3e3f40} html[data-color-mode=dark] [data-colorid=c3zzgtdzt2]{color:#bfc0c1}[data-colorid=x7y0dy9igd]{color:#3e3f40} html[data-color-mode=dark] [data-colorid=x7y0dy9igd]{color:#bfc0c1}[data-colorid=k2qf4dxgm7]{color:#3e3f40} html[data-color-mode=dark] [data-colorid=k2qf4dxgm7]{color:#bfc0c1}[data-colorid=ibl3ez5qad]{color:#3e3f40} html[data-color-mode=dark] [data-colorid=ibl3ez5qad]{color:#bfc0c1}[data-colorid=nuo460418x]{color:#3e3f40} html[data-color-mode=dark] [data-colorid=nuo460418x]{color:#bfc0c1}[data-colorid=ybst4384kw]{color:#3e3f40} html[data-color-mode=dark] [data-colorid=ybst4384kw]{color:#bfc0c1}[data-colorid=k3k2zu9ty1]{color:#3e3f40} html[data-color-mode=dark] [data-colorid=k3k2zu9ty1]{color:#bfc0c1}[data-colorid=ky41t2ktzq]{color:#3e3f40} html[data-color-mode=dark] [data-colorid=ky41t2ktzq]{color:#bfc0c1}[data-colorid=plruj9l8y8]{color:#3e3f40} html[data-color-mode=dark] [data-colorid=plruj9l8y8]{color:#bfc0c1}</style>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p>Daylight simulations are useful when you want a quick and easy setup for exterior lighting or maybe some look development time but you don't have an HDRI for the&nbsp;<a href="/wiki/spaces/REN27/pages/542226975/PxrDomeLight" data-linked-resource-id="542226975" data-linked-resource-version="1" data-linked-resource-type="page">PxrDomeLight</a>&nbsp;available. The simplicity and realism make this light a favorite for artists.</p><p>An environment light that uses a simple physical model for terrestrial daylight under clear or hazy skies. The sky model is based on&nbsp;<a class="external-link" href="https://dl.acm.org/doi/10.1145/311535.311545" rel="nofollow">A Practical Analytic Model for Daylight</a>&nbsp;by A.J. Preetham, Peter Shirley, and Brian Smits. The solar disk model is adapted from H.C. Hottel's&nbsp;<em>A Simple Model for Estimating the Transmittance of Direct Solar Radiation Through Clear Atmospheres</em>, with parameters curve fitted for turbidity from physical data and a simple limb darkening model.</p><p><br /></p><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="12cfb68d-a2d6-4fc6-8355-d1e6f2f313f7" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>You will see mention of &quot;non-physical&quot; controls. These controls are designed to help artists make art-directed imagery by ignoring certain laws of physics we usually simulate.</p></div></div><p><br /></p><h3 id="PxrEnvDayLight-Parameters">Parameters</h3><p><br /></p><p><strong>Intensity</strong></p><p>Scales the contribution of this light linearly.</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_intensity05.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_intensity05.jpg" data-image-src="../../attachments/542227181/pxrDayLght_intensity05.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227332" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_intensity05.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="79c1a2b7-8eb4-4088-bb3f-71accd7219e0" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_intensity10.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_intensity10.jpg" data-image-src="../../attachments/542227181/pxrDayLght_intensity10.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227329" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_intensity10.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="10cdec72-ab1f-427c-aaa9-fbe29fee7186" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_intensity20.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_intensity20.jpg" data-image-src="../../attachments/542227181/pxrDayLght_intensity20.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227326" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_intensity20.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="c2526b65-db32-48c6-b0d1-67b8f85e63ab" data-media-type="file" /></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><br /></p><p><br /></p><p><strong>Exposure</strong></p><p><span data-colorid="h3p4jyg79l">Specifies the exposure of the area light as a power of 2. Increasing the exposure by 1 will double the energy emitted by the light source. A value of&nbsp;0&nbsp;produces an intensity of 1 at the source, -1 produces 0.5. You may wonder why you might use&nbsp;</span> <strong>Exposure</strong> <span data-colorid="oesho7rklz">, and the answer is that real world lighting has high energies and typical exposures are low values while you may have to type a really large number for equivalent&nbsp;</span> <strong>Intensity</strong> <span data-colorid="c3zzgtdzt2">. This is also comfortable to artists familiar with photographic measurements.</span></p><p><span data-colorid="z2zhhkmwyo"> </span></p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_exposure00.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_exposure00.jpg" data-image-src="../../attachments/542227181/pxrDayLght_exposure00.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227323" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_exposure00.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="8c5d8c0d-751f-4bd4-9b28-8ca45dbe6f38" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_exposure10.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_exposure10.jpg" data-image-src="../../attachments/542227181/pxrDayLght_exposure10.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227320" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_exposure10.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="297ae7c2-b5f1-4f07-8fa0-356606ae1015" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_exposureNeg1.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_exposureNeg1.jpg" data-image-src="../../attachments/542227181/pxrDayLght_exposureNeg1.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227317" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_exposureNeg1.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="534244d4-31c2-48ff-b304-11d964ab9f95" data-media-type="file" /></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><br /></p><p><strong>Direction</strong></p><p>The&nbsp;<em>apparent</em>&nbsp;direction towards the center of the sun. The zenith is at +Y (for noon light) and the horizon is in the XZ plane (for sunrise/sunset). Note that the Y component must non-negative. Ignored if a month is given. In some DCC applications, like Maya for example, you can manually alter the Sun direction using a manipulator in the viewport (press 't' with the Daylight icon selected in the viewport.)</p><p><br /></p><p><strong>Haziness</strong></p><p>The turbidity of the sky. The lower limit of the model is 1.7 for an exceptionally clear sky, and 10, for an inversion, is the upper limit.</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_haziness100.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_haziness100.jpg" data-image-src="../../attachments/542227181/pxrDayLght_haziness100.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227311" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_haziness100.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="17297743-8d7e-4164-9f44-dfd94614e49e" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_haziness17.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_haziness17.jpg" data-image-src="../../attachments/542227181/pxrDayLght_haziness17.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227314" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_haziness17.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="b7c41206-021b-4336-b9a3-c9179e0c96cf" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_haziness50.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_haziness50.jpg" data-image-src="../../attachments/542227181/pxrDayLght_haziness50.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227308" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_haziness50.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="3932282b-2adc-44e3-9fe8-91f950205072" data-media-type="file" /></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><br /></p><p><strong>Sky Tint</strong></p><p>Tweak the sky's contribution and color. The default, white, gives results based on measured physical values. You may be able to create some interesting alien skies this way. Setting this to black removes the sky contribution shown in the first image.</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_skyTintBlack.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_skyTintBlack.jpg" data-image-src="../../attachments/542227181/pxrDayLght_skyTintBlack.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227305" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_skyTintBlack.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="b94c48a3-8226-4eff-a307-e0ee8e1062a6" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_skyTintGreen.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_skyTintGreen.jpg" data-image-src="../../attachments/542227181/pxrDayLght_skyTintGreen.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227302" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_skyTintGreen.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="e9575d87-f738-43b3-a0c2-e27437a9eec2" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_skyTintRed.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_skyTintRed.jpg" data-image-src="../../attachments/542227181/pxrDayLght_skyTintRed.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227299" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_skyTintRed.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="bee51915-8071-40a9-b9fe-0430098dc743" data-media-type="file" /></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><br /></p><p><strong>Sun Tint</strong></p><p>Tweak the sun's contribution and color. The default, white, gives results based on measured physical values. Setting this to black removes the sun contribution like the first image (in case you want to create your own).</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_sunTintBlack.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_sunTintBlack.jpg" data-image-src="../../attachments/542227181/pxrDayLght_sunTintBlack.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227296" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_sunTintBlack.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="b073eaa1-5626-4d13-885c-f4d5fa3d64ab" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_sunTintBlue.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_sunTintBlue.jpg" data-image-src="../../attachments/542227181/pxrDayLght_sunTintBlue.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227293" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_sunTintBlue.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="7af78242-7630-4e9b-8a27-4e92d5d7be88" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_sunTintRed.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_sunTintRed.jpg" data-image-src="../../attachments/542227181/pxrDayLght_sunTintRed.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227290" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_sunTintRed.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="6ba6825f-70bf-4d60-98a7-5bcce3943310" data-media-type="file" /></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><br /></p><p><strong>Sun Size</strong></p><p>Scale the apparent size of the sun in the sky. Leave at 1 for a realistic sun size with an 0.55 degree angular diameter. At 0.1 you'll barely notice that the sun's contribution has decreased. Notice that at 80.0 we have a very large sun in the sky that casts softer shadows since the light size has increased diameter.</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_sunSize01.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_sunSize01.jpg" data-image-src="../../attachments/542227181/pxrDayLght_sunSize01.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227287" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_sunSize01.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="eeffb520-344b-4f62-8ea3-aa25b8e26954" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_sunSize10.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_sunSize10.jpg" data-image-src="../../attachments/542227181/pxrDayLght_sunSize10.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227284" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_sunSize10.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="402b8c47-9702-4714-aff0-4bbc5ebb9e1f" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_sunSize80.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_sunSize80.jpg" data-image-src="../../attachments/542227181/pxrDayLght_sunSize80.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227281" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_sunSize80.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="12bed9e3-e335-402e-82b0-e97abd9c22c0" data-media-type="file" /></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><br /></p><p><strong>Ground Mode</strong></p><p>This menu allows the user to change the appearance and effect of the virtual ground plane. The Legacy Mode operates as always. Horizon Clamping provides a better simulation of the virtual ground mode with a blurred horizon. Diffuse Ground allows the user to color an infinite virtual ground plane.</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_groundClamped.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_groundClamped.jpg" data-image-src="../../attachments/542227181/pxrDayLght_groundClamped.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227278" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_groundClamped.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="dad0a035-5eaa-4574-9b67-cae1ae995d3c" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_groundColorMagenta.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_groundColorMagenta.jpg" data-image-src="../../attachments/542227181/pxrDayLght_groundColorMagenta.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227275" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_groundColorMagenta.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="19b315ea-8223-49e8-bb91-53254ae3d249" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_groundLegacy.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_groundLegacy.jpg" data-image-src="../../attachments/542227181/pxrDayLght_groundLegacy.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227272" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_groundLegacy.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="61d2bec9-d469-4adb-ba98-ef8237a6946e" data-media-type="file" /></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><br /></p><p><strong>Ground Color</strong></p><p>Use this color as the rendered ground color. This is not texturable and does not accept shadows.</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_groundColorBrown.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_groundColorBrown.jpg" data-image-src="../../attachments/542227181/pxrDayLght_groundColorBrown.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227269" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_groundColorBrown.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="14b70fae-2029-492b-8d91-d6a4f04aa4ea" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_groundColorGreen.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_groundColorGreen.jpg" data-image-src="../../attachments/542227181/pxrDayLght_groundColorGreen.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227266" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_groundColorGreen.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="1d6febbd-9965-4c67-927b-538572d459fc" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_groundColorMagenta2.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_groundColorMagenta2.jpg" data-image-src="../../attachments/542227181/pxrDayLght_groundColorMagenta2.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227197" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_groundColorMagenta2.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="c465e0e2-6257-4243-ad4b-6c2f7ec3c1b6" data-media-type="file" /></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><br /></p><p><strong>Month</strong></p><p>Month of the year, 1 through 12. The default, <em>use direction</em>, means to use the explicitly given sun direction instead of automatically computing it.</p><p><br /></p><p><strong>Day</strong></p><p>Day of the month, 1 through 31. This is ignored if the month is set to <em>use direction</em>.</p><p><br /></p><p><strong>Year</strong></p><p>Four digit year. This is ignored if the month is set to <em>use direction</em>.</p><p><br /></p><p><strong>Hour</strong></p><p>Hours since midnight, local standard time. May be fractional to include minutes and seconds. If daylight saving time is in effect, subtract 1 to correct to standard time. This is ignored if the month is set to <em>use direction</em>.</p><p><br /></p><p><strong>Zone</strong></p><p>Standard time zone offset from GMT/UTC in hours. Positive for east, negative for west. For example, this would be -8 for Pacific time.&nbsp; This is ignored if the month is set to <em>use direction</em>.</p><p><br /></p><p><strong>Latitude</strong></p><p>Latitude in degrees. Positive for north, negative for south. Ranges from -90 to +90 degrees. This is ignored if the month is set to <em>use direction</em>.</p><p><br /></p><p><strong>Longitude</strong></p><p>Longitude in degrees. Positive for east, negative for west. Ranges from -180 to 180 degrees. This is ignored if the month is set to <em>use direction</em>.</p><p><br /></p><p><br /></p><hr /><h4 id="PxrEnvDayLight-Refine">Refine</h4><p><br /></p><p><strong>Specular Amount</strong></p><p>Amount of specular light that is emitted.&nbsp;This is a non-physical control. You could use a light with Specular Amount 0.0 to act purely as a source of diffuse light for your scene objects and avoid adding highlights.</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_specAmount0.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_specAmount0.jpg" data-image-src="../../attachments/542227181/pxrDayLght_specAmount0.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227260" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_specAmount0.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="46f05fdf-2421-4543-8e93-d5b6446af402" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_specAmount015.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_specAmount015.jpg" data-image-src="../../attachments/542227181/pxrDayLght_specAmount015.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227254" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_specAmount015.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="5028d842-065d-4c9c-a040-213264e5b138" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_specAmount10.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_specAmount10.jpg" data-image-src="../../attachments/542227181/pxrDayLght_specAmount10.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227257" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_specAmount10.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="f5db7463-b3d0-421e-907f-821d9545b64a" data-media-type="file" /></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><br /></p><p><strong>Diffuse Amount</strong></p><p>Amount of diffuse light that is emitted. This is a non-physical control. You could use a light with Diffuse Amount 0.0 to act purely as a source of highlights for your scene objects.</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_diffAmount00.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_diffAmount00.jpg" data-image-src="../../attachments/542227181/pxrDayLght_diffAmount00.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227251" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_diffAmount00.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="c0283fed-4f9f-4d6e-a0e0-175b8f1af63d" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_diffAmount015.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_diffAmount015.jpg" data-image-src="../../attachments/542227181/pxrDayLght_diffAmount015.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227245" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_diffAmount015.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="61f9d88b-4fea-47f9-b344-7c7801a4ea8b" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_diffAmount10.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_diffAmount10.jpg" data-image-src="../../attachments/542227181/pxrDayLght_diffAmount10.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227248" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_diffAmount10.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="c0b7a102-c9a5-4751-be28-b4502b69d919" data-media-type="file" /></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><br /></p><hr /><h4 id="PxrEnvDayLight-Shadows">Shadows</h4><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="7cbd82f1-65de-4361-8768-98d54e231d0f" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p><span data-colorid="fhz7xwmy2j">All shadow parameters will be ignored if the light's&nbsp;</span> <strong>Trace Light Paths</strong> <span data-colorid="ybst4384kw">&nbsp;is enabled in Advanced. The below options are all non-physical controls when used out of their default state. If&nbsp;</span> <strong>Trace Light Paths</strong> <span data-colorid="qon4wz5bsa">&nbsp;is enabled then their physical nature is enforced.</span></p></div></div><p><br /></p><p><strong>Enable Shadows</strong></p><p><span data-colorid="x7y0dy9igd">Enable raytraced shadows. Below is on (default) and off.</span></p><p /></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_shadOff.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_shadOff.jpg" data-image-src="../../attachments/542227181/pxrDayLght_shadOff.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227242" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_shadOff.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="8058faf0-1751-42af-b088-b7d28baa48ad" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_shadOn.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_shadOn.jpg" data-image-src="../../attachments/542227181/pxrDayLght_shadOn.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227239" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_shadOn.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="64b1afca-4155-4957-ae77-c48ff2ba4006" data-media-type="file" /></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><br /></p><p><strong>Shadow Color</strong></p><p><span data-colorid="b2icbnq9d9">The color of the shadows cast by emitted light.</span></p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_shadColorAqua.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_shadColorAqua.jpg" data-image-src="../../attachments/542227181/pxrDayLght_shadColorAqua.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227236" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_shadColorAqua.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="524279b8-183f-4e56-a634-ade462bfe8a6" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_shadColorGreen.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_shadColorGreen.jpg" data-image-src="../../attachments/542227181/pxrDayLght_shadColorGreen.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227233" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_shadColorGreen.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="dc6df3b7-60d7-4459-94c0-3cab669e471b" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_shadColorRed.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_shadColorRed.jpg" data-image-src="../../attachments/542227181/pxrDayLght_shadColorRed.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227230" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_shadColorRed.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="d7ff3a66-4544-4b90-a14b-c905f8350c5e" data-media-type="file" /></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><span class="legacy-color-text-inverse">.0 0.0 0.0</span></p><p><strong>Shadow Max Distance</strong></p><p><span data-colorid="k3k2zu9ty1">The maximum distance of the shadow starting from the position of the point being shaded. -1.0 is unset which will use the distance between the point being shaded and the point on the light. You may use this control to artificially reduce the distance shadows are cast. This may also increase render speed by not calculating shadows outside this distance. Here it's used to remove the shadow off the back wall from the sunlight.</span></p><p /></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_shadDist125.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_shadDist125.jpg" data-image-src="../../attachments/542227181/pxrDayLght_shadDist125.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227227" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_shadDist125.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="9a60bbaa-832b-4281-b9b0-feb773125f47" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_shadDistNeg1.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_shadDistNeg1.jpg" data-image-src="../../attachments/542227181/pxrDayLght_shadDistNeg1.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227224" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_shadDistNeg1.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="b7e0d7aa-704e-422e-8701-b6f7640da844" data-media-type="file" /></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><br /></p><p><strong>Shadow Falloff</strong></p><p><span data-colorid="vxqviiprh6">The distance from the light at which shadow falloff begins. -1.0 turns off shadow falloff. This is used along with&nbsp;</span> <strong>Shadow Max Distance</strong> <span data-colorid="ibl3ez5qad">&nbsp;to create a false fade for shadows that are reduced or cut off by the&nbsp;</span> <strong>Shadow Max Distance</strong> <span data-colorid="k2qf4dxgm7">&nbsp;parameter. Below is an example with both parameters being used and the falloff is increased. &nbsp;Note this parameter may impact performance on complex lighting setups.</span></p><p><span data-colorid="s6w19tc486"> </span></p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_shadFalloff025.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_shadFalloff025.jpg" data-image-src="../../attachments/542227181/pxrDayLght_shadFalloff025.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227221" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_shadFalloff025.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="c3340571-5ae8-4d4e-84a2-76b121345bdc" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_shadFalloff10.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_shadFalloff10.jpg" data-image-src="../../attachments/542227181/pxrDayLght_shadFalloff10.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227218" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_shadFalloff10.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="bcd690c8-e51e-41c0-8b3f-26e83b0394f0" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_shadFalloffOff.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_shadFalloffOff.jpg" data-image-src="../../attachments/542227181/pxrDayLght_shadFalloffOff.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227215" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_shadFalloffOff.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="652aa304-59ea-4970-8ca6-d7ab830ac504" data-media-type="file" /></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><br /></p><p><strong>Shadow Falloff Gamma</strong></p><p><span data-colorid="t86nyifdfe">The gamma of the shadow strength in the falloff zone. This requires the use of&nbsp;</span> <strong>Shadow Max Distance&nbsp;</strong> <span data-colorid="plruj9l8y8">and</span> <strong>&nbsp;Shadow Falloff</strong> <span data-colorid="ky41t2ktzq">.</span></p><p /></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_shadFalloffGamma10.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_shadFalloffGamma10.jpg" data-image-src="../../attachments/542227181/pxrDayLght_shadFalloffGamma10.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227212" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_shadFalloffGamma10.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="ac92f727-5106-405a-ae5a-85ad0be81eaf" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_shadFalloffGamma025.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_shadFalloffGamma025.jpg" data-image-src="../../attachments/542227181/pxrDayLght_shadFalloffGamma025.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227209" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_shadFalloffGamma025.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="d597d3d4-19b9-46ad-80a2-adf08d424c42" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_shadFalloffGamma05.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_shadFalloffGamma05.jpg" data-image-src="../../attachments/542227181/pxrDayLght_shadFalloffGamma05.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227206" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_shadFalloffGamma05.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="ddc3626f-e8c7-4d2c-bd33-61ee1bbfc817" data-media-type="file" /></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><br /></p><p><strong>Trace Subset</strong></p><p>Set of geometry to consider for traced shadow intersection. If this is not specified, all geometry are considered for traced shadow intersection.</p><p><br /></p><p><strong>Don't Trace Subset</strong></p><p>Set of geometry to ignore for traced shadow intersection. If this is not specified, all geometry is used for traced shadow intersection.</p><p><br /></p><p><br /></p><hr /><h4 id="PxrEnvDayLight-Advanced">Advanced</h4><p><br /></p><p><strong>Trace Light Paths</strong></p><p><span data-colorid="wjtuqtump5">Enable light and photon tracing from this light. This value enforces a physically-based light and as a side-effect disables the above&nbsp;</span> <strong>Shadows</strong> <span data-colorid="nuo460418x">&nbsp;controls. Users may use this feature to selectively decide which lights emit photons when using the PxrVCM or PxrUPBP Integrators.</span></p><p><br /></p><p><strong>Thin Shadow</strong></p><p><span data-colorid="yr1mwbxbq2">Enable thin shadow and disable refraction caustics for this light. This parameter will ignored if&nbsp;</span> <strong>Trace Light Paths</strong> <span data-colorid="yum2p9whrt">&nbsp;is enabled. This is a non-physical control that creates &quot;fake&quot; colored shadows for transmissive objects without needing to generate photons for caustics. Below we go from On (default) to Off (opaque shadowing). Notice we lose the colored shadows and interior colored reflection choosing Off, but we gain some render speed instead.</span></p><p><span data-colorid="vqws4l4iw6"> </span></p></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_thinShadOff.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_thinShadOff.jpg" data-image-src="../../attachments/542227181/pxrDayLght_thinShadOff.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227203" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_thinShadOff.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="ce22a205-9f38-47b2-9791-84fd074bbf79" data-media-type="file" /></span><p /></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_thinShadOn.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_thinShadOn.jpg" data-image-src="../../attachments/542227181/pxrDayLght_thinShadOn.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227200" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_thinShadOn.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="c8169942-dff3-4c75-ae8e-b2809f591e3d" data-media-type="file" /></span><p /></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><br /></p><p><strong>Visible in Refraction</strong></p><p>Make a light visible through transmission effects like glass and windows by turning this on.</p><p><br /></p><p><strong>Manifold Walk</strong></p><p>Used with the PxrUnified Integrator and enabling&nbsp;<strong>Enable Manifold Walk</strong>&nbsp;to create inexpensive caustics. Note: You must disable Thin Shadows</p><p><br /></p><p><strong>Manifold Walk Exclude Group</strong></p><p>Used with the PxrUnified Integrator and enabling&nbsp;<strong>Enable Manifold Walk,&nbsp;</strong>this trace set is ignored during manifold exploration to avoid stopping or shadowing manifold exploration rays</p><p><br /></p><p><strong>Light Samples</strong></p><p>Specifies an override of the number of light samples to be taken for this light source. If set to something other than zero, it will override the sampling performed by the integrator. You might find need for this if you have unsolvable noise from this light and need more samples.</p><p><br /></p><p><strong>Light Group</strong></p><p>Specify the light group name used for light group LPEs. This is useful to generate per-light AOVs for later adjustment in compositing.</p><p><br /></p><p><strong>Importance Multiplier</strong></p><p>Rather than setting explicit Light Samples, users can change the amount of samples the light will be assigned internally by changing this value. RenderMan creates a set of samples at render time for all lights in the scene and changing this value rebalances the samples across the lights. Note that&nbsp;increasing&nbsp;this value will cause&nbsp;<em>more</em>&nbsp;samples to be selected from this light while reducing it for others in the scene. Lower than the default will&nbsp;<em>decrease</em>&nbsp;the samples while providing more to others in the scene.</p><p><br /></p><p><br /></p><hr /><h3 id="PxrEnvDayLight-Presets">Presets</h3><p>RenderMan for Maya includes useful presets for specific times of day.</p></div>
+</div>
+</div>
+</div>
+  </article>
+</main>
+</body>
+</html>

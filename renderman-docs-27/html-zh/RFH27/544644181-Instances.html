@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Instances</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Instances</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFH27/544644181/Instances">https://rmanwiki-27.pixar.com/space/RFH27/544644181/Instances</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>实例适合通过引用一份原始副本来复制几何体；在处理和渲染大量对象时，这可以节省内存和时间。随后可以为这些实例赋予不同着色，生成有趣且真实的变化，而不必让艺术家或计算机承担大量唯一副本的负担。</p><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="d6921adc-adc3-4551-a72b-5f88e5b9631a" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>参见 <a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661429" rel="nofollow">Instancing（实例化）</a> 了解有关实例化的更多信息。</p></div></div><h2 id="Instances-CopytoPointsSOP">Copy to Points SOP（复制到点 SOP）</h2><p>创建一个 <a class="external-link" href="http://www.sidefx.com/docs/houdini/nodes/sop/copytopoints.html" rel="nofollow">Copy to Points</a> SOP，将要实例化的几何体连接到第一个输入，并将用于放置实例的位置连接到第二个输入。 </p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="616" loading="lazy" src="../../attachments/544644181/instance.PNG" data-image-src="../../attachments/544644181/instance.PNG" data-height="216" data-width="318" data-unresolved-comment-count="0" data-linked-resource-id="544644211" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="instance.PNG" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544644181" data-linked-resource-container-version="1" data-media-id="a29be4bc-3a25-4754-8eb2-1a160da59754" data-media-type="file"></span><h2 id="Instances-InstanceOBJ">Instance OBJ（实例 OBJ）</h2><p>创建一个 <strong>Instance</strong> OBJ，方式与平常创建 <a class="external-link" href="http://www.sidefx.com/docs/houdini/copy/instancing" rel="nofollow">Houdini instances（Houdini 实例）</a>。 </p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="616" loading="lazy" src="../../attachments/544644181/instnace1.PNG" data-image-src="../../attachments/544644181/instnace1.PNG" data-height="248" data-width="340" data-unresolved-comment-count="0" data-linked-resource-id="544644214" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="instnace1.PNG" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544644181" data-linked-resource-container-version="1" data-media-id="a0a9fe20-7e90-4900-ae1b-5b543e298abc" data-media-type="file"></span><p /><p>在 Instance 节点中，设置 <strong>Instance object（实例对象）</strong> 并选择 <strong>Fast point instancing（快速点实例化）</strong> 或<strong> Full point instancing（完整点实例化）</strong>。目前这两个选项在渲染器中会产生相同的行为。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="616" loading="lazy" src="../../attachments/544644181/fastpointinstancing.png" data-image-src="../../attachments/544644181/fastpointinstancing.png" data-height="285" data-width="460" data-unresolved-comment-count="0" data-linked-resource-id="544644205" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="fastpointinstancing.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544644181" data-linked-resource-container-version="1" data-media-id="a347134e-fb55-4d78-b1f6-afdbe54f5441" data-media-type="file"></span><p /><p>若要覆盖实例化对象的材质，可以在 Instance 内部使用 Material SOP。 </p>
+  </article>
+</main>
+</body>
+</html>

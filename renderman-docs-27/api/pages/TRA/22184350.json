@@ -1,0 +1,34 @@
+{
+  "parentType": "page",
+  "parentId": "22184348",
+  "ownerId": "557058:bd93f2ee-e583-43fb-8a78-f4b1519a63bf",
+  "lastOwnerId": null,
+  "createdAt": "2016-12-14T14:27:42.818Z",
+  "authorId": "557058:bd93f2ee-e583-43fb-8a78-f4b1519a63bf",
+  "position": 5749866,
+  "version": {
+    "number": 2,
+    "message": "",
+    "minorEdit": false,
+    "authorId": "557058:bd93f2ee-e583-43fb-8a78-f4b1519a63bf",
+    "createdAt": "2016-12-19T12:02:10.263Z",
+    "ncsStepVersion": null
+  },
+  "id": "22184350",
+  "spaceId": "22183942",
+  "status": "current",
+  "body": {
+    "view": {
+      "representation": "view",
+      "value": "<div class=\"document\"><ul><li><p class=\"first\">Transition Summary</p><blockquote><ul class=\"simple\"><li>Back-up your existing Tractor 1.x job and configuration data.</li><li>Create a new directory to hold your 2.x configuration overrides.</li><li>Become familiar with new Engine+Blade installed product layout.</li><li>Review tractor.config settings, especially the EngineOwner setting.</li></ul></blockquote></li><li><p class=\"first\">Tractor-2.0 is packaged as a single installer containing all of the various Tractor components: Engine, Blade, Dashboard, Spooler, Nimby, the Tractor Query utilities, as well as the compatible prebuilt subsystems such as the job database server, Python and Tcl interpreters, and supporting modules and frameworks. Some components have slightly different names or are now accessed through wrapper scripts, most of which are now located in the Tractor-2.0/bin directory. Once you have had a chance to browse the new structure, you may need to revise paths or tool names in your own site-developed scripts to make use of the new scheme.</p></li><li><p class=\"first\">The job queue database has been upgraded from a simple system of flat JSON files to a fully integrated PostgreSQL database. This change enables several important features in Tractor 2.0, but may be disruptive to sites that were relying on direct filesystem access to job data for some reason. It is better to rely on the various job access APIs instead so that you are insulated from changes to the underlying data representation -- and that is still true for 2.0 since the representation details will continue to evolve.</p></li><li><p class=\"first\">Given the need for a PostgreSQL server, the Tractor 2.0 installer provides a Tractor-compatible prebuilt PostgreSQL server within the Tractor-2.0 install area. This &quot;private&quot; installation of the database components, relative to the matching Tractor release, allows the tractor-engine to reliably start and stop the PostgreSQL server as it needs. It is also technically possible to configure Tractor to use another PostgreSQL server that may already be available at your site (details in <a href=\"/wiki/spaces/TRA/pages/22184296/PostgreSQL\" data-linked-resource-id=\"22184296\" data-linked-resource-version=\"4\" data-linked-resource-type=\"page\">db.config</a>). Note however that there may be some performance, compatibility, and data safety concerns when taking this approach. Please contact RenderMan <a class=\"external-link\" href=\"https://renderman.pixar.com/forum/forumdisplay.php?s=&amp;forumid=125\" rel=\"nofollow\" style=\"text-decoration: underline;\">Customer Support</a> for more information.</p></li><li><p class=\"first\">Configuration file handling: Several subtle changes have been made to the way in which configuration values are loaded from the various Tractor configuration files. <strong>Different directories should be used to hold 1.x and 2.x engine configuration files.</strong> There is still a &quot;stock&quot; config directory at the top level of the installed Tractor-2.0 directory. You can, and should, copy the files that you wish to modify from there to a directory of your own outside the install area. A copy protects your changes if the product is reinstalled, and they will also be applied to new versions as you install them. Tractor 2.0 differs from 1.x in that you no longer need to copy unchanged files. The engine will now look in your designated &quot;--configdir&quot; location for files (as before), but will now fallback to looking in the stock install location for files not found in the &quot;--configdir&quot; location. Furthermore, for the specific files &quot;tractor.config&quot; and &quot;db.config&quot;, your copies can contain only overrides for the specific values that you want to change, you do not need to copy the entire file. This approach allows potentially important settings in new releases to still be found in the stock tractor.config while still applying your desired overrides.</p></li><li><p class=\"first\">Engine command line options: many of the 1.x tractor-engine command line options can now be specified in tractor.config. Some parameters, such as the location of the job data directory <em>must</em> now be specified in tractor.config where other Tractor helper applications can find them.</p></li></ul></div>"
+    }
+  },
+  "title": "Upgrading from Tractor 1.x",
+  "_links": {
+    "editui": "/pages/resumedraft.action?draftId=22184350",
+    "webui": "/spaces/TRA/pages/22184350/Upgrading+from+Tractor+1.x",
+    "edituiv2": "/spaces/TRA/pages/edit-v2/22184350",
+    "tinyui": "/x/noFSAQ",
+    "base": "https://renderman.atlassian.net/wiki"
+  }
+}

@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Stylized Control</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Stylized Control</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/REN27/542221999/Stylized+Control">https://rmanwiki-27.pixar.com/space/REN27/542221999/Stylized+Control</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="XPU-WorldsDivide-Toon-Lines-bgBuildingsLines.png" width="960" loading="lazy" src="../../attachments/542221999/XPU-WorldsDivide-Toon-Lines-bgBuildingsLines.png" data-image-src="../../attachments/542221999/XPU-WorldsDivide-Toon-Lines-bgBuildingsLines.png" data-height="540" data-width="960" data-unresolved-comment-count="0" data-linked-resource-id="669876226" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="XPU-WorldsDivide-Toon-Lines-bgBuildingsLines.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542221999" data-linked-resource-container-version="5" data-media-id="0ae9f42b-8c0f-4fdf-8b79-a52fcc4e1b1f" data-media-type="file"></span><p>Stylized Control pattern 会与 Display Filters 交互，让你控制自己的 <strong>Stylized Looks（风格化外观）</strong>。</p><p>将它们接入你的 surface，即可按逐材质方式自定义。 </p><div class="contentLayout2 conf-macro output-block" data-hasbody="false" data-layout="default" data-local-id="899c6c1b-24e5-420e-92d1-fb0ccafeb4d6" data-macro-id="591757de-b7b7-479b-8128-e55815c1afae" data-macro-name="include">
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h3 id="StylizedControl-InputParameters">Input Parameters（输入参数）</h3><h4 id="StylizedControl-RandomType">Random Type</h4><p>id 使用随机 color float。integer 使用整数值。两者都用于在相邻 shape nodes 上生成变化，以供最终 edge detection 使用。</p><h4 id="StylizedControl-CamDepthType">Cam Depth Type</h4><p>2 种模式：camera P 的长度，或 camera P 的 Z 分量绝对值</p><h3 id="StylizedControl-LinesPage"><strong>Lines Page</strong></h3><h4 id="StylizedControl-SectionSpreadScale">Section Spread Scale</h4><p>如果相邻对象上的 random id sections colors 过于接近，可将此值调到 1 以上，让随机颜色分布得更远，从而在对象边界上得到更一致的 edge detection。</p><h4 id="StylizedControl-AlbedoColor">Albedo Color</h4><p>透传 color，可将输出 RGB 连接到 PxrSurface Diffuse color</p><h4 id="StylizedControl-LineAlbedoColor">Line Albedo Color</h4><p>当选择 Line Color From Pattern 选项时，PxrStylizedLines 生成的线条颜色</p><h4 id="StylizedControl-LineAlbedoHSV">Line Albedo HSV</h4><p>Line Albedo color/map 的 Hue、Saturation、Value 色彩校正</p><h4 id="StylizedControl-LineThickness">Line Thickness</h4><p>如果在 PxrStylizedLines 中选择 Line Thickness From Pattern，则此 Line Thickness 会用于附加了该节点的所有对象。</p><h4 id="StylizedControl-LineThicknessRemapSwitch">Line Thickness Remap Switch</h4><p>OFF：仅使用 float Line Thickness 值</p><p>ON：将上游 Pattern（fractal、texture 等）连接到 Line Thickness，然后使用下面的 remap_min 和 remap_max 在两者之间做线性 step。例如：如果有一个在 0..1 之间变化的 fractal 接入 Line Thickness，remap_min=0、remap_max=10，则 fractal 为 1（white）时最终 line thickness 为 10，fractal 为 0（black）时为 0</p><h4 id="StylizedControl-LineThicknessRemapMin">Line Thickness Remap Min</h4><p>如果在 PxrStylizedLines 中选择 Line Thickness From Pattern，并且上游节点已连接到 Line Thickness，则使用此 min 值作为上游 0 值的 remap 目标。示例：如果 PxrFractal 接在 Line Thickness 上游，PxrFractal pattern 中的 0（black）值会 remap 到此 min</p><h4 id="StylizedControl-LineThicknessRemapMax">Line Thickness Remap Max</h4><p>如果在 PxrStylizedLines 中选择 Line Thickness From Pattern，并且上游节点已连接到 Line Thickness，则使用此 min 值作为上游 0 值的 remap 目标。示例：如果 PxrFractal 接在 Line Thickness 上游，PxrFractal pattern 中的 1（white）值会 remap 到此 max</p><h4 id="StylizedControl-LineMask">Line Mask</h4><p>通过接入上游节点 texture 或 pattern，遮罩掉最终 edge detected lines 中不需要的区域。</p><h4 id="StylizedControl-HatchingMask">Hatching Mask</h4><p>通过接入上游节点 texture 或 pattern，遮罩掉最终 hatching 中不需要的区域。值存储在 NPRlineMask AOV 的 GREEN 通道中</p><p> </p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="hatching-mask-0.png" width="432" loading="lazy" src="../../attachments/542224935/hatching-mask-0.png" data-image-src="../../attachments/542224935/hatching-mask-0.png" data-height="358" data-width="512" data-unresolved-comment-count="0" data-linked-resource-id="542224953" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="hatching-mask-0.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542224935" data-linked-resource-container-version="1" data-media-id="b46098c9-8068-4545-9613-607adb6b5fc8" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="hatching-mask-1.png" width="432" loading="lazy" src="../../attachments/542224935/hatching-mask-1.png" data-image-src="../../attachments/542224935/hatching-mask-1.png" data-height="358" data-width="512" data-unresolved-comment-count="0" data-linked-resource-id="542224950" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="hatching-mask-1.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542224935" data-linked-resource-container-version="1" data-media-id="a9dc4625-3019-46ac-9763-3cc95602cfce" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="hatching-mask-2.png" width="432" loading="lazy" src="../../attachments/542224935/hatching-mask-2.png" data-image-src="../../attachments/542224935/hatching-mask-2.png" data-height="358" data-width="512" data-unresolved-comment-count="0" data-linked-resource-id="542224947" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="hatching-mask-2.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542224935" data-linked-resource-container-version="1" data-media-id="a9e05a7e-f1d2-4222-8c6b-5fc137fdf76a" data-media-type="file" /></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h4 id="StylizedControl-SectionsMapSwitch">Sections Map Switch</h4><p>使用下面 sections \map 中的 map 来定义图像中的变化，而不是 random id</p><h4 id="StylizedControl-SectionsMap">Sections Map</h4><p>可选 color map，用于在 random id per object 未检测到线条的位置添加线条。例如：如果希望在角色下巴处触发 edge detection，而 random sections id 没有差异，则可接入一张在目标区域绘制了 2 种不同颜色的上游 texture map，最终 sections map 会传递给 edge detection algorithm。默认黑色（0,0,0）不会触发变化。</p><h4 id="StylizedControl-SectionsMapBlackMaskSwitch">Sections Map Black Mask Switch</h4><p>在自定义 sections Map 中为黑色的位置，composite over 现有 sections random color</p><h4 id="StylizedControl-SectionsHSV">Sections HSV</h4><p>以 HSV 为 Sections Map 着色。第 1 个输入 = Hue，第 2 个输入 = Saturation，第 3 个输入 = Value</p><h3 id="StylizedControl-HatchingProjectionsPage"><strong>Hatching Projections Page</strong></h3><h4 id="StylizedControl-HatchingMask.1">Hatching Mask</h4><p>通过接入上游节点 texture 或 pattern，遮罩掉最终 hatching 中不需要的区域。值存储在 NPRlineMask AOV 的 GREEN 通道中。</p><h4 id="StylizedControl-PTriplanar">P Triplanar</h4><p>P：object space P；__Pref：如果作为 primvar 存在；Input P Triplanar：连接到此节点 inputPtriplanar inputs 的上游 PxrManifold3d。</p><h4 id="StylizedControl-InputPTriplanar">Input P Triplanar</h4><p>如果在 PxrStylizedHatching 中使用 Blended Triplanar Projections，可选择在这里将上游 point P XYZ 接入 RGB。例如：对于角色的变形动画，可在这里连接通过 PxrProjector 或 PxrManifold3d 提供的自定义 __Pref。</p><h4 id="StylizedControl-NTriplanar">N Triplanar</h4><p>N：默认 global N；__Nref：如果作为 primvar 存在；Input N Triplanar：用户连接到此节点 inputNtriplanar inputs 的任何上游 XYZ for N。</p><h4 id="StylizedControl-InputNTriplanar">Input N Triplanar</h4><p>如果在 PxrStylizedHatching 中使用 Blended Triplanar Projections，可选择在这里将上游 normal N XYZ 接入 RGB。示例：对于角色的变形动画，可在这里连接通过 PxrProjector 或 PxrManifold3d 提供的自定义 __Nref。</p><h4 id="StylizedControl-InputTextureCoordinates">Input Texture Coordinates</h4><p>如果在 PxrStylizedHatching 中使用 Texture Coordinates，可选择在这里将上游 point P XYZ 接入 RGB。例如，如果需要自定义 camera projection，可在这里接入上游 PxrProjector。</p><h4 id="StylizedControl-TriplanarScaleX">Triplanar Scale X</h4><p>Scale：缩放 P 的 X 分量，用于 triplanar projections，以改变该平面上的 texture frequency</p><h4 id="StylizedControl-TriplanarScaleY">Triplanar Scale Y</h4><p>Scale：缩放 P 的 Y 分量，用于 triplanar projections，以改变该平面上的 texture frequency</p><h4 id="StylizedControl-TriplanarScaleZ">Triplanar Scale Z</h4><p>Scale：缩放 P 的 Z 分量，用于 triplanar projections，以改变该平面上的 texture frequency</p><p style="text-align: center;"> </p><p style="text-align: center;"><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/542224935/Hatching-Control-ScaleXYZ.gif" data-image-src="../../attachments/542224935/Hatching-Control-ScaleXYZ.gif" data-unresolved-comment-count="0" data-linked-resource-id="542224956" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Hatching-Control-ScaleXYZ.gif" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/gif" data-linked-resource-container-id="542224935" data-linked-resource-container-version="1" data-media-id="fe449606-0623-40db-8a29-7ef5bef633e7" data-media-type="file" /></span> <br />将 Teapot 上的 Triplanar Scale XYZ 从 1 改为 3</p><p> </p></div>
+</div>
+</div>
+</div>
+  </article>
+</main>
+</body>
+</html>

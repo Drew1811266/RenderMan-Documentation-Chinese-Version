@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PxrOcclusion</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>PxrOcclusion</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/REN27/542232193/PxrOcclusion">https://rmanwiki-27.pixar.com/space/REN27/542232193/PxrOcclusion</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="contentLayout2">
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="957" loading="lazy" src="../../attachments/542232193/PxrOcclusion.png" data-image-src="../../attachments/542232193/PxrOcclusion.png" data-height="450" data-width="731" data-unresolved-comment-count="0" data-linked-resource-id="542232256" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="PxrOcclusion.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542232193" data-linked-resource-container-version="1" data-media-id="a23d442c-e450-4b75-a7b3-887c0a25fd3b" data-media-type="file"></span><p style="text-align: center;"></p><p /><p><em>PxrOcclusion</em> 是一种非照片写实积分器，可用于渲染环境光遮蔽以及其他效果。</p><p>使用基于物理的积分器渲染时，需要注意遮挡天然就是照明计算的一部分。这是因为间接光或“ambient（环境）”光在角落、凹槽、裂缝等处被反射离开或变暗。不过在最终图像中，出于艺术指导，可能希望额外增强这种效果。你可以用它人为地对图像细节进行“knock back（压低）”或“deepen（加深）”。这个通道通常在合成应用中作为图像乘法或“mult”来应用。</p><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="18ec3462-a552-4318-893e-ec24d12f0394" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>Diffuse 和 specular 光线深度对该积分器没有影响。</p></div></div><h4 id="PxrOcclusion-SampleDistribution">Sample Distribution（采样分布）</h4><p>可以使用不同的采样分布来创建不同的遮挡效果。</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="PxrOcclusion_distribution0.png" width="384" loading="lazy" src="../../attachments/542232193/PxrOcclusion_distribution0.png" data-image-src="../../attachments/542232193/PxrOcclusion_distribution0.png" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542232253" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="PxrOcclusion_distribution0.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542232193" data-linked-resource-container-version="1" data-media-id="d280ebc4-27df-424a-a00d-eebb7a753df3" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="PxrOcclusion_distribution1.png" width="384" loading="lazy" src="../../attachments/542232193/PxrOcclusion_distribution1.png" data-image-src="../../attachments/542232193/PxrOcclusion_distribution1.png" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542232250" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="PxrOcclusion_distribution1.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542232193" data-linked-resource-container-version="1" data-media-id="2b11d0f1-c223-448b-8bbd-cb6a473c2f1c" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="PxrOcclusion_distribution2.png" width="384" loading="lazy" src="../../attachments/542232193/PxrOcclusion_distribution2.png" data-image-src="../../attachments/542232193/PxrOcclusion_distribution2.png" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542232247" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="PxrOcclusion_distribution2.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542232193" data-linked-resource-container-version="1" data-media-id="86fd7b20-780b-409e-9ef8-62e8bf1f25b7" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<div class="table-wrap"><table data-table-width="1800" data-layout="default" data-local-id="46fef63b-6256-4ab7-a8cc-94ec861f7ffc" class="confluenceTable"><tbody><tr><th class="confluenceTh"><p /></th><th class="confluenceTh"><p><strong>描述</strong></p></th></tr><tr><td class="confluenceTd"><p><strong>Uniform（均匀）</strong></p></td><td class="confluenceTd"><p>光线在着色点上方的半球中，不会按任何特定方向加权。</p></td></tr><tr><td class="confluenceTd"><p><strong>Cosine（余弦）</strong></p></td><td class="confluenceTd"><p>Cosine 分布常用于渲染环境光遮蔽。</p></td></tr><tr><td class="confluenceTd"><p><strong>反射</strong></p></td><td class="confluenceTd"><p>根据指定材质的反射波瓣生成采样。仅包含 diffuse BRDF（漫反射 BRDF）的 Materials（材质）会得到类似于上方 <strong>cosine（余弦）</strong> 设置的结果。</p></td></tr></tbody></table></div><h4 id="PxrOcclusion-CosineSpread">Cosine Spread（余弦扩展）</h4><p>使用 Cosine 分布时光线的采样扩散范围。值为 1.0 时会得到完美的 Lambertian 分布。</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="PxrOcclusion_cosineSpread0.png" width="384" loading="lazy" src="../../attachments/542232193/PxrOcclusion_cosineSpread0.png" data-image-src="../../attachments/542232193/PxrOcclusion_cosineSpread0.png" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542232241" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="PxrOcclusion_cosineSpread0.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542232193" data-linked-resource-container-version="1" data-media-id="fb36a4d5-b3df-4fa4-bae7-2facbc74dfe2" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="PxrOcclusion_cosineSpread1.png" width="384" loading="lazy" src="../../attachments/542232193/PxrOcclusion_cosineSpread1.png" data-image-src="../../attachments/542232193/PxrOcclusion_cosineSpread1.png" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542232238" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="PxrOcclusion_cosineSpread1.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542232193" data-linked-resource-container-version="1" data-media-id="05213e2a-4cce-448f-ba53-989e289d8ea6" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="PxrOcclusion_cosineSpread2.png" width="384" loading="lazy" src="../../attachments/542232193/PxrOcclusion_cosineSpread2.png" data-image-src="../../attachments/542232193/PxrOcclusion_cosineSpread2.png" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542232244" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="PxrOcclusion_cosineSpread2.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542232193" data-linked-resource-container-version="1" data-media-id="4c6108d8-979a-48da-b763-603b627f0f4d" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h4 id="PxrOcclusion-MaxDistance">Max Distance（最大距离）</h4><p>每个点被着色时，光线会伸入场景以击中附近对象。在某些情况下，例如内部空间，这可能产生很暗或黑色的结果。你可以使用这个控制项减少该距离。注意，它以 scene units（场景单位）计量。默认值为 0，即无限。</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="PxrOcclusion_maxDistance0.png" width="384" loading="lazy" src="../../attachments/542232193/PxrOcclusion_maxDistance0.png" data-image-src="../../attachments/542232193/PxrOcclusion_maxDistance0.png" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542232229" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="PxrOcclusion_maxDistance0.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542232193" data-linked-resource-container-version="1" data-media-id="6aab3aa3-bdee-42c4-82c7-0225116fc908" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="PxrOcclusion_maxDistance1.png" width="384" loading="lazy" src="../../attachments/542232193/PxrOcclusion_maxDistance1.png" data-image-src="../../attachments/542232193/PxrOcclusion_maxDistance1.png" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542232235" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="PxrOcclusion_maxDistance1.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542232193" data-linked-resource-container-version="1" data-media-id="92a54d5f-3097-48c9-afce-b0efe71b7bcc" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="PxrOcclusion_maxDistance2.png" width="384" loading="lazy" src="../../attachments/542232193/PxrOcclusion_maxDistance2.png" data-image-src="../../attachments/542232193/PxrOcclusion_maxDistance2.png" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542232232" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="PxrOcclusion_maxDistance2.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542232193" data-linked-resource-container-version="1" data-media-id="db77d3fe-95cc-40cb-8c43-a47b52236dae" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h4 id="PxrOcclusion-Falloff">Falloff（衰减）</h4><p>Falloff（衰减）可用于控制遮挡效果的柔和度。</p><p>不使用 <strong>Max Distance（最大距离）</strong>时，衰减会按指数衰减计算。数值取决于场景，值越大，外观越柔和。</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="PxrOcclusion_falloff0.png" width="384" loading="lazy" src="../../attachments/542232193/PxrOcclusion_falloff0.png" data-image-src="../../attachments/542232193/PxrOcclusion_falloff0.png" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542232220" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="PxrOcclusion_falloff0.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542232193" data-linked-resource-container-version="1" data-media-id="ef23b856-9b4e-4591-9d80-7d5db25b4b81" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="PxrOcclusion_falloff1.png" width="384" loading="lazy" src="../../attachments/542232193/PxrOcclusion_falloff1.png" data-image-src="../../attachments/542232193/PxrOcclusion_falloff1.png" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542232223" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="PxrOcclusion_falloff1.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542232193" data-linked-resource-container-version="1" data-media-id="c3d7ef94-27eb-4d02-8366-90f7d48d1718" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="PxrOcclusion_falloff2.png" width="384" loading="lazy" src="../../attachments/542232193/PxrOcclusion_falloff2.png" data-image-src="../../attachments/542232193/PxrOcclusion_falloff2.png" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542232226" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="PxrOcclusion_falloff2.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542232193" data-linked-resource-container-version="1" data-media-id="0c53878f-ef32-4de6-a756-fbe68c691f8e" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p>与 <strong>Max Distance（最大距离）</strong>结合使用时，衰减会按归一化幂函数计算。</p></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-right-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-right" alt="PxrOcclusion_falloffMaxDistance0.png" width="384" loading="lazy" src="../../attachments/542232193/PxrOcclusion_falloffMaxDistance0.png" data-image-src="../../attachments/542232193/PxrOcclusion_falloffMaxDistance0.png" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542232214" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="PxrOcclusion_falloffMaxDistance0.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542232193" data-linked-resource-container-version="1" data-media-id="5d34e872-017f-45d3-b0a4-6bf163442f86" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" alt="PxrOcclusion_falloffMaxDistance1.png" width="384" loading="lazy" src="../../attachments/542232193/PxrOcclusion_falloffMaxDistance1.png" data-image-src="../../attachments/542232193/PxrOcclusion_falloffMaxDistance1.png" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542232217" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="PxrOcclusion_falloffMaxDistance1.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542232193" data-linked-resource-container-version="1" data-media-id="47264481-bf3f-43d3-99e0-6b7d2e45f33f" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h4 id="PxrOcclusion-UseAlbedo">Use Albedo（使用反照率）</h4><p>开启时，此设置会将 diffuse color（漫反射颜色）应用到生成的图像上。这可以是简单颜色，也可以是连接到材质的图案。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="PxrOcclusion_useAlbedo1.png" width="384" loading="lazy" src="../../attachments/542232193/PxrOcclusion_useAlbedo1.png" data-image-src="../../attachments/542232193/PxrOcclusion_useAlbedo1.png" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542232211" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="PxrOcclusion_useAlbedo1.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542232193" data-linked-resource-container-version="1" data-media-id="7e3cf0bd-1196-4f49-984f-c3d6f96a693b" data-media-type="file"></span><h4 id="PxrOcclusion-NumSamples">Num Samples（采样数）</h4><p>此选项会在每个着色点生成固定采样。更多采样可能有助于用更少的摄像机采样消除噪声，但数值较高时可能降低性能。</p></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-right-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-right" alt="PxrOcclusion_numSamples0.png" width="384" loading="lazy" src="../../attachments/542232193/PxrOcclusion_numSamples0.png" data-image-src="../../attachments/542232193/PxrOcclusion_numSamples0.png" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542232205" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="PxrOcclusion_numSamples0.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542232193" data-linked-resource-container-version="1" data-media-id="c7b1fd8e-b4f1-4fee-b36c-a9d2a2dc7580" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" alt="PxrOcclusion_numSamples1.png" width="384" loading="lazy" src="../../attachments/542232193/PxrOcclusion_numSamples1.png" data-image-src="../../attachments/542232193/PxrOcclusion_numSamples1.png" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542232208" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="PxrOcclusion_numSamples1.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542232193" data-linked-resource-container-version="1" data-media-id="edd62a81-d684-431a-ae39-b6286f8e8aeb" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p /></div>
+</div>
+</div>
+</div>
+  </article>
+</main>
+</body>
+</html>

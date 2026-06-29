@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PDG Support</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>PDG Support</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFH27/544645764/PDG+Support">https://rmanwiki-27.pixar.com/space/RFH27/544645764/PDG+Support</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>TOP networks are used to schedule tasks - anywhere from running simulations to rendering. Read more about PDG <a class="external-link" href="https://www.sidefx.com/products/houdini/pdg/" rel="nofollow">here</a>. RenderMan is now integrated into PDG with various nodes for rendering, converting textures, denoising, and generating RIB.  Note that &quot;Do Nothing&quot; selections will use the RenderMan default unless Set otherwise by the user.</p><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="7c250957-7008-4c71-96fe-1cebd741a4f6" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>Currently there is bug where the output of RenderMan render TOPs is the rib file path even if one is not generated.</p></div></div><h3 id="PDGSupport-ROPFetch"><br/>ROP Fetch</h3><p>The simplest render node is the ROP Fetch. Set the ROP Path to a render node in the OUT context.</p><h3 id="PDGSupport-RenderManRender">RenderMan Render</h3><p>The RenderMan TOP has similar functionality to the ROP Fetch except that the ROP node is inside the network and all the RenderMan ROP options are exposed as parameters on the node.</p><h3 id="PDGSupport-GenerateRIB">Generate RIB</h3><p>This TOP node is a clone of the RenderMan Render TOP except with the &quot;Write RIB&quot; parameter enabled.</p><h3 id="PDGSupport-RenderManDenoise">RenderMan Denoise</h3><p>The output of the parent node will be denoised unless the Image parameter is set. This image needs the proper AOVs for denoising. See an explanation of these parameters <a href="/wiki/spaces/REN24/pages/21758154/Denoise" data-linked-resource-id="21758154" data-linked-resource-version="4" data-linked-resource-type="page">here</a>. </p><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="9e8c2f44-d6e7-4fde-a360-f2280ffc3c75" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>Crossframe denoising is not yet supported.</p></div></div><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="900" loading="lazy" src="../../attachments/544645764/rfh_pdg_denoise.PNG" data-image-src="../../attachments/544645764/rfh_pdg_denoise.PNG" data-height="397" data-width="716" data-unresolved-comment-count="0" data-linked-resource-id="544645787" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfh_pdg_denoise.PNG" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544645764" data-linked-resource-container-version="1" data-media-id="42c7c1b6-ca49-4e98-9f64-480121063a7d" data-media-type="file"></span><h3 id="PDGSupport-RenderRIB">Render RIB</h3><p>Wire in a generate rib node as input or provide a RIB path. This node is a wrapper of the prman executable with all the available command line arguments provided as parameters. See an explanation of these parameters <a href="/wiki/spaces/REN26/pages/19661967/prman" data-linked-resource-id="19661967" data-linked-resource-version="12" data-linked-resource-type="page">here</a>. </p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="900" loading="lazy" src="../../attachments/544645764/rfh_pdg_renderrib.PNG" data-image-src="../../attachments/544645764/rfh_pdg_renderrib.PNG" data-height="619" data-width="720" data-unresolved-comment-count="0" data-linked-resource-id="544645790" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfh_pdg_renderrib.PNG" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544645764" data-linked-resource-container-version="1" data-media-id="3d1f6329-731a-4ba3-b2fa-c558cdf818e6" data-media-type="file"></span><h3 id="PDGSupport-TextureMaker">Texture Maker</h3><p>This node will convert the input image or the image parameter if provided to a texture by calling txmake with the set parameters. See an explanation of these parameters <a href="/wiki/spaces/REN26/pages/19661963/txmake" data-linked-resource-id="19661963" data-linked-resource-version="4" data-linked-resource-type="page">here</a>. </p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="900" loading="lazy" src="../../attachments/544645764/rfh_pdg_texturemake.PNG" data-image-src="../../attachments/544645764/rfh_pdg_texturemake.PNG" data-height="340" data-width="718" data-unresolved-comment-count="0" data-linked-resource-id="544645784" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfh_pdg_texturemake.PNG" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544645764" data-linked-resource-container-version="1" data-media-id="4025ee65-7a64-4635-9088-19bbac2d280f" data-media-type="file"></span>
+  </article>
+</main>
+</body>
+</html>

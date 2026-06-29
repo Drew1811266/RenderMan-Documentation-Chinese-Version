@@ -1,0 +1,35 @@
+{"id":"5fed41ff54b493ffb1cf632cef3d417428b7f1e3b293cd253ba14ad35323a583","item_id":"6e256a99ee:0","text":"下面看一个简单场景，用来演示 motion blur settings（运动模糊设置）的效果。"}
+{"id":"41a4d1e721a2fce9ab595453e967238f80dab701272c49795fcad1f06c17e05b","item_id":"6e256a99ee:1","text":"以下图像显示两个球在 frames 1、2 和 3 的位置。在此示例中，key-frames（关键帧）使用 linear tangents（线性切线），因此在观察 shutter timing（快门时序）时，球会保持固定速度。"}
+{"id":"38412b8936e65cd1d0bbccda8871045002d7976f80e161707e0d51e10ccbe0e3","item_id":"6e256a99ee:2","text":"可以在 render properties（渲染属性）中启用 motion blur（运动模糊）"}
+{"id":"2398f9513733ac5c3bf514a07422a7407d26e635a1da62020689fb97b9238fe8","item_id":"6e256a99ee:3","text":"，位置在 Motion Blur 面板下。默认情况下它未启用。"}
+{"id":"512c32084a3de975a4a82ba543f5d077fb058e3184d97a88dad9924a4c703fd7","item_id":"6e256a99ee:4","text":"Shutter Timing（快门时序）"}
+{"id":"593ae36c67f34d7a89e50eecfc709b6572a247dbc0326b4866cec21c4e5ac269","item_id":"6e256a99ee:5","text":"Start on Frame（从帧开始）"}
+{"id":"3b79883d4d497c6375557fda36551d32364bf70688106fc7f01f207adca435a7","item_id":"6e256a99ee:6","text":"以下图像显示 frames 1、2 和 3 的 Start on Frame blur（从帧开始模糊）。shutter（快门）会在帧开始时打开。默认 shutter angle（快门角度）为 180，表示快门会打开半帧时间。请注意最后一帧没有 blur（模糊）。这是因为该帧快门打开之后没有动画。"}
+{"id":"47096cac56880b4b28c7af8cf1960ff4d23500b634db8e2ee89664550c704d8c","item_id":"6e256a99ee:7","text":"Center on Frame（以帧为中心）"}
+{"id":"822c582a4cc5792959575be317b59b882b735c8ae8372b3cb70f1a2b190ef45a","item_id":"6e256a99ee:8","text":"以下图像显示 Center on Frame blur（以帧为中心的模糊），这意味着 shutter（快门）会在帧之前打开，并在帧之后关闭，时间中心位于该帧。第一帧和最后一帧的 blur（模糊）看起来较短，因为动画没有延伸到这些帧之外。"}
+{"id":"74aef96be4553dc154768c20ce154de816d2d041793311dd4816ac53a9f0ac84","item_id":"6e256a99ee:9","text":"End of Frame（帧结束）"}
+{"id":"5b0abe51a3117ddf3666d0dd8ec8ad48abc754b31b686639e70758f3ed61a7de","item_id":"6e256a99ee:10","text":"以下图像显示 End of Frame blur（帧结束模糊），这意味着 shutter（快门）会在该帧上关闭。同样，第一帧没有 blur（模糊），因为该帧之前没有动画。"}
+{"id":"0822211986c36cfcdf3492d22675b95e8c89fac7345b0c6d0d69afee10a7472e","item_id":"6e256a99ee:11","text":"Motion Samples（运动采样）"}
+{"id":"f0194dd6f76d75a81faab289abdeca2ea1d40672977dba1c98f8b31f1c2eb7f3","item_id":"6e256a99ee:12","text":"在使用 centered blur（居中模糊）时，第二帧中的红球看起来有点奇怪。blur（模糊）是水平的，但球实际应该在这条模糊轨迹中间到达最高点。默认情况下只有两个 motion samples（运动采样），因为它们开销较高，而且两个通常已经足够。你可以在 render properties（渲染属性）的 Motion Blur 面板中更改全局 motion samples（运动采样）数量。或者，如果知道只有某个特定 geometry（几何体）需要额外样本，可以在该球体的 object properties（对象属性）中添加。在 RenderMan Geometry 面板下，你会看到 Override Motion Samples 复选框以及 Motion Samples 属性。"}
+{"id":"44596552fa5fa610f41dc9bb1d07e5d214cc8d1eda503880450efdb02af35c8e","item_id":"6e256a99ee:13","text":"任何小于 2 的设置都会实际关闭该特定对象的 motion blur（运动模糊）。"}
+{"id":"bf73c4a66f7583af9216f9110d0071f466604293e0593b6e826b22b4ad07b68f","item_id":"6e256a99ee:14","text":"两个样本表示只会在 shutter open time（快门打开时间）和 shutter close（快门关闭）时采样球的位置。超过两个样本时，样本会均匀分布在 shutter open（快门打开）与 close（关闭）之间。这有时称为"}
+{"id":"905a16cb456535b144f5a18b95e456564d3e66d0da302efd660ff432814e7786","item_id":"6e256a99ee:15","text":"Multi-Segment（多段）"}
+{"id":"3916b239431e789e1bb89bd6155ec570832d34a6c3f2b5b9469f5aaafc05485e","item_id":"6e256a99ee:16","text":"motion blur（运动模糊）。"}
+{"id":"44c380f73728d1f76766ab7231b855a2da2811a9c18bf5a35c98327e4690b5d2","item_id":"6e256a99ee:17","text":"例如，下面展示了从 2 个 samples（样本）增加到 7 个 samples（样本）时图像如何变化。这是 Frame Center blur（帧中心模糊）。到 7 个 samples（样本）时，看起来已经相当平滑！你可以继续增加到任意高的数值。samples（样本）数量没有限制。"}
+{"id":"c9871e387342363f77ad97cd8bda8d0ca228c5543acea03175326ecf46b55add","item_id":"6e256a99ee:18","text":"除了 motion paths（运动路径）之外，旋转对象通常也需要额外的 motion samples（运动采样）。来看这个 color wheel（色轮）。首先是不使用 blur（模糊）的情况："}
+{"id":"d81d5498722e56e8090e005d7cf0c0055e5019a95c25bb957a0a14df9d4592be","item_id":"6e256a99ee:19","text":"现在，使用 2 到 7 个 motion samples（运动采样）："}
+{"id":"8a85770505aae15fa4d52bc6c5ef40f5eec9cc71a118dd723b61961dcb3d3dd1","item_id":"6e256a99ee:20","text":"Shutter Angle（快门角度）"}
+{"id":"3120057993dd2617a3faeaa9d6102512db14c0a1a7e4f59d2cf89dfaed1f0fa0","item_id":"6e256a99ee:21","text":"shutter angle（快门角度）是一个角度值（以 360 度为完整周期），用于决定 camera（摄像机）的 shutter（快门）打开多少个转动周期比例，以便让“film”（胶片）曝光。默认值为 180 度，因此快门会打开半帧时间。shutter angle（快门角度）越大，运动物体看起来越模糊。"}
+{"id":"34d06a02fde44a61f24cd72dbeee09d33eaf811fbb70bb4315a37a6a167cda8e","item_id":"6e256a99ee:22","text":"来看这个示例：使用 frame center blur（帧中心模糊）、大量 motion samples（运动采样），并分别使用 90、180 和 360 的 shutter angles（快门角度）。"}
+{"id":"4a1bf7577042272c47ae9827eafdf5d40091913dca5998cded9d7afb5c0eb51f","item_id":"6e256a99ee:23","text":"Shutter Open/Shutter Close（快门打开/快门关闭）"}
+{"id":"b6d9d5921b5c21bd679f996f665f7aee3fa4c42086ff62c494e80eff22949667","item_id":"6e256a99ee:24","text":"默认情况下，shutter（快门）实际上会瞬时打开和关闭。Shutter 设置包含两个值，"}
+{"id":"6201111b83a0cb5b0922cb37cc442b9a40e24e3b1ce100a4bb204f4c63fd2ac0","item_id":"6e256a99ee:25","text":"和"}
+{"id":"0a4a53e349d34963f6a645491664cd23cce148cd306d6716f7963b63fe4f8143","item_id":"6e256a99ee:26","text":"，它们是 shutter interval（快门区间）的 fractions（分数），可用于调整快门打开和关闭所需时间。从 0 到"}
+{"id":"98c86df3014a82660c2fd75b6a7432c092c998c59f0ad9817b0121372a8a4b58","item_id":"6e256a99ee:27","text":"之间快门打开，并从"}
+{"id":"f348f77a093be176315096b1e9b60fca2b5d2692b3a8a841d4c22b3f67156861","item_id":"6e256a99ee:28","text":"到 1 之间关闭。"}
+{"id":"eafe56c613b0747a2cee413e3763cef435eb29d59afa822be44821eb23cd574c","item_id":"6e256a99ee:29","text":"在区间开始时瞬时打开，并在区间结束时瞬时关闭。"}
+{"id":"b83dc27dadd3b584fd68c40636d83dbd33b95c4a1c123e9e78069e8331b76ec4","item_id":"6e256a99ee:30","text":"用区间前半段打开，用后半段关闭。"}
+{"id":"91f0b7914bd5697108bbe038884bb58232f4a24c2c3f53690085f62ed71a1478","item_id":"6e256a99ee:31","text":"在开始时瞬时打开，然后用区间的后半段关闭。"}
+{"id":"fdfe7cc46522065a82e229306474672fa9f18e759f9a12c21a5048406ca192df","item_id":"6e256a99ee:32","text":"在开始时瞬时打开，并用整个区间关闭。"}
+{"id":"f3f05185d38fb4982ae09a7eeee9b57098a3aac0b64703c6415db18888a3e160","item_id":"6e256a99ee:33","text":"用区间前半段打开，然后在区间结束时瞬时关闭。"}
+{"id":"83a45cd46087359d64ca94f6d25e21fae6b90de93005b6b9389ad33897a41283","item_id":"6e256a99ee:34","text":"用整个区间打开，然后在区间结束时瞬时关闭。"}

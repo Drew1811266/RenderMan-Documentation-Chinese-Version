@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Baking illumination</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Baking illumination</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFM27/544543053/Baking+illumination">https://rmanwiki-27.pixar.com/space/RFM27/544543053/Baking+illumination</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<h1 id="Bakingillumination-Overview">Overview</h1><p>This mode actually bakes outputs of an integrator. It will be mainly used to bake diffuse global illumination but it can bake any light path expression too.</p><h2 id="Bakingillumination-Howdoesitwork?">How does it work ?</h2><ul><li><p>Scene objects are baked one by one.</p></li><li><p>The integrator run in a single increment on each point (Max Samples = 1).</p></li><li><p>The result is output to one or more AOVs, each containing a single display channel.<br/></p></li></ul><hr/><h1 id="Bakingillumination-Settings">Settings</h1><p>The illumination baking settings overrides only a subset of parameters of your scene's render globals. If your current scene renders as expected, these are the only settings you need to bake.</p><h3 id="Bakingillumination-BakeMode">Bake Mode</h3><p>The main purpose of this menu is to validate your setup before rendering and warn you if an incorrect setup has been detected.</p><p><strong>2D Maps</strong></p><ul><li><p>Generates 1 image per object.</p></li></ul><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="f66cca9c-bad6-4e01-b8a6-62998b0c027c" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>All baked objects MUST have valid uvs for baking</p></div></div><p><strong>3D Point Cloud</strong></p><ul><li><p>Generates one or more point clouds, depending on file naming format.</p></li><li><p>Bakes in world space</p></li></ul><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="400" loading="lazy" src="../../attachments/544543053/rfmBakeIllumSettings.png" data-image-src="../../attachments/544543053/rfmBakeIllumSettings.png" data-height="1280" data-width="649" data-unresolved-comment-count="0" data-linked-resource-id="544543067" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfmBakeIllumSettings.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544543053" data-linked-resource-container-version="1" data-media-id="884a68bf-4b8c-4746-b995-dd80bea13c08" data-media-type="file"></span><h3 id="Bakingillumination-BakingImageFileFormat">Baking Image File Format</h3><p>As usual, you create a pattern with tokens to create named AOVs, but with a twist. The default file pattern is:</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="34b57d7f-90ec-4406-a2c4-46c692f12377" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: xml; gutter: false; theme: Confluence" data-theme="Confluence">&lt;scene&gt;_&lt;user:bakingIdentifier&gt;_&lt;aov&gt;.&lt;ext&gt;
+</pre>
+</div></div><p><code>user:bakingIdentifier</code> is a new attribute you can find on all bake-able shapes in the RenderMan section of the Attribute Editor:</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="400" loading="lazy" src="../../attachments/544543053/rfmBakingIdentifier.png" data-image-src="../../attachments/544543053/rfmBakingIdentifier.png" data-height="154" data-width="888" data-unresolved-comment-count="0" data-linked-resource-id="544543070" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfmBakingIdentifier.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544543053" data-linked-resource-container-version="1" data-media-id="34c7d278-441c-42bd-878f-123dfee1838a" data-media-type="file"></span><p>It defaults to <code>&lt;shapepath&gt;</code> so that each object gets a unique file name where the &quot;|&quot; character is replaced by &quot;_&quot;, which is what you want when you bake to 2D images.</p><p>If you want to bake to a single 3D point cloud, you should remove <code>&lt;user:bakeIdentifier&gt;</code> from the file name pattern.</p><h3 id="Bakingillumination-BaketoMaps(2Dbaking)">Bake to Maps (2D baking)</h3><p>Select the global baking resolution. Larger resolutions take longer to render.</p><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="92c2caf2-3d58-45c7-8095-560813ee8f2f" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><h3 id="Bakingillumination-Limitation">Limitation</h3><p>All objects will be baked at the same resolution. This is a limitation of the current implementation</p></div></div><h3 id="Bakingillumination-BaketoPointCloud(3Dbaking)">Bake to Point Cloud (3D baking)</h3><p>Point clouds are baked in world space and their density depends on the shape's dicing density. Select here the global dicing density for the scene.</p><div class="confluence-information-macro confluence-information-macro-tip conf-macro output-block" data-hasbody="true" data-macro-id="18e779b4-8c64-4652-a4fe-30865cc5422b" data-macro-name="tip"><span class="aui-icon aui-icon-small aui-iconfont-approve confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>You can override the dicing density per shape by setting the Dicing Strategy to worlddistance and entering a different Dicing Distance Length. Smaller values creates more points.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="400" loading="lazy" src="../../attachments/544543053/rfmBakeIllumPerShapeDensity.png" data-image-src="../../attachments/544543053/rfmBakeIllumPerShapeDensity.png" data-height="248" data-width="872" data-unresolved-comment-count="0" data-linked-resource-id="544543073" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfmBakeIllumPerShapeDensity.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544543053" data-linked-resource-container-version="1" data-media-id="65082a43-c145-4b44-a600-1292cf2a1ed7" data-media-type="file" /></span></div></div><h3 id="Bakingillumination-Integrator">Integrator</h3><p>Select an integrator and its settings. We recommend PxrPathTracer.</p><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="e9464431-b2db-4e31-ad72-576bbcdaad78" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><h3 id="Bakingillumination-Limitation.1">Limitation</h3><p>Some integrators like PxrVCM and PxrUnified are <strong>incompatible</strong> because they rely entirely on incremental rendering to accumulate samples and resolve illumination over time.</p><p>Baking runs the integrator <strong>once per point</strong> (Max Samples = 1) and it must be setup to <strong>deliver good results in a single increment</strong>.</p></div></div><p>For best results, you need to increase the number of direct (light samples and BXDFs samples) and indirect samples enough to get reasonably clean results. Best settings are very scene-dependant and will require experimentation.</p><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="fbf0eaed-1691-4671-b76b-dff0e4030ff9" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><h3 id="Bakingillumination-Limitation.2">Limitation</h3><p>Baking is <strong>not adaptive</strong> (i.e. brute-force) and all samples will be computed, regardless of convergence.</p><p>Illumination baking can be very slow: make sure you <strong>choose a minimal number of samples</strong> and remember that a bit of noise is nearly invisible in baked illumination.</p></div></div><p>Note that it makes no sense to bake view-dependant illumination, like specular, and you should alway try to bake view-independent signals like diffuse, albedo, etc.</p><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="98ec3d3e-ab31-440d-af07-bb93b2f3d0fc" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><h3 id="Bakingillumination-Limitation.3">Limitation</h3><p>It is currently impossible to run the denoiser on baked 2D images.</p></div></div><h3 id="Bakingillumination-DefaultRayDepth">Default Ray Depth</h3><p>As usual, you may set the max diffuse and specular depth. This will override the usual scene settings during baking.</p><h3 id="Bakingillumination-AOVs">AOVs</h3><p>The AOV section works exactly like in the render globals.</p><p>We default to baking diffuse illumination, both direct and indirect.</p><div class="confluence-information-macro confluence-information-macro-tip conf-macro output-block" data-hasbody="true" data-macro-id="06ec554e-d79a-4703-b38d-4ed26fd5c71c" data-macro-name="tip"><span class="aui-icon aui-icon-small aui-iconfont-approve confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>Should you need to bake raw illumination, you will need to bake the albedo as well and divide the illumination by the albedo (in a compositing package or a shader) to obtain raw illumination (aka irradiance).</p></div></div><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="6c50aa5e-5ffb-4290-94fc-035ee0c6ad49" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><h3 id="Bakingillumination-Limitation.4">Limitation</h3><p>Each AOV (aka Display) can only contain a single display channel and output at most 4 channels (RGBA).</p><p>Add more displays to bake more channels.</p></div></div><h4 id="Bakingillumination-Bake2D">Bake 2D</h4><p>Any non-deep image format can be used to bake to images. OpenEXR is recommended to avoid clamped results.</p><h4 id="Bakingillumination-Bake3D">Bake 3D</h4><p>Make sure to select the <code>d_pointcloud</code> display driver to bake point clouds.</p><p>If you forget to do so, the preflight checks should warn you and cancel the bake render.</p><p><br/></p><hr/><h1 id="Bakingillumination-Launchingabakerender">Launching a bake render</h1><p><span class="legacy-color-text-default">A bake render is essentially a batch render with one different setting. It uses the bake Hider instead of the raytrace Hider.</span></p><p><span class="legacy-color-text-default">To start a bake render simply choose </span><strong><span class="legacy-color-text-default">Bake Render: Illumination</span></strong><span class="legacy-color-text-default"> instead of Batch Render from the RenderMan menu.   All the usual </span><a href="544539366-Prefs - Render.html" rel="nofollow">batch render preferences</a><span class="legacy-color-text-default"> apply to the bake render.</span></p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="238" loading="lazy" src="../../attachments/544543053/rfmBakeMenuItem.png" data-image-src="../../attachments/544543053/rfmBakeMenuItem.png" data-height="816" data-width="487" data-unresolved-comment-count="0" data-linked-resource-id="544543076" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfmBakeMenuItem.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544543053" data-linked-resource-container-version="1" data-media-id="47c9a9c6-4512-40c2-a490-8782119a6d7d" data-media-type="file"></span>
+  </article>
+</main>
+</body>
+</html>

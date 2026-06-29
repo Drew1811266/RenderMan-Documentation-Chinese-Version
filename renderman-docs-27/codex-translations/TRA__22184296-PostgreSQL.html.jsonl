@@ -1,0 +1,26 @@
+{"item_id":"8e20aba403:0","text":"db.config 文件包含配置参数，用于控制后端 PostgreSQL 数据库的启动和关闭行为，以及客户端连接参数。"}
+{"item_id":"8e20aba403:1","text":"DBStartup"}
+{"item_id":"8e20aba403:2","text":"如果 engine 启动时尚未运行 postgresql server，则必须将 DBStartup 设置为 True，engine 才会启动一个 postgresql server。"}
+{"item_id":"8e20aba403:3","text":"DBUseExisting"}
+{"item_id":"8e20aba403:4","text":"如果 engine 启动时要使用已经运行的数据库服务器进程，则必须将 DBUseExisting 设置为 True。有些站点可能希望即使 engine 停止也保持作业数据库运行；另一些站点可能会将此值设置为 False，以断言新的 engine 调用不应写入一个不是由它自己启动的数据库服务器。"}
+{"item_id":"8e20aba403:5","text":"DBAutoUpgrade"}
+{"item_id":"8e20aba403:6","text":"注意：此功能在 Beta 0 中不可用。"}
+{"item_id":"8e20aba403:7","text":"必须将 DBAutoUpgrade 设置为 False，才能在新版 Tractor（带有新的 schema 版本）首次启动时抑制数据库 schema 的自动升级。如果设置为 False 且需要 schema 升级，engine 将不会运行。站点管理员需要手动运行 tractor-dbctl --upgrade 来执行升级；否则必须运行较旧的、schema 兼容的 Tractor 版本。如果管理员不希望保存现有作业数据，可以使用 tractor-dbctl --destroy 删除整个数据库；之后，当数据库由 engine 启动或手动启动时，会自动创建采用新 schema 的空数据库。tractor-dbctl --start 也会遵循此变量。"}
+{"item_id":"8e20aba403:8","text":"DBInit"}
+{"item_id":"8e20aba403:9","text":"如果 engine 启动时未找到数据库，则必须将 DBInit 设置为 true，才会创建新数据库。站点可能希望将其设置为 False，以避免在挂载保存现有数据库的文件系统出现问题时创建一个全新的数据库。"}
+{"item_id":"8e20aba403:10","text":"DBShutdown"}
+{"item_id":"8e20aba403:11","text":"如果希望 engine 停止时关闭 postgresql server，则必须将 DBShutdown 设置为 true。站点可能希望将其设置为 False，以便在 engine 已关闭或崩溃时仍允许 postgresql clients 对数据库运行查询。请注意，基于 URL 的查询会通过 engine 代理，因此 engine 停止时无法运行。"}
+{"item_id":"8e20aba403:12","text":"DBArchiving"}
+{"item_id":"8e20aba403:13","text":"当 DBArchiving 为 True 时，已删除的作业及其关联的任务、命令和 invocation 会被移动到 postgresql 数据库中的特殊分区。要查看它们，用户需要在 tq 中使用 --archives 标志，在 Python query API 中使用 archives 关键字参数，或在 Dashboard query pane 中选择 archives 按钮。"}
+{"item_id":"8e20aba403:14","text":"DBDebug"}
+{"item_id":"8e20aba403:15","text":"当 DBDebug 为 True 时，在创建、启动、同步和停止 postgresql server 时会输出调试信息。"}
+{"item_id":"8e20aba403:16","text":"DBDataDir"}
+{"item_id":"8e20aba403:17","text":"DBDataDir 表示用于存储数据库表的目录。可以指定指向其他位置的完整路径。"}
+{"item_id":"8e20aba403:18","text":"DBConnection"}
+{"item_id":"8e20aba403:19","text":"DBConnection 是客户端侧 postgres 连接参数。可以按需编辑或添加此字典中的值。# 'host' 指定 tractor-engine 应在哪里找到其 PostgreSQL server 的主机名。通常情况下，作业数据库与 tractor-engine 位于同一主机并由其管理，此时使用 \"localhost\"。# 'port' 表示 postgresql server 监听的端口。默认情况下，它设置为标准 PostgreSQL \"postmaster\" 端口，但如果有其他服务已经使用该端口，例如另一个 PostgreSQL server，或者在同一主机上测试两个 tractor-engines 这种不常见情况（不推荐），则可以更改。请注意，应在 postgres.conf 中进行相应更改。# 'dbname' 指定存储表的数据库名称，除非在特殊情况下，否则应始终为 \"tractor\"。#"}
+{"item_id":"8e20aba403:20","text":"DBRolePasswords"}
+{"item_id":"8e20aba403:21","text":"站点可以用多种方式限制对 Tractor 作业数据库的外部访问。一种方式是在上面指定 \"localhost\" 以阻止网络访问。另一种方式是为各种数据库登录角色添加密码。Tractor-engine 需要知道这些密码，因此必须在此处列举。显然，当这里指定敏感密码时，必须将此配置文件的读取权限限制给管理员（以及 Tractor \"EngineOwner\"）。#"}
+{"item_id":"8e20aba403:22","text":"Simple Configuration Example（简单配置示例）"}
+{"item_id":"8e20aba403:23","text":"以下设置适合开箱即用体验：站点希望在管理员很少或无需干预的情况下，将 postgresql 的管理交给 engine。这里 postgres server 与 engine 运行在同一主机上，并且仅在 engine 运行时运行。"}
+{"item_id":"8e20aba403:24","text":"Complex Configuration Example（复杂配置示例）"}
+{"item_id":"8e20aba403:25","text":"以下设置适合希望管理 custom（自定义）postgresql server，并希望在 engine 停止时仍保持 postgresql server 运行的站点，原因可能包括：(a) 服务未通过 engine 代理的查询，(b) postgresql server 运行在不同主机上并需要不同的启动/关闭方式，(c) 其他数据库服务由中央 postgresql server 管理，(d) 其他需要手动管理 postgresql server 的原因。在此示例中，schema 升级由人工处理；这样，当安装新的 Tractor 版本且存在 schema 变更时，不会因为等待 schema 升级操作完成而出现意外停机。请注意，管理员需要观察到新版 engine 启动失败，并需要手动启动旧版本。"}

@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Solaris &amp; MaterialX</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Solaris &amp; MaterialX</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFH27/544640862/Solaris+%26+MaterialX">https://rmanwiki-27.pixar.com/space/RFH27/544640862/Solaris+%26+MaterialX</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="900" loading="lazy" src="../../attachments/544640862/RenderMan_MaterialX_Solaris.jpg" data-image-src="../../attachments/544640862/RenderMan_MaterialX_Solaris.jpg" data-height="616" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="544640874" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_MaterialX_Solaris.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544640862" data-linked-resource-container-version="1" data-media-id="69e5c5c9-4c05-401e-8178-bb2277121639" data-media-type="file"></span><p>Artists 和 Studios 可以利用 MaterialX 与 RenderMan 的创作灵活性，创建玻璃、金属、SSS、塑料和常见 PBR workflows（PBR 工作流）等多种材质，并使用 <em>mtlxStandard</em> 这个 Solaris 内的节点。</p><p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="900" loading="lazy" src="../../attachments/544640862/RenderMan_MaterialX_Solaris_Network.jpg" data-image-src="../../attachments/544640862/RenderMan_MaterialX_Solaris_Network.jpg" data-height="557" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="544640880" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_MaterialX_Solaris_Network.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544640862" data-linked-resource-container-version="1" data-media-id="4dbf86b1-218c-4e76-9897-90d372a093cd" data-media-type="file"></span><p>使用 MaterialX shading nodes（MaterialX 着色节点）的方式与使用其他 RenderMan materials（RenderMan 材质）相同，节点连接、参数编辑和网络组织方式都保持一致，这样可以沿用熟悉的材质搭建流程并保持结构清晰。只需准备一个 MaterialX shading network（MaterialX 着色网络），并在 <em>materialLibrary</em> 中创建它，然后像往常一样将其分配给 geo（几何）。<br/><br/><br/></p><hr/><h2 id="Solaris&amp;MaterialX-Limitations">Limitations（限制）</h2><p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="900" loading="lazy" src="../../attachments/544640862/RenderMan_MaterialX_Solaris_chessSet.jpg" data-image-src="../../attachments/544640862/RenderMan_MaterialX_Solaris_chessSet.jpg" data-height="615" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="544640877" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_MaterialX_Solaris_chessSet.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544640862" data-linked-resource-container-version="1" data-media-id="44266f1f-e2d2-4c85-b2d7-08f899fea257" data-media-type="file"></span><p>目前，在 Solaris 中使用 RenderMan 渲染 MaterialX 仍有一些限制，包括 </p><ul><li><p>当前不支持 MaterialX Subnets。</p></li><li><p>当前不支持使用 XPU 渲染。</p></li></ul><p /><p><br/><br/><br/></p>
+  </article>
+</main>
+</body>
+</html>

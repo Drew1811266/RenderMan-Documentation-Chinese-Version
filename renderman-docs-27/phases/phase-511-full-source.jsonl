@@ -1,0 +1,73 @@
+{"item_id": "9aaedfb175:0", "source": "Creating Mesh Lights"}
+{"item_id": "9aaedfb175:1", "source": "Any piece of geometry can become a light source in RenderMan for Maya.  Select the geometry that should become emissive and click on the Mesh Light button in the RenderMan shelf."}
+{"item_id": "9aaedfb175:2", "source": "The next time you render, the object will cast light and itself have a constant color which comes from the PxrMeshLight's color and intensity."}
+{"item_id": "9aaedfb175:3", "source": "PxrBlack"}
+{"item_id": "9aaedfb175:4", "source": "When the Mesh Light button is clicked, a new material called PxrBlack is assigned to the selection, and a PxrMeshLigh"}
+{"item_id": "9aaedfb175:5", "source": "is created and wired into the shading group of the PxrBlack material.  PxrBlack acts as a dummy material.  It doesn't actually have any parameters, although in the Attribute Editor a link is provided to the associated PxrMeshLight."}
+{"item_id": "9aaedfb175:6", "source": "For most purposes PxrBlack is an appropriate material, but you can experiment with using others, like PxrVolume.  The easiest way to set that up is to begin with the Mesh Light button.  Then, select the shading group for the PxrBlack and wire in a different surface or volume material there.  This way the area light is already wired in to the shading group."}
+{"item_id": "9aaedfb175:7", "source": "PxrMeshLight"}
+{"item_id": "9aaedfb175:8", "source": "PxrMeshLights behave much like other lights in Maya.  They show up under the lights tab in the Hypershade Window and light linking can be set up in Maya's Relationship Editor."}
+{"item_id": "9aaedfb175:9", "source": "PxrMeshLight allows you to create arbitrary shapes and use them as bonafide light sources. This improves performance over emissive geometry and provides great flexibility for creating things like neon lights, futuristic light panels, and deforming shapes that light a scene."}
+{"item_id": "9aaedfb175:10", "source": "The parameters are simple and easy to tune and the light follows the shape's render visibility as opposed to selections on the light."}
+{"item_id": "9aaedfb175:11", "source": "While you may use a meshlight as a deforming piece of geometry, deformation motion blur is not yet supported and could provide incorrect results."}
+{"item_id": "9aaedfb175:12", "source": "In creating a meshlight, you may see a material connected to it called PxrBlack. This material has no parameters and is designed to prevent the mesh from scattering light a second time from itself. This is done to provide something intuitive, not necessarily something physical."}
+{"item_id": "9aaedfb175:13", "source": "Parameters"}
+{"item_id": "9aaedfb175:14", "source": "Basic"}
+{"item_id": "9aaedfb175:15", "source": "Color"}
+{"item_id": "9aaedfb175:16", "source": "The color of the emitted light."}
+{"item_id": "9aaedfb175:17", "source": "Intensity"}
+{"item_id": "9aaedfb175:18", "source": "Scales the contribution of this light linearly. The light intensity is computed using physical falloff."}
+{"item_id": "9aaedfb175:19", "source": "Exposure"}
+{"item_id": "9aaedfb175:20", "source": "Specifies the exposure of the area light as a power of 2. Increasing the exposure by 1 will double the energy emitted by the light source. A value of 0 produces an intensity of 1 at the source, -1 produces 0.5. R"}
+{"item_id": "9aaedfb175:21", "source": "eal world lighting has high energies and typical exposures are low values while you may have to type a really large number for equivalent"}
+{"item_id": "9aaedfb175:22", "source": "Intensity"}
+{"item_id": "9aaedfb175:23", "source": ". This is also comfortable to artists familiar with photographic measurements."}
+{"item_id": "9aaedfb175:24", "source": "Texture Color"}
+{"item_id": "9aaedfb175:25", "source": "An image to use as a light source using a pattern node, e.g."}
+{"item_id": "9aaedfb175:26", "source": "PxrTexture"}
+{"item_id": "9aaedfb175:27", "source": ". Preferably a High Dynamic Range source. Notice this affects color and shadowing based on the contents of the HDRI used. If forced to use an 8-bit source such as a JPEG image, it should be linearized (transformed to linear color space) before use as a color. Since this is indeed a mesh, you must have defined UVs or appropriate projections to place your texture correctly."}
+{"item_id": "9aaedfb175:28", "source": "Enable Temperature"}
+{"item_id": "9aaedfb175:29", "source": "Turns color temperature on or off."}
+{"item_id": "9aaedfb175:30", "source": "Temperature"}
+{"item_id": "9aaedfb175:31", "source": "Allow the user to choose the color temperature of the light in Kelvins. Unlike the basic light color, this allows the user to easily pick plausible light colors based on standard temperature measurements.This control will act like a filter or gel (a tinted transparent surface) in front of your light. If your light is white, you will get the chosen color temperature. If your light is colored, the color temperature will make it cooler (over 6500K) or warmer (below 6500K)."}
+{"item_id": "9aaedfb175:32", "source": "The effect will be less pronounced on fully saturated mono-chromatic lights. Defaults to 6500K, which should be very close to white on most monitors (D65 illuminant used by sRGB and Rec 709)."}
+{"item_id": "9aaedfb175:33", "source": "Refine"}
+{"item_id": "9aaedfb175:34", "source": "Specular Amount"}
+{"item_id": "9aaedfb175:35", "source": "Amount of specular light that is emitted. This is a non-physical control. You could use a light with"}
+{"item_id": "9aaedfb175:36", "source": "Specular Amount"}
+{"item_id": "9aaedfb175:37", "source": "0.0 to act purely as a source of diffuse light for your scene objects and avoid adding highlights."}
+{"item_id": "9aaedfb175:38", "source": "Diffuse Amount"}
+{"item_id": "9aaedfb175:39", "source": "Amount of diffuse light that is emitted. This is a non-physical control. You could use a light with"}
+{"item_id": "9aaedfb175:40", "source": "Diffuse Amount"}
+{"item_id": "9aaedfb175:41", "source": "0.0 to act purely as a source of highlights for your scene objects."}
+{"item_id": "9aaedfb175:42", "source": "Intensity Near Dist"}
+{"item_id": "9aaedfb175:43", "source": "Near distance between the point being illuminated and the light at which the sample doesn't get brighter. This may help you avoid hot spots and sampling issues where a light is near a surface. These values are based on your scene scale/distance so this is just an example."}
+{"item_id": "9aaedfb175:44", "source": "Specular Near Dist"}
+{"item_id": "9aaedfb175:45", "source": "Near distance between the point with specular shading being illuminated and the light at which the sample doesn't get brighter. This may help you avoid hot spots and sampling issues where a light is near a specular surface."}
+{"item_id": "9aaedfb175:46", "source": "Note"}
+{"item_id": "9aaedfb175:47", "source": "that this value will not apply to lights as seen from the camera."}
+{"item_id": "9aaedfb175:48", "source": "Below, the right sphere has a distance of 0.0, 5.0, and finally 10.0. These values are based on your scene scale/distance so this is just an example."}
+{"item_id": "9aaedfb175:49", "source": "Diffuse Near Dist"}
+{"item_id": "9aaedfb175:50", "source": "Near distance between the point with diffuse shading being illuminated and the light at which the sample doesn't get brighter. This may help you avoid hot spots and sampling issues where a light is near a diffuse surface."}
+{"item_id": "9aaedfb175:51", "source": "Note"}
+{"item_id": "9aaedfb175:52", "source": "that this value will not apply to lights as seen from the camera."}
+{"item_id": "9aaedfb175:53", "source": "Below, the left sphere has a distance of 0.0, 5.0, and finally 10.0. These values are based on your scene scale/distance so this is just an example."}
+{"item_id": "9aaedfb175:54", "source": "Advanced"}
+{"item_id": "9aaedfb175:55", "source": "Area Normalize"}
+{"item_id": "9aaedfb175:56", "source": "When normalize is enabled, the amount of light contributed to the scene will not change as you scale the light source. This makes it easier to adjust highlight size without changing scene lighting."}
+{"item_id": "9aaedfb175:57", "source": "Trace Light Paths"}
+{"item_id": "9aaedfb175:58", "source": "Enable light and photon tracing from this light. This value enforces a physically-based light and as a side-effect disables the above"}
+{"item_id": "9aaedfb175:59", "source": "Shadows"}
+{"item_id": "9aaedfb175:60", "source": "controls. Users may use this feature to selectively decide which lights emit photons when using the PxrVCM or PxrUnified Integrators."}
+{"item_id": "9aaedfb175:61", "source": "Thin Shadow"}
+{"item_id": "9aaedfb175:62", "source": "Enable thin shadow and disable refraction caustics for this light. This parameter will ignored if"}
+{"item_id": "9aaedfb175:63", "source": "Trace Light Paths"}
+{"item_id": "9aaedfb175:64", "source": "is enabled. This is a non-physical control that creates \"fake\" colored shadows for transmissive objects without needing to generate photons for caustics."}
+{"item_id": "9aaedfb175:65", "source": "Light Group"}
+{"item_id": "9aaedfb175:66", "source": "Specify the light group name used for light group LPEs. This is useful to generate per-light AOVs for later adjustment in compositing."}
+{"item_id": "9aaedfb175:67", "source": "Importance Multiplier"}
+{"item_id": "9aaedfb175:68", "source": "Rather than setting explicit Light Samples, users can change the amount of samples the light will be assigned internally by changing this value. RenderMan creates a set of samples at render time for all lights in the scene and changing this value rebalances the samples across the lights. Note that increasing this value will cause"}
+{"item_id": "9aaedfb175:69", "source": "more"}
+{"item_id": "9aaedfb175:70", "source": "samples to be selected from this light while reducing it for others in the scene. Lower than the default will"}
+{"item_id": "9aaedfb175:71", "source": "decrease"}
+{"item_id": "9aaedfb175:72", "source": "the samples while providing more to others in the scene."}

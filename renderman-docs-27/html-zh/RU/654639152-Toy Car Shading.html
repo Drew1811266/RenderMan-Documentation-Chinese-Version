@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Toy Car Shading</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Toy Car Shading</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RU/654639152/Toy+Car+Shading">https://rmanwiki-27.pixar.com/space/RU/654639152/Toy+Car+Shading</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<h3 id="ToyCarShading-Shading">Shading（着色）</h3><p>我尽量让 shading process 保持最小化，把在 Mari 中创建的 texture maps 直接连接到 RenderMan 的 PxrSurface shader。除了一个用于微调 roughness response 的 basic remap node，没有构建复杂的 node networks。</p><p>这种方法效果很好，因为我在 Mari 的 texturing phase 也使用了基于 PxrSurface 的 setup，这帮助我在 RenderMan 中获得一致结果。<br/>为了确保 physical accuracy，我为每种 material 应用了正确的 IOR 和 Extinction Coefficient values。</p><p>由于所有 maps 都是在这些 values 的前提下准备的，因此在 RenderMan 侧不需要进一步调整。</p><p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image11.jpg" width="760" loading="lazy" src="../../attachments/654639152/image11.jpg" data-image-src="../../attachments/654639152/image11.jpg" data-height="799" data-width="1243" data-unresolved-comment-count="0" data-linked-resource-id="654966843" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image11.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="654639152" data-linked-resource-container-version="1" data-media-id="da10e71f-8e94-4dab-b6dc-45f60db33f28" data-media-type="file"></span><hr/>
+  </article>
+</main>
+</body>
+</html>

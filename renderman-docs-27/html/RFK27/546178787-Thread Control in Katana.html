@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Thread Control in Katana</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Thread Control in Katana</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFK27/546178787/Thread+Control+in+Katana">https://rmanwiki-27.pixar.com/space/RFK27/546178787/Thread+Control+in+Katana</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<h2 id="ThreadControlinKatana-SettingTraversalThreadCount">Setting Traversal Thread Count</h2><p>As RfK converts the Katana scene graph into the Rix scene graph for rendering it will do so in parallel, spawning new threads at location branches. The default is &quot;all on&quot; meaning it will fork on every child location in the scene which is unlikely to be ideal for most scenes but allows for deeper control by the author for control of parallelism. There are are varying levels of control which will take some adjustment to come up with a configuration that works with your pipeline and subsequently for individual scenes. </p><ol start="1"><li><p><strong>prmanGlobalStatements.plugin.traversalMethod:</strong> The global traversal setting. When set to 'Serial' it will disable parallel scene traversal entirely. Not generally recommended but can be useful for timing comparisons and rentrant diagnostics (i.e. am I seeing this problem in both serial and parallel traversal?).</p></li><li><p><strong>prmanGlobalStatements.plugin.maxTraversalThreads: </strong>Number of threads requested for traversal: this is the first place to start tuning. By default the max is set to 4 but depending on your machine configuration and your scene layout you may get double or half the performance at this level. For the technically inclined, this is the value used to initialize RfK's TBB task scheduler. Setting this to the TBB default of '0' is <strong>not</strong> recommended. Empirically we have seen significant slowdowns when setting this to '0', likely due to conflict with other TBB sessions in play.</p></li><li><p><strong>prmanStatements.traversal.forceSerial:</strong> Per-location setting for scene or asset fine-tuning. It is highly recommended to set this true at component or group levels such that the traversal does not try to parallelize down to the gprim level. Please see <a class="external-link" href="http://rmanwiki-test.pixar.com/display/RFK24/PrmanObjectStatements#PrmanObjectStatements-Traversal" rel="nofollow">PrmanObjectStatements</a> for more detail on location-level thread tuning.<br/> </p></li></ol><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="0917042f-35b7-423d-8dc7-ef84c550683f" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p><strong>Performance Note</strong></p><p>Understand that some branches processed serially may improve time to first pixel (the time it takes for the render to begin sending pixels) and is very much scene dependent, but important to understand that parallel traversal on everything may be costly.</p></div></div><h2 id="ThreadControlinKatana-SettingRenderThreadCount"><br/>Setting Render Thread Count</h2><p>Currently there are three ways to set the number of render threads in RfK. The first two will trigger a &quot;<code>-t:#</code>&quot; addition to the command line arguments for prman which, by RenderMan definition, will override any thread specification in the RIB (the third option).</p><p>Ways to set thread count, <strong>in order of precedence</strong>:</p><ol start="1"><li><p>Katana preferences: <strong>interactiveRenderThreadsOverride</strong> and <strong>interactiveRenderThreads3D</strong> (equivalent to the use of the &quot;<code>--threads3d</code>&quot; command line parameter in batch mode).</p></li><li><p>Katana attribute:<strong> renderSettings.renderThreads.</strong></p></li><li><p>PRMan option: <strong>prmanGlobalStatements.options.limits.threads</strong>.</p></li></ol><p>How and where to set these values are detailed below.</p><h4 id="ThreadControlinKatana-Option1:interactiveRenderThreadPreferences">Option 1:   interactiveRenderThread Preferences</h4><p>Below is a screen capture of the preferences <strong>interactiveRenderThreadsOverride</strong> and <strong>interactiveRenderThreads3D</strong> (equivalent to the use of the &quot;<code>--threads3d</code>&quot; command line parameter in batch mode). If you want to definitively set the number of render threads this will be the place to do it. Set <strong>interactiveRenderThreadsOverride</strong> = <em>Yes</em> and set the value of <strong>interactiveRenderThreads3D</strong> to your desired threads:</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="417" loading="lazy" src="../../attachments/546178787/rfkThreadsPreferences.png" data-image-src="../../attachments/546178787/rfkThreadsPreferences.png" data-height="426" data-width="711" data-unresolved-comment-count="0" data-linked-resource-id="546178810" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfkThreadsPreferences.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="546178787" data-linked-resource-container-version="4" data-media-id="7d0c0446-4c4d-40de-9d28-9b0db3184f64" data-media-type="file"></span><h4 id="ThreadControlinKatana-Option2:renderThreadsAttribute">Option 2: renderThreads Attribute</h4><p>The attribute <strong>renderSettings.renderThreads</strong> must be set via AttributeSet or OpScript as it is not exposed in RenderSettings.  Below is an example of setting the attribute with an AttributSet node:</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="376" loading="lazy" src="../../attachments/546178787/rfkThreadsRenderSettings.png" data-image-src="../../attachments/546178787/rfkThreadsRenderSettings.png" data-height="324" data-width="488" data-unresolved-comment-count="0" data-linked-resource-id="546178807" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfkThreadsRenderSettings.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="546178787" data-linked-resource-container-version="4" data-media-id="515994c5-5b53-4e37-a48f-7e3017c82205" data-media-type="file"></span><h4 id="ThreadControlinKatana-Option3:limits.threadsprmanOption">Option 3: limits.threads prman Option</h4><p>The prman option for <strong>limits.threads</strong> is set via the <strong>Options</strong> section of the PrmanGlobalStatements node:</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="307" loading="lazy" src="../../attachments/546178787/rfkThreadsOptionsLimits.png" data-image-src="../../attachments/546178787/rfkThreadsOptionsLimits.png" data-height="392" data-width="482" data-unresolved-comment-count="0" data-linked-resource-id="546178801" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfkThreadsOptionsLimits.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="546178787" data-linked-resource-container-version="4" data-media-id="2f5835f0-32f7-4a34-9112-c02e734ac353" data-media-type="file"></span><p>This attribute translates literally to RIB:</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="aa48246f-265b-448e-8359-3c75216734dd" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">Option &quot;limits&quot; &quot;int threads&quot; [N]</pre>
+</div></div><p>As it is lowest in the precedence list, this thread option is overridden if either (1) preferences or (2) render settings have a thread value enabled.</p><h3 id="ThreadControlinKatana-SpecialValues">Special Values</h3><p>In all cases, if a value of 0 (zero) is given to prman then all CPUs will be utilized for rendering. If a negative value (-N) is specified, then prman will use all but N CPUs for rendering.</p>
+  </article>
+</main>
+</body>
+</html>

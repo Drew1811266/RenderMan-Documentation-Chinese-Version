@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Stylized Looks in Katana Overview</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Stylized Looks in Katana Overview</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFK27/546178301/Stylized+Looks+in+Katana+Overview">https://rmanwiki-27.pixar.com/space/RFK27/546178301/Stylized+Looks+in+Katana+Overview</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>在 Katana 中，有两种方式设置 Stylized Looks：</p><ol start="1"><li><p>一种简单的“beginner（初学者）”Macro（宏），其中已经包含所有内容。</p></li><li><p>另一种更高级的手动选项，让用户可以手动设置所有内容，并获得更多控制和 daisy-chain（菊花链）选项。</p></li></ol><p /><p>beginner macro（初学者宏）如下所示：</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="1446" loading="lazy" src="../../attachments/546178301/stylized-katana-macro.png" data-image-src="../../attachments/546178301/stylized-katana-macro.png" data-height="1244" data-width="1446" data-unresolved-comment-count="0" data-linked-resource-id="546178322" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="stylized-katana-macro.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="546178301" data-linked-resource-container-version="4" data-media-id="381bd243-c503-4551-af99-a226e808d9e7" data-media-type="file"></span><p>在这个 macro（宏）中，有 3 个节点：Toon、Hatching 和 Lines。</p><p>在 macro 外部，还有 StylizedControl 节点，它像这样连接到 PxrSurface：</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="402" loading="lazy" src="../../attachments/546178301/stylized-katana-control.png" data-image-src="../../attachments/546178301/stylized-katana-control.png" data-height="420" data-width="676" data-unresolved-comment-count="0" data-linked-resource-id="546178325" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="stylized-katana-control.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="546178301" data-linked-resource-container-version="4" data-media-id="f5d43b42-987c-46e1-bb6f-6d8f1499f571" data-media-type="file"></span><p /><p>如果场景中还没有 Stylized Looks macro，只需在 Nodegraph 中按 Tab 从头添加它，它会像这样出现在菜单中：</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="996" loading="lazy" src="../../attachments/546178301/stylized-katana-macro-fromscratch.png" data-image-src="../../attachments/546178301/stylized-katana-macro-fromscratch.png" data-height="510" data-width="996" data-unresolved-comment-count="0" data-linked-resource-id="546178319" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="stylized-katana-macro-fromscratch.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="546178301" data-linked-resource-container-version="4" data-media-id="de2017c9-0f1e-4cef-8a24-8281e25c5056" data-media-type="file"></span><p /><p>然后，从同一个菜单添加一个 shading node：</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="790" loading="lazy" src="../../attachments/546178301/stylized-katana-shadingnode-fromscratch.png" data-image-src="../../attachments/546178301/stylized-katana-shadingnode-fromscratch.png" data-height="444" data-width="790" data-unresolved-comment-count="0" data-linked-resource-id="546178316" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="stylized-katana-shadingnode-fromscratch.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="546178301" data-linked-resource-container-version="4" data-media-id="96cea271-0148-47c8-9a83-04d6fab62c68" data-media-type="file"></span><p /><p>然后选择 <strong>PxrStylizedControl</strong>：</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="470" loading="lazy" src="../../attachments/546178301/stylized-katana-shadingnode-stylizedcontrol.png" data-image-src="../../attachments/546178301/stylized-katana-shadingnode-stylizedcontrol.png" data-height="294" data-width="470" data-unresolved-comment-count="0" data-linked-resource-id="546178313" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="stylized-katana-shadingnode-stylizedcontrol.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="546178301" data-linked-resource-container-version="4" data-media-id="469763cc-f150-4583-9b79-7b3b25b36039" data-media-type="file"></span><p> 并将 <strong>resultAOV</strong> 连接到 <strong>utilityPattern</strong>（位于 <strong>PxrSurface</strong>上）。</p><p />
+  </article>
+</main>
+</body>
+</html>

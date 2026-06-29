@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Using Material Layers</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Using Material Layers</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFH27/544644545/Using+Material+Layers">https://rmanwiki-27.pixar.com/space/RFH27/544644545/Using+Material+Layers</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="contentLayout2">
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="900" loading="lazy" src="../../attachments/544644545/material_layer.png" data-image-src="../../attachments/544644545/material_layer.png" data-height="555" data-width="978" data-unresolved-comment-count="0" data-linked-resource-id="544644604" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="material_layer.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544644545" data-linked-resource-container-version="1" data-media-id="98a89b89-ac27-4342-a389-e73fa6d0b380" data-media-type="file"></span><p><br/></p><p>要了解 PxrSurface 的所有细节及其可分层参数，请访问 <a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661411" rel="nofollow">Pixar Surface Materials</a>。</p><p /></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p>创建简单分层材质最容易的方法是打开 RenderMan 菜单，选择 Create Material（创建材质），然后选择 Pxr Layered Surface。这里会在 MAT 面板中创建并连接一个分层材质。</p></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rfh_materialLayersCreation.png" width="882" loading="lazy" src="../../attachments/544644545/rfh_materialLayersCreation.png" data-image-src="../../attachments/544644545/rfh_materialLayersCreation.png" data-height="644" data-width="648" data-unresolved-comment-count="0" data-linked-resource-id="544644577" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfh_materialLayersCreation.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544644545" data-linked-resource-container-version="1" data-media-id="9ed73dff-9855-4d96-85bd-f2982639732e" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><br/></p><h3 id="UsingMaterialLayers-PxrLayer">PxrLayer</h3><p>可以覆盖 <a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661415" rel="nofollow">PxrSurface</a> 中的参数，方法是使用 <a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661459" rel="nofollow">PxrLayer</a> 选项。 </p><p>在这个示例中，我们在 PxrSurface 中设置绿色 diffuse color（漫反射颜色）。然后在其上方叠加一个带有青色 diffuse color 的 PxrLayer 节点。请注意，一种颜色会覆盖另一种颜色，因此需要调整 Mixer node。</p></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrsurface.png" width="882" loading="lazy" src="../../attachments/544644545/pxrsurface.png" data-image-src="../../attachments/544644545/pxrsurface.png" data-height="290" data-width="518" data-unresolved-comment-count="0" data-linked-resource-id="544644580" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrsurface.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544644545" data-linked-resource-container-version="1" data-media-id="afd49839-5700-4984-b679-d4e4f7aa6366" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="layer1_render1.png" width="882" loading="lazy" src="../../attachments/544644545/Invalid file id - 2f415d22-cfcd-48dc-9542-5768e3d2fcf9" data-image-src="../../attachments/544644545/Invalid file id - 2f415d22-cfcd-48dc-9542-5768e3d2fcf9" data-height="290" data-width="520" data-unresolved-comment-count="0" data-linked-resource-id="544644586" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Invalid file id - 2f415d22-cfcd-48dc-9542-5768e3d2fcf9" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544644545" data-linked-resource-container-version="1" data-media-id="c3b4927b-258b-481e-a04b-712bb466ddea" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h3 id="UsingMaterialLayers-PxrLayerMixer">PxrLayer Mixer</h3></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p>可以使用 <a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661465" rel="nofollow">PxrLayerMixer</a> 来组合 layers（层）。Mixer 用于决定通过 mask 在哪里以及如何混合各个 layer。下面，patterns 会连接到 Mixer 中的 Mask。</p></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rfh_mskPxrLayer.png" width="882" loading="lazy" src="../../attachments/544644545/rfh_mskPxrLayer.png" data-image-src="../../attachments/544644545/rfh_mskPxrLayer.png" data-height="672" data-width="960" data-unresolved-comment-count="0" data-linked-resource-id="544644574" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfh_mskPxrLayer.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544644545" data-linked-resource-container-version="1" data-media-id="763b916a-8e9b-4411-8025-2009a16b943f" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><br/>可以对 specular（镜面）、iridescence（虹彩）和其他 illumination lobes（照明波瓣）进行分层。</p><p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="diffuselayerrender.png" width="522" loading="lazy" src="../../attachments/544644545/diffuselayerrender.png" data-image-src="../../attachments/544644545/diffuselayerrender.png" data-height="291" data-width="522" data-unresolved-comment-count="0" data-linked-resource-id="544644571" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="diffuselayerrender.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544644545" data-linked-resource-container-version="1" data-media-id="30341d55-f19d-4f50-bb6b-468d229ad659" data-media-type="file"></span><p /></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="speclayerrender.png" width="882" loading="lazy" src="../../attachments/544644545/speclayerrender.png" data-image-src="../../attachments/544644545/speclayerrender.png" data-height="292" data-width="522" data-unresolved-comment-count="0" data-linked-resource-id="544644565" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="speclayerrender.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544644545" data-linked-resource-container-version="1" data-media-id="7f1c915d-d5b7-4d90-a489-73f39e890abe" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="iridlayerrender.png" width="882" loading="lazy" src="../../attachments/544644545/iridlayerrender.png" data-image-src="../../attachments/544644545/iridlayerrender.png" data-height="294" data-width="521" data-unresolved-comment-count="0" data-linked-resource-id="544644568" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="iridlayerrender.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544644545" data-linked-resource-container-version="1" data-media-id="a97d07a7-4f63-472f-bec0-86b337e2d9be" data-media-type="file"></span></div>
+</div>
+</div>
+</div>
+  </article>
+</main>
+</body>
+</html>

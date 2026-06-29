@@ -1,0 +1,41 @@
+{"id": "6a638f30d41b398fb0f6ff92554fb8db0958b01b70be2b2b23352065a1f38a7b", "item_id": "e2b1f28c72:0", "text": "RenderMan diagnostics are available in Katana as live stats and offline JSON reports. Access to more advanced configuration is also available with the use of an environment variable or through a specialized OpScript."}
+{"id": "c7ec711f2017f78d08e98866129fdf470d813d88b968c7ac4c051b26f4b77971", "item_id": "e2b1f28c72:1", "text": "Live Stats"}
+{"id": "601280bf7c4b60c8c4621d7352078f64916df4982445582b8e98b861df47fb32", "item_id": "e2b1f28c72:2", "text": "The PrmanLiveStats Tab displays a live overview of metric data from an active Katana render."}
+{"id": "84f856d83b90d2fb5e2e8981838a62a4e422adf53917fb8227671824df787078", "item_id": "e2b1f28c72:3", "text": "It displays several key metrics in real time, including process memory, elapsed wall clock time, and render progress. The window will automatically connect and disconnect as renders start and stop. When a render completes or is canceled, its data remains in the live stats view until the next render starts or a new scene loads."}
+{"id": "ed2e2c0a3acdc819c62ee5800ba6873d8339cc948026345ae5666e649d5e1d48", "item_id": "e2b1f28c72:5", "text": "Live Stats Overview"}
+{"id": "80786c326826500a020637cc84c7a2dcd1a0df0a165b1cf2a07e3c7e9d5f7f90", "item_id": "e2b1f28c72:6", "text": "for detailed information about the contents of this window."}
+{"id": "6dbbf23f6ab2c80a096beab0d7dd5022436b1803632b2bd5c8d800a60af8ad10", "item_id": "e2b1f28c72:7", "text": "JSON Report"}
+{"id": "120e3e226ec11e4209e52e753cbeabc27d3c8f54affedccfe7f6eb617ac12681", "item_id": "e2b1f28c72:8", "text": "To generate an end-of-render diagnostic report, set the PrmanGlobalStatements"}
+{"id": "3c8dff75b1339d40671d60e66f472f0e2c7d1df0347c097a97f354b374df53a0", "item_id": "e2b1f28c72:9", "text": "JSON Report Filename"}
+{"id": "ad20f0c3b5f97c640c4a0c92fb0bd734adffe9aea899aabb33af060cfafa46cc", "item_id": "e2b1f28c72:10", "text": "attribute to the desired output filename. (prmanGlobalStatements.options.statistics.jsonFilename)."}
+{"id": "bdaeb2a58b77abe05af3f0e514fc5dc7ce8e597ba5f7fbd1e78736288a6ebdf9", "item_id": "e2b1f28c72:12", "text": "Diagnostic Report"}
+{"id": "45605fd2cd0f542138958ef0ad4ace1c89b1e69726d048f205b51dec7347f16c", "item_id": "e2b1f28c72:13", "text": "documentation for detailed information on the configuration and interpretation of this report."}
+{"id": "6a364cb7f5726dd9346db79fb86da6501050cfbb439ffb941efc006b99019415", "item_id": "e2b1f28c72:14", "text": "Custom Configuration"}
+{"id": "41766a4a26bb32714400dc1dfa281505b2baeed137845e9931ebffe17bb78068", "item_id": "e2b1f28c72:15", "text": "For more control over diagnostic output, RfK can be directed to use a"}
+{"id": "2b23b8e9ecbf6dbec0b28cbc3046329317f106ea18ba83b11c9e3f65afd723da", "item_id": "e2b1f28c72:16", "text": "configuration file"}
+{"id": "8fc411777e97cfe51c645a56e222fc723ef220b4e77398d3c7977c128c36707b", "item_id": "e2b1f28c72:17", "text": "using the environment variable"}
+{"id": "93ae649df12d832ceabde5498adae0d4fdfdfeb53d5a87ac84a4f83c84e0f487", "item_id": "e2b1f28c72:18", "text": "$RMAN_STATS_CONFIG_PATH"}
+{"id": "334fba8a368e7d5e4bef97907f203061596a70b48a9bda0367013745aab458e8", "item_id": "e2b1f28c72:19", "text": ". Additionally, RfK supports customization of the configuration file search path and/or the configuration file name via specialized attributes:"}
+{"id": "bbe9a43215e7f20599a13639598e8ba00fc6d18ec449ac647a00cdabdc4aa91f", "item_id": "e2b1f28c72:21", "text": "(default:"}
+{"id": "ff5a519a81dd073150b2472f57488ae47c1a4d3e84a5f3af0c3f2f3c74ed3918", "item_id": "e2b1f28c72:22", "text": "If set, these will take precedence over other options. The “stats” attributes are not exposed in PrmanGlobalStatements; they must be set via AttributeSet or OpScript. Below is an OpScript that exposes these two attributes as user args with defaults as listed above. Copy and paste into your Katana scene and modify the user attributes configPath and configFile name as needed."}
+{"id": "f88ff4a06ad5e2b4ca5bfd5612392f32daf875ffb533fcc2512a78edf21a52f4", "item_id": "e2b1f28c72:23", "text": "RfK will search for a configuration file with the following precedence:"}
+{"id": "eb34a4e7495887ab81709670e5afcc42071fd809bb049d1943964ef68ca0ae50", "item_id": "e2b1f28c72:24", "text": "options take precedence over all other options (see OpScript below)."}
+{"id": "e51b79042b1cabfec8d5120e685d39fdebe971532ab90638b7bad733f25113d5", "item_id": "e2b1f28c72:25", "text": "if the environment variable is set."}
+{"id": "4d7bb84525d16f7c3b95b454cdaa994a200aff915444541ad0ddabe9086f1f0e", "item_id": "e2b1f28c72:26", "text": "PrmanStatsConfiguration OpScript"}
+{"id": "c3af076f92c5ed8dcb0d0b0d36dd120bc31b68264efea96cf8019ca19f1c13a3", "item_id": "e2b1f28c72:45", "text": "Troubleshooting"}
+{"id": "03231b4057bba7a641f9dcd2a5fe4793c9e3cd26af3fcbf980b9138cd9b54ef5", "item_id": "e2b1f28c72:28", "text": "Normally, the stats system does most of its work quietly behind the scenes. However, for those situations when things aren't working as expected, there are built-in mechanisms to get diagnostics on the diagnostics system."}
+{"id": "a2322e5192a1c740a9814dcff4c558839de020b98758a142b404d8d32e6923fb", "item_id": "e2b1f28c72:29", "text": "First, understand that you cannot disable stats"}
+{"id": "fa7496e4ae840306df41bd658800392e24db8ac4767159d6bdf8a23b28c44ea0", "item_id": "e2b1f28c72:30", "text": "collection"}
+{"id": "ceed229edd4fe01da569ae5bfa846c515dced5bff96242a6ca60c21c6a907dc9", "item_id": "e2b1f28c72:31", "text": ". This functionality is embedded in the renderer and remains “always on”. However, you can control how the diagnostic data is"}
+{"id": "373e0712c83cffe15ff427b60e788b549f82496fe5fd5391f7921832b04c6b20", "item_id": "e2b1f28c72:32", "text": "delivered"}
+{"id": "cab80b3079898c6679be9a923ffb4edfc2a8d9ca0411bb10accdaca70c0274db", "item_id": "e2b1f28c72:34", "text": "presented"}
+{"id": "8441415539648fc1cb0f2d77cc0a33291d2d07346bdd602efb18dee79fa93c04", "item_id": "e2b1f28c72:36", "text": "The stats.ini file used to configure the stats system includes flags to increase verbosity during config file loading and subsequent processing. If you are not explicitly using a custom stats.ini file, the default configuration will come from $RMANTREE/etc/stats.ini."}
+{"id": "a9268e15c13b1835427c7e82e10eadb3d248ee4149eab821b655a83831ffd3ab", "item_id": "e2b1f28c72:37", "text": "In your config file, set the stats debug"}
+{"id": "59943a8269197a3eea5f1f543c486e63a3ae14c960f9d270f73783b8a72997a7", "item_id": "e2b1f28c72:38", "text": "logLevel"}
+{"id": "bf299603eb70b900977d51ef96ea7e17c2ed56c8fe5141514b27ecaf83890c97", "item_id": "e2b1f28c72:39", "text": "to 5:"}
+{"id": "e77a95b320f6db8fc16109e794ce3ffefdc722e19be2cbb09236946c27b0fe00", "item_id": "e2b1f28c72:40", "text": "You should see an uptick of"}
+{"id": "75ba768735f3dfeb99d595f017e40b433d0320afa900aff713dfc804d7b1404c", "item_id": "e2b1f28c72:41", "text": "output to the Render Log, which will help you verify it's picking up the stats.ini file you expect. It will also tell you whether or not the WebSocket stats server is enabled for live stats."}
+{"id": "a2ac4bc7e023359143094e1ac6035b8b49c4e0dc35f174cac996c0b7b89230d9", "item_id": "e2b1f28c72:42", "text": "If you do not see these log messages after turning up the log level verbosity, you are likely picking up a different stats.ini configuration file. Check for an RMAN_STATS_CONFIG_PATH environment variable, or path/filename values from the"}
+{"id": "eb0805154e92661507217fe3514769b91222e70e95c8fe0b9ccdc2718bd42d3a", "item_id": "e2b1f28c72:43", "text": "attributes."}
+{"id": "fd1f983b33e8c96023a161e38befb44c7db36f3acbdd4b306809e28ef4e8c0df", "item_id": "e2b1f28c72:44", "text": "Please refer to the general"}
+{"id": "d064ccb30286dfd8a2bac0df359304a1a0a93c51ece9edd0119e2a12db0743c7", "item_id": "e2b1f28c72:46", "text": "document for further help diagnosing stats system issues."}

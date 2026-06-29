@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Creating a custom Environment Handler</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Creating a custom Environment Handler</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/TRA/22184298/Creating+a+custom+Environment+Handler">https://rmanwiki-27.pixar.com/space/TRA/22184298/Creating+a+custom+Environment+Handler</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>To follow along, the complete code listing for the Project X Handler is found <a href="22184300-Example Envrionment Handler.html" rel="nofollow">here</a>.</p><p>Let's walk through each of the sections of code to see what this handler does.</p><ul><li><p>First, let's look at the handler initialization:</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="717c0a3a-abed-4e7a-938e-fe847f541f80" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">from TrEnvHandler import TrEnvHandler
+import logging
+
+class projxhandler(TrEnvHandler):
+    def __init__(self, name, envkeydict, envkeys):
+        self.logger = logging.getLogger(&quot;tractor-blade&quot;)
+        self.logger.info(&quot;initializing projxhandler: %s&quot; % (name))
+        TrEnvHandler.__init__(self, name, envkeydict, envkeys)</pre>
+</div></div><p>The iniitalization is very straight forward. The TrEnvHandler (base class) is imported first, along with the logging module.</p><p>The __init__ routine sets up the logger, then calls the superclass initialization.</p></li><li><p>The main processing in an enviroment handler comes in two methods.</p><p>The updateEnvironment method():</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="819a797c-7d05-4ee4-8583-0abf2f8e110a" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">def updateEnvironment(self, cmd, env, envkeys):
+    self.logger.debug(&quot;projxhandler.updateEnvironment: %s&quot; % repr(envkeys))
+    self.initLocalVars()
+    if envkeys and type(envkeys) == type([]):
+        for envkey in envkeys:
+            key,val = envkey.split(&quot;=&quot;)
+            self.logger.debug(&quot;projxhandler.envkey: %s&quot; % envkey)
+            if key == &quot;SCENE&quot;:
+                self.scene = envkey
+                self.environmentdict[&quot;SCENE&quot;] = self.scene
+            elif key == &quot;SHOT&quot;:
+                self.shot = envkey
+                self.environmentdict[&quot;SHOT&quot;] = self.shot
+
+    return TrEnvHandler.updateEnvironment(self, cmd, env, envkeys)
+
+def initLocalVars(self):
+    self.scene = None
+    self.shot = None</pre>
+</div></div><p>The updateEnvironment method is called one time per handler, with a list of envkeys from the pending command, which match the envkeys processed by the handler. In our example, as seen in the dictionary above, this handler is called when the envkey key contains either &quot;ProjectX&quot;, &quot;SHOT=somevalue&quot; or &quot;SCENE=&quot;somevalue&quot;.</p><p>It's assumed that the command envkey definition would generally look something like:</p><p><code>RemoteCommand{ ...... } -envkey { ProjectX SHOT=27234-A SCENE=5125 }
+</code></p><p>The primary responsibility of the updateEnvironment() method is to define values which are placed in the environment of the handler itself. It's final call is generally to the base class method to updateEnvironment(), which merges the handlers environment with that of the launching command as provided by the blade.</p><p>The code in this handler loops through all of the envkeys assocaited with the launching command. It then sets some internal variables, which can be used later, and it sets up several environment variables in the handlers local environment dictionary.</p><p>In the environment dictionary above for the Project X handler, you'll find the following:</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="aef67847-3f14-400d-8cfa-26555eb44363" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">&quot;environment&quot;: {
+  &quot;CURRENT_SHOW&quot;: &quot;Project X, Venture of Mystery&quot;,
+  &quot;CURRENT_SHOT&quot;: &quot;$SHOT&quot;,
+  &quot;CURRENT_SCENE&quot;: &quot;$SCENE&quot;,
+  &quot;RMANTREE&quot;: &quot;/opt/pixar/RenderManProServer-15.2&quot;,
+  &quot;PATH&quot;: &quot;$RMANTRE:/bin;$PATH&quot;
+},</pre>
+</div></div><p>The CURRENT_SHOT and CURRENT_SCENE environment variables are based upon variables that are expected to be in the dictionary when it is processed. For that reason, in the handler code you see that self.environmentdict[&quot;SCENE&quot;] and self.environmentdict[&quot;SHOT&quot;] are defined in the handlers updateEnvironment() method. When the base class updateEnvironment() method is called, this dictionary is merged into the environment of the launching command, such that CURRENT_SHOT and CURRENT_SCENE are correctly defined.</p><p>We also see an example of internal flattening of the environment where RMANTREE is defined to point to a specific RPS version for this show, and $RMANTREE/bin is loaded into the start of the PATH environment variable.</p></li><li><p>After the updateEnvironment() method has been called, the blade then calls the handlers remapCmdArgs() method. The purpose of this method is to allow the handler to rewrite the original command, before it is launched.</p><p>The rewrite method looks like this:</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="5304fee1-32c1-4ef0-b7ab-f3c244cb1547" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">def remapCmdArgs(self, cmdinfo, launchenv, thisHost):
+    self.logger.debug(&quot;projxhandler.remapCmdArgs: %s&quot; % self.name)
+    argv = TrEnvHandler.remapCmdArgs(self, cmdinfo, launchenv, thisHost)
+    self.logger.info(&quot;scene: %s, shot:%s&quot; %
+        (self.scene, self.shot))
+
+    # indicate command was launched by traactor
+    launchenv[&quot;TRACTOR&quot;] = &quot;1&quot;
+
+    if argv[0] == &quot;render&quot; and &quot;RMANTREE&quot; in launchenv:
+        argv[0] = os.path.join(launchenv[&quot;RMANTREE&quot;],&quot;bin&quot;,&quot;prman&quot;))
+        argv.[1:1] = [&quot;-statsfile&quot;, &quot;%s-%s&quot; % (self.scene, self.shot))
+
+    # on windows for add the Visual Studio default libs and includes
+    p = platform.platform()
+    if p.find(&quot;Windows&quot;) != -1:
+        if launchenv.has_key(&quot;INCLUDE&quot;):
+            launchenv[&quot;INCLUDE&quot;] += &quot;;&quot; + launchenv[&quot;VCINCLUDE&quot;]
+        else:
+            launchenv[&quot;INCLUDE&quot;] = launchenv[&quot;VCINCLUDE&quot;]
+
+        if launchenv.has_key(&quot;LIB&quot;):
+            launchenv[&quot;LIB&quot;] += &quot;;&quot; + launchenv[&quot;VCLIB&quot;]
+        else:
+            launchenv[&quot;LIB&quot;] = launchenv[&quot;VCLIB&quot;]
+
+    return argv</pre>
+</div></div><p>The first thing that handlers will generally do is call the base class remapCmdArgs() method. The base class handles general remapping that is used by all of our software. It handles the standard remapping that the alfred scripting language allows, like &quot;%h, %H. It also looks for any command line with a $val in it. The $val is then expected to be supplied from the launch environment. For example <em>$render</em> might be remapped to <em>prman</em>.</p><p>After calling the base class, the handler can provide any custom remapping it requires. In our example handler, it does the following:</p><ul><li><p>It sets the environment variable TRACTOR to 1 to let downstream scripts know this is a tractor launched job.</p></li><li><p>It looks to see if the application to launch is <em>render</em> and whether or not RMANTREE is in the environment. If so, it changes the launch command to (effectively) <em>$RMANTREE/bin/prman</em>, and it augments the command by adding an output stats file, based upon the current scene and shot values.</p></li><li><p>Then this handler checks the platform of the current blade. If it is determined to be a windows platform, it adds the Visual Studio INCLUDE and LIBS values into the launch environment.</p></li></ul><p>Depending upon the number of envkeys which are supplied for a command, more than one environment handler will process the command. The <em>default</em> handler is always called first, and then any other handlers will be cascaded. When the last handler has processed the environment and launch command, the blade then launches the modified command.</p></li></ul>
+  </article>
+</main>
+</body>
+</html>

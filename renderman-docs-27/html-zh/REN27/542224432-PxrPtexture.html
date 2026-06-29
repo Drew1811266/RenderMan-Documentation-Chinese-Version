@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PxrPtexture</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>PxrPtexture</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/REN27/542224432/PxrPtexture">https://rmanwiki-27.pixar.com/space/REN27/542224432/PxrPtexture</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>提供对 per-face texture（逐面纹理）Ptex 文件的访问。与其他 texture nodes（纹理节点）不同，此纹理始终在表面的默认参数化上工作。不需要提供 manifold，而是使用名为 __faceindex 的特殊 primitive variable（primvar）。</p><p><br/></p><h3 class="section" id="PxrPtexture-PxrPtexture">PxrPtexture</h3><h4 class="section" id="PxrPtexture-Filename">Filename</h4><div class="section">纹理的 filename。必须提供此参数。</div><div class="section"><br/></div><div class="section"><div class="line-block"><p>可以在 filename 中引用一个 constant string primvar，以便在不同几何体片段之间复用纹理；该 primvar 会决定文件名约定。</p><ul><li>&lt;primstr:primvarname&gt; - 会替换为指定 constant string primitive variable（常量字符串 primitive variable）的值。例如，在带有 "const string model" ["apple"] 的苹果模型上，"/assets/&lt;primstr:model&gt;/diffuse.tex" 中的资产名称会展开为 "/assets/apple/diffuse.tex"。</li></ul></div><h4 class="section" id="PxrPtexture-FirstChannelOffset">First Channel Offset</h4><div class="section">Offsets（偏移）要查找的第一个通道。</div><div class="line-block"><div class="line"><p><br/></p></div></div><h4 class="section" id="PxrPtexture-FaceIndexOffset">Face Index Offset</h4><div class="section">如果你在一个 Ptex 文件中放入了多组数据，可以按已知数量偏移索引。</div><h4 class="section" id="PxrPtexture-InvertWindingOrder">Invert Winding Order</h4><p>如果面被翻转或出现瑕疵，可能是你的 bridge application 反转了绕序；此选项会再次反转绕序，可能缓解这些瑕疵。</p><div class="line-block"><div class="line"><p><br/></p></div></div><h4 class="section" id="PxrPtexture-Filter">Filter</h4><div class="section">选择纹理查找期间可使用的不同重建过滤器。PxrPtexture 可用的过滤器包括：</div><ul class="simple"><li>0: Nearest</li><li>1: Box</li><li>2: Bilinear</li><li>3: Bspline</li><li>4: Mitchell</li><li>5: Catmullrom</li><li>6: Gaussian</li><li>7: Lagrangian</li></ul><div class="line-block"><div class="line"><p><br/></p></div></div><h4 class="section" id="PxrPtexture-Blur">Blur</h4><div class="section">指定从 Ptex 文件取回的图像要模糊多少。</div><div class="section"><h4 class="section" id="PxrPtexture-MipInterpolate">Mip Interpolate</h4><br/>选择是否在多分辨率纹理的相邻分辨率之间插值，从而让层级之间的过渡更平滑。</div><div class="section"><h4 class="section" id="PxrPtexture-MissingColor">Missing Color</h4><br/>如果打开纹理时出错，则使用此颜色。<h4 class="section" id="PxrPtexture-MissingAlpha">Missing Alpha</h4><p>如果打开纹理时出错，则使用此 alpha。</p><h4 class="section" id="PxrPtexture-Linearize">Linearize</h4><p>对纹理应用反向 sRGB 变换。如果你在 sRGB 空间中绘制纹理（大多数绘制软件包的默认设置），但在数据线性空间中查看数据，纹理会显得发灰。此选项会对纹理应用 sRGB 变换，使其再次呈现为视觉上线性。</p></div><div class="section"><h3 id="PxrPtexture-AdjustOutput">Adjust Output</h3><h4 id="PxrPtexture-ColorScale">Color Scale</h4><p>纹理中颜色值的 multiplier，可用于调整亮度或操控单个 color channel。</p><p><br/></p><h4 id="PxrPtexture-ColorOffset">Color Offset</h4><p>对结果应用 offset，使结果颜色发生偏移。</p><p><br/></p><h4 id="PxrPtexture-Saturation">Saturation</h4><p>提高（大于 1）或降低（小于 1）纹理结果的饱和度。</p><p><br/></p><h4 id="PxrPtexture-AlphaScale">Alpha Scale</h4><p>alpha channel 的 multiplier；当 alpha 用于驱动某个参数时很有用。</p><p><br/></p><h4 id="PxrPtexture-AlphaOffset">Alpha Offset</h4><p>alpha channel 的 offset；当 alpha 用于驱动某个参数时很有用。</p><p><br/></p><h3 id="PxrPtexture-OutputParameters">Output Parameters</h3></div></div><h4 class="section" id="PxrPtexture-resultRGB">resultRGB</h4><div class="section">经过过滤的颜色结果。注意，所有结果都会从 startChannel offset 开始查找。</div><h4 class="section" id="PxrPtexture-resultR">resultR</h4><div class="section">R channel 结果。</div><h4 class="section" id="PxrPtexture-resultG">resultG</h4><div class="section">G channel 结果。</div><h4 class="section" id="PxrPtexture-resultB">resultB</h4><div class="section">B channel 结果。</div><h4 class="section" id="PxrPtexture-resultA">resultA</h4><div class="section">如果 alpha 存在且 resultRGB 已连接，则返回 RGB 后面的 channel。如果 RGB 未连接，则返回第一个 channel。</div>
+  </article>
+</main>
+</body>
+</html>

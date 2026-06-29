@@ -1,0 +1,77 @@
+{"id":"c563d15e46c4f5f0a1cbf6a5cd70745529e3e537c87eaee5583ea741686a82da","item_id":"7de577891d:0","text":"Creating Mesh Lights（创建网格灯）"}
+{"id":"c98d8e0ddd804b8db9d1d1ae9c949bf22da4b8009cffcfc388b7c96418ac7623","item_id":"7de577891d:1","text":"在 RenderMan for Blender 中，任何一块 geometry（几何体）都可以成为光源。对于具有高发光强度的对象，应始终使用 Mesh Lights；它们也非常适合 neon signs（霓虹标牌）！"}
+{"id":"4dfbe2dc3a12a8f350575e60da862ad60ff7eceee33376a936efb99d22595780","item_id":"7de577891d:2","text":"选择应变为 emissive（自发光）的 geometry（几何体），然后点击"}
+{"id":"6173a3deda4fd0f7f892ed3bd5a75f46021be035c259f32ad7b957b817daafee","item_id":"7de577891d:3","text":"Convert to Mesh Light（转换为网格灯）"}
+{"id":"7d8a82377b3a113487e155d0329a412f661effd4aa2e02acd7dea251a9c7e89f","item_id":"7de577891d:4","text":"按钮，该按钮位于对象 context menu（上下文菜单）中。"}
+{"id":"1bfbc6b063bffa65c9a22d2604274688d9f501c71abbd2403c933d5594fa56dc","item_id":"7de577891d:5","text":"下次渲染时，该对象会投射光照，并且自身会具有 constant color（恒定颜色）；该颜色来自 PxrMeshLight 的 color（颜色）和 intensity（强度）。"}
+{"id":"ca6e9359019eea08d170f12ef85506fb6ede83064a7deed0382b113f737f6a97","item_id":"7de577891d:6","text":"PxrBlack"}
+{"id":"6212bc89db8e40cf3a7540861c2143fcc08623e4fbe107b2c5934cbf4dc019d2","item_id":"7de577891d:7","text":"点击 Mesh Light 按钮时，会给所选对象分配一个名为 PxrBlack 的新 material（材质），并且会创建一个 PxrMeshLight"}
+{"id":"8a61cf90f906c1c7ef40f1f5d0b818fa9e672fb4db3628e3c9e2388f1777eea6","item_id":"7de577891d:8","text":"，再将它接入 PxrBlack material（材质）的 material 插槽中。"}
+{"id":"242f2fdb2e2529e4a235ea18470c08847e68188e303a17d488b95ced0ee53361","item_id":"7de577891d:9","text":"PxrBlack 充当 dummy material（占位材质）。它实际上没有任何参数。"}
+{"id":"21c4193fdcd8b39a4b90079cd12892ad63f6be89668671cd0eef17f7a559eb6a","item_id":"7de577891d:10","text":"在大多数用途下，PxrBlack 是合适的 material（材质），但你也可以尝试使用其他 material（材质），例如 PxrVolume。最简单的设置方式是先使用 Mesh Light 按钮。"}
+{"id":"54742ab1d569104a3a74eb47dfdd92fad3fbe95e39a791e8f9920dd4e19fb2ee","item_id":"7de577891d:11","text":"然后，选择 PxrBlack 的 shading group（着色组），并在那里接入不同的 surface material（表面材质）或 volume material（体积材质）。"}
+{"id":"dbac55cb08cc877dcbdd6891aeae34bf16ad433800300e73014239b0293da11d","item_id":"7de577891d:12","text":"这样，area light（区域灯）就已经接入到了 shading group（着色组）中。"}
+{"id":"679df23afb838ef1d60a1a5b052a8e5eedb1eb7bd399a2703cb91b5e1b0f2b5e","item_id":"7de577891d:13","text":"PxrMeshLight 允许你创建任意形状，并将其用作真正的光源。与 emissive geometry（自发光几何体）相比，这可以提升性能，并为创建 neon lights（霓虹灯）、未来感 light panels（发光面板）以及会变形并照亮场景的形状提供很大的灵活性。"}
+{"id":"a9f15d36808b98688a1790b43d08952bcc23f8d0518f2be106c1b41f2fade91c","item_id":"7de577891d:14","text":"这些参数简单且易于调节；灯光会遵循形状本身的 render visibility（渲染可见性），而不是灯光上的选择项。"}
+{"id":"71dabf279ea982d157939b9f31c12f4be4c5d75e5576060a061e8c676934ac36","item_id":"7de577891d:15","text":"虽然可以将 meshlight（网格灯）用作一块会变形的 geometry（几何体），但目前尚不支持 deformation motion blur（变形运动模糊），结果可能不正确。"}
+{"id":"9df16b20912fab952fea262af377b434dcc2831c63ad39a74f64e3526390c45a","item_id":"7de577891d:16","text":"创建 meshlight（网格灯）时，你可能会看到一个连接到它的 material（材质），名为 PxrBlack。该 material（材质）没有参数，其设计目的是防止 mesh（网格）再次从自身散射光线。这样做是为了提供一种直观的行为，而不一定是严格物理的行为。"}
+{"id":"e68b36b17cbd990802f57741cb75cf3a73fa66a61999b0cd70e3cf7d26cfb25f","item_id":"7de577891d:17","text":"Parameters（参数）"}
+{"id":"0e35f6e9742e074dfd62e874de3c242c6d9b64c21bf9afbaf3d11f05579b4495","item_id":"7de577891d:18","text":"Basic（基本）"}
+{"id":"6b73191a0a4b67420e61d51c9f207c35277eaf18fbbf5beb52a320a23fe09653","item_id":"7de577891d:19","text":"Color（颜色）"}
+{"id":"2595923b09c4f2f6935427239efc8bf382660d382a2fb0d2fd2f0db6f43a6079","item_id":"7de577891d:20","text":"发射光的 color（颜色）。"}
+{"id":"a6d01dcff3bfd333edf90a50daac2104cefab98b85bdbba67c8209ab75eb6447","item_id":"7de577891d:21","text":"Intensity（强度）"}
+{"id":"f2db7c6e72be13e23b484d1e1ec50b6847215427eb42d3a7479603988fb6e250","item_id":"7de577891d:22","text":"以线性方式缩放此灯光的贡献。light intensity（灯光强度）会使用 physical falloff（物理衰减）计算。"}
+{"id":"cc5454a4b7ce211370dcd2aa0ae58d6b564eee7940b42de516d05f5b269c414b","item_id":"7de577891d:23","text":"Exposure（曝光）"}
+{"id":"10af4b290bef72a427534b9c7f296bb76f6dac00d5876f3ba6ecd51db2a94135","item_id":"7de577891d:24","text":"将 area light（区域灯）的 Exposure（曝光）指定为 2 的幂。Exposure（曝光）增加 1 会使光源发射的能量加倍。数值 0 会在源处产生强度 1，-1 产生 0.5。真实"}
+{"id":"6b650d7e5c5c82f4a38d77f1dcb1952431f68888170106dda1c33f466f2f7feb","item_id":"7de577891d:25","text":"世界灯光具有很高能量，典型 Exposure（曝光）通常是较低数值；而要用等效的"}
+{"id":"a6d01dcff3bfd333edf90a50daac2104cefab98b85bdbba67c8209ab75eb6447","item_id":"7de577891d:26","text":"Intensity（强度）"}
+{"id":"d3fc1379aa307c64f747e9157964259c97eea5ffb723bb43921ed2678c46d999","item_id":"7de577891d:27","text":"表示时，可能需要输入非常大的数字。对于熟悉 photographic measurements（摄影测量）的艺术家来说，这也更方便。"}
+{"id":"031b83a8f6bfee1e8e4271b910ba413189b9e918ac52719c666adde48eafa382","item_id":"7de577891d:28","text":"Texture Color（纹理颜色）"}
+{"id":"86373f4722c268c906c271143f83a5cc33cf2fe503889ef4916da4fd01824b1c","item_id":"7de577891d:29","text":"使用 pattern node（图案节点）作为光源的图像，例如"}
+{"id":"ccc6ebd6189c8d8f6fed82ba1bfef6ebca467a2b94a4677ddb9068b32719f8d7","item_id":"7de577891d:30","text":"PxrTexture"}
+{"id":"bb86fd7b62750dd03af9a43714d204dde7a4825af53e466987f0c695ce0cfb13","item_id":"7de577891d:31","text":"。最好使用 High Dynamic Range source（高动态范围光源）。请注意，它会根据所用 HDRI 的内容影响 color（颜色）和 shadowing（阴影）。如果必须使用 JPEG 图像等 8-bit source（8 位源），在将其作为 color（颜色）使用前，应先将它 linearized（线性化，即转换到线性色彩空间）。由于这确实是一个 mesh（网格），你必须定义 UVs 或合适的 projections（投影），才能正确放置纹理。"}
+{"id":"83e5919a398f1e7b486ebd49556eb591797d214c775439de33caedd126644a28","item_id":"7de577891d:32","text":"Enable Temperature（启用色温）"}
+{"id":"a9e900ed2605f0da987807c9d1e9a831ecb6b89fb5f308c38de44ff2e7aaac97","item_id":"7de577891d:33","text":"打开或关闭 color temperature（色温）。"}
+{"id":"b958ce8b871ab36b3ceee0e0f012b6182962b2db7926be0a670149f9fbd00b84","item_id":"7de577891d:34","text":"Temperature（色温）"}
+{"id":"12612cc94b88238fa3192562634223d7975e80b3a5c279a8e8153e4d7544e8d9","item_id":"7de577891d:35","text":"允许用户以 Kelvins（开尔文）选择灯光的 color temperature（色温）。不同于基本 light color（灯光颜色），这让用户可以基于标准温度测量轻松选择合理的灯光颜色。该控制会像 light（灯光）前方的 filter（滤镜）或 gel（色片，即带色透明表面）一样工作。如果灯光为白色，你会得到所选的 color temperature（色温）。如果灯光本身带有颜色，color temperature（色温）会使它更冷（高于 6500K）或更暖（低于 6500K）。"}
+{"id":"8e577ecffbb26270bb484d48c0aac76d20a3c06927a3a5b692c7be1ef45cf456","item_id":"7de577891d:36","text":"对于完全饱和的 mono-chromatic lights（单色灯光），这种效果会不那么明显。默认值为 6500K，在大多数显示器上应非常接近白色（sRGB 和 Rec 709 使用的 D65 illuminant）。"}
+{"id":"1e7f34ee8f771657a4c8350d8589f8b2405544de0e756fecb4247e307d673bfc","item_id":"7de577891d:37","text":"Refine（细化）"}
+{"id":"e444834d64a4a3fd087a67df3468ccacca520875122124d0d195e8b8e006e101","item_id":"7de577891d:38","text":"Specular Amount（镜面量）"}
+{"id":"12141956190e45f2c0eb00551c53dbd0f7ac4f6fd57d10a9d9bce17b2718243","item_id":"7de577891d:39","text":"发射的 specular light（镜面光）数量。这是一个 non-physical control（非物理控制）。可以将灯光的"}
+{"id":"e444834d64a4a3fd087a67df3468ccacca520875122124d0d195e8b8e006e101","item_id":"7de577891d:40","text":"Specular Amount（镜面量）"}
+{"id":"ba6fbc31339fac9f960c89cc19a52cef1dcdf39746f758596e85b2954167949e","item_id":"7de577891d:41","text":"设为 0.0，使其仅作为场景对象的 diffuse light（漫射光）来源，并避免添加 highlights（高光）。"}
+{"id":"9afefd5c02c99d5aad7e8dd8c7adb15934039c880d30638d4d649768f1458856","item_id":"7de577891d:42","text":"Diffuse Amount（漫射量）"}
+{"id":"55f145b01c9371541368ade84cd60264c1024b735e5a918f5265ccc2d100ff9d","item_id":"7de577891d:43","text":"发射的 diffuse light（漫射光）数量。这是一个 non-physical control（非物理控制）。可以将灯光的"}
+{"id":"9afefd5c02c99d5aad7e8dd8c7adb15934039c880d30638d4d649768f1458856","item_id":"7de577891d:44","text":"Diffuse Amount（漫射量）"}
+{"id":"26c919c31996beac47b623d70bfc9204de3ad9e1ae290d90bc7567bf37d8f595","item_id":"7de577891d:45","text":"设为 0.0，使其仅作为场景对象的 highlights（高光）来源。"}
+{"id":"3b390cfac7fd3d88ae0fc8d7808cf25adac11787b8c34059a911ec02e20984d1","item_id":"7de577891d:46","text":"Intensity Near Dist（强度近距离）"}
+{"id":"e602097f555bf7da3445ec4c16d0f05606e78594b19f958857965f7e4c3035e3","item_id":"7de577891d:47","text":"被照亮点与灯光之间的 near distance（近距离）；在该距离内，采样不会继续变亮。这可以帮助避免灯光接近表面时出现 hot spots（热点）和 sampling issues（采样问题）。这些值取决于你的 scene scale/distance（场景尺度/距离），所以这里只是示例。"}
+{"id":"5f8bf973978b6bee26bd654268ea257373182cd1d5f0119b38fb0162a67f7754","item_id":"7de577891d:48","text":"Specular Near Dist（镜面近距离）"}
+{"id":"8c98bcc1b404bf1bcc9faea1f4aa475c017708ca593a068ed775c8724d3bbf7f","item_id":"7de577891d:49","text":"具有 specular shading（镜面着色）的被照亮点与灯光之间的 near distance（近距离）；在该距离内，采样不会继续变亮。这可以帮助避免灯光接近 specular surface（镜面表面）时出现 hot spots（热点）和 sampling issues（采样问题）。"}
+{"id":"d8da2c49df39d91df7ecd199b92da7bf264f026242ccc69b08daeadfe587c45b","item_id":"7de577891d:50","text":"Note（注意）"}
+{"id":"fbaf3a292f0f530b9f2d1c4600953989fdea441c7dc59551a67de73a4be56396","item_id":"7de577891d:51","text":"此值不会应用到从 camera（摄像机）看到的灯光。"}
+{"id":"cf7595c2cbd84ec4168f0c5432e540a4e87d949cc089c7c4d0b985f8d305022a","item_id":"7de577891d:52","text":"下面，右侧球体的 distance（距离）依次为 0.0、5.0，最后为 10.0。这些值取决于你的 scene scale/distance（场景尺度/距离），所以这里只是示例。"}
+{"id":"992e90825ac85cf2a8b785b9c356268eff8cc8b78ab4bb45d50079fa24562ac0","item_id":"7de577891d:53","text":"Diffuse Near Dist（漫射近距离）"}
+{"id":"368713e01ac15da1eb1ec2be78b68a5a5d46ca37a756cd7b0345781bd5bf72ae","item_id":"7de577891d:54","text":"具有 diffuse shading（漫射着色）的被照亮点与灯光之间的 near distance（近距离）；在该距离内，采样不会继续变亮。这可以帮助避免灯光接近 diffuse surface（漫射表面）时出现 hot spots（热点）和 sampling issues（采样问题）。"}
+{"id":"d8da2c49df39d91df7ecd199b92da7bf264f026242ccc69b08daeadfe587c45b","item_id":"7de577891d:55","text":"Note（注意）"}
+{"id":"fbaf3a292f0f530b9f2d1c4600953989fdea441c7dc59551a67de73a4be56396","item_id":"7de577891d:56","text":"此值不会应用到从 camera（摄像机）看到的灯光。"}
+{"id":"78a71c66d4dd106f4d09c51b2bbccc23c808fef7c5a9e759bb031fd6de0f34a4","item_id":"7de577891d:57","text":"下面，左侧球体的 distance（距离）依次为 0.0、5.0，最后为 10.0。这些值取决于你的 scene scale/distance（场景尺度/距离），所以这里只是示例。"}
+{"id":"9f088dbebd6c3c70a5ddbc2c943b11e4ca9acea5757b0b4f2b32479f0dbb747e","item_id":"7de577891d:58","text":"Advanced（高级）"}
+{"id":"21f44cdcb72fd5688c47e7801c5219aa77c64d3ba3efc69dbeac1119e04f52be","item_id":"7de577891d:59","text":"Area Normalize（面积归一化）"}
+{"id":"034ba825fb4e22cf48b7321669e3564b18ee6989644d98dda0e13187254f5379","item_id":"7de577891d:60","text":"启用 normalize（归一化）后，当你缩放光源时，它对场景贡献的光量不会变化。这使得调整 highlight size（高光大小）时更容易保持 scene lighting（场景照明）不变。"}
+{"id":"f4d3a2f271156e6358087cfb3ac2512cab7e39689c1f0484ba02c936081ea73c","item_id":"7de577891d:61","text":"Trace Light Paths（追踪灯光路径）"}
+{"id":"0406ce3c1cb7758cf4edf7fd4b28e58f638ec7013738d0782780d6978e483c2b","item_id":"7de577891d:62","text":"启用此灯光的 light and photon tracing（光线与光子追踪）。此值会强制灯光按 physically-based light（基于物理的灯光）方式工作，并且副作用是禁用上面的"}
+{"id":"2a19bdc09aa3bd9d5ba8c9707687136c2825da0e2af28b7c5de7c65b9c50f365","item_id":"7de577891d:63","text":"Shadows（阴影）"}
+{"id":"2c4861d0a8f0789cae18f4296166269a2529b1472644e89f1af7b7be6b9b290f","item_id":"7de577891d:64","text":"controls（控制项）。用户可以在使用 PxrVCM 或 PxrUnified Integrators 时，借此有选择地决定哪些灯光发射 photons（光子）。"}
+{"id":"6a6a7b9ec714f50c6b9c5a6d79cfdc469364587ccecbb4d9775f6aa6efd715e6","item_id":"7de577891d:65","text":"Thin Shadow（薄阴影）"}
+{"id":"45416f017c5424b5054e29927bbe4741292994d5369a91373048cc4e76c0c5fb","item_id":"7de577891d:66","text":"启用 thin shadow（薄阴影），并为此灯光禁用 refraction caustics（折射焦散）。如果"}
+{"id":"f4d3a2f271156e6358087cfb3ac2512cab7e39689c1f0484ba02c936081ea73c","item_id":"7de577891d:67","text":"Trace Light Paths（追踪灯光路径）"}
+{"id":"b6e7f81e7e9d456a47bd83524ab5c2f9a7b187663bad6d3e1015a28006560a97","item_id":"7de577891d:68","text":"已启用，此参数会被忽略。这是一个 non-physical control（非物理控制），可为 transmissive objects（透射对象）创建“fake” colored shadows（伪彩色阴影），而不需要为 caustics（焦散）生成 photons（光子）。"}
+{"id":"2d8fba8ebbdac809a6b4dc990dad84d2cab9902dda48ebf9033d51c80f3f762e","item_id":"7de577891d:69","text":"Light Group（灯光组）"}
+{"id":"cde9225a0ed6e632073bdbbf1b623c2d93b694742d25d19261db39bf12b9c88a","item_id":"7de577891d:70","text":"指定用于 light group LPEs（灯光组 LPE）的 light group name（灯光组名称）。这对于生成 per-light AOVs（逐灯光 AOV）以便后续在 compositing（合成）中调整很有用。"}
+{"id":"69ae9f2080b40b43d5835993c632d37f17f0c11a9e82f03fb3ccd8917d41d6d1","item_id":"7de577891d:71","text":"Importance Multiplier（重要性乘数）"}
+{"id":"9b5c2200782f28fd52acb99cf96be1dffc06ae3a29f939a686305bd9a3aefc2c","item_id":"7de577891d:72","text":"用户不必设置显式的 Light Samples，而是可以通过更改此值来改变该灯光在内部获得的 samples（样本）数量。RenderMan 会在渲染时为场景中的所有灯光创建一组 samples（样本）；更改此值会在这些灯光之间重新平衡 samples（样本）。请注意，增大此值会使"}
+{"id":"187897ce0afcf20b50ba2b37dca84a951b7046f29ed5ab94f010619f69d6e189","item_id":"7de577891d:73","text":"更多"}
+{"id":"cc24e9cc8cb656788d9f07b858341db5c3254e71c26420b4c86ff31f1f5dfd94","item_id":"7de577891d:74","text":"samples（样本）从此灯光中选择，同时减少场景中其他灯光的样本数。低于默认值则会"}
+{"id":"b2dc971f4895ca1f298f3f72fa80f67a6a2100532dfc3e74898b93ab12fdb8cd","item_id":"7de577891d:75","text":"减少"}
+{"id":"70ce2ded289575d403612cd4dc4c8326738b0d48ce47adbd0003fb715ce4b31d","item_id":"7de577891d:76","text":"此灯光的 samples（样本），同时给场景中的其他灯光提供更多 samples（样本）。"}

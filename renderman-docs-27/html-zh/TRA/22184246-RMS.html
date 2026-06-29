@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RMS</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>RMS</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/TRA/22184246/RMS">https://rmanwiki-27.pixar.com/space/TRA/22184246/RMS</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p /><div class="confluence-information-macro confluence-information-macro-warning conf-macro output-block" data-hasbody="true" data-macro-id="d4fe50ee-a35a-40be-aba7-d4b156d2a4fd" data-macro-name="warning"><span class="aui-icon aui-icon-small aui-iconfont-error confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p><strong>这是 RenderMan 21 及更早版本的 legacy documentation。</strong></p></div></div><h3 id="RMS-Introduction">简介</h3><p>RenderMan Studio 的默认 configuration 会通过 Tractor 分发 work。开箱即用时，用户可以进入 Render Options window 并进行设置，使任何不是 local internal render 的 render 都使用 Tractor 来确保 job 正确完成。当然，这也假定你的站点同样使用 Tractor 的默认开箱即用 configuration。</p><p>如果你碰巧认为自己很特别，并选择更改默认 configuration，也不用担心。RenderMan Studio 通过 preference 和其他辅助设置提供了你需要的全部 hook，用于在 RenderMan Studio workstation 与 Tractor work dispatching system 之间维持协调配合。</p><hr/><h3 id="RMS-EngineLocationandTractorUsers">Engine 位置和 Tractor 用户</h3><p>RenderMan_for_Maya.ini 提供了两个关键 preference，用于确保 RMS 与 Tractor 的连接：</p><p><code>SetPref TractorEngine {tractor-engine:80}
+SetPref TractorUser {}</code><sup>
+</sup></p><p>这些 preference 由生成 job script 并 spool job 的 MEL script 使用。与所有 pref 一样，它们可以在基于 aRMS_SCRIPT_PATHS 的 ini override file 中设置。</p><p>默认情况下，Tractor 会 spool 到一台名为 <em>tractor-engine</em>、端口为 80 的机器。由于各种原因，这可能不是你的设置，但你可以在站点专用 ini 中覆盖此 pref，例如：</p><p><code>SetPref TractorEngine { myserver:8080 }</code><sup>
+</sup></p><p>格式为 engine:port，也就是 engine 和 port。</p><p>tractor-spool.py（RMS distribution 中的 tractor.py）的默认行为是以 spool 该 job 的用户身份 spool。你可能希望 job 以特定用户身份 spooled。第二个 preference 可将 job 锁定到特定用户，例如：</p><p><code>SetPref TractorUser { mwazowski }
+</code></p><hr/><h3 id="RMS-EnvKeys">EnvKeys</h3><p>RenderMan_for_Maya_Pro.ini file 现在有一个额外 pref，用于指定传递给 Tractor 的默认 environment key。</p><p><code>SetPref DefaultEnvKey &quot;rms-[GetPlatform rms_version]-maya-[GetPlatform rfm_mayaversion]&quot;
+</code></p><p>此 <em>envkey</em> 由 Tractor <em>envhandler</em>处理；它会解析该 key，并在 tractor-blade 上正确设置 $RMSTREE 和 $MAYA_LOCATION`。不过需要特别注意，RenderMan Studio 的 envhandler 会基于 "default" installation location 设置 environment，而该位置在不同站点可能不同。</p><p>DefaultEnvKey preference 会为 RMS 中的 Render Options（包括 <em>Current Frame</em> 和 <em>Batch</em>）设置默认值。在此 dialog 中，用户可以完全更改发送给 Tractor 的 environment setting，允许用户把其他 envkey 附加到默认值。注意，生成的 envkey 随后会像 batch render dialog 中的其他 value 一样保存到 Maya preference，并传播到未来的 Maya scene。点击 Render Options window 中 Environment Key 的 <em>Default</em> 该按钮会从 .ini file 恢复 DefaultEnvKey。</p><hr/><h3 id="RMS-tractor-bladeConfiguration">tractor-blade 的配置说明</h3><p>如果你更改了 RenderMan Studio 的默认 install location，就需要编辑 blade configuration 来更改 install location，以便 Tractor 正确处理 RMS job。尤其是，有三个 shared.*.envkeys file 会从 tractor-engine 发送到 tractor-blade。这些 envkey file 包含 environment dictionary。envkey "rms-*-maya-*" 的 environment dictionary 需要修改为指向正确的 install location。</p><ul><li><p><strong>重要提示</strong></p></li></ul><blockquote><p>与 .ini file 一样，我们建议用户不要编辑 factory config file。相反，应将这些 file 复制到站点专用的特殊 config directory，并在那里编辑。然后使用 --configdir=/path/to/config/files option 启动 tractor-engine。</p></blockquote><hr/><h3 id="RMS-Additionalenvhandlers">额外的 envhandler 处理器</h3><p>还有几个其他 envhandler 可用，其中最常用的可能是 <em>prman</em> envkey。 <em>prman</em> key 的格式为：</p><blockquote><p>&quot;prman-XX.X&quot;</p></blockquote><p>XX.X 指 batch rendering 要启动的 prman version（例如 '19.0'）。当此 key 添加到 batch dialog 后，会调用 <em>rmanhandler</em>。它会在磁盘上定位目标 prman release，在 launch environment 中设置 RMANTREE，并将 $RMANTREE/bin 添加到 launch environment path。</p><p>如果 RMS 或 RPS 安装在非标准位置，则可以改用 <em>rmantree</em> 和 <em>rmstree</em> handler。</p><blockquote><p>&quot;rmantree=/path/to/my/rmantree/installation&quot;</p><p>&quot;rmstree=/path/to/my/rmstree/installation&quot;</p></blockquote><p>这些 handler 会取出 <em>rmantree</em> 和 <em>rmstree</em> 的 path，并把它们作为 $RMANTREE 和 $RMSTREE 添加到 environment 中。它们还会把 $RMANTREE/bin 和 $RMSTREE/bin 附加到 launched command 的 path。</p>
+  </article>
+</main>
+</body>
+</html>

@@ -1,0 +1,34 @@
+{
+  "parentType": "page",
+  "parentId": "22184334",
+  "ownerId": "557058:bd93f2ee-e583-43fb-8a78-f4b1519a63bf",
+  "lastOwnerId": null,
+  "createdAt": "2016-12-15T11:11:33.265Z",
+  "authorId": "557058:bd93f2ee-e583-43fb-8a78-f4b1519a63bf",
+  "position": 3156482,
+  "version": {
+    "number": 5,
+    "message": "",
+    "minorEdit": false,
+    "authorId": "557058:bd93f2ee-e583-43fb-8a78-f4b1519a63bf",
+    "createdAt": "2016-12-19T11:39:11.749Z",
+    "ncsStepVersion": null
+  },
+  "spaceId": "22183942",
+  "status": "current",
+  "body": {
+    "view": {
+      "representation": "view",
+      "value": "<div class=\"document\"><p>Tractor's flexibility and power stems from its ability to be customized. While there are dozens of tuning paramters and opportunities to write custom plug-ins, Tractor has been designed so that no editing of configuration files is necessary to be operational.</p><p>If customizations are required, a directory which is readable by the engine's process owner <em>must first be created</em> to store the configuration files. Because the engine uses /var/spool/tractor as its default data directory, /var/spool/tractor/config would be a reasonable choice for the configuration directory.</p><p>Configuration files are written in JSON.</p><p> </p><div class=\"section\"><h3 id=\"InitialConfiguration-KeyParameters\">Key Parameters</h3><p>There are a few key parameters that administrators should review while setting up a new system in order to ensure that the default settings are desirable. All of the following parameters can be overridden in your site's copy of the tractor.config file. <strong>NOTE: the default values are usually correct for most studios.</strong></p><p><a href=\"/wiki/spaces/TRA/pages/22184316/Engine#engineowner\" data-linked-resource-id=\"22184316\" data-linked-resource-version=\"10\" data-linked-resource-type=\"page\">EngineOwner</a> names a specific run-time owner for the engine process. System services start tractor-engine as root in order to acquire protected ports such as port 80; however, the process subsequently reduces its privilege level to EngineOwner. Studios are encouraged to create a special tractor user for this purpose.</p><p><a href=\"/wiki/spaces/TRA/pages/22184316/Engine#listener\" data-linked-resource-id=\"22184316\" data-linked-resource-version=\"10\" data-linked-resource-type=\"page\">ListenerPort</a> specifies the port on which the engine listens for blade, dashboard, and other client connections. The engine is a form of web server and listens on the usual HTTP port 80 by default, which is the simplest configuration for users and site administration. An alternate port number is usually only necessary in cases where there is already another web server running on port 80, or when the engine is not started as root and cannot acquire 80.</p><p><a href=\"/wiki/spaces/TRA/pages/22184316/Engine#enginediscovery\" data-linked-resource-id=\"22184316\" data-linked-resource-version=\"10\" data-linked-resource-type=\"page\">EngineDiscovery</a> specifies how the engine is to be discovered by blades and other client programs. Clients will attempt to connect to the hostname tractor-engine by default, or an alternative hostname given by either the TRACTOR_ENGINE environment variable or each tool's --engine=NAME command line parameter. When that hostname cannot be resolved then the EngineDiscovery scheme is tried.</p><p><a href=\"/wiki/spaces/TRA/pages/22184316/Engine#licenselocation\" data-linked-resource-id=\"22184316\" data-linked-resource-version=\"10\" data-linked-resource-type=\"page\">LicenseLocation</a> specifies a path to a license file, or a license server name. This setting <em>is usually unnecessary</em> since Tractor will read thepixar.license file in the parent directory of the Tractor installation, which is shared by all Pixar applications.</p><p><a href=\"/wiki/spaces/TRA/pages/22184316/Engine#maxconcurrentdispatch\" data-linked-resource-id=\"22184316\" data-linked-resource-version=\"10\" data-linked-resource-type=\"page\">MaxConcurrentDispatch</a> specifies the maximum number of Tractor license seats that will be consumed by the engine process. A custom setting can be useful when several test engines are running from the same license server. Using the default value, zero, causes tractor-engine to acquire <em>all</em> available seats at start-up.</p><p><a href=\"/wiki/spaces/TRA/pages/22184316/Engine#tractordatadirectory\" data-linked-resource-id=\"22184316\" data-linked-resource-version=\"10\" data-linked-resource-type=\"page\">TractorDataDirectory</a> specifies an EngineOwner-writable location where job and user data is stored. By default this is /var/spool/tractor. A different location may be selected for testing, due to constraints in file system permissions, or to point to volumes with larger or faster storage. Some location local to the engine host is usually the best choice. Ensure the data directory is first created and made readable and writable by EngineOwner; this is necessary anyway if the configuration directory is to be a subdirectory, such as with /var/spool/tractor/config.</p><p> </p></div><div class=\"section\"><h3 id=\"InitialConfiguration-Example\">Example</h3><p>The following represents an example tractor.config file that would be stored in the site-determined configuration directory. In this example, a site has set up a user named tractor, using its home directory to store data, and listening on a higher port. An in-house license server is used, and only 10 concurrent dispatches will be allowed by the engine.</p><pre style=\"margin-left: 25.0px;\" class=\"literal-block\">{\n  &quot;LicenseLocation&quot;: &quot;my-license-server@9010&quot;,\n  &quot;EngineOwner&quot;: &quot;tractor&quot;,\n  &quot;ListenerPort&quot;: 8000,\n  &quot;MaxConcurrentDispatch&quot;: 10,\n  &quot;TractorDataDirectory&quot;: &quot;/ssd/tractor/data&quot;\n}\n</pre></div><div class=\"section\"><h3 id=\"InitialConfiguration-FurtherReading\">Further Reading</h3><p>The full set of engine-specific configuration parameters are described in the <a href=\"/wiki/spaces/TRA/pages/22184316/Engine\" data-linked-resource-id=\"22184316\" data-linked-resource-version=\"10\" data-linked-resource-type=\"page\">Engine Configuration</a> section. This and other site customization documentation can be found in the general <a href=\"/wiki/spaces/TRA/pages/22184210/Configuration\" data-linked-resource-id=\"22184210\" data-linked-resource-version=\"8\" data-linked-resource-type=\"page\">Configuration</a> section.</p></div></div>"
+    }
+  },
+  "title": "Initial Configuration",
+  "id": "22184326",
+  "_links": {
+    "editui": "/pages/resumedraft.action?draftId=22184326",
+    "webui": "/spaces/TRA/pages/22184326/Initial+Configuration",
+    "edituiv2": "/spaces/TRA/pages/edit-v2/22184326",
+    "tinyui": "/x/hoFSAQ",
+    "base": "https://renderman.atlassian.net/wiki"
+  }
+}

@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Light Randomization</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Light Randomization</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RU/592019497/Light+Randomization">https://rmanwiki-27.pixar.com/space/RU/592019497/Light+Randomization</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><style>[data-colorid=kljzl8r63w]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=kljzl8r63w]{color:#004eb3}[data-colorid=ywg18jne8l]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=ywg18jne8l]{color:#004eb3}[data-colorid=ndn8zy3358]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=ndn8zy3358]{color:#004eb3}[data-colorid=izfeu66ln0]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=izfeu66ln0]{color:#004eb3}</style><a href="/wiki/download/attachments/592019497/DemoSign_v01_h264.mov?version=1&amp;modificationDate=1757511659022&amp;cacheVersion=1&amp;api=v2&amp;width=760">DemoSign_v01_h264.mov</a></span><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Neon_Random1.jpg" width="760" loading="lazy" src="../../attachments/592019497/Neon_Random1.jpg" data-image-src="../../attachments/592019497/Neon_Random1.jpg" data-height="892" data-width="965" data-unresolved-comment-count="0" data-linked-resource-id="592674820" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Neon_Random1.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="592019497" data-linked-resource-container-version="3" data-media-id="8a1b1eac-790c-4713-9004-c34e08c0e29a" data-media-type="file" /></span><p>Above is the Solaris scene graph for the randomization of all the lights in our scene. </p><p> All the magic happens inside <em>attributewrangle</em> nodes that control the lighting randomization of each letter in our sign.  I have one wrangle for each of the letters in the scene, as I want to have control over each letter individually.</p><p>Let&rsquo;s take a look at the meshlight Neon tubes first:</p><hr /><p><strong><span data-colorid="ndn8zy3358">Letters - D - M - O - Neon Tubes</span></strong></p><p>Create a <em>attributewrangle </em>node and under Primitives, we&rsquo;re selecting the neon tube meshlights we want this node to control. </p><p>Below is the VEX code used to set up the parameters</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="2ac86bbf-7a4a-4d16-9548-67d248508460" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">int off = chi(&quot;off&quot;);
+int on = chi(&quot;on&quot;);
+int transition = chi(&quot;transition&quot;);
+int A = off;
+int B = off + transition;
+int C = off + transition + on;
+int D = off + 2 * transition + on;
+
+float val = 0;
+int frame = int(@Frame - $FSTART + chi(&quot;frameOffset&quot;) * @elemnum) % (D + 1);
+
+if(frame &lt; A)
+    val = 0;
+else if (frame &gt;= A &amp;&amp; frame &lt; B)
+    val = 1 - (B - frame) / float(B - A);
+else if(frame &gt;= B &amp;&amp; frame &lt; C)
+    val = 1;
+else if (frame &gt;= C &amp;&amp; frame &lt; D)
+    val = (D - frame) / float(D - C);
+val *= ch(&quot;intensity&quot;);
+
+@inputs:defaultFloat = val;
+//@inputs:intensity = val;</pre>
+</div></div><p /><p>We now have a set of parameters that will allow us to control the randomisation of the prims.</p><p><strong>OFF</strong></p><p>The number of frames that the neons are switched off.</p><p><strong>ON</strong></p><p>The number of frames that the neons are switched on.</p><p><strong>Transition</strong></p><p>The number of frames to transition between OFF and ON states</p><p><strong>FrameOffset</strong>: </p><p><strong>Intensity</strong></p><p>Sets and overrides the intensity of the lights</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Neon_Random2.jpg" width="760" loading="lazy" src="../../attachments/592019497/Neon_Random2.jpg" data-image-src="../../attachments/592019497/Neon_Random2.jpg" data-height="781" data-width="1211" data-unresolved-comment-count="0" data-linked-resource-id="592904193" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Neon_Random2.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="592019497" data-linked-resource-container-version="3" data-media-id="d51fa3e2-8f8c-40ad-96e0-65a1d55f1474" data-media-type="file" /></span><p /><hr /><p><strong><span data-colorid="izfeu66ln0">Letter - E - Globe Bulbs</span></strong></p><p>This wrangler allows us to control the value of the two primvars we set up in the Globe bulb USD asset.  </p><p>Remember, these were called Bulb_COL and Bulb_INT</p><p>Here is the code</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="98915610-6170-4e6f-afc0-5bbe0823ced3" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">float randomFloat(float min; float  max; string primpath) {
+    return fit01(rand(random_shash(primpath), chi(&quot;seed&quot;)),min, max); 
+}
+
+//@inputs:intensity = fit01(rand(random_shash(@primpath), chi(&quot;seed&quot;)), ch('min'),ch('max')); 
+@inputs:defaultFloat = randomFloat(ch('min'),ch('max'), @primpath); 
+float randomHue = randomFloat(ch('Hue'), ch('Hue'), @primpath + &quot;hue&quot;);
+float randomSat = randomFloat(ch('minSat'), ch('maxSat'), @primpath + &quot;sat&quot;);
+float randomVal = randomFloat(ch('minVal'), ch('maxVal'), @primpath + &quot;val&quot;);
+v@inputs:defaultColor = hsvtorgb(randomHue,randomSat,randomVal);</pre>
+</div></div><p>which creates this set of parameters</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Neon_Random3.jpg" width="760" loading="lazy" src="../../attachments/592019497/Neon_Random3.jpg" data-image-src="../../attachments/592019497/Neon_Random3.jpg" data-height="825" data-width="1207" data-unresolved-comment-count="0" data-linked-resource-id="592838660" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Neon_Random3.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="592019497" data-linked-resource-container-version="3" data-media-id="e3f9fc17-91bc-4b9d-bb1a-4de97a313347" data-media-type="file" /></span><p><strong>Intensity Min + Max</strong></p><p>The min and max intensity values that will be randomly created for the bulb's intensity (Bulb_INT)</p><p><strong>Bulb Hue</strong></p><p>How much to randomize the hue of each bulb (Bulb_COL)</p><p><strong>Saturation Min + Max </strong></p><p> The minimum and maximum random saturation values of the bulb color (Bulb_COL)</p><p><strong>Value Min + Max</strong></p><p>The minimum and maximum random values of the bulb color (Bulb_COL)</p><p><strong>Seed</strong></p><p>Allows you to control the speed of the flashing of the bulbs.  </p><p>If left to a single frame, the bulbs will not animate. However, using the $FF expression causes the seed to change every frame, thereby animating the bulbs.</p><p><strong>Facing Ratio</strong></p><p>Allows you to control the facing ratio of the bulbs.</p><hr /><p><strong><span data-colorid="ywg18jne8l">Letter - S - Fairground Bulbs</span></strong></p><p>This wrangler allows us to control the intensity and color values of the tiny sphere light inside of the glass fairground bulbs.</p><p> </p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="bf9e628f-80cf-4b7a-b571-b496b93baf82" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">float randomFloat(float min; float  max; string primpath) {
+    return fit01(rand(random_shash(primpath), chi(&quot;seed&quot;)),min, max); 
+}
+
+//@inputs:intensity = fit01(rand(random_shash(@primpath), chi(&quot;seed&quot;)), ch('min'),ch('max')); 
+@inputs:intensity = randomFloat(ch('min'),ch('max'), @primpath); 
+float randomHue = randomFloat(ch('Hue'), ch('Hue'), @primpath + &quot;hue&quot;);
+float randomSat = randomFloat(ch('minSat'), ch('maxSat'), @primpath + &quot;sat&quot;);
+float randomVal = randomFloat(ch('minVal'), ch('maxVal'), @primpath + &quot;val&quot;);
+v@inputs:color = hsvtorgb(randomHue,randomSat,randomVal);</pre>
+</div></div><p>Again, creating this set of parameters</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Neon_Random4.jpg" width="760" loading="lazy" src="../../attachments/592019497/Neon_Random4.jpg" data-image-src="../../attachments/592019497/Neon_Random4.jpg" data-height="753" data-width="1214" data-unresolved-comment-count="0" data-linked-resource-id="592674831" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Neon_Random4.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="592019497" data-linked-resource-container-version="3" data-media-id="baa045e7-468f-4f20-9066-23f1483fd19d" data-media-type="file" /></span><hr /><p><strong><span data-colorid="kljzl8r63w">Summary</span></strong></p><p>So &hellip; to summarize.</p><p>With this set of wrangles, we can randomly flash and control meshlights, the Glow intensity, and color of a PxrSurface and analytic USD lights.  </p><p>Feel free to use these code snippets in your scenes where you need to create randomisation of lights and shaders.</p>
+  </article>
+</main>
+</body>
+</html>

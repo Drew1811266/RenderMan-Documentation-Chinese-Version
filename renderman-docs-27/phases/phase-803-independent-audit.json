@@ -1,0 +1,247 @@
+{
+  "phase": 803,
+  "file": "TRA/22184318-tq Cookbook.html",
+  "file_id": "24694205dd",
+  "source_items": 61,
+  "translation_rows": 61,
+  "source_items_match_translation_rows": true,
+  "duplicate_rows": [],
+  "missing_item_ids": [],
+  "extra_item_ids": [],
+  "tag_fingerprint_identical": true,
+  "rendered_markup_matches_target_markup": true,
+  "glossary_violations": [],
+  "direct_placement_missing": [],
+  "actionable_long_source_residuals": [],
+  "accepted_long_source_residuals": [
+    {
+      "item_id": "24694205dd:1",
+      "source": "tq command-line tool"
+    },
+    {
+      "item_id": "24694205dd:5",
+      "source": "search clause syntax"
+    },
+    {
+      "item_id": "24694205dd:25",
+      "source": "Resource Utilization"
+    }
+  ],
+  "actionable_ascii_heavy_residuals": [],
+  "accepted_ascii_heavy_residuals": [
+    {
+      "item_id": "24694205dd:1",
+      "text": "tq command-line tool",
+      "ascii_letters": 17,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "24694205dd:5",
+      "text": "search clause syntax",
+      "ascii_letters": 18,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "24694205dd:9",
+      "text": "Queue Size（队列大小说明）",
+      "ascii_letters": 9,
+      "cjk_chars": 6
+    },
+    {
+      "item_id": "24694205dd:11",
+      "text": "这里 blocked 和 ready aliases 会分别展开为 state=blocked 和 state=ready。",
+      "ascii_letters": 41,
+      "cjk_chars": 10
+    },
+    {
+      "item_id": "24694205dd:13",
+      "text": "对于某些站点，result set 可能因为 database 中的 configuration limit 而被截断。这是为了保护 engine、database server 和 client，避免极大 result sets 带来的 memory、cpu 和 bandwidth utilization 压力。可以使用 --limit flag 覆盖这个限制，或更谨慎地扩大它。",
+      "ascii_letters": 109,
+      "cjk_chars": 51
+    },
+    {
+      "item_id": "24694205dd:14",
+      "text": "这里我们把 result set 限制为 100,000 records。对于某些 queues，这可能仍然不够大。可以把 limit 设得更高；但对于这类 queries，可以使用 job 中维护的 task state counters。下面的 commands 会列出包含 blocked 和 ready tasks 的 jobs 及其数量。",
+      "ascii_letters": 83,
+      "cjk_chars": 54
+    },
+    {
+      "item_id": "24694205dd:15",
+      "text": "配合一些 option 和 shell-fu，可以把 result pipe 到 paste -sd+ | bc 来求和。--nocolor 确保特殊字符不会干扰 bc。--zeros 会让 zero values 显示为 0 而不是空白；当使用 + 连接 values 形成 bc 的 arithmetic expression 时，这一点是必需的。--delimiter + 会让 blocked 和 ready counters 以 + 分隔，而 paste -sd+ 会用 + 把多行连接起来。",
+      "ascii_letters": 120,
+      "cjk_chars": 64
+    },
+    {
+      "item_id": "24694205dd:16",
+      "text": "注意，某些 options 出现在 jobs subcommand 之前，另一些出现在之后。Option 位置可通过 built-in help 验证。",
+      "ascii_letters": 38,
+      "cjk_chars": 24
+    },
+    {
+      "item_id": "24694205dd:19",
+      "text": "已删除的 job 可以从 archives 中恢复。第一步是发出 undelete command。",
+      "ascii_letters": 26,
+      "cjk_chars": 16
+    },
+    {
+      "item_id": "24694205dd:20",
+      "text": "注意，--archives flag",
+      "ascii_letters": 12,
+      "cjk_chars": 2
+    },
+    {
+      "item_id": "24694205dd:22",
+      "text": "使用，因为只能 undelete 已删除的 job，而 deleted jobs 只存在于 archives 中。",
+      "ascii_letters": 30,
+      "cjk_chars": 16
+    },
+    {
+      "item_id": "24694205dd:23",
+      "text": "要让该 job 运行，必须 restart job 或 retry 特定 tasks。",
+      "ascii_letters": 23,
+      "cjk_chars": 10
+    },
+    {
+      "item_id": "24694205dd:24",
+      "text": "这里不需要 --archives flag，因为该 job 已不再被视为 deleted。",
+      "ascii_letters": 22,
+      "cjk_chars": 14
+    },
+    {
+      "item_id": "24694205dd:25",
+      "text": "Resource Utilization（资源利用率）",
+      "ascii_letters": 19,
+      "cjk_chars": 5
+    },
+    {
+      "item_id": "24694205dd:27",
+      "text": "下面的 command 会找到所有 active jobs，并按 active tasks 数量反向排序，让最忙的 jobs 排在前面。使用 active alias，它等价于 numactive > 0。这里使用 limit option 来显示最忙的前 5 个 jobs。",
+      "ascii_letters": 67,
+      "cjk_chars": 42
+    },
+    {
+      "item_id": "24694205dd:28",
+      "text": "Resource Hoarders（资源囤积者）",
+      "ascii_letters": 16,
+      "cjk_chars": 5
+    },
+    {
+      "item_id": "24694205dd:30",
+      "text": "假设有一些 high-performance blades 可以做 GPU rendering，并且这些 blades 有一个特殊 profile name gpu。可以按如下方式列出所有带该 profile 的 blades：",
+      "ascii_letters": 66,
+      "cjk_chars": 31
+    },
+    {
+      "item_id": "24694205dd:31",
+      "text": "下面的 query 会列出所有 active tasks：",
+      "ascii_letters": 16,
+      "cjk_chars": 8
+    },
+    {
+      "item_id": "24694205dd:34",
+      "text": "tq 没有 built-in aggregation functions，但可以在 command-line 上使用 uniq -c（Linux 和 macOS）轻松执行这种 aggregation。下面的 command 匹配与上面相同的 tasks 列表，但只显示 task 的 owner。--noheader 避免 heading lines 被计入；--columns owner 使每行只显示 owner attribute；--sortby owner 按 owner 对 results 排序，以便 uniq -c 正常工作。",
+      "ascii_letters": 161,
+      "cjk_chars": 55
+    },
+    {
+      "item_id": "24694205dd:36",
+      "text": "Command History（命令历史记录）",
+      "ascii_letters": 14,
+      "cjk_chars": 6
+    },
+    {
+      "item_id": "24694205dd:37",
+      "text": "Tractor 会跟踪 farm 上每个 command 的执行，包括 blade name、start time、stop time，以及 process 的 memory 和 cpu utilization。每次 execution 都表示为一个独立的",
+      "ascii_letters": 80,
+      "cjk_chars": 26
+    },
+    {
+      "item_id": "24694205dd:38",
+      "text": "invocation",
+      "ascii_letters": 10,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "24694205dd:39",
+      "text": "。Invocation 由三个 attributes 唯一标识：",
+      "ascii_letters": 20,
+      "cjk_chars": 7
+    },
+    {
+      "item_id": "24694205dd:46",
+      "text": "是 invocation id 调用编号，从 1 开始。",
+      "ascii_letters": 12,
+      "cjk_chars": 8
+    },
+    {
+      "item_id": "24694205dd:47",
+      "text": "查找 Retried Tasks 重试任务",
+      "ascii_letters": 12,
+      "cjk_chars": 6
+    },
+    {
+      "item_id": "24694205dd:48",
+      "text": "下面的 command 会找到特定 job 中所有由 retry 产生的 invocations。Retry 可能由 user、通过 API 的 script，或 engine 自动发起。Search string 周围使用 double quotes，是为了避免 > sign 被 shell 解释。argv value 太长，无法在默认 column width 中显示，因此使用 ... 缩短它。",
+      "ascii_letters": 103,
+      "cjk_chars": 55
+    },
+    {
+      "item_id": "24694205dd:49",
+      "text": "Invocation 的 Resource Utilization 资源利用率说明",
+      "ascii_letters": 29,
+      "cjk_chars": 8
+    },
+    {
+      "item_id": "24694205dd:50",
+      "text": "下面的 command 会列出所有使用超过 4G memory 的 commands 的 id、job owner、blade、timestamps 和 resource utilization。注意如何在 columns option 中使用 =6.3 formatter 指定 rss attribute 的 precision；6 指定 column width，3 指定 precision。Job",
+      "ascii_letters": 132,
+      "cjk_chars": 30
+    },
+    {
+      "item_id": "24694205dd:51",
+      "text": "owner 也已添加，不需要为 attribute 加上 entity name 前缀（例如 Job.owner）。",
+      "ascii_letters": 32,
+      "cjk_chars": 14
+    },
+    {
+      "item_id": "24694205dd:52",
+      "text": "Farm Management（农场管理说明）",
+      "ascii_letters": 14,
+      "cjk_chars": 6
+    },
+    {
+      "item_id": "24694205dd:53",
+      "text": "Draining the Farm（排空农场流程）",
+      "ascii_letters": 15,
+      "cjk_chars": 6
+    },
+    {
+      "item_id": "24694205dd:54",
+      "text": "有时需要关闭全部或部分 farm，以执行 hardware maintenance 或 software upgrades 等 administrative activities。假设某站点需要升级 rack 3 和 rack 6 的 power supplies，并且这些 racks 中 hosts 的名称分别以 r3 和 r6 开头。",
+      "ascii_letters": 96,
+      "cjk_chars": 41
+    },
+    {
+      "item_id": "24694205dd:56",
+      "text": "Admins 可以使用下面的 command 轮询这些 blades 上正在 active running 的 tasks。当 command 不返回结果时，他们就知道可以安全关闭这些 blades。",
+      "ascii_letters": 50,
+      "cjk_chars": 35
+    },
+    {
+      "item_id": "24694205dd:58",
+      "text": "前面的 tq tasks command 可用于轮询 system，确保这些 racks 上没有剩余 active tasks，然后即可继续 maintenance。",
+      "ascii_letters": 47,
+      "cjk_chars": 23
+    },
+    {
+      "item_id": "24694205dd:60",
+      "text": "一些 regular expression 爱好者可能会很快指出 ^r[36] 应该匹配 rack 3 和 rack 6，这是正确的。不过，search clause syntax 要求包含 square brackets 的 expressions 放在 quotes 中，以免被解释为 search clause list 的分隔标记。因此，上面的 command（以及类似的其他 command）也可以写成这样：",
+      "ascii_letters": 105,
+      "cjk_chars": 62
+    }
+  ],
+  "required_phrase_missing": [],
+  "section_order_positions": [],
+  "section_order_ok": true,
+  "passed": true
+}

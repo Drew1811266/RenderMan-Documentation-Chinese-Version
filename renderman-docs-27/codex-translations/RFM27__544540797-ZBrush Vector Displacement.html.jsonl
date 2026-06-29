@@ -1,0 +1,56 @@
+{"item_id":"9a1300693e:0","text":"从 ZBrush 导出 OBJ 和 OpenEXR"}
+{"item_id":"9a1300693e:1","text":"按 Shift+d 下移到"}
+{"item_id":"9a1300693e:2","text":"最低 subdivision（细分级别）。"}
+{"item_id":"9a1300693e:3","text":"Lion 由 Olivier Drion 雕刻。"}
+{"item_id":"9a1300693e:4","text":"点击 Switch 按钮，在"}
+{"item_id":"9a1300693e:5","text":"Morph Target"}
+{"item_id":"9a1300693e:6","text":"中切换到原始模型"}
+{"item_id":"9a1300693e:7","text":"。如果尚未设置 Morph Target，请查阅 ZBrush 文档，了解如何设置 Morph Target。"}
+{"item_id":"9a1300693e:8","text":"点击 Switch 按钮，在"}
+{"item_id":"9a1300693e:9","text":"Morph Target"}
+{"item_id":"9a1300693e:10","text":"中切换到原始模型"}
+{"item_id":"9a1300693e:11","text":"。如果尚未设置 Morph Target，请查阅 ZBrush 文档，了解如何设置 Morph Target。"}
+{"item_id":"9a1300693e:12","text":"在 Preferences、Import/Export、Vector Displacement Map 中，将"}
+{"item_id":"9a1300693e:13","text":"Tangent FlipAndSwitch 设置为 43。"}
+{"item_id":"9a1300693e:14","text":"共有 48 种不同的 vector displacement（矢量置换）设置，因为在某个 renderer（渲染器）中红色通道可能朝上，而在另一个 renderer 中可能朝下。RenderMan 使用 43。"}
+{"item_id":"9a1300693e:15","text":"近期变更意味着原先的 Tangent FlipAndSwitch 41 已调整；如果 displacement（位移）不正确，你可能需要使用 41 而不是 43。"}
+{"item_id":"9a1300693e:16","text":"在 Tools、Vector Displacement Map 中，将"}
+{"item_id":"9a1300693e:17","text":"vd Tangent"}
+{"item_id":"9a1300693e:18","text":"设为 on，将"}
+{"item_id":"9a1300693e:19","text":"vd 32 Bit"}
+{"item_id":"9a1300693e:20","text":"设为 on 以导出 32-bit map（贴图），否则将导出 16-bit；将"}
+{"item_id":"9a1300693e:21","text":"vd SUV"}
+{"item_id":"9a1300693e:22","text":"设为 on 以启用 smooth UV（平滑 UV），将"}
+{"item_id":"9a1300693e:23","text":"vd Normals"}
+{"item_id":"9a1300693e:24","text":"设为 on。"}
+{"item_id":"9a1300693e:25","text":"点击 CreateAndExport VDMap 导出 maps（贴图）和 OBJ。这些 maps 将导出为 OpenEXR。"}
+{"item_id":"9a1300693e:26","text":"导入 OBJ 并添加 Subdiv Scheme"}
+{"item_id":"9a1300693e:27","text":"对于某些 subdivision surfaces（细分曲面），添加 \"Dice Watertight\" attribute（属性）可能有助于解决 seam（接缝）问题。这可能带来 memory overhead（内存开销），因此默认未开启。"}
+{"item_id":"9a1300693e:28","text":"导入刚从 ZBrush 导出的 OBJ。对于它的 shape node（形状节点），添加"}
+{"item_id":"9a1300693e:29","text":"Attributes|RenderMan|Subdiv Scheme:"}
+{"item_id":"9a1300693e:30","text":"指定 Displacement Shader（位移着色器）"}
+{"item_id":"9a1300693e:31","text":"创建一个"}
+{"item_id":"9a1300693e:32","text":"PxrTexture"}
+{"item_id":"9a1300693e:33","text":"节点。将 Filename 设置为导出的 ZBrush EXR map（贴图）。其他参数保持默认值。"}
+{"item_id":"9a1300693e:34","text":"创建一个"}
+{"item_id":"9a1300693e:35","text":"PxrDispTransform"}
+{"item_id":"9a1300693e:36","text":"节点。将 Displacement Type 设置为"}
+{"item_id":"9a1300693e:37","text":"ZBrush Vector"}
+{"item_id":"9a1300693e:38","text":"并将 Vector Space 设置为"}
+{"item_id":"9a1300693e:39","text":"Tangent"}
+{"item_id":"9a1300693e:40","text":"。"}
+{"item_id":"9a1300693e:41","text":"创建一个"}
+{"item_id":"9a1300693e:42","text":"PxrDisplace"}
+{"item_id":"9a1300693e:43","text":"节点（这是实际对 surface（表面）执行 displacement（位移）的 displacement shader）。"}
+{"item_id":"9a1300693e:44","text":"将 PxrTexture 的输出 Result RGB 连接到 PxrDispTransform 的 Disp Vector。"}
+{"item_id":"9a1300693e:45","text":"将 PxrDispTransform 的 Result XYZ 连接到 PxrDisplace 的 Disp Vector。你的 graph（图）应如下所示："}
+{"item_id":"9a1300693e:46","text":"添加"}
+{"item_id":"9a1300693e:47","text":"PxrSurface"}
+{"item_id":"9a1300693e:48","text":"，将它指定给模型，并添加一些"}
+{"item_id":"9a1300693e:49","text":"lights（灯光）"}
+{"item_id":"9a1300693e:50","text":"，适当设置 displacement bound（置换边界），然后 render（渲染）！"}
+{"item_id":"9a1300693e:51","text":"Maya Project（Maya 项目）"}
+{"item_id":"9a1300693e:52","text":"下载 Maya Project（Maya 项目），测试官方 ZBrush vector displacement（矢量置换）场景。"}
+{"item_id":"9a1300693e:53","text":"下载 RfM"}
+{"item_id":"9a1300693e:54","text":"或者下载 RIB file（RIB 文件）..."}
+{"item_id":"9a1300693e:55","text":"下载 RIB"}

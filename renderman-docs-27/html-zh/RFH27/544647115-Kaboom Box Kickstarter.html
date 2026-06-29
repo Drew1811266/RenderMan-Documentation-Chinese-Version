@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kaboom Box Kickstarter</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Kaboom Box Kickstarter</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFH27/544647115/Kaboom+Box+Kickstarter">https://rmanwiki-27.pixar.com/space/RFH27/544647115/Kaboom+Box+Kickstarter</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/544647115/RenderMan_Kaboom_FireBall_Render.jpg" data-image-src="../../attachments/544647115/RenderMan_Kaboom_FireBall_Render.jpg" data-unresolved-comment-count="0" data-linked-resource-id="544647136" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Kaboom_FireBall_Render.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544647115" data-linked-resource-container-version="1" data-media-id="4d9e2d03-0164-4404-b115-63560f15e0d4" data-media-type="file"></span><br/><br/>Kaboom Box HDA 是 RenderMan 版的标准 Houdini pyro lookdev node（火焰/烟雾外观开发节点）Pyro Bake Volume，它让 RenderMan artists（RenderMan 艺术家）能够快速且真实地渲染 pyro 和 volume sims（体积模拟），无论是大型爆炸、小型蜡烛火焰，还是介于两者之间的各种效果。</p><p><br/></p><p>安装后，KaBoom Box 位于 OBJ context（OBJ 上下文）中，可以很容易地放入你的 node network（节点网络），位置在 RenderMan 选项卡下。</p><p>该 HDA 需要一个输入。此输入可以是 cached VDB file sequence（缓存的 VDB 文件序列），也可以位于你的网络中 <em>pyrosolver</em> 节点之后。 </p><p><br/><br/></p><hr/><p><br/>在这个简单示例中，我们将使用 Houdini 中默认的 fireball preset（火球预设），并使用 Kaboom Box HDA 对火球进行 lookdev（外观开发）和渲染。继续之前，请确保你已经正确安装了 HDA。</p><p><span style="letter-spacing: 0.0px;">首先，需要创建一个 geometry node（几何节点）；创建后进入其内部，然后放置一个 Pyro Configure Fireball 节点。</span></p><p><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/544647115/RenderMan_KaboomBox_FireBall1.gif" data-image-src="../../attachments/544647115/RenderMan_KaboomBox_FireBall1.gif" data-unresolved-comment-count="0" data-linked-resource-id="544647127" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_KaboomBox_FireBall1.gif" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/gif" data-linked-resource-container-id="544647115" data-linked-resource-container-version="1" data-media-id="41d3727a-89c5-42b3-847d-84c5cd9466fb" data-media-type="file"></span><br/><br/><br/></p><hr/><p><br/><br/>网络创建完成后，需要放置一个 RenderMan Kaboom Box 节点，并将它接入 pyrosolver 节点之后的网络。<br/><br/><br/><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/544647115/RenderMan_KaboomBox_FireBall2.gif" data-image-src="../../attachments/544647115/RenderMan_KaboomBox_FireBall2.gif" data-unresolved-comment-count="0" data-linked-resource-id="544647130" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_KaboomBox_FireBall2.gif" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/gif" data-linked-resource-container-id="544647115" data-linked-resource-container-version="1" data-media-id="0b67b683-6869-4c50-bfc8-5139c4b39124" data-media-type="file"></span><br/><br/><br/></p><hr/><p><br/></p><p>最后，在 Kaboom Box properties panel（属性面板）的 presets（预设）中选择 Fireball，就完成设置了。<br/><br/><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/544647115/RenderMan_KaboomBox_FireBall3.gif" data-image-src="../../attachments/544647115/RenderMan_KaboomBox_FireBall3.gif" data-unresolved-comment-count="0" data-linked-resource-id="544647133" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_KaboomBox_FireBall3.gif" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/gif" data-linked-resource-container-id="544647115" data-linked-resource-container-version="1" data-media-id="f7dbf8d2-e107-4120-b889-73dff5ea056f" data-media-type="file"></span><br/><br/><br/>记得在场景中加入一些 lights（灯光）、camera（摄像机）和 RenderMan ROP；全部完成后，你就可以使用 Kaboom Box 渲染第一个 Fireball explosion（火球爆炸）了！<br/><br/><br/><br/><br/><br/><br/><br/></p>
+  </article>
+</main>
+</body>
+</html>

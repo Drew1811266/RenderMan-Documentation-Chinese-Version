@@ -1,0 +1,27 @@
+{"id": "b605350bc00209520b7cd8f546322663356ba630708f71bbf30aead6b3dd608e", "item_id": "66c070feef:0", "text": "简介"}
+{"id": "65cd2a4d45ea1c6365495e10c4374834e2d0d5070cf42a945a7a26d3ad61d8d4", "item_id": "66c070feef:1", "text": "RenderMan 能够渲染"}
+{"id": "be7393acc8f6e42679904c294958e8f20a30382d09a2bf185168f2be34b551ca", "item_id": "66c070feef:2", "text": "implicit surfaces（隐式曲面）"}
+{"id": "ea06985e81b03926b316e6160198262d9fa256ec09afb31bf2a943a7e221ba3c", "item_id": "66c070feef:3", "text": "（在 RenderMan 中有时称为 \"RiBlobby\" 或 blobby surfaces（blobby 曲面））。RenderMan 中大多数几何类型都有显式控制网格：几何体由位于曲面上或曲面附近的一组顶点指定。隐式曲面不同：它们构建自"}
+{"id": "5b9f798170b26398f946a56fbc623a067a32f0dc0f1203b0e7ec1ad06a6b738c", "item_id": "66c070feef:4", "text": "隐式定义"}
+{"id": "153b6591fad93b7f5f3f725bb0654c2f12641c100a2294829e5159a361caa1c2", "item_id": "66c070feef:5", "text": "的图元，即使用一个数学函数，该函数在曲面上的每个点都等于某个阈值。这些复杂数学由渲染器隐藏，但会形成一种表示方式：当用户想创建无定形形状，并愿意用对形状细节的精细控制换取整体特征建模的便利时，它能非常高效地建模几何体。"}
+{"id": "41ef5f0a5f5fb72adec9ef07fe2137584d6f4f20ec8e09e1d0872ee9ff8b71ec", "item_id": "66c070feef:6", "text": "Built-In Primitives（内置图元）"}
+{"id": "155af73da2657baa508e655307cd33ca9763234acde41e0395252e708ba66432", "item_id": "66c070feef:7", "text": "在 RenderMan 中构建 implicit surface（隐式曲面）的一种方式，是组合简单的 built-in primitive shapes（内置图元形状），例如一个椭球体。这里，隐式曲面最重要的特性是"}
+{"id": "678883039f0d65d320f1807580bd2bac0dd08cf99ba03b7e1901fa8133c4da74", "item_id": "66c070feef:8", "text": "automatic blending（自动混合）"}
+{"id": "970183d7d589db0e9f96e762d4b42eea88ff7d098e28beb788ea998856bca271", "item_id": "66c070feef:9", "text": "：相邻图元会融合成圆润、饱满、球团状的团块。当图元彼此足够接近时，这种混合会自动发生（或按建模者的意愿不发生），无需构造显式的圆角和倒圆补片来连接它们。下面演示六个多色球体，它们起初彼此相距一定距离；在这个距离下，它们不会相互作用。然而当它们靠近时，会开始拉伸并混合在一起，平滑地合并成更大的团块。这种混合在渲染器中会自动且高效地发生，不会产生额外内存成本；与在建模程序中创建等效的 polygonal tessellation（多边形细分）相比，隐式曲面通常更加节省内存。"}
+{"id": "0cbe9ed0b99c8c1210e0821cc93be1b2a9df72205eb1b6cdaecfe9c5e8ff1161", "item_id": "66c070feef:10", "text": "使用内置图元椭球体形状时，底层数学函数会使生成的混合曲面具有与组成图元大致相同的体积。这让该工作流非常适合为黏性流体之类对象建模，因为这种 volume-preserving（体积保持）属性非常有用。不过如上所述，对形状如何混合在一起并没有精细控制：图元要么相互作用并混合，要么不混合。它们发生混合的阈值可以针对整个曲面全局设置（这会使整个隐式曲面 \"bulk up\"（膨胀）或 \"shrink down\"（收缩）），但不能逐球设置阈值。"}
+{"id": "e75d144634c1e4b13ab5407a13fc4a858e9afec6aed639fa33bc25a7d662ca7c", "item_id": "66c070feef:11", "text": "Implicit Field Plugins（隐式场插件）"}
+{"id": "caaf1b1c8ab6bdd492454cb3fb3f03169e8f82dd489ecfb4f8ba45efa62e4060", "item_id": "66c070feef:12", "text": "RenderMan 允许用户将内置图元形状扩展到其他数学描述，这些描述可以与内置图元无缝参与 automatic blending（自动混合）。这种扩展会用到"}
+{"id": "6ee15eb021587900b10c4caea1df7ca99055dc791b40e649ce584dfe57cabc8a", "item_id": "66c070feef:13", "text": "implicit field plugins（隐式场插件）"}
+{"id": "a232fe7b890fa4ac3686e8d9538a4fa2ba191f783d3747b27fb8d94305b6efc4", "item_id": "66c070feef:14", "text": "，它们是由渲染器加载的 C++ 共享库。渲染器附带多个插件，可以支持立方体和线段形状的图元（两端圆润、类似香肠的圆柱体）。"}
+{"id": "0333bcb9f7eb78fa7cb305e8cc94b2bec6fa54ae00f8fb301c745370fcbbf539", "item_id": "66c070feef:15", "text": "然而，implicit field plugins（隐式场插件）也适合另一种截然不同的隐式曲面用法：把其他程序生成的 implicit field representation（隐式场表示）作为输入。隐式场是流体和体积效果的一种自然且高效的表示，可由 Maya Fluids、输出 OpenVDB 文件的程序或 Bifrost 等程序直接输出。可以编写隐式场插件来衔接这些第三方隐式数据文件格式与 RenderMan implicit primitive（RenderMan 隐式图元）之间的差距，使流体模拟的输出能在 RenderMan 内部直接且高效地渲染。在这类情况下，隐式曲面通常由单个图元组成，从概念上讲就是隐式场插件本身，并带有对该插件有特殊意义的参数。与其他图元混合通常不是重点，也通常不是期望行为。渲染器附带两种此类插件：一种读取 Maya fluid cache files（Maya 流体缓存文件），另一种插件用于"}
+{"id": "7eeb5a0653a703e3f281daf2e875926034327d33399202fa4549fa4b390659b7", "item_id": "66c070feef:16", "text": "读取 OpenVDB 文件"}
+{"id": "cdb4ee2aea69cc6a83331bbe96dc2caa9a299d21329efb0336fc02a82e1839a8", "item_id": "66c070feef:17", "text": "。"}
+{"id": "46bb225fa4dc6b9835628eb8469a4536b38bddd55877f202f06eb5a46b121057", "item_id": "66c070feef:18", "text": "某些 implicit field plugins（隐式场插件）（例如"}
+{"id": "924844cf73dac3c6932b6532baa84c587c8cefaf8cd3ec17e6d4bbdb9233d09d", "item_id": "66c070feef:19", "text": "OpenVDB plugin（OpenVDB 插件）"}
+{"id": "ed4d87ab1fa55c87fc69f8dcde4315dfc4ef2c375211f33922641b351098e96e", "item_id": "66c070feef:20", "text": "）"}
+{"id": "ff7772053abf7d817d6eec229a09e14f0d1552f1cb0aeedb2ac73784ac2d2e39", "item_id": "66c070feef:21", "text": "既可用于"}
+{"id": "0b52ef42e4c97adf925bb9bc27cb6836beeb9e0d28dc0fc28d599c68ff4f8828", "item_id": "66c070feef:22", "text": "implicit surfaces（隐式曲面）"}
+{"id": "6201111b83a0cb5b0922cb37cc442b9a40e24e3b1ce100a4bb204f4c63fd2ac0", "item_id": "66c070feef:23", "text": "也可用于"}
+{"id": "0f549f8b37f516a2214280d1c79e7531da324ffcf430d387007659651db00a8c", "item_id": "66c070feef:24", "text": ""}
+{"id": "d00d54adc04f53e929d8d19d6cb3702d93204a44b92b0bee66ab8770b372b903", "item_id": "66c070feef:25", "text": "volume primitive（体积图元）。"}
+{"id": "0033a213dae8c7dec1a918511f7ed283d0a7e598f8319b7a7b72b7b81a090afa", "item_id": "66c070feef:26", "text": "这反映出 implicit fields（隐式场）也正好是表示 volumes（体积）的好方法。对于 OpenVDB，选择使用哪种 primitive（图元）取决于所使用 OpenVDB 文件的类型（\"levelset\" 与 \"fogvolume\"）。"}

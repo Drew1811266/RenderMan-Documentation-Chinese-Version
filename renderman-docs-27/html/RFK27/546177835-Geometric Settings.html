@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Geometric Settings</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Geometric Settings</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFK27/546177835/Geometric+Settings">https://rmanwiki-27.pixar.com/space/RFK27/546177835/Geometric+Settings</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>RenderMan's geometric settings can be set in Katana in several ways. </p><h3 id="GeometricSettings-ImportedGeometricSettings">Imported Geometric Settings</h3><p>Many geometric settings come into Katana through the geometry importer (Alembic or USD).  These geometric settings end up under the &quot;geometry&quot; attribute.  These attributes include things that define the geometry (the vertices of a mesh, for example), and arbitrary primitive variables.  The attributes in the geometry group are explicit to the geometry location, so they are not inherited and won't vary per instance.</p><p>Read more about primitve variables here:</p><ul><li><p><a href="/wiki/spaces/RFK27/pages/546177881/Primitive+Variables" data-linked-resource-id="546177881" data-linked-resource-version="4" data-linked-resource-type="page">Primitive Variables</a></p></li></ul><h3 id="GeometricSettings-PrmanObjectStatements">PrmanObjectStatements</h3><p>There are two types of geometric settings on PrmanObjectStatements - those that can vary per instance and those that cannot. The attributes under the prmanStatements.attributes group can vary per instance.  These are also known as &quot;instance attributes&quot;.  The attributes under prmanStatements.primAttributes cannot vary per instance.  These are also known as &quot;prototype attributes&quot;.  RfK will flatten prototype attributes onto the geometry locations, so they can be inherited in Katana.</p><p>Read about PrmanObjectStatements here:</p><ul><li><p><a href="/wiki/spaces/RFK27/pages/546178855/PrmanObjectStatements" data-linked-resource-id="546178855" data-linked-resource-version="1" data-linked-resource-type="page">PrmanObjectStatements</a></p></li></ul><h3 id="GeometricSettings-ScriptinginKatana">Scripting in Katana</h3><p>You can set any of the attributes above via an Op, OpScript, or AttributeSet node.  Along with the attributes exposed in PrmanObjectStatemts, RenderMan also allows users to define their own attributes under the &quot;user&quot; namespace - prmanStatements.attributes.user.</p><p>Read more about user attributes here:</p><ul><li><p><a href="/wiki/spaces/RFK27/pages/546177856/User+Attributes" data-linked-resource-id="546177856" data-linked-resource-version="4" data-linked-resource-type="page">User Attributes</a></p></li></ul><p /><p /><p />
+  </article>
+</main>
+</body>
+</html>

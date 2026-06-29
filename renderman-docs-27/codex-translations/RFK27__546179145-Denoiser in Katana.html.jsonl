@@ -1,0 +1,61 @@
+{"item_id":"8e5ae75aad:0","text":"Basic Setup in Katana（Katana 基础设置）"}
+{"item_id":"8e5ae75aad:1","text":"Step 1（步骤 1）："}
+{"item_id":"8e5ae75aad:2","text":"添加一个"}
+{"item_id":"8e5ae75aad:3","text":"PrmanDenoiseChannelDefine"}
+{"item_id":"8e5ae75aad:4","text":"node，用于创建 denoiser 所需的全部 DisplayChannels。"}
+{"item_id":"8e5ae75aad:5","text":"Step 2（步骤 2）："}
+{"item_id":"8e5ae75aad:6","text":"添加一个"}
+{"item_id":"8e5ae75aad:7","text":"PrmanDenoiseRenderOutputDefine"}
+{"item_id":"8e5ae75aad:8","text":"node，用于为 beauty pass 输出 multichannel OpenEXR file。该 file 包含所有必需的 denoise channels。"}
+{"item_id":"8e5ae75aad:9","text":"将 renderLocation parameter 设为 output image 的位置。denoiser 期望 images 采用以下形式"}
+{"item_id":"8e5ae75aad:10","text":"（例如"}
+{"item_id":"8e5ae75aad:11","text":"）。在 Katana 中，可以通过 filename 中 # 的数量指定 frame number 的 digits 数（例如"}
+{"item_id":"8e5ae75aad:12","text":"会得到"}
+{"item_id":"8e5ae75aad:13","text":"Step 3（步骤 3）："}
+{"item_id":"8e5ae75aad:14","text":"将"}
+{"item_id":"8e5ae75aad:15","text":"pixelfiltermode"}
+{"item_id":"8e5ae75aad:16","text":"设置为"}
+{"item_id":"8e5ae75aad:17","text":"importance"}
+{"item_id":"8e5ae75aad:18","text":"（如果你已将其从默认值改掉）。此设置在 PrmanGlobalStatements 中完成。"}
+{"item_id":"8e5ae75aad:19","text":"Custom setup in Katana（Katana 自定义设置）"}
+{"item_id":"8e5ae75aad:20","text":"这两个"}
+{"item_id":"8e5ae75aad:21","text":"PrmanDenoiseChannelDefine"}
+{"item_id":"8e5ae75aad:22","text":"和"}
+{"item_id":"8e5ae75aad:23","text":"PrmanDenoiseRenderOutputDefine"}
+{"item_id":"8e5ae75aad:24","text":"nodes 都是 macros。可以 command-click 查看这些 macros 内部，并在必要时修改 settings。"}
+{"item_id":"8e5ae75aad:25","text":"如果你的 pipeline 不支持 multichannel EXRs，可以使用 separate RenderOutputDefine nodes，为以下 node 中定义的每个 channel 创建一个 output："}
+{"item_id":"8e5ae75aad:26","text":"PrmanDenoiseChannelDefine"}
+{"item_id":"8e5ae75aad:27","text":"。然后使用"}
+{"item_id":"8e5ae75aad:28","text":"将 AOVs 合并成 multichannel EXR。将这个 merged multichannel EXR 用于 denoiser。使用 Katana 的 RenderOutputDefine merge 创建的 combined EXRs 无法用于 denoiser。"}
+{"item_id":"8e5ae75aad:29","text":"在任何为 denoising 创建的 RenderOutputDefine nodes 上，type 都应设为 \"raw\"，以避免 Katana 进行任何 post-processing。然后确保"}
+{"item_id":"8e5ae75aad:30","text":"asrgba"}
+{"item_id":"8e5ae75aad:31","text":"处于 off 状态，使 channel names 与 denoiser 期望的一致。"}
+{"item_id":"8e5ae75aad:32","text":"请参阅"}
+{"item_id":"8e5ae75aad:33","text":"denoise_teapots.katana"}
+{"item_id":"8e5ae75aad:34","text":"这个位于 RfK 的 Examples directory 中的 example file，了解如何设置 denoising。"}
+{"item_id":"8e5ae75aad:35","text":"Running the Denoiser（运行 Denoiser）："}
+{"item_id":"8e5ae75aad:36","text":"有几种 options 可用于对 Katana renders 执行 denoise。RenderMan 同时提供名为 denoise_batch 的 command line denoise tool 和 Denoise UI。"}
+{"item_id":"8e5ae75aad:37","text":"Option 1：RenderOutputDefine Script（Single Frame）"}
+{"item_id":"8e5ae75aad:38","text":"创建一个 RenderOutputDefine。"}
+{"item_id":"8e5ae75aad:39","text":"将此 node 连接到前一个 RenderOutputDefine node。"}
+{"item_id":"8e5ae75aad:40","text":"输入 denoise_primary，将 outputName 设为 denoise_primary。"}
+{"item_id":"8e5ae75aad:41","text":"通过选择 script option，将 type 设为 script。这会导致 scriptInput parameter 显示 error。忽略它并继续下一步。"}
+{"item_id":"8e5ae75aad:42","text":"通过选择 primary option，将 scriptInput 设为 primary。"}
+{"item_id":"8e5ae75aad:43","text":"将 scriptCommand 设为 expression。"}
+{"item_id":"8e5ae75aad:44","text":"然后输入 expression"}
+{"item_id":"8e5ae75aad:45","text":"此时，后续的 Render node 应该有两个 outputs：primary（raw）和 denoise_primary（script - 在 primary 上运行）。"}
+{"item_id":"8e5ae75aad:46","text":"Disk Render 完成后，original image 会位于 /tmp/katana/image.1.exr，denoised image 会位于 /tmp/katana/denoised/image.1.exr。"}
+{"item_id":"8e5ae75aad:47","text":"Option 2：command line（Crossframe 或 Single Frame）"}
+{"item_id":"8e5ae75aad:48","text":"使用 katana --batch 或 katana queue render 出 images。然后运行以下 command："}
+{"item_id":"8e5ae75aad:49","text":"请参阅"}
+{"item_id":"8e5ae75aad:50","text":"Denoiser Command Line"}
+{"item_id":"8e5ae75aad:51","text":"documentation，了解可用 settings 的更多信息。"}
+{"item_id":"8e5ae75aad:52","text":"Option 3：Denoise UI（Crossframe 或 Single Frame）"}
+{"item_id":"8e5ae75aad:53","text":"将 images 从 Katana 作为 disk 或 batch render 输出。"}
+{"item_id":"8e5ae75aad:54","text":"PRMan 25 shelf 中有一个名为 RenderMan Denoiser 的 script。运行此 script 可启动 Denoise UI。也可以直接从以下位置访问 UI："}
+{"item_id":"8e5ae75aad:55","text":"在 UI 中，选择 \"Add Directory...\"，并选择包含已从 Katana render 出来的 images 的 directory。"}
+{"item_id":"8e5ae75aad:56","text":"接下来选择 folder icon，选择 denoised images 要保存到的 directory。"}
+{"item_id":"8e5ae75aad:57","text":"点击 \"start\" 开始 denoising。"}
+{"item_id":"8e5ae75aad:58","text":"请参阅"}
+{"item_id":"8e5ae75aad:59","text":"Denoiser UI"}
+{"item_id":"8e5ae75aad:60","text":"documentation，了解可用 settings 的更多信息。"}

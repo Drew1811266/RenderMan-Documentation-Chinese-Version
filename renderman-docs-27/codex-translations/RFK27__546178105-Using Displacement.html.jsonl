@@ -1,0 +1,16 @@
+{"item_id":"f0498fe829:0","text":"使用"}
+{"item_id":"f0498fe829:1","text":"PxrDisplace"}
+{"item_id":"f0498fe829:2","text":"创建额外 geometric details（几何细节）是一种常见工作流，通常会结合 Mudbox 或 ZBrush 等软件导出 maps（贴图）。我们推荐使用 vector displacement（矢量置换），因为这对 layering（分层）最合理；不过我们会用同一个节点渲染 scalar maps（标量贴图）和 vector maps（矢量贴图）。"}
+{"item_id":"f0498fe829:3","text":"需要确保带有 displacement（置换）的 object（对象）具有非零 displacement bound（置换边界）。出于 performance（性能）原因，该值默认为零，因此对于需要 displacements（置换）的 object，必须始终增大此值。"}
+{"item_id":"f0498fe829:4","text":"创建 PrmanObjectStatements 节点，并将其分配给你的 object（使用 CEL 参数）"}
+{"item_id":"f0498fe829:5","text":"在 PrmanObjectStatements 节点中找到 \"primAttributes.displacementbound\" 下的 displacement bound（置换边界）"}
+{"item_id":"f0498fe829:6","text":"将 \"Sphere\" 设置为大于零的值：它要足够大，能够包住 displacement（置换），但也要足够小，避免让 renderer（渲染器）认为 surface（曲面）延伸超过预期的最终边界。如果 bounds（边界）太小，会看到裁切或缺失片段；如果太大，可能会过早对 object 进行置换。之后我们会自动收紧这些 bounds，使其更高效。因此宁可偏大，也不要偏小。值为 0（零）会禁用该 object 的 displacement。"}
+{"item_id":"f0498fe829:7","text":"RenderMan 会为过大或过小的 bounds 打印警告，最小因子为 10，以帮助你调整"}
+{"item_id":"f0498fe829:8","text":"下面是一个为 object 添加 displacement 的典型 network（网络）："}
+{"item_id":"f0498fe829:9","text":"创建一个 Network Material"}
+{"item_id":"f0498fe829:10","text":"在该节点中使用 Add Terminal，为 Bxdf 或 surface shading（曲面着色）创建一个端口"}
+{"item_id":"f0498fe829:11","text":"使用同一菜单为 Displacement（置换）创建第二个端口"}
+{"item_id":"f0498fe829:12","text":"一个 PrmanShadingNode 用作 surfaceShader，通常类型为 PxrSurface"}
+{"item_id":"f0498fe829:13","text":"第二个 PrmanShadingNode 的类型为 PxrDisplace"}
+{"item_id":"f0498fe829:14","text":"将 pattern out（模式输出，标量置换为 float，矢量置换为 RGB）连接到 displacementShader"}
+{"item_id":"f0498fe829:15","text":"渲染以查看结果。确保在 Merge 节点之后有一个 MaterialAssign，并且它具有指向 object(s) 的正确 CEL path（CEL 路径），同时 network material location（网络材质位置）设置为 NetworkMaterial"}

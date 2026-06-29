@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Render</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Render</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFH27/544646892/Render">https://rmanwiki-27.pixar.com/space/RFH27/544646892/Render</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<h3 id="Render-"><style>[data-colorid=i354av433a]{color:#4269b8} html[data-color-mode=dark] [data-colorid=i354av433a]{color:#476ebd}[data-colorid=zc0rxgj4yn]{color:#4269b8} html[data-color-mode=dark] [data-colorid=zc0rxgj4yn]{color:#476ebd}[data-colorid=acbyq7w6lb]{color:#4269b8} html[data-color-mode=dark] [data-colorid=acbyq7w6lb]{color:#476ebd}[data-colorid=oidw93s4rs]{color:#4269b8} html[data-color-mode=dark] [data-colorid=oidw93s4rs]{color:#476ebd}[data-colorid=gi7pxl02dn]{color:#192e59} html[data-color-mode=dark] [data-colorid=gi7pxl02dn]{color:#a6bbe6}[data-colorid=u8jpke2gbi]{color:#4269b8} html[data-color-mode=dark] [data-colorid=u8jpke2gbi]{color:#476ebd}[data-colorid=jgzs59qpxb]{color:#4269b8} html[data-color-mode=dark] [data-colorid=jgzs59qpxb]{color:#476ebd}[data-colorid=x94kcyeuty]{color:#4269b8} html[data-color-mode=dark] [data-colorid=x94kcyeuty]{color:#476ebd}[data-colorid=dxs4rnodb4]{color:#4269b8} html[data-color-mode=dark] [data-colorid=dxs4rnodb4]{color:#476ebd}[data-colorid=xzva6hvzaa]{color:#4269b8} html[data-color-mode=dark] [data-colorid=xzva6hvzaa]{color:#476ebd}[data-colorid=fm9drl74xh]{color:#4269b8} html[data-color-mode=dark] [data-colorid=fm9drl74xh]{color:#476ebd}[data-colorid=xqidy3yg7l]{color:#4269b8} html[data-color-mode=dark] [data-colorid=xqidy3yg7l]{color:#476ebd}[data-colorid=hoaa5c92e9]{color:#192e59} html[data-color-mode=dark] [data-colorid=hoaa5c92e9]{color:#a6bbe6}[data-colorid=zendbd1zl1]{color:#4269b8} html[data-color-mode=dark] [data-colorid=zendbd1zl1]{color:#476ebd}</style><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/544646892/Hope_PyroShader_v2.png" data-image-src="../../attachments/544646892/Hope_PyroShader_v2.png" data-unresolved-comment-count="0" data-linked-resource-id="544646921" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Hope_PyroShader_v2.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544646892" data-linked-resource-container-version="1" data-media-id="84818dc1-9f46-46aa-a80f-8880824f5e02" data-media-type="file" /></span></h3><h2 id="Render-Render"><strong><br />Render（渲染）</strong></h2><p><br /></p><p>KaBoom Box HDA 此选项卡中的参数控制位于 HDA 内部的 PxrVolume 着色器的各项功能。 <br />参见 <a href="https://renderman.atlassian.net/wiki/display/RFH24/Volume+Material" rel="nofollow">Volume Material（体积材质）</a> 了解此 shader node 的专门文档。</p><p><br /></p><p><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/544646892/RenderMan_PyroHDA_Render.jpg" data-image-src="../../attachments/544646892/RenderMan_PyroHDA_Render.jpg" data-unresolved-comment-count="0" data-linked-resource-id="544646909" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_PyroHDA_Render.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544646892" data-linked-resource-container-version="1" data-media-id="8c67c934-fe6a-4a0a-ace3-8a7c44943335" data-media-type="file" /></span><br /><br /><br /><span data-colorid="dxs4rnodb4"><strong>Light Source（光源）</strong></span><br />开启此开关会向渲染器表明，该体积应被视为会参与 next event estimation（下一事件估计）的 emissive light source（发光光源）。只有当 emitColor 参数不是黑色时，这才有用。大多数情况下，对于被该体积照亮的场景部分（可能包括体积自身），这会降低噪声并加快收敛。 <br /><br />请注意，如果只是开启此开关，而不改变场景中的其他设置，通常会得到更亮的结果，因为它本质上增加了一次额外的光反弹：对于自发光体积，体积中的点会被同一体积中的其他点自照明。因此，在最大路径长度为 1 时渲染一个开启 __islight 的 single scattering volume（单次散射体积），实际上等价于在最大路径长度为 2 时渲染一个关闭 __islight 的 multi-scattering volume（多重散射体积）。<br /><br /><span data-colorid="acbyq7w6lb"><strong>Multiple Scattering（多重散射）</strong></span><br />如果设置为 0，并且 integrator（积分器）遵循此提示，PxrVolume 将只执行 single scattering（单次散射）：体积内部的点只会被光源直接照亮。如果设置为 1，体积内部的点也会被 indirect illumination（间接照明）照亮（光会在体积内部散射多次）。此效果可能成本较高，因此默认值为 0（关闭）。请注意，某些 integrators（例如 PxrVCM）会忽略此提示，并始终执行 multiple scattering。此控制对 aggregate volumes（聚合体积）没有影响。<br /><br /><br /><span data-colorid="zc0rxgj4yn"><strong>Velocity Multiplier（速度倍率）</strong></span><br /><span>应用在体积速度上的 multiplier（倍率）。这可用于在按帧定义的速度和按秒定义的速度之间转换。<br /><br /></span></p><hr /><h2 id="Render-Anisotropy"><strong>Anisotropy（各向异性）</strong></h2><p><strong><br /><br /><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/544646892/RenderMan_PyroHDA_Render_anis.jpg" data-image-src="../../attachments/544646892/RenderMan_PyroHDA_Render_anis.jpg" data-unresolved-comment-count="0" data-linked-resource-id="544646912" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_PyroHDA_Render_anis.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544646892" data-linked-resource-container-version="1" data-media-id="dd0eaf6d-4540-4254-8846-7756a77e7448" data-media-type="file" /></span><br /><br /><span data-colorid="xqidy3yg7l">Primary Anisotropy（主各向异性）</span></strong><br />控制体积在 primary lobe（主瓣）中散射光线的方向。Anisotropy 的范围为 -1 到 1，默认值为 0（isotropic，各向同性）。anisotropy 为 0 表示体积为各向同性：光会以相同概率向所有方向散射。 <br />大于 0 的值表示体积为 forward scattering（前向散射）：入射光更可能沿相同方向散射（即远离入射光的来向）。 <br /><br />anisotropy 小于 0 表示体积为 backward scattering（后向散射）：入射光更可能沿反方向散射（即朝向入射光来的方向返回）。<br /><br /><span data-colorid="i354av433a"><strong>Secondary Anisotropy（次各向异性）</strong></span><br />控制体积在 secondary lobe（次瓣）中散射光线的方向。Anisotropy 的范围为 -1 到 1，默认值为 0（isotropic，各向同性）。anisotropy 为 0 表示体积为各向同性：光会以相同概率向所有方向散射。 <br />大于 0 的值表示体积为 forward scattering（前向散射）：入射光更可能沿相同方向散射（即远离入射光的来向）。 <br /><br />anisotropy 小于 0 表示体积为 backward scattering（后向散射）：入射光更可能沿反方向散射（即朝向入射光来的方向返回）。<br /><br /><span data-colorid="oidw93s4rs"><strong>Lobe Blend Factor（瓣混合因子）</strong></span><br />控制两个 lobes（瓣）之间的 blending weight（混合权重）。值为 0 表示只有第一个 lobe 处于活动状态，值为 1 表示只有第二个 lobe 处于活动状态。介于两者之间的值表示两个 lobes 都处于活动状态。<br /><br /><br /></p><hr /><p><br /></p><h2 id="Render-Sampling"><strong>Sampling（采样）</strong></h2><p><span data-colorid="gi7pxl02dn"><br /><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/544646892/RenderMan_PyroHDA_Render_sampling.jpg" data-image-src="../../attachments/544646892/RenderMan_PyroHDA_Render_sampling.jpg" data-unresolved-comment-count="0" data-linked-resource-id="544646915" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_PyroHDA_Render_sampling.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544646892" data-linked-resource-container-version="1" data-media-id="00da99b5-be1a-401e-b41d-72d06e6aff1a" data-media-type="file" /></span><br /><br /><br /><span data-colorid="xzva6hvzaa"><strong>Equiangular weight（等角权重）</strong></span><br />使用 equiangular sampling（等角采样）而不是 density sampling（密度采样）的概率。equiangular sampling 可改善靠近光源的体积的收敛，而在处理密集或密度变化很大的体积时，density sampling 可能是更好的技术。默认值 0.5 表示两种技术会等量使用，并通过 multiple-importance sampling（多重重要性采样）进行组合。 <br /><br />如果体积密集且远离光源，降低 equiangular weight 可能带来更好的收敛。 <br />此控制对 aggregate volumes（聚合体积）没有影响。<br /><br /><span data-colorid="x94kcyeuty"><strong>Min samples（最小采样数）</strong></span><br />控制每条 ray（射线）在体积内部取得的最小采样数。仅在 single scattering（单次散射）时使用。默认值为 4。 <br />此控制对 aggregate volumes（聚合体积）没有影响。<br /></span></p><p><span data-colorid="jgzs59qpxb"><strong>Max samples（最大采样数）</strong></span><br />控制每条 ray 在体积内部取得的最大采样数。默认值为 4。<br />此控制对 aggregate volumes（聚合体积）没有影响。<br /><br /><br /></p><hr /><p><br /></p><h2 id="Render-MultiscatterOptimization"><strong>Multiscatter Optimization（多重散射优化）<br /><br /><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/544646892/RenderMan_PyroHDA_Render_opti.jpg" data-image-src="../../attachments/544646892/RenderMan_PyroHDA_Render_opti.jpg" data-unresolved-comment-count="0" data-linked-resource-id="544646918" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_PyroHDA_Render_opti.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544646892" data-linked-resource-container-version="1" data-media-id="61b9e719-e032-4675-b2bd-bab2762f2d25" data-media-type="file" /></span><br /></strong></h2><p><br /><span data-colorid="u8jpke2gbi"><strong>MultiScatter Optimization（多重散射优化）</strong></span><br />控制是否应用 MultiScatter Optimization（多重散射优化）。此控制对聚合体积没有影响。</p><p><span data-colorid="hoaa5c92e9"><br /><span data-colorid="zendbd1zl1"><strong>Extinction Multiplier（消光倍率）</strong></span><br />Extinction Multiplier（消光倍率）用于多重散射，可在多重散射事件中修改消光系数。该倍率可设置为任何大于 0 的值；默认值 1 表示不做修改。 <br />小于 1 的值会降低消光系数，大于 1 的值会提高消光系数。此控制对聚合体积没有影响。<br /><br /><br /><span data-colorid="fm9drl74xh"><strong>Contribution Multiplier（贡献倍率）</strong></span><br />Contribution Multiplier（贡献倍率）用于多重散射，可在多重散射事件中修改直接照明贡献。该倍率可设置为任何大于 0 的值；默认值 1 表示不做修改。 <br />小于 1 的值会降低直接照明贡献，大于 1 的值会增强直接照明贡献。 <br /><br />此控制对 aggregate volumes（聚合体积）没有影响。<br /><br /><br /><br /><br /></span></p><p><br /></p><p><br /></p><p><br /></p><p><br /></p><p><br /></p><p><br /></p>
+  </article>
+</main>
+</body>
+</html>

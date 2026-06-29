@@ -1,0 +1,40 @@
+{"id": "284ae45a5f501ec636799485b581830a3839d4312ae22b5810e57835e5e3443a", "item_id": "6ad60b3b91:0", "text": "Aggregate volumes"}
+{"id": "9d68431bb2acd19d695460cf3e4360114b1a0bddce4eb944e395ded7e57b5cb8", "item_id": "6ad60b3b91:1", "text": "are a new technique allowing you to render overlapping volumes more efficiently and lower the time to first pixel. It also allows PxrSurface to use a heterogeneous volume in its interior integrator."}
+{"id": "2f1dbfd7bbddbf6af111c8beb6ee75342441757f712ab0d94b50c37e6c36811c", "item_id": "6ad60b3b91:2", "text": "Aggregates rendering requires a specific setup in maya."}
+{"id": "87502e491b5201b5f4f4b84e63757a7ab09fa8221d018fd4d38fd943ba3e9273", "item_id": "6ad60b3b91:30", "text": "Aggregate Membership"}
+{"id": "78c639b09448c4b37e3654810e4efad194ec916306e9d777ac9a772684b7f2ed", "item_id": "6ad60b3b91:4", "text": "All renderable volumetric primitives must be in the same rmanVolumeAggregateSet set. This node works as a regular maya set and a"}
+{"id": "b99824c7c0252f3a6262e4b1c66ed25240a1110bf1523a16a9f0f5f609a2a19a", "item_id": "6ad60b3b91:15", "text": "globalVolumeAggregate"}
+{"id": "7bc0b732ac7307f1817f2363e391807520d055808bbf97e9d9fe3d9eeb3ba223", "item_id": "6ad60b3b91:6", "text": "set is created in every new scene."}
+{"id": "2cf7ced108356ef2a9fc7c34d32acb31492d3d8d7d88df24182cece8bc8e529b", "item_id": "6ad60b3b91:7", "text": "The set should contain the shapes, NOT the transforms."}
+{"id": "07655e2b31cc312bbdee59dff5d3af95cdfedd78a2338a15df43408c4f57333b", "item_id": "6ad60b3b91:8", "text": "Any volumetric primitive"}
+{"id": "254bb97b57f12e1608fefc4517de768427b2fd6d2cffbbfcbc09f3c818198d5f", "item_id": "6ad60b3b91:9", "text": "not"}
+{"id": "eb976e6b2a7ab48b6fa03a8b921fa2d680e5094d7928ff3c4b43fe8179f68c3f", "item_id": "6ad60b3b91:10", "text": "included in the integrator's set will be"}
+{"id": "4623a4cfe40e99935cb0018f4b7ef8d75544fb69041f41d021cc936c853c819a", "item_id": "6ad60b3b91:11", "text": "not render."}
+{"id": "05a282b7939eb7b3b432ae9a16839fd3d75f6e087271d6434a26f9154d787fbd", "item_id": "6ad60b3b91:12", "text": "Integrator Settings"}
+{"id": "826095138fa49c819c7e3a94b278578b1125e18b1bae07148ed39e699e65e761", "item_id": "6ad60b3b91:13", "text": "PxrPathTracer support volume aggregates, starting with RenderMan 24.2."}
+{"id": "0d0c606ce0f68c0e1762a836ab60a1c94e7465102bd1b04669565ff9fe0acf80", "item_id": "6ad60b3b91:14", "text": "Once you have added all the volumes to your"}
+{"id": "2509e64eabbc3b6084b98ffb88fb744060b60e938b3b999dbb6e4c010fb9ff81", "item_id": "6ad60b3b91:16", "text": "set, enter the name of the set in PxrPathTracer's"}
+{"id": "068c4214f7fa7a7c3ceec977cacac06909051a18b82bc5ecc95bad5609eb1fde", "item_id": "6ad60b3b91:17", "text": "Volume Aggregate Name"}
+{"id": "feea095fe396c40d6206928dbb38ec05f05d73f56d03341ee55967d951be9f63", "item_id": "6ad60b3b91:19", "text": "If the name field is left empty, the old volume rendering method will be used."}
+{"id": "c71302aa4b768943d0ba06a29ca88c0e1382d0192713b0294ad044a76726bd27", "item_id": "6ad60b3b91:20", "text": "Volume aggregates are faster because they ignore the classic visibility settings (camera, transmission, indirect). If you need to override one or more visibility flags, you must:"}
+{"id": "3777564981e7e7dd170e6f23a1764fe4c66c134d2652df0525325e8d2067c7b5", "item_id": "6ad60b3b91:21", "text": "Create a new rmanVolumeAggregateSet node per override containing the volumes that should be visible."}
+{"id": "1d0f66131f9e503183b820dffbdaf47072ec2036b58ef5c8f7c5011060ef8f78", "item_id": "6ad60b3b91:22", "text": "Enter that set name in the corresponding field of PxrPathTracer:"}
+{"id": "0e998a22f6ad9683cf655bd75a1f4a86244e28042b5059e48db6b1213ca0880a", "item_id": "6ad60b3b91:23", "text": "Camera Aggregate Override: a set of volumes visible to camera rays"}
+{"id": "9bb9fdf364f07fe7e383d7145bcf24b5d8f79dbf99afa682396f73ff77787d68", "item_id": "6ad60b3b91:24", "text": "Indirect Aggregate Override: a set of volumes visible to indirect rays"}
+{"id": "7d6db3d4f41dd75a1cb28690989f5453d7bfb53bb7b16f6c03a3e755177dcb90", "item_id": "6ad60b3b91:25", "text": "Transmission Aggregate Override: a set of volumes visible to transmission rays"}
+{"id": "abc797d83976268490edfe18ac5fa8ed12ca2c5039fef00488d108c5503485d5", "item_id": "6ad60b3b91:26", "text": "The same set name can be used in multiple visibility fields"}
+{"id": "af806ba4078e325c95684b2ea859e5520c70e045d69d2c29fb48ec8cb5b3d660", "item_id": "6ad60b3b91:27", "text": "Joint Sampling"}
+{"id": "e3357fd8b583692802647cd602468b7e48bdc9a459ee4caae6dd6e47cf519635", "item_id": "6ad60b3b91:28", "text": ": enables importance sampling of visibility and light sources. This is beneficial when lights are near a thin volume or when thin volume is lit by a distant light. Joint sampling has a cost and should be disabled when not required."}
+{"id": "2f5c08051e8f4bf279d04222b42429ba0b3e89e290a8163df0c4748d4775ab05", "item_id": "6ad60b3b91:29", "text": "Node parameters"}
+{"id": "e3d07a6fcc0c5ab23561de96ef32ae273edd9641b802dc5d27c4ddcf606548ac", "item_id": "6ad60b3b91:31", "text": ": shows which aggregate the current node belongs to. You can use the side menu to modify the membership."}
+{"id": "bfc7f2250ad7f3352a5f1539e998ba078ee3ace3a3b45b8d4bfd7b738913de48", "item_id": "6ad60b3b91:32", "text": "DSO Min/Max"}
+{"id": "fd72cf7f2d55f65c8b36da2f128cec942c9aeb43f1af2253c0466a5b2d2e0fcb", "item_id": "6ad60b3b91:33", "text": ": When enabled, procedural nodes (like openVDB) will build a spatial acceleration structure to speed up rendering."}
+{"id": "f9b33db0f14cf5068d2486595a189f970dd8314aa38389cd7764f2f57dbc71f5", "item_id": "6ad60b3b91:34", "text": "The following parameters are only supported on openVDB volumes:"}
+{"id": "447b88a7a549d041e8465a589d2d193a973e72b99863fe47cdbc6af1a89aa229", "item_id": "6ad60b3b91:35", "text": "Filter Width"}
+{"id": "4e2023c090865f197b9775ae1b7969118138d4cea36c7900a36e0df713c95371", "item_id": "6ad60b3b91:36", "text": ": Volume aggregates use a form of volume mip-mapping that allows you to bias the optimal level of detail."}
+{"id": "be69b95dc76c36a8a97c294b29e25cbd972b97f1cb70531c85518a1577de9d93", "item_id": "6ad60b3b91:37", "text": "Density Scale"}
+{"id": "5f087440b2e26829abd9c569c23ee3bf4229bad046220804936abe7eac79fe59", "item_id": "6ad60b3b91:38", "text": ": Scale the density on the fly, as the volume data in loaded by the renderer."}
+{"id": "ff4f51734bc634e628e592640360b4f4028151598f0a063cbb4a88e39751f1c5", "item_id": "6ad60b3b91:39", "text": "Density Rolloff"}
+{"id": "8ad91e5d652b39e6ff8f4c1383cfe8925d9d59d11636d8f8c9d3f1cfd060be4b", "item_id": "6ad60b3b91:40", "text": ": Remap density to make less dense areas wispier or denser."}
+{"id": "8bb1f484fd7005feb6b30332d3e3cc64f63c31cf49c38ab3cc7d77d809db8811", "item_id": "6ad60b3b91:41", "text": "PxrSurface Interior Aggregate Volume"}
+{"id": "eebf81380cad50c5ea6b899f29d28cdeaf0eb015bcb1dc3230185cee4ad0179c", "item_id": "6ad60b3b91:42", "text": "PxrSurface allows you to bind an aggregate volume set to its interior integrator, to render cloudy water, gemstones, etc."}

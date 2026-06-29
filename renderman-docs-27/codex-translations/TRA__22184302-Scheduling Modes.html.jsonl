@@ -1,0 +1,61 @@
+{"item_id":"1d10f1d1c0:0","text":"概述（Overview）"}
+{"item_id":"1d10f1d1c0:1","text":"任务调度说明（Scheduling）"}
+{"item_id":"1d10f1d1c0:2","text":"指 Tractor 用来决定 tasks 分配给 blades 的顺序的 policies 和 algorithms；更一般地说，也包括执行管理 priorities、permissions 和 capability requirements 的规则。|"}
+{"item_id":"1d10f1d1c0:3","text":"调度层级说明（Dispatching Tiers）"}
+{"item_id":"1d10f1d1c0:4","text":"Queue 中的每个 job 都关联一个 dispatching tier。Tiers 提供最高层级的 job dispatching control；高取值 tiers 中的 jobs 总是先于低取值 tiers 中的 jobs 被考虑。例如，rush tier 中的 jobs 可以先于 batch tier 处理。在每个 tier 内，jobs 会按该 tier 的 Scheduling Mode（见下文）排序。"}
+{"item_id":"1d10f1d1c0:5","text":"提交新 jobs 时，除非在 spool time 明确设置（例如 tractor-spool --tier=batch ...），否则会放入 default tier。Jobs 可以在 Dashboard 中手动移动到其他 tier。例如，在危急情况下，把几个重要 jobs 移动到更高 tier，同时保持其 job priorities 不变，以保留它们彼此之间的相对排序，可能会很有用。每个 tier 也可以在 Dashboard 中单独"}
+{"item_id":"1d10f1d1c0:6","text":"paused（暂停）"}
+{"item_id":"1d10f1d1c0:7","text":"，因此可以临时挂起或启用整个 job group 的 dispatching，例如在允许一系列 administrative jobs 继续运行时暂停 general dispatching。Dashboard 还提供一些基于 tiers 过滤和排序 jobs 的 controls。"}
+{"item_id":"1d10f1d1c0:8","text":"Tier membership 会作为简单的 tier name attribute 存储在每个 job 上。"}
+{"item_id":"1d10f1d1c0:9","text":"tier definitions"}
+{"item_id":"1d10f1d1c0:10","text":"本身位于 tractor.config 中，和"}
+{"item_id":"1d10f1d1c0:11","text":"其他 policy settings 放在一起。"}
+{"item_id":"1d10f1d1c0:12","text":"Tier names 以及定义的 tiers 数量都是任意的，可以按需要更改。即使没有显式定义，Tractor 也会确保名为 default 的 tier 始终存在。其他 tier names 和 definitions 不是必需的。如果某个 job 引用不存在的 tier name，它会按 default tier settings 处理。"}
+{"item_id":"1d10f1d1c0:13","text":"注意（NOTE）："}
+{"item_id":"1d10f1d1c0:14","text":"每个 tier 都可以有不同的 scheduling policy，"}
+{"item_id":"1d10f1d1c0:15","text":"如下文所述。如果某个 tier 没有指定 policy，则使用 JobSchedulingMode fallback value。"}
+{"item_id":"1d10f1d1c0:16","text":"Scheduling Modes（调度模式）"}
+{"item_id":"1d10f1d1c0:17","text":"Tractor 支持几种 job queue sorting modes，它们是主 task assignment scheduling system 的核心。大多数工作室会发现"}
+{"item_id":"1d10f1d1c0:18","text":"P+FIFO"}
+{"item_id":"1d10f1d1c0:19","text":"很适合主要是 batch style 的 jobs，而"}
+{"item_id":"1d10f1d1c0:20","text":"P+ATCL+RR"}
+{"item_id":"1d10f1d1c0:21","text":"适合主要是 interactive mix 的场景。"}
+{"item_id":"1d10f1d1c0:22","text":"P+ATCL"}
+{"item_id":"1d10f1d1c0:23","text":"scheme 往往是合理的折中方案。在所有这些 modes 中，"}
+{"item_id":"1d10f1d1c0:24","text":"simple job priority"}
+{"item_id":"1d10f1d1c0:25","text":"是决定 job processing order 的主要因素。也请务必查看上方"}
+{"item_id":"1d10f1d1c0:26","text":"Dispatching Tiers"}
+{"item_id":"1d10f1d1c0:27","text":"一节，用于对整个 job classes 进行优先级排序。"}
+{"item_id":"1d10f1d1c0:28","text":"在每个 tier 内，jobs 会按该 tier 的 Scheduling Mode 排序。以 P+ 开头的 modes 总是先按 numerical Priority value 对 jobs 排序，从高到低。具有相同 priority 的 jobs 会按所选 policy mode 产生的顺序考虑："}
+{"item_id":"1d10f1d1c0:29","text":"P+FIFO"}
+{"item_id":"1d10f1d1c0:30","text":"-- 这是将 available blades 分配给 jobs 的默认 scheme。它始终选择 priority value 最高（数值最大）的 job；如果有多个 jobs 具有相同 priority，则选择最早提交的那个。该 job 中所有 runnable tasks 会在匹配 blades 可用时被分配。如果 available blades 多于 runnable tasks，或某个 available blade 不匹配 top job 的 requirements，则检查 sorted queue 中的下一个 job。"}
+{"item_id":"1d10f1d1c0:31","text":"P+RR"}
+{"item_id":"1d10f1d1c0:32","text":"-- 在主要 priority sort 之后，使用简单的 Round-Robin scheme 在相同 priority 的 jobs 之间选择。在一个 tier 内，具有相同 priority 的 jobs 会在 blades 可用时以循环方式访问。多个带有许多 ready tasks 的 jobs 可以并发运行。这个 mode 倾向于偏好 long-running tasks 的 jobs，因为当它们的下一个 turn 再次到来时，这些 jobs 可能仍有正在运行的 tasks；因此如果 job pool 较小，它们往往会 collect blades。因此，这个 mode 在 production 中很少使用，建议改用"}
+{"item_id":"1d10f1d1c0:33","text":"P+ATCL+RR"}
+{"item_id":"1d10f1d1c0:34","text":"。"}
+{"item_id":"1d10f1d1c0:35","text":"P+ATCL"}
+{"item_id":"1d10f1d1c0:36","text":"-- Active Task Count Leveling，该 mode 倾向于把 available blades 分配给 active tasks 最少的 jobs，试图均衡每个 job 中的 active tasks 数量。当 queue 中 ready tasks 多于 available blade slots 时，会允许较旧的 jobs 先完成，然后再启动较新的 jobs。由于它保持大致相等的 active task counts，拥有 short-running tasks 的 jobs 会比拥有相同数量 long-running tasks 的 jobs 更早完成。总体上倾向于偏好最旧的 jobs。"}
+{"item_id":"1d10f1d1c0:37","text":"P+ATCL+RR"}
+{"item_id":"1d10f1d1c0:38","text":"-- 该 mode 类似于"}
+{"item_id":"1d10f1d1c0:39","text":"P+ATCL"}
+{"item_id":"1d10f1d1c0:40","text":"，区别在于它如何处理 waiting tasks 多于 blades 的情况。它添加 round-robin component（在 equal priority jobs 的组内），倾向于"}
+{"item_id":"1d10f1d1c0:41","text":"随着时间"}
+{"item_id":"1d10f1d1c0:42","text":"在"}
+{"item_id":"1d10f1d1c0:43","text":"所有"}
+{"item_id":"1d10f1d1c0:44","text":"priority block 中的 jobs 之间平衡 active task count。总体上偏好等待 blades 最久的 jobs。"}
+{"item_id":"1d10f1d1c0:45","text":"在两种 ATCL schemes 中，随着更多 jobs 被 spooled into system，farm 上使用许多 blades 的旧 jobs 会获得越来越少的 blades。这通常是期望行为：工作室选择它，是为了让新 spooled jobs 能够很快获得一些 rendering feedback，而不是必须等待所有先前 jobs 先完成。缺点当然是，分配给旧 jobs 的 blades 总数会随着新 jobs 被 spooled 而减少。"}
+{"item_id":"1d10f1d1c0:46","text":"举例来说，假设有 100 个相同 priority 的 waiting jobs，而 farm 中只有 25 个 blades。"}
+{"item_id":"1d10f1d1c0:47","text":"P+ATCL"}
+{"item_id":"1d10f1d1c0:48","text":"scheme 最终会收敛为给最旧的 25 个 jobs 各分配 1 个 blade，剩余 75 个较新的 jobs 会保持 idle，直到 25 个 blades 的 window 随着当前 active set 中最旧 jobs 完成而推进到它们。P+ATCL+RR mode 则会让完成 task 的 blades 更广泛地分配给"}
+{"item_id":"1d10f1d1c0:49","text":"所有"}
+{"item_id":"1d10f1d1c0:50","text":"这些 waiting jobs。因此，全部 100 个 jobs 都会周期性获得一些 blades。两种 schemes 都偏好分配给 already-running tasks 最少的 jobs。当"}
+{"item_id":"1d10f1d1c0:51","text":"该"}
+{"item_id":"1d10f1d1c0:52","text":"criteria 相同时，P+ATCL 偏好最旧的 jobs，而 P+ATCL+RR 偏好等待新 blade assignment 最久的 jobs。"}
+{"item_id":"1d10f1d1c0:53","text":"P+CHKPT"}
+{"item_id":"1d10f1d1c0:54","text":"-- 一种特殊 policy，用于启用参与"}
+{"item_id":"1d10f1d1c0:55","text":"checkpoint - yield - resume"}
+{"item_id":"1d10f1d1c0:56","text":"processing 的 tasks 在该 tier 中所有 jobs 范围内重新执行。它总体上是 FIFO ordering，但每个 job 在所有 active tasks 都到达 checkpoint 后会被 suspended。当 equal priority group 中所有 jobs 都到达该点后，会再次从 top job 恢复 processing。"}
+{"item_id":"1d10f1d1c0:57","text":"Limit Sharing and Resource Allocations（Limit 共享与资源分配）"}
+{"item_id":"1d10f1d1c0:58","text":"另请参阅"}
+{"item_id":"1d10f1d1c0:59","text":"Tractor Limits"}
+{"item_id":"1d10f1d1c0:60","text":"讨论。"}

@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RazorBack Procedural Texturing</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>RazorBack Procedural Texturing</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RU/657555620/RazorBack+Procedural+Texturing">https://rmanwiki-27.pixar.com/space/RU/657555620/RazorBack+Procedural+Texturing</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<h5 id="RazorBackProceduralTexturing-TexturingProcedural">RazorBack 程序化贴图流程（Texturing Procedural）</h5><p>为了引入最大 variation，将 ISO maps 和 displacement/utility maps 与 rock、granite maps 结合，并使用 triplanar projection，是非常关键的。 </p><p>这种 approach 显著增强 detail，并让 Mari node 内创建的 layers 之间能够平滑 transition。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="workflow_texturing_mari_rocks.jpg" width="771" loading="lazy" src="../../attachments/657555620/workflow_texturing_mari_rocks.jpg" data-image-src="../../attachments/657555620/workflow_texturing_mari_rocks.jpg" data-height="307" data-width="461" data-unresolved-comment-count="0" data-linked-resource-id="657260813" data-linked-resource-version="2" data-linked-resource-type="attachment" data-linked-resource-default-alias="workflow_texturing_mari_rocks.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="657555620" data-linked-resource-container-version="1" data-media-id="c6725f96-765f-446c-8117-7602e5a3cf07" data-media-type="file"></span><p>在 combining scanned map projection 和 procedural nodes 的 procedural pass 之后，会进行 final texturing pass，以加入大量 micro-detail variations。 </p><p>Substance Designer 和 Substance Painter 用于调制 scales 上的 HSV variations，并引入 dead skin 的 subtle details，这些 details 会策略性地放置在 scales 的特定末端。 </p><p>在整个过程中，会考虑 creature 的 movement 和 environment，并参考 texturing materials 来辅助 decision。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="razorback_uv_udim_in_mari.jpg" width="760" loading="lazy" src="../../attachments/657555620/razorback_uv_udim_in_mari.jpg" data-image-src="../../attachments/657555620/razorback_uv_udim_in_mari.jpg" data-height="446" data-width="960" data-unresolved-comment-count="0" data-linked-resource-id="657424672" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="razorback_uv_udim_in_mari.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="657555620" data-linked-resource-container-version="1" data-media-id="c42d7d38-f9bc-4b93-acde-5345a752dd48" data-media-type="file"></span><p>最后一步是增强 scales edges 上特定的 specular highlights，同时增加 albedo detail。mask creation 完成后，重点会回到 Mari 进行 texture publishing，标志着进入 Lookdev stage。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="gif_razorback_texturing_mari.gif" width="760" loading="lazy" src="../../attachments/657555620/gif_razorback_texturing_mari.gif" data-image-src="../../attachments/657555620/gif_razorback_texturing_mari.gif" data-height="640" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="657228214" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="gif_razorback_texturing_mari.gif" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/gif" data-linked-resource-container-id="657555620" data-linked-resource-container-version="1" data-media-id="026ebc43-1dc9-43ac-bb67-804d2edd7ad5" data-media-type="file"></span><p /><p /><p /><p />
+  </article>
+</main>
+</body>
+</html>

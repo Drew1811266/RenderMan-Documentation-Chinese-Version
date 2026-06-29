@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RazorBack Shading Pt.1</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>RazorBack Shading Pt.1</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RU/657228220/RazorBack+Shading+Pt.1">https://rmanwiki-27.pixar.com/space/RU/657228220/RazorBack+Shading+Pt.1</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<h3 id="RazorBackShadingPt.1-Shading">着色（Shading）</h3><p>对于 Lookdev scene，应优先使用 neutral lighting，遵循经典 Lookdev principles，使用 chrome balls/grey balls，并配合 Macbeth chart。 </p><p>实现一个 key light、一个 backlight，并使用一张 HDRI，来源是 <a class="external-link" href="https://polyhaven.com/" rel="nofollow">Polyhaven</a>，作为 fill light 并建立 studio environment 的边界。 </p><p>在保持中性的同时，也可以给 Lookdev scene 注入个人风格。这不仅能为 asset shading 打好基础，也会增强展示效果，让它对潜在的专业 studios 或 clients 更有吸引力。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="renderman_lookdevscene.jpg" width="760" loading="lazy" src="../../attachments/657228220/renderman_lookdevscene.jpg" data-image-src="../../attachments/657228220/renderman_lookdevscene.jpg" data-height="377" data-width="928" data-unresolved-comment-count="0" data-linked-resource-id="657424680" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="renderman_lookdevscene.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="657228220" data-linked-resource-container-version="2" data-media-id="8599ab5b-397b-41b2-8e6d-0bdc7a384f59" data-media-type="file"></span><p>在 shading process 中定期切换 light rigs，确保 asset 尽可能保持 neutral，并能适配各种 environments 和 lighting conditions。 </p><p>这种方法可以最大限度减少每个 shot 所需的大量 shader adjustments。 </p><p>使用 full-sun 和 diffuse-gray-sky 等 HDRI environments，可以有效 fine-tune shaders。</p><p /><div class="panel conf-macro output-block" data-hasbody="true" data-macro-id="" data-macro-name="panel" style="background-color: #EAE6FF;border-color: #998DD9;border-width: 1px;"><div class="panelContent" style="background-color: #EAE6FF;">
+<p>TIP：创建多个 tabs 来存放所有 shaders，这样可以更快地在 hypershade 中移动和查找。</p>
+</div></div><p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="shading_organisation.jpg" width="760" loading="lazy" src="../../attachments/657228220/shading_organisation.jpg" data-image-src="../../attachments/657228220/shading_organisation.jpg" data-height="379" data-width="960" data-unresolved-comment-count="0" data-linked-resource-id="656998890" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="shading_organisation.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="657228220" data-linked-resource-container-version="2" data-media-id="d8ff7f96-be42-4fc1-858e-2e96af4cd1e4" data-media-type="file"></span><p />
+  </article>
+</main>
+</body>
+</html>

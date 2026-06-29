@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Toy Car Rendering</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Toy Car Rendering</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RU/654671935/Toy+Car+Rendering">https://rmanwiki-27.pixar.com/space/RU/654671935/Toy+Car+Rendering</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<h3 id="ToyCarRendering-MatchingFootageandRendering">匹配拍摄素材 Footage 与 Rendering 阶段</h3><p>在 Maya 中开始 rendering process 之前，我首先需要把 object 的 rotation 匹配到真实的 turntable footage。使用 Nuke 中的 motion tracking，我应用 bandpass filter 来隔离 platform 的 movement，并手动 tracked 关键点以识别 rotation axis，不过 data 仅限于 2D space。</p><p>把 data 导入 Maya 后，我手动调整 scale 和 orientation，使实体 turntable 与 digital scene 对齐。通过把 2D tracks 投射到 3D plane 上，我能够准确同步 CG 中 object 的 rotation 与拍摄 footage。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image9.jpg" width="760" loading="lazy" src="../../attachments/654671935/image9.jpg" data-image-src="../../attachments/654671935/image9.jpg" data-height="1058" data-width="1876" data-unresolved-comment-count="0" data-linked-resource-id="654999606" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image9.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="654671935" data-linked-resource-container-version="1" data-media-id="75f83376-62ea-4fdf-8a9d-64eacc1a925a" data-media-type="file"></span><p /><p>将 CG object 与 footage 对齐后，我为 final render 准备 scene。为了捕获 character 在地面上的 shadow 而不影响 alpha，我使用了 Holdout plane。这让 render 更容易整合到 background plate 中。</p><p>rendering 之前，我运行了多帧 test frames，通过与 reference footage 比较 sharpness，确保 depth of field（DOF）和 motion blur 行为正确。最终 render 使用 RenderMan RIS 完成。</p><p>为了 compositing flexibility，我使用 Light Path Expressions（LPE）导出了一组 AOVs，包括 diffuse direct、diffuse indirect、specular direct 和 specular indirect。我还使用 Cryptomatte 在 compositing 期间快速而准确地 masking。</p><p>为了降低 sampling noise，我启用了 RenderMan Machine Learning Denoiser；它明显提升了 output 的 clarity，同时保持较低 render times。</p><p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image14.jpg" width="760" loading="lazy" src="../../attachments/654671935/image14.jpg" data-image-src="../../attachments/654671935/image14.jpg" data-height="970" data-width="1920" data-unresolved-comment-count="0" data-linked-resource-id="654999613" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image14.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="654671935" data-linked-resource-container-version="1" data-media-id="773df260-5668-4483-9e3e-a64d91c7eaf9" data-media-type="file"></span><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image12.jpg" width="760" loading="lazy" src="../../attachments/654671935/image12.jpg" data-image-src="../../attachments/654671935/image12.jpg" data-height="321" data-width="671" data-unresolved-comment-count="0" data-linked-resource-id="654999619" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image12.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="654671935" data-linked-resource-container-version="1" data-media-id="bf2048ea-ade3-49b0-bdf2-73f20cb89dce" data-media-type="file"></span><hr/>
+  </article>
+</main>
+</body>
+</html>

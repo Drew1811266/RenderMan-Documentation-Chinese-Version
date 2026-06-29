@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Getting Started in Houdini</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Getting Started in Houdini</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFH27/544642790/Getting+Started+in+Houdini">https://rmanwiki-27.pixar.com/space/RFH27/544642790/Getting+Started+in+Houdini</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="toc-macro client-side-toc-macro  conf-macro output-block" data-hasbody="false" data-headerelements="H1,H2,H3,H4,H5,H6,H7" data-layout="default" data-local-id="14113631-dd45-4005-b817-2eeb0c0d24ce" data-macro-id="1044894f-0fa2-4f18-829c-faa327954f95" data-macro-name="toc"> </div><p><br/></p><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="9b82b813-35ef-492b-b2e8-0e16e6d50b51" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>请注意，不同版本的 Houdini 有不同的 workflows（工作流），请务必遵循与你所用版本对应的说明。</p></div></div><h3 id="GettingStartedinHoudini-AddingaLight"><br/>Adding a Light（添加灯光）</h3><p>要添加 light（灯光），请从 <a href="544643009-RenderMan Shelf.html" rel="nofollow">RenderMan Shelf</a> 或 <a href="544643524-RenderMan Menu.html" rel="nofollow">RenderMan Menu</a> 中选择一种 light tool（灯光工具），它会自动创建一个 Pxr light OBJ。 </p><p>参见 <a href="544644982-Lighting in Houdini.html" rel="nofollow">Lighting in Houdini（Houdini 中的照明）</a> 了解更多信息。</p><hr/><p><br/></p><h3 id="GettingStartedinHoudini-AddingaMaterial">Adding a Material（添加材质）</h3><p>要添加 material（材质），我们需要先创建 shading Network（着色网络）。请注意，RIS material（RIS 材质）<strong> not a SHOP（不是 SHOP）</strong> 而是 <strong>VOP</strong> ，位于<strong> RIS Network</strong>中。</p><p>PxrMaterialBuilder 只是 RIS VOPs 的 container（容器）。Houdini 要使用 RIS materials（RIS 材质），必须通过它。 <br/><br/> <em>Important（重要）</em>：material（材质）由带有 BxDF output_collect VOP input（输入）的 PxrMaterialBuilder VOP 表示。</p><p>要添加 material（材质），可以从下面添加 PxrSurface： <a href="544643009-RenderMan Shelf.html" rel="nofollow">RenderMan Shelf</a>这会自动创建相关节点；或者从下面选择另一个 BxDF： <a href="544643524-RenderMan Menu.html" rel="nofollow">RenderMan Menu</a> 并将其连接到 PxrMaterialBuilder 内部的 output_collect VOP。</p><p>如果 RIS Network 尚不存在，这些工具还会自动创建 RIS Network，并创建所选 VOP。</p><span class="confluence-embedded-file-wrapper image-left-wrapper"><img class="confluence-embedded-image image-left" loading="lazy" src="../../attachments/544642790/RenderMan_Houdini_MaterialBuilder.jpg" data-image-src="../../attachments/544642790/RenderMan_Houdini_MaterialBuilder.jpg" data-height="487" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="544642818" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Houdini_MaterialBuilder.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544642790" data-linked-resource-container-version="1" data-media-id="7577911f-5740-44d9-a10e-466e5db26e95" data-media-type="file"></span><span class="confluence-embedded-file-wrapper image-left-wrapper"><img class="confluence-embedded-image image-left" loading="lazy" src="../../attachments/544642790/RenderMan_Houdini_PxrSurface_Material.JPG" data-image-src="../../attachments/544642790/RenderMan_Houdini_PxrSurface_Material.JPG" data-height="498" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="544642815" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Houdini_PxrSurface_Material.JPG" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544642790" data-linked-resource-container-version="1" data-media-id="54aba3c5-4070-4633-b382-dd2695180877" data-media-type="file"></span><p><br/></p><hr/><h3 id="GettingStartedinHoudini-AssigningaMaterial">Assigning a Material（分配材质）</h3><p>要将 material（材质）分配给对象，只需把刚创建的 PxrMaterialBuilder VOP 拖到对象的 Material parameter（Material 参数）上。</p><span class="confluence-embedded-file-wrapper image-left-wrapper"><img class="confluence-embedded-image image-left" loading="lazy" src="../../attachments/544642790/RenderMan_Houdini_PxrSurface_Assign.jpg" data-image-src="../../attachments/544642790/RenderMan_Houdini_PxrSurface_Assign.jpg" data-height="488" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="544642812" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Houdini_PxrSurface_Assign.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544642790" data-linked-resource-container-version="1" data-media-id="2fe113b3-8cdf-4071-b7bb-981fc83d749d" data-media-type="file"></span><p><br/></p><hr/><h3 id="GettingStartedinHoudini-Render">Render（渲染）</h3><p>要进行 render（渲染），请从下面添加 RenderMan ROP： <a href="544643009-RenderMan Shelf.html" rel="nofollow">RenderMan Shelf</a>。 </p><p>如果想使用 Stylized Looks 进行渲染，则需要从 RenderMan Shelf 添加一个 Stylized Looks ROP。</p><p>该工具还会创建 RIS Network，并将 integrator（积分器）设置为 <a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661775" rel="nofollow">PxrPathTracer</a>。</p><p>确保 Camera parameter（Camera 参数）设置为渲染摄影机（必须在 Houdini 中创建一个摄影机，因为默认摄影机不能使用），然后按下 Render button（Render 按钮），即可在 Image Tool 中交互式查看你的渲染。<br/><br/>参见 <a href="544645281-Rendering in Houdini.html" rel="nofollow">Rendering in Houdini（Houdini 中的渲染）</a> 了解更多信息。</p>
+  </article>
+</main>
+</body>
+</html>

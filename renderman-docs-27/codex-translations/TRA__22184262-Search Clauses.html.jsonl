@@ -1,0 +1,60 @@
+{"item_id":"bbf0aacb32:0","text":"Tractor search clauses 用于"}
+{"item_id":"bbf0aacb32:1","text":"Dashboard 查询界面的"}
+{"item_id":"bbf0aacb32:2","text":"query page 查询页面部分、"}
+{"item_id":"bbf0aacb32:3","text":"Python query API"}
+{"item_id":"bbf0aacb32:4","text":"以及"}
+{"item_id":"bbf0aacb32:5","text":"tq command-line tool"}
+{"item_id":"bbf0aacb32:6","text":"。它们采用高级语法，简化从 engine 搜索 job 和 blade information 的过程。该语法对 boolean expressions 和 comparison operators 使用 Pythonic 约定；不过，也提供额外便利以减少 syntactic overhead，下文会说明。最终得到的是一种简洁的 search syntax，易于编写、阅读和记忆。"}
+{"item_id":"bbf0aacb32:7","text":"注意，在 command-line 上使用时，某些字符可能需要 escape，或者整个 expression 需要放在 quotes 中，以避免被 shell 解释。"}
+{"item_id":"bbf0aacb32:8","text":"Boolean Expressions（布尔表达式）"}
+{"item_id":"bbf0aacb32:9","text":"使用标准 comparison operators、boolean terms 和 parentheses 来构建 search clause。"}
+{"item_id":"bbf0aacb32:10","text":"下面会匹配具有 active tasks 的 jobs："}
+{"item_id":"bbf0aacb32:11","text":"下面会匹配没有 errored tasks 的 active jobs："}
+{"item_id":"bbf0aacb32:12","text":"下面会匹配处于 active 或可能变为 active、且带有 errored tasks 的 jobs。这些 jobs 会继续消耗 farm 上的 compute time，但由于错误无法完全完成："}
+{"item_id":"bbf0aacb32:13","text":"独立项说明（Stand-alone Terms）"}
+{"item_id":"bbf0aacb32:14","text":"Numeric attributes 可以独立出现，表示 not equal to zero。鉴于 numactive 不可能为负数，下面两个 clauses 是等价的"}
+{"item_id":"bbf0aacb32:15","text":"String Matching（字符串匹配）"}
+{"item_id":"bbf0aacb32:16","text":"String attributes 可以按 equality 匹配。下面会匹配 adamwg 拥有的所有 jobs："}
+{"item_id":"bbf0aacb32:17","text":"String attributes 也可以使用 like 通过 regular expressions 匹配。下面会匹配 title 中包含 candy 的 jobs："}
+{"item_id":"bbf0aacb32:18","text":"下面会匹配 RHEL 后跟一个 integer 的 jobs："}
+{"item_id":"bbf0aacb32:19","text":"Optional Quotes（可选引号）"}
+{"item_id":"bbf0aacb32:20","text":"对于不会与 attribute names 或 aliases 冲突的 single-word literals，不需要 quotes。"}
+{"item_id":"bbf0aacb32:21","text":"例如，下面的 clauses 会匹配 adamwg 拥有的 jobs："}
+{"item_id":"bbf0aacb32:22","text":"下面的 clause 使用 quotes，因为 Smith Tower 是 multi-word literal："}
+{"item_id":"bbf0aacb32:23","text":"下面的 clause 使用 quotes，是为了查找 title 中包含 literal owner 的 jobs。如果没有 quotes，会找到 title 中包含其实际 owner 的 jobs，因为 owner 是 job 的 attribute。"}
+{"item_id":"bbf0aacb32:24","text":"这个 clause 不需要 double quotes，因为 adamwg 不是 Tractor entity 的 attribute。"}
+{"item_id":"bbf0aacb32:25","text":"列表匹配说明（List Matching）"}
+{"item_id":"bbf0aacb32:26","text":"in operator 可用于搜索存储 value list 的 fields。下面会匹配 tags 中包含 prman 的 jobs："}
+{"item_id":"bbf0aacb32:27","text":"List matching 可用于简化某些 queries。下面的 clauses 会匹配 owner 为 tom、dick 或 harry 的 jobs："}
+{"item_id":"bbf0aacb32:28","text":"has operator 可用于在 arrays 中搜索多个 values。下面两个 clauses 会匹配 keys 中同时包含 prman 和 linux 的 jobs："}
+{"item_id":"bbf0aacb32:29","text":"Aliases（别名）"}
+{"item_id":"bbf0aacb32:30","text":"某些常输入的 arguments 可替换为 aliases。tq 支持四类 aliases："}
+{"item_id":"bbf0aacb32:31","text":"attribute"}
+{"item_id":"bbf0aacb32:32","text":"search"}
+{"item_id":"bbf0aacb32:33","text":"argument"}
+{"item_id":"bbf0aacb32:34","text":"以及"}
+{"item_id":"bbf0aacb32:35","text":"command"}
+{"item_id":"bbf0aacb32:36","text":"aliases。"}
+{"item_id":"bbf0aacb32:37","text":"Attribute aliases 只是 attribute 的替代名称。例如，可以用 file 代替 job 的 spoolfile，或用 user 代替 owner。这些 aliases 可以用于 search clauses，也可以用于指定 column names 或 sort order 的列表。下面的 search clauses 是等价的："}
+{"item_id":"bbf0aacb32:38","text":"Search aliases 表示对 boolean expression 的替换，并可与其他 clauses 和 aliases 组合。例如，在搜索 jobs 时，active 表示 numactive > 0。下面的 search clauses 是等价的："}
+{"item_id":"bbf0aacb32:39","text":"Clause aliases 的含义会根据所用 command 而变化。与上面的示例对照，在搜索 tasks 时，active 表示 state=active。"}
+{"item_id":"bbf0aacb32:40","text":"Argument 和 command aliases 超出了本文关于 search clause syntax 的范围；不过可以说明，这类 aliases 会把 search clause 作为其 definition 的一部分。"}
+{"item_id":"bbf0aacb32:41","text":"可以在 command line 上使用以下命令列出所有已知 aliases："}
+{"item_id":"bbf0aacb32:42","text":"关联实体说明（Affiliated Entities）"}
+{"item_id":"bbf0aacb32:43","text":"有时搜索会涉及 related entities 的 attributes。例如，下面的 clause 会匹配 active tasks："}
+{"item_id":"bbf0aacb32:44","text":"但也可能需要查找某个 owner 的 jobs 中的 active tasks。下面的 clause 会匹配 adamwg 拥有的 jobs 的 tasks："}
+{"item_id":"bbf0aacb32:45","text":"系统会自动判断 owner attribute 与 job 关联。不过，如果两个 entities 拥有相同的 attribute name，就需要用 entity 对 attributes 进行限定。"}
+{"item_id":"bbf0aacb32:46","text":"例如，下面的 clause 会匹配 task title 中包含 render 的 active tasks："}
+{"item_id":"bbf0aacb32:47","text":"而下面的 clause 会匹配 job title 中包含 render 的 active tasks："}
+{"item_id":"bbf0aacb32:48","text":"时间比较说明（Time Comparisons）"}
+{"item_id":"bbf0aacb32:49","text":"对于表示 time 或 elapsed seconds 的 database fields，有几个快捷写法。下面列出可接受格式。"}
+{"item_id":"bbf0aacb32:50","text":"10am        - 当前日期的 10am\n5pm         - 当前日期的 5pm\n11:37       - 当前日期的 11:37am\n16:21       - 当前日期的 4:21pm\n4:21pm      - 同上\n3/15        - 最接近当前日期的年份中，3 月 15 日的 midnight\n3/15|4pm    - 最接近当前日期的年份中，3 月 15 日 4pm\n3/15.4pm    - 最接近当前日期的年份中，3 月 15 日 4pm\n3/15|17:37  - 最接近当前日期的年份中，3 月 15 日 5:37pm\n3/15/05     - 2005 年 3 月 15 日 midnight\n3/15/05|4am - 2005 年 3 月 15 日 4am\n-1s         - 1 秒前\n-1m         - 1 分钟前\n-1h         - 1 小时前\n-1d         - 1 天前\n-1w         - 1 周前"}
+{"item_id":"bbf0aacb32:51","text":"下面会匹配 2014 年 1 月 6 日之后 spooled 的所有 jobs："}
+{"item_id":"bbf0aacb32:52","text":"下面会匹配过去一小时内 started 的所有 tasks："}
+{"item_id":"bbf0aacb32:53","text":"下面会匹配今天上午 9am 之后没有向 engine 注册的所有 blades："}
+{"item_id":"bbf0aacb32:54","text":"Units（单位）"}
+{"item_id":"bbf0aacb32:55","text":"该语法支持用于 time 和 space related attributes 的不同 units。"}
+{"item_id":"bbf0aacb32:56","text":"例如，下面会匹配 wall clock time 超过 1 小时的 invocations："}
+{"item_id":"bbf0aacb32:57","text":"elapsedreal > 3600\nelapsedreal > 3600s\nelapsedreal > 60m\nelapsedreal > 1h"}
+{"item_id":"bbf0aacb32:58","text":"下面会匹配 available memory 小于 1G 的 blades："}
+{"item_id":"bbf0aacb32:59","text":"内存单位示例：\navailmemory < 1\navailmemory < 1G\navailmemory < 1024M\navailmemory < 1048576K"}

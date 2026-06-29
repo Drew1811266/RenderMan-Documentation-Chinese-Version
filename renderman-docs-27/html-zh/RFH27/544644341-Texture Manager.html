@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Texture Manager</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Texture Manager</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFH27/544644341/Texture+Manager">https://rmanwiki-27.pixar.com/space/RFH27/544644341/Texture+Manager</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>Texture Manager（纹理管理器）的职责很简单：将图像转换为 RenderMan 的纹理格式，可使用 OpenImageIO 或 <a href="https://rmanwiki-26.pixar.com/space/REN26/19661963/txmake" data-linked-resource-id="19661963" data-linked-resource-version="4" data-linked-resource-type="page">txmake</a>。它既处理单张图像，也处理纹理图集（UDIM、Mudbox、ZBrush）。</p><p>你可以在 Houdini 中选择 New Tab，然后在列表底部选择 RenderMan Texture Manager；该列表属于 <strong>New Pane Type（新窗格类型）</strong>。</p><h2 id="TextureManager-Userinterface">User interface（用户界面）</h2><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Group 1.png" width="1397" loading="lazy" src="../../attachments/544644341/Group 1.png" data-image-src="../../attachments/544644341/Group 1.png" data-height="625" data-width="1397" data-unresolved-comment-count="0" data-linked-resource-id="546799704" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Group 1.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544644341" data-linked-resource-container-version="6" data-media-id="f7176031-5d00-48df-8ceb-16832e512ea4" data-media-type="file"></span><p /><p>打开新场景时，Texture Manager 会找到所有作为纹理使用的图像，并将它们加入转换队列。转换设置会基于一组规则，这些规则定义在 <a href="../RFM27/544541201-Texture Manager.html#txmakeconfig" data-linked-resource-id="544541201" data-linked-resource-version="10" data-linked-resource-type="page">json file（JSON 文件）</a> 中（见下文）。使用 Settings（设置）窗格修改当前所选图像的设置，然后点击 Apply（应用）按钮，用新设置重新转换图像。</p><p>只需按下 <strong>Parse Scene（解析场景）</strong> 即可在需要时转换新纹理。 <strong>Pick Images（选择图像）</strong> 和 <strong>Pick Directories（选择目录）</strong> 允许你预先转换图像，而不必了解如何使用 OpenImageIO 或 <a href="https://rmanwiki-26.pixar.com/space/REN26/19661963/txmake" data-linked-resource-id="19661963" data-linked-resource-version="4" data-linked-resource-type="page">txmake</a>。</p><h3 id="TextureManager-Stop/Starttheconversionqueue">Stop / Start the conversion queue（停止/启动转换队列）</h3><p>默认情况下，转换队列始终运行，但有时你可能希望停止转换过程。</p><p>可以点击进度条右侧的图标来停止和重新启动转换队列。队列停止时，正在运行的 txmake 进程会立即被终止，但已有纹理会保持不变。重新启动后，它会从上次停止的位置继续。</p><h3 id="TextureManager-Conversioninformation">Conversion information（转换信息）</h3><p>Texture Manager 窗口底部有磁盘用量和进度指示器。</p><p>列表中的每个文件也都有一个状态图标。</p><h3 id="TextureManager-InteractiveversusBatchrendering">交互式与 Batch 渲染</h3><ul><li><p>在交互式渲染期间，Texture Manager 会把新纹理加入队列，并在转换完成前返回一个临时纹理。转换完成后，它会向渲染器发送更新，你的纹理就会显示出来。</p></li><li><p>当你启动 <strong>Batch</strong> 或 <strong>Preview</strong> 渲染时，需要先完成所有纹理转换。</p></li></ul><h3 id="TextureManager-Settings">Settings（设置）</h3><p><strong>Backend（后端）</strong>： <em>OpenImageIO</em> 会使用 OpenImageIO 库进行纹理转换，并启动 rmanoiiotool 进程。 <em>Legacy</em> 会使用 RenderMan 的 txmake 进程。此更改会在重新启动 Houdini 后生效。</p><p><strong>Fallback Path（备用路径）</strong>：默认情况下，纹理管理器会将纹理保存在源图像旁边。如果由于任何原因无法保存到该目录，就会使用备用纹理路径。</p><p><strong>Ignore Texture（忽略纹理）</strong>：列出不需要由 Texture Manager 转换的扩展名。</p><p><strong>Workers（工作进程）</strong>：同时启动的工作进程数量。默认值为 2，但增加更多进程通常有助于加快队列速度。</p><p><strong>Always Fallback（始终使用备用路径）</strong>：始终将转换后的纹理保存到备用纹理目录。</p><p><strong>Keep Extensions（保留扩展名）：</strong> 保留原始输入图像的扩展名。</p><p><strong>Show Advanced（显示高级选项）</strong>：在用户界面中显示更多高级选项。</p><h2 id="TextureManager-txmakeconfigTextureManagerConfiguration"><span class="confluence-anchor-link conf-macro output-inline" data-hasbody="false" data-local-id="3b33eef9-c507-4606-ae31-d64ffee22629" data-macro-id="30013bc6-1e66-41b4-991d-a45d561dd2f8" data-macro-name="anchor" id="TextureManager-txmakeconfig"><span class="confluence-anchor-link" id="txmakeconfig"> </span></span>Texture Manager Configuration（纹理管理器配置）</h2><p>纹理管理器会根据以下内容，使用一组规则选择最佳的 OpenImageIO/txmake 参数：</p><ul><li><p>使用该纹理的节点类型： <code>pattern</code>, <code>light</code>, <code>lightfilter</code> 或 <code>imageplane</code>。</p></li><li><p>该节点类型的一组基础参数</p></li><li><p>在考虑文件名、位深等因素时，用于修改基础参数的一条或多条规则。</p></li></ul><p>Custom（自定义）设置可以通过 <a href="https://rmanwiki-26.pixar.com/space/REN26/19661971/Custom+OCIO+Config" data-linked-resource-id="19661971" data-linked-resource-version="3" data-linked-resource-type="page">ocio configuration（OCIO 配置）定义</a>。 </p><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="6ac96918-6eb3-4f84-86cd-98065469b8d7" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>默认规则是为效率而构建的；除非有特定的流水线需求，否则你不应需要修改它们。</p></div></div><p />
+  </article>
+</main>
+</body>
+</html>

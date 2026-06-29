@@ -1,0 +1,385 @@
+{"item_id":"23d6a1de01:0","text":"PrmanObjectStatements 会分配到一个特定 location 或一组 locations，并在转换为 prman 时设置一个"}
+{"item_id":"23d6a1de01:1","text":"block（块）的状态。此节点可用于为对象分配 subdivision approximation（细分近似）以渲染平滑表面、为 displacement（置换）渲染应用 displacement bound（置换边界），以及更改 visibility flags（可见性标志）和 memberships（成员关系）。"}
+{"item_id":"23d6a1de01:2","text":"在 RenderMan 中，可以通过不同方式选择对象及其实例的渲染方式。这些设置在该节点中方便地分为："}
+{"item_id":"23d6a1de01:3","text":"Section（部分）"}
+{"item_id":"23d6a1de01:4","text":"Description（说明）"}
+{"item_id":"23d6a1de01:5","text":"可随 instance（实例）变化的 Attributes（属性）（例如"}
+{"item_id":"23d6a1de01:6","text":"或"}
+{"item_id":"23d6a1de01:7","text":"被视为 \"prototype\"（原型）属性的 per-primitive attributes（按图元属性）（在下表中称为 \"Primitive Variables\"）"}
+{"item_id":"23d6a1de01:8","text":"属于 primitive（图元）定义的 constant per-primitive attributes（常量按图元属性）。这些属性不能按 instance 改变。"}
+{"item_id":"23d6a1de01:9","text":"用于 scene traversal（场景遍历）的 RfK plugin controls（插件控制）。"}
+{"item_id":"23d6a1de01:10","text":"这些设置列在下面的表格中。注意，这些表格目前并不与 PrmanObjectStatements UI 中参数的呈现方式完全对齐。"}
+{"item_id":"23d6a1de01:11","text":"Attributes（属性）"}
+{"item_id":"23d6a1de01:12","text":"Common（通用）"}
+{"item_id":"23d6a1de01:13","text":"Name（名称）"}
+{"item_id":"23d6a1de01:14","text":"Type（类型）"}
+{"item_id":"23d6a1de01:15","text":"Default（默认值）"}
+{"item_id":"23d6a1de01:16","text":"Description（说明）"}
+{"item_id":"23d6a1de01:17","text":"bake:activeudims"}
+{"item_id":"23d6a1de01:18","text":"string"}
+{"item_id":"23d6a1de01:19","text":"empty（空）"}
+{"item_id":"23d6a1de01:20","text":"用于 Integrator 烘焙 texture atlases（纹理图集）的 active udims。可以在字符串中提供 udims 的列表和范围，例如：Attribute \"bake\" \"string activeudims\" \"1001,1003,1005-1006\"。默认值为 \"\"，表示会烘焙所有 udims。"}
+{"item_id":"23d6a1de01:21","text":"bake:udimresolutions"}
+{"item_id":"23d6a1de01:22","text":"string"}
+{"item_id":"23d6a1de01:23","text":"empty（空）"}
+{"item_id":"23d6a1de01:24","text":"用于 Integrator 烘焙 texture atlases（纹理图集）的 Udim texture resolutions。可以在字符串中提供 udims 的列表和范围，例如：Attribute \"bake\" \"string udimresolutions\" \"1001 512 512 1002,1003 64 32 1005-1006 16 16\"。如果字符串为空（默认值），则会使用 Display Format resolution。"}
+{"item_id":"23d6a1de01:25","text":"grouping:id"}
+{"item_id":"23d6a1de01:26","text":"int"}
+{"item_id":"23d6a1de01:27","text":"用于 raytrace disambiguation（光线追踪消歧）的 grouping id。Value range（取值范围）：0 到 15。"}
+{"item_id":"23d6a1de01:28","text":"grouping:membership"}
+{"item_id":"23d6a1de01:29","text":"string"}
+{"item_id":"23d6a1de01:30","text":"empty（空）"}
+{"item_id":"23d6a1de01:31","text":"用于 linking（链接）的 grouping membership。"}
+{"item_id":"23d6a1de01:32","text":"identifier:id"}
+{"item_id":"23d6a1de01:33","text":"int"}
+{"item_id":"23d6a1de01:34","text":"64 位 object id 的低 32 位。"}
+{"item_id":"23d6a1de01:35","text":"identifier:id2"}
+{"item_id":"23d6a1de01:36","text":"int"}
+{"item_id":"23d6a1de01:37","text":"64 位 object id 的高 32 位。"}
+{"item_id":"23d6a1de01:38","text":"identifier:lpegroup"}
+{"item_id":"23d6a1de01:39","text":"string"}
+{"item_id":"23d6a1de01:40","text":"empty（空）"}
+{"item_id":"23d6a1de01:41","text":"用于 light path expressions（光路表达式）的 grouping membership。"}
+{"item_id":"23d6a1de01:42","text":"identifier:name"}
+{"item_id":"23d6a1de01:43","text":"string"}
+{"item_id":"23d6a1de01:44","text":"empty（空）"}
+{"item_id":"23d6a1de01:45","text":"Object instance name（对象实例名称）。"}
+{"item_id":"23d6a1de01:46","text":"stats:identifier"}
+{"item_id":"23d6a1de01:47","text":"string"}
+{"item_id":"23d6a1de01:48","text":"empty（空）"}
+{"item_id":"23d6a1de01:49","text":"stats system（统计系统）引用此 instance 时使用的 identifier string（标识符字符串）。"}
+{"item_id":"23d6a1de01:50","text":"Shading（着色）"}
+{"item_id":"23d6a1de01:51","text":"Name（名称）"}
+{"item_id":"23d6a1de01:52","text":"Type（类型）"}
+{"item_id":"23d6a1de01:53","text":"Default（默认值）"}
+{"item_id":"23d6a1de01:54","text":"Description（说明）"}
+{"item_id":"23d6a1de01:55","text":"curves:widthaffectscurvature"}
+{"item_id":"23d6a1de01:56","text":"int"}
+{"item_id":"23d6a1de01:57","text":"指示计算 curve curvature（曲线曲率）时是否应使用 curve width。如果关闭，则只计算沿 curve spline 的 curvature。"}
+{"item_id":"23d6a1de01:58","text":"lightfilter:subset"}
+{"item_id":"23d6a1de01:59","text":"string"}
+{"item_id":"23d6a1de01:60","text":"empty（空）"}
+{"item_id":"23d6a1de01:61","text":"lighting 中处于活动状态的 light filter groups。"}
+{"item_id":"23d6a1de01:62","text":"lighting:excludesubset"}
+{"item_id":"23d6a1de01:63","text":"string"}
+{"item_id":"23d6a1de01:64","text":"empty（空）"}
+{"item_id":"23d6a1de01:65","text":"从 lighting 中排除 light groups。"}
+{"item_id":"23d6a1de01:66","text":"lighting:mute"}
+{"item_id":"23d6a1de01:67","text":"int"}
+{"item_id":"23d6a1de01:68","text":"Mute（静音/禁用）light emission。"}
+{"item_id":"23d6a1de01:69","text":"lighting:subset"}
+{"item_id":"23d6a1de01:70","text":"string"}
+{"item_id":"23d6a1de01:71","text":"empty（空）"}
+{"item_id":"23d6a1de01:72","text":"lighting 中处于活动状态的 light groups。"}
+{"item_id":"23d6a1de01:73","text":"Ri:Matte"}
+{"item_id":"23d6a1de01:74","text":"int"}
+{"item_id":"23d6a1de01:75","text":"指示 matte object（遮罩对象）。"}
+{"item_id":"23d6a1de01:76","text":"Ri:ReverseOrientation"}
+{"item_id":"23d6a1de01:77","text":"int"}
+{"item_id":"23d6a1de01:78","text":"翻转 shading normals（着色法线）。"}
+{"item_id":"23d6a1de01:79","text":"Ri:Sides"}
+{"item_id":"23d6a1de01:80","text":"int"}
+{"item_id":"23d6a1de01:81","text":"Geometry 可以是单面或双面。"}
+{"item_id":"23d6a1de01:82","text":"shade:indexofrefraction"}
+{"item_id":"23d6a1de01:83","text":"float"}
+{"item_id":"23d6a1de01:84","text":"覆盖 nested dielectrics（嵌套电介质）的 material IOR。"}
+{"item_id":"23d6a1de01:85","text":"shade:minsamples"}
+{"item_id":"23d6a1de01:86","text":"int"}
+{"item_id":"23d6a1de01:87","text":"Min Pixel Samples。用于微调 adaptive sampling（自适应采样）。"}
+{"item_id":"23d6a1de01:88","text":"shade:relativepixelvariance"}
+{"item_id":"23d6a1de01:89","text":"float"}
+{"item_id":"23d6a1de01:90","text":"camera visible objects 的 PixelVariance multiplier。用于微调 adaptive sampling（自适应采样）。"}
+{"item_id":"23d6a1de01:91","text":"trace:holdout"}
+{"item_id":"23d6a1de01:92","text":"int"}
+{"item_id":"23d6a1de01:93","text":"指示 holdout object。"}
+{"item_id":"23d6a1de01:94","text":"trace:intersectpriority"}
+{"item_id":"23d6a1de01:95","text":"int"}
+{"item_id":"23d6a1de01:96","text":"nested dielectrics 的 raytrace intersection priority。Value range（取值范围）：0 到 31。"}
+{"item_id":"23d6a1de01:97","text":"trace:maxdiffusedepth"}
+{"item_id":"23d6a1de01:98","text":"int"}
+{"item_id":"23d6a1de01:99","text":"最大 diffuse light bounces（漫反射光线反弹次数）。"}
+{"item_id":"23d6a1de01:100","text":"trace:maxspeculardepth"}
+{"item_id":"23d6a1de01:101","text":"int"}
+{"item_id":"23d6a1de01:102","text":"最大 specular light bounces（镜面光线反弹次数）。"}
+{"item_id":"23d6a1de01:103","text":"trace:reflectexcludesubset"}
+{"item_id":"23d6a1de01:104","text":"string"}
+{"item_id":"23d6a1de01:105","text":"empty（空）"}
+{"item_id":"23d6a1de01:106","text":"从 reflections（反射）中排除 object groups。"}
+{"item_id":"23d6a1de01:107","text":"trace:reflectsubset"}
+{"item_id":"23d6a1de01:108","text":"string"}
+{"item_id":"23d6a1de01:109","text":"empty（空）"}
+{"item_id":"23d6a1de01:110","text":"对 reflections（反射）可见的 Object groups。"}
+{"item_id":"23d6a1de01:111","text":"trace:shadowexcludesubset"}
+{"item_id":"23d6a1de01:112","text":"string"}
+{"item_id":"23d6a1de01:113","text":"empty（空）"}
+{"item_id":"23d6a1de01:114","text":"排除不参与 casting shadows（投射阴影）的 object groups。"}
+{"item_id":"23d6a1de01:115","text":"trace:shadowsubset"}
+{"item_id":"23d6a1de01:116","text":"string"}
+{"item_id":"23d6a1de01:117","text":"empty（空）"}
+{"item_id":"23d6a1de01:118","text":"shadows（阴影）中处于活动状态的 Object groups。"}
+{"item_id":"23d6a1de01:119","text":"trace:transmitexcludesubset"}
+{"item_id":"23d6a1de01:120","text":"string"}
+{"item_id":"23d6a1de01:121","text":"empty（空）"}
+{"item_id":"23d6a1de01:122","text":"从 refractions（折射）中排除 object groups。"}
+{"item_id":"23d6a1de01:123","text":"trace:transmitsubset"}
+{"item_id":"23d6a1de01:124","text":"string"}
+{"item_id":"23d6a1de01:125","text":"empty（空）"}
+{"item_id":"23d6a1de01:126","text":"对 refractions（折射）可见的 Object groups。"}
+{"item_id":"23d6a1de01:127","text":"visibility:camera"}
+{"item_id":"23d6a1de01:128","text":"int"}
+{"item_id":"23d6a1de01:129","text":"指示 object 是否对 camera rays（摄影机光线）可见。"}
+{"item_id":"23d6a1de01:130","text":"visibility:indirect"}
+{"item_id":"23d6a1de01:131","text":"int"}
+{"item_id":"23d6a1de01:132","text":"指示 object 是否对 indirect（reflection 和 refraction）rays 可见。"}
+{"item_id":"23d6a1de01:133","text":"visibility:transmission"}
+{"item_id":"23d6a1de01:134","text":"int"}
+{"item_id":"23d6a1de01:135","text":"指示 object 是否对 shadow rays（阴影光线）可见。"}
+{"item_id":"23d6a1de01:136","text":"PrimAttributes"}
+{"item_id":"23d6a1de01:137","text":"为便于与"}
+{"item_id":"23d6a1de01:138","text":"Instance Attributes（实例属性）"}
+{"item_id":"23d6a1de01:139","text":"区分，这些属性也可称为 \"prototype attributes\"（原型属性），因为 Instance Attributes 可以按 instance 改变。"}
+{"item_id":"23d6a1de01:140","text":"Common（通用）"}
+{"item_id":"23d6a1de01:141","text":"Name（名称）"}
+{"item_id":"23d6a1de01:142","text":"Type（类型）"}
+{"item_id":"23d6a1de01:143","text":"Default（默认值）"}
+{"item_id":"23d6a1de01:144","text":"Description（说明）"}
+{"item_id":"23d6a1de01:145","text":"identifier:object"}
+{"item_id":"23d6a1de01:146","text":"string"}
+{"item_id":"23d6a1de01:147","text":"empty（空）"}
+{"item_id":"23d6a1de01:148","text":"Object shape name（对象形状名称）。"}
+{"item_id":"23d6a1de01:149","text":"stats:prototypeIdentifier"}
+{"item_id":"23d6a1de01:150","text":"string"}
+{"item_id":"23d6a1de01:151","text":"empty（空）"}
+{"item_id":"23d6a1de01:152","text":"stats system（统计系统）引用此 prototype 时使用的 identifier string（标识符字符串）。"}
+{"item_id":"23d6a1de01:153","text":"Shading（着色）"}
+{"item_id":"23d6a1de01:154","text":"Name（名称）"}
+{"item_id":"23d6a1de01:155","text":"Type（类型）"}
+{"item_id":"23d6a1de01:156","text":"Default（默认值）"}
+{"item_id":"23d6a1de01:157","text":"Description（说明）"}
+{"item_id":"23d6a1de01:158","text":"derivatives:extrapolate"}
+{"item_id":"23d6a1de01:159","text":"integer"}
+{"item_id":"23d6a1de01:160","text":"跨 grid boundaries 外推 smooth normals。"}
+{"item_id":"23d6a1de01:161","text":"displacement:ignorereferenceinstance"}
+{"item_id":"23d6a1de01:162","text":"int"}
+{"item_id":"23d6a1de01:163","text":"指示 displacement shading 是否应忽略 reference instance 的属性。"}
+{"item_id":"23d6a1de01:164","text":"displacementbound:CoordinateSystem"}
+{"item_id":"23d6a1de01:165","text":"string"}
+{"item_id":"23d6a1de01:166","text":"object"}
+{"item_id":"23d6a1de01:167","text":"用于测量 displacement bound 的 coordinate system 名称。"}
+{"item_id":"23d6a1de01:168","text":"displacementbound:offscreen"}
+{"item_id":"23d6a1de01:169","text":"int"}
+{"item_id":"23d6a1de01:170","text":"dicing 时将 displacementbound 应用于 offscreen geometry。完全位于屏幕外但会置换进入视野的 geometry，可能因为 offscreen dicing strategy 而出现 undertessellation。启用此控制并设置合理的 displacementbound 可以修正该问题。这样做会产生与 displacement bound 大小相称的性能开销。"}
+{"item_id":"23d6a1de01:171","text":"displacementbound:sphere"}
+{"item_id":"23d6a1de01:172","text":"float"}
+{"item_id":"23d6a1de01:173","text":"用于计算 object bounds 的最大 displacement distance。此值应尽可能紧。"}
+{"item_id":"23d6a1de01:174","text":"Ri:Orientation"}
+{"item_id":"23d6a1de01:175","text":"string"}
+{"item_id":"23d6a1de01:176","text":"outside"}
+{"item_id":"23d6a1de01:177","text":"决定 surface normal 的 geometry winding order。此 attribute 会影响 lighting 和 displacement。支持的值：inside、outside。"}
+{"item_id":"23d6a1de01:178","text":"trace:autobias"}
+{"item_id":"23d6a1de01:179","text":"integer"}
+{"item_id":"23d6a1de01:180","text":"启用 automatic raytrace bias。"}
+{"item_id":"23d6a1de01:181","text":"trace:bias"}
+{"item_id":"23d6a1de01:182","text":"float"}
+{"item_id":"23d6a1de01:183","text":"object space 中的 manual raytrace bias。应使用较小值以避免 shadow acne 等 artifacts。"}
+{"item_id":"23d6a1de01:184","text":"trace:displacements"}
+{"item_id":"23d6a1de01:185","text":"integer"}
+{"item_id":"23d6a1de01:186","text":"启用 displacement shading。"}
+{"item_id":"23d6a1de01:187","text":"trace:sssautobias"}
+{"item_id":"23d6a1de01:188","text":"integer"}
+{"item_id":"23d6a1de01:189","text":"为 subsurface scattering rays 启用 automatic raytrace bias。"}
+{"item_id":"23d6a1de01:190","text":"trace:sssbias"}
+{"item_id":"23d6a1de01:191","text":"float"}
+{"item_id":"23d6a1de01:192","text":"1e-4f"}
+{"item_id":"23d6a1de01:193","text":"用于 subsurface scattering rays 的 manual raytrace bias（在 object space 中）。应使用较小值以避免 surface acne 等 artifacts。"}
+{"item_id":"23d6a1de01:194","text":"Dicing"}
+{"item_id":"23d6a1de01:195","text":"Name（名称）"}
+{"item_id":"23d6a1de01:196","text":"Type（类型）"}
+{"item_id":"23d6a1de01:197","text":"Default（默认值）"}
+{"item_id":"23d6a1de01:198","text":"Description（说明）"}
+{"item_id":"23d6a1de01:199","text":"dice:micropolygonlength"}
+{"item_id":"23d6a1de01:200","text":"float"}
+{"item_id":"23d6a1de01:201","text":"用于 \"instanceprojection\" dicing 的 raster space 中 micropolygon distance。值以 pixel size 表示。"}
+{"item_id":"23d6a1de01:202","text":"dice:offscreenmultiplier"}
+{"item_id":"23d6a1de01:203","text":"float"}
+{"item_id":"23d6a1de01:204","text":"viewing frustum 外对象的 dicing rate multiplier。如果指定小于零的值，则会改用同名 Option 中的值。Value range（取值范围）：-1 或更大。"}
+{"item_id":"23d6a1de01:205","text":"dice:offscreenstrategy"}
+{"item_id":"23d6a1de01:206","text":"string"}
+{"item_id":"23d6a1de01:207","text":"viewfrustumdistance"}
+{"item_id":"23d6a1de01:208","text":"viewing frustum 外对象的 dicing method。支持的值：viewfrustumdistance、worlddistance、objectdistance、planarprojection。"}
+{"item_id":"23d6a1de01:209","text":"dice:rasterorient"}
+{"item_id":"23d6a1de01:210","text":"integer"}
+{"item_id":"23d6a1de01:211","text":"关闭此项会启用 non-oriented dicing，这是一种使用 non-oriented raster space 而不是 screen-aligned raster space 来计算 micropolygon sizes 的 dicing 模式。Non-oriented dicing 适用于边缘周围的 displacement，因为 projected micropolygon distance 可能任意小。"}
+{"item_id":"23d6a1de01:212","text":"dice:referencecamera"}
+{"item_id":"23d6a1de01:213","text":"string"}
+{"item_id":"23d6a1de01:214","text":"empty（空）"}
+{"item_id":"23d6a1de01:215","text":"指定用于 dicing 的 camera。如果未指定 reference camera，RenderMan 将使用 primary camera。"}
+{"item_id":"23d6a1de01:216","text":"dice:referenceinstance"}
+{"item_id":"23d6a1de01:217","text":"string"}
+{"item_id":"23d6a1de01:218","text":"empty（空）"}
+{"item_id":"23d6a1de01:219","text":"指定用于 dicing 和 displacement shading 的 reference instance。Reference instance 会根据其 position、scale、user attributes 和 scoped coordinate systems 来驱动 dicing 与 displacement。Reference instances 由其 identifier:name attribute（instance name）指定。如果未指定 reference instance，RenderMan 会自动选择 primary camera view frustum 内最近的 instance。"}
+{"item_id":"23d6a1de01:220","text":"dice:strategy"}
+{"item_id":"23d6a1de01:221","text":"string"}
+{"item_id":"23d6a1de01:222","text":"instanceprojection"}
+{"item_id":"23d6a1de01:223","text":"viewing frustum 内对象的 dicing method。支持的值：instanceprojection、worlddistance、objectdistance。"}
+{"item_id":"23d6a1de01:224","text":"dice:worlddistancelength"}
+{"item_id":"23d6a1de01:225","text":"float"}
+{"item_id":"23d6a1de01:226","text":"用于 \"worlddistance\" dicing 的 world space 中 micropolygon distance，或用于 \"objectdistance\" dicing 的 object space 中 micropolygon distance。"}
+{"item_id":"23d6a1de01:227","text":"Ri:GeometricApproximationFocusFactor"}
+{"item_id":"23d6a1de01:228","text":"float"}
+{"item_id":"23d6a1de01:229","text":"允许 renderer 因 depth of field 导致对象模糊时使用更粗略的 dicing。"}
+{"item_id":"23d6a1de01:230","text":"Points"}
+{"item_id":"23d6a1de01:231","text":"Name（名称）"}
+{"item_id":"23d6a1de01:232","text":"Type（类型）"}
+{"item_id":"23d6a1de01:233","text":"Default（默认值）"}
+{"item_id":"23d6a1de01:234","text":"Description（说明）"}
+{"item_id":"23d6a1de01:235","text":"falloffpower"}
+{"item_id":"23d6a1de01:236","text":"float"}
+{"item_id":"23d6a1de01:237","text":"用于 points；如果未提供或设为 zero，则 points 会具有硬边。值 1 是模拟通常 cosine based falloff 的 \"reasonable\" 值；这很可能是大多数制作 volumetric particle effects 用户的常用值。0 到 1 之间的值会让 falloff 更快、更快侵蚀 point，使 point 的 \"presence\" 更弱。大于 1（直到 infinity）的值会让 falloff 更慢，直到几乎不存在。"}
+{"item_id":"23d6a1de01:238","text":"Curves"}
+{"item_id":"23d6a1de01:239","text":"Name（名称）"}
+{"item_id":"23d6a1de01:240","text":"Type（类型）"}
+{"item_id":"23d6a1de01:241","text":"Default（默认值）"}
+{"item_id":"23d6a1de01:242","text":"Description（说明）"}
+{"item_id":"23d6a1de01:243","text":"curve:opacitysamples"}
+{"item_id":"23d6a1de01:244","text":"int"}
+{"item_id":"23d6a1de01:245","text":"沿 curve 用于 opacity caching 的 opacity/presence shading samples 数量；如果等于 zero，则该值会使用 dicing oracle 和每条 curve 的长度确定。"}
+{"item_id":"23d6a1de01:246","text":"curve:widthaffectscurvature"}
+{"item_id":"23d6a1de01:247","text":"int"}
+{"item_id":"23d6a1de01:248","text":"为 true 时，计算 tube curvature 时会考虑 round curves 的 curve width；否则只考虑沿 curve 的 curvature。此控制不影响 curve ribbons。Value range（取值范围）：true/false。"}
+{"item_id":"23d6a1de01:249","text":"Volume"}
+{"item_id":"23d6a1de01:250","text":"Name（名称）"}
+{"item_id":"23d6a1de01:251","text":"Type（类型）"}
+{"item_id":"23d6a1de01:252","text":"Default（默认值）"}
+{"item_id":"23d6a1de01:253","text":"Description（说明）"}
+{"item_id":"23d6a1de01:254","text":"dice:minlength"}
+{"item_id":"23d6a1de01:255","text":"float"}
+{"item_id":"23d6a1de01:256","text":"Volume minimum dice length。负值表示自动计算该值。"}
+{"item_id":"23d6a1de01:257","text":"dice:minlengthspace"}
+{"item_id":"23d6a1de01:258","text":"string"}
+{"item_id":"23d6a1de01:259","text":"empty（空）"}
+{"item_id":"23d6a1de01:260","text":"dice:minlength 的 coordinate space。"}
+{"item_id":"23d6a1de01:261","text":"Ri:Bound"}
+{"item_id":"23d6a1de01:262","text":"float[6]"}
+{"item_id":"23d6a1de01:263","text":"Volume bounds。"}
+{"item_id":"23d6a1de01:264","text":"volume:aggregate"}
+{"item_id":"23d6a1de01:265","text":"string"}
+{"item_id":"23d6a1de01:266","text":"globalVolumeAggregate"}
+{"item_id":"23d6a1de01:267","text":"volume 所属 volume aggregate 的名称。如果非空，只有当 integrator 显式使用该命名 aggregate，或 PxrSurface 等 surface shader 将该命名 aggregate 绑定到其 interior 时，该 volume 才会被渲染。"}
+{"item_id":"23d6a1de01:268","text":"volume:aggregaterespectvisibility"}
+{"item_id":"23d6a1de01:269","text":"int"}
+{"item_id":"23d6a1de01:270","text":"empty（空）"}
+{"item_id":"23d6a1de01:271","text":"如果设为 1，并且 volume 是 aggregate 的一部分，则 volume 会遵守标准 visibility attributes。如果设为 0，则 visibility attributes 会被忽略，只应用 integrator visibility settings。Value range（取值范围）：true/false。"}
+{"item_id":"23d6a1de01:272","text":"volume:dsominmax"}
+{"item_id":"23d6a1de01:273","text":"integer"}
+{"item_id":"23d6a1de01:274","text":"empty（空）"}
+{"item_id":"23d6a1de01:275","text":"目前只用于 aggregate volumes，并且只用于使用 ImplicitField DSO 的 volumes。如果设为 1，DSO 可能可以直接使用文件中存储的信息来计算 volume 内的最小值和最大值。这可能允许 renderer 避免预先对 volume 进行 shading，从而大幅减少 time to first pixel。只有当 volume 的 density signal 被直接使用，或 density signal 仅由 DSO 自身调制时，才可启用此项。对 density signal 的任何 shading 修改都需要将此参数设为 off。Value range（取值范围）：true/false。"}
+{"item_id":"23d6a1de01:276","text":"volume:dsovelocity"}
+{"item_id":"23d6a1de01:277","text":"integer"}
+{"item_id":"23d6a1de01:278","text":"仅用于使用 ImplicitField DSO 的 aggregate volumes。如果设为 1，DSO 可以通过 BoxMotion call 直接向 renderer 提供 velocity bounds。当使用 Eulerian velocity 时，这可让 renderer 避免预先对 volume 的 velocity data 进行 shading，从而显著改善 render time 和 time to first pixel。只有当来自 DSO 的 velocity signal 被直接使用时，才可启用此项。Value range（取值范围）：true/false。"}
+{"item_id":"23d6a1de01:279","text":"volume:fps"}
+{"item_id":"23d6a1de01:280","text":"float"}
+{"item_id":"23d6a1de01:281","text":"volumetric velocity data 的 frames per second。Velocity data 会除以该数量，以推导当前帧的 velocity。"}
+{"item_id":"23d6a1de01:282","text":"volume:shutteroffset"}
+{"item_id":"23d6a1de01:283","text":"float"}
+{"item_id":"23d6a1de01:284","text":"用于解释 volumetric velocity 的 shutter offset。值 1 会使用 object 当前帧位置和下一帧位置作为 motion blur 使用的 time interval。值 -1 会使用 object 上一帧位置和当前帧位置作为时间。值 0 会生成一个从上一帧中点开始、到下一帧中点结束的 interval。"}
+{"item_id":"23d6a1de01:285","text":"volume:temporalmethod"}
+{"item_id":"23d6a1de01:286","text":"integer"}
+{"item_id":"23d6a1de01:287","text":"为 volume rendering 生成 temporal data 的方法。支持的值：Eulerian (0)、Reves (1)。"}
+{"item_id":"23d6a1de01:288","text":"volume:velocityshuttercorrection"}
+{"item_id":"23d6a1de01:289","text":"int"}
+{"item_id":"23d6a1de01:290","text":"如果设为 1，用于 Eulerian motion blur 的 volumetric velocity data 将假定相对于整个 frame，并会被校正以匹配当前 shutter interval。如果设为 0，则不进行校正。Value range（取值范围）：true/false。"}
+{"item_id":"23d6a1de01:291","text":"SubdivisionMesh"}
+{"item_id":"23d6a1de01:292","text":"Name（名称）"}
+{"item_id":"23d6a1de01:293","text":"Type（类型）"}
+{"item_id":"23d6a1de01:294","text":"Default（默认值）"}
+{"item_id":"23d6a1de01:295","text":"Description（说明）"}
+{"item_id":"23d6a1de01:296","text":"dice:pretessellate"}
+{"item_id":"23d6a1de01:297","text":"integer"}
+{"item_id":"23d6a1de01:298","text":"将 subdivision geometry 预先 tessellate 为 polygons。"}
+{"item_id":"23d6a1de01:299","text":"dice:watertight"}
+{"item_id":"23d6a1de01:300","text":"integer"}
+{"item_id":"23d6a1de01:301","text":"对 geometry 进行无孔 tessellation。Watertight geometry 需要较少的 raytrace bias。"}
+{"item_id":"23d6a1de01:302","text":"shade:faceset"}
+{"item_id":"23d6a1de01:303","text":"integer[n]"}
+{"item_id":"23d6a1de01:304","text":"empty（空）"}
+{"item_id":"23d6a1de01:305","text":"处于活动状态的 geometry face indexes。"}
+{"item_id":"23d6a1de01:306","text":"stitchbound:CoordinateSystem"}
+{"item_id":"23d6a1de01:307","text":"string"}
+{"item_id":"23d6a1de01:308","text":"empty（空）"}
+{"item_id":"23d6a1de01:309","text":"stitchbound:sphere"}
+{"item_id":"23d6a1de01:310","text":"float"}
+{"item_id":"23d6a1de01:311","text":"NuPatch"}
+{"item_id":"23d6a1de01:312","text":"Name（名称）"}
+{"item_id":"23d6a1de01:313","text":"Type（类型）"}
+{"item_id":"23d6a1de01:314","text":"Default（默认值）"}
+{"item_id":"23d6a1de01:315","text":"Description（说明）"}
+{"item_id":"23d6a1de01:316","text":"trimcurve:sense"}
+{"item_id":"23d6a1de01:317","text":"string"}
+{"item_id":"23d6a1de01:318","text":"inside"}
+{"item_id":"23d6a1de01:319","text":"支持的值：inside、outside。"}
+{"item_id":"23d6a1de01:320","text":"PolygonMesh"}
+{"item_id":"23d6a1de01:321","text":"Name（名称）"}
+{"item_id":"23d6a1de01:322","text":"Type（类型）"}
+{"item_id":"23d6a1de01:323","text":"Default（默认值）"}
+{"item_id":"23d6a1de01:324","text":"Description（说明）"}
+{"item_id":"23d6a1de01:325","text":"polygon:concave"}
+{"item_id":"23d6a1de01:326","text":"integer"}
+{"item_id":"23d6a1de01:327","text":"允许 concave polygons（凹多边形）。"}
+{"item_id":"23d6a1de01:328","text":"polygon:smoothdisplacement"}
+{"item_id":"23d6a1de01:329","text":"integer"}
+{"item_id":"23d6a1de01:330","text":"如果 polygon:smoothnormals 尚未插入 smooth normals，则将 smoothed（per-vertex）normals 作为 Ndsp primvar Output（输出）。"}
+{"item_id":"23d6a1de01:331","text":"polygon:smoothnormals"}
+{"item_id":"23d6a1de01:332","text":"integer"}
+{"item_id":"23d6a1de01:333","text":"如果未提供，则生成 Smooth（平滑）（per-vertex）normals。"}
+{"item_id":"23d6a1de01:334","text":"Procedural"}
+{"item_id":"23d6a1de01:335","text":"Name（名称）"}
+{"item_id":"23d6a1de01:336","text":"Type（类型）"}
+{"item_id":"23d6a1de01:337","text":"Default（默认值）"}
+{"item_id":"23d6a1de01:338","text":"Description（说明）"}
+{"item_id":"23d6a1de01:339","text":"procedural:immediatesubdivide"}
+{"item_id":"23d6a1de01:340","text":"integer"}
+{"item_id":"23d6a1de01:341","text":"procedural:reentrant"}
+{"item_id":"23d6a1de01:342","text":"integer"}
+{"item_id":"23d6a1de01:343","text":"Primvars"}
+{"item_id":"23d6a1de01:344","text":"Name（名称）"}
+{"item_id":"23d6a1de01:345","text":"Type（类型）"}
+{"item_id":"23d6a1de01:346","text":"Default（默认值）"}
+{"item_id":"23d6a1de01:347","text":"Description（说明）"}
+{"item_id":"23d6a1de01:348","text":"falloffpower"}
+{"item_id":"23d6a1de01:349","text":"float"}
+{"item_id":"23d6a1de01:350","text":"point primitives 的 falloff power。"}
+{"item_id":"23d6a1de01:351","text":"Traversal"}
+{"item_id":"23d6a1de01:352","text":"当 RfK 遍历 Katana scene graph 时，它会并行处理 locations，并将它们传递给 RenderMan 进行渲染。默认情况下，从 Katana 取得的每个新的 child location 都会生成一个新线程进行处理。这个默认行为不太可能为任意给定 scene 提供最佳性能；不过 PrmanObjectStatements 提供了用于调优特定 pipeline（例如你所在工作室的标准 Op Chain）或多种 scene 类型（例如许多 instances、许多 textures、许多 primitives，或三者都有）中的效率和 parallelism level 的设置。"}
+{"item_id":"23d6a1de01:353","text":"Name（名称）"}
+{"item_id":"23d6a1de01:354","text":"Type（类型）"}
+{"item_id":"23d6a1de01:355","text":"Default（默认值）"}
+{"item_id":"23d6a1de01:356","text":"Description（说明）"}
+{"item_id":"23d6a1de01:357","text":"forceSerial"}
+{"item_id":"23d6a1de01:358","text":"int"}
+{"item_id":"23d6a1de01:359","text":"强制此 location 及其 child locations 的 traversal 使用 serial processing。"}
+{"item_id":"23d6a1de01:360","text":"evictHere"}
+{"item_id":"23d6a1de01:361","text":"int"}
+{"item_id":"23d6a1de01:362","text":"防止在此 location 进行 sibling eviction。"}
+{"item_id":"23d6a1de01:363","text":"flattenInstanceSource"}
+{"item_id":"23d6a1de01:364","text":"int"}
+{"item_id":"23d6a1de01:365","text":"Flatten（扁平化）hierarchical instance source locations。"}
+{"item_id":"23d6a1de01:366","text":"Force Serial"}
+{"item_id":"23d6a1de01:367","text":"第一个工具是用于控制 scene 中 parallelism depth（并行深度）的 attribute："}
+{"item_id":"23d6a1de01:368","text":"。"}
+{"item_id":"23d6a1de01:369","text":"例如，考虑一个 scene："}
+{"item_id":"23d6a1de01:370","text":"其中每个 tree location 都包含 branches、leaves、roots 等。"}
+{"item_id":"23d6a1de01:371","text":"理想情况下，应在足够高的层级并行 traversal，避免让每片 leaf 或每个 branch 都在不同线程中处理。在 RfK 中，我们通过在希望停止并行处理的 location 上将 \"prmanStatements.traversal.forceSerial\" 设置为"}
+{"item_id":"23d6a1de01:372","text":"。当 traversal 期间遇到该 attribute 时，RfK 会在该 location 切换为 serial，并且所有 child locations 都会在单个线程中运行。"}
+{"item_id":"23d6a1de01:373","text":"在上面的示例中，将 \"/root/world/geo/*_tree\" 上的 \"forceSerial\" 设为 true，意味着每棵 tree 会在不同线程上处理，但每棵 tree 的所有内容会在其各自线程中串行处理。你需要评估自己的 scene setup，判断在哪个层级强制 serial processing 才合理。"}
+{"item_id":"23d6a1de01:374","text":"每个线程都有自己的 Geolib runtime，其中包含 cooked locations 的 per-thread caches。因此，任何 Op 所需的所有 locations 都必须按线程 cooked。继续上面的示例：如果有三个线程分别查看 \"/root/world/geo\" 下的不同 locations，你会看到 \"/root\" 被 cooked 三次，\"/root/world\" 被 cooked 三次，\"/root/world/geo\" 也被 cooked 三次。如果以 serial 运行，或在 \"/root\" 处将 parallel traversal 强制为一个线程，那么只有一个 Geolib runtime 会 cook 该 location，因此你只会看到该 Op 在 \"/root\" 处打印一次。"}
+{"item_id":"23d6a1de01:375","text":"Evict Here"}
+{"item_id":"23d6a1de01:376","text":"我们用于提高 parallel traversal efficiency 的第二个工具是"}
+{"item_id":"23d6a1de01:377","text":"设置。"}
+{"item_id":"23d6a1de01:378","text":"默认情况下，当一个 Katana scenegraph location 被处理并转换为 Rix scenegraph 时，该 location 的 siblings 会从线程的 runtime memory 中 evicted。若已知这些 siblings 最好保留在 cache 中供后续访问，则将此 flag 设为 false 可防止在该 location 进行 sibling eviction。"}
+{"item_id":"23d6a1de01:379","text":"Flatten Instance Source"}
+{"item_id":"23d6a1de01:380","text":"最后一个工具是"}
+{"item_id":"23d6a1de01:381","text":"设置。"}
+{"item_id":"23d6a1de01:382","text":"此设置并不会改变 RfK 对 Katana scene 的 parallel traversal 行为，而是在构建 instances 时改善 RenderMan 的 traversal。默认情况下，RenderMan 会将一个 instance source 扁平化为 group 中每个 geometric primitive 对应的独立 object prototype。随着 instances 数量增加，或 instance source 内部 primitives 数量增加，这可能变得昂贵。将此 option 设为"}
+{"item_id":"23d6a1de01:383","text":"会告诉 RenderMan 将这个 instance source location 保持为单个 object prototype。"}
+{"item_id":"23d6a1de01:384","text":"此设置会覆盖 prmanGlobalStatements.plugin.flattenInstanceSources 的 global setting（全局设置）；该 global setting 可以在所有 instance source locations 上启用此设置。"}

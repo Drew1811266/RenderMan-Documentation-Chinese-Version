@@ -1,0 +1,34 @@
+{
+  "parentType": "page",
+  "parentId": "22184343",
+  "ownerId": "557058:bd93f2ee-e583-43fb-8a78-f4b1519a63bf",
+  "lastOwnerId": null,
+  "createdAt": "2016-12-15T10:57:30.761Z",
+  "authorId": "557058:bd93f2ee-e583-43fb-8a78-f4b1519a63bf",
+  "position": 3,
+  "version": {
+    "number": 2,
+    "message": "",
+    "minorEdit": false,
+    "authorId": "557058:bd93f2ee-e583-43fb-8a78-f4b1519a63bf",
+    "createdAt": "2016-12-19T16:05:53.559Z",
+    "ncsStepVersion": null
+  },
+  "spaceId": "22183942",
+  "status": "current",
+  "body": {
+    "view": {
+      "representation": "view",
+      "value": "<div class=\"document\"><p>Recent extensions to job scripting, dispatching, and the Dashboard add interesting new capabilities related to incremental computation. Tractor also supports a general &quot;retry from last checkpoint&quot; scheme. Both features integrate with the new RenderMan 19 RIS checkpoint and incremental rendering features.<br/> </p><div class=\"section\"><h3 id=\"Checkpoint-ResumeandIncrementalProcessing-Retryfromlastpartialresult\">Retry from last partial result</h3><p>As an example, the Pixar RenderMan renderer, prman, has supported a built-in retry scheme for several years, when using compliant output formats.</p><pre class=\"codefhead literal-block\">A basic render command:\n   prman frame123.rib\n</pre><p>If that process is killed for some reason after an hour of rendering, but it produced a partial image file along the way, then the rendering can often be restarted from that point.</p><pre class=\"codefhead literal-block\">Restart from the last image checkpoint:\n   prman -recover 1 frame123.rib\n</pre><p>The initial render is equivalent to using <span class=\"pre\">-recover</span> 0 since the zero specifies that the rendering should start from the beginning, and ignore (overwrite) any pre-existing output files.</p><p>A simple Tractor job script that invokes that basic render command can be written in terms of the Tractor &quot;%r&quot; run-time substition parameter that Tractor will fill in when the command is launched.</p><pre class=\"codefhead literal-block\">Job -title {simple recover example} -subtasks {\n     Task {Frame 123} -cmds {\n         RemoteCmd {prman -recover %r frame123.rib} -service PixarRender\n     }\n}\n</pre><p>Tractor substitutes the digit zero for %r in the argument list on the first launch of the command or when a user requests a full restart of the task; and it substitutes the digit one when a user requests a resume from the last checkpoint.</p><p>So the Tractor support of this feature assumes that the restart behavior of many applications, or wrapper scripts around them, can be controlled with some command-line parameter that accepts a simple '0' or '1'.|<br/> </p></div><div class=\"section\"><h3 id=\"Checkpoint-ResumeandIncrementalProcessing-IncrementalCheckpoint-ResumeIterations\">Incremental Checkpoint-Resume Iterations</h3><p>Introducing the new Tractor job scripting controls:</p><pre class=\"codefhead literal-block\">-resumeblock\n-resumewhile\n-resumepin\n</pre><p>The goal is to mark a block of tasks (an entire dependency subtree) as group that will be re-run when some elements have reached a checkpoint but are still incomplete.</p><p>The -resumeblock option goes on the <strong>Task</strong> at the root of the group. The -resumewhile clause goes on a <strong>RemoteCmd</strong> that obeys the checkpoint-resume semantics. The <span class=\"pre\">-resumepin</span> 1 option is an additional qualifier on commands with -resumewhile, indicating that restarts must occur on the same blade as the initial pass of that command.</p><p>NOTE: Within the subtree indicated by the -resumeblock Task, not all tasks will be restarted on each pass. Only those commands whose -resumewhile clause evaluates to &quot;true&quot; (non-zero) will be retried on the next pass. Some of those commands may completely finish several passes before others in the block. Once a command's resumewhile clause evaluates to &quot;false&quot; (zero), it will not be restarted by this looping mechanism. Also note that <em>any</em> task that depends on a resumed task, up through the root of the root of the resume block, will also be retried. A retry due to a -resumewhile behaves just like a manual task retry in that regard: dependent (successor) task are retried as well.</p><p>The substitution patterns %r, %R, and %q are filled in by tractor-blade before launching each command: %r is 0 when a task is beginning a fresh start and an integer greater than zero when the user or system is requesting a recover from checkpoint; %R is the &quot;loop count&quot; for commands that are being restarted due to the -resumewhile construct; and %q has the value 1.0 when a task is being executed due to final quality runs from the subtasks it depends upon, it will be less than 1.0 if some subtask only reached a checkpoint during the current resumewhile loop. Many launched commands will not support these distinctions, it is up to the job author to use these optional parameters appropriately for each command.</p><pre class=\"codefhead literal-block\">Job -title &quot;checkpoint-resume iteration example&quot; -service PixarRender -subtasks {\n    Task {the wait} -subtasks {\n        Task {the loop} -resumeblock 1 -subtasks {\n            Task {render f1} -cmds {\n                RemoteCmd {\n                    prman -Progress -recover %r -checkpoint 0,15s /net/rib/rings.rib\n                } -resumewhile {testcheckpoint exr /tmp/t.exr} -resumepin 1\n            }\n            Task {script test1} -cmds {\n                RemoteCmd {echo otherApp --pass %R} -resumewhile {exitcode 123}\n            }\n        } -cmds {\n            RemoteCmd &quot;echo looping&quot;\n        }\n    } -cmds {\n        RemoteCmd &quot;echo loop done&quot;\n    }\n}\n</pre></div></div>"
+    }
+  },
+  "title": "Checkpoint-Resume and Incremental Processing",
+  "id": "22184310",
+  "_links": {
+    "editui": "/pages/resumedraft.action?draftId=22184310",
+    "webui": "/spaces/TRA/pages/22184310/Checkpoint-Resume+and+Incremental+Processing",
+    "edituiv2": "/spaces/TRA/pages/edit-v2/22184310",
+    "tinyui": "/x/doFSAQ",
+    "base": "https://renderman.atlassian.net/wiki"
+  }
+}

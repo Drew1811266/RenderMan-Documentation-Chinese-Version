@@ -1,0 +1,148 @@
+{"item_id": "ebfa39d3d6:0", "source": "Shader Assignments"}
+{"item_id": "ebfa39d3d6:1", "source": "A gpuCache is a single shape in Maya, so it is impossible to assign materials as usual. But we can use RenderMan's"}
+{"item_id": "ebfa39d3d6:2", "source": "Dynamic Rules Editor"}
+{"item_id": "ebfa39d3d6:3", "source": "to assign materials at render-time, with the following limitation:"}
+{"item_id": "ebfa39d3d6:4", "source": "All referenced materials must be present in the scene."}
+{"item_id": "ebfa39d3d6:5", "source": "Per-faceset materials are not supported."}
+{"item_id": "ebfa39d3d6:6", "source": "Any attribute influencing the raytracing core will be ignored by the renderer. This includes group membership definitions, selective lighting, etc."}
+{"item_id": "ebfa39d3d6:7", "source": "Any rule change will require an IPR restart to take effect."}
+{"item_id": "ebfa39d3d6:8", "source": "These limitations will be lifted in an upcoming release."}
+{"item_id": "ebfa39d3d6:9", "source": "RLF Editor overview"}
+{"item_id": "ebfa39d3d6:10", "source": "Open the Dynamic Rules Editor and let's see how it works."}
+{"item_id": "ebfa39d3d6:11", "source": "You can either click the double angle bracket icon in the shelf or the"}
+{"item_id": "ebfa39d3d6:12", "source": "Edit RLF File"}
+{"item_id": "ebfa39d3d6:13", "source": "button in the gpuCache's attribute editor. The shelf button edits all scene alembics and the per-node button edits only the RLF associated to that node."}
+{"item_id": "ebfa39d3d6:14", "source": "Rules management"}
+{"item_id": "ebfa39d3d6:15", "source": "The left-side buttons handle all rule and file management tasks:"}
+{"item_id": "ebfa39d3d6:16", "source": "Add new rule"}
+{"item_id": "ebfa39d3d6:17", "source": ": create a new empty rule"}
+{"item_id": "ebfa39d3d6:18", "source": "Delete selected rule"}
+{"item_id": "ebfa39d3d6:19", "source": ": Select one or more rules by clicking the rule number and press the button."}
+{"item_id": "ebfa39d3d6:20", "source": "Duplicate selected rule"}
+{"item_id": "ebfa39d3d6:21", "source": ": Select one or more rules by clicking the rule number and press the button."}
+{"item_id": "ebfa39d3d6:22", "source": "Load RLF file"}
+{"item_id": "ebfa39d3d6:23", "source": ": replace the editor's contents with a file on disk. (scene editor only)"}
+{"item_id": "ebfa39d3d6:24", "source": "Save RLF file"}
+{"item_id": "ebfa39d3d6:25", "source": ": save the editor's contents to disk."}
+{"item_id": "ebfa39d3d6:26", "source": "Auto-save changes"}
+{"item_id": "ebfa39d3d6:27", "source": ": automatically save to disk when the icon is orange. (node editor only)"}
+{"item_id": "ebfa39d3d6:28", "source": "Rules order"}
+{"item_id": "ebfa39d3d6:29", "source": "Rules are evaluated in the editor's order. To change their order, click in the rule number and drag to the new position."}
+{"item_id": "ebfa39d3d6:30", "source": "Rule controls"}
+{"item_id": "ebfa39d3d6:31", "source": "Enable/disable"}
+{"item_id": "ebfa39d3d6:32", "source": ": when the toggle is green the rule will be evaluated."}
+{"item_id": "ebfa39d3d6:33", "source": "Stop/continue"}
+{"item_id": "ebfa39d3d6:34", "source": ": When the icon is a cross, the rule evaluation will stop if this rule is matching. The arrow down icon indicate that subsequent rules will be evaluated even if this rule is matching."}
+{"item_id": "ebfa39d3d6:35", "source": "Material"}
+{"item_id": "ebfa39d3d6:36", "source": ": The shading group of the material, which references the surface and displacement shaders."}
+{"item_id": "ebfa39d3d6:37", "source": "Attributes"}
+{"item_id": "ebfa39d3d6:38", "source": ": insert or override attribute values. Click the"}
+{"item_id": "ebfa39d3d6:39", "source": "new"}
+{"item_id": "ebfa39d3d6:40", "source": "edit"}
+{"item_id": "ebfa39d3d6:41", "source": "icon to open the attribute dialog."}
+{"item_id": "ebfa39d3d6:42", "source": "Click the"}
+{"item_id": "ebfa39d3d6:43", "source": "icon and right-click the attribute field to choose one of the supported attributes."}
+{"item_id": "ebfa39d3d6:44", "source": "Select one or more attributes as usual and click the"}
+{"item_id": "ebfa39d3d6:45", "source": "icon to delete them."}
+{"item_id": "ebfa39d3d6:46", "source": "Attributes with a fixed list of acceptable values can be set by right-clicking too."}
+{"item_id": "ebfa39d3d6:47", "source": "Settings are automatically saved when the window is saved."}
+{"item_id": "ebfa39d3d6:48", "source": "Match type"}
+{"item_id": "ebfa39d3d6:49", "source": ": There are 3 matching engines:"}
+{"item_id": "ebfa39d3d6:50", "source": "exact"}
+{"item_id": "ebfa39d3d6:51", "source": ": this is the fastest and will only match a full path."}
+{"item_id": "ebfa39d3d6:52", "source": "glob"}
+{"item_id": "ebfa39d3d6:53", "source": ": based on glob matching with the following tokens:"}
+{"item_id": "ebfa39d3d6:54", "source": "* : any number of character"}
+{"item_id": "ebfa39d3d6:55", "source": "? : a single character"}
+{"item_id": "ebfa39d3d6:56", "source": "** : any depth in the hierarchy"}
+{"item_id": "ebfa39d3d6:57", "source": "re"}
+{"item_id": "ebfa39d3d6:58", "source": ":"}
+{"item_id": "ebfa39d3d6:59", "source": "re2"}
+{"item_id": "ebfa39d3d6:60", "source": "regular expression. The most sophisticated, complex and potentially slow matching method."}
+{"item_id": "ebfa39d3d6:61", "source": "Path expression"}
+{"item_id": "ebfa39d3d6:62", "source": ": You can either double-click in the field to type your expression or drag and drop from the alembic node list."}
+{"item_id": "ebfa39d3d6:63", "source": "To drag and drop, you must first select the node in the alembic node list."}
+{"item_id": "ebfa39d3d6:64", "source": "Notes"}
+{"item_id": "ebfa39d3d6:65", "source": ": A field to write notes when things get complicated..."}
+{"item_id": "ebfa39d3d6:66", "source": "A rule can assign:"}
+{"item_id": "ebfa39d3d6:67", "source": "• a material"}
+{"item_id": "ebfa39d3d6:68", "source": "• attributes"}
+{"item_id": "ebfa39d3d6:69", "source": "• or both !"}
+{"item_id": "ebfa39d3d6:70", "source": "About attributes and node types"}
+{"item_id": "ebfa39d3d6:71", "source": "In RenderMan, every shape is an instance. This means that an attribute attached to a specific shape will influence all instances of that shape."}
+{"item_id": "ebfa39d3d6:72", "source": "If you want to assign an attribute to an instance, create an expression matching the instance's transform. This is particularly important for classic attributes like"}
+{"item_id": "ebfa39d3d6:73", "source": ", etc."}
+{"item_id": "ebfa39d3d6:74", "source": "In-scene shading"}
+{"item_id": "ebfa39d3d6:75", "source": "Dynamic rules are written using glob expressions, similar to a shell. See the"}
+{"item_id": "ebfa39d3d6:76", "source": "Dynamic Rules CookBook"}
+{"item_id": "ebfa39d3d6:77", "source": "below for more info."}
+{"item_id": "ebfa39d3d6:78", "source": "This is our starting point: the gpuCache node renders with the default material:"}
+{"item_id": "ebfa39d3d6:79", "source": "Assign a base material to part of an archive"}
+{"item_id": "ebfa39d3d6:80", "source": "We have prepared a number of basic materials to assign. Let's start by assigning the"}
+{"item_id": "ebfa39d3d6:81", "source": "material to the whole teapot and write our first rule:"}
+{"item_id": "ebfa39d3d6:82", "source": "In the node list, select the top node of the hierarchy we want to assign to: Rolling_Teapot."}
+{"item_id": "ebfa39d3d6:83", "source": "Click"}
+{"item_id": "ebfa39d3d6:84", "source": "Add Rule"}
+{"item_id": "ebfa39d3d6:85", "source": "(the blue + icon) to create a new rule or use the initial empty rule"}
+{"item_id": "ebfa39d3d6:86", "source": "Double-click the expression field to put it in edit mode. This field is the >_ column."}
+{"item_id": "ebfa39d3d6:87", "source": "Go to the Alembic node list and middle-mouse-drag the selected node into the expression field."}
+{"item_id": "ebfa39d3d6:88", "source": "Please note that you must select an item in the list before drag-and-dropping. (Your windows must also be docked and not floating on the Windows OS is the switching focus will not allow you to middle mouse drag.)"}
+{"item_id": "ebfa39d3d6:89", "source": "Edit the expression from this /Rolling_Teapot_Grp/Rolling_Teapot to the below:"}
+{"item_id": "ebfa39d3d6:90", "source": "** means match any depth of nesting (including none) whereas * will only match characters between the / separator"}
+{"item_id": "ebfa39d3d6:91", "source": "Press enter to validate."}
+{"item_id": "ebfa39d3d6:92", "source": "Right-click the"}
+{"item_id": "ebfa39d3d6:93", "source": "Payload"}
+{"item_id": "ebfa39d3d6:94", "source": "field (with the icon of sliders) and select"}
+{"item_id": "ebfa39d3d6:95", "source": "."}
+{"item_id": "ebfa39d3d6:96", "source": "Launch the IPR to test."}
+{"item_id": "ebfa39d3d6:97", "source": "Match sub-strings in a hierarchy"}
+{"item_id": "ebfa39d3d6:98", "source": "Now we will shade the rivets on the teapot. We will need a more complicated expression."}
+{"item_id": "ebfa39d3d6:99", "source": "Duplicate the first rule"}
+{"item_id": "ebfa39d3d6:100", "source": "Right-click on the rule number (0 in our case) and select"}
+{"item_id": "ebfa39d3d6:101", "source": "Duplicate Rules"}
+{"item_id": "ebfa39d3d6:102", "source": "(the copy icon just below the \"-\" minus icon)."}
+{"item_id": "ebfa39d3d6:103", "source": "Extend the previous expression to match any object containing the word \"rivet\"."}
+{"item_id": "ebfa39d3d6:104", "source": "The second ** means the rivet object can be nested at any level under the teapot"}
+{"item_id": "ebfa39d3d6:105", "source": "rivet * matches if rivet appears in node name. \"rivet\", \"Arivet\" and \"Brivet2\" would all match."}
+{"item_id": "ebfa39d3d6:106", "source": "On that model, there are also screws that could use the same material. Copy the expression to match those too."}
+{"item_id": "ebfa39d3d6:107", "source": "Rule execution order"}
+{"item_id": "ebfa39d3d6:108", "source": "Let's assign a material to the teapot's rings."}
+{"item_id": "ebfa39d3d6:109", "source": "We use the same workflow: duplicate the rule, replace"}
+{"item_id": "ebfa39d3d6:110", "source": "with"}
+{"item_id": "ebfa39d3d6:111", "source": "and set the Payload to"}
+{"item_id": "ebfa39d3d6:112", "source": ". But it doesn't quite work because, as you can see in the node list, some shapes have both"}
+{"item_id": "ebfa39d3d6:113", "source": "and"}
+{"item_id": "ebfa39d3d6:114", "source": "in their name and rivets on the rings are now using the wrong material."}
+{"item_id": "ebfa39d3d6:115", "source": "We can change the"}
+{"item_id": "ebfa39d3d6:116", "source": "rule execution order if the result is incorrect"}
+{"item_id": "ebfa39d3d6:117", "source": "(maybe your order is different than mine in the image): if we match rivet first, the matching engine will stop when it finds a match and then only shapes only containing \"ring\" will match the second rule."}
+{"item_id": "ebfa39d3d6:118", "source": "Position the cursor over the rule's number and left-button-drag rule 1 (rivets) above rule 0 (ring)."}
+{"item_id": "ebfa39d3d6:119", "source": "Render to check."}
+{"item_id": "ebfa39d3d6:120", "source": "Of course, we have only scratched the surface and we recommend that you read up on"}
+{"item_id": "ebfa39d3d6:121", "source": "Regular Expressions"}
+{"item_id": "ebfa39d3d6:122", "source": "for more sophisticated use."}
+{"item_id": "ebfa39d3d6:123", "source": "If you're done shading, select the disk/save RLF (RenderMan Look File) icon. This can be used in the import of the asset to assign the shading nodes each time. This can then be part of your asset publishing scheme."}
+{"item_id": "ebfa39d3d6:124", "source": "Self-contained Asset Shading"}
+{"item_id": "ebfa39d3d6:125", "source": "If you want to import fully shaded assets, there are 2 options:"}
+{"item_id": "ebfa39d3d6:126", "source": "When RfM finds a RLF file in the same location and with the same name as the archive, it will automatically apply it."}
+{"item_id": "ebfa39d3d6:127", "source": "This is not always very flexible in a pipeline, but may be useful for archiving assets."}
+{"item_id": "ebfa39d3d6:128", "source": "The RLF file format does not include material descriptions and you have to make sure that:"}
+{"item_id": "ebfa39d3d6:129", "source": "All referenced materials exist in your scene."}
+{"item_id": "ebfa39d3d6:130", "source": "Output All Shaders"}
+{"item_id": "ebfa39d3d6:131", "source": "is checked in the Advanced section of the render globals."}
+{"item_id": "ebfa39d3d6:132", "source": "If the"}
+{"item_id": "ebfa39d3d6:133", "source": "RLF File Name"}
+{"item_id": "ebfa39d3d6:134", "source": "field of a gpuCache node contains a path to a RLF file, RfM will apply it to that gpuCache node."}
+{"item_id": "ebfa39d3d6:135", "source": "It becomes easy to script look assignment and updating."}
+{"item_id": "ebfa39d3d6:136", "source": "Note that you can still override automatic RLF assignments in the scene with the Dynamic Rule Editor !"}
+{"item_id": "ebfa39d3d6:137", "source": "In that case, the scene RLF rules will be executed before the archive's rules and thus have a chance to override them."}
+{"item_id": "ebfa39d3d6:138", "source": "Notes about RLF export"}
+{"item_id": "ebfa39d3d6:139", "source": "When you reference multiple RFL files in a scene, you must make sure that all shading nodes have unique names. If you define the same name multiple times, the renderer will use the first in line and you will get unexpected results."}
+{"item_id": "ebfa39d3d6:140", "source": "You can export a RLF file by clicking the"}
+{"item_id": "ebfa39d3d6:141", "source": "icon in the RLF Editor, or write a simple Python script that will save the scene's current RLF data to a file:"}
+{"item_id": "ebfa39d3d6:142", "source": "Dynamic Rules CookBook"}
+{"item_id": "ebfa39d3d6:143", "source": "Imagine we have a gpuCache node named Rolling_Teapot..."}
+{"item_id": "ebfa39d3d6:144", "source": "Everything in the scope, i.e. the Maya scene:"}
+{"item_id": "ebfa39d3d6:145", "source": "All nodes in the gpuCache node:"}
+{"item_id": "ebfa39d3d6:146", "source": "All nodes of the gpuCache with \"rivet\" in their name:"}
+{"item_id": "ebfa39d3d6:147", "source": "All shapes of the gpuCache under a transform starting with \"ring_\":"}

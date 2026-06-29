@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NURBS</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>NURBS</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/REN27/542212954/NURBS">https://rmanwiki-27.pixar.com/space/REN27/542212954/NURBS</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="900" loading="lazy" src="../../attachments/542212954/alscar.png" data-image-src="../../attachments/542212954/alscar.png" data-height="393" data-width="768" data-unresolved-comment-count="0" data-linked-resource-id="542212968" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="alscar.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542212954" data-linked-resource-container-version="2" data-media-id="428a28a5-0cdb-4c5c-a0ed-82b5ed017b0a" data-media-type="file"></span><p local-id="7704d79dce64" style="text-align: center;"><em>Al's Car (from Toy Story 2) was modeled entirely with trimmed NURBS</em></p><p local-id="1abfd056fbe0" /><div class="panel conf-macro output-block" data-hasbody="true" data-local-id="7bc77142811b" data-macro-id="7fec420b-2608-4b3e-9b7e-4325857263b1" data-macro-name="panel" style="background-color: #DEEBFF;border-width: 1px;"><div class="panelContent" style="background-color: #DEEBFF;">
+<p local-id="3cfdc41fc1db">RIS supports NURBS.</p><p local-id="bcb4f5bc7662">RenderMan XPU does not and will not support NURBS.</p>
+</div></div><p local-id="be192d202412">Prior to the advent of <a href="/wiki/spaces/REN27/pages/542213016/Subdivision+Surfaces" data-linked-resource-id="542213016" data-linked-resource-version="1" data-linked-resource-type="page">subdivision surfaces</a>, non-uniform rational b-splines (or NURBS) were the industry standard when it came to the creation of smooth surfaces.</p><p local-id="0ee375e41793">Like subdivision surfaces, NURBS are inherently smooth surfaces and suffer none of the faceting artifacts that are associated with polygonal approximations. In fact, RenderMan will always efficiently render a NURB as a smooth surface. Unlike subdivision surfaces, however, NURBS have a inherent topological constraint: a NURB's control surface is a rectangular mesh of rows and columns. While this means a NURB's parametric space for texturing is easy to understand (it's a rectangle!), it also means that when creating a complex organic shape like a human character, it is now the job of the modeler to divide that complex shape into a collection of rectangular pieces, each of which is a separate NURB. Moreover, if more detail is required at some section of the mesh which requires the addition of extra knots (an intersection of a row and a column), additional rows and columns must be added across the entire NURB in order to satisfy the rectangular mesh constraint. This can very quickly lead to unwieldy models.</p><p local-id="4e15e686b797">In order to help with these limitations, <strong>trimmed</strong> <strong>NURBS</strong> can be used. A <strong>trimcurve</strong> is an arbitrary region, specified in UV parametric space, that can be used to cut away the NURB. This feature is unique to NURBS. While this helps with creating complicated fillets and joins, trimming is expensive, prone to numerical error, and it can be difficult to maintain smoothness and absolute continuity at the trimcurve seam, especially if the model undergoes deformation during animation. Nonetheless, modeling programs that fully support trimmed NURBS have been and continue to be a viable workflow in conjunction with RenderMan.</p><p local-id="d0fa014aff63">It's also worth noting that NURBS remain the only modeling primitive (besides the built-in Sphere primitive) that can exactly and easily represent a sphere!</p>
+  </article>
+</main>
+</body>
+</html>

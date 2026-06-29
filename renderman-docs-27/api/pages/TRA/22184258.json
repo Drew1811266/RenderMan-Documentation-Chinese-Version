@@ -1,0 +1,34 @@
+{
+  "parentType": "page",
+  "parentId": "22184248",
+  "ownerId": "557058:bd93f2ee-e583-43fb-8a78-f4b1519a63bf",
+  "lastOwnerId": null,
+  "createdAt": "2016-12-15T11:27:50.506Z",
+  "authorId": "557058:bd93f2ee-e583-43fb-8a78-f4b1519a63bf",
+  "position": null,
+  "version": {
+    "number": 2,
+    "message": "",
+    "minorEdit": false,
+    "authorId": "557058:bd93f2ee-e583-43fb-8a78-f4b1519a63bf",
+    "createdAt": "2016-12-19T16:20:12.562Z",
+    "ncsStepVersion": null
+  },
+  "spaceId": "22183942",
+  "status": "current",
+  "body": {
+    "view": {
+      "representation": "view",
+      "value": "<div class=\"document\"><p>A common question of users of a scheduling system is <em>why is this job (or task) not running?</em> There are many reasons why a job may not run: network or hardware failure, misconfiguration of the system, or simply normal scheduling rules preventing the job's execution.</p><p>To understand how and when a job becomes active, it may be helpful to trace the lifetime of a job's task through the system.</p><p><strong>The job must have been submitted.</strong></p><p>First must you have pressed some in-app button or issued a command that submits a job. The job must first be processed and loaded by the engine.</p><p>To verify the job has been received by the engine, check that it is visible in the dashboard. If you cannot see the job:</p><ul class=\"simple\"><li>make sure no job filter or client side search box is preventing the job from being displayed,</li><li>check that the dashboard is pointing to the same engine as the entity spooling the job, and</li><li>check the engine log file that a &quot;job Loaded&quot; message had appeared when the job was spooled. Adjacent error messages in the log file could indicate that there was a syntax error in the job file.</li></ul><p>You can also look at recently spooled jobs on the command line. e.g. &quot;tq jobs mine --sort jid&quot;</p><p><strong>The job must be able to run.</strong></p><p>Verify that the job is <em>not</em>:</p><ul class=\"simple\"><li>paused,</li><li>delayed, nor</li><li>waiting of other jobs to finish, as specified in its afterJids list.</li></ul><p><strong>The job must have ready tasks.</strong></p><p>Verify that the job actually has ready tasks. When a job has been submitted, there will be at least one ready task that can run (unless the job author has been able to weave a job with circular dependencies!). Ready tasks will be leaf nodes on the job graph, though not necessarily all leaf nodes will be ready. A job's ready tasks can be listed on the command line with &quot;tq tasks state=ready and jid=&lt;jid&gt;&quot;.</p><p>The remaining tasks at submission time will be blocked; a task will become ready once all of its child tasks have been successfully completed (or have been manually skipped). In the case of serial subtasks, a task may have to also wait for its &quot;older&quot; sibling tasks to finish before it can become ready.</p><p><strong>Blades must be making requests for work.</strong></p><p>Verify that blades are actually requesting work (and for the correct engine:port). Participating blades will be visible in the blades tab of the dashboard. If there are none, ensure that blades are contacting the correct engine and that the blade and engine hosts have the proper ports open in their firewall. The default port for the engine is 80 (TCP), and for blades is 9005 (TCP). (Note that 9005 (UDP) must be open on the blade and engine in order for progress messages to be reported to the engine; however, this will not affect whether or not a task starts on a blade.)</p><p>You can verify that a blade is requesting work by running a tracer in the dashboard. This will report which jobs have been considered for dispatching. If the job in question is displayed in the trace, the reason why it has not picked up will be displayed. If the job in question is not displayed, it may be because a task of a higher priority job was chosen, or because of other scheduling rules that would preclude the job from running on the blade.</p><p>Also consider that blades may not request work if they incurr a number of task failures within some interval. Such blades are marked with error accrual hiatus in the Note column of the blade list. The RecentErrorThrottle setting in the <a href=\"/wiki/spaces/TRA/pages/22184312/Server+Profiles\" data-linked-resource-id=\"22184312\" data-linked-resource-version=\"6\" data-linked-resource-type=\"page\">blade's profile</a> manages the parameters of this hiatus calculation.</p><p><strong>Scheduling rules must permit the job to be considered.</strong></p><p>There are several scheduling rules that determine whether or not a task runs on a given blade:</p><ul class=\"simple\"><li>the requesting blade's service keys must match the task's service key expression,</li><li>the requesting blade's metrics must satisfy the task's metric requirements,</li><li>the task must not be restricted by limits. The limits in question could be represented by the limit tags of the job, task, or the task's current command, and</li><li>the task must not be restricted by sharing limits. The limits in question would be those associated with the job's project.</li></ul><p>Even if a task might satisfy those requirements, there may be a task of a higher priority job that also satisfies those requirements, and is thus picked up by the job.</p><p>Also note that every task assignment and completion affects limit counters, which will affect which tasks will be eligible for the next blade's request.</p></div>"
+    }
+  },
+  "title": "Idle Job or Task",
+  "id": "22184258",
+  "_links": {
+    "editui": "/pages/resumedraft.action?draftId=22184258",
+    "webui": "/spaces/TRA/pages/22184258/Idle+Job+or+Task",
+    "edituiv2": "/spaces/TRA/pages/edit-v2/22184258",
+    "tinyui": "/x/QoFSAQ",
+    "base": "https://renderman.atlassian.net/wiki"
+  }
+}

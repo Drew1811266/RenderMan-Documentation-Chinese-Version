@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Using Trace Sets in Maya</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Using Trace Sets in Maya</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFM27/544543656/Using+Trace+Sets+in+Maya">https://rmanwiki-27.pixar.com/space/RFM27/544543656/Using+Trace+Sets+in+Maya</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p><a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661865" rel="nofollow">Trace sets</a> are great for controlling what objects may reflect or shadow one another. It's a global control so it not only affects the final render but also output <a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661883" rel="nofollow">Light Path Expressions</a> (LPE) will reflect the same results.</p><p>In Maya, the transform node controls attributes in RenderMan and this is where you will find the main trace set controls. However, you will also find them in the Lights (for casting shadows) and PxrSurface to separate subsurface effects.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="340" loading="lazy" src="../../attachments/544543656/rfmTraceSettingsMirror.png" data-image-src="../../attachments/544543656/rfmTraceSettingsMirror.png" data-height="717" data-width="482" data-unresolved-comment-count="0" data-linked-resource-id="544543678" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfmTraceSettingsMirror.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544543656" data-linked-resource-container-version="1" data-media-id="815793f9-bc5f-4f89-8047-5f1591e6600b" data-media-type="file"></span><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="442" loading="lazy" src="../../attachments/544543656/rfm_traceSets_redSphereGone.jpg" data-image-src="../../attachments/544543656/rfm_traceSets_redSphereGone.jpg" data-height="540" data-width="960" data-unresolved-comment-count="0" data-linked-resource-id="544543681" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfm_traceSets_redSphereGone.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544543656" data-linked-resource-container-version="1" data-media-id="50f3d98a-0e21-4a38-8ecc-44a9fc3193c8" data-media-type="file"></span><p>In the above quick example we've told the mirror not to reflect the redSphere or receive any blocking shadows from the sphere (to avoid a cutout against the Dome Light, this isn't necessary when against another object.)</p><h2 id="UsingTraceSetsinMaya-HowtoCreateaTraceSet">How to Create a Trace Set</h2><p>There are two easy ways to define a trace set in Maya.</p><ol start="1"><li><p>You can create a set using Maya's Create &gt; Set menu.<br/></p></li></ol><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rfm_createSet.png" width="548" loading="lazy" src="../../attachments/544543656/rfm_createSet.png" data-image-src="../../attachments/544543656/rfm_createSet.png" data-height="206" data-width="548" data-unresolved-comment-count="0" data-linked-resource-id="544543672" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfm_createSet.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544543656" data-linked-resource-container-version="1" data-media-id="0aafbd8b-cdac-4b68-bed1-353a65092ab3" data-media-type="file"></span><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="638" loading="lazy" src="../../attachments/544543656/rfm_createSetSelect.png" data-image-src="../../attachments/544543656/rfm_createSetSelect.png" data-height="414" data-width="482" data-unresolved-comment-count="0" data-linked-resource-id="544543684" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfm_createSetSelect.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544543656" data-linked-resource-container-version="1" data-media-id="0b0e0d81-d7dc-4f65-a660-abac77105a05" data-media-type="file"></span><p /><ol start="2"><li><p>You can set the Shading Group Node as a selection set (In the below example the trace set name is PxrSurfaceSG1, so you might want to think about naming the Shading Groups.)<br/></p></li></ol><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="340" loading="lazy" src="../../attachments/544543656/rfm_createSetShadingGroup.png" data-image-src="../../attachments/544543656/rfm_createSetShadingGroup.png" data-height="612" data-width="482" data-unresolved-comment-count="0" data-linked-resource-id="544543687" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfm_createSetShadingGroup.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544543656" data-linked-resource-container-version="1" data-media-id="e45d0759-40bf-46be-9a51-54d2b02759f3" data-media-type="file"></span><p /><h2 id="UsingTraceSetsinMaya-SettingTraceSets">Setting Trace Sets</h2><p>You can set these sets to be included or excluded in the following places:</p><ol start="1"><li><p>Lights contain an area where you can specify whether or not to trace certain sets.<br/></p></li></ol><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="340" loading="lazy" src="../../attachments/544543656/rfm_traceSetsLights.png" data-image-src="../../attachments/544543656/rfm_traceSetsLights.png" data-height="612" data-width="482" data-unresolved-comment-count="0" data-linked-resource-id="544543690" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfm_traceSetsLights.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544543656" data-linked-resource-container-version="1" data-media-id="27e8205f-6d06-4975-9ae1-a06975816e8c" data-media-type="file"></span><p /><ol start="2"><li><p>In PxrSurface you can opt in sets in the Subsurface lobe. Anything not in this set is not traced. This is helpful when objects that interpenetrate the subsurface object create halos (light or dark)<br/></p></li></ol><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="340" loading="lazy" src="../../attachments/544543656/rfm_traceSetsPxrSurface.png" data-image-src="../../attachments/544543656/rfm_traceSetsPxrSurface.png" data-height="615" data-width="482" data-unresolved-comment-count="0" data-linked-resource-id="544543693" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfm_traceSetsPxrSurface.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544543656" data-linked-resource-container-version="1" data-media-id="db9f632e-ec71-42bb-9716-315b439f36e5" data-media-type="file"></span><p /><ol start="3"><li><p>On transform/instaces nodes you'll find trace set fields, these only apply to objects/shapes and collections of these. These do not apply to lights for example (even though they have a transform node).<br/></p></li></ol><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="340" loading="lazy" src="../../attachments/544543656/rfm_traceSetsTransformInstance.png" data-image-src="../../attachments/544543656/rfm_traceSetsTransformInstance.png" data-height="647" data-width="482" data-unresolved-comment-count="0" data-linked-resource-id="544543696" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfm_traceSetsTransformInstance.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544543656" data-linked-resource-container-version="1" data-media-id="bff8bc20-0bef-43ab-89ce-9911d36061b6" data-media-type="file"></span><p />
+  </article>
+</main>
+</body>
+</html>

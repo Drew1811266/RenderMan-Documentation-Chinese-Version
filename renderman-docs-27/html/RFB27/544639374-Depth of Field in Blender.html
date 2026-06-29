@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Depth of Field in Blender</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Depth of Field in Blender</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFB27/544639374/Depth+of+Field+in+Blender">https://rmanwiki-27.pixar.com/space/RFB27/544639374/Depth+of+Field+in+Blender</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>Depth of Field (DOF) is a photographic technique used to convey scale (size) and areas of interest in a composition.</p><p>Clever usage can lead a viewer to certain parts of your image and increase photorealism by correctly mimicking a real-world lens.</p><p><br/></p><p style="text-align: center;"><br/></p><p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><span class="confluence-embedded-file-wrapper image-center-wrapper"><img class="confluence-embedded-image image-center" alt="The Blue Umbrella" loading="lazy" src="../../attachments/544639374/example_BlueUmbrella.jpg" data-image-src="../../attachments/544639374/example_BlueUmbrella.jpg" data-unresolved-comment-count="0" data-linked-resource-id="544639388" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="example_BlueUmbrella.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544639374" data-linked-resource-container-version="1" data-media-id="0c3eb1bb-cf02-49ea-9e27-456843e3faeb" data-media-type="file"></span></span></p><p><br/></p><p>RenderMan provides controls for realistic and compelling images with depth of field. There are also options that are non-physical but great for creating art-directed imagery.</p><p><br/></p><div class="confluence-information-macro confluence-information-macro-warning conf-macro output-block" data-hasbody="true" data-macro-id="f4754ccb-8c85-4bba-997c-135b18b0443e" data-macro-name="warning"><span class="aui-icon aui-icon-small aui-iconfont-error confluence-information-macro-icon"> </span><div class="confluence-information-macro-body">The render cost of depth of field can be high as it generates noise that needs many more samples to converge. But the result can be impressive.</div></div><p><br/></p><p>To begin using DOF in Blender, go to the camera data properties <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image confluence-thumbnail" height="25" loading="lazy" src="../../attachments/544639374/camera_data_properties.png" data-image-src="../../attachments/544639374/camera_data_properties.png" data-unresolved-comment-count="0" data-linked-resource-id="544639397" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="camera_data_properties.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544639374" data-linked-resource-container-version="1" data-media-id="2d50d06f-5135-4166-821f-4a06ee7b5ed9" data-media-type="file"></span> for the camera that you want to to render DOF from, and click the checkbox next to Depth of Field, as shown below.</p><p><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/544639374/dof.png" data-image-src="../../attachments/544639374/dof.png" data-unresolved-comment-count="0" data-linked-resource-id="544639400" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="dof.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544639374" data-linked-resource-container-version="1" data-media-id="be2fada7-dfaa-4fc2-8661-f7f5735d588c" data-media-type="file"></span></p><ul><li>F Stop: <span class="legacy-color-text-default">Like a real camera lens, this setting controls the strength of the effect. Lower values increase blur while higher values decrease blur.</span></li><li><span class="legacy-color-text-default">Ratio: Depth of field aspect.</span></li><li><span class="legacy-color-text-default">Blades: <span class="legacy-color-text-default">This determines the shape of the bokeh effect. If you choose fewer than three sides (triangle) the bokeh will be circular.</span></span></li><li><span class="legacy-color-text-default"><span class="legacy-color-text-default">Rotation: <span class="legacy-color-text-default">This controls the angle where sides meet for non-circular bokeh shapes (Number of Sides is greater than 2).</span></span></span></li><li><span class="legacy-color-text-default"><span class="legacy-color-text-default"><span class="legacy-color-text-default">Roundness: <span class="legacy-color-text-default">Values from 0 to 1 make the shape bow or flex outwards making it more rounded. Values from 0 to -1 bow inwards and make for sharper points.</span></span></span></span></li><li><span class="legacy-color-text-default">Density: <span class="legacy-color-text-default">This controls the brightness across the bokeh shape. 0 to 1 makes it brighter at the outer edge like a catadrioptic lens (look it up, quite interesting). 0 to -1 makes it brighter in the center and falloff towards the edges.</span></span></li></ul><p><span class="legacy-color-text-default">For more information on the various aperture controls, see <a href="/wiki/spaces/RFH26/pages/19267659/Bokeh" data-linked-resource-id="19267659" data-linked-resource-version="5" data-linked-resource-type="page">Bokeh</a>.</span></p><h3 id="DepthofFieldinBlender-Focus">Focus</h3><ul><li>Distance: <span class="legacy-color-text-default">The distance to the object or location you want in-focus (sharp) measured in scene grid units. This is referred to as the </span><em>Focal Plane</em><span class="legacy-color-text-default">.</span></li><li><span class="legacy-color-text-default">Focus Object: You can also select an object from the scene to be your distance. RfB will use this value over the value set for Distance.</span></li></ul><p><span class="legacy-color-text-default"><br/></span></p><p><span class="legacy-color-text-default"><br/></span></p><p><span class="confluence-embedded-file-wrapper image-left-wrapper"><img class="confluence-embedded-image image-left" alt="The Good Dinosaur" loading="lazy" src="../../attachments/544639374/example_GoodDinosaur.jpg" data-image-src="../../attachments/544639374/example_GoodDinosaur.jpg" data-unresolved-comment-count="0" data-linked-resource-id="544639391" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="example_GoodDinosaur.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544639374" data-linked-resource-container-version="1" data-media-id="895da0fe-c731-401c-a331-9245a3b35795" data-media-type="file"></span></p><p><span class="legacy-color-text-default"><br/></span></p>
+  </article>
+</main>
+</body>
+</html>

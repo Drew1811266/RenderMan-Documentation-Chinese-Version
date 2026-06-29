@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bakery Compositing</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Bakery Compositing</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RU/657621053/Bakery+Compositing">https://rmanwiki-27.pixar.com/space/RU/657621053/Bakery+Compositing</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<h3 id="BakeryCompositing-Compositing">Compositing</h3><p>Once the AOVs have been Denoised, I use the Light Groups to rebuild the beauty pass in Nuke. This allows me to make modifications directly to the lights, be it exposure, tint, or contrast.</p><p>For further stylization,  the shadows have been tinted blue and the highlights have a slight orange and violet tint, which help accentuate the sensation of warmth. Before merging the layers, I use the Cryptomattes on certain glass objects whose brightness overpowers the image. To accomplish this, all I have to do is lower their reflection in the Light Groups and their specularity in the LPEs. Once the depth of field has been set using the Z pass in the utilities, it's time to merge the layers!</p><p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="french-bakery-raw-render.jpg" width="760" loading="lazy" src="../../attachments/657621053/french-bakery-raw-render.jpg" data-image-src="../../attachments/657621053/french-bakery-raw-render.jpg" data-height="1080" data-width="1920" data-unresolved-comment-count="0" data-linked-resource-id="657621063" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="french-bakery-raw-render.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="657621053" data-linked-resource-container-version="1" data-media-id="1f89508b-a6a4-4bb1-a8bd-e35c4e54fdb2" data-media-type="file"></span><p /><p>The next step is to accentuate the viewing direction by using a Grade node where we can lower the gamma. The resulting contrast focuses attention on areas of light.</p><p>The Glow and eFibonacciGlow nodes enable me to intensify sunlight by giving it a glow and simulating a lens smear, which gives the scene a dreamy look. To prevent the light from diffusing into shadows areas, it's important to isolate these highlights in a mask with the Keyer node.</p><p>Finally, we recreate the chromatic aberrations of a camera, apply lens vignetting, and a touch of grain to the image. Enjoy playing with the project!</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="french-bakery-comp.jpg" width="760" loading="lazy" src="../../attachments/657621053/french-bakery-comp.jpg" data-image-src="../../attachments/657621053/french-bakery-comp.jpg" data-height="1080" data-width="1920" data-unresolved-comment-count="0" data-linked-resource-id="657621070" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="french-bakery-comp.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="657621053" data-linked-resource-container-version="1" data-media-id="15ae9956-2591-41fc-bd00-11853315d1af" data-media-type="file"></span><p /><hr/>
+  </article>
+</main>
+</body>
+</html>

@@ -1,0 +1,161 @@
+{
+  "phase": 781,
+  "file": "TRA/22184332-Image Preview.html",
+  "file_id": "a5c93571b6",
+  "source_items": 28,
+  "translation_rows": 28,
+  "source_items_match_translation_rows": true,
+  "duplicate_rows": [],
+  "missing_item_ids": [],
+  "extra_item_ids": [],
+  "tag_fingerprint_identical": true,
+  "rendered_markup_matches_target_markup": true,
+  "glossary_violations": [],
+  "direct_placement_missing": [],
+  "actionable_long_source_residuals": [],
+  "accepted_long_source_residuals": [
+    {
+      "item_id": "a5c93571b6:22",
+      "source": "scheme_name:scheme_parameters"
+    }
+  ],
+  "actionable_ascii_heavy_residuals": [],
+  "accepted_ascii_heavy_residuals": [
+    {
+      "item_id": "a5c93571b6:2",
+      "text": "-- 要启用关于 image preview 的 site-specific policy，管理员应检查并很可能修改配置文件 “trSiteDashboardFunctions.js” 中的默认 preview handlers -- 请查找名为 “trSiteOpenPreviewLink” 的 callback function。",
+      "ascii_letters": 108,
+      "cjk_chars": 32
+    },
+    {
+      "item_id": "a5c93571b6:3",
+      "text": "背景信息说明（Background）",
+      "ascii_letters": 10,
+      "cjk_chars": 6
+    },
+    {
+      "item_id": "a5c93571b6:6",
+      "text": "正在使用哪些 image file formats？常规 output images 能否由 browser 内置的 “img” support 直接显示，还是需要特殊的 pre-processing 或外部 display programs？",
+      "ascii_letters": 73,
+      "cjk_chars": 28
+    },
+    {
+      "item_id": "a5c93571b6:7",
+      "text": "谁在使用 Dashboard interface？想看 preview images 的人是否始终是 artists 本人，并且他们在自己的 desktop workstations 上工作，Tractor Dashboard browser 也运行在同一台机器上？如果 wranglers、TDs 或 administrators 会从不同用户的 jobs 访问 images，并且从不同 network locations、不同 devices 访问 Tractor 的 web interface，preview schemes 可能需要不同的 configuration schemes。",
+      "ascii_letters": 192,
+      "cjk_chars": 65
+    },
+    {
+      "item_id": "a5c93571b6:8",
+      "text": "默认情况下，browsers 中的 security features 会阻止像 Tractor Dashboard 这样的 web page applications 启动外部 image display programs 或任何其他 process。这样做会造成严重 security holes，因为这意味着随机网页中嵌入的 javascript 可以对你的 local machine “做事情”，例如运行 executables 或读写 files。在评估这类访问的实际价值与风险之间的权衡时，显然需要考虑 site-specific factors。",
+      "ascii_letters": 156,
+      "cjk_chars": 87
+    },
+    {
+      "item_id": "a5c93571b6:9",
+      "text": "Preview Solutions（预览解决方案）",
+      "ascii_letters": 16,
+      "cjk_chars": 6
+    },
+    {
+      "item_id": "a5c93571b6:10",
+      "text": "通过基于 web browser 的 Tractor Dashboard 显示 images 有两种基本方法。最简单也最安全的一种，是让 web browser 自己直接从网络上的 web server 获取 images，就像获取 web 上的任何其他 image 一样。另一种方法是在每个用户的 desktop（或其他 web-browsing device）上安装 custom image viewing plug-in，然后指示该 plug-in 使用自己的 custom mechanism 来查找、读取并显示 image pixels。",
+      "ascii_letters": 145,
+      "cjk_chars": 85
+    },
+    {
+      "item_id": "a5c93571b6:11",
+      "text": "第一种情况下，Tractor Dashboard 中的 JavaScript code 会让 web browser 从 Tractor Engine 或本地网络某处的另一个",
+      "ascii_letters": 53,
+      "cjk_chars": 22
+    },
+    {
+      "item_id": "a5c93571b6:12",
+      "text": "web server",
+      "ascii_letters": 9,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "a5c93571b6:13",
+      "text": "请求 image。browser 获得 image 的 URL 后，会通过 http 在单独的 browser window 中自行加载 image。这种方法要求所有可 preview 的 renders 必须生成 browser 可以原生显示的 output images；例如要注意，TIFF images 在大多数 browsers 中并不被广泛支持。该方案还要求 renderers 必须把 output images 写到给定 web server 可读取的位置，也就是说，从 web server 的角度看，renderings 必须位于 webserver 的 document tree 内。指定 preview image names 的 job scripts 必须小心使用 output image 的完整 network paths",
+      "ascii_letters": 213,
+      "cjk_chars": 102
+    },
+    {
+      "item_id": "a5c93571b6:14",
+      "text": "（从 web server 的角度看）。",
+      "ascii_letters": 9,
+      "cjk_chars": 5
+    },
+    {
+      "item_id": "a5c93571b6:15",
+      "text": "在 assets 存储于 central fileservers 的站点中，很可能已经在使用这样的 network path，并且 engine 使用的 chaser/preview paths 会与 artists 在自己 workstations 上使用的路径相同。",
+      "ascii_letters": 78,
+      "cjk_chars": 37
+    },
+    {
+      "item_id": "a5c93571b6:16",
+      "text": "可以通过向 tractor.config 中的 SiteURLMap configuration table 添加 entries，使 network mounts 在 tractor-engine 的 web document root 中“虚拟”出现。表中的每一对 paths 都表示一种映射：从相对于 engine document root 的 reference，映射到 filesystem 中其他位置。常见的新增 mappings 会采用简单的 “duplicate” 形式：",
+      "ascii_letters": 148,
+      "cjk_chars": 56
+    },
+    {
+      "item_id": "a5c93571b6:17",
+      "text": "“/net/assets/previews”, “/net/assets/previews”,",
+      "ascii_letters": 34,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "a5c93571b6:18",
+      "text": "它会把对 “/tractor/net/assets/previews” 中 images 的 http requests 映射到 filesystem location “/net/assets/previews”。",
+      "ascii_letters": 77,
+      "cjk_chars": 9
+    },
+    {
+      "item_id": "a5c93571b6:20",
+      "text": "browser plug-in",
+      "ascii_letters": 13,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "a5c93571b6:21",
+      "text": "方法中，Tractor Dashboard JavaScript code 会要求用户的 browser 打开 job script 中指定的 chaser URI。这些 URI 通常采用如下格式：",
+      "ascii_letters": 58,
+      "cjk_chars": 25
+    },
+    {
+      "item_id": "a5c93571b6:22",
+      "text": "scheme_name:scheme_parameters",
+      "ascii_letters": 26,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "a5c93571b6:24",
+      "text": "example.com",
+      "ascii_letters": 10,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "a5c93571b6:25",
+      "text": "” 的 “mailto” URI 链接。当有人点击该链接时，browser 会为 “mailto” scheme 使用特殊 handler，通常会要求底层 operating system 启动用户偏好的 mail application。",
+      "ascii_letters": 65,
+      "cjk_chars": 32
+    },
+    {
+      "item_id": "a5c93571b6:26",
+      "text": "也可以通过这种 URI scheme mechanism 调用其他内置或 3rd-party browser extensions。Tractor 只是调用 browser 的 “open” method 打开 job 的 chaser command 中提供的 URI，并假定 site administrators 已经协调好 job script generation 和可用 browser plug-ins，从而在用户 desktop 上调用期望的 application。这类 plug-ins 可以执行许多 arbitrary things，包括读取 browser host 上的 local files；这当然可能非常有用，也很容易被滥用。",
+      "ascii_letters": 197,
+      "cjk_chars": 78
+    },
+    {
+      "item_id": "a5c93571b6:27",
+      "text": "因此，使用 URI handler 方法时，preview renders 可以把 temporary images 写到用户 local desktop 上的某个位置，然后 dashboard + plug-in 组合可以让功能完整的 native display application 启动，并直接在 desktop 上显示 image。在这种情况下，不一定需要 globally shared files，不过如果可用，启动的 app 当然也可以使用它们。plug-in 方法的缺点是，你需要为每个 workstation platform 或其他查看 Tractor Dashboard web page 的 device 编译 browser-specific version 的 plug-in。另外，如果你离开工位时尝试 preview 某个 rendering，本地 device 上的 plug-in 必须能够以某种方式自行访问 output image，无论该 image 位于 web 的何处。",
+      "ascii_letters": 253,
+      "cjk_chars": 130
+    }
+  ],
+  "required_phrase_missing": [],
+  "section_order_positions": [],
+  "section_order_ok": true,
+  "passed": true
+}

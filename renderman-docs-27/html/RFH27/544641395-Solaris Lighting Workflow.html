@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Solaris Lighting Workflow</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Solaris Lighting Workflow</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFH27/544641395/Solaris+Lighting+Workflow">https://rmanwiki-27.pixar.com/space/RFH27/544641395/Solaris+Lighting+Workflow</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>Solaris allows you to create lights and export them to USD. <br/>These lighting setups can be shared and imported into other scenes. See the Solaris documentation for more information on lighting workflows.</p><h2 id="SolarisLightingWorkflow-CreatingLights">Creating Lights</h2><p>In the stage view, add a Light node and select the light type from the <em>Type</em> parameter list. PxrDomeLight is available through a separate Dome Light node. </p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="900" loading="lazy" src="../../attachments/544641395/RenderMan_Solaris_LightTypes_1.JPG" data-image-src="../../attachments/544641395/RenderMan_Solaris_LightTypes_1.JPG" data-height="388" data-width="1037" data-unresolved-comment-count="0" data-linked-resource-id="544641422" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Solaris_LightTypes_1.JPG" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544641395" data-linked-resource-container-version="1" data-media-id="49dbeef0-ae88-46ac-9dbc-d2bfac082769" data-media-type="file"></span><p>Parameters that are part of the USDLuxLight schema are available on the node’s<em> Base Properties</em>, <em>Shaping</em>, and <em>Shadow</em> tabs.  These parameters can be used in multi-renderer workflows.  The available parameters vary based on the type of light.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="900" loading="lazy" src="../../attachments/544641395/RenderMan_Solaris_LightTypes_2.jpg" data-image-src="../../attachments/544641395/RenderMan_Solaris_LightTypes_2.jpg" data-height="574" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="544641419" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Solaris_LightTypes_2.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544641395" data-linked-resource-container-version="1" data-media-id="a293de7d-650e-470b-a886-f976a4031eac" data-media-type="file"></span><p>Parameters that are specific to RenderMan lights are available in the node's RenderMan tab.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="900" loading="lazy" src="../../attachments/544641395/RenderMan_Solaris_LightTypes_3.jpg" data-image-src="../../attachments/544641395/RenderMan_Solaris_LightTypes_3.jpg" data-height="575" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="544641416" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Solaris_LightTypes_3.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544641395" data-linked-resource-container-version="1" data-media-id="b0d45b0f-28f4-44db-902d-51485f196d37" data-media-type="file"></span><p>The Light Mixer node is a convenient place to view and edit basic light properties like intensity, exposure, and color.  You can also control these effects on multiple lights by creating collections of lights.  The Light Mixer also provides a way to mute and solo your lights.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="900" loading="lazy" src="../../attachments/544641395/RenderMan_Solaris_LightTypes_4.jpg" data-image-src="../../attachments/544641395/RenderMan_Solaris_LightTypes_4.jpg" data-height="573" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="544641413" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Solaris_LightTypes_4.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544641395" data-linked-resource-container-version="1" data-media-id="6d4b2f9f-824c-45cf-90f3-05e47af7461f" data-media-type="file"></span><hr/><h2 id="SolarisLightingWorkflow-Lightlinking">Light linking</h2><p>Light linking can be done with the Light Linker node. <br/>Simply drag lights or collections of lights to the center <em>Rules</em> section.  Then drag geometry to the on/off sections for each light.  Similarly, you can drag geometry into the Rules section and add lights to the on/off sections for the geometry.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="900" loading="lazy" src="../../attachments/544641395/RenderMan_Solaris_LightTypes_5.jpg" data-image-src="../../attachments/544641395/RenderMan_Solaris_LightTypes_5.jpg" data-height="578" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="544641410" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Solaris_LightTypes_5.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544641395" data-linked-resource-container-version="1" data-media-id="db086f51-9798-4475-a90d-3c94883eed67" data-media-type="file"></span><hr/><h2 id="SolarisLightingWorkflow-DifferencesfromRfH">Differences from RfH</h2><p>Light shapes are visible to the camera by default.  In order to turn off the visibility on all lights, create a Render Geometry Settings node, and set the Primitives scope to &quot;All Light Primitives&quot;. <br/><br/>Then in the RenderMan tab, override the setting with Set and Create and then uncheck the Camera Visibility setting.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="900" loading="lazy" src="../../attachments/544641395/RenderMan_Solaris_LightTypes_6.jpg" data-image-src="../../attachments/544641395/RenderMan_Solaris_LightTypes_6.jpg" data-height="575" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="544641407" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Solaris_LightTypes_6.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544641395" data-linked-resource-container-version="1" data-media-id="684dbc00-d571-4d29-981c-0fa01d6eb6d5" data-media-type="file"></span><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="10699a26-3b99-4feb-9023-5d02cf3518b7" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>Solaris does not automatically convert your textures.  <br />To use a texture on a light source, you must first use the Texture Manager panel to convert the files to .tex</p></div></div><p />
+  </article>
+</main>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Color Management</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Color Management</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/REN27/542236678/Color+Management">https://rmanwiki-27.pixar.com/space/REN27/542236678/Color+Management</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><style>[data-colorid=ovcwdq5jgg]{color:#4269b8} html[data-color-mode=dark] [data-colorid=ovcwdq5jgg]{color:#476ebd}[data-colorid=xidtxu74ag]{color:#4269b8} html[data-color-mode=dark] [data-colorid=xidtxu74ag]{color:#476ebd}[data-colorid=seqh0rm4k4]{color:#3d90b3} html[data-color-mode=dark] [data-colorid=seqh0rm4k4]{color:#4c9fc2}[data-colorid=l41cpzasvg]{color:#3d90b3} html[data-color-mode=dark] [data-colorid=l41cpzasvg]{color:#4c9fc2}[data-colorid=fnn8v9stxc]{color:#4269b8} html[data-color-mode=dark] [data-colorid=fnn8v9stxc]{color:#476ebd}[data-colorid=hfgqvruqpr]{color:#4269b8} html[data-color-mode=dark] [data-colorid=hfgqvruqpr]{color:#476ebd}[data-colorid=rtcoo8twkm]{color:#3d90b3} html[data-color-mode=dark] [data-colorid=rtcoo8twkm]{color:#4c9fc2}[data-colorid=u9b0k0odfh]{color:#3d90b3} html[data-color-mode=dark] [data-colorid=u9b0k0odfh]{color:#4c9fc2}[data-colorid=xdutlapyp7]{color:#3d90b3} html[data-color-mode=dark] [data-colorid=xdutlapyp7]{color:#4c9fc2}[data-colorid=arp1tpt608]{color:#3d90b3} html[data-color-mode=dark] [data-colorid=arp1tpt608]{color:#4c9fc2}[data-colorid=tf179856y3]{color:#4269b8} html[data-color-mode=dark] [data-colorid=tf179856y3]{color:#476ebd}[data-colorid=hin50gowmi]{color:#3d90b3} html[data-color-mode=dark] [data-colorid=hin50gowmi]{color:#4c9fc2}</style><img class="confluence-embedded-image image-center" width="1356" loading="lazy" src="../../attachments/542236678/RenderMan_OCIO_Aces_Header.jpg" data-image-src="../../attachments/542236678/RenderMan_OCIO_Aces_Header.jpg" data-height="718" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="542236693" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_OCIO_Aces_Header.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542236678" data-linked-resource-container-version="1" data-media-id="5b758419-d05c-4281-b465-4e6ecb1d4445" data-media-type="file" /></span><p><span class="legacy-color-text-default">RenderMan 在所有 bridge 产品中都对行业标准 ACES 色彩管理系统以及其他颜色空间提供稳健支持，例如流行的 Filmic Blender，也包括交互式 RenderMan Image Tool。</span></p><h2 id="ColorManagement-OCIOConfigurations">OCIO 配置</h2><p>RenderMan 随附多个 OCIO 配置：</p><p /><p><strong><span data-colorid="u9b0k0odfh">LINEAR-sRGB</span></strong><br />最初的 Sony Pictures Imageworks 配置已经使用了很长时间。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="600" loading="lazy" src="../../attachments/542236678/RenderMan_OCIO_Linear.jpg" data-image-src="../../attachments/542236678/RenderMan_OCIO_Linear.jpg" data-height="561" data-width="1000" data-unresolved-comment-count="0" data-linked-resource-id="542236702" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_OCIO_Linear.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542236678" data-linked-resource-container-version="1" data-media-id="bc83b901-ab4d-40f2-b619-043c6ff03609" data-media-type="file" /></span><p /><p><strong><span data-colorid="seqh0rm4k4">ACES-1.2</span></strong><br />用于电影制作和计算机图形的视觉特效标准 Academy Colour Encoding System（学院色彩编码系统）。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="600" loading="lazy" src="../../attachments/542236678/RenderMan_OCIO_Aces2.jpg" data-image-src="../../attachments/542236678/RenderMan_OCIO_Aces2.jpg" data-height="718" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="542236699" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_OCIO_Aces2.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542236678" data-linked-resource-container-version="1" data-media-id="b853128a-7904-4e1e-aa95-53f2b5d14f30" data-media-type="file" /></span><p /><p /><p><strong><span data-colorid="l41cpzasvg">FILMIC BLENDER</span></strong><br />一种流行的基于 BT.709 的配置，可提供 high dynamic range（高动态范围）以及胶片底片中常见的其他效果。由 Troy Sobotka 开发。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="600" loading="lazy" src="../../attachments/542236678/RenderMan_Filmic_base.gif" data-image-src="../../attachments/542236678/RenderMan_Filmic_base.gif" data-height="335" data-width="600" data-unresolved-comment-count="0" data-linked-resource-id="542236690" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Filmic_base.gif" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/gif" data-linked-resource-container-id="542236678" data-linked-resource-container-version="1" data-media-id="0557347b-21d5-4550-87d7-3b58e6b23224" data-media-type="file" /></span><p /><h3 id="ColorManagement-Configurationselection">配置选择</h3><ul><li><p><span data-colorid="hfgqvruqpr">$OCIO</span>：使用系统环境变量定义的颜色空间。通常为 sRGB。</p></li><li><p><span data-colorid="xidtxu74ag">Off</span>：Scene Linear 被定义为整个场景的颜色空间。</p></li><li><p><span data-colorid="tf179856y3">ACES1.2</span>：使用随 RenderMan 24 提供的 ACES 1.2 色彩编码系统。</p></li><li><p><span data-colorid="fnn8v9stxc">Filmic Blender</span>：使用流行的 BT.709 颜色空间。</p></li><li><p><span data-colorid="ovcwdq5jgg">Custom</span><span class="legacy-color-text-default">：允许指定自定义颜色空间文件。</span><br /><br /></p></li></ul><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="8e1b18ac-a20d-4b83-a3a2-e32dd4bbe824" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>请注意，在 OCIO 配置之间切换时，需要关闭并重新打开 IT，新的颜色空间才能在 IT 中正确显示。</p></div></div><h2 id="ColorManagement-Colormanageditems">受色彩管理的项目</h2><ul><li><p><span data-colorid="arp1tpt608">UI 色彩值</span></p><ul><li><p>所有 DCC 应用都会提供受色彩管理的拾色器，并返回 rendering colorspace（渲染颜色空间）中的颜色。RenderMan 只是按原样使用这些颜色。</p></li></ul></li><li><p><span data-colorid="hin50gowmi">灯光</span></p><ul><li><p>Color Temperature 在 24.0 之前按 Rec.709 计算，现在则受色彩管理。</p></li><li><p>PxrEnvDayLight 也受色彩管理，并依赖&nbsp;<strong>srgb_linear&nbsp;</strong>role（角色）。</p></li></ul></li><li><p><span data-colorid="rtcoo8twkm">纹理</span></p><ul><li><p>纹理必须先转换到&nbsp;<strong>rendering color space（渲染颜色空间）</strong>&nbsp;后才能使用。这项任务可由 Texture Manager 完成。</p></li><li><p>也可以使用 PxrColorSpace pattern 将纹理颜色从一个颜色空间转换到另一个颜色空间，但会带来性能成本。</p></li></ul></li><li><p><span data-colorid="xdutlapyp7">Patterns（图案）</span></p><ul><li><p>PxrBlackBody 受色彩管理。</p></li><li><p>PxrHairColor 受色彩管理。</p></li><li><p>PxrColorSpace 允许美术人员从一个颜色空间转换到&nbsp;<strong>rendering space（渲染空间）</strong>&nbsp;。</p></li></ul></li></ul><p /><p /><p />
+  </article>
+</main>
+</body>
+</html>

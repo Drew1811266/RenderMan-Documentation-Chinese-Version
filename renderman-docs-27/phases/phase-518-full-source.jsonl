@@ -1,0 +1,61 @@
+{"item_id": "619527435b:0", "source": "Do you need help setting up"}
+{"item_id": "619527435b:1", "source": "Depth of Field in Maya"}
+{"item_id": "619527435b:2", "source": "or tuning the look of"}
+{"item_id": "619527435b:3", "source": "Bokeh in Maya"}
+{"item_id": "619527435b:4", "source": "effects?"}
+{"item_id": "619527435b:5", "source": "Download an"}
+{"item_id": "619527435b:6", "source": "Example Maya Scene"}
+{"item_id": "619527435b:7", "source": "Tilt-Shift options are actually two different options in the camera. Tilt and Roll controls are designed to allow the user to point the lens in a different direction than the camera body. The Shift Options allow the user to move the lens in X (cross) and Y (rise and fall) while pointing it in the same direction as the camera. Focus 1, 2, and 3 allow the user to define an arbitrary plane of focus as a triangle (related to the Tilt controls). More explanation can be found below on each of these options."}
+{"item_id": "619527435b:8", "source": "You can access the controls by opening the Camera Attribute Editor and under the RenderMan rollout select \"Enable Camera Projection\""}
+{"item_id": "619527435b:9", "source": "You will notice the Camera Projection field is empty. If you right-click you'll get two options: Omnidirectionalstereo (for VR and similar applications) and PxrCamera, choose the latter."}
+{"item_id": "619527435b:10", "source": "It's important to match your"}
+{"item_id": "619527435b:11", "source": "Field of View"}
+{"item_id": "619527435b:12", "source": "with your Maya Camera or you may not get the same framing as what you are using in your viewport. You may also select the \"Use Camera Settings\" on the camera editor."}
+{"item_id": "619527435b:13", "source": "Tilt Angle:"}
+{"item_id": "619527435b:14", "source": "This allows pointing the lens in a different direction than the camera body. If you noticed in the"}
+{"item_id": "619527435b:15", "source": "Depth of Field in Maya"}
+{"item_id": "619527435b:16", "source": "section, the focal plane is parallel to the imaging plane. But what if you have a subject that is not parallel to the image plane? In architecture it's possible you have a wall that recedes at an angle away from the camera and you want to keep its length in focus without changing the camera framing. Tilt allows you to do this by angling the lens so that it's no longer perpendicular to the image plane."}
+{"item_id": "619527435b:17", "source": "In the below example the first image shows the focal plane as a dark bar and objects as blue and red spheres and to the right is the resulting render. This is parallel to the image plane in the camera. However, if you wanted the blue spheres to be in focus without changing the framing you can"}
+{"item_id": "619527435b:18", "source": "tilt"}
+{"item_id": "619527435b:19", "source": "the lens to alter the focal plane as shown in the second row of images."}
+{"item_id": "619527435b:20", "source": "See the difference when applying a tilt and roll to the lens."}
+{"item_id": "619527435b:21", "source": "Roll Angle:"}
+{"item_id": "619527435b:22", "source": "This option allows the user to rotate the lens clockwise and is only effective if there's some degree of Tilt applied. Combining Tilt and Roll means the lens can be pointed in a somewhat limited hemisphere from the camera body."}
+{"item_id": "619527435b:23", "source": "Focus Points:"}
+{"item_id": "619527435b:24", "source": "You probably remember from geometry class that three points define a plane or triangle. This triangle can be user-defined in RenderMan to create any arbitrary plane of focus. Below we show how to do this more interactively in Maya using locators for perfect selective focus."}
+{"item_id": "619527435b:25", "source": "These points are all located in world space in your scene. Adjusting these manually can be very tedious so the below workflow is suggested to create a visual way to define the focal plane:"}
+{"item_id": "619527435b:26", "source": "Create a polygonal triangle."}
+{"item_id": "619527435b:27", "source": "Using the Animation Deformer menu, create a"}
+{"item_id": "619527435b:28", "source": "cluster handle"}
+{"item_id": "619527435b:29", "source": "on each vertex. Select the vertex first then"}
+{"item_id": "619527435b:30", "source": "Animation Menu > Anim Deform > Open Full Deform Menu > Cluster"}
+{"item_id": "619527435b:31", "source": "Create a locator under the"}
+{"item_id": "619527435b:32", "source": "Create Menu > Locator"}
+{"item_id": "619527435b:33", "source": "and snap it to the vertex. Make the cluster handle a child of the locator transform. Now moving your locator moves the cluster and its vertex."}
+{"item_id": "619527435b:34", "source": "You should now have a polygonal triangle that changes position when you move a locator. Note that the locators are an extra step, you could simply use the cluster handles. However, locators are easy to select in the viewport and exclude from view using the"}
+{"item_id": "619527435b:35", "source": "Show Menu"}
+{"item_id": "619527435b:36", "source": ". Remember to Hide the triangle before rendering using a pre-render script or it will render in your scene, or you can select the triangle shape and turn off all of the"}
+{"item_id": "619527435b:37", "source": "Render Stats"}
+{"item_id": "619527435b:38", "source": "so that it doesn't render. RenderMan will report a warning at render time that it's not visible."}
+{"item_id": "619527435b:39", "source": "Now that you have a way to see your focal plane, you need to connect the transform outputs of locators (or cluster handles) to the"}
+{"item_id": "619527435b:40", "source": "Focus Parameters"}
+{"item_id": "619527435b:41", "source": "for the PxrCamera."}
+{"item_id": "619527435b:42", "source": "Select the PxrCamera from the Outliner (you can make it visible by"}
+{"item_id": "619527435b:43", "source": "deselecting"}
+{"item_id": "619527435b:44", "source": "Display > DAG Object Only"}
+{"item_id": "619527435b:45", "source": "in the Outliner Window) or by using this handy script:"}
+{"item_id": "619527435b:46", "source": "Load this and a locator transform into the Connection Editor. Connect the Locator"}
+{"item_id": "619527435b:47", "source": "Translate"}
+{"item_id": "619527435b:48", "source": "to a PxrCamera"}
+{"item_id": "619527435b:49", "source": "Focus"}
+{"item_id": "619527435b:50", "source": "for each locator."}
+{"item_id": "619527435b:51", "source": "The resulting setup can be seen below in the Maya Viewport where the red triangle represents the new focal plane. Be sure you've enabled"}
+{"item_id": "619527435b:52", "source": "Depth of Field in Maya"}
+{"item_id": "619527435b:53", "source": "in your render camera and render away!"}
+{"item_id": "619527435b:54", "source": "The below images were rendered using the above setup."}
+{"item_id": "619527435b:55", "source": "This arbitrary focal plane method is not without risk. If your focal plan is too narrow/perpendicular to the camera image plan, your render will fail to output despite slowly rendering a black image. Below is an example where the plane generates an empty image."}
+{"item_id": "619527435b:56", "source": "Shift X Y:"}
+{"item_id": "619527435b:57", "source": "This control shifts the lens up and down or back and forth. In architecture this control has been used to maintain parallel lines in a composition. For example: In some cases a building that's tall may look like it's falling backwards because the top of it appears to converge at a point. Shifting can correct for this perspective view."}
+{"item_id": "619527435b:58", "source": "In the below images, imagine framing a building with your camera but the building is just too tall to fit in your view. So you tilt the whole camera upwards and frame the whole building. But now you have perspective distortion. In the last frame the lens is"}
+{"item_id": "619527435b:59", "source": "shifted"}
+{"item_id": "619527435b:60", "source": "to correct for the distortion."}

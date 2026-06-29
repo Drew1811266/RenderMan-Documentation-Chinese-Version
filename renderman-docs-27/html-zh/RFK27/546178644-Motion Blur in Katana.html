@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Motion Blur in Katana</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Motion Blur in Katana</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFK27/546178644/Motion+Blur+in+Katana">https://rmanwiki-27.pixar.com/space/RFK27/546178644/Motion+Blur+in+Katana</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>当 RenderSettings 的 <em>maxTimeSamples</em> 大于 1 时，会启用 Motion Blur（运动模糊）。值为 1 表示没有 Motion Blur。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="834" loading="lazy" src="../../attachments/546178644/rfkMotionBlur.png" data-image-src="../../attachments/546178644/rfkMotionBlur.png" data-height="362" data-width="755" data-unresolved-comment-count="0" data-linked-resource-id="546178663" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfkMotionBlur.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="546178644" data-linked-resource-container-version="4" data-media-id="f7bec397-e11d-4c72-a54c-d2584a54a1aa" data-media-type="file"></span><p>这个 <em>maxTimeSamples</em> 参数用于两种情况：</p><ul><li><p>对于支持多重采样的节点，例如 CameraCreate 和 PrimitiveCreate，maxTimeSamples 表示 motion block（MotionBegin/MotionEnd）的时间采样数。</p></li><li><p>对于 Alembic_In 这样的插件， </p><ul><li><p>maxTimeSamples 只用作开启/关闭 Motion Blur（运动模糊）的开关。修改它不会改变 motion block 的时间采样数。 </p></li><li><p>Alembic_In 节点在 Advanced 区段中提供一个名为 "useOnlyShutterOpenCloseTimes" 的参数；当 maxTimeSamples 设为 2 时，它会强制 Alembic 缓存只使用与快门开启和闭合时间对应的时间采样。</p></li><li><p>要在 Maya 的 Alembic Exporter 中修改 Alembic 缓存的时间采样数量，请开启 <em>Frame relative sample（帧相对采样）</em> 并设置其 Low 和 High 值。  </p></li></ul></li></ul><p /><h3 id="MotionBlurinKatana-ShutterOpen/Close">Shutter Open/Close（快门开启/闭合）</h3><p>这个 <em>shutterOpen</em> 和 <em>shutterClose</em> 参数在 RenderSettings 中设置快门开启和闭合的最小/最大时间。Open (min) 应小于 Close (max)。如果 min 等于 max，则没有 Motion Blur（运动模糊）。在摄影机快门打开期间，运动物体会产生模糊。</p><p /><h3 id="MotionBlurinKatana-CameraShutterOpening">Camera Shutter Opening（摄影机快门开启）</h3><p>摄影机的 <a href="https://rmanwiki-26.pixar.com/space/REN26/19661763/Shutter" data-linked-resource-id="19661763" data-linked-resource-version="6" data-linked-resource-type="page">快门效率</a> 控制项位于 <a href="546178709-Camera Settings in Katana.html" data-linked-resource-id="546178709" data-linked-resource-version="1" data-linked-resource-type="page">PrmanCameraSettings</a> 中。这些控制项允许你调节快门开启和闭合的速率，从而模拟更接近物理摄影机快门的外观。</p><h3 id="MotionBlurinKatana-AdjustingSamples">调整采样</h3><p>当 Motion Blur（运动模糊）较多时，务必增加 <em>maxsamples</em> 数量（在 raytrace hider 上），以便看清模糊中的细节。注意，采样数越高，渲染耗时越长。</p>
+  </article>
+</main>
+</body>
+</html>

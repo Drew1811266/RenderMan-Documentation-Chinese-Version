@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bakery Shading</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Bakery Shading</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RU/657424423/Bakery+Shading">https://rmanwiki-27.pixar.com/space/RU/657424423/Bakery+Shading</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<h3 id="BakeryShading-Shading">Bakery 烘焙坊场景着色流程（Shading）</h3><p>Substance（或 Mari 等其他 3D paint softwares）的另一个优势是 preview capability，它可以让你很好地 overview material，并预先调整 maps。不过，这并不意味着一旦 maps 应用到 PxrSurface 上，我们只需要把它们连接到对应 channels，就可以认为 shading 完成了。Substance 中得到的 rendering 和 RenderMan 中得到的 rendering 之间可能存在差异。因此，在 refine final result 时，有时需要 remap、color correct，或用其他方式 manipulate textures。</p><h5 id="BakeryShading-DuplicationandPxrVary"><br/>复制与变化节点（Duplication and PxrVary）</h5><p>当许多 duplicated elements 共享同一个 PxrSurface 时，我们必须找到方法让这些内容产生 variation。在这种情况下，最有用的 nodes 之一是 PxrVary。连接到 color base 时，这个 node 可以在 saturation、value 和 hue 上引入 variations。这样可以获得更高的 realism，并避免令人畏惧的 “perfect 3D” effect。例如，对于 breads 和 pastries，这让我们能够为 baked goods 添加 subtlety，因为 breads 从来不会 100% 相同……它们会因 flour、water、yeast 和 baking time 略有变化。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Breads_Pastries_PxrVary_comparison.gif" width="760" loading="lazy" src="../../attachments/657424423/Breads_Pastries_PxrVary_comparison.gif" data-image-src="../../attachments/657424423/Breads_Pastries_PxrVary_comparison.gif" data-height="720" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="657227923" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Breads_Pastries_PxrVary_comparison.gif" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/gif" data-linked-resource-container-id="657424423" data-linked-resource-container-version="1" data-media-id="aebc437b-ad81-4bc3-b3a5-46fdf4e420ba" data-media-type="file"></span><h5 id="BakeryShading-RoughnessandSpecular">粗糙度与高光（Roughness and Specular）</h5><p>我还有另一个 technique：在把 Roughness map 应用到 EdgeColor 之前，先使用 remap 将它 invert。然后可以根据需要调整 remap；在这个案例中，我降低它以保留 paint 的 gloss。这个技巧可以在 roughness 中提供更多 variation，并进一步丰富 texture。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Wood_Remap_Specular_Comparison.gif" width="760" loading="lazy" src="../../attachments/657424423/Wood_Remap_Specular_Comparison.gif" data-image-src="../../attachments/657424423/Wood_Remap_Specular_Comparison.gif" data-height="720" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="657227930" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Wood_Remap_Specular_Comparison.gif" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/gif" data-linked-resource-container-id="657424423" data-linked-resource-container-version="1" data-media-id="3ea58693-4f34-4cc8-8474-a82196d03386" data-media-type="file"></span><p>最后，这个 set 的一个特殊之处是它的 viewpoint：它为 overall shot 设计，objects 看起来相对较远。正如我们在 UV section 中已经提到的，我们通过 export small maps 来优化 rendering time，同时也可以因此避免应用 Displacement maps。确实，在这个距离下，一个简单的 Normal map 已足以有效模拟 relief。</p><iframe allowfullscreen="" allowtransparency="true" class="fullscreen-video-iframe conf-macro output-block" data-hasbody="false" data-layout="wide" data-local-id="d2e15d85-bbdd-4223-9b47-d5aeed6a9bf3" data-macro-id="d1243998-9479-480d-ad0f-ff5738e6ddfd" data-macro-name="widget" frameborder="0" height="540" mozallowfullscreen="" src="https://player.vimeo.com/video/1056945242" style="border:none; margin:1em 0em;" webkitallowfullscreen="" width="960">
+</iframe>
+
+<p /><hr/>
+  </article>
+</main>
+</body>
+</html>

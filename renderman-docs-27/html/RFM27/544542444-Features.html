@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Features</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Features</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFM27/544542444/Features">https://rmanwiki-27.pixar.com/space/RFM27/544542444/Features</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>The features tab allows you to enable special features of the RenderMan renderer, such as renderer type, OCIO, Motion Blur, and more.</p><p><br/></p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rfm-render-settings.png" width="595" loading="lazy" src="../../attachments/544542444/rfm-render-settings.png" data-image-src="../../attachments/544542444/rfm-render-settings.png" data-height="693" data-width="595" data-unresolved-comment-count="0" data-linked-resource-id="544542464" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfm-render-settings.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544542444" data-linked-resource-container-version="1" data-media-id="2db84182-eb41-459d-a4d2-f2c03976a1cd" data-media-type="file"></span><p> </p><p><br/></p><h4 id="Features-Renderer">Renderer</h4><p>Define the RenderMan renderer for your scene.</p><ul><li><p><strong>RIS</strong>:  Render your scene using RIS. This is a CPU-only renderer.</p></li><li><p><strong>XPU:  </strong>Render your scene using XPU. This is a CPU + GPU hybrid renderer.</p><ul><li><p><strong>XPU Mode - CPU</strong>: Render with XPU, but only using your CPU.</p></li><li><p><strong>XPU Mode - GPU</strong>: Render with XPU, but only using your GPU.</p></li></ul></li></ul><p><br/></p><h4 id="Features-MotionBlur">Motion Blur</h4><p>RenderMan has a number of controls for creating fast and efficient <a href="/wiki/spaces/RFM27/pages/544541742/Motion+Blur+in+Maya" data-linked-resource-id="544541742" data-linked-resource-version="1" data-linked-resource-type="page">motion blur</a>.</p><p><strong>Motion Blur:</strong>  Enabling motion blur causes moving objects to be blurred along their path of movement in order to prevent temporal aliasing and strobing. When using motion blur, you should increase the number of pixel samples (max samples in the sampling tab), and expect longer rendering times. </p><ul><li><p> <strong>3D</strong>: fully rendered and accurate motion blur</p></li><li><p> <strong>2D</strong>: motion vectors are calculated but motion blur is <em>not</em> rendered, useful for post processes when outputting AOVs like dPdtime and dPdcameratime</p></li></ul><p><strong>Camera Blur:</strong>  The renderer will ignore the movement of the camera when computing motion blur when this feature is disabled. If you do move the camera and want everything in the scene to blur realistically, you will need to turn this feature on; however, you should expect this to be a potentially expensive operation since everything in the scene will blur, creating noise that must converge.</p><p><strong>Shutter Angle:</strong>  <a href="/wiki/spaces/RFM27/pages/544541742/Motion+Blur+in+Maya#ShutterAngle" data-linked-resource-id="544541742" data-linked-resource-version="1" data-linked-resource-type="page">Shutter Angle</a> is only meaningful when Motion Blur is enabled. It controls how long the shutter is open during a frame. Measured in degrees a setting of 360 opens the shutter for the entire frame. The larger the angle, the greater the blur, which may increase render times as more samples are needed to smooth out the blur.</p><p><strong> Shutter Opening:  </strong>By default the shutter effectively opens and closes instantly.  The <a href="/wiki/spaces/RFM27/pages/544541742/Motion+Blur+in+Maya#ShutterOpening" data-linked-resource-id="544541742" data-linked-resource-version="1" data-linked-resource-type="page">Shutter Opening</a> setting is two values, <strong>a</strong> and <strong>b</strong> which are fractions of the shutter interval which let you adjust how long it takes the shutter to open and close.  From 0 to <strong>a</strong> the shutter opens, and from <strong>b</strong> to 1 it closes.<strong>   </strong></p><p><strong>Shutter Timing:</strong>  <a href="/wiki/spaces/RFM27/pages/544541742/Motion+Blur+in+Maya#ShutterTiming" data-linked-resource-id="544541742" data-linked-resource-version="1" data-linked-resource-type="page">Shutter Timing</a> allows you to control how the opening of the shutter should align with the frame.  It can open at the start of the frame, or open before the frame so that it is centered on the frame or will close at the start of the frame.</p><p><br/></p><h4 id="Features-OpenColorIO">OpenColorIO</h4><p><strong>Configuration</strong></p><ul><li><p><strong>$OCIO</strong>: Use the color space defined by your systems environment variable</p></li><li><p><strong>Off :  </strong>Scene Linear is defined as the scene wide color space</p></li><li><p><strong>ACES 1.2</strong> : Use the ACES 1.2 color space that ships with RenderMan 24</p></li><li><p><strong>Custom</strong> : Allows for a custom color space file to be specified</p></li></ul><p /><h4 id="Features-InteractiveDenoiser">Interactive Denoiser</h4><p>This Interactive Denoiser is enabled in the Maya viewport and provides an interactive version of RenderMan’s <a class="external-link" href="https://rmanwiki-26.pixar.com/space/REN26/19662375/Denoiser" rel="nofollow">Machine Learning Denoiser</a>.</p><p><strong>Cheap First Pass</strong>: The first denoise pass will use a faster (cheaper), but less accurate heuristic. </p><p><strong>Min Samples</strong>: Minimum average number of samples before the Denoiser is run for the first time.</p><p><strong>Interval</strong>: The time interval between Denoise runs. In seconds.</p><p /><h4 id="Features-StylizedLooks">Stylized Looks</h4><p>This checkbox enables the <a class="external-link" href="https://rmanwiki-26.pixar.com/space/REN26/19661559/Stylized+Looks" rel="nofollow">Stylized Looks</a> toolset, including adding the necessary LPEs and AOVs necessary to your beauty pass.<br/><br/><br/></p><h4 id="Features-Filters">Filters</h4><p>These allow the use of <a href="/wiki/spaces/REN26/pages/19661887/Sample+and+Display+Filters" data-linked-resource-id="19661887" data-linked-resource-version="2" data-linked-resource-type="page">Display or Sample Filters</a>, such as Stylized Looks, Cryptomatte, and other effects.</p><p />
+  </article>
+</main>
+</body>
+</html>

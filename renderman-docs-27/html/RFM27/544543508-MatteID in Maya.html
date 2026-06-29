@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MatteID in Maya</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>MatteID in Maya</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFM27/544543508/MatteID+in+Maya">https://rmanwiki-27.pixar.com/space/RFM27/544543508/MatteID+in+Maya</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="786f8969-3f3f-4c2b-ac4b-0dbc4f78cefa" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>This workflow is deprecated.</p><p>Have you tried <a href="544543618-Cryptomatte in Maya.html" rel="nofollow">Cryptomatte</a> instead of MatteIDs for automatic ID generation?</p></div></div><p /><p>Assigning <a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19662119" rel="nofollow">Matte IDs</a> to rendered object and outputting them as part of the AOVs can be useful for later compositing because this allows compositors to isolate objects.</p><p>In the most basic way, you can do this in a few steps. We describe this below for material IDs but the process is similar for shapes.</p><p>Below we have a simple example with three shapes. This can be used for MatteID0 since a color output has three easy possibilities -- Red, Green, and Blue. (We will cover using patterns after this.)</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="900" loading="lazy" src="../../attachments/544543508/matteIDExample.png" data-image-src="../../attachments/544543508/matteIDExample.png" data-height="540" data-width="960" data-unresolved-comment-count="0" data-linked-resource-id="544543524" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="matteIDExample.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544543508" data-linked-resource-container-version="1" data-media-id="edfee3ec-97f7-428c-9c45-dfe302242610" data-media-type="file"></span><p>First we'll assign a Green MatteID to the sphere. We can do this by selecting the transform and adding the RenderMan user attribute for MatteID0:</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="600" loading="lazy" src="../../attachments/544543508/rfm_addMatteID.png" data-image-src="../../attachments/544543508/rfm_addMatteID.png" data-height="907" data-width="482" data-unresolved-comment-count="0" data-linked-resource-id="544543557" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfm_addMatteID.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544543508" data-linked-resource-container-version="1" data-media-id="0c3fa040-b035-4bdc-a55c-768f3cb812e8" data-media-type="file"></span><p /><p>If you were to render at this point, even if you added the correct render pass, it would not work. You need to connect a PxrMatteID to the material. You can do this using the Node Editor and connecting to the Utility Pattern Connection of the PxrSurface material:</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="600" loading="lazy" src="../../attachments/544543508/connectMatteID.png" data-image-src="../../attachments/544543508/connectMatteID.png" data-height="698" data-width="732" data-unresolved-comment-count="0" data-linked-resource-id="544543533" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="connectMatteID.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544543508" data-linked-resource-container-version="1" data-media-id="74f4f4f7-e063-42a3-9247-a7dea930f844" data-media-type="file"></span><p>Now add the appropriate pass to the render outputs:</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="600" loading="lazy" src="../../attachments/544543508/rfm_AOVMatteID.png" data-image-src="../../attachments/544543508/rfm_AOVMatteID.png" data-height="757" data-width="497" data-unresolved-comment-count="0" data-linked-resource-id="544543560" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfm_AOVMatteID.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544543508" data-linked-resource-container-version="1" data-media-id="51e38cd6-068d-4202-a108-9f24f70d9c9f" data-media-type="file"></span><p>The resulting MattID0 pass looks like the one below:</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="900" loading="lazy" src="../../attachments/544543508/MatteID0_greenSphere.png" data-image-src="../../attachments/544543508/MatteID0_greenSphere.png" data-height="540" data-width="960" data-unresolved-comment-count="0" data-linked-resource-id="544543539" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="MatteID0_greenSphere.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544543508" data-linked-resource-container-version="1" data-media-id="cd607b1d-7c30-4d99-8b9f-585db1dada85" data-media-type="file"></span><p>You can repeat this process for the other materials, adding one Blue and a Red. You can connect the same PxrMatteID to the other PxrSurface Utility Pattern connections as shown below:</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="900" loading="lazy" src="../../attachments/544543508/connectMatteIDPattern.png" data-image-src="../../attachments/544543508/connectMatteIDPattern.png" data-height="731" data-width="1014" data-unresolved-comment-count="0" data-linked-resource-id="544543542" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="connectMatteIDPattern.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544543508" data-linked-resource-container-version="1" data-media-id="ec495a7e-d842-469b-9822-08978c483f32" data-media-type="file"></span><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="900" loading="lazy" src="../../attachments/544543508/MatteID0_allObjects.png" data-image-src="../../attachments/544543508/MatteID0_allObjects.png" data-height="540" data-width="960" data-unresolved-comment-count="0" data-linked-resource-id="544543545" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="MatteID0_allObjects.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544543508" data-linked-resource-container-version="1" data-media-id="05097e3b-7612-4666-8749-433628e9b643" data-media-type="file"></span><p>This works fine, but what if you needed to pass through a pattern as your result?</p><p>If you recall, we didn't make any changes to the PxrMatteID node. It was left at default. We will leave this one alone but disconnect it from PxrSurface1 assigned to the sphere. We're doing this so we can affect just one object and not all three.</p><p>Create a new PxrMatteID and connect it to the PxrSurface1 for the sphere. In the MatteID0 connection connect a PxrChecker and a manifold as shown below and then render.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="900" loading="lazy" src="../../attachments/544543508/texturedMatteID0.png" data-image-src="../../attachments/544543508/texturedMatteID0.png" data-height="731" data-width="1014" data-unresolved-comment-count="0" data-linked-resource-id="544543548" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="texturedMatteID0.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544543508" data-linked-resource-container-version="1" data-media-id="b62ad069-dc4f-4902-9efc-7d3db48e3c80" data-media-type="file"></span><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="900" loading="lazy" src="../../attachments/544543508/MatteID0_chckerPattern.png" data-image-src="../../attachments/544543508/MatteID0_chckerPattern.png" data-height="540" data-width="960" data-unresolved-comment-count="0" data-linked-resource-id="544543551" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="MatteID0_chckerPattern.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544543508" data-linked-resource-container-version="1" data-media-id="98388430-158e-4df0-8e67-5fa400459015" data-media-type="file"></span><p>Ok, that sort-of worked, but it's green.</p><p>This is because in the material we still have the color set to green in the PxrSurfaceMaterial.</p><p>This color is multiplied against the pattern we connect to the PxrMatteID. This can be useful, but maybe we want a black and white checker this time. Set the color to white (since it's being multiplied, this should pass the pattern through unchanged.)</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="900" loading="lazy" src="../../attachments/544543508/MatteID0_chckerPattern_white.png" data-image-src="../../attachments/544543508/MatteID0_chckerPattern_white.png" data-height="540" data-width="960" data-unresolved-comment-count="0" data-linked-resource-id="544543554" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="MatteID0_chckerPattern_white.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544543508" data-linked-resource-container-version="1" data-media-id="16d9201f-0602-495b-978f-e10680b0c578" data-media-type="file"></span><p>Now you can add additional PxrMatteIDs and chain together more patterns for different results in your renders. Your compositor will thank you.</p><p />
+  </article>
+</main>
+</body>
+</html>

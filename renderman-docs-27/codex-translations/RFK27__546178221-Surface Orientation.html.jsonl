@@ -1,0 +1,11 @@
+{"item_id":"1d33a10165:0","text":"在 Katana 中，可以使用 PrmanObjectStatements 节点指定对象的 surface orientation（表面朝向，即法线方向）。"}
+{"item_id":"1d33a10165:1","text":"坐标系统的 handedness（手性）称为它的 orientation（朝向）。初始的“camera”坐标系统是左手系：x 指向右方，y 指向上方，z 指向内侧。不过，变换可能会翻转当前坐标系统的朝向。reflection（反射）就是一种不保持朝向的变换示例。"}
+{"item_id":"1d33a10165:2","text":"类似地，geometric primitives（几何图元）也具有 orientation（朝向），它决定其 surface normals（表面法线）在对象坐标系统中是按右手规则还是左手规则定义。RfK 假定使用右手朝向：x 指向右方，y 指向上方，z 指向外侧。"}
+{"item_id":"1d33a10165:3","text":"正向旋转为"}
+{"item_id":"1d33a10165:4","text":"逆时针方向。如果某个 primitive（图元）是 inside-out（内外翻转）的，其法线会被计算为指向相反方向。这会影响 culling（剔除）、shading（着色）和 solids（实体，例如 nested dielectrics）。primitive 的外表面是法线向外指向的一侧；内表面则是相反的一侧。solid 的内部是与内表面相邻的体积，外部则是与外表面相邻的区域。"}
+{"item_id":"1d33a10165:5","text":"如果当前 orientation（朝向）与当前坐标系统的 orientation 不一致，geometric primitives（几何图元）会被内外翻转，并且其法线会自动翻转。"}
+{"item_id":"1d33a10165:6","text":"下方的 teapot create macro 使用 sides = 1 渲染，表示仅 single-sided（单面）。黑色茶壶表示对象法线朝内；默认情况下，PxrSurface 不会对非透射对象的内部进行着色。"}
+{"item_id":"1d33a10165:7","text":"Reverse - 不论当前坐标系统的选择为何，都会在其基础上反向。"}
+{"item_id":"1d33a10165:8","text":"Sides 选项："}
+{"item_id":"1d33a10165:9","text":"2 - 默认值，表示两侧都可渲染/可见"}
+{"item_id":"1d33a10165:10","text":"1 - 只渲染/显示朝向外侧法线的一面。适合用于 backface culling（背面剔除）可见性技巧。"}

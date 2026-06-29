@@ -1,0 +1,366 @@
+{
+  "phase": 813,
+  "file": "TRA/22184266-Query Python API.html",
+  "file_id": "e1d9e328d3",
+  "source_items": 90,
+  "translation_rows": 90,
+  "source_items_match_translation_rows": true,
+  "duplicate_rows": [],
+  "missing_item_ids": [],
+  "extra_item_ids": [],
+  "tag_fingerprint_identical": true,
+  "rendered_markup_matches_target_markup": true,
+  "glossary_violations": [],
+  "direct_placement_missing": [],
+  "actionable_long_source_residuals": [],
+  "accepted_long_source_residuals": [],
+  "actionable_ascii_heavy_residuals": [],
+  "accepted_ascii_heavy_residuals": [
+    {
+      "item_id": "e1d9e328d3:0",
+      "text": "tractor.api.query 是一个 Python API，提供与 command line tool tq 相同的 query 和 control 功能。它随 Tractor 自带的 Python interpreter rmanpy 一起安装。",
+      "ascii_letters": 83,
+      "cjk_chars": 21
+    },
+    {
+      "item_id": "e1d9e328d3:1",
+      "text": "你也许可以把此 module 与自己的 interpreter 一起使用，但这需要 site-specific configuration，以便正确定位或安装 Tractor Python modules。",
+      "ascii_letters": 62,
+      "cjk_chars": 28
+    },
+    {
+      "item_id": "e1d9e328d3:2",
+      "text": "下面的 examples 假定 query module 已按如下方式 import：",
+      "ascii_letters": 25,
+      "cjk_chars": 11
+    },
+    {
+      "item_id": "e1d9e328d3:3",
+      "text": "List Functions（列表函数说明）",
+      "ascii_letters": 13,
+      "cjk_chars": 6
+    },
+    {
+      "item_id": "e1d9e328d3:4",
+      "text": "query module 提供用于检索 jobs、tasks、commands、invocations 和 blades 信息的 functions。它们的名称与 command line tool 中的 list commands 相同，即 jobs()、tasks()、commands()、invocations() 和 blades()。",
+      "ascii_letters": 115,
+      "cjk_chars": 22
+    },
+    {
+      "item_id": "e1d9e328d3:5",
+      "text": "这些 functions 的第一个 argument 是一个",
+      "ascii_letters": 17,
+      "cjk_chars": 9
+    },
+    {
+      "item_id": "e1d9e328d3:6",
+      "text": "search clause（搜索条件子句）",
+      "ascii_letters": 12,
+      "cjk_chars": 6
+    },
+    {
+      "item_id": "e1d9e328d3:8",
+      "text": "在此 example 中，这个 list function 会取回一组 users 拥有、且在 8 天前以前 spool 的所有 jobs。list functions 的 return value 是一个 dictionaries list，每个 dictionary 表示一个 matched item。",
+      "ascii_letters": 94,
+      "cjk_chars": 31
+    },
+    {
+      "item_id": "e1d9e328d3:9",
+      "text": "Search Clause（搜索条件子句）",
+      "ascii_letters": 12,
+      "cjk_chars": 6
+    },
+    {
+      "item_id": "e1d9e328d3:10",
+      "text": "search clause 是一个 boolean expression（上面的 example 使用 and），由 comparisons 和 operators（",
+      "ascii_letters": 59,
+      "cjk_chars": 10
+    },
+    {
+      "item_id": "e1d9e328d3:12",
+      "text": "、<）以及 entity attributes（owner、spooltime）组成。为减少输入量，这里做了一些简化。例如，freddie 这样的 string literals 不需要加 quotes，而 string -8d 是表示 \"one day ago\" 的 short form 简写形式。",
+      "ascii_letters": 82,
+      "cjk_chars": 36
+    },
+    {
+      "item_id": "e1d9e328d3:13",
+      "text": "关于 search clause syntax 的更多细节可在",
+      "ascii_letters": 18,
+      "cjk_chars": 9
+    },
+    {
+      "item_id": "e1d9e328d3:16",
+      "text": "注意，search 范围越宽，在定位、传输和存储 results 时消耗的 CPU、memory 和 bandwidth 就越多。这会影响 client、engine 和 backend database server。",
+      "ascii_letters": 64,
+      "cjk_chars": 27
+    },
+    {
+      "item_id": "e1d9e328d3:18",
+      "text": "默认情况下，query functions 会检索给定 entity 的所有 attributes。不过，如果并不需要所有 attributes，这会浪费 client、engine 和 backend database 的 memory 与 CPU。可以使用 columns= keyword parameter 指定要检索的 attributes list。",
+      "ascii_letters": 113,
+      "cjk_chars": 40
+    },
+    {
+      "item_id": "e1d9e328d3:19",
+      "text": "例如，下面只取回 job id、owner、title 和 metadata columns：",
+      "ascii_letters": 30,
+      "cjk_chars": 8
+    },
+    {
+      "item_id": "e1d9e328d3:21",
+      "text": "可以使用 sortby= keyword parameter 对 results 排序。可以指定多个 attributes 以表示 secondary sorting。Items 默认按 ascending order 排列，除非 attribute 前面加上",
+      "ascii_letters": 83,
+      "cjk_chars": 27
+    },
+    {
+      "item_id": "e1d9e328d3:22",
+      "text": "来表示 descending order（降序排列）。",
+      "ascii_letters": 15,
+      "cjk_chars": 7
+    },
+    {
+      "item_id": "e1d9e328d3:23",
+      "text": "例如，为了显示相似 jobs 在 FIFO queue 中的处理顺序，可以按 priority descending、spooltime ascending 的顺序列出它们，如下所示：",
+      "ascii_letters": 49,
+      "cjk_chars": 29
+    },
+    {
+      "item_id": "e1d9e328d3:24",
+      "text": "虽然 item sorting 可以在 client side 完成，但如果 result set 已通过 limit= keyword parameter 截断，就无法这样做，因为 truncation 会在 server side 发生，早于 client 有机会对 results 排序。",
+      "ascii_letters": 84,
+      "cjk_chars": 35
+    },
+    {
+      "item_id": "e1d9e328d3:26",
+      "text": "sorting 可能会根据 query 的 complexity 和 scope，对 backend database server 产生影响。",
+      "ascii_letters": 48,
+      "cjk_chars": 12
+    },
+    {
+      "item_id": "e1d9e328d3:28",
+      "text": "limit= keyword parameter 会设置 engine 返回 items 数量的 upper bound。",
+      "ascii_letters": 42,
+      "cjk_chars": 8
+    },
+    {
+      "item_id": "e1d9e328d3:29",
+      "text": "例如，下面的 statement 会取回 farm 上 active tasks 数量最多的十个 jobs：",
+      "ascii_letters": 28,
+      "cjk_chars": 16
+    },
+    {
+      "item_id": "e1d9e328d3:30",
+      "text": "下面的 statement 会列出 disk space 最少的二十台 hosts。",
+      "ascii_letters": 23,
+      "cjk_chars": 12
+    },
+    {
+      "item_id": "e1d9e328d3:35",
+      "text": "注意，如果未使用 limit= keyword parameter，会有一个生效的 system default upper bound。该 upper bound 为 2500，不过 admins 可以通过在 tractor.config 中设置 SiteMaxListReplyCount 覆盖它。",
+      "ascii_letters": 94,
+      "cjk_chars": 29
+    },
+    {
+      "item_id": "e1d9e328d3:36",
+      "text": "Affiliation（关联实体属性）",
+      "ascii_letters": 11,
+      "cjk_chars": 6
+    },
+    {
+      "item_id": "e1d9e328d3:37",
+      "text": "在上面的 examples 中，items 的 attributes 用于 search clauses、column specifications 和 sorting。也可以在所有这些情况下指定 affiliated entities 的 attributes，方法是在 attribute 前加上 entity name。例如，下面的 statement 会取回 walt 拥有的 active tasks。",
+      "ascii_letters": 134,
+      "cjk_chars": 41
+    },
+    {
+      "item_id": "e1d9e328d3:38",
+      "text": "类似地，下面的 command 会显示过去 24 小时内 spool 的 jobs 中所有 error tasks，包括其 jobs 的 titles 和 spooltimes，并按 job priority 排序。",
+      "ascii_letters": 57,
+      "cjk_chars": 27
+    },
+    {
+      "item_id": "e1d9e328d3:39",
+      "text": "因为 spooltime 和 priority 不是除 job 之外任何 entity 的 attributes，所以不需要 entity prefix。下面的写法等价：",
+      "ascii_letters": 48,
+      "cjk_chars": 23
+    },
+    {
+      "item_id": "e1d9e328d3:41",
+      "text": "archive= keyword parameter 可以设置为 True，以便搜索已删除 jobs 的 records（以及其关联的 tasks、commands 和 invocations）。",
+      "ascii_letters": 62,
+      "cjk_chars": 20
+    },
+    {
+      "item_id": "e1d9e328d3:43",
+      "text": "archives 可能比 live data set",
+      "ascii_letters": 19,
+      "cjk_chars": 3
+    },
+    {
+      "item_id": "e1d9e328d3:49",
+      "text": "使用明确指定的 search clauses，确保 result sets 较小，",
+      "ascii_letters": 23,
+      "cjk_chars": 11
+    },
+    {
+      "item_id": "e1d9e328d3:51",
+      "text": "对可能很大的 result sets 使用 limit argument 且不进行 sorting。",
+      "ascii_letters": 30,
+      "cjk_chars": 12
+    },
+    {
+      "item_id": "e1d9e328d3:52",
+      "text": "Operations（操作函数）",
+      "ascii_letters": 10,
+      "cjk_chars": 4
+    },
+    {
+      "item_id": "e1d9e328d3:53",
+      "text": "query module 不仅有用于 fetch items 的 functions，还能够对这些 items 执行 operations。",
+      "ascii_letters": 45,
+      "cjk_chars": 14
+    },
+    {
+      "item_id": "e1d9e328d3:55",
+      "text": "使用这些 operation functions，因为它们",
+      "ascii_letters": 18,
+      "cjk_chars": 8
+    },
+    {
+      "item_id": "e1d9e328d3:64",
+      "text": "一个 search clause 搜索条件子句，",
+      "ascii_letters": 12,
+      "cjk_chars": 8
+    },
+    {
+      "item_id": "e1d9e328d3:65",
+      "text": "query function 返回的 objects list 对象列表，",
+      "ascii_letters": 24,
+      "cjk_chars": 7
+    },
+    {
+      "item_id": "e1d9e328d3:66",
+      "text": "list function 返回的 list 中的单个 object，",
+      "ascii_letters": 22,
+      "cjk_chars": 7
+    },
+    {
+      "item_id": "e1d9e328d3:67",
+      "text": "指定 operation 所需 attributes 的 dictionary，或",
+      "ascii_letters": 29,
+      "cjk_chars": 6
+    },
+    {
+      "item_id": "e1d9e328d3:68",
+      "text": "指定 operation 所需 attributes 的 dictionaries list。",
+      "ascii_letters": 35,
+      "cjk_chars": 5
+    },
+    {
+      "item_id": "e1d9e328d3:70",
+      "text": "最后两个 use cases 允许 authors 构造自己的 objects，用于标识要影响哪些 items。dictionary 中需要的 attributes 会根据被操作的 entity 而不同。Job operations 需要 jid；task operations 需要 jid 和 tid；command operations 需要 jid 和 cid；blade operations 需要 name。",
+      "ascii_letters": 131,
+      "cjk_chars": 44
+    },
+    {
+      "item_id": "e1d9e328d3:71",
+      "text": "下面的 statement 会 pause 所有带 errors 的 active jobs：",
+      "ascii_letters": 30,
+      "cjk_chars": 8
+    },
+    {
+      "item_id": "e1d9e328d3:72",
+      "text": "下面的 statement 会对 disk space 最少的十个 blades 执行 nimby：",
+      "ascii_letters": 29,
+      "cjk_chars": 12
+    },
+    {
+      "item_id": "e1d9e328d3:73",
+      "text": "某些 operations 有额外的 keyword arguments。例如，修改 job priority 时，会使用 prioriy= keyword parameter 指定 priority。下面的 statement 会把 george 的所有 jobs 的 priority 改为 500。",
+      "ascii_letters": 95,
+      "cjk_chars": 27
+    },
+    {
+      "item_id": "e1d9e328d3:74",
+      "text": "Connectivity（连接管理设置）",
+      "ascii_letters": 12,
+      "cjk_chars": 6
+    },
+    {
+      "item_id": "e1d9e328d3:75",
+      "text": "Python module 会静默处理你的 engine connectivity，按 lazy 方式与 engine 建立 session。",
+      "ascii_letters": 47,
+      "cjk_chars": 13
+    },
+    {
+      "item_id": "e1d9e328d3:76",
+      "text": "可以使用 setEngineClientParam() 更改默认 engine hostname、port、connected user、password 和 debug boolean flag。默认 engine hostname 会是 TRACTOR_ENGINE environment variable 的值；如果未设置，则为 tractor-engine。默认 port 为 80。根据",
+      "ascii_letters": 138,
+      "cjk_chars": 27
+    },
+    {
+      "item_id": "e1d9e328d3:77",
+      "text": "EngineDiscovery",
+      "ascii_letters": 15,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "e1d9e328d3:79",
+      "text": "默认 user 是 USER environment variable 的值；如果未设置，则为 root。默认 password 不设置。默认 debug flag 设置为 False。",
+      "ascii_letters": 53,
+      "cjk_chars": 22
+    },
+    {
+      "item_id": "e1d9e328d3:80",
+      "text": "默认 password 是 TRACTOR_PASSWORD environment variable 的值；否则不设置。",
+      "ascii_letters": 42,
+      "cjk_chars": 10
+    },
+    {
+      "item_id": "e1d9e328d3:81",
+      "text": "默认 debug flag 是 TRACTOR_DEBUG environment variable 的值；否则为 False。",
+      "ascii_letters": 45,
+      "cjk_chars": 8
+    },
+    {
+      "item_id": "e1d9e328d3:82",
+      "text": "此 example 会覆盖部分默认 connection values。务必在",
+      "ascii_letters": 23,
+      "cjk_chars": 11
+    },
+    {
+      "item_id": "e1d9e328d3:84",
+      "text": "运行任何 list 或 operation functions 前完成此操作。",
+      "ascii_letters": 22,
+      "cjk_chars": 11
+    },
+    {
+      "item_id": "e1d9e328d3:86",
+      "text": "可以通过 sessionFilename= parameter 把 session information 缓存在文件中，避免 user 每次运行 script 时都输入 password。file name 通常会按 application name、user name 和 host name 限定范围。needsPassword() 会被调用，以判断 cached session id 是否有效，或者是否需要提示 user 输入 password。下面是一个完整 example：",
+      "ascii_letters": 146,
+      "cjk_chars": 58
+    },
+    {
+      "item_id": "e1d9e328d3:87",
+      "text": "可以调用 closeEngineClient() 终止 session。这有助于减少 engine 维护的 sessions 数量。这会强制 session 不再有效，因此 app 下次运行时需要重新获取 password。",
+      "ascii_letters": 56,
+      "cjk_chars": 38
+    },
+    {
+      "item_id": "e1d9e328d3:88",
+      "text": "More Help（更多帮助）",
+      "ascii_letters": 8,
+      "cjk_chars": 4
+    },
+    {
+      "item_id": "e1d9e328d3:89",
+      "text": "internal module documentation 会显示 query module 中所有可用的 list 和 operation functions。",
+      "ascii_letters": 60,
+      "cjk_chars": 10
+    }
+  ],
+  "required_phrase_missing": [],
+  "section_order_positions": [],
+  "section_order_ok": true,
+  "passed": true
+}

@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Creating a custom Environment Handler</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Creating a custom Environment Handler</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/TRA/22184298/Creating+a+custom+Environment+Handler">https://rmanwiki-27.pixar.com/space/TRA/22184298/Creating+a+custom+Environment+Handler</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>要跟随学习，Project X Handler 的完整 code listing 可在 <a href="22184300-Example Envrionment Handler.html" rel="nofollow">这里</a>找到。</p><p>让我们逐段查看代码，了解这个 handler 会做什么。</p><ul><li><p>首先，看一下 handler initialization：</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="717c0a3a-abed-4e7a-938e-fe847f541f80" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">from TrEnvHandler import TrEnvHandler
+import logging
+
+class projxhandler(TrEnvHandler):
+    def __init__(self, name, envkeydict, envkeys):
+        self.logger = logging.getLogger(&quot;tractor-blade&quot;)
+        self.logger.info(&quot;initializing projxhandler: %s&quot; % (name))
+        TrEnvHandler.__init__(self, name, envkeydict, envkeys)</pre>
+</div></div><p>initialization 非常直接。首先导入 TrEnvHandler（base class），以及 logging module。</p><p>__init__ routine 设置 logger，然后调用 superclass initialization。</p></li><li><p>environment handler 中的主要处理发生在两个 methods 中。</p><p>环境更新方法说明（updateEnvironment method()）：</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="819a797c-7d05-4ee4-8583-0abf2f8e110a" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">def updateEnvironment(self, cmd, env, envkeys):
+    self.logger.debug(&quot;projxhandler.updateEnvironment: %s&quot; % repr(envkeys))
+    self.initLocalVars()
+    if envkeys and type(envkeys) == type([]):
+        for envkey in envkeys:
+            key,val = envkey.split(&quot;=&quot;)
+            self.logger.debug(&quot;projxhandler.envkey: %s&quot; % envkey)
+            if key == &quot;SCENE&quot;:
+                self.scene = envkey
+                self.environmentdict[&quot;SCENE&quot;] = self.scene
+            elif key == &quot;SHOT&quot;:
+                self.shot = envkey
+                self.environmentdict[&quot;SHOT&quot;] = self.shot
+
+    return TrEnvHandler.updateEnvironment(self, cmd, env, envkeys)
+
+def initLocalVars(self):
+    self.scene = None
+    self.shot = None</pre>
+</div></div><p>updateEnvironment method 对每个 handler 调用一次，参数是 pending command 中与该 handler 处理的 envkeys 匹配的 envkeys 列表。在我们的示例中，如上方 dictionary 所示，当 envkey key 包含 “ProjectX”、“SHOT=somevalue” 或 “SCENE=”somevalue” 时，会调用这个 handler。</p><p>假设 command envkey definition 通常大致如下：</p><p><code>RemoteCommand{ ...... } -envkey { ProjectX SHOT=27234-A SCENE=5125 }
+</code></p><p>updateEnvironment() method 的主要职责，是定义放入 handler 自身 environment 中的 values。它最后通常会调用 base class 的 updateEnvironment() method，将 handler environment 与 blade 提供的 launching command environment 合并。</p><p>这个 handler 中的 code 会遍历与 launching command 关联的所有 envkeys。然后它设置一些 internal variables，供后续使用，并在 handler 的 local environment dictionary 中设置多个 environment variables。</p><p>在上面的 Project X handler environment dictionary 中，你会找到以下内容：</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="aef67847-3f14-400d-8cfa-26555eb44363" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">&quot;environment&quot;: {
+  &quot;CURRENT_SHOW&quot;: &quot;Project X, Venture of Mystery&quot;,
+  &quot;CURRENT_SHOT&quot;: &quot;$SHOT&quot;,
+  &quot;CURRENT_SCENE&quot;: &quot;$SCENE&quot;,
+  &quot;RMANTREE&quot;: &quot;/opt/pixar/RenderManProServer-15.2&quot;,
+  &quot;PATH&quot;: &quot;$RMANTRE:/bin;$PATH&quot;
+},</pre>
+</div></div><p>CURRENT_SHOT 和 CURRENT_SCENE environment variables 基于处理 dictionary 时预期存在的 variables。因此，在 handler code 中，你会看到 self.environmentdict["SCENE"] 和 self.environmentdict["SHOT"] 在 handler 的 updateEnvironment() method 中定义。当调用 base class updateEnvironment() method 时，该 dictionary 会合并到 launching command 的 environment 中，从而正确定义 CURRENT_SHOT 和 CURRENT_SCENE。</p><p>我们还看到一个 environment 内部 flattening 的示例：RMANTREE 被定义为指向该 show 的特定 RPS version，并且 $RMANTREE/bin 被加载到 PATH environment variable 的开头。</p></li><li><p>调用 updateEnvironment() method 后，blade 接着调用 handler 的 remapCmdArgs() method。此 method 的目的是允许 handler 在 command 启动之前重写原始 command。</p><p>rewrite method 重写方法如下：</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="5304fee1-32c1-4ef0-b7ab-f3c244cb1547" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">def remapCmdArgs(self, cmdinfo, launchenv, thisHost):
+    self.logger.debug(&quot;projxhandler.remapCmdArgs: %s&quot; % self.name)
+    argv = TrEnvHandler.remapCmdArgs(self, cmdinfo, launchenv, thisHost)
+    self.logger.info(&quot;scene: %s, shot:%s&quot; %
+        (self.scene, self.shot))
+
+    # indicate command was launched by traactor
+    launchenv[&quot;TRACTOR&quot;] = &quot;1&quot;
+
+    if argv[0] == &quot;render&quot; and &quot;RMANTREE&quot; in launchenv:
+        argv[0] = os.path.join(launchenv[&quot;RMANTREE&quot;],&quot;bin&quot;,&quot;prman&quot;))
+        argv.[1:1] = [&quot;-statsfile&quot;, &quot;%s-%s&quot; % (self.scene, self.shot))
+
+    # on windows for add the Visual Studio default libs and includes
+    p = platform.platform()
+    if p.find(&quot;Windows&quot;) != -1:
+        if launchenv.has_key(&quot;INCLUDE&quot;):
+            launchenv[&quot;INCLUDE&quot;] += &quot;;&quot; + launchenv[&quot;VCINCLUDE&quot;]
+        else:
+            launchenv[&quot;INCLUDE&quot;] = launchenv[&quot;VCINCLUDE&quot;]
+
+        if launchenv.has_key(&quot;LIB&quot;):
+            launchenv[&quot;LIB&quot;] += &quot;;&quot; + launchenv[&quot;VCLIB&quot;]
+        else:
+            launchenv[&quot;LIB&quot;] = launchenv[&quot;VCLIB&quot;]
+
+    return argv</pre>
+</div></div><p>handlers 通常做的第一件事，是调用 base class remapCmdArgs() method。base class 处理所有软件都会使用的通用 remapping。它处理 alfred scripting language 允许的标准 remapping，例如 “%h, %H”。它还会查找任何 command line 中的 $val。随后预期从 launch environment 中提供这个 $val。例如 <em>$render</em> 可能会被 remapped 为 <em>prman</em>。</p><p>调用 base class 后，handler 可以提供它需要的任何 custom remapping。在我们的示例 handler 中，它执行以下操作：</p><ul><li><p>它将 environment variable TRACTOR 设置为 1，让 downstream scripts 知道这是一个由 tractor launched job。</p></li><li><p>它检查要启动的 application 是否为 <em>render</em>，并检查 RMANTREE 是否在 environment 中。如果是，它会把 launch command 改为（实际上） <em>$RMANTREE/bin/prman</em>，并通过添加基于 current scene 和 shot values 的 output stats file 来扩展 command。</p></li><li><p>随后这个 handler 会检查 current blade 的 platform。如果确定是 windows platform，它会把 Visual Studio INCLUDE 和 LIBS values 添加到 launch environment 中。</p></li></ul><p>根据为 command 提供的 envkeys 数量，可能会有多个 environment handlers 处理该 command。 <em>default</em> handler 总是最先被调用，然后其他 handlers 会级联执行。当最后一个 handler 处理完 environment 和 launch command 后，blade 才会启动修改后的 command。</p></li></ul>
+  </article>
+</main>
+</body>
+</html>

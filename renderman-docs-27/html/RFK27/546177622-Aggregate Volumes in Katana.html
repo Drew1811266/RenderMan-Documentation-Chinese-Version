@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Aggregate Volumes in Katana</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Aggregate Volumes in Katana</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFK27/546177622/Aggregate+Volumes+in+Katana">https://rmanwiki-27.pixar.com/space/RFK27/546177622/Aggregate+Volumes+in+Katana</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p><a href="https://renderman.atlassian.net/wiki/spaces/REN24/pages/21758484" rel="nofollow">Aggregate Volumes</a> can decrease the render time for volumes by combining them into a single structure for the renderer to process.  To get started with aggregate volumes in RfK, there are two steps: setting the aggregate name on the volume primitives and specifying a matching aggregate name in the integrator.</p><h3 id="AggregateVolumesinKatana-StepOne:GroupvolumesintoaggregateswithPrmanObjectStatements">Step One: Group volumes into aggregates with PrmanObjectStatements</h3><p>First, add the volumes to the CEL group of PrmanObjectStatements.  The volume locations can be added directly to the CEL, added via a custom expression, or set on an ancestor location (like /root) and inherited. </p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="650" loading="lazy" src="../../attachments/546177622/rfkVolumeAggregateCELlocations.png" data-image-src="../../attachments/546177622/rfkVolumeAggregateCELlocations.png" data-height="228" data-width="598" data-unresolved-comment-count="0" data-linked-resource-id="546177642" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfkVolumeAggregateCELlocations.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="546177622" data-linked-resource-container-version="1" data-media-id="1b115f56-774a-435d-8709-2614a71d633a" data-media-type="file"></span><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="650" loading="lazy" src="../../attachments/546177622/rfkVolumeAggregateCELcustom.png" data-image-src="../../attachments/546177622/rfkVolumeAggregateCELcustom.png" data-height="190" data-width="600" data-unresolved-comment-count="0" data-linked-resource-id="546177648" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfkVolumeAggregateCELcustom.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="546177622" data-linked-resource-container-version="1" data-media-id="7e24f7fe-8bf4-41f4-ac97-a8af86e5e00f" data-media-type="file"></span><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="650" loading="lazy" src="../../attachments/546177622/rfkVolumeAggregateCELroot.png" data-image-src="../../attachments/546177622/rfkVolumeAggregateCELroot.png" data-height="225" data-width="600" data-unresolved-comment-count="0" data-linked-resource-id="546177639" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfkVolumeAggregateCELroot.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="546177622" data-linked-resource-container-version="1" data-media-id="e854b8ab-49ae-485a-9ef4-a16437976dfa" data-media-type="file"></span><p>Next, specify the aggregate name with the prmanStatements.primAttributes.volume.aggregate attribute.  To begin with, give all volumes in the scene the same aggregate name.  Volumes without an aggregate name will render, but will not be part of the aggregate structure.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="650" loading="lazy" src="../../attachments/546177622/rfkVolumeAggregatePOS.png" data-image-src="../../attachments/546177622/rfkVolumeAggregatePOS.png" data-height="802" data-width="609" data-unresolved-comment-count="0" data-linked-resource-id="546177636" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfkVolumeAggregatePOS.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="546177622" data-linked-resource-container-version="1" data-media-id="8980fd3a-2b67-48da-91a2-c94e3474ded7" data-media-type="file"></span><h3 id="AggregateVolumesinKatana-StepTwo:Specifyvolumeaggregatenameintheintegrator">Step Two: Specify volume aggregate name in the integrator</h3><p>PxrPathTracer has four parameters related to aggregate volumes.  In the simple case, you'll only need to set the global &quot;Volume Aggregate&quot; parameter.  But since the standard visibility attributes don't work within a volume aggregate, you may run into cases where you need to specify separate aggregate names for each type of visibility (camera, indirect, and transmission).  These can be specified in the other three override parameters.  If there is no aggregate specified in the integrator, or if the aggregate name specified in the integrator does not match the name set on a volume, the volume will not render.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="650" loading="lazy" src="../../attachments/546177622/rfkVolumeAggregateIntegrator.png" data-image-src="../../attachments/546177622/rfkVolumeAggregateIntegrator.png" data-height="674" data-width="615" data-unresolved-comment-count="0" data-linked-resource-id="546177645" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfkVolumeAggregateIntegrator.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="546177622" data-linked-resource-container-version="1" data-media-id="ac6d079d-49cc-4268-82a8-df9a3f808fbb" data-media-type="file"></span><p />
+  </article>
+</main>
+</body>
+</html>

@@ -1,0 +1,94 @@
+{"item_id":"d9b1862ec9:0","text":"在 RenderMan for Katana 中控制渲染的设置，大致可分为两类：render output（渲染输出）和 render input（渲染输入）。Render \"output\" 指摄影机、分辨率和裁剪窗口等内容；这些属性主要位于 RenderSettings 节点中。Render \"input\" 指 RenderMan 选项和属性，以及 RfK 插件配置。访问这些内容主要通过 PrmanGlobalStatements 和 PrmanObjectStatements 节点。"}
+{"item_id":"d9b1862ec9:1","text":"RenderSettings"}
+{"item_id":"d9b1862ec9:2","text":"RenderSettings 节点是 Katana 原生节点，Katana 在线文档中有详细说明。最常需要注意的属性包括："}
+{"item_id":"d9b1862ec9:3","text":"Attribute（属性）"}
+{"item_id":"d9b1862ec9:4","text":"默认值"}
+{"item_id":"d9b1862ec9:5","text":"说明"}
+{"item_id":"d9b1862ec9:6","text":"cameraName"}
+{"item_id":"d9b1862ec9:7","text":"/root/world/cam/camera"}
+{"item_id":"d9b1862ec9:8","text":"用于渲染的 Camera（摄影机）。"}
+{"item_id":"d9b1862ec9:9","text":"renderer"}
+{"item_id":"d9b1862ec9:10","text":"prman"}
+{"item_id":"d9b1862ec9:11","text":"要使用的渲染器。"}
+{"item_id":"d9b1862ec9:12","text":"resolution"}
+{"item_id":"d9b1862ec9:13","text":"512x512"}
+{"item_id":"d9b1862ec9:14","text":"输出图像的尺寸。"}
+{"item_id":"d9b1862ec9:15","text":"RenderSettings 节点中的常用属性"}
+{"item_id":"d9b1862ec9:16","text":"PrmanGlobalStatements 和 PrmanObjectStatements"}
+{"item_id":"d9b1862ec9:17","text":"RenderMan 的强大能力和灵活性意味着用户可以通过多种设置获得大量控制。这些设置都通过 PrmanIntegratorSettings、PrmanGlobalStatements 和 PrmanObjectStatements 在 RfK 中公开。PrmanGlobalStatements 中的属性用于控制 RenderMan 的全局 Options（选项）。"}
+{"item_id":"d9b1862ec9:18","text":"PrmanIntegratorSettings"}
+{"item_id":"d9b1862ec9:19","text":"设置"}
+{"item_id":"d9b1862ec9:20","text":"integrator（积分器）"}
+{"item_id":"d9b1862ec9:21","text":"，用于 RenderMan 渲染及其关联控制。生产中通常选择"}
+{"item_id":"d9b1862ec9:22","text":"PxrPathTracer"}
+{"item_id":"d9b1862ec9:23","text":"integrator（积分器）。"}
+{"item_id":"d9b1862ec9:24","text":"PrmanGlobalStatements"}
+{"item_id":"d9b1862ec9:25","text":"用于按位置设置 Attributes（属性）。由于这两个节点中经常使用的设置数量都不多，因此默认情况下二者都会隐藏不太常用的属性。"}
+{"item_id":"d9b1862ec9:26","text":"Parameter Layout"}
+{"item_id":"d9b1862ec9:27","text":"设置用于根据常见使用场景展开或折叠属性集合："}
+{"item_id":"d9b1862ec9:28","text":"Simple、Advanced，"}
+{"item_id":"d9b1862ec9:29","text":"或"}
+{"item_id":"d9b1862ec9:30","text":"all。"}
+{"item_id":"d9b1862ec9:31","text":"不过，即使是"}
+{"item_id":"d9b1862ec9:32","text":"Simple"}
+{"item_id":"d9b1862ec9:33","text":"布局也会公开许多设置。下面列出最有用的设置："}
+{"item_id":"d9b1862ec9:34","text":"Attribute（属性）"}
+{"item_id":"d9b1862ec9:35","text":"默认值"}
+{"item_id":"d9b1862ec9:36","text":"说明"}
+{"item_id":"d9b1862ec9:37","text":"pixelVariance"}
+{"item_id":"d9b1862ec9:38","text":"像素值相对于真实像素值的可接受估计方差上限。"}
+{"item_id":"d9b1862ec9:39","text":"maxSamples"}
+{"item_id":"d9b1862ec9:40","text":"采样数的显式上限。提高该值可获得更高质量，但渲染更慢。"}
+{"item_id":"d9b1862ec9:41","text":"renderDisplay"}
+{"item_id":"d9b1862ec9:42","text":"Monitor"}
+{"item_id":"d9b1862ec9:43","text":"Preview 和 Live Rendering 的目标 framebuffer（帧缓冲）。设为 '"}
+{"item_id":"d9b1862ec9:44","text":"it"}
+{"item_id":"d9b1862ec9:45","text":"' 可使用 RenderMan Image Tool。"}
+{"item_id":"d9b1862ec9:46","text":"PrmanGlobalStatements 中的常用 Options（选项）"}
+{"item_id":"d9b1862ec9:47","text":"PrmanObjectStatements"}
+{"item_id":"d9b1862ec9:48","text":"连接到 scene graph 中的特定位置（例如对象、层级或 CEL 分组）。该节点常用于控制 visibility 属性和 trace depth。下面说明 PrmanObjectStatements 中的一些常用设置："}
+{"item_id":"d9b1862ec9:49","text":"Attribute（属性）"}
+{"item_id":"d9b1862ec9:50","text":"默认值"}
+{"item_id":"d9b1862ec9:51","text":"说明"}
+{"item_id":"d9b1862ec9:52","text":"visibility.camera"}
+{"item_id":"d9b1862ec9:53","text":"Yes"}
+{"item_id":"d9b1862ec9:54","text":"控制后续图元对摄影机的可见性。"}
+{"item_id":"d9b1862ec9:55","text":"visibility.transmission"}
+{"item_id":"d9b1862ec9:56","text":"Yes"}
+{"item_id":"d9b1862ec9:57","text":"控制图元对 transmission（shadow）rays 的可见性。"}
+{"item_id":"d9b1862ec9:58","text":"trace.maxdiffusedepth"}
+{"item_id":"d9b1862ec9:59","text":"限制与关联图元相关的间接照明漫反射反弹次数。"}
+{"item_id":"d9b1862ec9:60","text":"trace.maxspeculardepth"}
+{"item_id":"d9b1862ec9:61","text":"限制与关联图元相关的间接照明镜面反弹次数。"}
+{"item_id":"d9b1862ec9:62","text":"PrmanObjectStatements 中的常用 Options（选项）"}
+{"item_id":"d9b1862ec9:63","text":"作为额外辅助，这些节点各自都有设置预设，会根据渲染类型调整 RenderMan 控制："}
+{"item_id":"d9b1862ec9:64","text":"Default、Draft、Intermediate，"}
+{"item_id":"d9b1862ec9:65","text":"或"}
+{"item_id":"d9b1862ec9:66","text":"High Quality。"}
+{"item_id":"d9b1862ec9:67","text":"这些预设之间的差异很小但很重要。它们最适合用于快速切换和参考值。注意，对设置所做的更改不会“粘附”到该预设；如果切换到其他预设，这些更改会丢失。如果需要设置符合特定需求的预设集合，请参阅 custom presets 页面。"}
+{"item_id":"d9b1862ec9:68","text":"错误处理"}
+{"item_id":"d9b1862ec9:69","text":"渲染期间遇到的错误会根据属性 \"prmanGlobalStatements.errorHandler\" 处理："}
+{"item_id":"d9b1862ec9:70","text":"Error Handler"}
+{"item_id":"d9b1862ec9:71","text":"行为"}
+{"item_id":"d9b1862ec9:72","text":"忽略所有错误，且不生成诊断消息"}
+{"item_id":"d9b1862ec9:73","text":"每次发生错误时都为该错误生成诊断消息"}
+{"item_id":"d9b1862ec9:74","text":"渲染系统会尝试忽略错误信息并继续渲染"}
+{"item_id":"d9b1862ec9:75","text":"仅在错误首次发生时生成诊断消息"}
+{"item_id":"d9b1862ec9:76","text":"第一个错误会导致生成诊断消息，并且渲染系统会立即终止"}
+{"item_id":"d9b1862ec9:77","text":"对 Katana 生成的错误以及 prman 错误都中止渲染"}
+{"item_id":"d9b1862ec9:78","text":"RenderMan 或 Katana 的错误处理可以通过使用"}
+{"item_id":"d9b1862ec9:79","text":"error handler override attribute functions（错误处理器覆盖属性函数）"}
+{"item_id":"d9b1862ec9:80","text":"来覆盖。这些 attribute functions 提供了按位置或按特定错误更改错误处理行为的机会。attribute function 预期返回一个包含整数 \"abort\" 属性的 attribute，用于指示是否应终止渲染。"}
+{"item_id":"d9b1862ec9:81","text":"Error handler override functions（错误处理器覆盖函数）应添加到全局属性 \"prmanGlobalStatements.plugin.katanaErrorHandlerAttrFncs\" 和 \"prmanGlobalStatements.plugin.rendermanErrorHandlerAttrFncs\"。"}
+{"item_id":"d9b1862ec9:82","text":"日志记录"}
+{"item_id":"d9b1862ec9:83","text":"当前日志级别默认为 \"INFO\"，由 KATANA_HOME 中的日志配置文件决定。要更改日志级别，需要复制配置文件、修改级别并设置环境变量（使用 Linux）："}
+{"item_id":"d9b1862ec9:84","text":"mkdir $KATANA_RESOURCES/Logging"}
+{"item_id":"d9b1862ec9:85","text":"cp $KATANA_HOME/bin/log.conf $KATANA_RESOURCES/Logging/log.conf"}
+{"item_id":"d9b1862ec9:86","text":"编辑 log.conf，并将 \"rootLogger\" 改为所需级别：\"ERROR\"、\"WARN\"、\"INFO\"、\"DEBUG\""}
+{"item_id":"d9b1862ec9:87","text":"Windows 中的工作流类似：创建 $KATANA_RESOURCES/Logging 文件夹，复制 log.conf 文件，并将 \"rootLogger\" 值改为列出的选项。"}
+{"item_id":"d9b1862ec9:88","text":"Katana 中的线程控制"}
+{"item_id":"d9b1862ec9:89","text":"检查点和恢复"}
+{"item_id":"d9b1862ec9:90","text":"PrmanObjectStatements"}
+{"item_id":"d9b1862ec9:91","text":"PrmanIntegratorSettings"}
+{"item_id":"d9b1862ec9:92","text":"PrmanGlobalStatements"}
+{"item_id":"d9b1862ec9:93","text":"Katana 中的 XPU"}

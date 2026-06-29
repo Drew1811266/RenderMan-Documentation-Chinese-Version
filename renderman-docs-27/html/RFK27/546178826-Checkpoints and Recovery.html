@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Checkpoints and Recovery</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Checkpoints and Recovery</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFK27/546178826/Checkpoints+and+Recovery">https://rmanwiki-27.pixar.com/space/RFK27/546178826/Checkpoints+and+Recovery</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<h3 id="CheckpointsandRecovery-Recovery">Recovery</h3><p>There are two ways to enable prman's <a href="/wiki/spaces/REN26/pages/19661833/Checkpointing+and+Recovery" data-linked-resource-id="19661833" data-linked-resource-version="3" data-linked-resource-type="page">recover</a> mode</p><p>1. For interactive disk rendering use the <code>recover</code> attribute in PrmanGlobalStatements:</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="628e9e15-b4c3-48b7-a4ed-1cd4f738ffa4" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">prmanStatements.commandArguments.recover</pre>
+</div></div><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="417" loading="lazy" src="../../attachments/546178826/rfkRecover.png" data-image-src="../../attachments/546178826/rfkRecover.png" data-height="146" data-width="417" data-unresolved-comment-count="0" data-linked-resource-id="546178843" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfkRecover.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="546178826" data-linked-resource-container-version="4" data-media-id="47011356-547c-4910-9188-06df3f513083" data-media-type="file"></span><p>2. For farm rendering there is an environment variable:</p><p><code>setenv RFK_RMAN_RECOVER
+</code></p><p>When the recover mode is enabled the '-recover' flag will be passed to the prman command line. This flag tells prman to pick up where an existing render left off instead of blowing away an existing output file. If no output file is found it will do a normal render.</p><p /><h3 id="CheckpointsandRecovery-Checkpoints">Checkpoints</h3><p>Render recovery is often used with checkpointing, enabled via the PrmanGlobalStatements &quot;checkpoint&quot; options:</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="c648c5a7-6e72-46b7-b026-bcff377fc23c" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">prmanStatements.options.checkpoint.interval
+prmanStatements.options.checkpoint.exitat
+prmanStatements.options.checkpoint.keepfiles
+prmanStatements.options.checkpoint.command</pre>
+</div></div><p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="409" loading="lazy" src="../../attachments/546178826/rfkCheckpoint.png" data-image-src="../../attachments/546178826/rfkCheckpoint.png" data-height="237" data-width="409" data-unresolved-comment-count="0" data-linked-resource-id="546178840" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfkCheckpoint.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="546178826" data-linked-resource-container-version="4" data-media-id="6a41ac5b-6e98-47fa-a8ae-a78823e5e7c7" data-media-type="file"></span><p /><h3 id="CheckpointsandRecovery-Caveats">Caveats</h3><p><strong>Live Rendering</strong></p><p style="margin-left: 30.0px;">All checkpoint and recover options are ignored during live rendering.</p><p><strong>Output Type and Render Post-processing</strong></p><p style="margin-left: 30.0px;">Because prman needs to have the original filename in order to recover a render both checkpoint and recover options are ignored for &quot;color&quot; outputs. Note this means that Katana's normal &quot;copy and convert&quot; post-render process will not run.</p><p><strong>Incremental Renders</strong></p><p style="margin-left: 30.0px;">Incremental renders are not recoverable without checkpointing enabled. With incremental on and checkpoints off the buckets are not written out until the end of the render. See table below:</p><p /><div class="table-wrap"><table data-table-width="1800" data-layout="default" data-local-id="d2505338-3234-43fc-8882-c9e33aadf9bc" class="confluenceTable"><tbody><tr><th class="confluenceTh"><p><strong>incremental</strong></p></th><th class="confluenceTh"><p><strong>checkpoints</strong></p></th><th class="confluenceTh"><p><strong>recoverable?</strong></p></th></tr><tr><td class="confluenceTd"><p>on</p></td><td class="confluenceTd"><p>disabled</p></td><td class="confluenceTd"><p>NO</p></td></tr><tr><td class="confluenceTd"><p>on</p></td><td class="confluenceTd"><p>enabled</p></td><td class="confluenceTd"><p>YES</p></td></tr><tr><td class="confluenceTd"><p>off</p></td><td class="confluenceTd"><p>disabled</p></td><td class="confluenceTd"><p>YES</p></td></tr><tr><td class="confluenceTd"><p>off</p></td><td class="confluenceTd"><p>enabled</p></td><td class="confluenceTd"><p>YES</p></td></tr></tbody></table></div><p><em>Recoverable Render Settings</em></p><p /><p><strong>Recovery and 'keepfiles'</strong></p><p>Do not enable the keepfiles option for checkpointing if you want to use the recover capability.</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="539660c6-a75f-4edf-8edc-a6fe142af450" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">Option &quot;checkpoint&quot; &quot;uniform int keepfiles&quot; [0]</pre>
+</div></div><p>The keepfiles option causes prman to save a sequence of checkpoints for debugging purposes giving each checkpoint image a unique file name tagged with increment and elapsed render time. However, when attempting to recover a file prman won't scan your directory for checkpointed files or try to choose one, it will only look for the file by the original render output name.</p>
+  </article>
+</main>
+</body>
+</html>

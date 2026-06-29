@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Implicit Surfaces</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Implicit Surfaces</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFH27/544644133/Implicit+Surfaces">https://rmanwiki-27.pixar.com/space/RFH27/544644133/Implicit+Surfaces</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p><div class="conf-macro output-block" data-hasbody="false" data-macro-name="include" data-macro-id="3b7b2c10-aed0-4c4d-9eb6-4388ee721175"><p/><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="geometryStirling.png" width="858" loading="lazy" src="../../attachments/19661425/geometryStirling.png" data-image-src="../../attachments/19661425/geometryStirling.png" data-height="405" data-width="720" data-unresolved-comment-count="0" data-linked-resource-id="19663889" data-linked-resource-version="2" data-linked-resource-type="attachment" data-linked-resource-default-alias="geometryStirling.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="19661425" data-linked-resource-container-version="4" data-media-id="b61e3e06-f963-4e4e-a7ba-b693243e3cfe" data-media-type="file"/></span><p/><h4 id="ImplicitSurfaces-Introduction">Introduction</h4><p>RenderMan provides the ability to render <strong>implicit surfaces</strong> (sometimes referred to in RenderMan as &quot;RiBlobby&quot; or blobby surfaces). Most geometry types in RenderMan have explicit control meshes: the geometry is specified by a collection of vertices that are on or near the surface. Implicit surfaces are different: they are built up from primitives that are defined <em>implicitly</em>, by the use of a mathematical function that is equal to some threshold value at every point on the surface. This complicated math is hidden by the renderer but leads to a representation that allows for a very efficient way to model geometry in situations where users want to create amorphous shapes and are willing to trade away fine control over details of shape for ease of modeling gross features.</p><h4 id="ImplicitSurfaces-Built-InPrimitives">Built-In Primitives</h4><p>One way of building an implicit surface in RenderMan is to build them up by combining simple built-in primitive shapes: an ellipsoid. Here, the most important feature of implicit surfaces is <em>automatic blending</em>: adjoining primitives will meld together into rounded, tubby, globular masses. When the primitives get close enough to each other, this blending happens automatically (or not, as the modeler wishes), with no need to construct explicit round and fillet patches joining them. The following demonstrates six multi-colored spheres that start out at some distance from each other; at this distance, they do not interact. As they move closer, however, they begin to stretch and blend together, smoothly merging into a larger mass. This blending happens automatically and efficiently in the renderer, without incurring extra memory costs; implicit surfaces tend to be much more memory efficient than creating the equivalent polygonal tessellation in a modeling program.</p><div class="table-wrap"><table data-table-width="1800" data-layout="align-start" data-local-id="b44683c0-c1c7-4d04-83f0-d4d8cba208c5" class="confluenceTable"><tbody><tr><td class="confluenceTd"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="bloba.png" width="184" loading="lazy" src="../../attachments/19661425/bloba.png" data-image-src="../../attachments/19661425/bloba.png" data-height="512" data-width="512" data-unresolved-comment-count="0" data-linked-resource-id="19663886" data-linked-resource-version="2" data-linked-resource-type="attachment" data-linked-resource-default-alias="bloba.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="19661425" data-linked-resource-container-version="4" data-media-id="83f19bf9-17f9-4ff7-8959-d90f446f126f" data-media-type="file"/></span></td><td class="confluenceTd"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="blobb.png" width="184" loading="lazy" src="../../attachments/19661425/blobb.png" data-image-src="../../attachments/19661425/blobb.png" data-height="512" data-width="512" data-unresolved-comment-count="0" data-linked-resource-id="19663883" data-linked-resource-version="2" data-linked-resource-type="attachment" data-linked-resource-default-alias="blobb.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="19661425" data-linked-resource-container-version="4" data-media-id="9fbbd97a-eef7-4cc7-b409-59cbb07fc215" data-media-type="file"/></span></td><td class="confluenceTd"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="blobc.png" width="184" loading="lazy" src="../../attachments/19661425/blobc.png" data-image-src="../../attachments/19661425/blobc.png" data-height="512" data-width="512" data-unresolved-comment-count="0" data-linked-resource-id="19663880" data-linked-resource-version="2" data-linked-resource-type="attachment" data-linked-resource-default-alias="blobc.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="19661425" data-linked-resource-container-version="4" data-media-id="b04ff83d-e640-42de-b793-366469250728" data-media-type="file"/></span></td><td class="confluenceTd"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="blobd.png" width="184" loading="lazy" src="../../attachments/19661425/blobd.png" data-image-src="../../attachments/19661425/blobd.png" data-height="512" data-width="512" data-unresolved-comment-count="0" data-linked-resource-id="19663877" data-linked-resource-version="2" data-linked-resource-type="attachment" data-linked-resource-default-alias="blobd.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="19661425" data-linked-resource-container-version="4" data-media-id="de8633b0-3a06-40b9-b6ba-c9ec936beeab" data-media-type="file"/></span></td><td class="confluenceTd"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="blobe.png" width="184" loading="lazy" src="../../attachments/19661425/blobe.png" data-image-src="../../attachments/19661425/blobe.png" data-height="512" data-width="512" data-unresolved-comment-count="0" data-linked-resource-id="19663874" data-linked-resource-version="2" data-linked-resource-type="attachment" data-linked-resource-default-alias="blobe.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="19661425" data-linked-resource-container-version="4" data-media-id="38fa897a-78d0-4aed-aaa9-c3ad9d2d02f1" data-media-type="file"/></span></td><td class="confluenceTd"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="blobf.png" width="184" loading="lazy" src="../../attachments/19661425/blobf.png" data-image-src="../../attachments/19661425/blobf.png" data-height="512" data-width="512" data-unresolved-comment-count="0" data-linked-resource-id="19663871" data-linked-resource-version="2" data-linked-resource-type="attachment" data-linked-resource-default-alias="blobf.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="19661425" data-linked-resource-container-version="4" data-media-id="6e6775b6-7ac9-4b8d-b98e-eb44109febd1" data-media-type="file"/></span></td><td class="confluenceTd"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="blobg.png" width="184" loading="lazy" src="../../attachments/19661425/blobg.png" data-image-src="../../attachments/19661425/blobg.png" data-height="512" data-width="512" data-unresolved-comment-count="0" data-linked-resource-id="19663868" data-linked-resource-version="2" data-linked-resource-type="attachment" data-linked-resource-default-alias="blobg.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="19661425" data-linked-resource-container-version="4" data-media-id="125c4f70-1954-4662-a1ae-ab5ffb9be5e3" data-media-type="file"/></span></td></tr></tbody></table></div><p>When using the built-in primitive ellipsoid shapes, the underlying mathematical function is such the resulting blended surface has approximately the same volume as the constituent primitives. This makes this workflow an excellent choice for modeling things like viscous fluids, where this volume-preserving property is highly desirable. However, as mentioned above, there is no fine control over how the shapes are blended together: either the primitives interact and blend, or they do not. The threshold at which they blend can be set globally for the entire surface (which will cause the entire implicit surface to &quot;bulk up&quot; or &quot;shrink down&quot;), but the threshold cannot be set on a sphere-by-sphere basis.</p><h4 id="ImplicitSurfaces-ImplicitFieldPlugins">Implicit Field Plugins</h4><p>RenderMan allows users to extend the built-in primitive shapes to other mathematical descriptions that can seamlessly take part in automatic blending with the built-in primitives. This extension involves the use of <strong>implicit field plugins</strong>, which are C++ shared libraries loaded by the renderer. The renderer ships with several plugins that add the ability to primitives in the shape of cubes and segments (sausage-like cylinders with rounded ends).</p><p>However, implicit field plugins also lend themselves to a very different approach to using implicit surfaces: by taking as input an implicit field representation generated in another program. Implicit fields are a natural and efficient representation for fluid and volume effects and can be output directly by programs such as Maya Fluids, programs that output OpenVDB files, or Bifrost.&nbsp; Implicit field plugins can be written to bridge the gap between these third-party implicit data file formats, and the RenderMan implicit primitive, allowing the output of fluid simulations to be rendered directly and efficiently inside RenderMan. Typically in such cases, the implicit surface consists of a single primitive which is conceptually just the implicit field plugin itself, with parameters that have special meaning to the plugin. Blending with other primitives is usually not a concern nor is it desired in this case. The renderer ships with two plugins of this type: one that reads Maya fluid cache files, and <a href="/wiki/spaces/REN26/pages/19661427/OpenVDB+Implicit+Field+Plugin" data-linked-resource-id="19661427" data-linked-resource-version="1" data-linked-resource-type="page">one that reads OpenVDB files</a>.</p><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="7bfe376e-b844-416f-811b-065f354a22a8" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>Some implicit field plugins (like <a href="/wiki/spaces/REN26/pages/19661427/OpenVDB+Implicit+Field+Plugin" data-linked-resource-id="19661427" data-linked-resource-version="1" data-linked-resource-type="page">the OpenVDB plugin</a>) can be used <strong>both</strong> with implicit surfaces <strong>and</strong> with the <a href="/wiki/spaces/REN26/pages/19661423/Volumes" data-linked-resource-id="19661423" data-linked-resource-version="2" data-linked-resource-type="page">volume primitive.</a> This reflects the fact that implicit fields also happen to be a good way to represent volumes. In the case of OpenVDB, the choice of which primitive to use is predicated by the type of OpenVDB file you are using (&quot;levelset&quot; versus &quot;fogvolume&quot;).</p></div></div></div></p><p><br/></p>
+  </article>
+</main>
+</body>
+</html>

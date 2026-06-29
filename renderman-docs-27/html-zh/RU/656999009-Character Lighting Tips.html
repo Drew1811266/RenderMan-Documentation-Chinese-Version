@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Character Lighting Tips</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Character Lighting Tips</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RU/656999009/Character+Lighting+Tips">https://rmanwiki-27.pixar.com/space/RU/656999009/Character+Lighting+Tips</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p><style>[data-colorid=pe1xw1rj2k]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=pe1xw1rj2k]{color:#004eb3}[data-colorid=r1fszh8597]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=r1fszh8597]{color:#004eb3}[data-colorid=zfwnmu2gu2]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=zfwnmu2gu2]{color:#004eb3}[data-colorid=xof8492bdw]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=xof8492bdw]{color:#004eb3}[data-colorid=i8pgd0ktbf]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=i8pgd0ktbf]{color:#004eb3}[data-colorid=zsu3y3buv1]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=zsu3y3buv1]{color:#004eb3}[data-colorid=kj2nyy33fy]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=kj2nyy33fy]{color:#004eb3}[data-colorid=oyqo3qb5s7]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=oyqo3qb5s7]{color:#004eb3}</style>RenderMan Community 非常棒；感谢我们的 guest contributors，这里把他们在自己 scenes 中觉得有用的一些 lighting tips 汇总到一页！</p><p /><div class="panel conf-macro output-block" data-hasbody="true" data-macro-id="2a11608f-7dea-4c6e-8b89-c26fbb498114" data-macro-name="panel" style="background-color: #4C9AFF;border-width: 1px;"><div class="panelContent" style="background-color: #4C9AFF;">
+<p><strong><span class="legacy-color-text-inverse">Baba Yaga </span></strong><span class="legacy-color-text-inverse">by Romane La Rosa</span></p>
+</div></div><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="babayaga_4K.jpg" width="760" loading="lazy" src="../../attachments/656999009/babayaga_4K.jpg" data-image-src="../../attachments/656999009/babayaga_4K.jpg" data-height="2160" data-width="3840" data-unresolved-comment-count="0" data-linked-resource-id="657621487" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="babayaga_4K.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="656999009" data-linked-resource-container-version="2" data-media-id="b8abcacc-6135-40ff-a2d7-a08959ea36dd" data-media-type="file" /></span><p><strong><span data-colorid="oyqo3qb5s7">Tip：保持通用性（Stay General）</span></strong></p><p>所有 lights 都是 normalized rectangular lights，也就是说我可以改变它们的 size，而不会改变 exposure。small light 会产生 sharp shadow，而 big light 会产生 soft shadow。</p><p>一开始放置一些 fill lights 来控制 darkest shadows 的 value 很有帮助；添加新 lights 时也不要犹豫隐藏 scene 中的每一盏 light，这样你可以完美 visualise 自己正在做什么。 </p><p>当我对 fill light rig 满意后，会把它隐藏并添加 key light。 </p><p>rim lights 也是同样做法。三盏 lights 都正确 positioned 和 calibrated 后，我会把它们一起 visualise。Leading lights 建立完成，太好了！我也喜欢在 IPR 中 zoom out，确保 overall image 仍然 readable。</p><p><strong><span data-colorid="pe1xw1rj2k">Tip：用几何体辅助 Lighting（Geometry 辅助灯光）</span></strong></p><p><strong><span data-colorid="xof8492bdw">DIFFUSER</span></strong><br />diffuser 是一个 plane，或你选择的 mesh，放在 subject 旁边。由于 Key Light rays 会从它上面 bounce 并 reflect 到 body 上，它会在 character 上产生非常 soft light。 </p><p>这是真实 portrait photography 中非常常见的 technique，因为它能通过 softening shadows 和 harmonizing tone，为 subject 添加柔和的 bounce of light。</p><p><strong><span data-colorid="r1fszh8597">BLOCKERS</span></strong><br />blocker 也是你添加到 scene 中的 mesh，但需要在 render settings（Render Stats → Visibility）中隐藏它。得益于 RenderMan 的 unbiased path tracing，你可以把它放在任何想要的位置，它会在不想要 light 的地方创建 absence of light。 </p><p>最好给它应用 Pixar Surface material，这样可以控制 blocker 的 opacity，只在局部 softening 一些 hard shadows。由于使用 transparent surfaces 可能影响 sampling，也可以使用 Light Filter 以 non-destructive 方式 block light。</p><p><strong><span data-colorid="zfwnmu2gu2">GROUND PLANE</span></strong><br />在 character 下方使用 ground plane，有助于像真实 floor 一样 bounce light。artists 经常忘记这一点，但没有 floor 会让 environment 缺少急需的 bounced light。要做到这一点，可以给 ground plane 添加 material，并在 Diffuse attribute 中使用 ground texture。</p><p /><div class="panel conf-macro output-block" data-hasbody="true" data-macro-id="c43806f2-25e5-4ed3-8368-8342c9d29d34" data-macro-name="panel" style="background-color: #4C9AFF;border-width: 1px;"><div class="panelContent" style="background-color: #4C9AFF;">
+<p><strong><span class="legacy-color-text-inverse">Baz </span></strong><span class="legacy-color-text-inverse">by John Saleem</span></p>
+</div></div><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="OpeningImage_main_960px.jpg" width="760" loading="lazy" src="../../attachments/656999009/OpeningImage_main_960px.jpg" data-image-src="../../attachments/656999009/OpeningImage_main_960px.jpg" data-height="1200" data-width="960" data-unresolved-comment-count="0" data-linked-resource-id="657260965" data-linked-resource-version="2" data-linked-resource-type="attachment" data-linked-resource-default-alias="OpeningImage_main_960px.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="656999009" data-linked-resource-container-version="2" data-media-id="5ddcc234-0610-42ca-9b62-0159d6dd75d1" data-media-type="file" /></span><p><strong><span data-colorid="zsu3y3buv1">Tip：Asset Turntable 和 Light Rig Switcher</span></strong></p><p>在深入 shot lighting 之前，我喜欢在 lookdev process 中用几个 lighting scenarios 测试 asset，例如 Studio、Sunny 和 Cloudy。这模拟了大型 visual effects studios 使用的 lookdev pipeline。</p><p>在网上研究 Katana nodes 和 workflows 多日后，我创建了一个 light rig switcher，让我可以快速“call to action”来切换 light rigs。</p><p>你可以从 <a class="external-link" href="https://polyhaven.com/" rel="nofollow">polyhaven.com</a> 下载 HDR maps，与 PxrDomeLight 一起使用；也可以为每个 rig 创建 custom 自定义 lighting，做出类似效果。 </p><p>我还添加了第四个选项，名为 “Shot0”，作为 rendering 的 final light rig。这个特定 rig 模拟 three-point lighting setup，并加入额外 rim 和 fill lights，以增强 visual impact。</p><iframe allowfullscreen="" allowtransparency="true" class="fullscreen-video-iframe conf-macro output-block" data-hasbody="false" data-layout="default" data-local-id="0e56ee97-6dbb-470d-86e3-a9dbe49289bc" data-macro-id="64cdcd8369b59ed4a8e7d9fc19635b37197a4463b0f794c9f37e7b804a9f60fa" data-macro-name="widget" frameborder="0" height="540" mozallowfullscreen="" src="https://player.vimeo.com/video/835623013" style="border:none; margin:1em 0em;" webkitallowfullscreen="" width="960">
+</iframe>
+
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="lighting_v01.jpg" width="760" loading="lazy" src="../../attachments/656999009/lighting_v01.jpg" data-image-src="../../attachments/656999009/lighting_v01.jpg" data-height="1080" data-width="1920" data-unresolved-comment-count="0" data-linked-resource-id="657424781" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="lighting_v01.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="656999009" data-linked-resource-container-version="2" data-media-id="1065d7b6-b1a8-427d-b039-4dae8b0d1d32" data-media-type="file" /></span><p /><div class="panel conf-macro output-block" data-hasbody="true" data-macro-id="af735f18-a40c-4af5-a939-8a53ae366e25" data-macro-name="panel" style="background-color: #4C9AFF;border-width: 1px;"><div class="panelContent" style="background-color: #4C9AFF;">
+<p><strong><span class="legacy-color-text-inverse">Brachur </span></strong><span class="legacy-color-text-inverse">by Johnny Fehr</span></p>
+</div></div><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="brachur-face.jpg" width="760" loading="lazy" src="../../attachments/656999009/brachur-face.jpg" data-image-src="../../attachments/656999009/brachur-face.jpg" data-height="1200" data-width="1000" data-unresolved-comment-count="0" data-linked-resource-id="657162660" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="brachur-face.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="656999009" data-linked-resource-container-version="2" data-media-id="2a4fd06c-0986-4564-99ff-0145bd099914" data-media-type="file" /></span><p>我总是从 dome light 开始，并且经常使用 rim light 和 key light。 </p><p>这样我已经能看到 shader 如何响应这种传统 lighting setup，它模拟了 three-point lighting rig。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="brachur-lighting-viewport.jpg" width="760" loading="lazy" src="../../attachments/656999009/brachur-lighting-viewport.jpg" data-image-src="../../attachments/656999009/brachur-lighting-viewport.jpg" data-height="767" data-width="1430" data-unresolved-comment-count="0" data-linked-resource-id="656999021" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="brachur-lighting-viewport.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="656999009" data-linked-resource-container-version="2" data-media-id="18161e41-e5df-4ea4-9778-7ba1bbfa1b38" data-media-type="file" /></span><p>Neutral lighting 很适合作为起点，也就是说除了 HRDI 中自然存在的轻微 saturation 外，不使用其他 colors。</p><p>大多数时候，我对 final lighting 的样子有一个粗略想法，所以会从一个接近目标的设置开始。当然，在 production 中情况不同，因为 art direction 优先；但个人作品可以拥有更多 creative liberties。</p><p>在这个 basic lighting setup 下调整 textures 和 materials 后，我会继续细化 final lighting setup，以获得适当的 light balance 和 image contrast，从而塑造 character 并突出它的 features。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="brachur-lighting.gif" width="760" loading="lazy" src="../../attachments/656999009/brachur-lighting.gif" data-image-src="../../attachments/656999009/brachur-lighting.gif" data-height="1200" data-width="1000" data-unresolved-comment-count="0" data-linked-resource-id="656999028" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="brachur-lighting.gif" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/gif" data-linked-resource-container-id="656999009" data-linked-resource-container-version="2" data-media-id="cf90a1cb-8f4b-4b0e-ab02-5bbb1e865a15" data-media-type="file" /></span><p><strong><span data-colorid="kj2nyy33fy">TIP：Color Temperature</span></strong><br />使用 lights 上的 color temperature 让 light 略微 tint。相比纯白 light，这要 realistic 得多。</p><p><strong><span data-colorid="i8pgd0ktbf">TIP：Isolate Lights</span></strong><br />关闭 lights 并 isolate 它们，以平衡 intensity，并正确理解它们的 contribution。</p><hr /><p />
+  </article>
+</main>
+</body>
+</html>

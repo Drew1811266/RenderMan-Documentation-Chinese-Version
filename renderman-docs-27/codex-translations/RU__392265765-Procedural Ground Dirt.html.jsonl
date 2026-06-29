@@ -1,0 +1,40 @@
+{"item_id":"515f81087c:0","text":"通常，当一个 prop（道具）被放在地面或架子上，或者积累了带方向性的 grunge（污垢/旧化痕迹）时，prop 的下半部分会比上半部分更脏。"}
+{"item_id":"515f81087c:1","text":"想象一个在街角放了很多年的消防栓、一个留在脏地板上的盒子，或者像本例这样，一个展示盒长期放在凌乱的架子上，底部开始比顶部更脏。"}
+{"item_id":"515f81087c:2","text":"当然，你可以使用 Mari 或 Substance Painter 绘制 dirt ground mask，但在这个例子中，我们想看看如何使用 RenderMan 的 shading toolkit，以 procedural（程序化）方式实现同样的效果。"}
+{"item_id":"515f81087c:3","text":"以 procedural 方式制作这个效果的优势在于，如果有许多这样的托盘散布在工作台、地板或展示架上，我们不必为每个 tray instance 分别绘制 mask，而且还能为每个 tray 获得 shading variation。"}
+{"item_id":"515f81087c:4","text":"让我们看看如何在 Blender 中实现这一点。当然，这个效果也可以在其他 DCCs 中同样实现，但本例会使用 Blender。"}
+{"item_id":"515f81087c:5","text":"Goal（目标）"}
+{"item_id":"515f81087c:6","text":"我们的目标是创建一个从 prop 底部开始并向上延伸的黑白 gradient。"}
+{"item_id":"515f81087c:7","text":"然后将它作为 mask，用于叠加 dirt diffuse layer。"}
+{"item_id":"515f81087c:8","text":"Steps（步骤）"}
+{"item_id":"515f81087c:9","text":"为了演示效果，这个 shader 已通过使用 PxrConstant node 简化，因此我们可以轻松预览正在创建的 mask。"}
+{"item_id":"515f81087c:10","text":"实现这个效果的关键在几个 nodes 上。第一个是 PxrRamp，第二个使用 PxrManifold3D node。"}
+{"item_id":"515f81087c:11","text":"如果把 PxrRamp 连接到 PxrConstant 的 EmitColor，就会得到这样的结果。"}
+{"item_id":"515f81087c:12","text":"目前它还不算很有用，也不太惊艳，但先等等……"}
+{"item_id":"515f81087c:13","text":"下一步是创建一个 PxrManifold3D node，并将它连接到刚才创建的 PxrRamp node 的 manifold input。"}
+{"item_id":"515f81087c:14","text":"接下来，在 PxrRamp node 中，将 Ramp Type 改为 T Ramp。"}
+{"item_id":"515f81087c:15","text":"为了让这个效果真正可控，我们需要在 Blender 中创建一个 coordinate system，以便控制 gradient 的方向。"}
+{"item_id":"515f81087c:16","text":"创建 Empty-> Plain Axis"}
+{"item_id":"515f81087c:17","text":"给 Plain Axis node 起一个有意义的名字，例如 GroundDirt"}
+{"item_id":"515f81087c:18","text":"在 RenderMan Geometry 下，开启 Export as CoordSys"}
+{"item_id":"515f81087c:19","text":"注意：在 Maya 中，可以使用"}
+{"item_id":"515f81087c:20","text":"3D Placement"}
+{"item_id":"515f81087c:21","text":"node 来创建 coordinate system（坐标系）"}
+{"item_id":"515f81087c:22","text":"完成后，我们需要告诉 PxrManifold3D node：我们希望使用这个 Axis controller 作为 coordinate system。"}
+{"item_id":"515f81087c:23","text":"在 PxrManifold3D node 的 Coordinate System 下，输入你新建的 Axis Node 名称。在本例中，它叫 GroundDirt"}
+{"item_id":"515f81087c:24","text":"现在，我们的 gradient 看起来有用多了。"}
+{"item_id":"515f81087c:25","text":"我们可以通过调整 ramp knots，设置 dirt 在 prop 上开始和结束的位置，从而控制这个效果。"}
+{"item_id":"515f81087c:26","text":"还可以通过上下移动 GroundDirt Axis 来进一步精调 placement。"}
+{"item_id":"515f81087c:27","text":"GroundDirt_MoveAxis.mp4"}
+{"item_id":"515f81087c:28","text":"现在，我们有了一个更有用的 ground-dirt mask……但还可以通过用 dirt texture map 打破 ramp 的平滑度，把它推得更远。"}
+{"item_id":"515f81087c:29","text":"可以用很多不同方式使用这个 texture map 来 breakup 我们的 ramp，其中一种方法是使用 PxrBlend node，将上方的 dirt spots texture 与 ground dirt ramp 进行 Blend。"}
+{"item_id":"515f81087c:30","text":"由于我们希望尽可能保持 procedural，因此会使用 PxrRoundCube & PxrMultiTexture setup，把 dirt spot texture 以 tri-planar 方式投射到 prop 上。这个方法允许我们把 dirt spots 随机 offset、rotate 和 tile 到其他 instances 上。"}
+{"item_id":"515f81087c:31","text":"使用 PxrBlend node 后，我们用 Multiply ink mode，把 tri-planar dirt spot texture 叠在 ground dirt ramp 上进行 Blend。你也可以尝试不同的 ink modes，以获得不同结果。"}
+{"item_id":"515f81087c:32","text":"如果需要让 mask 效果更明显，可以再次通过多种方式调整 mask；在本例中，我们会使用 PxrSplineMap node 和 curves 来调整 mask。"}
+{"item_id":"515f81087c:33","text":"很好！"}
+{"item_id":"515f81087c:34","text":"现在，我们可以把这个 mask 用作 procedural Lama 或 PxrSurfaceLayer shading setup 的 layer mix。"}
+{"item_id":"515f81087c:35","text":"请注意，一旦开始在实际 shader 中使用这个 mask，你可能会发现还需要进一步调整 mask 的 brightness 和 contrast，才能调出想要的 look。"}
+{"item_id":"515f81087c:36","text":"Further Practice（进一步练习）"}
+{"item_id":"515f81087c:37","text":"尝试使用其他 textures 或 PxrFractal node，进一步打散 ground dirt gradient"}
+{"item_id":"515f81087c:38","text":"使用 PxrDirt node 向 mask 中添加 crevice dirt（如上面的 setup 所示）"}
+{"item_id":"515f81087c:39","text":"使用 PxrDirt node，从那些不一定总会受到 ground dirt 影响的 objects 内部移除 crevice dirt。"}

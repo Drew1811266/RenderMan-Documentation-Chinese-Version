@@ -1,0 +1,32 @@
+{"id":"a86d570c0f30bad02796dba9c568d31dfd9180ad14e6368c05ba061a1cc95ce0","item_id":"b1f8589ed0:0","text":"下面概述如何使用 RenderMan for Solaris 设置 holdout 工作流。"}
+{"id":"999f0f25284161a986c80dea79d32ab09f7e42e2788c743beb5f1676758d4792","item_id":"b1f8589ed0:1","text":"在下面的场景中，我们有 2 个对象：一个破损的机械 Teapot，以及一个 floor plane（地面平面），它充当 shadow & reflection catcher（阴影与反射承接面）。"}
+{"id":"ef874e421f2175da21347b86d9f239f9560202d3d2426ffdc414d796d744e7e4","item_id":"b1f8589ed0:2","text":"第一步是为地面创建并分配 shader（着色器）。在这个示例中，它只是一个简单的 PxrSurface，其 diffuse color（漫反射颜色）匹配 Pixar 这里 Steve Jobs 大楼外石砖的浅棕色。这个 PxrSurface 还添加了粗糙反射。"}
+{"id":"9822a36103c09126e65c0150a242f6c0699f3b4ae97c45b12f946090595e549e","item_id":"b1f8589ed0:3","text":"在更复杂的工作流中，floor plane（地面平面）通常会使用与它所反射的真实地面相同的纹理；但这里只是一个设置 Holdout 工作流的简单示例。"}
+{"id":"3f2f0bbc639f98919d3c1c3adf7d70ac79a125f8bdc0d35853d13388f696aae2","item_id":"b1f8589ed0:4","text":"接下来，我们需要告诉 USD：我们希望"}
+{"id":"d8fec730debde32753febb0506773999b068f58734c74ee1301d24721a5f76f8","item_id":"b1f8589ed0:5","text":"/FloorCatcher"}
+{"id":"464824417b6caf854fb864593f030eab662767fe779736daf4a121eba792e813","item_id":"b1f8589ed0:6","text":"这个 prim 充当 Holdout。这通过一个"}
+{"id":"d1a12ecc7b29ec07666cca36d31f6a3e7e18a850923a01e0c454887c544616d9","item_id":"b1f8589ed0:7","text":"rendergeometrysettings"}
+{"id":"08bc1d614e69bba62450ff78c2a4099932256ca999289dc5b76d2dacf0185518","item_id":"b1f8589ed0:8","text":"LOP 完成；在 RenderMan / Trace 选项卡中，只需启用"}
+{"id":"6a6b1fe584b97494c1a29e2dbaed3dfcff79af4e0ada32635547feab2b2427e7","item_id":"b1f8589ed0:9","text":"Holdout"}
+{"id":"cdb4ee2aea69cc6a83331bbe96dc2caa9a299d21329efb0336fc02a82e1839a8","item_id":"b1f8589ed0:10","text":"。"}
+{"id":"69c3d3e8600492a62fc86dabb3f57b9ee4182453c2a9e1b5038b5ab5de43279f","item_id":"b1f8589ed0:11","text":"完成后，需要创建一个 PxrShadowFilter LOP；可以看到它被添加在"}
+{"id":"a0d80609051ea8599c7042c0592e3c2a3fe0e97ba918629c3e280f0db34b444d","item_id":"b1f8589ed0:12","text":"/Render/pxrshadowfilter1"}
+{"id":"59b52797ec689d6e843c811598298a48fb5c820c3f4dc6a72dedb390ccf903f8","item_id":"b1f8589ed0:13","text":"scope 下。"}
+{"id":"15268e907531c2c0d2dc55c20be486bd589238bb88800b24854a6c400e3eb06e","item_id":"b1f8589ed0:14","text":"最后，在这一阶段，需要把这个 Sample Filter 分配给我们的 rendersettings。"}
+{"id":"daea74c2f4b080b8a7a61f9d21addc8a90f2b4e13e36fdce558a8b75bc538471","item_id":"b1f8589ed0:15","text":"接下来，需要创建 Holdout Render AOV。在此示例中，我们添加了一个"}
+{"id":"0b888fb68be194d75a46874b49364d72811e0dc4a3e74295221e88b0b31ba102","item_id":"b1f8589ed0:16","text":"rendermanrendersettings"}
+{"id":"f29c9ccd35a144956f17c7e90019c379137678b983f29193194a04522a7b4cb9","item_id":"b1f8589ed0:17","text":"LOP，并在 RenderVars 选项卡下启用 3 个 AOV（或你需要的任意 AOV），位置在"}
+{"id":"89db7afdb5efa157917689a47e091a77295d8d3d25ceb766e4b1c95b21e366ba","item_id":"b1f8589ed0:18","text":"Holdouts"}
+{"id":"89db3cdbbb46c9ea6dfcc4479f3b0879c909a00f7d8c3e336973eb43b444cdaa","item_id":"b1f8589ed0:19","text":"下拉面板中。"}
+{"id":"415e823320507c3cef15673325e1e082c09444f1d7104ed9be8d07b09446616a","item_id":"b1f8589ed0:20","text":"如 Scene Graph（场景图）所示，新创建的 Holdout AOV 现在已经生成。"}
+{"id":"9fbb676219ec566645d3af06b14843ca15736c9cfbe86706e07c86fb20e3374d","item_id":"b1f8589ed0:21","text":"现在通过"}
+{"id":"acd289aa6c4e2d57fd9e945cd3ed0f39d03714d2db2fbd18feb8a0b600670293","item_id":"b1f8589ed0:22","text":"liverender"}
+{"id":"671bc0a00d710d6f59a06c390ffd9aeeb3848e688734f3d7693e3876013fc7c6","item_id":"b1f8589ed0:23","text":"LOP 进行渲染时，可以看到结果。"}
+{"id":"90e8aaf314def1ea2b3ac29e4fd9383a7c2bd0ba71c2dca93aceaba7d36c4264","item_id":"b1f8589ed0:24","text":"如果想把 shadow AOV 合并进 beauty alpha，需要在 PxrShadowFilter 节点中将 Shadow AOV 改为 a（而不是 shadow）"}
+{"id":"82c6ad63d73347bd902e096d4117785d44212cd4c8657df797537eced43654c6","item_id":"b1f8589ed0:25","text":"到这里看起来都还“ok”，但是如果我们想在 Solaris viewport（视口）中实际看到 backplate（背景板）怎么办？有几种方式可以实现。"}
+{"id":"e23f1f8dba13d2b7b9080e86a6b9eb183c57fd6925544c495bf03cc1f01cd248","item_id":"b1f8589ed0:26","text":"如果使用 RIS，可以使用"}
+{"id":"c30a84073f64a22d2096c018abbb0b2598f1beb9e051f138db21705deceae66b","item_id":"b1f8589ed0:27","text":"pxrimageplanefilter"}
+{"id":"446dc491c7e456ca3ae6499692eb9e0b0dacc2920eebb2b2474466ea6810df16","item_id":"b1f8589ed0:28","text":"LOP 将 backplate 添加到 viewport render（视口渲染）中。目前这是仅 RIS 支持的功能。"}
+{"id":"0136b9eee27017310074a8dca7f785f7ec838c9b571be89241fa20f1a9ce928d","item_id":"b1f8589ed0:29","text":"另一种在渲染中查看 backplate 的方式是在 COPs 中使用 Slap Comp。下面的设置会将 Alpha 和 Shadow AOV 合并为一个输出，然后把该输出叠加到 backplate 上。"}
+{"id":"db1eaf48433d0baad74843086297d8a18ff76d152ebe236c588fbfdd58ceb8c7","item_id":"b1f8589ed0:30","text":"在 Live Render 中打开 Slap Comp 预览后，就会把我们的 beauty 合成到 backplate 之上！"}
+{"id":"9e8c0d9d40c40042d6b0a52f1658d4118a27a6047c808c1e2fea3b8d4d83b893","item_id":"b1f8589ed0:31","text":"当然，使用 Slap Comp 只是用于预览 CG 叠在 backplate 上的效果。最终渲染会通过 Husk 渲染到磁盘，再在 Nuke 或 Fusion 等软件中合成，从而可以调整阴影颜色和强度，并精细调整 CG 融入 backplate 的调色。"}

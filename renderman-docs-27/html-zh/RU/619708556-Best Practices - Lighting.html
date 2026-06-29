@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Best Practices - Lighting</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Best Practices - Lighting</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RU/619708556/Best+Practices+-+Lighting">https://rmanwiki-27.pixar.com/space/RU/619708556/Best+Practices+-+Lighting</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="contentLayout2"><style>[data-colorid=qk5tplz9n7]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=qk5tplz9n7]{color:#004eb3}</style>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="CookiesNMilk_new_Banner.jpg" width="760" loading="lazy" src="../../attachments/619708556/CookiesNMilk_new_Banner.jpg" data-image-src="../../attachments/619708556/CookiesNMilk_new_Banner.jpg" data-height="1073" data-width="1074" data-unresolved-comment-count="0" data-linked-resource-id="619708634" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="CookiesNMilk_new_Banner.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="619708556" data-linked-resource-container-version="4" data-media-id="a024b29b-80de-4067-9295-41d205886ed9" data-media-type="file" /></span><h2 id="BestPractices-Lighting-Lighting">灯光（Lighting）设置概览</h2><p>这个场景使用了常见的 three-point lighting setup。 </p><p>其中有一个使用 <a class="external-link" href="https://rmanwiki-26.pixar.com/space/REN26/19661747" rel="nofollow"><u>PxrDomeLight</u></a>的 fill light，以及使用 <a class="external-link" href="https://rmanwiki-26.pixar.com/space/REN26/19661739" rel="nofollow"><u>PxrRectLight</u></a>的边缘光和主光。</p><p>除了 Fill Light 之外，其他 lights 都使用 <em>emission focus</em>&nbsp;来创建更柔和的边缘和微妙的 spotlight effect。</p><p /><h2 id="BestPractices-Lighting-FillLight">Fill Light（补光）</h2><p>用于填充暗部和阴影（shadows）的 light 提供基础照明，称为 fill light。该场景使用了一张 high dynamic range image（HDRI）。使用 PxrDomeLight 时，它需要一个 texture 作为输入，并且该 texture 应包含宽范围的数值，其中许多值应超过 1.0。这应该是 EXR、TIFF 或 HDR 图像。你可以从 Maxime Roz 找到一些免费示例 <a class="external-link" href="http://www.maximeroz.com/hdri-free-pack/" rel="nofollow"><u>here</u></a>。&nbsp;</p><p>下方的 light 在略微调暗后处于默认 balance。右侧第二张图则把调整后的 <em>specular amount</em> 设为 0.5，而不是 1.0。</p><p /></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="milkNCookies_FillDome_spec1.jpg" width="356" loading="lazy" src="../../attachments/619708556/milkNCookies_FillDome_spec1.jpg" data-image-src="../../attachments/619708556/milkNCookies_FillDome_spec1.jpg" data-height="600" data-width="400" data-unresolved-comment-count="0" data-linked-resource-id="619446442" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="milkNCookies_FillDome_spec1.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="619708556" data-linked-resource-container-version="4" data-media-id="d04b29ac-cbdb-4dbc-bede-eda9b3299c5d" data-media-type="file" /></span><p /></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="milkNCookies_FillDome.jpg" width="356" loading="lazy" src="../../attachments/619708556/milkNCookies_FillDome.jpg" data-image-src="../../attachments/619708556/milkNCookies_FillDome.jpg" data-height="600" data-width="400" data-unresolved-comment-count="0" data-linked-resource-id="619413741" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="milkNCookies_FillDome.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="619708556" data-linked-resource-container-version="4" data-media-id="1ea7242b-2149-4132-a160-f4733d764148" data-media-type="file" /></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h2 id="BestPractices-Lighting-RimLight">Rim Light（轮廓光）</h2><p>Rim lighting 可用于定义形状或 silhouette。“rim” 这个名称来自它会勾勒对象的 rim 或 edge。</p><p>下方，它被添加为 PxrRectLight；右侧则将 <em>specular amount</em> 调低，使效果更悦目也更细腻。在这张图中，只需要稍微改善 silhouette，而不是过强地突出它。</p><p /></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="milkNCookies_RimRect_spec1.jpg" width="356" loading="lazy" src="../../attachments/619708556/milkNCookies_RimRect_spec1.jpg" data-image-src="../../attachments/619708556/milkNCookies_RimRect_spec1.jpg" data-height="600" data-width="400" data-unresolved-comment-count="0" data-linked-resource-id="619479180" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="milkNCookies_RimRect_spec1.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="619708556" data-linked-resource-container-version="4" data-media-id="1b8f68f2-63ba-4f0b-8362-c1b4bf59416f" data-media-type="file" /></span><p /></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="milkNCookies_RimRect.jpg" width="356" loading="lazy" src="../../attachments/619708556/milkNCookies_RimRect.jpg" data-image-src="../../attachments/619708556/milkNCookies_RimRect.jpg" data-height="600" data-width="400" data-unresolved-comment-count="0" data-linked-resource-id="619479186" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="milkNCookies_RimRect.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="619708556" data-linked-resource-container-version="4" data-media-id="51887a94-39e1-4c81-a11f-edcd14945124" data-media-type="file" /></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h2 id="BestPractices-Lighting-KeyLight">主光（Key Light）参数设置</h2><p>key light 是这张图中的主要 light source。它通常是图像中最亮的 light，并帮助定义一天中的时间、光源位置，以及空气质量等方面，如果空气中有烟或灰尘就更明显。</p><p>这里，它被放在画面外，用来制造自然窗光的错觉。右侧再次降低 specular amount，以柔化 highlights，并在与另外两个 light sources 结合后生成最终图像。</p><p /></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="milkNCookies_KeyRect_spec1.jpg" width="356" loading="lazy" src="../../attachments/619708556/milkNCookies_KeyRect_spec1.jpg" data-image-src="../../attachments/619708556/milkNCookies_KeyRect_spec1.jpg" data-height="600" data-width="400" data-unresolved-comment-count="0" data-linked-resource-id="619413749" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="milkNCookies_KeyRect_spec1.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="619708556" data-linked-resource-container-version="4" data-media-id="35f289ee-24c1-4640-8976-13dee84da6e9" data-media-type="file" /></span><p /></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="milkNCookies_KeyRect.jpg" width="356" loading="lazy" src="../../attachments/619708556/milkNCookies_KeyRect.jpg" data-image-src="../../attachments/619708556/milkNCookies_KeyRect.jpg" data-height="600" data-width="400" data-unresolved-comment-count="0" data-linked-resource-id="619479192" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="milkNCookies_KeyRect.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="619708556" data-linked-resource-container-version="4" data-media-id="1f5eba58-b81a-4d34-9c5c-3a5c8df74ed2" data-media-type="file" /></span><p /></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h2 id="BestPractices-Lighting-TheSoftbox">柔光箱（The Softbox）设置</h2><p>该场景建模了一组墙面作为 softbox。Softboxes 用于在场景中反弹和漫射 light。由于 RenderMan 使用 global illumination，这个摄影技巧的工作方式与真实世界类似。你可以通过修改 diffuse gain 和 color settings 来调整 softbox 的 diffusion 量。</p><p /><p /><hr /><h3 id="BestPractices-Lighting-TheEnd!"><span data-colorid="qk5tplz9n7">The End!（结束） </span></h3><p>希望你已经从这些课程中学到许多最佳实践，并且现在可以应用到自己的 scenes、models、shaders 和 renders 中。</p><p>欢迎下载该场景并创建自己的版本，也别忘了在我们的 <a class="external-link" href="https://discord.com/channels/479703857883250698/1405011194233749574" rel="nofollow">Discord</a></p><p /></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<a class="external-link" href="608272385-Cookies &amp; Milk.html" rel="nofollow"><span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" alt="DownloadButton2.png" width="200" loading="lazy" src="../../attachments/619708556/DownloadButton2.png" data-image-src="../../attachments/619708556/DownloadButton2.png" data-height="68" data-width="286" data-unresolved-comment-count="0" data-linked-resource-id="619511967" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="DownloadButton2.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="619708556" data-linked-resource-container-version="4" data-media-id="ace33d4e-d7ae-4599-a6c6-0fbccf2f99d3" data-media-type="file" /></span></a><p /></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p /></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<hr /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="RenderManUniversity_logo_Small.png" width="100" loading="lazy" src="../../attachments/619708556/RenderManUniversity_logo_Small.png" data-image-src="../../attachments/619708556/RenderManUniversity_logo_Small.png" data-height="100" data-width="100" data-unresolved-comment-count="0" data-linked-resource-id="619708577" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderManUniversity_logo_Small.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="619708556" data-linked-resource-container-version="4" data-media-id="2a74a3cf-bb53-4017-94bc-9d9d7d943ec4" data-media-type="file" /></span></div>
+</div>
+</div>
+</div>
+  </article>
+</main>
+</body>
+</html>

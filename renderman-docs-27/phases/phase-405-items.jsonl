@@ -1,0 +1,31 @@
+{"id": "550c30a9b881c6f3c6852c80072ecb52fc4cdabb08ceeac7b51c8940bddeade8", "item_id": "43a0cf7bd3:0", "text": "RenderMan for Katana supports the different geometry types in Katana such as polygons, subdivision surfaces, curves, NURBS, volumes, particles, RIB Archives, and render procedurals for generating dynamic geometry at render-time.  If you are not familiar with any of these geometry types, we encourage you to take a look at the RenderMan documentation for"}
+{"id": "8148b7fefaf89ebf8e7951994d2601d731220c5460faecc64c69d12bb7ff3213", "item_id": "43a0cf7bd3:1", "text": "geometry"}
+{"id": "899400967d23a81149c1a951ea68721f7ac46215d50f94fb2de598f7c555e2db", "item_id": "43a0cf7bd3:2", "text": ", including the child pages in that section.  That section of the documentation contains background information about each of the different geometry types that RenderMan supports.  This section of the documentation describes how to use each geometry type with Katana."}
+{"id": "0a573865eee4e667ac1e91adcc1846db1f31dec992076733e2623e491d0d25ba", "item_id": "43a0cf7bd3:3", "text": "To bring geometry into Katana, you will use one of the following nodes:"}
+{"id": "319b0f52acd650d60bb1e94287a0bca00cd6e5abb3e02f3513ecf1d7fa89c09c", "item_id": "43a0cf7bd3:4", "text": "Importomatic"}
+{"id": "2bc90a66c768f55fa3deb797df13f46757c2419fed3cd5d2a62fb7c657f3bd03", "item_id": "43a0cf7bd3:5", "text": "PrimitiveCreate"}
+{"id": "f1dc43e1f9a4f80368cac959fdd6a216edb006d3d6bd2d1452da674affc82aec", "item_id": "43a0cf7bd3:6", "text": "Alembic_In"}
+{"id": "87df1bb85e2768b32370e57021cc524a0b111046df81d21579a39fbcb4c41941", "item_id": "43a0cf7bd3:7", "text": "UsdIn"}
+{"id": "d3ddced90422376e45d3689a8cd7eaf8466a8ce9518bcd5d587606a65cc5fdfe", "item_id": "43a0cf7bd3:8", "text": "ScenegraphGeneratorSetup + ScenegraphGeneratorResolve"}
+{"id": "0b06ff5e4f669c420941f6fd40d21cc8ae0e69c478589e1d3dd22c3b85f007ad", "item_id": "43a0cf7bd3:9", "text": "LocationCreate"}
+{"id": "ece04d9cc97ccf88f4b69d90e4e996b93f51bbdc67d34d6b5dc410fbf706b8e0", "item_id": "43a0cf7bd3:10", "text": "LocationGenerate"}
+{"id": "38ec2eb9a5f8ac6ac9040b78c55816fd21ebd8db3b5159244bc427876c0d97f3", "item_id": "43a0cf7bd3:11", "text": "OpScript"}
+{"id": "3fdee2bb84514bf9e47f1a33f9a1c946babfbabaee634e19572ea95ecc9e7c1f", "item_id": "43a0cf7bd3:12", "text": "Alternatively, you can bring in the Pixar Universal Scene Description (USD) format by downloading and installing USD support from"}
+{"id": "d60ce4c76d3ab1640dbc6689fff0ade48a13ad4165eb46e1458aedd120b912e9", "item_id": "43a0cf7bd3:13", "text": "http://graphics.pixar.com/usd/"}
+{"id": "e558b86dabec443455a0e2cbf79452427e9f49adae19b74d17ce0b8018ddf68e", "item_id": "43a0cf7bd3:14", "text": "The download provides you with plugins to Katana that you can use to load USD."}
+{"id": "44e2427b80918e1aa511cca4a64d5642af54e459c0913046edead9a4f1a0a226", "item_id": "43a0cf7bd3:15", "text": "Which node you use depends on what you are doing and how the pipeline is setup at your studio.  A common workflow is to use an Importomatic node to bring in a set of Alembic files representing the geometry for your shot.  If your studio has a custom geometry format, your pipeline team has most likely written a plugin to Katana that can be referenced within the Importomatic node to bring in geometry."}
+{"id": "9e245c841550c0a27899bf715d217310d73f23edc64cc018c765e233867023b5", "item_id": "43a0cf7bd3:16", "text": "If you need to bring in RIB Archives or render procedurals, you will typically use a PrimitiveCreate node to bring them in."}
+{"id": "b297c33ebf8f61ed80838038533d98f3b35fc140aaec4bec57a06ebbf5ec7539", "item_id": "43a0cf7bd3:17", "text": "For volumes, we recommend you use the"}
+{"id": "6b7299f09f3ce35ca354ad17e34575ab34b631e30cdd924a58680baa01c8e161", "item_id": "43a0cf7bd3:18", "text": "PrmanVolume"}
+{"id": "e09370a8e27395c8631b17ba4b1026a6c2ad29140a0896a4f0aa5e59574950db", "item_id": "43a0cf7bd3:19", "text": "node.  This node sets up the attributes required to render vdb or box volumes."}
+{"id": "65dd2312c28e92514589b356443aebae333cc34c79aa6081b72abed6a2e837bd", "item_id": "43a0cf7bd3:20", "text": "Its all a bunch of attributes..."}
+{"id": "aaa7dcb0330904e90215918c6557b69b7b84994772b3d85aa78ee0a88ea445f2", "item_id": "43a0cf7bd3:21", "text": "Remember, in Katana, everything is an attribute.  Every node in the node graph is working to either add, remove, or modify Scenegraph locations and their attributes.  No matter what node you use above, or no matter what custom nodes your studio has created, everything ends up in the Scenegraph as an attribute.  We use this fact to our advantage within RenderMan for Katana as we support the different geometry types."}
+{"id": "7c57a3375cc164fc727a825b6210131747111809a33115c28db67567076fca1f", "item_id": "43a0cf7bd3:22", "text": "Each of the pages below has specifics of each geometry type."}
+{"id": "b4aa89ac3c52df4d3a3cfecb62925f42cce079f38e93fe9568520360f60d182f", "item_id": "43a0cf7bd3:23", "text": "Volumes in Katana"}
+{"id": "81e10c85b9672aac16cab3532b5d719a59bcd91467622b1a144007e97c9fa56f", "item_id": "43a0cf7bd3:24", "text": "Subdivision Surfaces in Katana"}
+{"id": "23644007d6fa55f55b40946c9ee0fb18ce0f16fa6b02d6ec4e5e4630684007cc", "item_id": "43a0cf7bd3:25", "text": "Procedurals in Katana"}
+{"id": "0151c70d844adec6da6c4883c61d6ce696896b8047d72c7a05057659de842221", "item_id": "43a0cf7bd3:26", "text": "Polygons in Katana"}
+{"id": "05dc0e01c267786a024542b20dee860841141ed4ff5a09da1c2cb76eb035d8e1", "item_id": "43a0cf7bd3:27", "text": "Curves in Katana"}
+{"id": "180887b424f28a898870255fe74773df4a800b2b26726fc154b974aeadada022", "item_id": "43a0cf7bd3:28", "text": "Geometric Settings"}
+{"id": "c558f8b90e413566b989375c31237dea841a53e2c3d9d840dcc1c8c1d43cd2e2", "item_id": "43a0cf7bd3:29", "text": "Instancing in Katana"}
+{"id": "bdb8b2292d94583af41948bc621019c786b20aaac120761a674d97de2b236d8c", "item_id": "43a0cf7bd3:30", "text": "Particles in Katana"}

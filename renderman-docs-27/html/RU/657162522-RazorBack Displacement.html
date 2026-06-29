@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RazorBack Displacement</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>RazorBack Displacement</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RU/657162522/RazorBack+Displacement">https://rmanwiki-27.pixar.com/space/RU/657162522/RazorBack+Displacement</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>The first crucial step in Lookdev is setting up the displacement output from ZBrush to minimize frequency loss between ZBrush and RenderMan. A meticulous displacement setup categorizes the levels of detail per map into primary, secondary, and tertiary.</p><p>Each map is exported with an average gray value of 0.5 and is then centered in the PxrDispTransform node in RenderMan to prevent model distortion. This ensures that the value of 0.5 is not displaced.</p><p>The PxrDispScalarLayer enables precise control over each map, allowing adjustments according to the intensity of the PxrDisplace. </p><p>Additionally, using a PxrBump with a low value doubles the displacement maps, thereby recovering some of the lost volume frequencies during map exports.</p><p>The primary displacement map, exported from Zbrush's Subdiv 3 of the Kurtis model, retains essential bake information in topology to accurately transcribe all displacement data. The secondary map, exported from Mari, shows changes in volume through color variations. </p><p>Lastly, the tertiary map is generated using a mask created in Substance Painter, then imported into Nuke for blending and creating additional volume variations. This process involves enhancing the map with a High-pass filter and utilizing expression nodes to introduce small details such as dead skin and minor breaks.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="shading_layering_displacement.jpg" width="760" loading="lazy" src="../../attachments/657162522/shading_layering_displacement.jpg" data-image-src="../../attachments/657162522/shading_layering_displacement.jpg" data-height="495" data-width="948" data-unresolved-comment-count="0" data-linked-resource-id="657424690" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="shading_layering_displacement.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="657162522" data-linked-resource-container-version="1" data-media-id="3a38af16-2ad1-4966-83c1-019e1254d9b0" data-media-type="file"></span><p />
+  </article>
+</main>
+</body>
+</html>

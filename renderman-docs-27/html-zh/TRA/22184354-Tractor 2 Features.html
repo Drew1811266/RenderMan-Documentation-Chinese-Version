@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tractor 2 Features</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Tractor 2 Features</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/TRA/22184354/Tractor+2+Features">https://rmanwiki-27.pixar.com/space/TRA/22184354/Tractor+2+Features</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Halo_02_MPC_Render.jpg" width="1068" loading="lazy" src="../../attachments/22184354/Halo_02_MPC_Render.jpg" data-image-src="../../attachments/22184354/Halo_02_MPC_Render.jpg" data-height="601" data-width="1068" data-unresolved-comment-count="0" data-linked-resource-id="67272806" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Halo_02_MPC_Render.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="22184354" data-linked-resource-container-version="16" data-media-id="ccb319f3-3cb0-4b34-8661-49e29541f698" data-media-type="file"></span><p /><p><strong>Tractor-2.0 为</strong> 核心 <a href="22184339-About Tractor.html" rel="nofollow">Tractor 系统</a> 新增了重要功能，该系统建立在 1.0 系列版本的基础上。新增和改进范围很广：既有面向 wranglers 的新命令行与脚本接口，也有简单的用户界面变化；既包括将整个 job database 升级到新的高性能、高能力格式，也包括新的全工作室资源共享与分配控制。</p><p>以下是一些重点：</p><ul><li><p><a href="https://renderman.atlassian.net/wiki/spaces/TRA/pages/22184356#Implementation-bundle" rel="nofollow"><strong>改进的 Tractor 产品布局</strong></a> -- <em>单一发布目录、每个平台单一下载包、捆绑的子系统更新</em> -- 新的 Tractor 2.0 打包和安装布局会把匹配的一组 engine、blade、spooler、用户界面和脚本组件放在同一位置，同时只保留一份共享资源，其中包括多个第三方子系统的预构建版本。</p></li></ul><p> </p><ul><li><p><a href="22184306-tq- Tractor Query tool.html" rel="nofollow"><strong>Tractor 查询工具</strong></a> -- 这里引入 tq： <em>tractor query</em> 命令行工具和模块。tq 基于经过 Pixar 工作室验证的工具，是从终端 shell、Python 脚本或 Dashboard 的新标签页查询实时 Tractor 数据的最佳方式。</p></li></ul><p> </p><ul><li><p><a href="https://renderman.atlassian.net/wiki/spaces/TRA/pages/22184308#LimitsConfiguration-l" rel="nofollow"><strong>自适应农场资源分配</strong></a> -- 这是一种新方式，可使用 Tractor 灵活的 *Limits* 系统在人员或项目之间动态分配抽象资源。如果两部影片同时制作，可以把 60% 的 farm 分配给其中一部，30% 分配给另一部，剩余 10% 留给其他项目。如果某个 show 空闲，其他项目可以临时扩展自己的份额；当所有项目都处于活动状态时，再收缩回名义水平。</p></li></ul><p> </p><ul><li><p><a href="22184302-Scheduling Modes.html" rel="nofollow"><strong>调度层级</strong></a> -- 一种简单方式，可把大范围 jobs 组织成按站点定义的降序优先级组。默认 tiers 名称为： <strong>默认名称为 admin、rush、default、batch。</strong> 也可以自行创建！</p></li></ul><p> </p><ul><li><p><a href="22184304-Custom Menu Items.html" rel="nofollow"><strong>Custom 菜单操作（Custom Menu Actions） </strong></a>-- 添加站点定义的 Dashboard 菜单项，用于调用集中管理的脚本，并由用户当前的列表选择作为参数。</p></li></ul><p> </p><ul><li><p><a href="22184314-Job Author Python API.html" rel="nofollow"><strong>Job Authoring API（作业编写 API） </strong></a>-- 新的 tractor.api.author 模块允许 Python 脚本轻松创建 Job、Task 和 Command 对象，并按照依赖关系需求把它们链接起来。随后 Job.spool() 方法会把生成的 job 发送到 tractor-engine 的 job queue。</p></li></ul><p /><ul><li><p><a href="https://renderman.atlassian.net/wiki/spaces/TRA/pages/22184316#Engine-enginediscovery" rel="nofollow"><strong>简单的 Engine 发现</strong></a> -- 面向小型工作室的新简单 zero-config 通告能力，允许 tractor-blades 和其他 Tractor 工具在本地网络中找到 tractor-engine，而不需要手动修改 nameserver（DNS/LDAP）配置。在管理员已经在站点 nameserver 数据库中创建主机名别名 tractor-engine 的工作室里，tractor-engine 会自动禁用这种 SSDP-style 流量。</p></li></ul><p> </p><ul><li><p><a href="22184310-Checkpoint-Resume and Incremental Processing.html" rel="nofollow"><strong>Checkpoint-Resume（检查点-恢复）支持</strong></a> -- 对 job scripting、dispatching 和 Dashboard 的新扩展，增加了与增量计算相关的有用能力。Tractor 还支持通用的 retry from last checkpoint 机制。这两项功能都与新的 RenderMan 19 RIS checkpoint 和 incremental rendering 功能集成。</p></li></ul><p> </p><ul><li><p><a href="22184312-Server Profiles.html" rel="nofollow"><strong>Blade Auto-Update（Blade 自动更新）</strong></a> -- 新的 tractor-blade 补丁管理系统允许管理员把 farm pin 到特定 blade patch version，并自动把新版本推送到整个 farm。过期 blades 会使用新的模块版本重启自身。</p></li></ul><p> </p><ul><li><p><a href="https://renderman.atlassian.net/wiki/spaces/TRA/pages/22184322#LoginManagement-pam" rel="nofollow"><strong>Pluggable Authentication Module（PAM，可插拔认证模块）支持 </strong></a>-- Engine 新增的可选内置 PAM 支持，会把密码验证直接委托给 engine host 上的操作系统。对于 LAN 已经提供足够凭据传输安全性的工作室，这一替代方案可以很容易地启用密码支持。</p></li></ul><p> </p><ul><li><p><a href="https://renderman.atlassian.net/wiki/spaces/TRA/pages/22184316#Engine-engineowner" rel="nofollow"><strong>权限隔离</strong></a> -- 新的 <em>EngineOwner</em> 设置位于 tractor.config 中，用于指定 tractor-engine 应该以哪个 login identity 运行。这个设置很重要，因为它允许 engine 在获取可能需要的受保护 network ports 后立即放弃 root 权限。随后 engine 的日常正常操作会在指定 login name 关联的限制下进行。</p></li></ul><p> </p><ul><li><p><a href="22184324-Advanced Blade Capability Advertisement.html" rel="nofollow"><strong>动态 Service Key 能力通告</strong></a> -- 新增了几个 blade profile <strong>&quot;Provides&quot;</strong> 模式，以支持一些高级用例。例如，blades 可以根据之前启动的 commands 已经 consumed 了哪些 keys，动态通告不同的一组 service key capabilities。</p></li></ul><p> </p><ul><li><p><a href="22184318-tq Cookbook.html" rel="nofollow"><strong>Resource Usage Tracking（资源使用情况跟踪）</strong></a> -- CPU、RSS 和 VSZ <em>rusage</em> process metrics 现在会记录到每个已启动 command 的 job database 中。目前支持 Linux 和 OSX tractor-blades。</p></li></ul><p> </p><ul><li><p><a href="22184318-tq Cookbook.html" rel="nofollow"><strong>Command 重试历史</strong></a> -- 现在每一次 command launch attempt 都会在 job database 中创建唯一的跟踪记录。因此，可以使用 tq 工具查看给定 task 上的重试历史。</p></li></ul><p> </p><ul><li><p><a href="22184210-Configuration.html" rel="nofollow"><strong>配置文件加载</strong></a> -- 简化的 override 系统有助于减少杂乱，并更清楚地显示工作室中哪些文件已经相对原始 factory settings 被修改。</p></li></ul><p> </p><ul><li><p><a href="22184308-Limits Configuration.html" rel="nofollow"><strong>Task 并发节流</strong></a> -- 每个 job 都有新的 maxActive 属性，用于限制该 job 中允许同时运行的最大 tasks 数量。这个对 job 在 farm 上 footprint size 的可选控制，在某些情况下可为少量 jobs 提供有用的临时 wrangling 控制，尤其是当修改站点级 Limits 设置并不合适时。</p></li></ul><p /><ul><li><p><a href="22184312-Server Profiles.html" rel="nofollow"><strong>Automatic Blade Error Throttle（Blade 自动错误节流）</strong></a> -- 新的 blade profile 设置，如果 blades 在给定时间间隔内遇到过多错误，可阻止它们接收新工作。</p></li></ul><p> </p><ul><li><p><a href="https://renderman.atlassian.net/wiki/spaces/TRA/pages/22184356#Implementation-bundle" rel="nofollow"><strong>Job Spooling（作业提交）改进</strong></a> -- Job processing 升级包括更快的处理速度、更好的错误检查，以及必需子系统的捆绑。并行化的 job intake 和 database staging 机制，在大量 jobs 同时 spooled，或大量 expand tasks 并行运行时，可以显著减少 backlog。spooler 捆绑的自包含 Tcl interpreter 简化了站点安装要求，并可在 job 交付给 engine 之前执行 client-side error checking。新的 JSON job spooing 格式也将受支持（但目前仍需等待相关变更，因此不可用）。</p></li></ul>
+  </article>
+</main>
+</body>
+</html>

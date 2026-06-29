@@ -1,0 +1,61 @@
+{"item_id":"619527435b:0","text":"需要设置"}
+{"item_id":"619527435b:1","text":"Depth of Field in Maya"}
+{"item_id":"619527435b:2","text":"或调整"}
+{"item_id":"619527435b:3","text":"Bokeh in Maya"}
+{"item_id":"619527435b:4","text":"效果外观方面的帮助吗？"}
+{"item_id":"619527435b:5","text":"下载"}
+{"item_id":"619527435b:6","text":"Example Maya Scene（Maya 示例场景）"}
+{"item_id":"619527435b:7","text":"Tilt-Shift 选项实际上是摄影机中的两类不同选项。Tilt 和 Roll 控件用于让用户将镜头指向与摄影机机身不同的方向。Shift Options 允许用户在镜头仍指向与摄影机相同方向的同时，将镜头沿 X（cross，横向）和 Y（rise and fall，升降）移动。Focus 1, 2, and 3 允许用户以 triangle（三角形）定义任意 plane of focus（对焦平面）（与 Tilt controls 相关）。下面会逐项进一步说明。"}
+{"item_id":"619527435b:8","text":"要访问这些控件，请打开 Camera Attribute Editor，并在 RenderMan rollout 下选择 \"Enable Camera Projection\""}
+{"item_id":"619527435b:9","text":"你会注意到 Camera Projection 字段为空。右键单击会出现两个选项：Omnidirectionalstereo（用于 VR 和类似应用）和 PxrCamera，请选择后者。"}
+{"item_id":"619527435b:10","text":"务必将你的"}
+{"item_id":"619527435b:11","text":"Field of View"}
+{"item_id":"619527435b:12","text":"与 Maya Camera 匹配，否则可能无法获得与 viewport 中相同的 framing。也可以在 camera editor 上选择 \"Use Camera Settings\"。"}
+{"item_id":"619527435b:13","text":"Tilt Angle："}
+{"item_id":"619527435b:14","text":"此项允许将镜头指向不同于摄影机机身的方向。如果你在"}
+{"item_id":"619527435b:15","text":"Depth of Field in Maya"}
+{"item_id":"619527435b:16","text":"一节中注意到，对焦平面与成像平面平行。但如果主体并不平行于图像平面怎么办？在建筑场景中，你可能有一面墙以一定角度远离摄影机，并希望在不改变摄影机构图的情况下让整面墙保持焦内。Tilt 允许你通过倾斜镜头来做到这一点，使镜头不再垂直于图像平面。"}
+{"item_id":"619527435b:17","text":"在下面的示例中，第一张图把对焦平面显示为深色条带，对象显示为蓝色和红色球体，右侧是渲染结果。这与摄影机中的图像平面平行。不过，如果你希望蓝色球体处于焦内且不改变构图，可以"}
+{"item_id":"619527435b:18","text":"tilt"}
+{"item_id":"619527435b:19","text":"镜头来改变对焦平面，如第二行图像所示。"}
+{"item_id":"619527435b:20","text":"查看对镜头应用 tilt 和 roll 后的差异。"}
+{"item_id":"619527435b:21","text":"Roll Angle："}
+{"item_id":"619527435b:22","text":"此选项允许用户顺时针旋转镜头，并且只有在应用了一定程度的 Tilt 时才有效。结合 Tilt 和 Roll 意味着镜头可以从摄影机机身指向一个有一定限制的半球范围。"}
+{"item_id":"619527435b:23","text":"Focus Points："}
+{"item_id":"619527435b:24","text":"你可能还记得几何课上讲过：三个点定义一个平面或 triangle（三角形）。这个 triangle 可以在 RenderMan 中由用户定义，用来创建任意对焦平面。下面展示如何在 Maya 中使用 locators 以更交互的方式完成此操作，从而获得精确的选择性对焦。"}
+{"item_id":"619527435b:25","text":"这些点都位于场景的 world space（世界空间）中。手动调整它们可能非常繁琐，因此建议使用下面的工作流程，以可视化方式定义对焦平面："}
+{"item_id":"619527435b:26","text":"创建一个 polygonal triangle（多边形三角形）。"}
+{"item_id":"619527435b:27","text":"使用 Animation Deformer 菜单，在每个顶点上创建一个"}
+{"item_id":"619527435b:28","text":"cluster handle"}
+{"item_id":"619527435b:29","text":"。先选择顶点，然后选择"}
+{"item_id":"619527435b:30","text":"Animation Menu > Anim Deform > Open Full Deform Menu > Cluster"}
+{"item_id":"619527435b:31","text":"在"}
+{"item_id":"619527435b:32","text":"Create Menu > Locator"}
+{"item_id":"619527435b:33","text":"下创建一个 locator，并将它吸附到该顶点。将 cluster handle 作为 locator transform 的子级。现在移动 locator 就会移动 cluster 及其顶点。"}
+{"item_id":"619527435b:34","text":"现在你应该得到一个 polygonal triangle，它会在移动 locator 时改变位置。注意，locators 是额外步骤；你也可以只使用 cluster handles。不过，locators 在 viewport 中很容易选择，也可以使用"}
+{"item_id":"619527435b:35","text":"Show Menu"}
+{"item_id":"619527435b:36","text":" 将它们从视图中排除。记得在渲染前使用 pre-render script 隐藏该 triangle，否则它会在场景中渲染出来；或者你也可以选择 triangle shape，并关闭所有"}
+{"item_id":"619527435b:37","text":"Render Stats"}
+{"item_id":"619527435b:38","text":"使其不被渲染。RenderMan 会在渲染时报告一条 warning，说明它不可见。"}
+{"item_id":"619527435b:39","text":"现在你已经有办法看到对焦平面，需要将 locators（或 cluster handles）的 transform outputs 连接到"}
+{"item_id":"619527435b:40","text":"Focus Parameters"}
+{"item_id":"619527435b:41","text":"（用于 PxrCamera）。"}
+{"item_id":"619527435b:42","text":"从 Outliner 中选择 PxrCamera（可以通过在 Outliner Window 中"}
+{"item_id":"619527435b:43","text":"取消选择"}
+{"item_id":"619527435b:44","text":"Display > DAG Object Only"}
+{"item_id":"619527435b:45","text":"使它可见），也可以使用这个方便的脚本："}
+{"item_id":"619527435b:46","text":"将它和一个 locator transform 加载到 Connection Editor 中。将 Locator"}
+{"item_id":"619527435b:47","text":"Translate"}
+{"item_id":"619527435b:48","text":"连接到每个 locator 对应的 PxrCamera"}
+{"item_id":"619527435b:49","text":"Focus"}
+{"item_id":"619527435b:50","text":"。"}
+{"item_id":"619527435b:51","text":"生成的设置可以在下面的 Maya Viewport 中看到，其中红色 triangle 表示新的对焦平面。请确保你已经在渲染摄影机上启用"}
+{"item_id":"619527435b:52","text":"Depth of Field in Maya"}
+{"item_id":"619527435b:53","text":"，然后即可开始渲染！"}
+{"item_id":"619527435b:54","text":"下面的图像使用上述设置渲染。"}
+{"item_id":"619527435b:55","text":"这种任意对焦平面方法并非没有风险。如果你的对焦平面相对于 camera image plane（摄影机图像平面）过窄或过于垂直，渲染可能会在缓慢渲染黑色图像后仍无法输出。下面是该平面生成空图像的示例。"}
+{"item_id":"619527435b:56","text":"Shift X Y："}
+{"item_id":"619527435b:57","text":"此控件会将镜头上下或前后平移。在建筑领域，此控件用于在构图中保持平行线。例如：在某些情况下，高楼可能看起来像向后倒，因为楼顶似乎收敛到一个点。Shifting 可以校正这种 perspective view（透视视图）。"}
+{"item_id":"619527435b:58","text":"在下面的图像中，想象你正在用摄影机构图一栋建筑，但建筑太高，无法放入视图中。于是你将整个摄影机向上 tilt 并构图包含整栋建筑。但这时会产生 perspective distortion（透视畸变）。在最后一帧中，镜头被"}
+{"item_id":"619527435b:59","text":"平移"}
+{"item_id":"619527435b:60","text":"以校正畸变。"}

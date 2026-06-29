@@ -1,0 +1,54 @@
+{"item_id":"6dcc2e0355:0","text":"Sampling tab 会通过以下设置"}
+{"item_id":"6dcc2e0355:1","text":"Max Samples"}
+{"item_id":"6dcc2e0355:2","text":"和"}
+{"item_id":"6dcc2e0355:3","text":"Pixel Variance"}
+{"item_id":"6dcc2e0355:4","text":"、所选择的"}
+{"item_id":"6dcc2e0355:5","text":"Integrator"}
+{"item_id":"6dcc2e0355:6","text":"及其相关设置、"}
+{"item_id":"6dcc2e0355:7","text":"Default Ray Depths"}
+{"item_id":"6dcc2e0355:8","text":"Clamping"}
+{"item_id":"6dcc2e0355:9","text":"Russian Roulette"}
+{"item_id":"6dcc2e0355:10","text":"（可用于缩短 path lengths）以及"}
+{"item_id":"6dcc2e0355:11","text":"Filtering"}
+{"item_id":"6dcc2e0355:12","text":"来让用户控制基础质量。这主要是控制 render 的质量和 render time 的位置。"}
+{"item_id":"6dcc2e0355:13","text":"在窗口顶部的 Presets menu 中，有 draft、production 等 sampling presets。此外，你也可以在那里保存自己的 sampling presets。"}
+{"item_id":"6dcc2e0355:14","text":"或者，你可以使用参数名称旁 triple bar icon 标出的参数 presets。"}
+{"item_id":"6dcc2e0355:15","text":"参数 presets 可以像这样访问："}
+{"item_id":"6dcc2e0355:16","text":"IPR Samples"}
+{"item_id":"6dcc2e0355:17","text":"IPR samples 为 IPR rendering 提供独立的 Max Samples 和 Pixel Variance。默认情况下，它设得低于正式 render settings，以便快速反馈。"}
+{"item_id":"6dcc2e0355:18","text":"Interactive refinement 使用一种技术对图像进行稀疏采样，然后随时间逐步细化，以便在更新场景时提供更快反馈。级别为 0 - 6，其中 0 表示关闭，6 会让 renderer 在决定每次只更新多少 pixels 时最激进。更新的 pixels 越少，重新采样 frame 时越可能先看到一些 blur 或 ghosting artifacts，但也能更快提供更新提示。"}
+{"item_id":"6dcc2e0355:19","text":"Progressive Pixels"}
+{"item_id":"6dcc2e0355:20","text":"注意：在 XPU mode 下运行 IPR 时，如果将 Interactive Refinement 设为高于 1，会激活 Progressive Pixels。"}
+{"item_id":"6dcc2e0355:21","text":"Integrator"}
+{"item_id":"6dcc2e0355:22","text":"让你选择用于 render 的"}
+{"item_id":"6dcc2e0355:23","text":"Integrator"}
+{"item_id":"6dcc2e0355:24","text":"。默认的"}
+{"item_id":"6dcc2e0355:25","text":"PxrPathTracer"}
+{"item_id":"6dcc2e0355:26","text":"适用于大多数 rendering 情况。"}
+{"item_id":"6dcc2e0355:27","text":"有关各 integrator 设置的信息，请参阅各 integrator 页面："}
+{"item_id":"6dcc2e0355:28","text":"PxrDefault"}
+{"item_id":"6dcc2e0355:29","text":"PxrDirectLighting"}
+{"item_id":"6dcc2e0355:30","text":"PxrOcclusion"}
+{"item_id":"6dcc2e0355:31","text":"PxrPathTracer"}
+{"item_id":"6dcc2e0355:32","text":"PxrVCM"}
+{"item_id":"6dcc2e0355:33","text":"PxrValidateBxdf"}
+{"item_id":"6dcc2e0355:34","text":"PxrVisualizer"}
+{"item_id":"6dcc2e0355:35","text":"Default Ray Depths"}
+{"item_id":"6dcc2e0355:36","text":"Max Specular Depth:"}
+{"item_id":"6dcc2e0355:37","text":"reflections 和 refractions 的 bounce 次数。除非需要 multi bounce effects，或有 panes of glass/windows，否则值 1 或 2 已经足够。此 attribute 可以在单个 objects 上 override。"}
+{"item_id":"6dcc2e0355:38","text":"Max Diffuse Depth:"}
+{"item_id":"6dcc2e0355:39","text":"indirect illumination 的 diffuse bounces 数量。值 1 通常足够；更大的值会更慢。此 attribute 可以在单个 objects 上 override。"}
+{"item_id":"6dcc2e0355:40","text":"Filter"}
+{"item_id":"6dcc2e0355:41","text":"Filter:"}
+{"item_id":"6dcc2e0355:42","text":"用于控制 rendered pixels 的"}
+{"item_id":"6dcc2e0355:43","text":"filter"}
+{"item_id":"6dcc2e0355:44","text":"。box、triangle、disk、gaussian 和 blackman-harris 是 softening filters；catmull-rom、sinc、mitchell、separable-catmull-rom、lanczos 和 bessel 是 sharpening filters。Separable-catmull-rom 是一个不错的折中选择。"}
+{"item_id":"6dcc2e0355:45","text":"Filter Size:"}
+{"item_id":"6dcc2e0355:46","text":"pixel filter 的宽度。通常为 1 到 6。设为 0 会使用所选 pixel filter 的标准宽度。"}
+{"item_id":"6dcc2e0355:47","text":"Integrator Overrides"}
+{"item_id":"6dcc2e0355:48","text":"当需要 override 某个 render layer 的设置时，按以下步骤操作："}
+{"item_id":"6dcc2e0355:49","text":"在 Render Setup 中创建所需 layer，并确认当前处于这个 layer（visible 已勾选，即 eyeball icon）"}
+{"item_id":"6dcc2e0355:50","text":"在 Render Settings 中为此 layer 选择要使用的 integrator。这会创建所需 node。"}
+{"item_id":"6dcc2e0355:51","text":"右键单击 integrator，然后选择"}
+{"item_id":"6dcc2e0355:52","text":"\"Create Connection Override for Visible Layer\""}
+{"item_id":"6dcc2e0355:53","text":"4. 要连接这个新的 integrator，只需在 menu 中键入你选择的 integrator 名称，并在名称后添加 .msg。例如输入：PxrOcclusion.msg，然后按 Enter/Return。这会连接 integrator，并且 override 会在 Render Settings 中以 Orange highlight 显示。"}

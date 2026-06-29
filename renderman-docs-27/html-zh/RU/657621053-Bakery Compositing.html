@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bakery Compositing</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Bakery Compositing</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RU/657621053/Bakery+Compositing">https://rmanwiki-27.pixar.com/space/RU/657621053/Bakery+Compositing</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<h3 id="BakeryCompositing-Compositing">Bakery 烘焙坊场景合成流程（Compositing）</h3><p>AOVs 经过 Denoised 后，我使用 Light Groups 在 Nuke 中 rebuild beauty pass。这样我可以直接修改 lights，无论是 exposure、tint 还是 contrast。</p><p>为了进一步 stylization，shadows 被 tint 成 blue，而 highlights 带有轻微 orange 和 violet tint，这有助于强调温暖感。merge layers 之前，我会在某些 glass objects 上使用 Cryptomattes，因为它们的 brightness 压过了 image。要做到这一点，只需要降低它们在 Light Groups 中的 reflection，以及在 LPEs 中的 specularity。使用 utilities 中的 Z pass 设置好 depth of field 后，就可以 merge layers 了！</p><p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="french-bakery-raw-render.jpg" width="760" loading="lazy" src="../../attachments/657621053/french-bakery-raw-render.jpg" data-image-src="../../attachments/657621053/french-bakery-raw-render.jpg" data-height="1080" data-width="1920" data-unresolved-comment-count="0" data-linked-resource-id="657621063" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="french-bakery-raw-render.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="657621053" data-linked-resource-container-version="1" data-media-id="1f89508b-a6a4-4bb1-a8bd-e35c4e54fdb2" data-media-type="file"></span><p /><p>下一步是使用 Grade node 来降低 gamma，从而强调 viewing direction。由此产生的 contrast 会把注意力集中到 light areas。</p><p>Glow 和 eFibonacciGlow nodes 让我可以增强 sunlight，为它添加 glow，并模拟 lens smear，让 scene 呈现梦幻 look。为了防止 light 扩散到 shadows areas，很重要的一点是用 Keyer node 在 mask 中 isolate 这些 highlights。</p><p>最后，我们重新创建 camera 的 chromatic aberrations，对 image 应用 lens vignetting，并加入一点 grain。尽情玩这个 project 吧！</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="french-bakery-comp.jpg" width="760" loading="lazy" src="../../attachments/657621053/french-bakery-comp.jpg" data-image-src="../../attachments/657621053/french-bakery-comp.jpg" data-height="1080" data-width="1920" data-unresolved-comment-count="0" data-linked-resource-id="657621070" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="french-bakery-comp.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="657621053" data-linked-resource-container-version="1" data-media-id="15ae9956-2591-41fc-bd00-11853315d1af" data-media-type="file"></span><p /><hr/>
+  </article>
+</main>
+</body>
+</html>

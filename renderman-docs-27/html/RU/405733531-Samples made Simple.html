@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Samples made Simple</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Samples made Simple</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RU/405733531/Samples+made+Simple">https://rmanwiki-27.pixar.com/space/RU/405733531/Samples+made+Simple</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="contentLayout2"><style>[data-colorid=nvt16mtzjb]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=nvt16mtzjb]{color:#004eb3}[data-colorid=rlrwkp82lw]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=rlrwkp82lw]{color:#004eb3}[data-colorid=vx1mb18sso]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=vx1mb18sso]{color:#004eb3}[data-colorid=h8l9obg2si]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=h8l9obg2si]{color:#004eb3}[data-colorid=id64fbqavp]{color:#6554c0} html[data-color-mode=dark] [data-colorid=id64fbqavp]{color:#503fab}[data-colorid=yecjor1ma8]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=yecjor1ma8]{color:#004eb3}[data-colorid=wbf2x02diw]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=wbf2x02diw]{color:#004eb3}[data-colorid=npb4vxkwe1]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=npb4vxkwe1]{color:#004eb3}[data-colorid=pec22mzlly]{color:#6554c0} html[data-color-mode=dark] [data-colorid=pec22mzlly]{color:#503fab}[data-colorid=q63rp1o98l]{color:#6554c0} html[data-color-mode=dark] [data-colorid=q63rp1o98l]{color:#503fab}</style>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="LuxoBall_point05.jpg" width="760" loading="lazy" src="../../attachments/405733531/LuxoBall_point05.jpg" data-image-src="../../attachments/405733531/LuxoBall_point05.jpg" data-height="1080" data-width="1920" data-unresolved-comment-count="0" data-linked-resource-id="629899295" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="LuxoBall_point05.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="405733531" data-linked-resource-container-version="50" data-media-id="8c29d3ab-1a5b-4e7e-86a3-ea0c53f6d705" data-media-type="file" /></span><p local-id="5378c07ffcb5">The goal of this page is to give you a straightforward overview and starting point for setting up your Min and Max samples with RenderMan XPU, but before we do that, let&rsquo;s get some terminology out of the way first &hellip; </p><p local-id="88b851855a20"><strong>Sample</strong></p><p local-id="fc2cc753ee35">A single ray is emitted from the camera and bounces around the scene.  The energy that it finds in a scene is stored in a pixel.</p><p local-id="d475ecabbd89">Low samples give you a lot of noise, but a quick image.</p><p local-id="942bf8ae8254">High samples give you a cleaner image, but a slower render.</p><p local-id="a8bdcd6acf14">There must be a way RenderMan can negotiate a nice balance between too low and too high, right? Yes! This negotiation of quality is called Adaptive Sampling, and it&rsquo;s measured in Pixel Variance &hellip;</p><p local-id="6efbccf6f779" /><p local-id="dcd72a50a586"><strong>Pixel Variance</strong> </p><p local-id="ab769d787b21">A measure of noise due to sampling.  </p><p local-id="2358b919a18f">The higher the pixel variance, the noisier the image appears to be. </p><p local-id="55bf1bcefa33">The lower the pixel variance, the cleaner the image appears to be.</p><p local-id="08ad640818ea">We specify a <em>variance threshold</em> to the renderer to tell it how much noise we are willing to accept in the completed image.</p><p local-id="942fa8f8e0c0">The lower the pixel variance threshold, the cleaner the final render will be, but the longer it will take for rendering to complete. In general, every time you halve the variance threshold, the render time will increase fourfold.</p><hr local-id="aa1b145b3630" /><p local-id="129b223acb19">Now we know more about what a Sample and Pixel Variance are and how they work together, let&rsquo;s put this into a practical example.</p><p local-id="47f63152bd77" /><p local-id="df1ba2ea528e"><strong><span data-colorid="vx1mb18sso">Step 1.</span></strong></p><p local-id="40da896775f8">Start by setting your Min / Max samples as below:</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p local-id="ad0cf8b75d17"><strong>Min Samples</strong></p><p local-id="b6a0cfd39144">16</p></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p local-id="ca0e56570408"><strong>Max Samples</strong></p><p local-id="8b186a146704">4096</p></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p local-id="aab2696dcc1c"><strong>Pixel Variance</strong></p></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p local-id="82eef0abbd06" /><p local-id="0b0e0fd7b763"><strong><span data-colorid="yecjor1ma8">Step 2.</span></strong></p><p local-id="3f8893b1e063">By default, the threshold is set to 0.05, which will produce a high-quality image. </p><p local-id="2539b3cda82a">For our first test, set the value to 0.2 to obtain a quick, noisy image.</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p local-id="a783bd5f1e9f"><strong>Min Samples</strong></p><p local-id="b1cd418cf431">16</p></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p local-id="93aa5157222b"><strong>Max Samples</strong></p><p local-id="00d800487dee">4096</p></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p local-id="2683bce40db6"><strong>Pixel Variance</strong></p><p local-id="62ada356637d">0.2</p></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p local-id="973dd43383d8" /><p local-id="ded438a33156">Using these base settings, let&rsquo;s fire off a render.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="LuxoBall_point2.jpg" width="760" loading="lazy" src="../../attachments/405733531/LuxoBall_point2.jpg" data-image-src="../../attachments/405733531/LuxoBall_point2.jpg" data-height="1080" data-width="1920" data-unresolved-comment-count="0" data-linked-resource-id="629801221" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="LuxoBall_point2.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="405733531" data-linked-resource-container-version="50" data-media-id="58a0c5fc-79c2-4150-8aa0-5ef10d5a1ba1" data-media-type="file" /></span><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="LuxoBall_point2_close2.webp" width="760" loading="lazy" src="../../attachments/405733531/LuxoBall_point2_close2.webp" data-image-src="../../attachments/405733531/LuxoBall_point2_close2.webp" data-height="270" data-width="698" data-unresolved-comment-count="0" data-linked-resource-id="630358023" data-linked-resource-version="2" data-linked-resource-type="attachment" data-linked-resource-default-alias="LuxoBall_point2_close2.webp" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/webp" data-linked-resource-container-id="405733531" data-linked-resource-container-version="50" data-media-id="a71abf3b-305d-4ef7-b96f-16d9dc449cb5" data-media-type="file" /></span><p local-id="749a079c04f4">The image above was rendered in 18 seconds, but as you can see, we still have some noise because the pixel variance threshold was set high, so the renderer decided the pixels were clean enough, even though, to our eye, they are still noisy.</p><p local-id="e2a5b5c58640" /><p local-id="2348cdefe23f"><strong><span data-colorid="nvt16mtzjb">Step 3.</span></strong></p><p local-id="23d42bc28be0">Let&rsquo;s run some more tests. </p><p local-id="8b7e46e4f924">In the image below, we&rsquo;ve rendered the same scene again, each one with a different pixel variance.  </p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="XPU_VarianceComparisson.jpg" width="760" loading="lazy" src="../../attachments/405733531/XPU_VarianceComparisson.jpg" data-image-src="../../attachments/405733531/XPU_VarianceComparisson.jpg" data-height="1080" data-width="1920" data-unresolved-comment-count="0" data-linked-resource-id="629801040" data-linked-resource-version="3" data-linked-resource-type="attachment" data-linked-resource-default-alias="XPU_VarianceComparisson.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="405733531" data-linked-resource-container-version="50" data-media-id="c1f8c98f-1728-4191-9c5e-300fc70146e2" data-media-type="file" /></span><p local-id="bf0bca6d1242">As you can see, our high threshold render at 0.2, we get an image back in 18 seconds, which is still usable for review but contains noticeable noise. (Incidentally, it's likely that even at this low quality, the amazing RenderMan Denoiser would produce a production-quality image from this.)  </p><p local-id="6dee7800db29">You can also see that by lowering the threshold to 0.01, we now have a perfectly clean image, arguably cleaner than we would need, but the render time rocketed up to 11 minutes and 45seconds.  </p><p local-id="b6516b42f969" /><p local-id="8b00755849c2"><strong><span data-colorid="rlrwkp82lw">How to choose a threshold?</span></strong></p><p local-id="fbf28d947d10">So &hellip; the big question here is &hellip;<em> <span data-colorid="npb4vxkwe1">&ldquo;What do I set my pixel variance value to?&rdquo;</span></em></p><p local-id="8a422aad9241">Well &hellip; the answer is that there is no single value that will work every time for your scene, but setting the min and max to a wide range and relying on pixel variance to drive your choices is an excellent start.</p><p local-id="42c4489a6062">Ideally, you should run some tests, as shown in the image above, and see what works for you.  </p><p local-id="2b2e3ccc68ee" /><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-local-id="73f2df2138fd" data-macro-id="544ec268-0c2c-419b-8d80-a383dc66ed92" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p local-id="8f3e121427fc">The good news is that because the RenderMan Denoiser is so good at removing noise whilst retaining finer detail in hair and surface imperfections, it has allowed Pixar to raise the pixel variance on most production shots to <span data-colorid="q63rp1o98l">0.18</span>, which in turn means that not only can we can render shots faster than ever before, but this also allows artists to iterate and refine shots quicker.<br /><br />It also allows Pixar to render shots that were previously impossible.</p></div></div><p local-id="5d14780b7e9e" /><p local-id="d01036fca03f" /><p local-id="c2eec698716c">Knowing that we have the power of the RenderMan denoiser on our side, we know that lowering the pixel variance to <span data-colorid="pec22mzlly">0.01 </span>is too low, so a good place to start is <span data-colorid="id64fbqavp">0.1 </span></p><p local-id="cd5f3652f9d5">Do another render, run the denoiser, and see how it looks.</p><p local-id="885df3db3ebd">Then fire off a few more renders, each time raising the pixel variance until you reach the rendering sweet spot: fast render times and an acceptable amount of noise that the denoiser can clean up.  </p><p local-id="40a3cf6fcafb">You&rsquo;ll be amazed at how high you can push your pixel variance while leaving the heavy lifting to the denoiser.</p><p local-id="4cc0e4e31f0d" /><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-local-id="b419d85ba001" data-macro-id="b2efead2-23e1-4a3b-b1a1-7bcd307ad811" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p local-id="6bab7842c3a2">This example demonstrates how to set a threshold on a single image.  </p><p local-id="8cfc40574e01">If you are working on an animation, don&rsquo;t forget to render a sequence of frames to ensure that motion blur and depth of field are clean, and to avoid typical issues associated with low samples, such as missing tiny objects like stars, dust, or particles.</p></div></div><p local-id="d623275448d1" /><p local-id="9c6fb9243eb8"><strong><span data-colorid="wbf2x02diw">Visualizing your samples.</span></strong></p><p local-id="9278bfc29aa2">Another question you might be asking yourself is &hellip; <em><span data-colorid="h8l9obg2si">&ldquo;How do I know where all my samples are being used in my render?&rdquo;</span></em></p><p local-id="b66b646c2794">RenderMan has a very useful AOV called Sample Count, which can be added to your render and the values inspected in IT to help you determine where the renderer is calculating samples.  </p><p local-id="0ecf779a7e5e">Below is what our Sample Count AOV looks like.  We can see that the image is brighter when more samples are used.  The darker areas indicate fewer samples.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="LuxoBall_point05_sampleCount.jpg" width="760" loading="lazy" src="../../attachments/405733531/LuxoBall_point05_sampleCount.jpg" data-image-src="../../attachments/405733531/LuxoBall_point05_sampleCount.jpg" data-height="1075" data-width="1913" data-unresolved-comment-count="0" data-linked-resource-id="629899343" data-linked-resource-version="2" data-linked-resource-type="attachment" data-linked-resource-default-alias="LuxoBall_point05_sampleCount.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="405733531" data-linked-resource-container-version="50" data-media-id="21f53e4e-2b58-4d9e-a809-369a67e859ef" data-media-type="file" /></span><div class="panel conf-macro output-block" data-hasbody="true" data-macro-id="" data-macro-name="panel" style="background-color: #EAE6FF;border-color: #998DD9;border-width: 1px;"><div class="panelContent" style="background-color: #EAE6FF;">
+<p local-id="de93e2c9e331">When you inspect these pixels in the IT viewer by hovering over them with your mouse, you&rsquo;ll see the exact &ldquo;average samples per pixel&rdquo; for that pixel.</p>
+</div></div><p local-id="d4505a682b2e" /></div>
+</div>
+</div>
+</div>
+  </article>
+</main>
+</body>
+</html>

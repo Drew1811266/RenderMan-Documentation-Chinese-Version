@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Smoke</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Smoke</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFH27/544647025/Smoke">https://rmanwiki-27.pixar.com/space/RFH27/544647025/Smoke</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="contentLayout2"><style>[data-colorid=l54d88unlc]{color:#4269b8} html[data-color-mode=dark] [data-colorid=l54d88unlc]{color:#476ebd}[data-colorid=tm6otgbmpr]{color:#4269b8} html[data-color-mode=dark] [data-colorid=tm6otgbmpr]{color:#476ebd}[data-colorid=rlodgmje51]{color:#4269b8} html[data-color-mode=dark] [data-colorid=rlodgmje51]{color:#476ebd}[data-colorid=mc0lm9s1t8]{color:#3d90b3} html[data-color-mode=dark] [data-colorid=mc0lm9s1t8]{color:#4c9fc2}[data-colorid=ncbxwiwtfo]{color:#4269b8} html[data-color-mode=dark] [data-colorid=ncbxwiwtfo]{color:#476ebd}[data-colorid=w7mvnd1w5k]{color:#192e59} html[data-color-mode=dark] [data-colorid=w7mvnd1w5k]{color:#a6bbe6}[data-colorid=ydby2sy2du]{color:#192e59} html[data-color-mode=dark] [data-colorid=ydby2sy2du]{color:#a6bbe6}[data-colorid=qx059gut49]{color:#192e59} html[data-color-mode=dark] [data-colorid=qx059gut49]{color:#a6bbe6}[data-colorid=uo4uqcw95s]{color:#4269b8} html[data-color-mode=dark] [data-colorid=uo4uqcw95s]{color:#476ebd}[data-colorid=d4udtbgvuj]{color:#192e59} html[data-color-mode=dark] [data-colorid=d4udtbgvuj]{color:#a6bbe6}[data-colorid=y9c6ifxhtx]{color:#4269b8} html[data-color-mode=dark] [data-colorid=y9c6ifxhtx]{color:#476ebd}[data-colorid=wceoicw2os]{color:#192e59} html[data-color-mode=dark] [data-colorid=wceoicw2os]{color:#a6bbe6}</style>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="RenderMan_Pyro_f24_460_Smoke.png" width="1407" loading="lazy" src="../../attachments/544647025/RenderMan_Pyro_f24_460_Smoke.png" data-image-src="../../attachments/544647025/RenderMan_Pyro_f24_460_Smoke.png" data-height="1080" data-width="1920" data-unresolved-comment-count="0" data-linked-resource-id="544647040" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Pyro_f24_460_Smoke.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544647025" data-linked-resource-container-version="1" data-media-id="dd51b42d-657a-477a-b6de-4a269c12066b" data-media-type="file" /></span><p /><hr /><h1 id="Smoke-Smoke">Smoke（烟雾）</h1><p><br /><strong><span data-colorid="l54d88unlc">Enable Smoke（启用烟雾）</span></strong><br />决定是否渲染体积的烟雾密度。如果禁用此项且 Fire 选项卡已启用，此操作会用 Bindings 选项卡中指定的 fire volume field（火焰体积字段）替换 density field（密度字段），而不是使用 smoke volume field（烟雾体积字段）。如果 smoke 和 fire 都被禁用，则结果默认使用输入体积。这不会影响由 Scatter 生成的数据。<br /><br /><br /></p><hr /><p><br />&nbsp;&nbsp;</p></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p>如果 Smoke 被禁用且 Fire 选项卡已启用，此操作会用 Bindings 选项卡中指定的 fire volume field（火焰体积字段）替换 density field（密度字段），而不是使用 smoke volume field（烟雾体积字段）。</p></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="RenderMan_Pyro_f24_460_NoSmoke_WithFire.png" width="686" loading="lazy" src="../../attachments/544647025/RenderMan_Pyro_f24_460_NoSmoke_WithFire.png" data-image-src="../../attachments/544647025/RenderMan_Pyro_f24_460_NoSmoke_WithFire.png" data-height="1080" data-width="1920" data-unresolved-comment-count="0" data-linked-resource-id="544647070" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Pyro_f24_460_NoSmoke_WithFire.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544647025" data-linked-resource-container-version="1" data-media-id="1697fb2b-2dc9-4b11-8aee-7c94c3e61879" data-media-type="file" /></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p /><hr /><p><br /></p></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p>如果 smoke 和 fire 都被禁用，则结果会默认使用输入体积，如上图所示。&nbsp; <br /><em>注意：这不会影响由 Scatter 生成的数据。</em></p></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="RenderMan_Pyro_f24_460_Scatter.png" width="686" loading="lazy" src="../../attachments/544647025/RenderMan_Pyro_f24_460_Scatter.png" data-image-src="../../attachments/544647025/RenderMan_Pyro_f24_460_Scatter.png" data-height="1080" data-width="1920" data-unresolved-comment-count="0" data-linked-resource-id="544647067" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Pyro_f24_460_Scatter.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544647025" data-linked-resource-container-version="1" data-media-id="cbf2a212-9baa-4529-a892-41c91328ffd6" data-media-type="file" /></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p /><p /><hr /><p><br /></p><span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="704" loading="lazy" src="../../attachments/544647025/RenderMan_PyroHDA_Smoke.png" data-image-src="../../attachments/544647025/RenderMan_PyroHDA_Smoke.png" data-height="303" data-width="1076" data-unresolved-comment-count="0" data-linked-resource-id="544647037" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_PyroHDA_Smoke.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544647025" data-linked-resource-container-version="1" data-media-id="64e1c180-e930-44fa-acbb-273c8092502f" data-media-type="file" /></span><p><br /><strong><span data-colorid="tm6otgbmpr">Density Scale（密度缩放）</span></strong><br /><span data-colorid="qx059gut49">将 smoke volume（烟雾体积）的密度乘以此值。更厚的密度会在渲染中产生更暗的颜色和更不透明的 shadows（阴影）。</span></p><div class="table-wrap"><table data-table-width="1800" data-layout="align-start" data-local-id="15ff7290-0502-440b-991f-0cdf40604968" class="confluenceTable"><tbody><tr><td class="confluenceTd"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="RenderMan_Pyro_f24_20Den_Smoke.png" width="335" loading="lazy" src="../../attachments/544647025/RenderMan_Pyro_f24_20Den_Smoke.png" data-image-src="../../attachments/544647025/RenderMan_Pyro_f24_20Den_Smoke.png" data-height="1080" data-width="1920" data-unresolved-comment-count="0" data-linked-resource-id="544647064" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Pyro_f24_20Den_Smoke.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544647025" data-linked-resource-container-version="1" data-media-id="c5006993-5350-4755-9570-a5e51e4c0a41" data-media-type="file" /></span></td><td class="confluenceTd"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="RenderMan_Pyro_f24_50Den_Smoke.png" width="335" loading="lazy" src="../../attachments/544647025/RenderMan_Pyro_f24_50Den_Smoke.png" data-image-src="../../attachments/544647025/RenderMan_Pyro_f24_50Den_Smoke.png" data-height="1080" data-width="1920" data-unresolved-comment-count="0" data-linked-resource-id="544647055" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Pyro_f24_50Den_Smoke.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544647025" data-linked-resource-container-version="1" data-media-id="ac575eae-3a68-4d35-885a-3747c8899faa" data-media-type="file" /></span></td><td class="confluenceTd"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="RenderMan_Pyro_f24_100Den_Smoke.png" width="335" loading="lazy" src="../../attachments/544647025/RenderMan_Pyro_f24_100Den_Smoke.png" data-image-src="../../attachments/544647025/RenderMan_Pyro_f24_100Den_Smoke.png" data-height="1080" data-width="1920" data-unresolved-comment-count="0" data-linked-resource-id="544647061" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Pyro_f24_100Den_Smoke.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544647025" data-linked-resource-container-version="1" data-media-id="303bdeef-5c94-43bf-920b-751e35f2a5f1" data-media-type="file" /></span></td><td class="confluenceTd"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="RenderMan_Pyro_f24_200Den_Smoke.png" width="335" loading="lazy" src="../../attachments/544647025/RenderMan_Pyro_f24_200Den_Smoke.png" data-image-src="../../attachments/544647025/RenderMan_Pyro_f24_200Den_Smoke.png" data-height="1080" data-width="1920" data-unresolved-comment-count="0" data-linked-resource-id="544647058" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Pyro_f24_200Den_Smoke.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544647025" data-linked-resource-container-version="1" data-media-id="b8d5c80b-53f1-4c19-a4fc-223ccebf2418" data-media-type="file" /></span></td></tr></tbody></table></div><p><span data-colorid="mc0lm9s1t8">上方图像展示了 Smoke Density 值为 20 / 50 / 100 / 200 时的效果。</span><br /><br /></p><p /><p><strong><span data-colorid="uo4uqcw95s">Density Ramp（密度渐变）</span></strong><br /><span data-colorid="d4udtbgvuj">用于重映射 density volume（密度体积）源值的 Ramp（渐变）。当启用 'Use Ramp' 进行编辑而不是使用 'Constant' 时，它会与 Density Scale 配合使用。</span></p><p><br /></p><p><strong><span data-colorid="y9c6ifxhtx">Density Source Range for Remapped Smoke Density（重映射烟雾密度的密度源范围）</span></strong><br /><span data-colorid="wceoicw2os">一种 fit operation（拟合操作），会把这些源值拟合到 0-1，以便使用 ramp 进行精确重映射。超出此范围的值会被钳制。</span></p><p><br /></p><p><br /></p><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="12560874-03a1-440c-b7bc-0d8fa181efdd" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p><strong>Pro Tip（专业提示）：</strong><br />使用 Ramped Smoke Density（渐变烟雾密度）时，可以将 ramp 左侧重映射为零，以移除很低的密度，从而让体积外观更锐利。&nbsp;</p></div></div><p><br /></p><p><br /></p><hr /><p><strong><span data-colorid="ncbxwiwtfo">Smoke Color（烟雾颜色）</span></strong><br /></p></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p>定义烟雾颜色，可使用 constant color（常量颜色），也可通过 ramp（渐变）定义。</p></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Smoke1.png" width="686" loading="lazy" src="../../attachments/544647025/Smoke1.png" data-image-src="../../attachments/544647025/Smoke1.png" data-height="1080" data-width="1920" data-unresolved-comment-count="0" data-linked-resource-id="544647052" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Smoke1.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544647025" data-linked-resource-container-version="1" data-media-id="685ce8a7-f7ca-47e0-8e0a-1f10008b8e4e" data-media-type="file" /></span><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Smoke1 Settings.png" width="686" loading="lazy" src="../../attachments/544647025/Smoke1 Settings.png" data-image-src="../../attachments/544647025/Smoke1 Settings.png" data-height="303" data-width="1076" data-unresolved-comment-count="0" data-linked-resource-id="544647049" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Smoke1 Settings.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544647025" data-linked-resource-container-version="1" data-media-id="22ea8a31-f339-44f8-be93-52ab8ff18cdf" data-media-type="file" /></span></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p>Constant Smoke Color（常量烟雾颜色）使用简单的 vector parameter（矢量参数）。这会把相同颜色应用到所有被定义为烟雾区域的 voxels（体素）（Density field - Flame field）。</p></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Smoke2.png" width="686" loading="lazy" src="../../attachments/544647025/Smoke2.png" data-image-src="../../attachments/544647025/Smoke2.png" data-height="1080" data-width="1920" data-unresolved-comment-count="0" data-linked-resource-id="544647046" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Smoke2.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544647025" data-linked-resource-container-version="1" data-media-id="e543709f-13b8-4556-af16-b44376f452a1" data-media-type="file" /></span><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Smoke2 Settings.png" width="686" loading="lazy" src="../../attachments/544647025/Smoke2 Settings.png" data-image-src="../../attachments/544647025/Smoke2 Settings.png" data-height="277" data-width="1064" data-unresolved-comment-count="0" data-linked-resource-id="544647043" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Smoke2 Settings.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544647025" data-linked-resource-container-version="1" data-media-id="df0b427c-3ec8-4fbe-8e21-2d145cd6a221" data-media-type="file" /></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p>Ramped Smoke Color（渐变烟雾颜色）使用来自 Density Range 的值。 <span data-colorid="ydby2sy2du">这会把渐变颜色应用到所有被定义为烟雾区域的 voxels（体素）（Density field - Flame field）。</span></p><p><br /></p><p><strong><span data-colorid="rlodgmje51">Density Range for Ramped Smoke Color（渐变烟雾颜色的密度范围）</span></strong><br /></p><p><span data-colorid="w7mvnd1w5k">一种 fit operation（拟合操作），会把这些源值拟合到 0-1，以便在 Smoke Color Ramp 上进行精确映射。超出此范围的值会被钳制，并取得 ramp 任一端的颜色。例如，如果模拟的最大密度为 2，那么将最小值设为 0、最大值设为 2，就能为模拟数据提供完整且未钳制的颜色覆盖。</span></p><p><br /></p><p><br /></p><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="f5b4492f-eb88-4808-9b6b-d51967bb3d1a" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p><strong>Pro Tip（专业提示）：</strong><br />使用 Ramped Smoke Color（渐变烟雾颜色）可以在不提高 density scale（密度缩放）的情况下改善烟雾深度，例如篝火或蜡烛这类模拟。模拟密度数据应具有变化的值，以通过 ramp 增加颜色变化。</p></div></div><p><br /></p><p><br /></p></div>
+</div>
+</div>
+</div>
+  </article>
+</main>
+</body>
+</html>

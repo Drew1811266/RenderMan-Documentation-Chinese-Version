@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sampling</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Sampling</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFM27/544542378/Sampling">https://rmanwiki-27.pixar.com/space/RFM27/544542378/Sampling</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>The sampling tab gives users control over basic quality via <em>Max Samples</em> and <em>Pixel Variance</em>, the choice of <em>Integrator</em> and its relevant settings, <em>Default Ray Depths</em>, <em>Clamping</em>, <em>Russian Roulette</em> (which can be used for reducing path lengths), and <em>Filtering</em>.  This is mainly where you control the quality and render time of a render.</p><p>In the Presets menu at the top of the window, there are sampling presets for draft, production, etc.  Furthermore, you can save your own sampling presets there.</p><p>Alternatively you can use the presets for parameters noted by the triple bar icon next to the parameter name.</p><h4 id="Sampling-"><span class="confluence-embedded-file-wrapper image-center-wrapper"><img class="confluence-embedded-image image-center" loading="lazy" src="../../attachments/544542378/RenderMan24_MayaRenderSettings_Sampling.JPG" data-image-src="../../attachments/544542378/RenderMan24_MayaRenderSettings_Sampling.JPG" data-unresolved-comment-count="0" data-linked-resource-id="544542423" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan24_MayaRenderSettings_Sampling.JPG" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544542378" data-linked-resource-container-version="1" data-media-id="0f70a052-411f-4b3f-aa8e-baccb0c8f98f" data-media-type="file"></span></h4><p>Presets for parameters can be accessed like this:</p><p><span class="confluence-embedded-file-wrapper image-center-wrapper"><img class="confluence-embedded-image image-center" loading="lazy" src="../../attachments/544542378/param_presets.gif" data-image-src="../../attachments/544542378/param_presets.gif" data-unresolved-comment-count="0" data-linked-resource-id="544542414" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="param_presets.gif" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/gif" data-linked-resource-container-id="544542378" data-linked-resource-container-version="1" data-media-id="5388145e-bbc7-49ea-88bf-a772bdc88b08" data-media-type="file"></span></p><h4 id="Sampling-IPRSamples">IPR Samples</h4><p>The IPR samples provide separate Max Samples and Pixel Variance for IPR rendering.  By default, this is set lower than render settings for quick feedback.</p><p>Interactive refinement uses a technique to sparsely sample the image and then refine it over time to provide faster feedback on updating the scene. The levels are 0 - 6 where 0 is off and 6 allows the renderer to be the most aggressive at deciding how few pixels to update at a time. The fewer the pixels that are updated the more likely you may see some blurry or ghosting artifacts at first while it resamples the frame but provide you with an updated hint more quickly.<br/><br/></p><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="e7e96719-c83d-4363-ab26-d6ce9d0d8330" data-macro-name="info"><p class="title">Progressive Pixels</p><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body">Note: When running an IPR in XPU mode, setting Interactive Refinement above 1 will activate Progressive Pixels.</div></div><h4 id="Sampling-Integrator">Integrator</h4><p>Lets you choose the <a href="/wiki/spaces/REN26/pages/19661783/Integrators" data-linked-resource-id="19661783" data-linked-resource-version="6" data-linked-resource-type="page">Integrator</a> to use for the render.  The default, <a href="/wiki/spaces/REN26/pages/19661775/PxrPathTracer" data-linked-resource-id="19661775" data-linked-resource-version="6" data-linked-resource-type="page">PxrPathTracer</a> is a fine choice for most rendering situations.</p><p>See the page for each integrator for information about their settings:</p><ul><li><a href="/wiki/spaces/REN26/pages/19661793/PxrDefault" data-linked-resource-id="19661793" data-linked-resource-version="2" data-linked-resource-type="page">PxrDefault</a></li><li><a href="/wiki/spaces/REN26/pages/19661791/PxrDirectLighting" data-linked-resource-id="19661791" data-linked-resource-version="2" data-linked-resource-type="page">PxrDirectLighting</a></li><li><a href="/wiki/spaces/REN26/pages/19661789/PxrOcclusion" data-linked-resource-id="19661789" data-linked-resource-version="4" data-linked-resource-type="page">PxrOcclusion</a></li><li><a href="/wiki/spaces/REN26/pages/19661775/PxrPathTracer" data-linked-resource-id="19661775" data-linked-resource-version="6" data-linked-resource-type="page">PxrPathTracer</a></li><li><span> <a href="/wiki/spaces/REN26/pages/19661785/PxrVCM" data-linked-resource-id="19661785" data-linked-resource-version="5" data-linked-resource-type="page">PxrVCM</a> </span></li><li><span> <a href="/wiki/spaces/REN26/pages/19661801/PxrValidateBxdf" data-linked-resource-id="19661801" data-linked-resource-version="1" data-linked-resource-type="page">PxrValidateBxdf</a> </span></li><li><span style="line-height: 1.42857;"> <a href="/wiki/spaces/REN26/pages/19661805/PxrVisualizer" data-linked-resource-id="19661805" data-linked-resource-version="3" data-linked-resource-type="page">PxrVisualizer</a></span></li></ul><h4 id="Sampling-DefaultRayDepths">Default Ray Depths</h4><p><strong>Max Specular Depth:</strong> Number of bounces for reflections and refractions. A value of 1 or 2 is sufficient unless you need multi bounce effects or have panes of glass or windows. This attribute can be overridden on individual objects.</p><p><strong>Max Diffuse Depth:</strong>  Number of diffuse bounces for indirect illumination. A value of 1 is usually sufficient, larger values are slower. This attribute can be overridden on individual objects.</p><h4 id="Sampling-Filter">Filter</h4><p><strong>Filter:</strong> The <a href="/wiki/spaces/REN26/pages/19661819/Filtering" data-linked-resource-id="19661819" data-linked-resource-version="8" data-linked-resource-type="page">filter</a> for rendered pixels. The box, triangle, disk, gaussian, and blackman-harris are softening filters while catmull-rom, sinc, mitchell, separable-catmull-rom, lanczos and bessel are sharpening filters. Separable-catmull-rom is a good compromise.</p><p><strong>Filter Size:</strong> The width of the pixel filter. Typically from 1 to 6. Set to 0 to use the standard width for the chosen pixel filter.</p><p><br/></p><h3 id="Sampling-IntegratorOverrides">Integrator Overrides</h3><p>When it's necessary to override the settings for a render layer, follow these steps:</p><ol><li>Create your desire layer in Render Setup, be sure you are on this layer (visible checked, the eyeball icon)</li><li>Choose the integrator you wish to use for this layer in the Render Settings. This will create the necessary node.</li><li>Right click on the integrator and choose <strong>&quot;Create Connection Override for Visible Layer&quot;</strong></li></ol><p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" height="400" loading="lazy" src="../../attachments/544542378/rfm_renderSettingsOverrideIntegrator.png" data-image-src="../../attachments/544542378/rfm_renderSettingsOverrideIntegrator.png" data-unresolved-comment-count="0" data-linked-resource-id="544542417" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfm_renderSettingsOverrideIntegrator.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544542378" data-linked-resource-container-version="1" data-media-id="1afc86c3-36bf-44cf-a82d-e48187698396" data-media-type="file"></span></p><p>4. To connect this new integrator, simply type the name of the integrator you've chosen in the menu and add .msg to the name. For example, enter: PxrOcclusion.msg then press Enter/Return. This will connect the integrator and the override will be visible in the Render Settings as an Orange highlight.</p><p><br/></p><p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" height="400" loading="lazy" src="../../attachments/544542378/rfm_renderLayerOverrideIntegrator.png" data-image-src="../../attachments/544542378/rfm_renderLayerOverrideIntegrator.png" data-unresolved-comment-count="0" data-linked-resource-id="544542420" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfm_renderLayerOverrideIntegrator.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544542378" data-linked-resource-container-version="1" data-media-id="c6fca413-1356-4156-9053-ae1775c08365" data-media-type="file"></span></p>
+  </article>
+</main>
+</body>
+</html>

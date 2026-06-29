@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Limits Configuration</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Limits Configuration</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/TRA/22184308/Limits+Configuration">https://rmanwiki-27.pixar.com/space/TRA/22184308/Limits+Configuration</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<h3 id="LimitsConfiguration-LimitsOverview">Limits Overview</h3><p>The Tractor <em>Limits</em> system can be used to monitor and enforce farm-wide restrictions on certain limited resources. It does this by simply maintaining counts associated with abstract site-chosen keywords. These are incremented as commands are launched and decremented when they exit. Sites can specify that new commands carrying particular limit keywords should only be launched when the current count is below a given threshold.</p><p>Consider an example where we have an application named &quot;AwesomeUnicorn&quot; that has been installed on all 100 of our renderfarm nodes. However, we only have 15 license seats for it, so we need to be careful to avoid launching more than 15 concurrent instances of it. Once 15 are running, we have to wait for some to exit before launching more, up to the limit of 15. Other types of commands from the job queue can run on the remaining idle farm nodes. Tractor maintains a tally of application names as they are launched, as well as other arbitrary <em>limit tag</em> names that the job script may attach to each command. This type of counting is called a SiteMax <strong>global limit</strong> because it applies to command keywords from any job, running anywhere on the farm.</p><p>The basic limit counting policy is controlled by the limit.config setting SiteMaxCounting. It has two possible settings today, in the default<strong>&quot;perInvocation&quot;</strong> mode limit counts are incremented on each command dispatch. There is an alternate global counting scheme named <strong>&quot;perHost&quot;</strong> that increments counts only when the <em>first</em> command carrying a particular tag lands on a given farm host. Subsequent similar commands running on that same host will not increment that limit's count. The idea is to support tracking certain application licensing scenarios in which a license will support unlimited instances of an application running on the same host.</p><p>Tractor also maintains a BladeMax tally for each limit, indexed by <strong>blade hostname.</strong> This value can be used to limit the number of concurrent invocations that can run on any individual blade. For example, we might determine that the AwesomeUnicorn app is so awesome (or cpu intensive) that only one instance should ever run on a given blade at one time. Per-blade exceptions can also be specified.</p><p>Similarly, each limit also maintains a separate tally indexed by <strong>job owner</strong> name for each limit tag. This OwnerMax value can be used to limit individual users to a particular number of concurrent invocations that consume a given limit tag. For example, we might want to specify that no user should be using more than 5 AwesomeUnicorn licenses concurrently. As shown below, a site can specify a general owner limit and also several exceptions for particular users.</p><p>A limit definition can also specify a JobMax value that constrains each <strong>individual job</strong> on the queue to the given number of concurrent launches that consume that particular limit tag. It is a site-wide setting, affecting all jobs that use that limit.</p><p>Note: In addition to the JobMax value in limits.config definitions, <em>each job itself also has a</em> <strong>maxActive</strong> <em>attribute</em> that provides a different kind of per-job control over a job's &quot;footprint&quot; on the farm. Each job's maxActive attribute specifies a simple cap on the number of simultaneously active tasks from that job. It is a generic active task count restriction, independent of limit policies or command type. By default, each job's maxActive attribute is set to zero, meaning &quot;unconstrained&quot;, and the usual site-wide Limit policies described on this page are used to control resource usage. The maxActive attribute is an additional constraint, to further reduce the job's blade usage.</p><p><strong>Adaptive Farm Allocations</strong> were introduced in Tractor 2.0. This limit sharing mechanism provides a way to assign flexible percentages of a given site-wide limit to different types of jobs. So for example, jobs from project &quot;X&quot; get 10% of the farm while jobs from show &quot;Y&quot; get 60% and other jobs can take whatever remains. This type of sharing is described in more detail below.<br/> </p><h3 id="LimitsConfiguration-Thelimits.configFile">The limits.config File</h3><p>The limits.config file specifies a dictionary of limit definitions, in JSON notation. Each limit definition consists of required global and owner maximum concurrent counts, and optional modifiers. This file must be created in the <a href="https://renderman.atlassian.net/wiki/spaces/TRA/pages/22184210#Configuration-overrides" rel="nofollow">site override directory</a>.</p><p>A value of <strong>-1</strong> for SiteMax, OwnerMax, or BladeMax specifies that an <strong>unlimited</strong> number of invocations are allowed.</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="0541b2d0-b26f-49e1-b7e8-fac0a051ec90" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">{
+   &quot;Limits&quot;:
+   {
+      &quot;prman&quot;:    {&quot;SiteMax&quot;: 100, &quot;OwnerMax&quot;: -1},
+
+      &quot;thingy&quot;   {  &quot;SiteMax&quot;: 25,
+                    &quot;SiteMaxCounting&quot;: &quot;perHost&quot;,
+                    &quot;OwnerMax&quot;: 5,
+                    &quot;OwnerExceptions&quot;: {&quot;bob&quot;: 2, &quot;alice&quot;: 10},
+                    &quot;BladeMax&quot;: 2,
+                    &quot;BladeExceptions&quot;: {&quot;gigantor&quot;: 8, &quot;myphone&quot;: 0}
+                  },
+
+      &quot;aparatus&quot;: {&quot;SiteMax&quot;: -1, &quot;OwnerMax&quot;: 2}
+   }
+}</pre>
+</div></div><p /><h3 id="LimitsConfiguration-SpecifyingLimitTagsinJobScripts">Specifying Limit Tags in Job Scripts</h3><p>Tractor jobs can explicitly declare limit tags that they will consume. Typically they are specified with the -tags list parameter to Job or RemoteCmd. When specified at the job level the tags are used to extend each command's own list, if any.</p><p><code>RemoteCmd &quot;/bin/AwesomeUnicorn mybest.corn&quot; -tags &quot;w00t spoon&quot; -service &quot;AUserver&quot;
+</code></p><p>This example will increment limit tags named &quot;AwesomeUnicorn&quot;, &quot;w00t&quot;, and &quot;spoon&quot;.<br/><br/>Blade Triggered Limit Tags</p><p>Sometimes it is desirable for a limit counter to be incremented whenever a certain type of blade is used, independent of the type of job that is running there. This can arise in situations where an administrator simply wants to know how many blades are in use from a given profile. However, this feature is typically used in the context of &quot;limit sharing&quot; allocations, described below.</p><p>To cause a blade assignment to trigger a limit increment, add a TaggedBlades value to the limit definition, it takes a list of profile names or host names that should trigger the counting.<br/> </p><h3 id="LimitsConfiguration-limitsharingAdaptiveFarmAllocations"><span class="confluence-anchor-link conf-macro output-inline" data-hasbody="false" data-local-id="74f3acfc-6f75-4ef8-b88d-4d772e373444" data-macro-id="7ab88eca-066c-40ea-ad17-a8487aa751a8" data-macro-name="anchor" id="LimitsConfiguration-limitsharing"><span class="confluence-anchor-link" id="limitsharing"> </span></span>Adaptive Farm Allocations</h3><p>Limit Sharing provides a way to assign flexible percentages of a given limit to different types of jobs.</p><p>By default, a limit count is a simple &quot;global&quot; tally: the limit tags associated with any launched command are simply incremented on launch and decremented on exit. If a particular limit tally has reached its maximum allowed count, then commands using that tag are not allowed to launch until some prior commands exit.</p><p>The limit sharing variation causes these limit counts to be <em>attributed</em> to a particular named <strong>project</strong> and the system enforces a usage ratio between those projects.</p><p>So the required ingredients for sharing include:</p><ul><li><p>Add the <strong>Job -projects</strong> attribute specifying each job's affiliation. Unaffiliated jobs are attributed to the project named &quot;default&quot;.</p></li><li><p>Add the <strong>Shares</strong> dictionary to a limit definition in limits.config to describe that limit's allocations by project.</p></li><li><p>Ensure that the shared limit is in effect during dispatching by either adding its <strong>limit tag</strong> name to job scripts, or by adding the <em>TaggedBlades</em>keyword to the limit definition itself so that all assignments to the named blades (profiles) are tallied.</p></li></ul><p>Jobs that do not specify a <em>project</em> affiliation are attributed to a project named <em>&quot;default&quot;</em>. Project affiliation can be added or changed in the Dashboard. The &quot;Shares&quot; named in a limit definition represent 100% of that limit usage. If the fractional named allocations do not sum to 1.0, then all remaining capacity is automatically allocated to the &quot;default&quot; project. A &quot;Shares&quot; definition can also explicitly define the size of the &quot;default&quot; allocation. If the sum of all allocations in a given limit definition is over or under 1.0 then the entire set of values is scaled proportionally so that the new total is 1.0.<br/> </p><h4 id="LimitsConfiguration-ASharingExample">A Sharing Example</h4><p>Somewhere in limits.config ...</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="3957ebb2-fb54-43ad-9e73-f69956298056" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">{
+  &quot;Limits&quot;:
+  {
+     &quot;prman&quot;: {
+         # a limit in the classical style
+         &quot;SiteMax&quot;: 100, &quot;OwnerMax&quot;: -1
+     },
+     &quot;theWholeFarm&quot;: {
+        &quot;SiteMax&quot;:  1000,
+        &quot;TaggedBlades&quot;: &quot;Linux64&quot;, # for example, all blades in this Profile
+        &quot;Shares&quot;: {
+           &quot;Rocket&quot;: {&quot;nominal&quot;: .65, &quot;cap&quot;: .75},
+           &quot;Pawns&quot;:  {&quot;nominal&quot;: .35, &quot;reserve&quot;: 0.10}
+        }
+     },
+     &quot;someOtherLimitName&quot;: {
+        &quot;SiteMax&quot;:  234,
+        &quot;Shares&quot;: {
+           &quot;lookdev&quot;: {&quot;nominal&quot;: .5},
+           &quot;research&quot;: {&quot;nominal&quot;: .25, &quot;cap&quot;: 0.5},
+           &quot;default&quot;: {&quot;nominal&quot;: .25}
+        }
+     }
+  }
+}</pre>
+</div></div><div class="table-wrap"><table data-table-width="1800" data-layout="default" data-local-id="b13f5cbe-5272-40fe-9da8-d11049126700" class="confluenceTable"><tbody><tr><td class="confluenceTd"><p>Let's say we have two shows in production right now. We will spool our jobs with annotations giving each job's project affiliation(s).</p><p><sup>Job -projects {Pawns}  -title &quot;pawn_hair_test1&quot; ...
+or
+Job -projects {Rocket} -title &quot;rktpkt&quot; ...
+</sup></p></td><td class="confluenceTd"><span class="confluence-embedded-file-wrapper image-left-wrapper"><img class="confluence-embedded-image image-left" loading="lazy" src="../../attachments/22184308/clapper-1.png" data-image-src="../../attachments/22184308/clapper-1.png" data-height="191" data-width="200" data-unresolved-comment-count="0" data-linked-resource-id="22195928" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="clapper-1.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="22184308" data-linked-resource-container-version="9" data-media-id="9bdb1166-b999-487d-9066-134f9f3ad2eb" data-media-type="file"></span></td></tr><tr><td class="confluenceTd"><p>Referring to the example above, we created a limit tag name &quot;theWholeFarm&quot; that will abstractly represent all of the render farm blades using the &quot;Linux64&quot; blade profile.</p></td><td class="confluenceTd"><span class="confluence-embedded-file-wrapper image-left-wrapper"><img class="confluence-embedded-image image-left" loading="lazy" src="../../attachments/22184308/shares.1.png" data-image-src="../../attachments/22184308/shares.1.png" data-height="191" data-width="200" data-unresolved-comment-count="0" data-linked-resource-id="22195929" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="shares.1.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="22184308" data-linked-resource-container-version="9" data-media-id="06eb8fb4-c0ee-47ba-80bb-2cf359acf6a1" data-media-type="file"></span></td></tr><tr><td class="confluenceTd"><p><strong>Nominal Allocations</strong> -- Within that limit, we created two <em>Shares,</em> representing our allocation of theWholeFarm to each project. Allocations are given as fraction of the limit's SiteMax count. Rescaling occurs if the allocations sum to greater than 1.0.</p></td><td class="confluenceTd"><span class="confluence-embedded-file-wrapper image-left-wrapper"><img class="confluence-embedded-image image-left" loading="lazy" src="../../attachments/22184308/shares.2.png" data-image-src="../../attachments/22184308/shares.2.png" data-height="191" data-width="200" data-unresolved-comment-count="0" data-linked-resource-id="22195888" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="shares.2.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="22184308" data-linked-resource-container-version="9" data-media-id="4f8b0feb-f715-48dd-a314-3f57dc299d01" data-media-type="file"></span></td></tr><tr><td class="confluenceTd"><p>As tasks are assigned to blades, the tally for each project is incremented accordingly. The usage of theWholeFarm limit tag will always be the sum of counts in its shares.</p></td><td class="confluenceTd"><span class="confluence-embedded-file-wrapper image-left-wrapper"><img class="confluence-embedded-image image-left" loading="lazy" src="../../attachments/22184308/shares.3.png" data-image-src="../../attachments/22184308/shares.3.png" data-height="191" data-width="200" data-unresolved-comment-count="0" data-linked-resource-id="22195927" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="shares.3.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="22184308" data-linked-resource-container-version="9" data-media-id="b591bcaa-183a-4d11-aa24-b108a046c4ec" data-media-type="file"></span></td></tr><tr><td class="confluenceTd"><p><strong>Nominal Maximum Utilization</strong> -- once the count for a project reaches that share's specified maximum, no additional tasks from that project will be dispatched until a previous one exits.</p></td><td class="confluenceTd"><span class="confluence-embedded-file-wrapper image-left-wrapper"><img class="confluence-embedded-image image-left" loading="lazy" src="../../attachments/22184308/shares.4.png" data-image-src="../../attachments/22184308/shares.4.png" data-height="191" data-width="200" data-unresolved-comment-count="0" data-linked-resource-id="22195925" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="shares.4.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="22184308" data-linked-resource-container-version="9" data-media-id="f0484c0f-352a-4486-b652-f3e213ae6897" data-media-type="file"></span></td></tr><tr><td class="confluenceTd"><p><strong>Dynamic Overflow</strong> -- when one share is underutilized, others can optionally overflow their <em>nominal</em> allocation up to a larger predefined <em>cap</em> value.</p></td><td class="confluenceTd"><span class="confluence-embedded-file-wrapper image-left-wrapper"><img class="confluence-embedded-image image-left" loading="lazy" src="../../attachments/22184308/shares.5.png" data-image-src="../../attachments/22184308/shares.5.png" data-height="191" data-width="200" data-unresolved-comment-count="0" data-linked-resource-id="22195924" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="shares.5.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="22184308" data-linked-resource-container-version="9" data-media-id="56b29f2f-ae2a-447a-a782-50a9fc265c62" data-media-type="file"></span></td></tr><tr><td class="confluenceTd"><p><strong>Reserved Allocations</strong> -- a share can optionally hold a reserved portion of the farm, some blades are kept idle until that project needs them.</p></td><td class="confluenceTd"><span class="confluence-embedded-file-wrapper image-left-wrapper"><img class="confluence-embedded-image image-left" loading="lazy" src="../../attachments/22184308/shares.6.png" data-image-src="../../attachments/22184308/shares.6.png" data-height="191" data-width="200" data-unresolved-comment-count="0" data-linked-resource-id="22195926" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="shares.6.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="22184308" data-linked-resource-container-version="9" data-media-id="bb01b2b5-0fec-4574-b227-53783a978dfe" data-media-type="file"></span></td></tr></tbody></table></div><p />
+  </article>
+</main>
+</body>
+</html>

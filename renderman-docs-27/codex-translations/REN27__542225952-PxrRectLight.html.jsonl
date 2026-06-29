@@ -1,0 +1,135 @@
+{"item_id":"13120106ce:0","text":"此单面面积光模拟矩形光源。"}
+{"item_id":"13120106ce:1","text":"它可用于照亮 objects，模拟摄影中使用的柔光箱、线形灯、荧光灯和灯板。它也可用于添加来自墙面或反光板 geometry 的反弹照明"}
+{"item_id":"13120106ce:2","text":"这些参数与"}
+{"item_id":"13120106ce:3","text":"xrDiskLight"}
+{"item_id":"13120106ce:4","text":"相同，反之亦然。因此，示例大多相同。"}
+{"item_id":"13120106ce:5","text":"你会看到对“非物理”控制的提及。这些控制用于帮助艺术家通过忽略我们通常模拟的某些物理定律，制作艺术指导图像。"}
+{"item_id":"13120106ce:6","text":"参数"}
+{"item_id":"13120106ce:7","text":"Basic"}
+{"item_id":"13120106ce:8","text":"Intensity"}
+{"item_id":"13120106ce:9","text":"线性缩放此灯光的贡献。灯光强度使用物理衰减计算。"}
+{"item_id":"13120106ce:10","text":"下面"}
+{"item_id":"13120106ce:11","text":"Intensity"}
+{"item_id":"13120106ce:12","text":"参数在每次渲染中增加 1.0。"}
+{"item_id":"13120106ce:13","text":"Exposure"}
+{"item_id":"13120106ce:14","text":"指定 area light 的 Exposure，以 2 的幂表示。Exposure 增加 1 会使光源发出的能量翻倍。值 0 在光源处产生 1 的强度，-1 产生 0.5。Real-world"}
+{"item_id":"13120106ce:15","text":"lighting（照明）能量很高，典型 exposure 值较低；如果要获得等效的"}
+{"item_id":"13120106ce:16","text":"Intensity"}
+{"item_id":"13120106ce:17","text":"，你可能必须输入非常大的数字。对于熟悉摄影测量的艺术家来说，这也更顺手。Intensity 会重置为 1.0，因此由于灯光的物理衰减，结果一开始会比上面的更暗。"}
+{"item_id":"13120106ce:18","text":"下面的 exposure 分别为 1.0、2.0、3.0。"}
+{"item_id":"13120106ce:19","text":"Color Map"}
+{"item_id":"13120106ce:20","text":"用作光源的图像。最好使用高动态范围光源。下面使用了三张不同图像。注意，这会根据所用 HDRI 的内容影响颜色和阴影。如果必须使用 JPEG 图像等 8-bit 源，应在作为颜色使用前将其线性化（转换到线性颜色空间）。"}
+{"item_id":"13120106ce:21","text":"Color"}
+{"item_id":"13120106ce:22","text":"发出光的颜色。如果指定了 color map，则它会给灯光着色。"}
+{"item_id":"13120106ce:23","text":"Map Gamma"}
+{"item_id":"13120106ce:24","text":"对纹理进行 gamma 校正。每个通道（RGB）可独立调整。"}
+{"item_id":"13120106ce:25","text":"Map Saturation"}
+{"item_id":"13120106ce:26","text":"调整纹理的饱和度。"}
+{"item_id":"13120106ce:27","text":"Enable Temperature"}
+{"item_id":"13120106ce:28","text":"开启或关闭色温。"}
+{"item_id":"13120106ce:29","text":"Color Temperature"}
+{"item_id":"13120106ce:30","text":"允许用户以 Kelvin 选择灯光色温。不同于基础灯光颜色，这让用户可以根据标准温度测量轻松选择可信的灯光颜色。此控制的作用类似灯光前方的 filter 或 gel（一层带 tint 的透明表面）。如果灯光为白色，你会得到所选色温。如果灯光已有颜色，色温会使它更冷（高于 6500K）或更暖（低于 6500K）。"}
+{"item_id":"13120106ce:31","text":"该效果在完全饱和的单色灯光上不太明显。默认值为 6500K，在大多数显示器上应非常接近白色（sRGB 和 Rec 709 使用的 D65 illuminant）。"}
+{"item_id":"13120106ce:32","text":"Primary Visibility"}
+{"item_id":"13120106ce:33","text":"默认情况下，灯光不会直接对 camera 可见。开启后会使其可见，并可使用 emission token 'O' 写入 LPE"}
+{"item_id":"13120106ce:34","text":"Refine"}
+{"item_id":"13120106ce:35","text":"Emission Focus"}
+{"item_id":"13120106ce:36","text":"用于塑造 emission 的离轴余弦幂指数。这会控制灯光的"}
+{"item_id":"13120106ce:37","text":"扩散范围"}
+{"item_id":"13120106ce:38","text":"。较高数值会开始将灯光聚焦到中心，从而缩窄光照扩散范围。"}
+{"item_id":"13120106ce:39","text":"Emission Focus Tint"}
+{"item_id":"13120106ce:40","text":"离轴灯光颜色 tint。这会从灯光的离轴角方向朝中心，在衰减区域对 emission 着色。默认情况下，tint 颜色为黑色（无）。除了着色外，大于白色的值还会增加衰减区域的 intensity。注意，使用 White 时，Emission Focus 几乎看起来像是关闭。"}
+{"item_id":"13120106ce:41","text":"Specular Amount"}
+{"item_id":"13120106ce:42","text":"发出的 specular light（镜面反射光）数量。这是一个非物理控制。你可以将灯光的"}
+{"item_id":"13120106ce:43","text":"Specular Amount"}
+{"item_id":"13120106ce:44","text":"设为 0.0，使其仅作为场景 objects 的 diffuse light（漫反射光）来源，并避免添加高光。该场景有轻微反射，但你可以注意到，在最右侧 chrome 球的 reflection 中，灯光消失了。"}
+{"item_id":"13120106ce:45","text":"Diffuse Amount"}
+{"item_id":"13120106ce:46","text":"发出的 diffuse light（漫反射光）数量。这是一个非物理控制。你可以将灯光的"}
+{"item_id":"13120106ce:47","text":"Diffuse Amount"}
+{"item_id":"13120106ce:48","text":"设为 0.0，使其仅作为场景 objects 的高光来源。"}
+{"item_id":"13120106ce:49","text":"Intensity Near Dist"}
+{"item_id":"13120106ce:50","text":"被照亮点与灯光之间的近距离，在此距离处 sample 不会继续变亮。这可帮助避免灯光靠近表面时产生热点和采样问题。这些值取决于场景尺度/距离，因此这里只是示例。"}
+{"item_id":"13120106ce:51","text":"Specular Near Dist"}
+{"item_id":"13120106ce:52","text":"具有 specular shading 的被照亮点与灯光之间的近距离，在此距离处 sample 不会继续变亮。这可帮助避免灯光靠近 specular surface 时产生热点和采样问题。"}
+{"item_id":"13120106ce:53","text":"注意"}
+{"item_id":"13120106ce:54","text":"此值不适用于从 camera 看到的灯光。"}
+{"item_id":"13120106ce:55","text":"下面右侧 sphere 的距离为 0.0、5.0，最后为 10.0。这些值取决于场景尺度/距离，因此这里只是示例。"}
+{"item_id":"13120106ce:56","text":"Diffuse Near Dist"}
+{"item_id":"13120106ce:57","text":"具有 diffuse shading 的被照亮点与灯光之间的近距离，在此距离处 sample 不会继续变亮。这可帮助避免灯光靠近 diffuse surface 时产生热点和采样问题。"}
+{"item_id":"13120106ce:58","text":"注意"}
+{"item_id":"13120106ce:59","text":"此值不适用于从 camera 看到的灯光。"}
+{"item_id":"13120106ce:60","text":"下面左侧 sphere 的距离为 0.0、5.0，最后为 10.0。这些值取决于场景尺度/距离，因此这里只是示例。"}
+{"item_id":"13120106ce:61","text":"Cone Angle"}
+{"item_id":"13120106ce:62","text":"灯光上虚拟遮扉的角度，用于把它转换为 spotlight。这不会影响 IES Profiles（如果你使用了 IES Profiles）。"}
+{"item_id":"13120106ce:63","text":"Cone Softness"}
+{"item_id":"13120106ce:64","text":"用于控制"}
+{"item_id":"13120106ce:65","text":"Cone Angle"}
+{"item_id":"13120106ce:66","text":"的 cut-off 软度。常规范围为 0（硬 cut-off）到 1（平滑过渡），但可设为高于 1 以获得额外渐变。在上面的"}
+{"item_id":"13120106ce:67","text":"Cone Angle"}
+{"item_id":"13120106ce:68","text":"中，你会注意到边缘看起来很硬；此参数会改善该结果，使其更悦目。"}
+{"item_id":"13120106ce:69","text":"Light Profile"}
+{"item_id":"13120106ce:70","text":"IES Profile"}
+{"item_id":"13120106ce:71","text":"IES 灯光配置文件的名称。下面使用了三种不同的 IES 配置文件，并带有一些暗调情绪照明。"}
+{"item_id":"13120106ce:72","text":"Profile Scale"}
+{"item_id":"13120106ce:73","text":"重新缩放 IES profiles 的角度分布。小于 0 的值表示该 profile 覆盖的角度范围更小，并会有效增加投射 profile 的尺寸。默认值为 0，表示完整覆盖（不缩放）。"}
+{"item_id":"13120106ce:74","text":"Profile Normalization"}
+{"item_id":"13120106ce:75","text":"设置 IES profile，以防其振幅改变灯光能量。"}
+{"item_id":"13120106ce:76","text":"Shadows"}
+{"item_id":"13120106ce:77","text":"如果灯光的"}
+{"item_id":"13120106ce:78","text":"Trace Light Paths"}
+{"item_id":"13120106ce:79","text":"在 Advanced 中启用，则所有 shadow 参数都会被忽略。下面的选项在脱离默认状态使用时都是非物理控制。如果"}
+{"item_id":"13120106ce:80","text":"Trace Light Paths"}
+{"item_id":"13120106ce:81","text":"启用，则会强制执行其物理属性。"}
+{"item_id":"13120106ce:82","text":"Enable Shadows"}
+{"item_id":"13120106ce:83","text":"启用光线追踪阴影。"}
+{"item_id":"13120106ce:84","text":"Shadow Color"}
+{"item_id":"13120106ce:85","text":"发出光投射的阴影颜色。"}
+{"item_id":"13120106ce:86","text":"Shadow Max Distance"}
+{"item_id":"13120106ce:87","text":"从被着色点位置开始计算的最大阴影距离。-1.0 表示未设置，此时使用被着色点与灯光上点之间的距离。你可以使用此控制人为减少投射阴影的距离。它也可能通过不计算该距离之外的阴影来提高渲染速度。这里用它移除灯光闪光效果在后墙上的阴影。"}
+{"item_id":"13120106ce:88","text":"Shadow Falloff"}
+{"item_id":"13120106ce:89","text":"阴影衰减从灯光处开始的距离。-1.0 会关闭阴影衰减。它与"}
+{"item_id":"13120106ce:90","text":"Shadow Max Distance"}
+{"item_id":"13120106ce:91","text":"一起使用，为被"}
+{"item_id":"13120106ce:92","text":"Shadow Max Distance"}
+{"item_id":"13120106ce:93","text":"参数削弱或截断的阴影创建伪淡出。下面是两个参数一起使用且 falloff 增加的示例。注意，此参数可能影响复杂灯光设置中的性能。"}
+{"item_id":"13120106ce:94","text":"Shadow Falloff Gamma"}
+{"item_id":"13120106ce:95","text":"衰减区域中阴影强度的 gamma。这需要使用"}
+{"item_id":"13120106ce:96","text":"Shadow Max Distance"}
+{"item_id":"13120106ce:97","text":"和"}
+{"item_id":"13120106ce:98","text":"Shadow Falloff"}
+{"item_id":"13120106ce:99","text":"。"}
+{"item_id":"13120106ce:100","text":"Trace Subset"}
+{"item_id":"13120106ce:101","text":"要纳入追踪阴影求交的 geometry 集合。如果未指定，则所有 geometry 都会纳入追踪阴影求交。"}
+{"item_id":"13120106ce:102","text":"Don't Trace Subset"}
+{"item_id":"13120106ce:103","text":"要忽略追踪阴影求交的 geometry 集合。如果未指定，则所有 geometry 都用于追踪阴影求交。"}
+{"item_id":"13120106ce:104","text":"Advanced"}
+{"item_id":"13120106ce:105","text":"Normalize"}
+{"item_id":"13120106ce:106","text":"启用 Normalize 后，缩放光源时，灯光对场景的贡献量不会改变。这使得调整高光尺寸更容易，而不会改变场景照明。"}
+{"item_id":"13120106ce:107","text":"Trace Light Paths"}
+{"item_id":"13120106ce:108","text":"启用从此灯光开始的光线和光子追踪。该值会强制使用基于物理的灯光，并且作为副作用禁用上面的"}
+{"item_id":"13120106ce:109","text":"Shadows"}
+{"item_id":"13120106ce:110","text":"控制。使用 PxrVCM 或 PxrUnified Integrators 时，用户可利用此功能选择哪些灯光发射光子。"}
+{"item_id":"13120106ce:111","text":"Thin Shadow"}
+{"item_id":"13120106ce:112","text":"为此灯光启用 thin shadow（薄阴影）并禁用折射焦散。如果"}
+{"item_id":"13120106ce:113","text":"Trace Light Paths"}
+{"item_id":"13120106ce:114","text":"已启用，则会忽略此参数。这是一个非物理控制，可为透射对象创建“伪”彩色阴影，而无需为焦散生成光子。注意，选择 Off 时会丢失彩色阴影和内部彩色反射，但会换来一些渲染速度。"}
+{"item_id":"13120106ce:115","text":"Visible in Refraction"}
+{"item_id":"13120106ce:116","text":"开启此项可使灯光通过玻璃和窗户等透射效果可见。"}
+{"item_id":"13120106ce:117","text":"Manifold Walk"}
+{"item_id":"13120106ce:118","text":"与 PxrUnified Integrator 一起使用，并启用"}
+{"item_id":"13120106ce:119","text":"Enable Manifold Walk"}
+{"item_id":"13120106ce:120","text":"以创建低成本 caustics。注意：你必须禁用 Thin Shadows"}
+{"item_id":"13120106ce:121","text":"Manifold Walk Exclude Group"}
+{"item_id":"13120106ce:122","text":"与 PxrUnified Integrator 一起使用，并启用"}
+{"item_id":"13120106ce:123","text":"Enable Manifold Walk（启用流形行走选项参数），"}
+{"item_id":"13120106ce:124","text":"该 trace set 会在流形探索期间被忽略，以避免停止或遮挡流形探索光线"}
+{"item_id":"13120106ce:125","text":"Light Samples"}
+{"item_id":"13120106ce:126","text":"指定此光源的灯光采样数量覆盖值。如果设为非零值，它会覆盖 integrator（积分器）执行的采样，并可能带来性能影响。除非遇到来自该灯光且无法解决的 noise，建议保持默认值。"}
+{"item_id":"13120106ce:127","text":"Light Group"}
+{"item_id":"13120106ce:128","text":"指定用于 light group LPEs 的 Light Group 名称。这对于生成 per-light AOVs 以便之后在合成中调整很有用。"}
+{"item_id":"13120106ce:129","text":"Importance Multiplier"}
+{"item_id":"13120106ce:130","text":"用户不必显式设置 Light Samples，而可以通过更改此值来改变内部分配给该灯光的采样数量。RenderMan 会在渲染时为场景中的所有灯光创建一组采样，改变此值会在这些灯光之间重新平衡采样。注意，增大此值会使"}
+{"item_id":"13120106ce:131","text":"更多"}
+{"item_id":"13120106ce:132","text":"采样从此灯光中被选择，同时减少场景中其他灯光的采样。低于默认值则会"}
+{"item_id":"13120106ce:133","text":"减少"}
+{"item_id":"13120106ce:134","text":"该灯光的采样，同时为场景中的其他灯光提供更多采样。"}

@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sampling</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Sampling</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFM27/544542378/Sampling">https://rmanwiki-27.pixar.com/space/RFM27/544542378/Sampling</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>Sampling tab 会通过以下设置 <em>Max Samples</em> 和 <em>Pixel Variance</em>、所选择的 <em>Integrator</em> 及其相关设置、 <em>Default Ray Depths</em>, <em>Clamping</em>, <em>Russian Roulette</em>（可用于缩短 path lengths）以及 <em>Filtering</em>来让用户控制基础质量。这主要是控制 render 的质量和 render time 的位置。</p><p>在窗口顶部的 Presets menu 中，有 draft、production 等 sampling presets。此外，你也可以在那里保存自己的 sampling presets。</p><p>或者，你可以使用参数名称旁 triple bar icon 标出的参数 presets。</p><h4 id="Sampling-"><span class="confluence-embedded-file-wrapper image-center-wrapper"><img class="confluence-embedded-image image-center" loading="lazy" src="../../attachments/544542378/RenderMan24_MayaRenderSettings_Sampling.JPG" data-image-src="../../attachments/544542378/RenderMan24_MayaRenderSettings_Sampling.JPG" data-unresolved-comment-count="0" data-linked-resource-id="544542423" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan24_MayaRenderSettings_Sampling.JPG" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544542378" data-linked-resource-container-version="1" data-media-id="0f70a052-411f-4b3f-aa8e-baccb0c8f98f" data-media-type="file"></span></h4><p>参数 presets 可以像这样访问：</p><p><span class="confluence-embedded-file-wrapper image-center-wrapper"><img class="confluence-embedded-image image-center" loading="lazy" src="../../attachments/544542378/param_presets.gif" data-image-src="../../attachments/544542378/param_presets.gif" data-unresolved-comment-count="0" data-linked-resource-id="544542414" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="param_presets.gif" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/gif" data-linked-resource-container-id="544542378" data-linked-resource-container-version="1" data-media-id="5388145e-bbc7-49ea-88bf-a772bdc88b08" data-media-type="file"></span></p><h4 id="Sampling-IPRSamples">IPR Samples</h4><p>IPR samples 为 IPR rendering 提供独立的 Max Samples 和 Pixel Variance。默认情况下，它设得低于正式 render settings，以便快速反馈。</p><p>Interactive refinement 使用一种技术对图像进行稀疏采样，然后随时间逐步细化，以便在更新场景时提供更快反馈。级别为 0 - 6，其中 0 表示关闭，6 会让 renderer 在决定每次只更新多少 pixels 时最激进。更新的 pixels 越少，重新采样 frame 时越可能先看到一些 blur 或 ghosting artifacts，但也能更快提供更新提示。<br/><br/></p><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="e7e96719-c83d-4363-ab26-d6ce9d0d8330" data-macro-name="info"><p class="title">Progressive Pixels</p><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body">注意：在 XPU mode 下运行 IPR 时，如果将 Interactive Refinement 设为高于 1，会激活 Progressive Pixels。</div></div><h4 id="Sampling-Integrator">Integrator</h4><p>让你选择用于 render 的 <a href="https://rmanwiki-26.pixar.com/space/REN26/19661783/Integrators" data-linked-resource-id="19661783" data-linked-resource-version="6" data-linked-resource-type="page">Integrator</a>。默认的 <a href="https://rmanwiki-26.pixar.com/space/REN26/19661775/PxrPathTracer" data-linked-resource-id="19661775" data-linked-resource-version="6" data-linked-resource-type="page">PxrPathTracer</a> 适用于大多数 rendering 情况。</p><p>有关各 integrator 设置的信息，请参阅各 integrator 页面：</p><ul><li><a href="https://rmanwiki-26.pixar.com/space/REN26/19661793/PxrDefault" data-linked-resource-id="19661793" data-linked-resource-version="2" data-linked-resource-type="page">PxrDefault</a></li><li><a href="https://rmanwiki-26.pixar.com/space/REN26/19661791/PxrDirectLighting" data-linked-resource-id="19661791" data-linked-resource-version="2" data-linked-resource-type="page">PxrDirectLighting</a></li><li><a href="https://rmanwiki-26.pixar.com/space/REN26/19661789/PxrOcclusion" data-linked-resource-id="19661789" data-linked-resource-version="4" data-linked-resource-type="page">PxrOcclusion</a></li><li><a href="https://rmanwiki-26.pixar.com/space/REN26/19661775/PxrPathTracer" data-linked-resource-id="19661775" data-linked-resource-version="6" data-linked-resource-type="page">PxrPathTracer</a></li><li><span> <a href="https://rmanwiki-26.pixar.com/space/REN26/19661785/PxrVCM" data-linked-resource-id="19661785" data-linked-resource-version="5" data-linked-resource-type="page">PxrVCM</a> </span></li><li><span> <a href="https://rmanwiki-26.pixar.com/space/REN26/19661801/PxrValidateBxdf" data-linked-resource-id="19661801" data-linked-resource-version="1" data-linked-resource-type="page">PxrValidateBxdf</a> </span></li><li><span style="line-height: 1.42857;"> <a href="https://rmanwiki-26.pixar.com/space/REN26/19661805/PxrVisualizer" data-linked-resource-id="19661805" data-linked-resource-version="3" data-linked-resource-type="page">PxrVisualizer</a></span></li></ul><h4 id="Sampling-DefaultRayDepths">Default Ray Depths</h4><p><strong>Max Specular Depth:</strong> reflections 和 refractions 的 bounce 次数。除非需要 multi bounce effects，或有 panes of glass/windows，否则值 1 或 2 已经足够。此 attribute 可以在单个 objects 上 override。</p><p><strong>Max Diffuse Depth:</strong>  indirect illumination 的 diffuse bounces 数量。值 1 通常足够；更大的值会更慢。此 attribute 可以在单个 objects 上 override。</p><h4 id="Sampling-Filter">Filter</h4><p><strong>Filter:</strong> 用于控制 rendered pixels 的 <a href="https://rmanwiki-26.pixar.com/space/REN26/19661819/Filtering" data-linked-resource-id="19661819" data-linked-resource-version="8" data-linked-resource-type="page">filter</a>。box、triangle、disk、gaussian 和 blackman-harris 是 softening filters；catmull-rom、sinc、mitchell、separable-catmull-rom、lanczos 和 bessel 是 sharpening filters。Separable-catmull-rom 是一个不错的折中选择。</p><p><strong>Filter Size:</strong> pixel filter 的宽度。通常为 1 到 6。设为 0 会使用所选 pixel filter 的标准宽度。</p><p><br/></p><h3 id="Sampling-IntegratorOverrides">Integrator Overrides</h3><p>当需要 override 某个 render layer 的设置时，按以下步骤操作：</p><ol><li>在 Render Setup 中创建所需 layer，并确认当前处于这个 layer（visible 已勾选，即 eyeball icon）</li><li>在 Render Settings 中为此 layer 选择要使用的 integrator。这会创建所需 node。</li><li>右键单击 integrator，然后选择 <strong>&quot;Create Connection Override for Visible Layer&quot;</strong></li></ol><p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" height="400" loading="lazy" src="../../attachments/544542378/rfm_renderSettingsOverrideIntegrator.png" data-image-src="../../attachments/544542378/rfm_renderSettingsOverrideIntegrator.png" data-unresolved-comment-count="0" data-linked-resource-id="544542417" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfm_renderSettingsOverrideIntegrator.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544542378" data-linked-resource-container-version="1" data-media-id="1afc86c3-36bf-44cf-a82d-e48187698396" data-media-type="file"></span></p><p>4. 要连接这个新的 integrator，只需在 menu 中键入你选择的 integrator 名称，并在名称后添加 .msg。例如输入：PxrOcclusion.msg，然后按 Enter/Return。这会连接 integrator，并且 override 会在 Render Settings 中以 Orange highlight 显示。</p><p><br/></p><p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" height="400" loading="lazy" src="../../attachments/544542378/rfm_renderLayerOverrideIntegrator.png" data-image-src="../../attachments/544542378/rfm_renderLayerOverrideIntegrator.png" data-unresolved-comment-count="0" data-linked-resource-id="544542420" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfm_renderLayerOverrideIntegrator.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544542378" data-linked-resource-container-version="1" data-media-id="c6fca413-1356-4156-9053-ae1775c08365" data-media-type="file"></span></p>
+  </article>
+</main>
+</body>
+</html>

@@ -1,0 +1,12 @@
+{"item_id":"b1a7eec5d7:0","text":"Shading（着色）"}
+{"item_id":"b1a7eec5d7:1","text":"为了让这个 asset 看起来可信，我需要处理许多不同 materials，但没有不同 geometries 可供分配这些 materials。所有不同 materials 都需要合并在一个 single master shader 下，因此我认为这类 asset 的最佳方法，是使用 “PxrLayerMixer” 和 “PxrLayer” nodes 进行 layer shading，以分离这些不同 properties，并使用 masks 在 materials 之间实现平滑 transition。"}
+{"item_id":"b1a7eec5d7:2","text":"我为 body 的不同区域分别设置了 shader control，例如 Petals、Leaves、Feet、Eyes 周围区域、Belly、Neck、Antenna、Tongue、Mouth 等。"}
+{"item_id":"b1a7eec5d7:3","text":"Petals（花瓣）"}
+{"item_id":"b1a7eec5d7:4","text":"petals 的 lookdev 是更关键的 materials 之一，因为它既要看起来很薄，也要像 flower petals 那样 transmit light。最初我尝试借助 mask 通过 SSS 来实现这种 look。"}
+{"item_id":"b1a7eec5d7:5","text":"不过，我对这些结果并不满意，因为 petals 开始看起来更像 wax，而且缺少明亮的 backlit tint。为了解决这个问题，我想到了另一种方法：将使用 Glass parameter 的 Transmission 与 SSS 结合。为了获得额外控制，我使用了 PxrRemap 和 PxrColorCorrect nodes。"}
+{"item_id":"b1a7eec5d7:6","text":"Leaves（叶片）"}
+{"item_id":"b1a7eec5d7:7","text":"leaves 的 geometry 比 Petals 稍厚，因此不像 petals 的 material，我不需要使用 transmission 来获得类似 petal 的 backlit look。下面是我仅使用 SSS parameter 得到的结果。"}
+{"item_id":"b1a7eec5d7:8","text":"Eyes（眼睛）"}
+{"item_id":"b1a7eec5d7:9","text":"我在许多 references 中注意到，frogs 和一些其他 reptiles 的 eyes 有一种 metallic look。其中一些还有类似 gold foil 的 flakes。我觉得这很有趣，并尝试在 Hippie 的 eyes 中实现类似 look。"}
+{"item_id":"b1a7eec5d7:10","text":"对于 Iris 和 Sclera，我同时使用 SSS 和 Specular Edge Color。为了获得 metallic look，我略微提高了 IOR。这给了我 semi metallic look。虽然 eye 有这种 metallic shine，但它仍不是真正的 metal。归根结底，它是 organic material，因此我没有只让 Specularity 驱动 color，而是将其与 subsurface 结合，以便也获得一些来自 SSS 的贡献。"}
+{"item_id":"b1a7eec5d7:11","text":"对于 golden flakes，我最初只使用 Specular Edge Color，并把 IOR 调到高得多的 value，以获得纯 metallic look。不过，在光线很少或没有击中的 areas 中，它会看起来几乎是黑色。因此最终我沿用了 eye 其余部分的相同方法，但保持更高的 IOR，帮助我获得想要的类似 golden foil 的 shine。"}

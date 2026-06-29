@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Geometric Settings</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Geometric Settings</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFK27/546177835/Geometric+Settings">https://rmanwiki-27.pixar.com/space/RFK27/546177835/Geometric+Settings</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>RenderMan 的 geometric settings（几何设置）可以通过几种方式在 Katana 中设置。 </p><h3 id="GeometricSettings-ImportedGeometricSettings">Imported Geometric Settings（导入的几何设置）</h3><p>许多 geometric settings 会通过 geometry importer（几何体导入器，即 Alembic 或 USD）进入 Katana。这些 geometric settings 最终位于 "geometry" 属性下。这些属性包括定义 geometry（几何体）的内容（例如 mesh 的 vertices），以及任意 primitive variables（图元变量）。geometry 组中的属性对 geometry location（几何体位置）是显式的，因此它们不会被继承，也不会按 instance（实例）变化。</p><p>Read（阅读）：在此处了解更多关于 primitive variables 的信息：</p><ul><li><p><a href="546177881-Primitive Variables.html" data-linked-resource-id="546177881" data-linked-resource-version="4" data-linked-resource-type="page">Primitive Variables（图元变量）</a></p></li></ul><h3 id="GeometricSettings-PrmanObjectStatements">PrmanObjectStatements</h3><p>PrmanObjectStatements 上有两类 geometric settings：一类可以按 instance（实例）变化，另一类不能。prmanStatements.attributes 组下的属性可以按 instance 变化。这些也称为 "instance attributes"（实例属性）。prmanStatements.primAttributes 下的属性不能按 instance 变化。这些也称为 "prototype attributes"（原型属性）。RfK 会将 prototype attributes 展平到 geometry locations 上，因此它们可以在 Katana 中被继承。</p><p>Read（阅读）：在此处了解关于 PrmanObjectStatements 的信息：</p><ul><li><p><a href="546178855-PrmanObjectStatements.html" data-linked-resource-id="546178855" data-linked-resource-version="1" data-linked-resource-type="page">PrmanObjectStatements</a></p></li></ul><h3 id="GeometricSettings-ScriptinginKatana">Scripting in Katana（Katana 中的脚本编写）</h3><p>可以通过 Op、OpScript 或 AttributeSet 节点设置上述任何属性。除了 PrmanObjectStatemts（源文拼写）中公开的属性外，RenderMan 还允许用户在 "user" namespace（命名空间）下定义自己的属性 - prmanStatements.attributes.user。</p><p>Read（阅读）：在此处了解更多关于 user attributes（用户属性）的信息：</p><ul><li><p><a href="546177856-User Attributes.html" data-linked-resource-id="546177856" data-linked-resource-version="4" data-linked-resource-type="page">User Attributes（用户属性）</a></p></li></ul><p /><p /><p />
+  </article>
+</main>
+</body>
+</html>

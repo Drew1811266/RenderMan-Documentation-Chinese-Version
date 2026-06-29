@@ -1,0 +1,61 @@
+{"id": "217d39972aa9a988c2db9dcc6ff6c9936eb9169e0fc1d8e59d013d00caa4f9a0", "item_id": "b67af9f112:79", "text": "PxrBarnLightFilter"}
+{"id": "5abcc99b117df40068d1039e89b6ce89fe8828504cf4839443b3a1a90f86de5a", "item_id": "b67af9f112:1", "text": "has two modes: Physical and Analytic. Physical Barns provide physically accurate shadowing, while Analytic Barns provide more precise user controls."}
+{"id": "38472593bfedf420b3255abd6d3dce6b8966a23d3e570e2504f74dee474d81de", "item_id": "b67af9f112:2", "text": "Physical Barn"}
+{"id": "8e76a94ac8320d515375e625bef1829238b097ecbd33611b59eeefd4ffefebfb", "item_id": "b67af9f112:77", "text": "Summary"}
+{"id": "f5abc141cad4a285c43a03858a1fb3ac1af7d018c3567ed138860db155330d11", "item_id": "b67af9f112:4", "text": "Physical Barns can be used to simulate what would be done on a set. Think about it as a physical primitive that casts shadows. The Physical Barn acts as a window that only lets light in through the opening shape."}
+{"id": "9e6151acb057025d16cbccee815e728994335db9c3c980e9489194be2f7937c2", "item_id": "b67af9f112:5", "text": "Uses"}
+{"id": "574ae93d451dff7106e19890fa981cb241f25621693bb4aee364b236e69b3ac9", "item_id": "b67af9f112:6", "text": "Cast light through an opening in space that creates physically accurate shadowing."}
+{"id": "3c0eb0c0f4f3a0dcdbf4731bc8e1f8866bff070d26f3b5f57939a09c08378266", "item_id": "b67af9f112:7", "text": "Contain light bounces in large scenes."}
+{"id": "2c56a77ddafe41d7abb366bcadd5cbc24eba44bd35b6be8af44a523f42abc359", "item_id": "b67af9f112:8", "text": "Shaping"}
+{"id": "11d0ffc4fc0fb91a7101a6e8fba43f0f45ffa298e3e4790521dc70321a2c3dea", "item_id": "b67af9f112:9", "text": "Both the size of the light as well as the position of the barn in relation to the light change how the light 'casts a shadow' onto the set. The light casting through the barn creates an umbra and penumbra region based on that size and location. The Viewer Modifier guides show you the umbra and penumbra regions as you re-size the light or move the barn. When trying to understand what it's doing, look at the shape of the barn where it begins (the window the light travels through). The edge of that shape in space in relation to the light size and distance determines the umbra and penumbra size."}
+{"id": "3eb5ea81fe135e4536c78a35f9b4f4309ef5914dc0aa924ded46b603616c8551", "item_id": "b67af9f112:10", "text": "Two main things that change the quality of the light's umbra and penumbra:"}
+{"id": "7359074de60e88710b5c3fcc1443aec71a38d3a342951359019583db19a3ac1b", "item_id": "b67af9f112:11", "text": "Size of Light"}
+{"id": "8629d606039a8bebdc9ccd1550e11e3dac04cc2cd1c545f00fdac332c5faf24c", "item_id": "b67af9f112:12", "text": "A small light traveling through the barn shape casts a sharp shadow (small penumbra) and has a bigger umbra."}
+{"id": "daf11ce428c27c4a0875675c76234da3cb5a8c11aec1fbb2ed7784c7c85f2e44", "item_id": "b67af9f112:13", "text": "A large light traveling through the barn shape casts a soft shadow (large penumbra) and shrinks the umbra."}
+{"id": "03415efc5dc79a93fb82225ca4c41c72799a4f0f458046fd7be0809e4f7addba", "item_id": "b67af9f112:14", "text": "Distance of Barn from Light:"}
+{"id": "44a70a5b5690869ee77464128da2b01d37ec4d5be121622c113c73e47be0dbc6", "item_id": "b67af9f112:15", "text": "A barn close to the light creates a large umbra."}
+{"id": "632b63e6ecd4222fdd27ff9237cd556bda9a12d8c38c8dff166898ceb15da11a", "item_id": "b67af9f112:16", "text": "A barn far from the light creates a small umbra."}
+{"id": "0c1319e0d3008fef94e5f801ddd1f654c7f9c01d3ebe3f120ea514ddfe7557b6", "item_id": "b67af9f112:17", "text": "Increasing the edge"}
+{"id": "59c66033af2f525d629d8b51aa73a73aa8f0eb5a514812b5ca994edf823aa1ad", "item_id": "b67af9f112:18", "text": "Out of the box, the physically based barn has the edge parameter set to 0. You see falloff on a surface from your light because it's an actual shadow. That shadow softness is based on the light size/barn position as explained above, not the edge parameter setting. Think back to the idea that the barn opening is just a physical primitive. The edge parameter acts like a transparency slide outside of the edge of the barn. It allows light to pass through, but won't change the size of the penumbra (won't change shadow sharpness/softness)."}
+{"id": "a3c1eb54cfcfde2c4d8aa80cf92a72504c641561ccef15d1d3b638fdac9f1eb9", "item_id": "b67af9f112:19", "text": "When you start increasing edge, you will see one new guide ring show up in the Viewer. This is the end of the penumbra for the edge region. This ring is where the light no longer has an affect."}
+{"id": "1b325b23d37c38cc11f4f555ed63547c08a941e5e979d17c3b66260b2dc00013", "item_id": "b67af9f112:20", "text": "The most important things to know about the edge parameter:"}
+{"id": "352164a3f9a1ddcfba9005ecea3d011941b0a0c3a6fcc930b92bf7819edbf36e", "item_id": "b67af9f112:21", "text": "Start with this at 0 and see if you can get the softness you want by changing the barn position or light size"}
+{"id": "838c41185ee14dff6c6ac48ac851252e00c0093caa4d47c26c3df8d425aab705", "item_id": "b67af9f112:22", "text": "Use it to allow more light through the barn to create a softer/larger falloff"}
+{"id": "9edc8a47c63fa4d620da10c5e7c944db12b7f46e06d3429d386683559554e7e0", "item_id": "b67af9f112:23", "text": "It will not change your shadow quality (how soft or tight it is)"}
+{"id": "3f0e95cc0f1172d8e8f25455e7c97e0b8540e4b633b4b126797352114d0954b9", "item_id": "b67af9f112:24", "text": "Viewer Modifier Guides"}
+{"id": "30d157d3c0d9081751b218f9cb645b9425bbc33e7450c9a7fde3e7e72526ce86", "item_id": "b67af9f112:25", "text": "inside of the inner ring is the umbra"}
+{"id": "a9e8f8a0171621d55600589d54be200109c8694c7bcd2ed156877cc9c9e7328c", "item_id": "b67af9f112:26", "text": "inner guide ring is the end of the umbra and start of penumbra"}
+{"id": "245c3556037f66c80c9883a7b7abe52a4ee191903a522836ccba07fd44ea2f9e", "item_id": "b67af9f112:27", "text": "middle guide ring is end of penumbra"}
+{"id": "047d84067d654f1c74206a469d8b52a167e59ca997600587222abb4118a3cc46", "item_id": "b67af9f112:28", "text": "outer guide ring is the end of the edge region, where light no longer has an effect"}
+{"id": "1a8688fb736b5316da07bcedba592df58ae47e2321cb60a6d1a1bfa4cbafe499", "item_id": "b67af9f112:29", "text": "The distance between the umbra guide ring and the penumbra guide ring indicates the size of the shadows your light will cast."}
+{"id": "835f991aa296dbb85f990e529e37dd1888e4e7b97fb9f45c9437086320538bc6", "item_id": "b67af9f112:30", "text": "Shaping Guide"}
+{"id": "a2659b7e6b802fa73ad76ac67648d91704a0411e8b1c3c37ade9bced870d40a6", "item_id": "b67af9f112:31", "text": "umbra"}
+{"id": "696cc4f69cc421c6031c490add01083e6ba0c1d0939fb2106b4a687d0f17ce0b", "item_id": "b67af9f112:32", "text": "penumbra"}
+{"id": "fafa1f76da27f4c815a675aa02dd02412497787ded10e3ae00b346e46a51a7db", "item_id": "b67af9f112:33", "text": "shadows"}
+{"id": "15afcdc16b3ea16fe455267cfe6ff322934383214d999081335bb5c310d69621", "item_id": "b67af9f112:34", "text": "move barn away from light"}
+{"id": "fb856daac93f2bf95d9230d5c1b3bb78b480618ac985e6145a93e96f2d04d6b8", "item_id": "b67af9f112:64", "text": "size decreases"}
+{"id": "df8f71fbd5bc2db6236a77b305770d8a61f819336c674ba4a3febacc48679cec", "item_id": "b67af9f112:49", "text": "tighter shadows"}
+{"id": "323419df208e4c5d60e4ec8a4bf7057cc7ff44d577a8ce9a2bceaa4866eeb503", "item_id": "b67af9f112:38", "text": "move barn towards light"}
+{"id": "341724995b6a6ac7c74a0b189b9f5a4a6cf7a65009d9c13dbd816e3497901f77", "item_id": "b67af9f112:60", "text": "size increases"}
+{"id": "7ee896e89e84015cd73084c448342a8a8760790860112c9cdaeaf8211f289576", "item_id": "b67af9f112:45", "text": "softer shadows"}
+{"id": "2f74875a2efcf4fc8a57c49ef27bd6b0064ea5290da4fd071b8ebc46119ae81a", "item_id": "b67af9f112:42", "text": "increase light size"}
+{"id": "eb70b6b49e6a8efddacfddc8b3f4dd5ae8322adfeb0af1349eec8f88ac66fc4a", "item_id": "b67af9f112:46", "text": "decrease light size"}
+{"id": "1346990634717051690bd97b70978fb2a5f20f1f0ca5b1fb2bcce887efe9ca86", "item_id": "b67af9f112:50", "text": "radius/width/height size increase"}
+{"id": "4eef6f68f2f3bd0adf337099f9d87a3ed0c689f569aecb5cccc77898024ade89", "item_id": "b67af9f112:63", "text": "size stays the same"}
+{"id": "3bfa37fe37aa13f3a48d247bda4f635bc4dc399c80f29936377eabcc0e14806b", "item_id": "b67af9f112:65", "text": "shadows stay the same"}
+{"id": "b26490572a046af18895c68084188be89df246ba2b581f6c2357d8f4c3a72649", "item_id": "b67af9f112:54", "text": "radius/width/height size decrease"}
+{"id": "36a67995f0fcbc4b18073f8a20cc336335e7db4691ec65be84e9c40ee5df792e", "item_id": "b67af9f112:58", "text": "edge increase"}
+{"id": "d9c4348d04d685590d02bdd21c32df008ed0d00cb72f777a2ce3fff1fc6aa57e", "item_id": "b67af9f112:62", "text": "edge decrease"}
+{"id": "4a95f84ad388aa4cfde6967aa5d1485acf4bc257765ca7a17f7170236411c32a", "item_id": "b67af9f112:66", "text": "preBarn"}
+{"id": "41fbb3504655b8d8da48998d17aa6973934bf1b60b664515346f6ed5b35b048d", "item_id": "b67af9f112:67", "text": "no light: The light only starts emitting from the start of the barn. Default behavior."}
+{"id": "b0ed406495822116b9002d96372ec15f7c340c4a03e5b283b1f14279ab93fc9d", "item_id": "b67af9f112:68", "text": "no effect: The light starts emitting from the position of the light, and if the barn is positioned off of the light (which it likely will), it will then be affected by the barn shape at the start of the barn"}
+{"id": "0b9e45c7005dbc05b69c83ffd4d2888398530ec2b7ff59fc2f8ea1de98623feb", "item_id": "b67af9f112:69", "text": "cone: The light starts emitting from the position of the light. If the barn is positioned in front of the light light, the light emitted is contained as if the edges of the barn were extended back to the light position."}
+{"id": "6276ea5ebba03fcda111e65affccc5c182eec88eb00655f8f24631dcf4d331ac", "item_id": "b67af9f112:70", "text": "Skewing"}
+{"id": "9e40a0c36261ade54db7b8d4956af83da5467a983bc2397204fb5c05ed15d6c7", "item_id": "b67af9f112:71", "text": "skew up: select barn in viewer, and move up"}
+{"id": "b91421d0036f2dde70e6e378a9c0214d4d509fe08a2cee4bab2c29ef5bd5ccc2", "item_id": "b67af9f112:72", "text": "skew down: select barn in viewer, and move down"}
+{"id": "64d477b113346279451ee9236c44b564c33e82644e05322b8c20ca9c6dcc057b", "item_id": "b67af9f112:73", "text": "Gotchas"}
+{"id": "1fef36be404702879647e53b63fd6ec2b489c39da313d1e6c6b1d62c74f79700", "item_id": "b67af9f112:74", "text": "If the physical barn position is perfectly aligned with the light position, the guides will just be a line encircling the position of the light. Move it away from the light by just a hair and they guides should show up."}
+{"id": "917dbf6631a8acc0ea33dde784277040f9e6a2974fe8cf1fcacc440db2232161", "item_id": "b67af9f112:75", "text": "It can be very hard to determine what the physical barn is doing without guides. Set the Guide Size parameter in the viewer section of PrmanLightFilterCreate to control the length of the guides."}
+{"id": "e0e707ea66f3cfabc4661662c36e8728d8ff5b63ba9a7ec7f5f2fbf62016336b", "item_id": "b67af9f112:76", "text": "Analytic Barn"}
+{"id": "1bdde9072dfaa13df96bd084dbc627956b7706e62e2688d52c43194c05d58299", "item_id": "b67af9f112:78", "text": "Analytic Barns are very straight forward to use, but do not provide the same physical shadows that Physical Barns provide. See the"}
+{"id": "a6b95eaa88666cf24f7fa82ba7c87f1cabe65f5b308643b881a56d14e82b2029", "item_id": "b67af9f112:80", "text": "documentation for examples of how the Analytic Barn parameters affect the light shape."}

@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Features</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Features</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFM27/544542444/Features">https://rmanwiki-27.pixar.com/space/RFM27/544542444/Features</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>Features tab 可用于启用 RenderMan renderer 的特殊 features，例如 renderer type、OCIO、Motion Blur 等。</p><p><br/></p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rfm-render-settings.png" width="595" loading="lazy" src="../../attachments/544542444/rfm-render-settings.png" data-image-src="../../attachments/544542444/rfm-render-settings.png" data-height="693" data-width="595" data-unresolved-comment-count="0" data-linked-resource-id="544542464" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfm-render-settings.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544542444" data-linked-resource-container-version="1" data-media-id="2db84182-eb41-459d-a4d2-f2c03976a1cd" data-media-type="file"></span><p> </p><p><br/></p><h4 id="Features-Renderer">Renderer</h4><p>定义场景使用的 RenderMan renderer。</p><ul><li><p><strong>RIS</strong>：使用 RIS render 场景。这是 CPU-only renderer。</p></li><li><p><strong>XPU:  </strong>使用 XPU render 场景。这是 CPU + GPU hybrid renderer。</p><ul><li><p><strong>XPU Mode - CPU</strong>：使用 XPU render，但只使用 CPU。</p></li><li><p><strong>XPU Mode - GPU</strong>：使用 XPU render，但只使用 GPU。</p></li></ul></li></ul><p><br/></p><h4 id="Features-MotionBlur">Motion Blur</h4><p>RenderMan 提供了许多控件，用于创建快速而高效的 <a href="544541742-Motion Blur in Maya.html" data-linked-resource-id="544541742" data-linked-resource-version="1" data-linked-resource-type="page">motion blur</a>。</p><p><strong>Motion Blur:</strong>  启用 motion blur 会让移动 objects 沿其运动 path 产生 blur，以防止 temporal aliasing 和 strobing。使用 motion blur 时，应增加 pixel samples 的数量（Sampling tab 中的 max samples），并预期 rendering times 会更长。 </p><ul><li><p> <strong>3D</strong>：完整 render 且准确的 motion blur</p></li><li><p> <strong>2D</strong>：会计算 motion vectors，但 motion blur 此时 <em>不会</em> 被 render；在输出 dPdtime 和 dPdcameratime 等 AOVs 后用于 post processes 时很有用。</p></li></ul><p><strong>Camera Blur:</strong>  当此 feature 被禁用时，renderer 在计算 motion blur 时会忽略 camera 的移动。如果你移动 camera 并希望场景中的所有内容都真实地产生 blur，则需要开启此 feature；但应预期这可能是开销较高的操作，因为场景中的所有内容都会 blur，并产生必须 converge 的 noise。</p><p><strong>Shutter Angle:</strong>  <a href="544541742-Motion Blur in Maya.html#ShutterAngle" data-linked-resource-id="544541742" data-linked-resource-version="1" data-linked-resource-type="page">Shutter Angle</a> 只有在启用 Motion Blur 时才有意义。它控制 shutter 在一个 frame 中打开多久。以 degrees 为单位，设置为 360 表示 shutter 在整个 frame 内保持打开。angle 越大，blur 越强，可能会增加 render times，因为需要更多 samples 才能平滑 blur。</p><p><strong> Shutter Opening:  </strong>默认情况下，shutter 实际上会瞬时打开和关闭。 <a href="544541742-Motion Blur in Maya.html#ShutterOpening" data-linked-resource-id="544541742" data-linked-resource-version="1" data-linked-resource-type="page">Shutter Opening</a> 设置由两个值组成： <strong>a</strong> 和 <strong>b</strong>。它们是 shutter interval 的 fractions，可用于调整 shutter 打开和关闭所需时间。从 0 到 <strong>a</strong> 时，shutter 打开；从 <strong>b</strong> 到 1 时则关闭。<strong>   </strong></p><p><strong>Shutter Timing:</strong>  <a href="544541742-Motion Blur in Maya.html#ShutterTiming" data-linked-resource-id="544541742" data-linked-resource-version="1" data-linked-resource-type="page">Shutter Timing</a> 允许你控制 shutter opening 应如何与 frame 对齐。它可以在 frame 开始时打开，或在 frame 之前打开以便以 frame 为中心，也可以在 frame 开始时关闭。</p><p><br/></p><h4 id="Features-OpenColorIO">OpenColorIO</h4><p><strong>Configuration</strong></p><ul><li><p><strong>$OCIO</strong>：使用系统 environment variable 定义的 color space</p></li><li><p><strong>Off :  </strong>Scene Linear 被定义为 scene-wide color space</p></li><li><p><strong>ACES 1.2</strong>：使用 RenderMan 24 随附的 ACES 1.2 color space</p></li><li><p><strong>Custom</strong>：允许指定 custom color space file</p></li></ul><p /><h4 id="Features-InteractiveDenoiser">Interactive Denoiser</h4><p>此 Interactive Denoiser 在 Maya viewport 中启用，并提供 RenderMan <a class="external-link" href="https://rmanwiki-26.pixar.com/space/REN26/19662375/Denoiser" rel="nofollow">Machine Learning Denoiser</a> 的交互式版本。</p><p><strong>Cheap First Pass</strong>：首次 denoise pass 会使用更快（更低成本）但准确度较低的 heuristic。 </p><p><strong>Min Samples</strong>：Denoiser 首次运行前所需的最低 average samples 数。</p><p><strong>Interval</strong>：Denoise 运行之间的 time interval，单位为 seconds。</p><p /><h4 id="Features-StylizedLooks">Stylized Looks</h4><p>此 checkbox 会启用以下 <a class="external-link" href="https://rmanwiki-26.pixar.com/space/REN26/19661559/Stylized+Looks" rel="nofollow">Stylized Looks</a> toolset，包括向 beauty pass 添加所需的 LPEs 和 AOVs。<br/><br/><br/></p><h4 id="Features-Filters">Filters</h4><p>这些选项允许使用 <a href="https://rmanwiki-26.pixar.com/space/REN26/19661887/Sample+and+Display+Filters" data-linked-resource-id="19661887" data-linked-resource-version="2" data-linked-resource-type="page">Display or Sample Filters</a>，例如 Stylized Looks、Cryptomatte 和其他 effects。</p><p />
+  </article>
+</main>
+</body>
+</html>

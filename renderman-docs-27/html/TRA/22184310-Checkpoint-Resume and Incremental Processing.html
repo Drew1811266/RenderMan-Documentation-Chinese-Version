@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Checkpoint-Resume and Incremental Processing</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Checkpoint-Resume and Incremental Processing</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/TRA/22184310/Checkpoint-Resume+and+Incremental+Processing">https://rmanwiki-27.pixar.com/space/TRA/22184310/Checkpoint-Resume+and+Incremental+Processing</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="document"><p>Recent extensions to job scripting, dispatching, and the Dashboard add interesting new capabilities related to incremental computation. Tractor also supports a general &quot;retry from last checkpoint&quot; scheme. Both features integrate with the new RenderMan 19 RIS checkpoint and incremental rendering features.<br/> </p><div class="section"><h3 id="Checkpoint-ResumeandIncrementalProcessing-Retryfromlastpartialresult">Retry from last partial result</h3><p>As an example, the Pixar RenderMan renderer, prman, has supported a built-in retry scheme for several years, when using compliant output formats.</p><pre class="codefhead literal-block">A basic render command:
+   prman frame123.rib
+</pre><p>If that process is killed for some reason after an hour of rendering, but it produced a partial image file along the way, then the rendering can often be restarted from that point.</p><pre class="codefhead literal-block">Restart from the last image checkpoint:
+   prman -recover 1 frame123.rib
+</pre><p>The initial render is equivalent to using <span class="pre">-recover</span> 0 since the zero specifies that the rendering should start from the beginning, and ignore (overwrite) any pre-existing output files.</p><p>A simple Tractor job script that invokes that basic render command can be written in terms of the Tractor &quot;%r&quot; run-time substition parameter that Tractor will fill in when the command is launched.</p><pre class="codefhead literal-block">Job -title {simple recover example} -subtasks {
+     Task {Frame 123} -cmds {
+         RemoteCmd {prman -recover %r frame123.rib} -service PixarRender
+     }
+}
+</pre><p>Tractor substitutes the digit zero for %r in the argument list on the first launch of the command or when a user requests a full restart of the task; and it substitutes the digit one when a user requests a resume from the last checkpoint.</p><p>So the Tractor support of this feature assumes that the restart behavior of many applications, or wrapper scripts around them, can be controlled with some command-line parameter that accepts a simple '0' or '1'.|<br/> </p></div><div class="section"><h3 id="Checkpoint-ResumeandIncrementalProcessing-IncrementalCheckpoint-ResumeIterations">Incremental Checkpoint-Resume Iterations</h3><p>Introducing the new Tractor job scripting controls:</p><pre class="codefhead literal-block">-resumeblock
+-resumewhile
+-resumepin
+</pre><p>The goal is to mark a block of tasks (an entire dependency subtree) as group that will be re-run when some elements have reached a checkpoint but are still incomplete.</p><p>The -resumeblock option goes on the <strong>Task</strong> at the root of the group. The -resumewhile clause goes on a <strong>RemoteCmd</strong> that obeys the checkpoint-resume semantics. The <span class="pre">-resumepin</span> 1 option is an additional qualifier on commands with -resumewhile, indicating that restarts must occur on the same blade as the initial pass of that command.</p><p>NOTE: Within the subtree indicated by the -resumeblock Task, not all tasks will be restarted on each pass. Only those commands whose -resumewhile clause evaluates to &quot;true&quot; (non-zero) will be retried on the next pass. Some of those commands may completely finish several passes before others in the block. Once a command's resumewhile clause evaluates to &quot;false&quot; (zero), it will not be restarted by this looping mechanism. Also note that <em>any</em> task that depends on a resumed task, up through the root of the root of the resume block, will also be retried. A retry due to a -resumewhile behaves just like a manual task retry in that regard: dependent (successor) task are retried as well.</p><p>The substitution patterns %r, %R, and %q are filled in by tractor-blade before launching each command: %r is 0 when a task is beginning a fresh start and an integer greater than zero when the user or system is requesting a recover from checkpoint; %R is the &quot;loop count&quot; for commands that are being restarted due to the -resumewhile construct; and %q has the value 1.0 when a task is being executed due to final quality runs from the subtasks it depends upon, it will be less than 1.0 if some subtask only reached a checkpoint during the current resumewhile loop. Many launched commands will not support these distinctions, it is up to the job author to use these optional parameters appropriately for each command.</p><pre class="codefhead literal-block">Job -title &quot;checkpoint-resume iteration example&quot; -service PixarRender -subtasks {
+    Task {the wait} -subtasks {
+        Task {the loop} -resumeblock 1 -subtasks {
+            Task {render f1} -cmds {
+                RemoteCmd {
+                    prman -Progress -recover %r -checkpoint 0,15s /net/rib/rings.rib
+                } -resumewhile {testcheckpoint exr /tmp/t.exr} -resumepin 1
+            }
+            Task {script test1} -cmds {
+                RemoteCmd {echo otherApp --pass %R} -resumewhile {exitcode 123}
+            }
+        } -cmds {
+            RemoteCmd &quot;echo looping&quot;
+        }
+    } -cmds {
+        RemoteCmd &quot;echo loop done&quot;
+    }
+}
+</pre></div></div>
+  </article>
+</main>
+</body>
+</html>

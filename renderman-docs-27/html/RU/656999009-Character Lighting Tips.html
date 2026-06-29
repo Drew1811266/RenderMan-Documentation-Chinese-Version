@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Character Lighting Tips</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Character Lighting Tips</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RU/656999009/Character+Lighting+Tips">https://rmanwiki-27.pixar.com/space/RU/656999009/Character+Lighting+Tips</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p><style>[data-colorid=pe1xw1rj2k]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=pe1xw1rj2k]{color:#004eb3}[data-colorid=r1fszh8597]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=r1fszh8597]{color:#004eb3}[data-colorid=zfwnmu2gu2]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=zfwnmu2gu2]{color:#004eb3}[data-colorid=xof8492bdw]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=xof8492bdw]{color:#004eb3}[data-colorid=i8pgd0ktbf]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=i8pgd0ktbf]{color:#004eb3}[data-colorid=zsu3y3buv1]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=zsu3y3buv1]{color:#004eb3}[data-colorid=kj2nyy33fy]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=kj2nyy33fy]{color:#004eb3}[data-colorid=oyqo3qb5s7]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=oyqo3qb5s7]{color:#004eb3}</style>The RenderMan Community is amazing, and thanks to our guest contributors, here are some lighting tips they found helpful on their scenes, all condensed into one page!</p><p /><div class="panel conf-macro output-block" data-hasbody="true" data-macro-id="2a11608f-7dea-4c6e-8b89-c26fbb498114" data-macro-name="panel" style="background-color: #4C9AFF;border-width: 1px;"><div class="panelContent" style="background-color: #4C9AFF;">
+<p><strong><span class="legacy-color-text-inverse">Baba Yaga </span></strong><span class="legacy-color-text-inverse">by Romane La Rosa</span></p>
+</div></div><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="babayaga_4K.jpg" width="760" loading="lazy" src="../../attachments/656999009/babayaga_4K.jpg" data-image-src="../../attachments/656999009/babayaga_4K.jpg" data-height="2160" data-width="3840" data-unresolved-comment-count="0" data-linked-resource-id="657621487" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="babayaga_4K.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="656999009" data-linked-resource-container-version="2" data-media-id="b8abcacc-6135-40ff-a2d7-a08959ea36dd" data-media-type="file" /></span><p><strong><span data-colorid="oyqo3qb5s7">Tip: Stay General</span></strong></p><p>All the lights are normalized rectangular lights, meaning I can change their size without changing their exposure. A small light will create a sharp shadow, while a big light will produce a soft one.</p><p>It&rsquo;s helpful to start by placing some fill lights to control the value of the darkest shadows, and don&rsquo;t hesitate to hide every light in the scene when adding new ones, so you can perfectly visualize what you&rsquo;re doing. </p><p>Once I am satisfied with my fill light rig, I hide it and add a key light. </p><p>Same thing with my rim lights. Once all three lights are well-positioned and calibrated, I visualize them together. Leading lights established, yay! I also like to zoom out in the IPR to ensure the overall image remains readable.</p><p><strong><span data-colorid="pe1xw1rj2k">Tip: Geometry to aid Lighting</span></strong></p><p><strong><span data-colorid="xof8492bdw">DIFFUSER</span></strong><br />A diffuser is a plane, or a mesh of your choice, that you will place next to the subject. It will create a really soft light on the character, as the Key Light rays bounce off it and reflect onto the body. </p><p>This is a very common technique in real-life portrait photography, as it helps add a soft bounce of light to the subject by softening the shadows and harmonizing the tone.</p><p><strong><span data-colorid="r1fszh8597">BLOCKERS</span></strong><br />A blocker is also a mesh you add to your scene, but you hide it in the render settings (Render Stats &rarr; Visibility). Thanks to RenderMan&rsquo;s unbiased path tracing, you can place it anywhere you want, and it will create an absence of light where you don&rsquo;t want it. </p><p>It is best to apply a Pixar Surface material to it so you can control the blocker's opacity, softening only some hard shadows here and there. Since using transparent surfaces can affect sampling, you can also use a Light Filter to block light non-destructively.</p><p><strong><span data-colorid="zfwnmu2gu2">GROUND PLANE</span></strong><br />Using a ground plane under a character helps bounce light as a real floor would. Artists often forget this, but not having a floor deprives the environment of much-needed bounced light. To do this, we can add a material to the ground plane with a ground texture in the Diffuse attribute.</p><p /><div class="panel conf-macro output-block" data-hasbody="true" data-macro-id="c43806f2-25e5-4ed3-8368-8342c9d29d34" data-macro-name="panel" style="background-color: #4C9AFF;border-width: 1px;"><div class="panelContent" style="background-color: #4C9AFF;">
+<p><strong><span class="legacy-color-text-inverse">Baz </span></strong><span class="legacy-color-text-inverse">by John Saleem</span></p>
+</div></div><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="OpeningImage_main_960px.jpg" width="760" loading="lazy" src="../../attachments/656999009/OpeningImage_main_960px.jpg" data-image-src="../../attachments/656999009/OpeningImage_main_960px.jpg" data-height="1200" data-width="960" data-unresolved-comment-count="0" data-linked-resource-id="657260965" data-linked-resource-version="2" data-linked-resource-type="attachment" data-linked-resource-default-alias="OpeningImage_main_960px.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="656999009" data-linked-resource-container-version="2" data-media-id="5ddcc234-0610-42ca-9b62-0159d6dd75d1" data-media-type="file" /></span><p><strong><span data-colorid="zsu3y3buv1">Tip: Asset Turntable and Light Rig Switcher</span></strong></p><p>Before diving into shot lighting, I like to test the asset in a few lighting scenarios during the lookdev process, such as Studio, Sunny, and Cloudy. This mimics the lookdev pipeline used in major visual effects studios.</p><p>After many days of researching online Katana nodes and workflows, I created a light rig switcher, which gave me a quick &quot;call to action&quot; for changing light rigs.</p><p>You can download HDR maps from <a class="external-link" href="https://polyhaven.com/" rel="nofollow">polyhaven.com</a> to use with the PxrDomeLight, or create your custom lighting for each rig to create something similar. </p><p>I&rsquo;ve also added a fourth option called &quot;Shot0&quot; as the final light rig for rendering. This particular rig mimics a three-point lighting setup with additional rim and fill lights for enhanced visual impact.</p><iframe allowfullscreen="" allowtransparency="true" class="fullscreen-video-iframe conf-macro output-block" data-hasbody="false" data-layout="default" data-local-id="0e56ee97-6dbb-470d-86e3-a9dbe49289bc" data-macro-id="64cdcd8369b59ed4a8e7d9fc19635b37197a4463b0f794c9f37e7b804a9f60fa" data-macro-name="widget" frameborder="0" height="540" mozallowfullscreen="" src="https://player.vimeo.com/video/835623013" style="border:none; margin:1em 0em;" webkitallowfullscreen="" width="960">
+</iframe>
+
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="lighting_v01.jpg" width="760" loading="lazy" src="../../attachments/656999009/lighting_v01.jpg" data-image-src="../../attachments/656999009/lighting_v01.jpg" data-height="1080" data-width="1920" data-unresolved-comment-count="0" data-linked-resource-id="657424781" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="lighting_v01.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="656999009" data-linked-resource-container-version="2" data-media-id="1065d7b6-b1a8-427d-b039-4dae8b0d1d32" data-media-type="file" /></span><p /><div class="panel conf-macro output-block" data-hasbody="true" data-macro-id="af735f18-a40c-4af5-a939-8a53ae366e25" data-macro-name="panel" style="background-color: #4C9AFF;border-width: 1px;"><div class="panelContent" style="background-color: #4C9AFF;">
+<p><strong><span class="legacy-color-text-inverse">Brachur </span></strong><span class="legacy-color-text-inverse">by Johnny Fehr</span></p>
+</div></div><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="brachur-face.jpg" width="760" loading="lazy" src="../../attachments/656999009/brachur-face.jpg" data-image-src="../../attachments/656999009/brachur-face.jpg" data-height="1200" data-width="1000" data-unresolved-comment-count="0" data-linked-resource-id="657162660" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="brachur-face.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="656999009" data-linked-resource-container-version="2" data-media-id="2a4fd06c-0986-4564-99ff-0145bd099914" data-media-type="file" /></span><p>I always start with a dome light and often use a rim light and a key light. </p><p>This way I can already see how my shader reacts to this traditional lighting setup, which mimics a three-point lighting rig.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="brachur-lighting-viewport.jpg" width="760" loading="lazy" src="../../attachments/656999009/brachur-lighting-viewport.jpg" data-image-src="../../attachments/656999009/brachur-lighting-viewport.jpg" data-height="767" data-width="1430" data-unresolved-comment-count="0" data-linked-resource-id="656999021" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="brachur-lighting-viewport.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="656999009" data-linked-resource-container-version="2" data-media-id="18161e41-e5df-4ea4-9778-7ba1bbfa1b38" data-media-type="file" /></span><p>Neutral lighting is ideal to get started, which means no colors except minor saturation naturally present in the HRDI.</p><p>Most of the time I have a rough idea what the final lighting will look like, so I start off with something that gets me close. In production this is different of course, as art direction takes precedence, but for personal work we can take creative liberties.</p><p>After I tweak the textures and materials with this basic lighting setup, I continue to refine the final lighting setup to have a proper light balance and image contrast which will shape the character and bring out its features.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="brachur-lighting.gif" width="760" loading="lazy" src="../../attachments/656999009/brachur-lighting.gif" data-image-src="../../attachments/656999009/brachur-lighting.gif" data-height="1200" data-width="1000" data-unresolved-comment-count="0" data-linked-resource-id="656999028" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="brachur-lighting.gif" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/gif" data-linked-resource-container-id="656999009" data-linked-resource-container-version="2" data-media-id="cf90a1cb-8f4b-4b0e-ab02-5bbb1e865a15" data-media-type="file" /></span><p><strong><span data-colorid="kj2nyy33fy">TIP: Color Temperature</span></strong><br />Use the color temperature on your lights to tint the light slightly. This is much more realistic than a pure white light.</p><p><strong><span data-colorid="i8pgd0ktbf">TIP: Isolate Lights</span></strong><br />Turn off the lights and isolate them to balance their intensity and correctly understand their contribution.</p><hr /><p />
+  </article>
+</main>
+</body>
+</html>

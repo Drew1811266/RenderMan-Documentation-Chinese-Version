@@ -1,0 +1,42 @@
+{"item_id":"1ba1aaf396:0","text":"接续上一课，现在让我们在 Solaris 中用一些很酷的 VEX code 让 neon sign 活起来！"}
+{"item_id":"1ba1aaf396:1","text":"在本课中，我们将修改来自 Glow"}
+{"item_id":"1ba1aaf396:2","text":"Neons"}
+{"item_id":"1ba1aaf396:3","text":"课程的四个 Glow shaders，使其能够用 Primvar 控制 PxrSurface Glow Intensity。完成后，我们就能使用一些巧妙的 VEX code 来控制 neons 的 animation。"}
+{"item_id":"1ba1aaf396:4","text":"USD Asset Setup（USD 资产设置）"}
+{"item_id":"1ba1aaf396:5","text":"我们想要的是动态控制 neon tubes 的“chasing” animation。"}
+{"item_id":"1ba1aaf396:6","text":"首先需要编辑 Glow shaders。在 Solaris 中，可以通过创建一个"}
+{"item_id":"1ba1aaf396:7","text":"editmaterialproperties"}
+{"item_id":"1ba1aaf396:8","text":"node 来完成。我们可以把 glow shader 加到这个 node 中，并进一步编辑它。"}
+{"item_id":"1ba1aaf396:9","text":"在第一个 Glow Shader 内，创建一个 PrimVar node，将 Variable type 保持为 Float，但一定要把 Float value 设置为 0.1。这会给我们一个初始 intensity value。"}
+{"item_id":"1ba1aaf396:10","text":"在这个示例中，我们的 PrimVar 名为 Outer_INT"}
+{"item_id":"1ba1aaf396:11","text":"然后把 Primvar 的 resultR 连接到 PxrSurface 的 glowgain。"}
+{"item_id":"1ba1aaf396:12","text":"我们需要对其他每个 Glow shaders 重复这些步骤，并确保每个 PrimVar 都有唯一名称。"}
+{"item_id":"1ba1aaf396:13","text":"我使用了"}
+{"item_id":"1ba1aaf396:14","text":"Outer_INT"}
+{"item_id":"1ba1aaf396:15","text":"Mid_INT"}
+{"item_id":"1ba1aaf396:16","text":"Inner_INT"}
+{"item_id":"1ba1aaf396:17","text":"White_INT"}
+{"item_id":"1ba1aaf396:18","text":"完成后，需要重新 publish USD asset，然后把它 reload 到我们的 main network 中。"}
+{"item_id":"1ba1aaf396:19","text":"Time to Animate!（开始制作动画！）"}
+{"item_id":"1ba1aaf396:20","text":"手动 animate 这些 neons 会花不少时间，但既然我们在 Solaris 中有 VEX 的力量，为什么还要手动做呢？"}
+{"item_id":"1ba1aaf396:21","text":"Start：先创建一个 AttributeWrangle node，并把下面的 code 粘贴到 VEXpression box 中。"}
+{"item_id":"1ba1aaf396:22","text":"编译完成后，你会看到下面的 interface！"}
+{"item_id":"1ba1aaf396:23","text":"最后一件事是指定我们希望在哪些 Primitives 上运行 code。"}
+{"item_id":"1ba1aaf396:24","text":"使用一个方便的 wildcard 作为"}
+{"item_id":"1ba1aaf396:25","text":"会遍历所有 materials，并找到名称中带有 _INT 的 nodes。这样我们就能轻松快速地拾取 Glow Shaders 中的所有 primvars。"}
+{"item_id":"1ba1aaf396:26","text":"下面是 parameters 的快速说明"}
+{"item_id":"1ba1aaf396:27","text":"OFF"}
+{"item_id":"1ba1aaf396:28","text":"每个 neon 保持 OFF 的 frames 数"}
+{"item_id":"1ba1aaf396:29","text":"ON"}
+{"item_id":"1ba1aaf396:30","text":"neons 保持 ON 的 frames 数"}
+{"item_id":"1ba1aaf396:31","text":"Transition"}
+{"item_id":"1ba1aaf396:32","text":"向上/向下渐变（ramp up / ramp down）所需的 frames 数"}
+{"item_id":"1ba1aaf396:33","text":"FrameOffset"}
+{"item_id":"1ba1aaf396:34","text":"更改这个 value 可调整所有 neons 之间的 offset time"}
+{"item_id":"1ba1aaf396:35","text":"Intensity"}
+{"item_id":"1ba1aaf396:36","text":"neons 应达到的最大 intensity"}
+{"item_id":"1ba1aaf396:37","text":"就是这样……可以自由调整 parameters 来创建你自己的 chasing times，也可以把这段 code 用到所有 neons 上。"}
+{"item_id":"1ba1aaf396:38","text":"只要确保你有一个 PrimVar 连接到"}
+{"item_id":"1ba1aaf396:39","text":"你的 surfaces 里的 glowgain 参数，"}
+{"item_id":"1ba1aaf396:40","text":"就可以开始了。"}
+{"item_id":"1ba1aaf396:41","text":"感谢 Pixar 的 Damien Maupu 提供这段很酷的 VFX code！"}

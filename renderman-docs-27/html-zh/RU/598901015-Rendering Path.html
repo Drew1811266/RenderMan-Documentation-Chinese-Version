@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rendering Path</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Rendering Path</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RU/598901015/Rendering+Path">https://rmanwiki-27.pixar.com/space/RU/598901015/Rendering+Path</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="contentLayout2"><style>[data-colorid=jju51o4v1d]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=jju51o4v1d]{color:#004eb3}[data-colorid=n6fou8g5t6]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=n6fou8g5t6]{color:#004eb3}[data-colorid=wrc4mnxkxk]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=wrc4mnxkxk]{color:#004eb3}[data-colorid=b12x5mqbee]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=b12x5mqbee]{color:#004eb3}[data-colorid=v9s7wv96gr]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=v9s7wv96gr]{color:#004eb3}[data-colorid=jbp1gbrymg]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=jbp1gbrymg]{color:#004eb3}[data-colorid=rjscxxcqt6]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=rjscxxcqt6]{color:#004eb3}[data-colorid=ervqr92jfk]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=ervqr92jfk]{color:#004eb3}[data-colorid=eifqqjzlvi]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=eifqqjzlvi]{color:#004eb3}[data-colorid=kbeljpf89w]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=kbeljpf89w]{color:#004eb3}[data-colorid=uf8gqpver5]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=uf8gqpver5]{color:#004eb3}[data-colorid=ilrrift76i]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=ilrrift76i]{color:#004eb3}[data-colorid=kjfdnlnrzh]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=kjfdnlnrzh]{color:#004eb3}[data-colorid=wqb71g8hnj]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=wqb71g8hnj]{color:#004eb3}</style>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rendering_learingPath.jpg" width="760" loading="lazy" src="../../attachments/598901015/rendering_learingPath.jpg" data-image-src="../../attachments/598901015/rendering_learingPath.jpg" data-height="714" data-width="1695" data-unresolved-comment-count="0" data-linked-resource-id="635863067" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rendering_learingPath.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="598901015" data-linked-resource-container-version="35" data-media-id="38199ec0-9c58-4765-a2b3-b977970bab89" data-media-type="file" /></span><p>现在该渲染你的精彩场景了……这里为新接触渲染的用户准备了一些基础课程，并介绍 RenderMan 底层发生的事情。</p><hr /><h1 id="RenderingPath-StartHere"><strong><span data-colorid="n6fou8g5t6">Start Here（从这里开始）</span></strong></h1></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<a href="629932059-What is Path Tracing-.html" data-linked-resource-id="629932059" data-linked-resource-version="2" data-linked-resource-type="page"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Pathtracing_Thumb.jpg" width="261" loading="lazy" src="../../attachments/598901015/Pathtracing_Thumb.jpg" data-image-src="../../attachments/598901015/Pathtracing_Thumb.jpg" data-height="500" data-width="500" data-unresolved-comment-count="0" data-linked-resource-id="629768341" data-linked-resource-version="2" data-linked-resource-type="attachment" data-linked-resource-default-alias="Pathtracing_Thumb.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="598901015" data-linked-resource-container-version="35" data-media-id="19efaf71-1212-4acb-b5e1-b8ab39a4d59a" data-media-type="file" /></span></a><p><strong><span data-colorid="b12x5mqbee">What is Path Tracing?（什么是路径追踪？）</span></strong><br />Disney’s Practical Guide to Path Tracing（Disney 路径追踪实用指南）</p></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<a href="405733531-Samples made Simple.html" data-linked-resource-id="405733531" data-linked-resource-version="50" data-linked-resource-type="page"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Samples.jpg" width="261" loading="lazy" src="../../attachments/598901015/Samples.jpg" data-image-src="../../attachments/598901015/Samples.jpg" data-height="500" data-width="500" data-unresolved-comment-count="0" data-linked-resource-id="629801086" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Samples.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="598901015" data-linked-resource-container-version="35" data-media-id="16a8fca0-9f6b-4db7-9104-25729a0ede70" data-media-type="file" /></span></a><p><strong><span data-colorid="rjscxxcqt6">Samples made Simple（采样简明指南）</span></strong><br />设置 samples（采样）的入门指南！</p></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<a href="630915278-Interactive Rendering Tips.html" data-linked-resource-id="630915278" data-linked-resource-version="8" data-linked-resource-type="page"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Samples.jpg" width="261" loading="lazy" src="../../attachments/598901015/Samples.jpg" data-image-src="../../attachments/598901015/Samples.jpg" data-height="500" data-width="500" data-unresolved-comment-count="0" data-linked-resource-id="629801086" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Samples.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="598901015" data-linked-resource-container-version="35" data-media-id="16a8fca0-9f6b-4db7-9104-25729a0ede70" data-media-type="file" /></span></a><p><strong><span data-colorid="ervqr92jfk">Interactive Rendering Tips（交互式渲染提示）</span></strong><br />帮助你获得最佳交互体验的一些实用提示</p></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<hr /><h1 id="RenderingPath-NextSteps"><strong><span data-colorid="jbp1gbrymg">下一步</span></strong></h1></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<a href="399343692-Denoising guide.html" data-linked-resource-id="399343692" data-linked-resource-version="19" data-linked-resource-type="page"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Samples.jpg" width="261" loading="lazy" src="../../attachments/598901015/Samples.jpg" data-image-src="../../attachments/598901015/Samples.jpg" data-height="500" data-width="500" data-unresolved-comment-count="0" data-linked-resource-id="629801086" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Samples.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="598901015" data-linked-resource-container-version="35" data-media-id="16a8fca0-9f6b-4db7-9104-25729a0ede70" data-media-type="file" /></span></a><p><strong><span data-colorid="eifqqjzlvi">Denoising Guide（降噪处理指南课程）</span></strong><br />充分利用 RenderMan 强大的 denoiser（降噪器）。</p></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="ComingSoon_thumb.jpg" width="261" loading="lazy" src="../../attachments/598901015/ComingSoon_thumb.jpg" data-image-src="../../attachments/598901015/ComingSoon_thumb.jpg" data-height="500" data-width="500" data-unresolved-comment-count="0" data-linked-resource-id="657555688" data-linked-resource-version="4" data-linked-resource-type="attachment" data-linked-resource-default-alias="ComingSoon_thumb.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="598901015" data-linked-resource-container-version="35" data-media-id="bcc67999-7432-4629-81ca-bcaa6cc1ccc1" data-media-type="file" /></span><p><strong><span data-colorid="v9s7wv96gr">Rendering Optimization（渲染优化课程）</span></strong><br /></p></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="ComingSoon_thumb.jpg" width="261" loading="lazy" src="../../attachments/598901015/ComingSoon_thumb.jpg" data-image-src="../../attachments/598901015/ComingSoon_thumb.jpg" data-height="500" data-width="500" data-unresolved-comment-count="0" data-linked-resource-id="657555688" data-linked-resource-version="4" data-linked-resource-type="attachment" data-linked-resource-default-alias="ComingSoon_thumb.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="598901015" data-linked-resource-container-version="35" data-media-id="bcc67999-7432-4629-81ca-bcaa6cc1ccc1" data-media-type="file" /></span><p><strong><span data-colorid="kbeljpf89w">Rendering Volumes（体积渲染课程）</span></strong><br /></p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="ComingSoon_thumb.jpg" width="261" loading="lazy" src="../../attachments/598901015/ComingSoon_thumb.jpg" data-image-src="../../attachments/598901015/ComingSoon_thumb.jpg" data-height="500" data-width="500" data-unresolved-comment-count="0" data-linked-resource-id="657555688" data-linked-resource-version="4" data-linked-resource-type="attachment" data-linked-resource-default-alias="ComingSoon_thumb.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="598901015" data-linked-resource-container-version="35" data-media-id="bcc67999-7432-4629-81ca-bcaa6cc1ccc1" data-media-type="file" /></span><p><strong><span data-colorid="jju51o4v1d">Rendering Hints &amp; Tricks（渲染提示与技巧）</span></strong><br /></p></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="ComingSoon_thumb.jpg" width="261" loading="lazy" src="../../attachments/598901015/ComingSoon_thumb.jpg" data-image-src="../../attachments/598901015/ComingSoon_thumb.jpg" data-height="500" data-width="500" data-unresolved-comment-count="0" data-linked-resource-id="657555688" data-linked-resource-version="4" data-linked-resource-type="attachment" data-linked-resource-default-alias="ComingSoon_thumb.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="598901015" data-linked-resource-container-version="35" data-media-id="bcc67999-7432-4629-81ca-bcaa6cc1ccc1" data-media-type="file" /></span><p><strong><span data-colorid="kjfdnlnrzh">Checkpointing（检查点渲染课程）</span></strong></p></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p /></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<hr /><h1 id="RenderingPath-FurtherLearning"><strong><span data-colorid="wrc4mnxkxk">进一步学习</span></strong></h1></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<a class="external-link" href="657391698-Treasure Deep Workflow.html" rel="nofollow"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="deepworkflow.jpg" width="261" loading="lazy" src="../../attachments/598901015/deepworkflow.jpg" data-image-src="../../attachments/598901015/deepworkflow.jpg" data-height="500" data-width="500" data-unresolved-comment-count="0" data-linked-resource-id="657228158" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="deepworkflow.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="598901015" data-linked-resource-container-version="35" data-media-id="b1ab2744-35a2-46ac-b51f-47930e46e5f4" data-media-type="file" /></span></a><p><strong><span data-colorid="uf8gqpver5">Deep Workflow（Deep 深度工作流课程）</span></strong><br />查看 Dragon Treasure 项目中如何使用 deep workflow（Deep 工作流）<br /></p></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<a class="external-link" href="657424439-Bakery Rendering.html" rel="nofollow"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="aovs.jpg" width="261" loading="lazy" src="../../attachments/598901015/aovs.jpg" data-image-src="../../attachments/598901015/aovs.jpg" data-height="500" data-width="500" data-unresolved-comment-count="0" data-linked-resource-id="656998862" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="aovs.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="598901015" data-linked-resource-container-version="35" data-media-id="e662f44e-0f91-41ee-9980-e944e8dc1fd0" data-media-type="file" /></span></a><p><strong><span data-colorid="wqb71g8hnj">Rendering Light LPEs（渲染灯光 LPE）</span></strong><br />学习 French Bakery 项目中如何使用 LPEs。</p></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<a href="657162564-RazorBack Compositing.html" data-linked-resource-id="657162564" data-linked-resource-version="1" data-linked-resource-type="page"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="razor_comp.jpg" width="261" loading="lazy" src="../../attachments/598901015/razor_comp.jpg" data-image-src="../../attachments/598901015/razor_comp.jpg" data-height="500" data-width="500" data-unresolved-comment-count="0" data-linked-resource-id="657621420" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="razor_comp.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="598901015" data-linked-resource-container-version="35" data-media-id="a479182d-b55a-4c4c-81b1-386a8c244ce8" data-media-type="file" /></span></a><p><strong><span data-colorid="ilrrift76i">Backplate Matching（背景板匹配）</span></strong><br />RazorBack 项目演示了如何匹配 backplates（背景板）。</p></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<hr /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="RenderManUniversity_logo_Small.png" width="100" loading="lazy" src="../../attachments/598901015/RenderManUniversity_logo_Small.png" data-image-src="../../attachments/598901015/RenderManUniversity_logo_Small.png" data-height="100" data-width="100" data-unresolved-comment-count="0" data-linked-resource-id="606797861" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderManUniversity_logo_Small.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="598901015" data-linked-resource-container-version="35" data-media-id="aac8d7d2-56ad-46b0-9b5a-bde052e93f21" data-media-type="file" /></span></div>
+</div>
+</div>
+</div>
+  </article>
+</main>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Setting Up Services</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Setting Up Services</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/TRA/22184328/Setting+Up+Services">https://rmanwiki-27.pixar.com/space/TRA/22184328/Setting+Up+Services</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>It is useful to set up tractor-engine and tractor-blade as <em>system services</em> so that they are automatically started at boot time. This also simplifies their starting and stopping from the command line. Instructions vary by OS.</p><h3 id="SettingUpServices-Linux-withsystemd"><strong>Linux - with systemd</strong></h3><p>Required systemd files are located in INSTALL_DIR/lib/SystemServices/systemd.</p><p>To set up the <strong>engine</strong> as a systemd service:</p><ol start="1"><li><p>Install the engine unit file.<br/><code>sudo cp tractor-engine.service /usr/lib/systemd/system</code></p></li><li><p>Install the engine settings file. Edit this file to customize the Tractor installation directory, configuration directory, or the command-line options for tractor-engine.<br/><code>sudo cp tractor-engine /etc/sysconfig/tractor-engine
+</code>Enable the engine service in systemd:<br/><code>sudo systemctl enable tractor-engine</code></p></li><li><p>Start or stop the engine:<br/><code>sudo systemctl start tractor-engine</code><br/><code>sudo systemctl stop tractor-engine</code></p></li></ol><p>To set up the <strong>blade</strong> as a systemd service:</p><ol start="1"><li><p>Install the blade unit file.<br/><code>sudo cp tractor-blade.service /usr/lib/systemd/system</code></p></li><li><p>Install the systemd override file. Edit this file to override the owner of the blade process.<br/><code>sudo mkdir /etc/systemd/system/tractor-blade.service.d &amp;&amp; sudo cp 90-tractor-blade-overrides.conf /etc/systemd/system/tractor-blade.service.d</code></p></li><li><p>Install the blade settings file. Edit this file to customize the Tractor installation directory or the command-line options for tractor-blade.<br/><code>sudo cp tractor-blade /etc/sysconfig/tractor-blade</code></p></li><li><p>Enable the blade service in systemd:<br/><code>sudo systemctl enable tractor-blade</code></p></li><li><p>Start or stop the blade:<br/><code>sudo systemctl start tractor-blade</code><br/><code>sudo systemctl stop tractor-blade</code></p></li></ol><p>The engine and blade systemd services are configured to use journald logging. For example, today's log for the engine can be viewed using:</p><p><code>sudo journalctl --since today -u tractor-engine</code></p><p>Or to follow the log for a blade:</p><p><code>sudo journalctl -flu tractor-blade</code></p><p>Refer to systemd documentation for more information on managing systemd services.</p><hr/><p>For older Linux installs, please follow these directions below.</p><p /><h3 id="SettingUpServices-Linux-withsysVinit"><strong>Linux - with sysVinit</strong></h3><p>Required sysVinit files are located in INSTALL_DIR/lib/SystemServices.</p><p>To set up the <strong>engine</strong> as a sysVinit service:</p><ol start="1"><li><p>Install the pixar settings file. Edit this file to customize the Tractor installation directory, configuration directory, or command-line options for tractor-engine. If this file already exists, you will need to manually add the Tractor entries at the bottom of the shipped file into the existing /etc/sysconfig/pixar file.</p><p><code>sudo cp pixar /etc/sysconfig</code></p></li><li><p>Install the engine init.d file.</p><p><code>sudo cp tractor-engine /etc/init.d</code></p></li><li><p>Enable the engine service to start on boot:</p><p><code>sudo chkconfig tractor-engine on</code></p></li><li><p>Start or stop the engine:</p><p><code>sudo /etc/init.d/tractor-engine start</code></p><p><code>sudo /etc/init.d/tractor-engine stop</code></p></li></ol><p>To set up the <strong>blade</strong> as a sysVinit service:</p><ol start="1"><li><p>Install the pixar settings file. Edit this file to customize the Tractor installation directory, the command-line options for tractor-blade, or the owner of the blade process. If this file already exists, you will need to manually add the Tractor entries at the bottom of the shipped file into the existing /etc/sysconfig/pixar file.</p><p><code>sudo cp pixar /etc/sysconfig</code></p></li><li><p>Install the blade init.d file.</p><p><code>sudo cp tractor-blade /etc/init.d</code></p></li><li><p>Enable the blade service:</p><p><code>sudo chkconfig tractor-blade on</code></p></li><li><p>Start or stop the blade:</p><p><code>sudo /etc/init.d/tractor-blade start</code></p><p><code>sudo /etc/init.d/tractor-blade stop</code></p></li></ol><p /><p /><h3 id="SettingUpServices-Windows"><strong>Windows</strong></h3><p>The Tractor blade installer on Windows automatically installs and starts the blade as a <em>Windows service.</em> This service is also configured to automatically start the blade whenever the computer is restarted. You can view the blade service entry by following these steps:</p><ol start="1"><li><p>Start a command prompt window: Click the Start button in</p><p>Windows, and then select</p><p>All Programs -&gt; Accessories -&gt; Command Prompt</p></li><li><p>In the command prompt window, type:</p><p><code>services.msc</code></p><p>And then press the Enter key to open the Windows Services Management Console.</p></li><li><p>In the Services window, scroll down to the Pixar Tractor Blade Service service.</p></li></ol><p>You can manage the service by right-clicking it and selecting Start, Stop, or Restart. Please note that there may be multiple Pixar Tractor Blade Service entries from previous installations. Make sure to select the most current version when starting/stopping or making changes.</p><p>It is recommended that you modify the user account that the service will run as. This can be done by right-clicking the service and selecting Properties. In the Properties window, on the Log On tab, you can set the service to run as a specific user account instead of Local System. The commands that are run by the blade should be run as a user account that has access to the remote drives and resources that are needed to run the commands successfully.</p><p><strong>Note</strong> If you are installing an updated build of the same version of Tractor blade it is recommended to uninstall the previous build first. The uninstaller will automatically stop the existing service. If the service was set to run as a specific user (as recommended) remember to re-enter that information in the Services Management Console.</p><p>In an advanced installation, the command line parameters of the blade service may be needed. The &quot;start parameters&quot; on the Windows Service snap-in Properties dialog are not useful to accomplish this as when set there they only apply for the single run when the service is started manually from this dialog. Instead, to add command line arguments edit the registry settings under the path <code>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\</code>  and modify the installed blade's <code>ImagePath</code> entry appending the command line options after the path to the .exe. The available command line options are listed on the <a href="22184274-tractor-blade.html" rel="nofollow">Application - tractor-blade</a> page. The usual caveat about modifying the Windows Registry carefully since it can cause irreparable damage applies.</p><p /><h3 id="SettingUpServices-macOS"><strong>macOS</strong></h3><p>Initial .plist files for the engine and blade are found in INSTALL_DIR/lib/SystemServices.</p><ul><li><p>com.pixar.tractor-engine.plist</p></li><li><p>com.pixar.tractor-blade.plist</p></li></ul><p>Edit these files to customize your installation.</p><ol start="1"><li><p>Open the appropriate file in your text editor of choice and adjust the install location, launching user, and any program arguments.</p></li><li><p>Save the files (as needed) to /Library/LaunchDaemons</p></li><li><p>To start tractor-engine, run:</p><p><code>sudo launchctl load -w /Library/LaunchDaemons/com.pixar.tractor-engine.plist</code></p></li><li><p>To start tractor-blade, run:</p><p><code>sudo launchctl load -w /Library/LaunchDaemons/com.pixar.tractor-blade.plist</code></p></li><li><p>Sometimes the ownership and permission settings of the .plist files can be overwritten incorrectly during the editing process. To make sure that these files are correct, run:</p><p><code>sudo chown root /Library/LaunchDaemons/com.pixar.tractor*.plist</code></p><p><code>sudo chmod 644  /Library/LaunchDaemons/com.pixar.tractor*.plist</code></p></li></ol><p>Services will now start on reboot.</p><h3 id="SettingUpServices-ConfiguringFirewallsforBladeServices">Configuring Firewalls for Blade Services</h3><p>Along with any access to network resources your anticipated jobs may need, the blade service particularly needs to be allowed access from the engine host. In the Tractor system, under most circumstances, network requests come from the blade to the engine and most default OS installations will allow such outbound traffic from the blade. Obviously the engine host must be configured to allow this. Periodically though, the engine does attempt to connect the blades specifically to collect information about the health of the blade. As listed on the <a href="22184210-Configuration.html" rel="nofollow">Configuration</a> page that requires port 9005 be opened for the blade service. Consult the documentation for the firewall software (if any) that you use in order to open this port. </p>
+  </article>
+</main>
+</body>
+</html>

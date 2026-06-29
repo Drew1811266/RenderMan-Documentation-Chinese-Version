@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Blade Environment Configuration: Keys and Handlers</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Blade Environment Configuration: Keys and Handlers</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/TRA/22184290/Blade+Environment+Configuration%3A+Keys+and+Handlers">https://rmanwiki-27.pixar.com/space/TRA/22184290/Blade+Environment+Configuration%3A+Keys+and+Handlers</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<h3 id="BladeEnvironmentConfiguration:KeysandHandlers-Overview">Overview</h3><p>When tractor-blade launches a new command, such as a render, it sets up a unique set of environment variables for that subprocess. There are several mechanisms for defining these environment variables and their values.</p><p>The default approach is to simply allow each command to clone the incoming environment inherited by tractor-blade when it was started. However, this is often a specialized &quot;daemon&quot; environment and thus not very useful.</p><p>The simplest approach to custom environment configuration is to add name-value pairs to an environment dictionary in the blade.config file (see below). This is often completely sufficient, and is very straightforward. There is a &quot;default&quot; dictionary, and there can be separate ones corresponding to incoming EnvKey values from commands in the job. Environment variables specified in this manner are additions and overrides to the incoming inherited environment.</p><p>Tractor <em>envhandlers</em> are Python objects that can apply dynamic, site-specific settings to each command launched by a tractor-blade. They are most often used to configure a specific set of environment variables based on the inbound EnvKey or the job's owner. These handlers can also rewrite the actual command that is being invoked as well, which can help to deal with particular machines that have a non-standard application installation location, or other quirks.</p><h3 id="BladeEnvironmentConfiguration:KeysandHandlers-EnvironmentVariableDictionaries"><br/>Environment Variable Dictionaries</h3><p>Additions and overrides to the inherited external environment can be added to one or more Python dictionaries that will be loaded by the blade. They can be added to the &quot;default&quot; EnvKey definition to affect all commands, or added to the settings for a particular EnvKeyvalue. Similarly, definitions can be added to ProfileDefaults or specifically to a single profile.</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="6ced08db-32f4-450b-bd1f-58bff2caa98a" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">{
+    &quot;ProfileDefaults&quot;:
+    {   &quot;ProfileName&quot;: &quot;default&quot;,
+        ...
+        &quot;EnvKeys&quot;: [
+            {
+                &quot;keys&quot;: [&quot;default&quot;],
+                &quot;environment&quot;: {
+                    &quot;SOME_VAR&quot;: &quot;xyzzy&quot;,
+                    &quot;CURRENT_SHOW&quot;: &quot;(not_set)&quot;
+                },
+                &quot;envhandler&quot;: &quot;default&quot;
+            },
+        ]
+    },
+
+    &quot;BladeProfiles&quot;:
+    [...]
+}</pre>
+</div></div><p>These environment dictionaries are either defined in the blade.config file, or can be contained in an external file that is referenced with the <a class="external-link" href="https://renderman.pixar.com/resources/current/tractor/tractor_configuration.html#mergestring" rel="nofollow">@merge directive</a> in the blade.config file. The default installation includes three external files which contain the default environment dictionary setup. These files are shared.linux.envkeys, shared.macosx.envkeys and shared.windows.envkeys.</p><p><br/>Environment Handlers<br/><br/></p><h4 id="BladeEnvironmentConfiguration:KeysandHandlers-DefaultEnvironmentHandlers">Default Environment Handlers</h4><p>Tractor comes with a default set of environment handlers. The handlers are invoked when there is a match between the incoming envkey and the <strong>keys</strong> definition in the environment key dictionary. The envkey parameter in a tractor script can actually be a list of several envkey entries. In that case each handler will be called in sequence to modify the launch environment.</p><p>Each of the default handlers has a specific purpose.</p><ul><li><p><sup>SiteModulesPath</sup></p><p><strong>default</strong> - The handler default is run on every command. It is run first, and the environment key dictionary should be setup with an intended default environment, rather than relying upon the environment of the launched blade.</p><p>As provided the default handler simply sets the spooling host into the launch environment as <strong>REMOTEHOST</strong>. Default environment variables and paths should be setup here.</p></li><li><p><strong>rmshandler</strong> - The rmshandler responds to an incoming key of format rms-*-maya-*. The * indicates a globbing will be applied. This handler matches incoming keys like: rms-3.0.0-maya-2011.</p><p>This handler extracts the RMS version, and the MAYA version and sets a number of environment variables including <strong>RMSTREE</strong>, <strong>MAYA_LOCATION</strong>, <strong>MAYA_MODULE_PATH</strong>. It also adds <strong>RMSTREE/bin</strong> and <strong>MAYA_LOCATION/bin</strong> into the path. These locations are determined by knowing the default install locations for these products on the specific platform. The handler will attempt to verify that RMS and Maya are installed before setting these variables.</p></li><li><p><strong>mayahandler</strong> - The mayahandler responds to an incoming key of format maya*. The * indicates a globbing will be applied. This handler matches incoming keys like: maya2011.</p><p>The mayahandler provides similar functionality to the rmshandler, but is designed for Maya users who do not have RMS installed, but do Maya batch rendering. This handler extracts MAYA version and sets a number of environment variables including <strong>MAYA_LOCATION</strong>, <strong>MAYA_MODULE_PATH</strong>. It also adds <strong>MAYA_LOCATION/bin</strong> into the path. The Maya location is determined by knowing the default install location for Maya on the specific platform. The handler will attempt to verify Maya is installed before setting these variables.</p></li><li><p><strong>rmanhandler</strong> - The rmanhandler responds to an incoming key of format prman-*. This key is used to define the version of prman to be used, and is quite often used in conjunction with the rmshandler key above.</p><p>This handler would match an incoming key like: prman-15.2. On a match the handler sets the environment variable <strong>RMANTREE</strong>, and adds <strong>RMANTREE/bin</strong> into the path. The location of RMANTREE is determined by knowing the default install location on the specific platform. The handler will actually attempt to determine whether the prman version is installed before setting the <strong>RMANTREE</strong> environment variable.</p></li><li><p><strong>rmantreehandler</strong> - The rmantreehandler is a special handler, which will generally not be used by customers. This handler responds to a key of format: rmantree=*. This handler is designed to work like the rmanhandler above, however, the key provides the entire path to a non-standard RMANTREE installation. For example, the incoming key might look like:rmantree=/opt/software/pixar/RenderManProServer-15.2. The entire path as defined in the key is set as the <strong>RMANTREE</strong> variable, and <strong>RMANTREE/bin</strong> is added into the path.</p></li><li><p><strong>rmstreehandler</strong> - The rmstreehandler is similar to the rmantreehandler above, however it is designed to point to a non-standard RMSTREE location. The handler responds to an incoming key of format: rmstree=*. A typical usage might bermstree=/opt/software/pixar/RenderManStudio-3.0.0-Maya-2011. This handler sets the <strong>RMSTREE</strong> environment variable, and adds <strong>RMSTREE/bin</strong> into the path.</p></li></ul><p>The default handler source code is available and is located in the TrEnvHandlers.py file located in the blade-modules directory of the blade installation.</p><h4 id="BladeEnvironmentConfiguration:KeysandHandlers-AddingACustomEnvironmentHandler"><br/>Adding A Custom Environment Handler</h4><ul><li><p><strong>Pick a name for your handler</strong> - it should be vaguely descriptive of the type of EnvKeys it handles. For the examples below, let's assume there is an inbound EnvKey called &quot;ProjectX&quot; and so we will call our handler &quot;projxhandler&quot;.</p></li><li><p><strong>Pick a directory to hold your Python modules</strong> - typically this will be a location on a central fileserver that is accessible to all blade host. This location will be specified by <strong>SiteModulesPath</strong>.</p></li><li><p><strong>Add the selected directory to SiteModulesPath in</strong> blade.config - if all hosts mount the shared location using the same path, then it can go in the ProfileDefaults section, otherwise add customized variants to each profile as needed (shown below).</p></li><li><p><strong>Also add an</strong> EnvKeys <strong>entry for your new key</strong> - leave the key named &quot;default&quot; in the dictionary as well. Then add your module name as the envhandler value.</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="85dc08b8-0167-4967-99a1-55438127d134" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">{
+    &quot;ProfileDefaults&quot;:
+    {   &quot;ProfileName&quot;: &quot;default&quot;,
+        ...
+        &quot;SiteModulesPath&quot;: &quot;/net/yourserver/tractor_extensions&quot;,
+        &quot;EnvKeys&quot;: [
+            {
+                &quot;keys&quot;: [&quot;default&quot;],
+                &quot;environment&quot;: {
+                    &quot;SOME_VAR&quot;: &quot;xyzzy&quot;,
+                    &quot;CURRENT_SHOW&quot;: &quot;(not_set)&quot;
+                },
+                &quot;envhandler&quot;: &quot;default&quot;
+            },
+            {
+                &quot;keys: [&quot;ProjectX&quot;, &quot;SHOT=*&quot;, &quot;SCENE=*&quot;],
+                &quot;environment&quot;: {
+                    &quot;CURRENT_SHOW&quot;: &quot;Project X, Venture of Mystery&quot;,
+                    &quot;CURRENT_SHOT&quot;: &quot;$SHOT&quot;,
+                    &quot;CURRENT_SCENE&quot;: &quot;$SCENE&quot;,
+                    &quot;RMANTREE&quot;: &quot;/opt/pixar/RenderManProServer-15.2&quot;,
+                    &quot;PATH&quot;: &quot;$RMANTREE:/bin;$PATH&quot;
+                },
+                &quot;envhandler&quot;: &quot;projxhandler&quot;
+            },
+        ]
+    },
+
+    &quot;BladeProfiles&quot;:
+    [...]
+}</pre>
+</div></div></li><li><p><strong>Also see the discussion on</strong> <a href="22184298-Creating a custom Environment Handler.html" rel="nofollow">creating custom environment handlers</a></p></li></ul>
+  </article>
+</main>
+</body>
+</html>

@@ -1,0 +1,295 @@
+{"item_id":"c896cd182d:0","text":"Python 中的 Job Specification 与 Job Authoring"}
+{"item_id":"c896cd182d:1","text":"注意"}
+{"item_id":"c896cd182d:2","text":"关于从你自己的 Python script 创建和 spool job 的详情，请参见"}
+{"item_id":"c896cd182d:3","text":"Python Job Authoring API"}
+{"item_id":"c896cd182d:4","text":"相关讨论。"}
+{"item_id":"c896cd182d:5","text":"对于简单的 single-command job"}
+{"item_id":"c896cd182d:6","text":"，例如 rendering 一个 network mounted RIB file，也可以使用"}
+{"item_id":"c896cd182d:7","text":"tractor-spool"}
+{"item_id":"c896cd182d:8","text":"command-line option 让它为你创建 job："}
+{"item_id":"c896cd182d:9","text":"或"}
+{"item_id":"c896cd182d:10","text":"下方 section 描述的是一个"}
+{"item_id":"c896cd182d:11","text":"不同"}
+{"item_id":"c896cd182d:12","text":"概念：用于静态定义单个 job structure 的 \"classic\" job file 的 format 和 syntax，也就是作为"}
+{"item_id":"c896cd182d:13","text":"data file"}
+{"item_id":"c896cd182d:14","text":"的格式。此类 job file 通常由其他 program 写出，然后使用 tractor-spool program spool 到 Tractor job queue。"}
+{"item_id":"c896cd182d:15","text":"静态作业规范概要（Job Specification）"}
+{"item_id":"c896cd182d:16","text":"Tractor Job file 通常表示为 TCL script，其中使用 Tractor job parser 可识别的特殊 job definition operator。此 format 最初为 Alfred system 引入，Tractor 仍兼容几乎所有 Alfred construct。"}
+{"item_id":"c896cd182d:17","text":"Tractor 还支持一组持续演进的 JSON job specification format，这些 format 在"}
+{"item_id":"c896cd182d:18","text":"单独的说明文档 document"}
+{"item_id":"c896cd182d:19","text":"中描述。Tractor job input script（alfscript format）由使用以下 Tcl operator 的 expression 组成："}
+{"item_id":"c896cd182d:20","text":"有关 option 和 operator syntax 的详细描述，请参见"}
+{"item_id":"c896cd182d:21","text":"Operator Details"}
+{"item_id":"c896cd182d:22","text":"。"}
+{"item_id":"c896cd182d:23","text":"介绍"}
+{"item_id":"c896cd182d:24","text":"job script 描述要由 Tractor（或 Alfred）dispatch 和 monitor 的 work。job script 通常由 application program 在 spool 新 rendering job 时创建。也就是说，下面的 syntax 讨论大概只对开发 Tractor-compliant application 的人有用。"}
+{"item_id":"c896cd182d:25","text":"job script 支持一种简单的 hierarchical structuring scheme，可编码 dependency，而这些 dependency 会进一步决定 task execution 的顺序；从这个角度看，job script 有些类似"}
+{"item_id":"c896cd182d:26","text":"makefiles"}
+{"item_id":"c896cd182d:27","text":"。预定义的 job script operator 包括 Task、Cmd 和 Instance。还有一些特殊 convention，用于把某些 run-time value 嵌入 command expression。在 job initialization 期间解析 job script 时，Tractor 会同时构建 engine/blade 的 internal execution hierarchy，以及 Dashboard 的 display hierarchy。随后 engine 会持续遍历这个 internal representation，寻找 launch 新 work 的机会。"}
+{"item_id":"c896cd182d:28","text":"expression"}
+{"item_id":"c896cd182d:29","text":"syntax"}
+{"item_id":"c896cd182d:30","text":"由一些简单的 list-formation rule 组成。具体来说，每个 operator 接受一个 argument string list，其中有些 argument 可以是 optional。string 使用 double-quote 或 curly-brace 分隔；string 可以包含 newline，也允许为空。case 通常很重要，而 whitespace 通常不重要。当 newline 和 semicolon 不在 string 中时，它们是 end-of-expression marker。backslash 用于像 C 一样生成 syntactically significant character 的 literal version 以及其他 special character code（也用于禁用 newline processing）。开头的 hash sign（#）引入 one-line comment。更多信息请参见"}
+{"item_id":"c896cd182d:31","text":"special characters"}
+{"item_id":"c896cd182d:32","text":"相关讨论。"}
+{"item_id":"c896cd182d:33","text":"hierarchical nesting 通过在 parent Task operator 的 subtask field 中嵌入 child Task description 来完成。只有使用 curly-brace delimiter 才能创建 nested string。"}
+{"item_id":"c896cd182d:34","text":"一个简单示例"}
+{"item_id":"c896cd182d:35","text":"下面是一个定义示例 task hierarchy 的简单 script。假设我们要计算两个 shadow map，以及一个引用它们的 final frame；在这种情况下，必须先完成 shadow map，才能开始 rendering final frame。\"reserved words\" 是"}
+{"item_id":"c896cd182d:36","text":"Job"}
+{"item_id":"c896cd182d:37","text":"Task"}
+{"item_id":"c896cd182d:38","text":"，以及"}
+{"item_id":"c896cd182d:39","text":"RemoteCmd"}
+{"item_id":"c896cd182d:40","text":"，这些 operator 可以接受 option，例如以 leading hyphen 开头的 -subtasks："}
+{"item_id":"c896cd182d:41","text":"此 job script 描述了一个 two-level execution tree，其中名为"}
+{"item_id":"c896cd182d:42","text":"Scene One"}
+{"item_id":"c896cd182d:43","text":"的 task 会在它依赖的两个 task 成功完成之后 launch 自己的 command（render frame.1.rib）（这些依赖 task 是"}
+{"item_id":"c896cd182d:44","text":"Shadow"}
+{"item_id":"c896cd182d:45","text":"）。nested task description 定义了 depth-first 的 execution order；因此，light.1.rib 的 render command 会先 launch，然后是 light.2.rib。随后，当二者都完成后，才会 render frame.1.rib。command 会作为独立 subprocess 按它们在 script 中出现的顺序 launch。"}
+{"item_id":"c896cd182d:46","text":"注意，两个 shadow command 彼此并不依赖，也就是说，它们不是相互嵌套的；因此它们代表一个 parallel processing opportunity。在资源充足时，Tractor 通常会 launch 两个 command，并允许它们 concurrent execute。因此，script 定义的是"}
+{"item_id":"c896cd182d:47","text":"launching order"}
+{"item_id":"c896cd182d:48","text":"，某些 command 在另一个 command launch 时可能仍在运行，而这些 concurrent command 可能以任意顺序完成。不过，在任何情况下，Task 都不会 launch 自己的 command，直到"}
+{"item_id":"c896cd182d:49","text":"所有"}
+{"item_id":"c896cd182d:50","text":"sub-task 都已成功完成各自 command。"}
+{"item_id":"c896cd182d:51","text":"此示例中的假设是："}
+{"item_id":"c896cd182d:52","text":"存在名为"}
+{"item_id":"c896cd182d:53","text":"render"}
+{"item_id":"c896cd182d:54","text":"的 executable，且它位于当前 search path 中。"}
+{"item_id":"c896cd182d:55","text":"两个 shadow map image 会在 disk 上创建到 frame.1.rib 期望找到它们的位置，也就是这些 RIB file 内的 file system reference 保持一致。"}
+{"item_id":"c896cd182d:56","text":"Tractor"}
+{"item_id":"c896cd182d:57","text":"不会"}
+{"item_id":"c896cd182d:58","text":"尝试确认这类假设；这是 job generator 的职责。如果确实发生 error，该 task 会变为 blocked，对应的 UI widget 会切换到 error state，所有依赖该 broken task 的 task 都不会执行；不过，与它没有 dependency 的其他 task 仍可继续。"}
+{"item_id":"c896cd182d:59","text":"关于 Task 需要注意的事项："}
+{"item_id":"c896cd182d:60","text":"title string 会显示在 Dashboard 中，因此最好选择简短但描述性强的 title。"}
+{"item_id":"c896cd182d:61","text":"child task 列在 -subtasks field 中；如果没有 dependency，该 field 可以为空或缺失。"}
+{"item_id":"c896cd182d:62","text":"-cmds field 中的 RemoteCmd list 描述 dependency 满足后要执行的实际 action；它可以为空或缺失；也可以包含多个用 newline 分隔的 RemoteCmd，这些 RemoteCmd 会按顺序处理。"}
+{"item_id":"c896cd182d:63","text":"Process Launch 和 Tracking"}
+{"item_id":"c896cd182d:64","text":"远程服务器、启动表达式与运行时替换（Remote Server、Launch Expression、Runtime Substitution）"}
+{"item_id":"c896cd182d:65","text":"传给"}
+{"item_id":"c896cd182d:66","text":"launch expression"}
+{"item_id":"c896cd182d:67","text":"使用的参数 argument 由"}
+{"item_id":"c896cd182d:68","text":"RemoteCmd"}
+{"item_id":"c896cd182d:69","text":"operator 使用，用于指定 Tractor 应 launch 的实际 executable。如上面的 simple example 所示，它们可以是直接指定 executable 及其 argument 的普通 command string。很多时候，命名的 executable 只是一个本地编写的 shell script。"}
+{"item_id":"c896cd182d:70","text":"Tractor 与 Alfred 一样，除 hierarchical launch ordering 外，还提供其他关键 dispatching feature，最重要的是"}
+{"item_id":"c896cd182d:71","text":"定位"}
+{"item_id":"c896cd182d:72","text":"可用 remote server。考虑一个可能在 terminal 中输入的 command："}
+{"item_id":"c896cd182d:73","text":"如果希望 Tractor 在 render farm 中一台可用 machine 上执行同一个 command，可以创建如下 Tractor job："}
+{"item_id":"c896cd182d:74","text":"Service Keys"}
+{"item_id":"c896cd182d:75","text":"上例中的 RemoteCmd option"}
+{"item_id":"c896cd182d:76","text":"-service {PixarRender}"}
+{"item_id":"c896cd182d:77","text":"称为"}
+{"item_id":"c896cd182d:78","text":"service key expression"}
+{"item_id":"c896cd182d:79","text":"，用于描述哪种"}
+{"item_id":"c896cd182d:80","text":"类型"}
+{"item_id":"c896cd182d:81","text":"的 blade 可接受运行该 command。在此示例中，prman executable 应在 advertise service key \"PixarRender\" 的 blade 上 launch。Tractor 在把 command 匹配到 blade 时，只是把这些 key 当作 \"filter\"。比较 command key 和 blade capability 时会忽略 capitalization。"}
+{"item_id":"c896cd182d:82","text":"创建指定特定 service key 的 job script 后，还需要把 matching service key \"attach\" 到 farm 中合适的 blade，也就是你希望运行该类型 command 的 blade。例如，选择实际安装了 \"prman\" 的 host 可能很重要。对于 Tractor，这意味着前往"}
+{"item_id":"c896cd182d:83","text":"blade.config"}
+{"item_id":"c896cd182d:84","text":"file，并把适当的 key 添加到每种 blade profile 的 \"Provides\" entry 中。file 顶部有所有 profile 共享的 default。"}
+{"item_id":"c896cd182d:85","text":"在 job 中使用哪些 keyword 是任意的；只需要为 job script 和 blade profile 采用一致的 convention，让二者同意某个 advertised keyword 对特定 blade capability 的含义。按惯例，Pixar application 例如"}
+{"item_id":"c896cd182d:86","text":"RenderMan for Maya"}
+{"item_id":"c896cd182d:87","text":"会生成使用特定 service keyword（例如 PixarRender）的 Tractor job。这些 keyword 旨在表达 blade 上运行某些 command 所需的 sibling Pixar software 类型。下面简要列出一些 RfM-generated job 中常见 service key，以及它们想要表达的 requirement："}
+{"item_id":"c896cd182d:88","text":"PixarRender"}
+{"item_id":"c896cd182d:89","text":"cmd 需要 blade 上安装 RPS（prman）"}
+{"item_id":"c896cd182d:90","text":"PixarNRM"}
+{"item_id":"c896cd182d:91","text":"cmd 需要安装 RPS，并且需要正在运行的"}
+{"item_id":"c896cd182d:92","text":"netrender"}
+{"item_id":"c896cd182d:93","text":"server（tractor-blade.py 也是 netrender server，因此实践中它通常等同于 PixarRender，但有助于区分 netrender command）"}
+{"item_id":"c896cd182d:94","text":"RfMRender"}
+{"item_id":"c896cd182d:95","text":"cmd 需要 blade 上有合适的已安装 Maya，并且还必须安装 RfM 或 RMS；该 cmd 会消耗 render license"}
+{"item_id":"c896cd182d:96","text":"RfMRibGen"}
+{"item_id":"c896cd182d:97","text":"cmd 需要 Maya 和 RfM/RMS，不需要 render license"}
+{"item_id":"c896cd182d:98","text":"注意："}
+{"item_id":"c896cd182d:99","text":"除了 blade.config 中指定的 keyword，每个 server blade 始终还会 \"provide\" 三个额外 implicit keyword：blade 的"}
+{"item_id":"c896cd182d:100","text":"host name"}
+{"item_id":"c896cd182d:101","text":"，blade 的"}
+{"item_id":"c896cd182d:102","text":"IP address"}
+{"item_id":"c896cd182d:103","text":"（dotted quad），以及它正在使用的 blade.config"}
+{"item_id":"c896cd182d:104","text":"profile"}
+{"item_id":"c896cd182d:105","text":"名称。此 feature 很少使用，但通过把 profile 或 host name 指定为 RemoteCmd 的 --service key，script 可以把特定 command 的 execution 限制到特定 host，或限制到名称匹配特定 profile 的某类 host。通常最好引用更抽象的 service key 类型。"}
+{"item_id":"c896cd182d:106","text":"Tractor 中还有一种 \"advanced\" mode，其中 blade 的 site-defined python plug-in 可以按 request 动态更改该 blade advertise 的 service。例如，site plug-in 可以在做这类 dynamic decision 时引用 external production database。"}
+{"item_id":"c896cd182d:107","text":"Service Key Expression"}
+{"item_id":"c896cd182d:108","text":"service keyword 可以使用简单 syntax 组合，以进一步限制匹配给定 command 的 blade。例如："}
+{"item_id":"c896cd182d:109","text":"在此示例中，command 只会匹配 profile 中同时提供 PixarRender"}
+{"item_id":"c896cd182d:110","text":"AND"}
+{"item_id":"c896cd182d:111","text":"BigIron keyword 作为关键词的 blade。"}
+{"item_id":"c896cd182d:112","text":"也可以在单个 key name 前加上 exclamation point，例如 \"!xyz\"，表示 negation，意思是给定 key 必须"}
+{"item_id":"c896cd182d:113","text":"NOT"}
+{"item_id":"c896cd182d:114","text":"存在，blade 才可接受。例如，为了避开提供名为 \"Irix\" key 的 blade，job script 可以包含 \"RemoteCmd -service {PixarRender,!Irix}\"。或者，可以通过把该 key 添加到 top-level Job specification、Dashboard job attributes editor，或在 tractor-spool command line 的 spool time 指定，把同样效果应用到 job 中的每个 command："}
+{"item_id":"c896cd182d:115","text":"Service key 通常是 site-defined abstract keyword，例如 blade.config 中 blade profile 的 \"Provides\" specification 所给出的 key。它们也可以是特定 hostname 或整个 profile 的名称。因此，如果要避免在名为 \"darth\" 的 host 上 rendering，可以把 service key \"!darth\" 添加到 Job 的 service key。"}
+{"item_id":"c896cd182d:116","text":"Service Key Expression Operator"}
+{"item_id":"c896cd182d:117","text":"Operator"}
+{"item_id":"c896cd182d:118","text":"Use"}
+{"item_id":"c896cd182d:119","text":"Example"}
+{"item_id":"c896cd182d:120","text":"keyname"}
+{"item_id":"c896cd182d:121","text":"如果 keyname 匹配 blade 的 \"Provides\" list 中的名称，则替换为 1；否则替换为 0"}
+{"item_id":"c896cd182d:122","text":"PixarRender"}
+{"item_id":"c896cd182d:123","text":"keynamePattern"}
+{"item_id":"c896cd182d:124","text":"与上面的 keyname 类似，但额外支持使用 wildcard character 进行 pattern matching"}
+{"item_id":"c896cd182d:125","text":"和"}
+{"item_id":"c896cd182d:126","text":"?"}
+{"item_id":"c896cd182d:127","text":"\"rack-15?\" || '192.168.0.*'"}
+{"item_id":"c896cd182d:128","text":"注意需要 double quotation mark 或 single quotation mark"}
+{"item_id":"c896cd182d:129","text":"（comma）"}
+{"item_id":"c896cd182d:130","text":"boolean AND"}
+{"item_id":"c896cd182d:131","text":"PixarRender && Linux"}
+{"item_id":"c896cd182d:132","text":"PixarRender,NorthAnnex"}
+{"item_id":"c896cd182d:133","text":"boolean OR"}
+{"item_id":"c896cd182d:134","text":"示例表达式：Linux || macOS"}
+{"item_id":"c896cd182d:135","text":"!"}
+{"item_id":"c896cd182d:136","text":"boolean NOT"}
+{"item_id":"c896cd182d:137","text":"PixarRender && !Desktops"}
+{"item_id":"c896cd182d:138","text":"subexpr"}
+{"item_id":"c896cd182d:139","text":"parenthetical sub-expression"}
+{"item_id":"c896cd182d:140","text":"PixarRender && (Linux || macOS)"}
+{"item_id":"c896cd182d:141","text":"blade_metric"}
+{"item_id":"c896cd182d:142","text":"numeric blade metric value"}
+{"item_id":"c896cd182d:143","text":"见下表"}
+{"item_id":"c896cd182d:144","text":"numeric add、subtract、multiply、divide"}
+{"item_id":"c896cd182d:145","text":"用于 blade metric，见下表"}
+{"item_id":"c896cd182d:146","text":"数值比较 numeric comparison，包括 less、greater、equal 等"}
+{"item_id":"c896cd182d:147","text":"用于 blade metric，见下表"}
+{"item_id":"c896cd182d:148","text":"Service Key Expression Blade Metrics"}
+{"item_id":"c896cd182d:149","text":"Metric"}
+{"item_id":"c896cd182d:150","text":"Meaning"}
+{"item_id":"c896cd182d:151","text":"Example"}
+{"item_id":"c896cd182d:152","text":"@.disk"}
+{"item_id":"c896cd182d:153","text":"可用磁盘空间 available disk space，以 GB 为单位"}
+{"item_id":"c896cd182d:154","text":"PixarRender && @.disk > 5"}
+{"item_id":"c896cd182d:155","text":"@.mem"}
+{"item_id":"c896cd182d:156","text":"可用物理内存 available physical RAM，以 GB 为单位"}
+{"item_id":"c896cd182d:157","text":"PixarRender && ((1024 * @.mem) > 2048)"}
+{"item_id":"c896cd182d:158","text":"@.nCPUs"}
+{"item_id":"c896cd182d:159","text":"OS 报告的 CPU core 数"}
+{"item_id":"c896cd182d:160","text":"Windows7_32bit && (@.nCPUs >= 4)"}
+{"item_id":"c896cd182d:161","text":"@.cpu"}
+{"item_id":"c896cd182d:162","text":"current CPU usage，按 nCPUs 归一化"}
+{"item_id":"c896cd182d:163","text":"@.cpu < .75"}
+{"item_id":"c896cd182d:164","text":"@.sa"}
+{"item_id":"c896cd182d:165","text":"可用的抽象 abstract \"slot\" 数量"}
+{"item_id":"c896cd182d:166","text":"(@.sa > 2) && (PixarRender || PixarNRM)"}
+{"item_id":"c896cd182d:167","text":"（注意：boolean OR、parenthetical subexpression 和 blade metrics expression 最早在 tractor-engine 1.5 中引入）"}
+{"item_id":"c896cd182d:168","text":"不常见的 netrender-style client/server command"}
+{"item_id":"c896cd182d:169","text":"某些 command，例如"}
+{"item_id":"c896cd182d:170","text":"netrender"}
+{"item_id":"c896cd182d:171","text":"，是运行在"}
+{"item_id":"c896cd182d:172","text":"local"}
+{"item_id":"c896cd182d:173","text":"spooling host 上的 client application，但它们也要求将一个或多个"}
+{"item_id":"c896cd182d:174","text":"名称"}
+{"item_id":"c896cd182d:175","text":"作为 command-line option 的一部分提供给"}
+{"item_id":"c896cd182d:176","text":"remote"}
+{"item_id":"c896cd182d:177","text":"server。scp 或 ftp 等 application 同样是 remote server 的 client。例如，考虑在 terminal 中对 netrender 的典型 invocation："}
+{"item_id":"c896cd182d:178","text":"在这种情况下，单个 RIB file 会分配给两个 rendering server，这些 server 假定可用，并且已经在运行 netrender server（也就是说，每个 server 都有正在运行的 tractor-blade，因为它内置 netrender support）。local netrender client application 会联系其 command line 中列出的每个 host，并使用 custom netrender protocol 在那里启动 rendering。通常希望 Tractor 从 pool 中查找可用 netrender server，而不是输入具体 hostname（例如上面的 antigone 和 percival）。请求这组 server 的示例 job script 可能如下："}
+{"item_id":"c896cd182d:179","text":"注意："}
+{"item_id":"c896cd182d:180","text":"必须记住，Cmd directive 指令"}
+{"item_id":"c896cd182d:181","text":"并不会"}
+{"item_id":"c896cd182d:182","text":"实际把 work 发送到通过这种方式选择的 remote host。它会 launch local application，例如 netrender 或 ssh，随后这些 application 自行管理与 remote server 的 interaction。"}
+{"item_id":"c896cd182d:183","text":"RemoteCmd"}
+{"item_id":"c896cd182d:184","text":"应当用于直接把 command 发送到 remote host，而不经过 local client。"}
+{"item_id":"c896cd182d:185","text":"Substitutions"}
+{"item_id":"c896cd182d:186","text":"当以下 symbol 出现在 launch expression 或 message expression 中时，会在 launch time 展开："}
+{"item_id":"c896cd182d:187","text":"主目录展开 home directory expansion，与 csh(1) 中相同"}
+{"item_id":"c896cd182d:188","text":"%h"}
+{"item_id":"c896cd182d:189","text":"替换为通过 dynamic -service 机制绑定到当前 Cmd 的 hostname。这是一个以空格分隔的简单 hostname list（对 rsh 等很有用）。"}
+{"item_id":"c896cd182d:190","text":"%H"}
+{"item_id":"c896cd182d:191","text":"类似 %h，但格式化为 -h hostname pair（netrender 要求的格式）。"}
+{"item_id":"c896cd182d:192","text":"%n"}
+{"item_id":"c896cd182d:193","text":"转换为 bound slot 的 count；这是一个 integer，表示绑定到此 command 的 slot 数。"}
+{"item_id":"c896cd182d:194","text":"%j"}
+{"item_id":"c896cd182d:195","text":"展开为当前 job 的 internal dispatcher Job identifier（也称 \"jid\"）。Tractor engine 会为其 queue 中的 job 创建 unique id。"}
+{"item_id":"c896cd182d:196","text":"%t"}
+{"item_id":"c896cd182d:197","text":"展开为当前 task 的 Task identifier（也称 \"tid\"），它只在每个 job 内唯一。"}
+{"item_id":"c896cd182d:198","text":"%c"}
+{"item_id":"c896cd182d:199","text":"展开为当前 command 的 Command identifier（也称 \"cid\"），它只在每个 job 内唯一。"}
+{"item_id":"c896cd182d:200","text":"%r"}
+{"item_id":"c896cd182d:201","text":"recover mode；当 task 是 fresh start 时展开为 0；当 user 或 system 请求从 checkpoint recover 时，展开为大于 0 的 integer。"}
+{"item_id":"c896cd182d:202","text":"%R"}
+{"item_id":"c896cd182d:203","text":"展开为因 -resumewhile construct 而 restarted 的 command 的 \"loop count\"。"}
+{"item_id":"c896cd182d:204","text":"%q"}
+{"item_id":"c896cd182d:205","text":"quality hint；当 task 因其所依赖 subtask 的 final quality run 而执行时展开为 1.0；如果某个 subtask 在当前 resumewhile loop 中只达到 checkpoint，则该值会小于 1.0。"}
+{"item_id":"c896cd182d:206","text":"idref"}
+{"item_id":"c896cd182d:207","text":"（host）"}
+{"item_id":"c896cd182d:208","text":"类似 %h，但使用其"}
+{"item_id":"c896cd182d:209","text":"-id"}
+{"item_id":"c896cd182d:210","text":"value 为"}
+{"item_id":"c896cd182d:211","text":"idref"}
+{"item_id":"c896cd182d:212","text":"的 command 命令中的 hostname 主机名。"}
+{"item_id":"c896cd182d:213","text":"idref"}
+{"item_id":"c896cd182d:214","text":"（-host）"}
+{"item_id":"c896cd182d:215","text":"与上面相同，但格式化为"}
+{"item_id":"c896cd182d:216","text":"-h hostname"}
+{"item_id":"c896cd182d:217","text":"pair。"}
+{"item_id":"c896cd182d:218","text":"%D"}
+{"item_id":"c896cd182d:219","text":"path"}
+{"item_id":"c896cd182d:220","text":"DirMaps"}
+{"item_id":"c896cd182d:221","text":"使用 site-defined mapping table 对 path 应用 per-architecture remapping。"}
+{"item_id":"c896cd182d:222","text":"替换为单个 percent-sign。"}
+{"item_id":"c896cd182d:223","text":"Job Context Environment Variables"}
+{"item_id":"c896cd182d:224","text":"tractor-blade 在 launch 每个 command 之前会设置以下 environment variable。在 application 本身需要了解某些 Tractor-related context information 的情况下，它们可能有用。有关全局或按 project/command 控制 custom environment variable 的详情，请参见"}
+{"item_id":"c896cd182d:225","text":"Custom Environment Handlers"}
+{"item_id":"c896cd182d:226","text":"中关于 custom environment variable 控制的相关讨论。"}
+{"item_id":"c896cd182d:227","text":"TR_ENV_JID"}
+{"item_id":"c896cd182d:228","text":"派发该 command 的 job 的 job ID number。"}
+{"item_id":"c896cd182d:229","text":"TR_ENV_TID"}
+{"item_id":"c896cd182d:230","text":"job 作业内对应 task 的 ID number。"}
+{"item_id":"c896cd182d:231","text":"TR_ENV_CID"}
+{"item_id":"c896cd182d:232","text":"job 作业内对应 command 的 ID number。"}
+{"item_id":"c896cd182d:233","text":"TR_ENV_JOB_PROJECT"}
+{"item_id":"c896cd182d:234","text":"job 的 project affiliation。名称（或多个名称）在 job submission time 指定，通常由 job creation application 指定。"}
+{"item_id":"c896cd182d:235","text":"TR_ENV_TRACTOR_ROOT"}
+{"item_id":"c896cd182d:236","text":"正在运行的 blade 的 Tractor install tree 顶部 path。"}
+{"item_id":"c896cd182d:237","text":"在多个 Command 之间共享一个 Server Check-Out"}
+{"item_id":"c896cd182d:238","text":"有时获取一个 remote server，并在该 server 上按顺序运行多个 command 会很有用。这称为"}
+{"item_id":"c896cd182d:239","text":"shared server"}
+{"item_id":"c896cd182d:240","text":"scenario。实现此目标的机制是向外层"}
+{"item_id":"c896cd182d:241","text":"Task"}
+{"item_id":"c896cd182d:242","text":"添加 server check-out specification，然后在每个需要该 server slot 的"}
+{"item_id":"c896cd182d:243","text":"Cmd"}
+{"item_id":"c896cd182d:244","text":"或"}
+{"item_id":"c896cd182d:245","text":"RemoteCmd"}
+{"item_id":"c896cd182d:246","text":"上引用 task-id。"}
+{"item_id":"c896cd182d:247","text":"例如："}
+{"item_id":"c896cd182d:248","text":"check-out 的 lifetime 由两个 factor 管理。initial task-level check-out 是 lazy 的，也就是说，只有当引用它的某个 command 实际成为下一个要执行的 command 时才会发生。reference count 用于判断何时可以安全地把 slot check back in；最后一个引用它的 command 完成或出错后，它会被释放。"}
+{"item_id":"c896cd182d:249","text":"Syntax Note："}
+{"item_id":"c896cd182d:250","text":"允许用于"}
+{"item_id":"c896cd182d:251","text":"idref"}
+{"item_id":"c896cd182d:252","text":"名称的 character 包括 letter、number、period（.）和 underbar（_）。对于上方所有 % substitution，可以使用 brace 来分隔 name，方式类似 csh 或 Tcl；例如，如果当前 schedule 为名为 \"percival\" 的 host 定义了 type 为 \"renderserver\" 的 service，那么包含以下 command 的 Task："}
+{"item_id":"c896cd182d:253","text":"可能会导致 launch 以下 command："}
+{"item_id":"c896cd182d:254","text":"在这种情况下，brace 是必需的，因为更简单的 string \"%h.settings\" 会使 substitution mechanism 查找带有 \"-id h.settings\" 的 Task 或 Cmd，并使用其 current value。"}
+{"item_id":"c896cd182d:255","text":"Tractor Script 中的 Special Character 和 Escape"}
+{"item_id":"c896cd182d:256","text":"Tractor 会对提交给它的 script 做两遍处理。第一遍是 spool-time"}
+{"item_id":"c896cd182d:257","text":"parsing"}
+{"item_id":"c896cd182d:258","text":"pass，用于构建 job 的 \"shape\"，也就是设置 task hierarchy。第二遍（以及可能后续相同的 pass）是 dispatching、run-time pass，在此期间 command 会被 launch，并进行 run-time substitution 等。"}
+{"item_id":"c896cd182d:259","text":"script 的 initial parsing 使用围绕 John Ousterhaut 的"}
+{"item_id":"c896cd182d:260","text":"TCL interpreter"}
+{"item_id":"c896cd182d:261","text":"构建的 system 完成。因此，TCL"}
+{"item_id":"c896cd182d:262","text":"syntax"}
+{"item_id":"c896cd182d:263","text":"rule 会应用于 command argument 和 string formation。script 由对"}
+{"item_id":"c896cd182d:264","text":"Job"}
+{"item_id":"c896cd182d:265","text":"Task"}
+{"item_id":"c896cd182d:266","text":"Cmd"}
+{"item_id":"c896cd182d:267","text":"，以及"}
+{"item_id":"c896cd182d:268","text":"Instance"}
+{"item_id":"c896cd182d:269","text":"command（operator）的 call 组成，而这些 operator 又接受 string 作为 argument。对于 Task，-subtasks option 可以包含 additional script，并递归解析。总体上，TCL rule 在应用于 operator argument 时，比 Bourne shell（sh）或 csh(1) 的 rule 简单得多。shell programmer 应注意以下几点："}
+{"item_id":"c896cd182d:270","text":"launch expression 会被 tokenized 并直接传给 execvp(2)；因此，semicolon-separated command sequence、command pipeline、environment variable reference 和 filename meta-character（例如 *、?、[]）不会直接支持；应改用适当的"}
+{"item_id":"c896cd182d:271","text":"sub-shell"}
+{"item_id":"c896cd182d:272","text":"Tractor（以及 Alfred）会像 csh 一样执行 tilde-expansion。"}
+{"item_id":"c896cd182d:273","text":"single-quote 没有特殊含义，也就是说它们不会把 word 组合在一起；请使用 brace - {} - 进行 grouping。"}
+{"item_id":"c896cd182d:274","text":"每个 argument string 只会经过一次 tokenizing pass。"}
+{"item_id":"c896cd182d:275","text":"例如，考虑使用 find(1) 从 directory tree 中删除以 \"preview\" 开头的 file。在 csh(1) script 中，该 command 可能如下所示：<"}
+{"item_id":"c896cd182d:276","text":"也就是说，asterisk 必须从 shell filename expansion 中 escape 出来，因为它会由 find command 直接使用；exec expression 后的 semicolon 也是如此。curly brace 不会被 shell 触碰（因为它们不是 variable expression 的一部分）。如果类似 command 是 Tractor/Alfred script 的一部分（例如作为 Task 的 clean-up command），它会如下所示："}
+{"item_id":"c896cd182d:277","text":"Shell Pipeline 和其他 Expression"}
+{"item_id":"c896cd182d:278","text":"尽管上面描述了对 Cmd launch expression 的 restriction，但有时 shell construct（例如 command pipeline 或 run-time filename expansion）仍然非常有用。在这些情况下，一个简单方案是把适当的 shell 作为 Cmd launch，并通过 command-line argument 将 pipeline expression 传给该 shell："}
+{"item_id":"c896cd182d:279","text":"Script author 应阅读自己所选 shell 的 documentation，以理解各种 invocation option 的 implication。例如，必须决定 dispatcher launch 上述 command 时，是否应执行用户的 .cshrc 或 .profile。"}
+{"item_id":"c896cd182d:280","text":"另一种方法是使用 Cmd -msg option 把 arbitrary expression 传给 launched shell。这本质上等同于上面的方法，但不那么 compact；不过，如果需要，它确实允许 persistent reuse shell。考虑下面这些发送 mail 的 example，这在 job 结束时有时很方便。回想一下，Mail 的 -s option 会把下一个 \"word\" 当作 subject，因此 space 需要 escape（这次使用 csh(1) syntax）："}
+{"item_id":"c896cd182d:281","text":"通常"}
+{"item_id":"c896cd182d:282","text":"最简单的方案"}
+{"item_id":"c896cd182d:283","text":"是用你喜欢的 language 编写一个 short shell script，并从 Tractor launch 该 script，以处理 complex expression："}
+{"item_id":"c896cd182d:284","text":"如果需要 remote server，可以把 run-time host selection 作为 argument 传给 script："}
+{"item_id":"c896cd182d:285","text":"Progress 或 Percent-done Indication"}
+{"item_id":"c896cd182d:286","text":"Tractor 还会扫描它 launch 的 app 的 stdout，查找如下形式的 string："}
+{"item_id":"c896cd182d:287","text":"integer"}
+{"item_id":"c896cd182d:288","text":"nnn"}
+{"item_id":"c896cd182d:289","text":"，范围为 0-100，会发送到 UI，并用于控制 active task node 上绘制的 percent-done bar。"}
+{"item_id":"c896cd182d:290","text":"Exit Status"}
+{"item_id":"c896cd182d:291","text":"Tractor 还会扫描此 directive："}
+{"item_id":"c896cd182d:292","text":"integer"}
+{"item_id":"c896cd182d:293","text":"nnn"}
+{"item_id":"c896cd182d:294","text":"用于确定 success 或 failure，而不是使用实际 program exit status。此 override 最常用于表达 library 内部发生了 job-blocking error，即使已知 calling application 会以 status code zero 退出。（0 表示 successful completion，任何 non-zero value 表示 failure，并导致 blocking task error）。相反，有些 wrapper script 会在已知 launched app 以 non-zero code 退出但属于 non-fatal case 时，以这种方式 emit zero code。所有合法 application exit code 都是 0 到 255（含）之间的 integer。Tractor 会使用 negative number 报告因 interrupting signal 导致的 exit，也就是 negative signal value。当 tractor.config 被配置为在 error 时启用 automatic task retry，除 -2、-15 和 -9 之外，所有 non-zero exit code 都会导致 retry；这些例外值被认为是由 user action 导致的 intentional terminal。注意，如果 application 发出 TR_EXIT_STATUS 但没有在两秒内实际退出，则 tractor-blade 会自动开始关闭 application process group；可以在 blade.config 中添加此 profile entry 来禁用 automatic sweep：\"TR_EXIT_STATUS_termination\": 0"}

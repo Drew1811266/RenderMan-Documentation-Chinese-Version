@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Holdout Workflow</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Holdout Workflow</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFH27/567312445/Holdout+Workflow+in+Solaris">https://rmanwiki-27.pixar.com/space/RFH27/567312445/Holdout+Workflow+in+Solaris</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="contentLayout2">
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="HoudoutInSolaris2.png" width="760" loading="lazy" src="../../attachments/567312445/HoudoutInSolaris2.png" data-image-src="../../attachments/567312445/HoudoutInSolaris2.png" data-height="1040" data-width="1919" data-unresolved-comment-count="0" data-linked-resource-id="1089798149" data-linked-resource-version="2" data-linked-resource-type="attachment" data-linked-resource-default-alias="HoudoutInSolaris2.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="567312445" data-linked-resource-container-version="6" data-media-id="14cc0847-b39c-47a5-a403-e41146fd9e2b" data-media-type="file"></span><p local-id="f4fc386f665f">Below is an overview of how to set up a Holdout workflow with RenderMan for Solaris. </p><p local-id="c5da4073a8ff">In the scene below, we have 2 objects.  A broken mechanical Teapot and a floor plane, which acts as the shadow &amp; reflection catcher.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="HoudoutInSolaris_setup.png" width="760" loading="lazy" src="../../attachments/567312445/HoudoutInSolaris_setup.png" data-image-src="../../attachments/567312445/HoudoutInSolaris_setup.png" data-height="875" data-width="1328" data-unresolved-comment-count="0" data-linked-resource-id="1090224133" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="HoudoutInSolaris_setup.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="567312445" data-linked-resource-container-version="6" data-media-id="d8071a65-a33a-4d15-955c-50c0136f5b62" data-media-type="file"></span><p local-id="e9d7b4085060">The first step is to create and assign a shader for the floor, which, in this example, is just a simple PxrSurface with the diffuse color matching the light brown of the stone tiles outside of the Steve Jobs building, here at Pixar.  A rough reflection has also been added to the PxrSurface.  </p><div class="panel conf-macro output-block" data-hasbody="true" data-macro-id="" data-macro-name="panel" style="background-color: #EAE6FF;border-color: #998DD9;border-width: 1px;"><div class="panelContent" style="background-color: #EAE6FF;">
+<p local-id="e3b0fa8bf25f">For a more complex workflow, usually the floor plane would be textured with the same texture as the real floor it is reflecting, but this is just a simple example of setting up a Holdout workflow.</p>
+</div></div><p local-id="ea254e052be3" /><p local-id="52a7452b4804">Next, we need to tell USD that we want our <strong>/FloorCatcher</strong> prim to act as a Holdout.  This is done with a <em>rendergeometrysettings </em>LOP and within the RenderMan / Trace tab, simply turn on <strong>Holdout</strong>.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="HoudoutInSolaris_setupGeoSettings.png" width="760" loading="lazy" src="../../attachments/567312445/HoudoutInSolaris_setupGeoSettings.png" data-image-src="../../attachments/567312445/HoudoutInSolaris_setupGeoSettings.png" data-height="529" data-width="1257" data-unresolved-comment-count="0" data-linked-resource-id="1090650114" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="HoudoutInSolaris_setupGeoSettings.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="567312445" data-linked-resource-container-version="6" data-media-id="04c40f4a-4174-471b-bccc-054e8515c16c" data-media-type="file"></span><p local-id="b373ae8f6412">Once done, we now need to create a PxrShadowFilter LOP, which you can see is added under the <em>/Render/pxrshadowfilter1</em> scope.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="HoudoutInSolaris_Pxrshadowfilter.png" width="760" loading="lazy" src="../../attachments/567312445/HoudoutInSolaris_Pxrshadowfilter.png" data-image-src="../../attachments/567312445/HoudoutInSolaris_Pxrshadowfilter.png" data-height="485" data-width="1634" data-unresolved-comment-count="0" data-linked-resource-id="1090256901" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="HoudoutInSolaris_Pxrshadowfilter.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="567312445" data-linked-resource-container-version="6" data-media-id="a8bb59ed-6dd5-4610-bf3c-c12723c29e83" data-media-type="file"></span><p local-id="94d0db098083">Lastly, for this stage, we need to assign this Sample Filter to our rendersettings.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="HoudoutInSolaris_PxrshadowfilterAssign.png" width="760" loading="lazy" src="../../attachments/567312445/HoudoutInSolaris_PxrshadowfilterAssign.png" data-image-src="../../attachments/567312445/HoudoutInSolaris_PxrshadowfilterAssign.png" data-height="506" data-width="1631" data-unresolved-comment-count="0" data-linked-resource-id="1090027527" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="HoudoutInSolaris_PxrshadowfilterAssign.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="567312445" data-linked-resource-container-version="6" data-media-id="a25b90c1-0367-4c8f-9c29-e9a7108ed0d3" data-media-type="file"></span><p local-id="35a0c8f841b5" /><p local-id="1901e175ef13">Next, we need to create our Holdout Render AOVs.  In this example, we’ve added a <em>rendermanrendersettings </em>LOP and under RenderVars tab, activate the 3 AOVs (or whichever AOV you require) within the <strong>Holdouts </strong>dropdown panel.</p><p local-id="50ceb97d2764">As you can see in the Scene Graph, our newly created Holdout AOVs have now been created.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="HoudoutInSolaris_RenderVars.png" width="760" loading="lazy" src="../../attachments/567312445/HoudoutInSolaris_RenderVars.png" data-image-src="../../attachments/567312445/HoudoutInSolaris_RenderVars.png" data-height="551" data-width="1634" data-unresolved-comment-count="0" data-linked-resource-id="1090748418" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="HoudoutInSolaris_RenderVars.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="567312445" data-linked-resource-container-version="6" data-media-id="4d494279-5dfd-4327-b3dd-22eaa8e2bc22" data-media-type="file"></span><p local-id="a19548a95829">When we now render via the <em>liverender </em>LOP, we can see the result.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="HoudoutInSolaris_Beauty.png" width="760" loading="lazy" src="../../attachments/567312445/HoudoutInSolaris_Beauty.png" data-image-src="../../attachments/567312445/HoudoutInSolaris_Beauty.png" data-height="945" data-width="1917" data-unresolved-comment-count="0" data-linked-resource-id="1090322434" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="HoudoutInSolaris_Beauty.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="567312445" data-linked-resource-container-version="6" data-media-id="6863703a-e559-4d06-a09c-a4cb42ce50b2" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Alpha.png" width="352" loading="lazy" src="../../attachments/567312445/Alpha.png" data-image-src="../../attachments/567312445/Alpha.png" data-height="564" data-width="1200" data-unresolved-comment-count="0" data-linked-resource-id="1089994757" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Alpha.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="567312445" data-linked-resource-container-version="6" data-media-id="53237d1a-70ff-48c1-b0d6-4ee5b979947a" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="occluded.png" width="352" loading="lazy" src="../../attachments/567312445/occluded.png" data-image-src="../../attachments/567312445/occluded.png" data-height="566" data-width="1202" data-unresolved-comment-count="0" data-linked-resource-id="1089765382" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="occluded.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="567312445" data-linked-resource-container-version="6" data-media-id="575f0114-5297-4c50-9e80-bb2f86cf9e4c" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="shadow.png" width="352" loading="lazy" src="../../attachments/567312445/shadow.png" data-image-src="../../attachments/567312445/shadow.png" data-height="567" data-width="1205" data-unresolved-comment-count="0" data-linked-resource-id="1090551810" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="shadow.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="567312445" data-linked-resource-container-version="6" data-media-id="2c03069c-145a-48e0-a882-eefc41c33ef8" data-media-type="file"></span><p local-id="782628e23822" /></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="unoccluded.png" width="352" loading="lazy" src="../../attachments/567312445/unoccluded.png" data-image-src="../../attachments/567312445/unoccluded.png" data-height="567" data-width="1206" data-unresolved-comment-count="0" data-linked-resource-id="1090387970" data-linked-resource-version="2" data-linked-resource-type="attachment" data-linked-resource-default-alias="unoccluded.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="567312445" data-linked-resource-container-version="6" data-media-id="782efd05-4973-4cb7-b20a-f27bba70bbb8" data-media-type="file"></span><p local-id="621e29b56972" /></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<div class="panel conf-macro output-block" data-hasbody="true" data-macro-id="" data-macro-name="panel" style="background-color: #EAE6FF;border-color: #998DD9;border-width: 1px;"><div class="panelContent" style="background-color: #EAE6FF;">
+<p local-id="00047f29fe74">If you want to combine the shadow AOV into the beauty alpha, you’ll need to change the Shadow AOV in the PxrShadowFilter node to a (rather than shadow)</p>
+</div></div><p local-id="8093431431c1" /><p local-id="026e3f6d47c8">So … This all looks ‘ok’ but … what about if we want to actually see our backplate in the Solaris viewport?  There’s a number of ways this can be achieved.</p><p local-id="54750c497cb8">If you’re using RIS, then you can use the <em>pxrimageplanefilter </em>LOP to add a backplate to the viewport render.  At the moment, this is an RIS-only feature.</p><p local-id="df491d837016">One other way to see the backplate in the render is to use a Slap Comp in COPs.  The following setup merges both the Alpha and Shadow AOVs into one and then blends that output over the backplate.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="HoudoutInSolaris_COPs.png" width="760" loading="lazy" src="../../attachments/567312445/HoudoutInSolaris_COPs.png" data-image-src="../../attachments/567312445/HoudoutInSolaris_COPs.png" data-height="662" data-width="1449" data-unresolved-comment-count="0" data-linked-resource-id="1089994764" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="HoudoutInSolaris_COPs.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="567312445" data-linked-resource-container-version="6" data-media-id="9ce7ad9a-6337-4c4c-a753-9f5d64ee598f" data-media-type="file"></span><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="HoudoutInSolaris_COPs2.png" width="760" loading="lazy" src="../../attachments/567312445/HoudoutInSolaris_COPs2.png" data-image-src="../../attachments/567312445/HoudoutInSolaris_COPs2.png" data-height="950" data-width="1225" data-unresolved-comment-count="0" data-linked-resource-id="1090682884" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="HoudoutInSolaris_COPs2.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="567312445" data-linked-resource-container-version="6" data-media-id="01f2118c-6158-4c40-a699-983df8ad56a7" data-media-type="file"></span><p local-id="749e2c67c381">Turning on the Slap Comp preview in the Live Render will now composite our beauty over our backplate!</p><p local-id="ca0267b08cf3" /><div class="panel conf-macro output-block" data-hasbody="true" data-macro-id="" data-macro-name="panel" style="background-color: #EAE6FF;border-color: #998DD9;border-width: 1px;"><div class="panelContent" style="background-color: #EAE6FF;">
+<p local-id="16909dd063cb">Of course, using a Slap Comp is just a way to preview your CG over your backplate.  The final renders would be rendered to disc via Husk and composited in software like Nuke or Fusion, allowing for adjustments to the shadow color and intensity and fine tuning the grading of the CG into the backplate.</p>
+</div></div><p local-id="643261128bea" /></div>
+</div>
+</div>
+</div>
+  </article>
+</main>
+</body>
+</html>

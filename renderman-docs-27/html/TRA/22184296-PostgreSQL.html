@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PostgreSQL</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>PostgreSQL</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/TRA/22184296/PostgreSQL">https://rmanwiki-27.pixar.com/space/TRA/22184296/PostgreSQL</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>The db.config file contains configuration parameters that control the startup and shutdown behavior of the backend PostgreSQL database, as well as the client connection parameters.</p><h3 id="PostgreSQL-DBStartup">DBStartup</h3><p>DBStartup must be set to True for the engine to start a postgresql server if one is not already running when the engine is started.</p><p><code>&quot;DBStartup&quot;: True,
+</code></p><h3 id="PostgreSQL-DBUseExisting">DBUseExisting</h3><p>DBUseExisting must be set to True for the engine to use an already-running database server process when the engine is started. Some sites may wish to leave the job database running even when the engine is stopped; others may set this value to False as an assertion that a new engine invocation should not write to a database server that it did not start itself.</p><p><code>&quot;DBUseExisting&quot;: True,
+</code></p><h3 id="PostgreSQL-DBAutoUpgrade">DBAutoUpgrade</h3><p><strong>NOTE: This feature is not availble in Beta 0.</strong></p><p>DBAutoUpgrade must be set to False to suppress the automatic upgrading of the database schema when a new version of Tractor (with a new schema version) is first starting. If set to False and a schema upgrade is required, the engine will not run. The site admin will need to run tractor-dbctl --upgrade manually to perform the upgrade; otherwise, the older (schema-compatible) version of Tractor must be run. If the admin does not wish to save existing job data, the entire database can be removed with tractor-dbctl --destroy, and the an empty database under the new schema will automatically be created when the database is started by the engine or manually. This variable is also observed by tractor-dbctl --start.</p><p><code>&quot;DBAutoUpgrade&quot;: True,
+</code></p><h3 id="PostgreSQL-DBInit">DBInit</h3><p>DBInit must be set to true for a new database to be created if they are not found at engine startup time. A site may wish to set this to False in order to avoid creating an entirely new database should there happen to be a problem mounting the filesystem holding the existing database.</p><p><code>&quot;DBInit&quot;: True,
+</code></p><h3 id="PostgreSQL-DBShutdown">DBShutdown</h3><p>DBShutdown must be set to true for the postgresql server to be shutdown when the engine stops. A site may wish to set this to False in order to allow postgresql clients to run queries against the database should the engine has been shutdown or has crashed. Note that URL-based queries are proxied through the engine and cannot run when the engine is down.</p><p><code>&quot;DBShutdown&quot;: True,
+</code></p><h3 id="PostgreSQL-DBArchiving">DBArchiving</h3><p>DBArchiving, when True, will cause deleted jobs and their associated tasks, commands, and invocations to be moved to special partitions in the postgresql database. To see them, users will need to use the --archives flag with tq, the archives keyword parameter in the Python query API, or select the archives button in the Dashboard query pane.</p><p><code>&quot;DBArchiving&quot;: True,
+</code></p><h3 id="PostgreSQL-DBDebug">DBDebug</h3><p>DBDebug, when True, will cause debugging output to be emitted when creating, starting, syncing, and stopping the postgresql server.</p><p><code>&quot;DBDebug&quot;: False,
+</code></p><h3 id="PostgreSQL-DBDataDir">DBDataDir</h3><p>DBDataDir indicates the directory that will store the database tables. A full path to a different location may be specified.</p><p><code>&quot;DBDataDir&quot;: &quot;${TractorDataDirectory}/psql&quot;,
+</code></p><h3 id="PostgreSQL-DBConnection">DBConnection</h3><p>DBConnection are the client side postgres connection parameters. Values can be edited or added to this dictionary as required. # 'host' specifies the hostname where tractor-engine should find its PostgreSQL server. Use &quot;localhost&quot; for the usual case where the job database is on the same host as tractor-engine and is managed by it. # 'port' indicates the port that the postgresql server will listen on. By default, it is set to the standard PostgreSQL &quot;postmaster&quot; port, but could be changed in case there is some other service already using that port, such as another PostgreSQL server, or the unusual case of of testing two tractor-engines on the same host (not recommended). Note that a corresponding change should be made in postgres.conf. # 'dbname' specifies the database name where the tables are stored, it should always be &quot;tractor&quot; except in unusual circumstances. #</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="b4d723d4-8730-4bfa-ae8b-9d46b9d9213a" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">{
+  &quot;DBConnection&quot;: {
+     &quot;host&quot;: &quot;localhost&quot;,
+     &quot;port&quot;: 9876,
+     &quot;dbname&quot;: &quot;tractor&quot;
+  }
+}</pre>
+</div></div><p /><h3 id="PostgreSQL-DBRolePasswords">DBRolePasswords</h3><p>Sites may restrict external access to the Tractor job database in several ways. One is to specify &quot;localhost&quot; above to prevent network access. Another is to add passwords for the various database login roles. Tractor-engine will need to know these passwords, so they must be enumerated here. Obviously read-access to this configuration file must then be restricted to administrators (and the Tractor &quot;EngineOwner&quot;) when sensitive passwords are specified here. #</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="e87a57e5-2fc4-4edb-9fca-bd5e5fa5a97f" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">&quot;DBRolePasswords&quot;: {
+  &quot;root&quot;:        &quot;&quot;,
+  &quot;bootstrap&quot;:   &quot;&quot;,
+  &quot;dispatcher&quot;:  &quot;&quot;,
+  &quot;spooler&quot;:     &quot;&quot;,
+  &quot;dashboard&quot;:   &quot;&quot;,
+  &quot;reader&quot;:      &quot;&quot;,
+  &quot;dev_read&quot;:    &quot;&quot;,
+  &quot;dev_write&quot;:   &quot;&quot;
+}</pre>
+</div></div><p /><h4 id="PostgreSQL-SimpleConfigurationExample">Simple Configuration Example</h4><p>The following settings are ideal for an out-of-box experience where the site wishes to leave management of postgresql to the engine with little or not intervention from the admin. Here the postgres server runs on the same host as the engine, and only when the engine is running.</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="304e3bd1-996c-4d8c-bcc7-65e46cd263c6" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">{
+  &quot;DBStartup&quot;: True,
+  &quot;DBUseExisting&quot;: True,
+  &quot;DBAutoUpgrade&quot;: True,
+  &quot;DBInit&quot;: True,
+  &quot;DBShutdown&quot;: True,
+  &quot;DBDebug&quot;: False,
+
+  &quot;DBDataDir&quot;: &quot;${TractorDataDirectory}/psql&quot;,
+  &quot;DBConnection&quot;: {
+    &quot;host&quot;: &quot;localhost&quot;,
+    &quot;port&quot;: 9876,
+    &quot;dbname&quot;: &quot;tractor&quot;
+  }
+}</pre>
+</div></div><p /><h4 id="PostgreSQL-ComplexConfigurationExample">Complex Configuration Example</h4><p>The following settigs are ideal for site that which to manage a custom postgresql server and wants to leave the postgresql server running while the engine is down for reasons such as: (a) to service queries that are not proxied through the engine, (b) the postgreql server runs on a different host and requires a different manner of startup/shutdown, (c) other database services are being managed on a central postgresql server (d) other reasons to simply manually manage the postgresql server In this example, schema upgrades are handled manually so that should a new tractor version be installed and there is a schema change, there will not be unexpected downtime from waiting for schema upgrade operations to complete; note that the admin will need to observe that the newer version of the engine failed to start and will need to start the older version manually.</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="a58a1097-de10-4866-8d5d-69909401a3c4" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">{
+  &quot;DBStartup&quot;: False,
+  &quot;DBUseExisting&quot;: True,
+  &quot;DBAutoUpgrade&quot;: False,
+  &quot;DBInit&quot;: False,  # switch to True later
+  &quot;DBShutdown&quot;: False,
+  &quot;DBDebug&quot;: False,
+
+  &quot;DBDataDir&quot;: &quot;/path/to/fast/filesystem/psql&quot;,
+  &quot;DBConnection&quot;: {
+    &quot;host&quot;: &quot;otherhost&quot;,
+    &quot;port&quot;: 9876,
+    &quot;dbname&quot;: &quot;tractor&quot;
+  }
+}</pre>
+</div></div>
+  </article>
+</main>
+</body>
+</html>

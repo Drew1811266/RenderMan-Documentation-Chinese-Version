@@ -1,0 +1,86 @@
+{"item_id":"51646742d1:0","text":"RenderMan 允许通过 layering materials 创建复杂 looks。这意味着 car paint、bottles 上的 labels、dirt 或 mud 等 effects 都可以高效 layered 后用于 rendering。"}
+{"item_id":"51646742d1:1","text":"下面是一个 step by step example，演示如何在 bronze statue 上创建 patina。在本 tutorial 底部，可以下载一个 Katana scene，其中包含重现此 image 所需的 parts。"}
+{"item_id":"51646742d1:2","text":"Basic Scene Prep（基础 Scene 准备）"}
+{"item_id":"51646742d1:3","text":"加载"}
+{"item_id":"51646742d1:4","text":"layeredMaterial_prep.katana"}
+{"item_id":"51646742d1:5","text":"tutorial scene，其中包含加载 statue geometry、ground plane 和 spot lights 的 framework。此时该 scene 已可 render；不过我们还没有为 statue assign materials，因此它会使用 RenderMan 的 default Bxdf shader：PxrDiffuse 来 render。"}
+{"item_id":"51646742d1:6","text":"Step 1: PxrLayerSurface（步骤 1：PxrLayerSurface）"}
+{"item_id":"51646742d1:7","text":"创建 shading network，并为 object assign 一个"}
+{"item_id":"51646742d1:8","text":"PxrLayerSurface"}
+{"item_id":"51646742d1:9","text":"Bxdf。这是一个 framework，会告诉 RenderMan 为已 assign 的 object render 哪些 materials（new nodes 以 red 显示）："}
+{"item_id":"51646742d1:10","text":"此时可以使用新的 shading network 进行 render，但这个 material 本身能做的事情不多；该 node 的 attributes 集合有限。原因是 PxrLayerSurface 被设计为一个 Bxdf，其上组合多层 patterns。PxrLayerSurface 只包含会应用到所有 layers 的 global attributes。color 和 texture 等 layer-specific attributes 来自连接到"}
+{"item_id":"51646742d1:11","text":"inputMaterial"}
+{"item_id":"51646742d1:12","text":"attribute 的上游 material(s)。"}
+{"item_id":"51646742d1:13","text":"从这里开始，planning 非常重要，这样可以避免重复工作，并让 material network 尽可能简单且实用。在研究如何在 copper 或其他 metal 上创建 patina 时，会发现这是一个 multi-stage project，可能涉及多种 methods。根据目标 look，materials 的 layout 会有所不同。例如，加热 metal 产生不同 colors 的效果，可以使用 PxrLayerSurface 中的"}
+{"item_id":"51646742d1:14","text":"iridescence"}
+{"item_id":"51646742d1:15","text":"PxrLayerSurface attributes 来复现。创建 patina 的另一种方法是使用 vinegar 和 salt 在 metal 上产生 crust，这也是我们将在这里实验的 look。"}
+{"item_id":"51646742d1:16","text":"需要两个 basic material layers："}
+{"item_id":"51646742d1:17","text":"类似 bronze 或 copper 的 metal layer"}
+{"item_id":"51646742d1:18","text":"patina layer，一个有些 crusty、颜色为 blue-green 的 diffuse layer"}
+{"item_id":"51646742d1:19","text":"下面是单独查看的 layers："}
+{"item_id":"51646742d1:20","text":"Step 2: PxrLayerMixer（步骤 2：PxrLayerMixer）"}
+{"item_id":"51646742d1:21","text":"创建一个"}
+{"item_id":"51646742d1:22","text":"PxrLayerMixer"}
+{"item_id":"51646742d1:23","text":"并连接其"}
+{"item_id":"51646742d1:24","text":"out"}
+{"item_id":"51646742d1:25","text":"port 到"}
+{"item_id":"51646742d1:26","text":"inputMaterial"}
+{"item_id":"51646742d1:27","text":"PxrLayerSurface 的 port。这样就设置了用于连接所有 layers 的 node。来看一下 PxrLayerMixer shading node 的 default state："}
+{"item_id":"51646742d1:28","text":"这里有一个"}
+{"item_id":"51646742d1:29","text":"BaseLayer"}
+{"item_id":"51646742d1:30","text":"以及另外四个 layers，编号为 1-4。注意"}
+{"item_id":"51646742d1:31","text":"Layer 1"}
+{"item_id":"51646742d1:32","text":"默认启用，因为通常假设至少会有两个 layers 进入 PxrLayerMixer。如果某个 layer 已启用但未连接，整个 render 会变黑。我们会先专注于构建 base layer，所以先 disable"}
+{"item_id":"51646742d1:33","text":"Layer 1"}
+{"item_id":"51646742d1:34","text":"直到把 patina layer wire 进来。注意，你可以将其他 PxrLayerMixers 连接到 layers 中，以便使用 look collections 并将它们 mask 在一起。如果想在其他位置 reuse networks，这很有用。本 example 只使用两个 layers，即"}
+{"item_id":"51646742d1:35","text":"Base"}
+{"item_id":"51646742d1:36","text":"和"}
+{"item_id":"51646742d1:37","text":"Layer 1"}
+{"item_id":"51646742d1:38","text":"。"}
+{"item_id":"51646742d1:39","text":"Step 3: Base Layer（步骤 3：Base Layer）"}
+{"item_id":"51646742d1:40","text":"Copper/Bronze 将作为我们的 \"base\" layer。创建一个"}
+{"item_id":"51646742d1:41","text":"PxrLayer"}
+{"item_id":"51646742d1:42","text":"并连接其"}
+{"item_id":"51646742d1:43","text":"pxrMaterialOut"}
+{"item_id":"51646742d1:44","text":"port 到"}
+{"item_id":"51646742d1:45","text":"Base Layer"}
+{"item_id":"51646742d1:46","text":"PxrLayerMixer 的 input port。"}
+{"item_id":"51646742d1:47","text":"为了近似 copper material，我们设置 diffuse 和 specular，然后添加一些 procedural bump，让 copper 具有不错的 texture。这些 settings 有些 arbitrary，因为它们是 art directed；但我们的目标是较旧、偏暗的 copper 或 bronze look："}
+{"item_id":"51646742d1:48","text":"Step 4: Patina Layer（步骤 4：Patina Layer）"}
+{"item_id":"51646742d1:49","text":"Patina 将作为我们的 \"Layer 1\"，位于 base layer 上方。创建另一个 PxrLayer node，并连接其"}
+{"item_id":"51646742d1:50","text":"pxrMaterialOut"}
+{"item_id":"51646742d1:51","text":"output port 到"}
+{"item_id":"51646742d1:52","text":"Layer 1"}
+{"item_id":"51646742d1:53","text":"PxrLayerMixer 的 input port。注意，如果你在处理 base layer 时 disable 了 Layer 1，可能需要重新 enable 它。patina shading 是从真实 image 采样的 diffuse color，并带有一些 diffuse roughness，以帮助表现 patina crust 的 \"powdery\" look。我们添加了 PxrFractal 和 bump pattern 来提高 realism。前一个 bump pattern 在此 layer 中再次使用以保持一致，但你也可以在这里使用不同 pattern 来进一步提升 realism。"}
+{"item_id":"51646742d1:54","text":"此 layer 会完全覆盖"}
+{"item_id":"51646742d1:55","text":"Base"}
+{"item_id":"51646742d1:56","text":"layer，直到我们为"}
+{"item_id":"51646742d1:57","text":"Layer 1 Mask"}
+{"item_id":"51646742d1:58","text":"添加 input。"}
+{"item_id":"51646742d1:59","text":"Step 5: Patina Mask（步骤 5：Patina Mask）"}
+{"item_id":"51646742d1:60","text":"我们可以用 textures 来完成这一点，但这里改用"}
+{"item_id":"51646742d1:61","text":"PxrDirt"}
+{"item_id":"51646742d1:62","text":"node 来控制 patina 和 metal 出现的位置。PxrDirt 是一个 occlusion shader，可根据 geometry 中的 local topology（即 nooks & crannies）产生 shading effects。创建新的 PrmanShadingNode，并将 node type 设置为 PxrDirt。它的 output 是 color，但由于我们要创建 mask，可以将"}
+{"item_id":"51646742d1:63","text":"resultR"}
+{"item_id":"51646742d1:64","text":"wire 到"}
+{"item_id":"51646742d1:65","text":"Layer 1 Mask"}
+{"item_id":"51646742d1:66","text":"PxrLayerMixer 的输入（也可以使用 PxrToFloat 将 color 转换为 scalar value）。"}
+{"item_id":"51646742d1:67","text":"为了产生 final image 中看到的 weathering pattern，我们提高"}
+{"item_id":"51646742d1:68","text":"Bias Normal"}
+{"item_id":"51646742d1:69","text":"在 PxrDirt 中的 Y component attribute，使 result 纵向拉伸，仿佛 rain 和 weathering 沿 statue 流下。PxrDirt 的"}
+{"item_id":"51646742d1:70","text":"Unoccluded"}
+{"item_id":"51646742d1:71","text":"attribute 由 PxrFractal 和 PxrGamma 分别驱动，用于打散 result 并控制 strength。注意位于 PxrDirt 下方的额外 PSN_PxrConstant node。通过将 PxrDirt output"}
+{"item_id":"51646742d1:72","text":"resultRGB"}
+{"item_id":"51646742d1:73","text":"连接到"}
+{"item_id":"51646742d1:74","text":"emitColor"}
+{"item_id":"51646742d1:75","text":"PxrConstant 的输入，我们可以将 PxrLayerSurface Bxdf 替换为 PxrConstant Bxdf，从而单独查看 dirt layer mask 的 render 结果。"}
+{"item_id":"51646742d1:76","text":"下面是从 PxrDirt 单独 render 得到的 mask："}
+{"item_id":"51646742d1:77","text":"Step 6: Render!（步骤 6：Render!）"}
+{"item_id":"51646742d1:78","text":"Step 7: Tweak Parameters, Repeat Step 6（步骤 7：调整 Parameters，重复步骤 6）"}
+{"item_id":"51646742d1:79","text":"Notes（备注）"}
+{"item_id":"51646742d1:80","text":"该 model 免费来自"}
+{"item_id":"51646742d1:81","text":"Three D Scans"}
+{"item_id":"51646742d1:82","text":"。"}
+{"item_id":"51646742d1:83","text":"在上方找到 Katana scene"}
+{"item_id":"51646742d1:84","text":"link"}
+{"item_id":"51646742d1:85","text":"，并通过 Three D Scans link 获取一些 geometry。"}

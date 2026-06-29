@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Polygons in Katana</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Polygons in Katana</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFK27/546177753/Polygons+in+Katana">https://rmanwiki-27.pixar.com/space/RFK27/546177753/Polygons+in+Katana</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>在 Katana 中，你很可能会通过 Alembic 或其他支持 polygonal geometry（多边形几何体）的 geometry format（几何格式）导入它们。作为艺术家，你通常不需要在 Katana 中做任何特殊操作就能使用它们。</p><p>look development（外观开发）需要的任何 texture coordinates（纹理坐标）或其他 primitive variables（primvars）都必须在 pipeline 上游添加。将 geometry（几何体）导入 Katana 时，这些数据会可用。</p><p>RenderMan 关于 <a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661419" rel="nofollow">Polygons（多边形）</a> 的文档包含更多相关信息。</p><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="975e3efa-1f90-4620-bf5f-ca7076f84d21" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>可以使用 AttributeSet 节点将 "type" 设置为 subdmesh，从而把 polygonal geometry（多边形几何体）转换为 subdivision surface（细分曲面）。当你把相机移近 geometry 后，如果它看起来有 faceted（分面）感，可能会想这样做。如果你有 low-poly model（低多边形模型），会在渲染表面上看到差异。如果你的 surface（表面）已经有大量 polygons（多边形），差异会不那么明显。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="684" loading="lazy" src="../../attachments/546177753/AttributeSetTypeToSubdmesh.png" data-image-src="../../attachments/546177753/AttributeSetTypeToSubdmesh.png" data-height="412" data-width="513" data-unresolved-comment-count="0" data-linked-resource-id="546177769" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="AttributeSetTypeToSubdmesh.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="546177753" data-linked-resource-container-version="1" data-media-id="8d1c6235-70a9-4b51-bba6-b6ce53f66e72" data-media-type="file" /></span><p>将模型转换为 subdivision surface（细分曲面）有一些优势，不过会花费更多内存和渲染时间。使用 subdivision surface 时，可以更稳健地进行 displacements（置换），并且能保证得到平滑的渲染结果。有关更多信息，请参阅 RenderMan 关于 <a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661421" rel="nofollow">Subdivision Surfaces（细分曲面）</a> 的文档。</p></div></div><p>如果你的 normals（法线）需要平滑以近似 subdivision surface（细分曲面），可以在 PrmanObjectStatements 中使用名为 Polygon &gt; Smooth Normals &gt; Yes 的属性。</p><p>这只提供平滑的 <em>shading（着色）</em> 效果，而不是平滑的 shape（形状），因为底层 topology（拓扑）并未改变。</p>
+  </article>
+</main>
+</body>
+</html>

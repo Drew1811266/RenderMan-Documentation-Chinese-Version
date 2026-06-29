@@ -1,0 +1,73 @@
+{"item_id": "9aaedfb175:0", "text": "Creating Mesh Lights（创建网格灯）"}
+{"item_id": "9aaedfb175:1", "text": "在 RenderMan for Maya 中，任何一块 geometry 都可以成为 light source。选择要变为 emissive 的 geometry，然后单击 RenderMan shelf 中的 Mesh Light 按钮。"}
+{"item_id": "9aaedfb175:2", "text": "下次 render 时，该 object 会投射 light，并且自身具有 constant color；该颜色来自 PxrMeshLight 的 color 和 intensity。"}
+{"item_id": "9aaedfb175:3", "text": "PxrBlack"}
+{"item_id": "9aaedfb175:4", "text": "单击 Mesh Light 按钮时，会将名为 PxrBlack 的新 material 指派给所选对象，并创建一个 PxrMeshLigh"}
+{"item_id": "9aaedfb175:5", "text": "，再将其连接到 PxrBlack material 的 shading group 中。PxrBlack 充当 dummy material。它实际上没有任何 parameters，不过在 Attribute Editor 中会提供一个指向关联 PxrMeshLight 的链接。"}
+{"item_id": "9aaedfb175:6", "text": "对于大多数用途，PxrBlack 是合适的 material；但你也可以尝试使用其他 material，例如 PxrVolume。最简单的设置方式是先使用 Mesh Light 按钮。然后选择 PxrBlack 的 shading group，并在那里接入不同的 surface 或 volume material。这样 area light 就已经连接到 shading group 中。"}
+{"item_id": "9aaedfb175:7", "text": "PxrMeshLight"}
+{"item_id": "9aaedfb175:8", "text": "PxrMeshLights 的行为与 Maya 中其他 lights 很相似。它们会显示在 Hypershade Window 的 lights 选项卡下，并且可以在 Maya 的 Relationship Editor 中设置 light linking。"}
+{"item_id": "9aaedfb175:9", "text": "PxrMeshLight 允许你创建 arbitrary shapes，并将它们用作真正的 light sources。与 emissive geometry 相比，这会提升 performance，并为创建 neon lights、未来感 light panels，以及能照亮 scene 的 deforming shapes 提供很高的 flexibility。"}
+{"item_id": "9aaedfb175:10", "text": "这些 parameters 简单且易于调节，并且该 light 会遵循 shape 的 render visibility，而不是 light 本身上的选择项。"}
+{"item_id": "9aaedfb175:11", "text": "虽然可以将 meshlight 用作一块 deforming geometry，但目前尚不支持 deformation motion blur，可能会产生不正确的结果。"}
+{"item_id": "9aaedfb175:12", "text": "创建 meshlight 时，你可能会看到一个名为 PxrBlack 的 material 与它相连。这个 material 没有 parameters，其设计目的是防止 mesh 再次从自身 scattering light。这样做是为了提供直观行为，并不一定是物理准确的行为。"}
+{"item_id": "9aaedfb175:13", "text": "Parameters（参数）"}
+{"item_id": "9aaedfb175:14", "text": "Basic（基础）"}
+{"item_id": "9aaedfb175:15", "text": "Color（颜色）"}
+{"item_id": "9aaedfb175:16", "text": "emitted light 的 color。"}
+{"item_id": "9aaedfb175:17", "text": "Intensity（强度）"}
+{"item_id": "9aaedfb175:18", "text": "线性缩放此 light 的贡献。light intensity 使用 physical falloff 计算。"}
+{"item_id": "9aaedfb175:19", "text": "Exposure（曝光）"}
+{"item_id": "9aaedfb175:20", "text": "以 2 的幂指定 area light 的 exposure。exposure 增加 1 会使 light source 发出的 energy 加倍。值为 0 时 source 处的 intensity 为 1，-1 时为 0.5。现实世界"}
+{"item_id": "9aaedfb175:21", "text": "中的 lighting 具有很高的 energy，典型 exposure 通常是较低数值；而要获得等效的"}
+{"item_id": "9aaedfb175:22", "text": "Intensity"}
+{"item_id": "9aaedfb175:23", "text": "，可能需要输入非常大的数字。熟悉摄影测量的艺术家也会觉得这种方式更顺手。"}
+{"item_id": "9aaedfb175:24", "text": "Texture Color（纹理颜色）"}
+{"item_id": "9aaedfb175:25", "text": "使用 pattern node 将一张 image 用作 light source，例如"}
+{"item_id": "9aaedfb175:26", "text": "PxrTexture"}
+{"item_id": "9aaedfb175:27", "text": "。最好使用 High Dynamic Range source。请注意，这会根据所用 HDRI 的内容影响 color 和 shadowing。如果必须使用 JPEG image 等 8-bit source，应先将其 linearized（转换到 linear color space），再作为 color 使用。由于这确实是一个 mesh，你必须已经定义 UVs 或适当的 projections，才能正确放置 texture。"}
+{"item_id": "9aaedfb175:28", "text": "Enable Temperature（启用色温）"}
+{"item_id": "9aaedfb175:29", "text": "打开或关闭 color temperature。"}
+{"item_id": "9aaedfb175:30", "text": "Temperature（色温）"}
+{"item_id": "9aaedfb175:31", "text": "允许用户以 Kelvins 选择 light 的 color temperature。与基础 light color 不同，这让用户能够基于标准 temperature measurements 轻松选择可信的 light colors。此 control 会像放在 light 前方的 filter 或 gel（带色透明表面）一样工作。如果 light 是白色，你会得到所选 color temperature。如果 light 已有颜色，color temperature 会让它更冷（高于 6500K）或更暖（低于 6500K）。"}
+{"item_id": "9aaedfb175:32", "text": "在 fully saturated mono-chromatic lights 上，此效果会不那么明显。默认值为 6500K，在大多数 monitor 上应非常接近白色（sRGB 和 Rec 709 使用的 D65 illuminant）。"}
+{"item_id": "9aaedfb175:33", "text": "Refine（细化）"}
+{"item_id": "9aaedfb175:34", "text": "Specular Amount（高光量）"}
+{"item_id": "9aaedfb175:35", "text": "发出的 specular light 的量。这是一个 non-physical control。你可以使用"}
+{"item_id": "9aaedfb175:36", "text": "Specular Amount"}
+{"item_id": "9aaedfb175:37", "text": "为 0.0 的 light，使其仅作为 scene objects 的 diffuse light source，并避免添加 highlights。"}
+{"item_id": "9aaedfb175:38", "text": "Diffuse Amount（漫反射量）"}
+{"item_id": "9aaedfb175:39", "text": "发出的 diffuse light 的量。这是一个 non-physical control。你可以使用"}
+{"item_id": "9aaedfb175:40", "text": "Diffuse Amount"}
+{"item_id": "9aaedfb175:41", "text": "为 0.0 的 light，使其仅作为 scene objects 的 highlights source。"}
+{"item_id": "9aaedfb175:42", "text": "Intensity Near Dist（强度近距离）"}
+{"item_id": "9aaedfb175:43", "text": "被照明点与 light 之间的近距离；在该距离内 sample 不会继续变亮。当 light 靠近 surface 时，这有助于避免 hot spots 和 sampling issues。这些值基于你的 scene scale/distance，因此这里只是一个示例。"}
+{"item_id": "9aaedfb175:44", "text": "Specular Near Dist（高光近距离）"}
+{"item_id": "9aaedfb175:45", "text": "带有 specular shading 的被照明点与 light 之间的近距离；在该距离内 sample 不会继续变亮。当 light 靠近 specular surface 时，这有助于避免 hot spots 和 sampling issues。"}
+{"item_id": "9aaedfb175:46", "text": "Note（注意）"}
+{"item_id": "9aaedfb175:47", "text": "此值不会应用于从 camera 看到的 lights。"}
+{"item_id": "9aaedfb175:48", "text": "下方示例中，右侧 sphere 的距离依次为 0.0、5.0，最后是 10.0。这些值基于你的 scene scale/distance，因此这里只是一个示例。"}
+{"item_id": "9aaedfb175:49", "text": "Diffuse Near Dist（漫反射近距离）"}
+{"item_id": "9aaedfb175:50", "text": "带有 diffuse shading 的被照明点与 light 之间的近距离；在该距离内 sample 不会继续变亮。当 light 靠近 diffuse surface 时，这有助于避免 hot spots 和 sampling issues。"}
+{"item_id": "9aaedfb175:51", "text": "Note（注意）"}
+{"item_id": "9aaedfb175:52", "text": "此值不会应用于从 camera 看到的 lights。"}
+{"item_id": "9aaedfb175:53", "text": "下方示例中，左侧 sphere 的距离依次为 0.0、5.0，最后是 10.0。这些值基于你的 scene scale/distance，因此这里只是一个示例。"}
+{"item_id": "9aaedfb175:54", "text": "Advanced（高级）"}
+{"item_id": "9aaedfb175:55", "text": "Area Normalize（面积归一化）"}
+{"item_id": "9aaedfb175:56", "text": "启用 normalize 时，随着你缩放 light source，贡献到 scene 的 light amount 不会改变。这样可以更容易地调整 highlight size，而不改变 scene lighting。"}
+{"item_id": "9aaedfb175:57", "text": "Trace Light Paths（追踪灯光路径）"}
+{"item_id": "9aaedfb175:58", "text": "启用来自此 light 的 light tracing 和 photon tracing。此值会强制使用 physically-based light，并且作为副作用会禁用上面的"}
+{"item_id": "9aaedfb175:59", "text": "Shadows"}
+{"item_id": "9aaedfb175:60", "text": "controls。使用 PxrVCM 或 PxrUnified Integrators 时，用户可以用此功能有选择地决定哪些 lights 发射 photons。"}
+{"item_id": "9aaedfb175:61", "text": "Thin Shadow（薄阴影）"}
+{"item_id": "9aaedfb175:62", "text": "为此 light 启用 thin shadow，并禁用 refraction caustics。如果启用了"}
+{"item_id": "9aaedfb175:63", "text": "Trace Light Paths"}
+{"item_id": "9aaedfb175:64", "text": "，则会忽略此 parameter。这是一个 non-physical control，会为 transmissive objects 创建 \"fake\" colored shadows，而无需为 caustics 生成 photons。"}
+{"item_id": "9aaedfb175:65", "text": "Light Group（灯光组）"}
+{"item_id": "9aaedfb175:66", "text": "指定用于 light group LPEs 的 light group name。这对于生成 per-light AOVs 以便之后在 compositing 中调整很有用。"}
+{"item_id": "9aaedfb175:67", "text": "Importance Multiplier（重要性倍增器）"}
+{"item_id": "9aaedfb175:68", "text": "用户不必设置显式的 Light Samples，而是可以通过更改此值来改变该 light 在内部被分配的 samples 数量。RenderMan 会在 render time 为 scene 中的所有 lights 创建一组 samples；更改此值会在各个 lights 之间重新平衡 samples。请注意，提高此值会使此 light 被选取"}
+{"item_id": "9aaedfb175:69", "text": "更多"}
+{"item_id": "9aaedfb175:70", "text": "samples，同时减少 scene 中其他 lights 的 samples。低于默认值则会使 samples"}
+{"item_id": "9aaedfb175:71", "text": "减少"}
+{"item_id": "9aaedfb175:72", "text": "，并为 scene 中其他 lights 提供更多 samples。"}

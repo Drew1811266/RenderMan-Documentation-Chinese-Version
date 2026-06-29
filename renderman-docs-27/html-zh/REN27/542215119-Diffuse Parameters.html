@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Diffuse Parameters</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Diffuse Parameters</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/REN27/542215119/Diffuse+Parameters">https://rmanwiki-27.pixar.com/space/REN27/542215119/Diffuse+Parameters</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="contentLayout2">
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="78c4f007-f075-4384-b616-d806e3caad9e" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>在下方参数中，有些参数可在连接到 <a href="542217837-PxrLayer.html" rel="nofollow">PxrLayer</a> 后，通过 <strong>Input Material </strong>被覆盖，或通过 <a href="542218974-PxrLayerMixer.html" rel="nofollow">PxrLayerMixer</a>覆盖。 <a href="542216714-PxrLayerSurface.html" rel="nofollow">PxrLayerSurface</a> 设计用于更清楚地展示哪些参数不能在层中被覆盖：它只包含全局参数。当你确定要进行分层时，建议使用这种材质。这些设置的结果保持不变。</p><ul><li><p><strong>Bold Face</strong> 参数是可分层的，可以按层覆盖。</p></li><li><p><em>Italicized</em> 参数不能分层或覆盖。所有层都会全局遵循这些参数。例如：选择 GGX 作为 Specular 模型时，所有层在该参数上都会使用 GGX。</p></li></ul></div></div><p><span class="confluence-anchor-link conf-macro output-inline" data-hasbody="false" data-local-id="97d7e7fb-a70d-4823-ae1e-05dbfe4dbc50" data-macro-id="494a9efb-5950-4d63-b74f-65445839de65" data-macro-name="anchor" id="DiffuseParameters-top"><span class="confluence-anchor-link" id="top"> </span></span></p><h3 id="DiffuseParameters-DiffuseParameters">Diffuse Parameters </h3><p>Diffuse Parameters 控制基础漫反射的外观。它们常用于定义不透明对象的主要颜色属性；木纹纹理、标签文字、波点等，都可以在这里连接。 <br/><br/>该波瓣默认开启。</p><h4 id="DiffuseParameters-Gain"><strong>Gain</strong></h4><p>Gain 是应用到 Diffuse 参数上的权重。你也可以用另一个 pattern 驱动它，用来表现褪色、潮湿等效果（液体会让表面变暗）。 <br/>下面展示 0.0、0.5 和 1.0 Gain 在 50% 灰色材质上的示例。</p><p /></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="RenderMan_Diffuse_DiffuseGain_0_0.jpg" width="432" loading="lazy" src="../../attachments/542215119/RenderMan_Diffuse_DiffuseGain_0_0.jpg" data-image-src="../../attachments/542215119/RenderMan_Diffuse_DiffuseGain_0_0.jpg" data-height="800" data-width="800" data-unresolved-comment-count="0" data-linked-resource-id="542215155" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Diffuse_DiffuseGain_0_0.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215119" data-linked-resource-container-version="1" data-media-id="8b18e790-5b23-4c78-abb7-84a8f2d76e66" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="RenderMan_Diffuse_DiffuseGain_0_5.jpg" width="432" loading="lazy" src="../../attachments/542215119/RenderMan_Diffuse_DiffuseGain_0_5.jpg" data-image-src="../../attachments/542215119/RenderMan_Diffuse_DiffuseGain_0_5.jpg" data-height="800" data-width="800" data-unresolved-comment-count="0" data-linked-resource-id="542215152" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Diffuse_DiffuseGain_0_5.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215119" data-linked-resource-container-version="1" data-media-id="51d1b9bd-cffd-43ca-86c1-8cb77177d160" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="RenderMan_Diffuse_DiffuseGain_1_0.jpg" width="432" loading="lazy" src="../../attachments/542215119/RenderMan_Diffuse_DiffuseGain_1_0.jpg" data-image-src="../../attachments/542215119/RenderMan_Diffuse_DiffuseGain_1_0.jpg" data-height="800" data-width="800" data-unresolved-comment-count="0" data-linked-resource-id="542215149" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Diffuse_DiffuseGain_1_0.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215119" data-linked-resource-container-version="1" data-media-id="949ab023-371a-4a55-a30c-79e9206ba0fa" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><strong> </strong><br/></p><hr/><h4 id="DiffuseParameters-Color"><strong>Color</strong></h4><p>Color 通常用于连接纹理或 pattern，为不透明对象生成颜色。 <br/>例如，木材颜色纹理就会接到这里。</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="378" loading="lazy" src="../../attachments/542215119/rman_pxrsurf_diffColor2.jpg" data-image-src="../../attachments/542215119/rman_pxrsurf_diffColor2.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215182" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_diffColor2.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215119" data-linked-resource-container-version="1" data-media-id="a31a3084-7377-4db6-8b8b-ab4216205fee" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="378" loading="lazy" src="../../attachments/542215119/rman_pxrsurf_diffColor3.jpg" data-image-src="../../attachments/542215119/rman_pxrsurf_diffColor3.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215179" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_diffColor3.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215119" data-linked-resource-container-version="1" data-media-id="59af64cb-166b-43f7-89c3-7f356fa6cf9a" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="381" loading="lazy" src="../../attachments/542215119/rman_pxrsurf_diffColor1.jpg" data-image-src="../../attachments/542215119/rman_pxrsurf_diffColor1.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215185" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_diffColor1.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215119" data-linked-resource-container-version="1" data-media-id="d1c6fc6d-7906-4d9b-933f-a32111a73935" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><strong> </strong><br/></p><hr/><h4 id="DiffuseParameters-Roughness"><strong>Roughness</strong></h4><p>Diffuse roughness（漫反射粗糙度）用于模拟干陶土或尘土这类粉末感表面。  <br/>当 Roughness 为 0.0 时，PxrSurface 使用 Lambertian 模型计算 Diffuse 响应。  <br/>当 Roughness &gt; 0.0 时，则改用 Oren Nayar 模型。</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="432" loading="lazy" src="../../attachments/542215119/rman_pxrsurf_diffRgh0.jpg" data-image-src="../../attachments/542215119/rman_pxrsurf_diffRgh0.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215140" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_diffRgh0.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215119" data-linked-resource-container-version="1" data-media-id="d31687d8-a432-4b36-810b-06749d31022d" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="432" loading="lazy" src="../../attachments/542215119/rman_pxrsurf_diffRgh05.jpg" data-image-src="../../attachments/542215119/rman_pxrsurf_diffRgh05.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215167" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_diffRgh05.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215119" data-linked-resource-container-version="1" data-media-id="ea72318c-87f4-47d9-9a5f-ee1b3cda1202" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="432" loading="lazy" src="../../attachments/542215119/rman_pxrsurf_diffRgh10.jpg" data-image-src="../../attachments/542215119/rman_pxrsurf_diffRgh10.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215164" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_diffRgh10.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215119" data-linked-resource-container-version="1" data-media-id="7ce7ad5a-65e2-440f-9b54-a67034fc5ac9" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><br/></p><hr/><h4 id="DiffuseParameters-Exponent"><strong>Exponent</strong></h4><p>Diffuse exponent（漫反射指数）控制漫反射衰减。它是一个幂指数。数值越高，衰减越锐利。  <br/>例如，在月球表面上，可以设置较高的 Exponent 来产生更锐利的衰减。</p><p /></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rman_pxrsurf_diffRgh01.jpg" width="384" loading="lazy" src="../../attachments/542215119/rman_pxrsurf_diffRgh01.jpg" data-image-src="../../attachments/542215119/rman_pxrsurf_diffRgh01.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215137" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_diffRgh01.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215119" data-linked-resource-container-version="1" data-media-id="b3028bd9-8da7-4fd1-a519-2bcfa09f7be8" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="diffuseExponent5.jpg" width="384" loading="lazy" src="../../attachments/542215119/diffuseExponent5.jpg" data-image-src="../../attachments/542215119/diffuseExponent5.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215146" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="diffuseExponent5.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215119" data-linked-resource-container-version="1" data-media-id="4e63a3d3-8783-42c7-8b00-e55ae2644071" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="diffuseExponent10.jpg" width="384" loading="lazy" src="../../attachments/542215119/diffuseExponent10.jpg" data-image-src="../../attachments/542215119/diffuseExponent10.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215143" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="diffuseExponent10.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215119" data-linked-resource-container-version="1" data-media-id="548a9e27-866d-41a3-8f58-8cd9c23ac1a5" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="65821328-1414-49f1-a160-95d6db5cf75c" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>Diffuse exponent（漫反射指数）只适用于 Lambertian 漫反射，也就是 Roughness 为 0.0 的情况。将漫反射指数与 Oren Nayar Roughness 结合没有意义，因此当 Roughness &gt; 0.0 时会被忽略。</p></div></div><p><br/></p><hr/><h4 id="DiffuseParameters-Bump"><strong>Bump</strong></h4><p>Bump mapping（凹凸贴图）是一种很好的方式，可以用着色来伪造物理细节的外观。如果未设置，它会使用本页底部 Properties 部分指定的全局 bump normal（凹凸法线）。</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="463" loading="lazy" src="../../attachments/542215119/rman_pxrsurf_diffBmp1.jpg" data-image-src="../../attachments/542215119/rman_pxrsurf_diffBmp1.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215194" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_diffBmp1.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215119" data-linked-resource-container-version="1" data-media-id="c84376ee-36e8-4308-a6c5-428a642ca3c2" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="463" loading="lazy" src="../../attachments/542215119/rman_pxrsurf_diffBmp2.jpg" data-image-src="../../attachments/542215119/rman_pxrsurf_diffBmp2.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215191" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_diffBmp2.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215119" data-linked-resource-container-version="1" data-media-id="2dda9b8b-8326-4396-9171-7ec1d923ae95" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="463" loading="lazy" src="../../attachments/542215119/rman_pxrsurf_diffBmp3.jpg" data-image-src="../../attachments/542215119/rman_pxrsurf_diffBmp3.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215188" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_diffBmp3.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215119" data-linked-resource-container-version="1" data-media-id="be804cc5-d3ed-4ed3-bd6f-05f8c0c73b56" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><br/></p><p><em>Double Sided</em></p><p>如果开启，该 Diffuse 波瓣会照亮表面的两侧，也就是说，法线背向相机的表面（二维对象）也会被照亮。 <br/>这样背面会被着色，而不是显示为黑色。该选项默认关闭。</p><p><br/></p><p><em>Use Diffuse Color</em></p><p>这仅在 <em>Double-Sided</em> 开启时适用。默认情况下，此选项开启，以便将 <strong>Diffuse Color</strong> 用作背面颜色。</p><p><br/></p><hr/><h4 id="DiffuseParameters-BackColor"><strong>Back Color</strong></h4><p>这仅在 <em>Double-Sided</em> 开启时适用。当 Diffuse Color 关闭时，此参数会设置背面颜色（背侧的颜色）。默认情况下，它使用 Diffuse Color；选择不同颜色则可以让二维对象的背侧呈现不同外观。</p><p><br/></p><hr/><p><br/><strong>Transmit Gain</strong></p><p>这仅在 <em>Double-Sided</em> 开启时适用。这里不是使用 <strong>Diffuse Gain</strong> 来控制漫透射的强度，而是使用 <strong>Transmit Gain</strong>。如果它为 0.0，则该效果关闭。下面示例中的 <strong>Transmit Color</strong> 为亮蓝色。</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="463" loading="lazy" src="../../attachments/542215119/rman_pxrsurf_diffTransGain00.jpg" data-image-src="../../attachments/542215119/rman_pxrsurf_diffTransGain00.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215203" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_diffTransGain00.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215119" data-linked-resource-container-version="1" data-media-id="9fa968da-0da8-41bb-803d-faecbf3aefad" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="463" loading="lazy" src="../../attachments/542215119/rman_pxrsurf_diffTransGain05.jpg" data-image-src="../../attachments/542215119/rman_pxrsurf_diffTransGain05.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215200" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_diffTransGain05.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215119" data-linked-resource-container-version="1" data-media-id="baae2999-c9eb-423e-a079-e8915b18ae53" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="463" loading="lazy" src="../../attachments/542215119/rman_pxrsurf_diffTransGain10.jpg" data-image-src="../../attachments/542215119/rman_pxrsurf_diffTransGain10.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215197" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_diffTransGain10.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215119" data-linked-resource-container-version="1" data-media-id="00755806-949e-4614-bc91-8341a5533f25" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><br/></p><hr/><h4 id="DiffuseParameters-TransmitColor"><strong>Transmit Color</strong></h4><p>这仅在 <em>Double-Sided</em> 开启时适用。此参数设置透射颜色，它可以不同于 Diffuse 颜色或背面颜色。如果 <strong>Transmit Gain</strong> 为零，则忽略此设置。该效果适用于树叶或纸张等薄对象。下面示例中，在对象内部放置了一盏灯，并且随着光线透过表面，可以看到一些内部文字。</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="463" loading="lazy" src="../../attachments/542215119/rman_pxrsurf_diffTrans1.jpg" data-image-src="../../attachments/542215119/rman_pxrsurf_diffTrans1.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215161" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_diffTrans1.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215119" data-linked-resource-container-version="1" data-media-id="50171f3f-f67e-4043-aabd-df5cf3e36026" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="463" loading="lazy" src="../../attachments/542215119/rman_pxrsurf_diffTrans2.jpg" data-image-src="../../attachments/542215119/rman_pxrsurf_diffTrans2.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215209" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_diffTrans2.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215119" data-linked-resource-container-version="1" data-media-id="11a67b70-6683-45b7-9936-1efd74c02c21" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="463" loading="lazy" src="../../attachments/542215119/rman_pxrsurf_diffTrans3.jpg" data-image-src="../../attachments/542215119/rman_pxrsurf_diffTrans3.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542215206" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_pxrsurf_diffTrans3.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542215119" data-linked-resource-container-version="1" data-media-id="f88d1d44-572e-4c19-acd1-a603cb35d726" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<hr/><p><span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image" height="64" loading="lazy" src="../../attachments/542215119/RenderManFundamentals_logo.png" data-image-src="../../attachments/542215119/RenderManFundamentals_logo.png" data-unresolved-comment-count="0" data-linked-resource-id="542215212" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderManFundamentals_logo.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542215119" data-linked-resource-container-version="1" data-media-id="74157b4f-d5b4-435b-9796-3ea0645618a5" data-media-type="file"></span><br/><strong>RenderMan Fundamentals</strong><br/><br/></p><iframe align="middle" allowfullscreen="" class="conf-macro output-block" data-hasbody="false" data-layout="default" data-local-id="9757ee39-21dc-4b4d-a7db-c640c73b45cd" data-macro-id="628eb148789e48d135d819409b7d0eaf79856a716cc189cadcb57de1baaba104" data-macro-name="iframe" frameborder="0" height="600px" sandbox="allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-popups-to-escape-sandbox allow-presentation allow-same-origin allow-scripts allow-top-navigation-by-user-activation" scrolling="yes" src="https://player.vimeo.com/video/471529273?h=d9fe405f6b&amp;title=0&amp;byline=0&amp;portrait=0" width="960px">
+    
+</iframe>
+<p><br/></p><p><a href="https://rmanwiki-26.pixar.com/space/REN26/19661439#DiffuseParameters-top" rel="nofollow">返回顶部</a></p></div>
+</div>
+</div>
+</div>
+  </article>
+</main>
+</body>
+</html>

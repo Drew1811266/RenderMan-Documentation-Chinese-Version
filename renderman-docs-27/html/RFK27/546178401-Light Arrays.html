@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Light Arrays</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Light Arrays</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFK27/546178401/Light+Arrays">https://rmanwiki-27.pixar.com/space/RFK27/546178401/Light+Arrays</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>Light arrays are very similar to instance arrays.  The major difference is that you don't need an instance source location.  Light arrays can be created with an OpScript. <span class="legacy-color-text-default"> See the </span><a href="../../attachments/20218656/lightArray.katana" rel="nofollow"><span class="legacy-color-text-default">lightArray.katana</span></a><span class="legacy-color-text-default"> file for an example of how to create light arrays from a point cloud. </span></p><p><span class="legacy-color-text-default">If you create a light array from a light in GafferThree, you need to make sure that the location type isn't changed until </span><em><span class="legacy-color-text-default">after</span></em><span class="legacy-color-text-default"> the ImplicitResolvers run. For example, if you change the location type via an OpScript, set the executionMode to &quot;deferred&quot;. This will allow the light array to respect the mute state of the GafferThree light.</span></p><p><span class="legacy-color-text-default">Here are the steps to create a light array:</span></p><ul><li><p>Create a light location in GafferThree.  Any light filters and light linking done on this light will be respected when the light is turned into a light array.</p></li><li><p>Set the type of the light to &quot;light array&quot;.</p></li><li><p>Set the geomety.instanceMatrix representing the transform of each instance of the light.  The local transform of the light array is applied to the whole light array, rather than the individual lights.</p></li></ul><p>These are the attributes that can be set on a light array location.  Only geometry.instanceMatrix is required:</p><div class="table-wrap"><table data-table-width="1800" data-layout="default" data-local-id="4c00ddb4-cd92-46ad-b192-a5a502a01f65" class="confluenceTable"><tbody><tr><td class="confluenceTd"><p>geometry.instanceMatrix</p></td><td class="confluenceTd"><p>For each instance in the instance array there are 16 values in the instanceMatrix representing the transformation matrix of this instance.  Note that this transform is relative to transform of the instance array itself.</p></td></tr><tr><td class="confluenceTd"><p>geometry.instanceMaterialOverride</p></td><td class="confluenceTd"><p>The light's attributes can be overridden with this attribute.  You will need one element per instance for each attribute that is overridden.  For example, to override the intensity you would set the geometry.instanceMaterialOverride.prmanLightParams.intensity attribute.  Note that when you set this attribute, you are no longer instancing the light because RenderMan light parameters cannot vary per instance.</p></td></tr></tbody></table></div><p />
+  </article>
+</main>
+</body>
+</html>

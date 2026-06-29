@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cryptomatte in Houdini</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Cryptomatte in Houdini</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFH27/544645367/Cryptomatte+in+Houdini">https://rmanwiki-27.pixar.com/space/RFH27/544645367/Cryptomatte+in+Houdini</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p><span class="legacy-color-text-default"> <a href="/wiki/spaces/REN24/pages/21760466/PxrCryptomatte" data-linked-resource-id="21760466" data-linked-resource-version="7" data-linked-resource-type="page">PxrCryptomatte</a> is supplied as a </span> <a class="external-link" href="http://rmanwiki-test.pixar.com/display/REN24/Sample+and+Display+Filters" rel="nofollow">Sample Filter</a> <span class="legacy-color-text-default"> plugin. As such the output for Cryptomatte is stored as a separate EXR file from your beauty or denoise outputs. Please note an OpenEXR is required to store the values correctly. </span>See <a href="/wiki/spaces/RFH27/pages/544645844/Display+Sample+Filters" data-linked-resource-id="544645844" data-linked-resource-version="1" data-linked-resource-type="page">here</a> for how to attach sample filters and how to combine sample filters. </p><p>Cryptomatte is used to generate automatic IDs or user supplied IDs for use in compositing. Typically the pass is used to identify and make changes to scene elements in post operations. It also removes the tedium of manually assigning useful IDs to your scene entities, especially when the scene is complex.</p><p>This example scene is available at the bottom of the page made with Houdini 18.0</p><h3 id="CryptomatteinHoudini-Built-inOptions">Built-in Options</h3><p><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image confluence-thumbnail" loading="lazy" src="../../attachments/544645367/cryptomatte.ris1.0001.png" data-image-src="../../attachments/544645367/cryptomatte.ris1.0001.png" data-unresolved-comment-count="0" data-linked-resource-id="544645397" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cryptomatte.ris1.0001.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544645367" data-linked-resource-container-version="1" data-media-id="fbef5376-551a-4f7b-8c25-eea98756270f" data-media-type="file"></span> <span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/544645367/obj.PNG" data-image-src="../../attachments/544645367/obj.PNG" data-unresolved-comment-count="0" data-linked-resource-id="544645418" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="obj.PNG" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544645367" data-linked-resource-container-version="1" data-media-id="939e4288-4d3f-4302-b0a0-391fded927e0" data-media-type="file"></span></p><h4 id="CryptomatteinHoudini-Layers">Layers</h4><ul style="list-style-type: square;"><li><strong>Name</strong> This uses the object name to specify an ID. Changing an object name will change the result.</li></ul><p><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image confluence-thumbnail" loading="lazy" src="../../attachments/544645367/name2.png" data-image-src="../../attachments/544645367/name2.png" data-unresolved-comment-count="0" data-linked-resource-id="544645415" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="name2.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544645367" data-linked-resource-container-version="1" data-media-id="23337bb9-6592-4c3a-8d20-6a6bb1d8a469" data-media-type="file"></span></p><ul style="list-style-type: square;"><li><strong>Path</strong> Similar to the name but instances are now identified</li></ul><p><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image confluence-thumbnail" loading="lazy" src="../../attachments/544645367/path2.png" data-image-src="../../attachments/544645367/path2.png" data-unresolved-comment-count="0" data-linked-resource-id="544645427" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="path2.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544645367" data-linked-resource-container-version="1" data-media-id="58239689-1f90-46e5-b5c1-2477e8a20963" data-media-type="file"></span></p><ul style="list-style-type: square;"><li><strong>Material</strong> This creates an ID based on the assigned material. Shared materials will have the same ID.</li></ul><p><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image confluence-thumbnail" loading="lazy" src="../../attachments/544645367/mat2.png" data-image-src="../../attachments/544645367/mat2.png" data-unresolved-comment-count="0" data-linked-resource-id="544645406" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="mat2.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544645367" data-linked-resource-container-version="1" data-media-id="dc533d5e-1bfe-4191-a116-1c33941ac1b1" data-media-type="file"></span></p><p><br/></p><h3 id="CryptomatteinHoudini-Attributes">Attributes</h3><ul style="list-style-type: square;"><li><strong>user:__objectid</strong> Based on OBJ node grouping<br/> <br/> <span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image confluence-thumbnail" loading="lazy" src="../../attachments/544645367/objectid2.png" data-image-src="../../attachments/544645367/objectid2.png" data-unresolved-comment-count="0" data-linked-resource-id="544645424" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="objectid2.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544645367" data-linked-resource-container-version="1" data-media-id="4b7880ac-7297-4f5e-a5f8-01af9e2acd1a" data-media-type="file"></span> </li><li><strong>user:cryptomatte</strong> This uses the parameter in RenderMan spare parameters<br/> <br/> <span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image confluence-thumbnail" loading="lazy" src="../../attachments/544645367/cryptoattr2.png" data-image-src="../../attachments/544645367/cryptoattr2.png" data-unresolved-comment-count="0" data-linked-resource-id="544645388" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cryptoattr2.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544645367" data-linked-resource-container-version="1" data-media-id="bfd3045e-2300-4975-b60e-5dc879084e11" data-media-type="file"></span> <span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/544645367/attr.PNG" data-image-src="../../attachments/544645367/attr.PNG" data-unresolved-comment-count="0" data-linked-resource-id="544645385" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="attr.PNG" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544645367" data-linked-resource-container-version="1" data-media-id="858bec18-e3bb-4966-8381-b8312a8fe1e3" data-media-type="file"></span></li></ul><ul style="list-style-type: square;"><li><strong>user:myatttr</strong> A primitive attribute on packed geometry only. Note that on unpacked geometry, primitive attributes are RenderMan Primvars (primitive variables built into the geometry) not attributes and so cannot be read by PxrCryptomatte<br/> <br/> <span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image confluence-thumbnail" loading="lazy" src="../../attachments/544645367/myattr2.png" data-image-src="../../attachments/544645367/myattr2.png" data-unresolved-comment-count="0" data-linked-resource-id="544645412" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="myattr2.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544645367" data-linked-resource-container-version="1" data-media-id="81a0c285-5a0d-4eb3-9df0-5dd56f788fa9" data-media-type="file"></span> <span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/544645367/geospread.PNG" data-image-src="../../attachments/544645367/geospread.PNG" data-unresolved-comment-count="0" data-linked-resource-id="544645400" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="geospread.PNG" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544645367" data-linked-resource-container-version="1" data-media-id="aabfcbeb-cd02-4d33-86d2-742f58a962c8" data-media-type="file"></span> </li><li>Any attribute can we specified such as visibility:camera, Ri:Matte, etc. for Cryptomatte to generate an ID. Please see the <a href="/wiki/spaces/REN24/pages/21760466/PxrCryptomatte" data-linked-resource-id="21760466" data-linked-resource-version="7" data-linked-resource-type="page">PxrCryptomatte</a> documentation for more details.</li></ul><p><strong>This scene is available below:</strong></p><p><a href="/wiki/download/attachments/544645367/cryptomatte.hip?version=1&amp;modificationDate=1754433140557&amp;cacheVersion=1&amp;api=v2" data-linked-resource-id="544645391" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cryptomatte.hip" data-linked-resource-content-type="application/octet-stream" data-linked-resource-container-id="544645367" data-linked-resource-container-version="1">cryptomatte.hip</a></p>
+  </article>
+</main>
+</body>
+</html>

@@ -1,0 +1,9 @@
+{"item_id":"45a44e6e9e:0","text":"Bakery 烘焙坊场景的灯光设置（Lighting）"}
+{"item_id":"45a44e6e9e:1","text":"lighting 的两个主要目标，是触动情绪并讲述故事。"}
+{"item_id":"45a44e6e9e:2","text":"确实，正是通过 lights 的选择、朝向以及 color/temperature，我们才能创造出唤起情绪和感官的氛围。在这个案例中，想法是营造温暖的日出气氛，突出 bakery 提供的诱人美味。强烈 sunlight 的 orange colors 穿过正面窗户，仿佛揭示出热面包的香气，以及甜美、酥脆、入口即化的 texture。既是视觉盛宴，也是想象力的盛宴！"}
+{"item_id":"45a44e6e9e:3","text":"这个 set 中我使用了三种类型的 lights。主要 light source，也就是 key light，是用 PxrDistantLight 实现的；它的特点是不会随距离损失能量，并且像太阳一样提供 parallel shadows。"}
+{"item_id":"45a44e6e9e:4","text":"太阳的 orange hue 和高 intensity 为 set 建立结构，引导观众视线并支撑 narrative。PxrDistantLight 略微向下倾斜，形成拉长的 shadows，有助于组织画面并强化 perspective。由于 scene 中元素丰富，这些 shadows 也可以用来压暗某些区域，简化图像阅读。"}
+{"item_id":"45a44e6e9e:5","text":"fill light 的特征是 bluish tint，用来表现 sky 的 indirect illumination，并通过 PxrDomeLight 实现。这样可以避免 pitch black shadows，并为 set 的阴影区域带来有活力的 glow。为了提高 sampling efficiency，使用 PxrPortalLights 的 direct light importance，并将它们放在 windows 的 openings 处。"}
+{"item_id":"45a44e6e9e:6","text":"为了获得更多控制，我在 PxrDomeLight 上附加了 PxrIntMultLightFilter，以降低它在 windows 上的 exposure，因为 glass 上的 reflection 太强，会 burn out image，干扰 pastries 的可见性。maya scene 中放置了三个 PxrRectLights。两个作为 bounce lights，放在 sunlight 的 impact points；另一个放在 door 后方，用来暗示有 baker 在门后工作。"}
+{"item_id":"45a44e6e9e:7","text":"最后，一个连接到 box primitive 的 PxrVolume 提供了与 golden hour 对应的 diffuse atmosphere。这个 volume 与 sunlight 做 light linked，以避免其他 light sources 让它变得过亮。"}
+{"item_id":"45a44e6e9e:8","text":"Tip：outdoor set dress 被用作 shadows 的基础。我从这个 facade 中移除了一些 meshes，并用 camera 外的 planes 替换它们，构建会改变图像的 shadows。"}

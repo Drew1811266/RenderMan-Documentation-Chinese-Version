@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pixar Surface Materials</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Pixar Surface Materials</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/REN27/542213758/Pixar+Surface+Materials">https://rmanwiki-27.pixar.com/space/REN27/542213758/Pixar+Surface+Materials</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="elio-25-banner.jpg" width="1280" loading="lazy" src="../../attachments/542213758/elio-25-banner.jpg" data-image-src="../../attachments/542213758/elio-25-banner.jpg" data-height="361" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="572522541" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="elio-25-banner.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542213758" data-linked-resource-container-version="2" data-media-id="9114c561-f102-445f-99db-59d388fc7c9b" data-media-type="file"></span><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="c431bcf6-f8e3-458b-a337-090825789c49" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>Ready to dive right into using PxrSurface Layering? Take a look at the <a href="/wiki/spaces/RFM26/pages/21037073/Using+Material+Layers" data-linked-resource-id="21037073" data-linked-resource-version="4" data-linked-resource-type="page">Maya</a> and <a href="/wiki/spaces/RFK26/pages/20218698/Copper+Patina+with+Layered+Materials" data-linked-resource-id="20218698" data-linked-resource-version="1" data-linked-resource-type="page">Katana</a> Tutorials.</p></div></div><p /><p>RenderMan presents the PxrSurface Material as a complete choice for shading most solid objects (<a href="/wiki/spaces/REN27/pages/542221154/PxrMarschnerHair" data-linked-resource-id="542221154" data-linked-resource-version="1" data-linked-resource-type="page">hair</a> and <a href="/wiki/spaces/REN27/pages/542220781/PxrVolume" data-linked-resource-id="542220781" data-linked-resource-version="5" data-linked-resource-type="page">volumes</a> have their own solutions). Layering is also possible and we simplify this approach with specialized nodes for layering PxrSurface.</p><p>Below is a simple exploration of each choice and how they are designed to be used. Note that we use the term &quot;lobe&quot; to describe each illumination lobe of the material. Diffuse is a lobe, as are Primary Specular, Clearcoat, and so on.</p><p>For a more technical exploration of the materials and usage at Pixar, take a look at our <a class="external-link" href="http://graphics.pixar.com/library/PxrMaterialsCourse2017/paper.pdf" rel="nofollow">research paper.</a> (PDF)</p><h3 id="PixarSurfaceMaterials-PxrSurface">PxrSurface</h3><p><a href="/wiki/spaces/REN27/pages/542213836/PxrSurface" data-linked-resource-id="542213836" data-linked-resource-version="2" data-linked-resource-type="page">PxrSurface</a> is the complete material package. It provides all of the available options and parameters for making just about anything. The user has the ability to combine any lobe and also layer them (using <a href="/wiki/spaces/REN27/pages/542218974/PxrLayerMixer" data-linked-resource-id="542218974" data-linked-resource-version="1" data-linked-resource-type="page">PxrLayerMixer</a>) for simple to complex surfaces. This material choice is useful for many surfaces where artistic freedoms are more important than strict realism. The production materials in RenderMan are from this same family and despite having different options, their parameters are all related. As such, the PxrSurface parameters are your source for how to tweak and manipulate options for your desired look.</p><p><br/></p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="960" loading="lazy" src="../../attachments/542213758/patinaModel_dof.jpg" data-image-src="../../attachments/542213758/patinaModel_dof.jpg" data-height="540" data-width="960" data-unresolved-comment-count="0" data-linked-resource-id="542213791" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="patinaModel_dof.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542213758" data-linked-resource-container-version="2" data-media-id="07dd6863-7674-46ee-81aa-4bb155f12c83" data-media-type="file"></span><h2 id="PixarSurfaceMaterials-LayeringSpecific">Layering Specific</h2><h3 id="PixarSurfaceMaterials-PxrLayerSurface">PxrLayerSurface</h3><p>As the name suggests, <a href="/wiki/spaces/REN27/pages/542216714/PxrLayerSurface" data-linked-resource-id="542216714" data-linked-resource-version="1" data-linked-resource-type="page">PxrLayerSurface</a> is designed for layering materials. You will notice this material node does not include anything that can be overridden by a PxrLayer pattern. This is so users aren't confused by seeing parameters seemingly fail to work because they changed them in a different (or Base) PxrLayer. Think of this node as your <em>global material settings</em> that are obeyed by all of your added layers. This eliminates the tedium of setting parameters to match in different places. This is your material of choice to begin layering looks.</p><p> <span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/542213758/MidnightRebel_v01.png" data-image-src="../../attachments/542213758/MidnightRebel_v01.png" data-unresolved-comment-count="0" data-linked-resource-id="542213803" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="MidnightRebel_v01.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542213758" data-linked-resource-container-version="2" data-media-id="601ac9de-c205-4fe7-9cfc-3b5403c9cb12" data-media-type="file"></span></p><h3 id="PixarSurfaceMaterials-PxrLayer">PxrLayer</h3><p>The <a href="/wiki/spaces/REN27/pages/542217837/PxrLayer" data-linked-resource-id="542217837" data-linked-resource-version="1" data-linked-resource-type="page">PxrLayer</a> pattern node is used to create the actual material layers. These options all provide the ability to enable specific lobes for creating unique looks. These layers can then be connected to a PxrLayerMixer (or multiple) for endless combinations. One example would be a PxrLayer set to look like glass and another to look like a shiny plastic label. These are both connected to a PxrLayerMixer (using the glass as a base) and the result is a glass bottle labeled and ready to render!</p><h3 id="PixarSurfaceMaterials-PxrLayerMixer">PxrLayerMixer</h3><p><a href="/wiki/spaces/REN27/pages/542218974/PxrLayerMixer" data-linked-resource-id="542218974" data-linked-resource-version="1" data-linked-resource-type="page">PxrLayerMixer</a> contains all the needed controls to decide the final order and masked result of the layers. It's an easy way to order and even re-order your layers. You can even connect other PxrLayerMixer nodes with useful networks making for easy reuse of asset libraries.</p><p><br/></p><p><br/></p>
+  </article>
+</main>
+</body>
+</html>

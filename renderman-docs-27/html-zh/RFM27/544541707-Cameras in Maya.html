@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cameras in Maya</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Cameras in Maya</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFM27/544541707/Cameras+in+Maya">https://rmanwiki-27.pixar.com/space/RFM27/544541707/Cameras+in+Maya</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p><style>[data-colorid=avxx3c4m45]{color:#222222} html[data-color-mode=dark] [data-colorid=avxx3c4m45]{color:#dddddd}[data-colorid=x6imxrsxvv]{color:#222222} html[data-color-mode=dark] [data-colorid=x6imxrsxvv]{color:#dddddd}</style>Cameras 在 RenderMan for Maya 中提供多种有趣的 effects。</p><ul><li><a href="544541742-Motion Blur in Maya.html" data-linked-resource-id="544541742" data-linked-resource-version="1" data-linked-resource-type="page">Motion Blur（运动模糊）</a></li><li><a href="544542056-Bokeh in Maya.html" data-linked-resource-id="544542056" data-linked-resource-version="1" data-linked-resource-type="page">Bokeh（散景）</a></li><li><a href="544542112-Tilt-Shift in Maya.html" data-linked-resource-id="544542112" data-linked-resource-version="1" data-linked-resource-type="page">Tilt-Shift（移轴）</a></li><li><a href="544541707-Cameras in Maya.html">Projections（投影）</a>（我们支持 Maya native projection workflow）</li><li><a href="https://rmanwiki-26.pixar.com/space/REN26/19661819/Filtering" data-linked-resource-id="19661819" data-linked-resource-version="8" data-linked-resource-type="page">Pixel and Sample Filtering（像素与采样过滤）</a></li></ul><div class="confluence-information-macro confluence-information-macro-tip conf-macro output-block" data-hasbody="true" data-macro-id="a365a205-6c92-48fd-bbfc-d29152ae3215" data-macro-name="tip"><span class="aui-icon aui-icon-small aui-iconfont-approve confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>关于 camera projection plugin（tilt-shift 和 vignetting 等高级 features 需要该插件），你可以在&nbsp;<a href="https://rmanwiki-26.pixar.com/space/REN26/19661243/PxrCamera" data-linked-resource-id="19661243" data-linked-resource-version="30" data-linked-resource-type="page">PxrCamera</a>&nbsp;页面了解更多信息。</p></div></div><p><br /></p><h2 id="CamerasinMaya-ImagePlanes">Image Planes（图像平面）</h2><p><span class="confluence-anchor-link conf-macro output-inline" data-hasbody="false" data-macro-id="027d2600-8d4e-469c-a5b7-0e1674d769e3" data-macro-name="anchor" id="CamerasinMaya-ImagePlanes"><span class="confluence-anchor-link" id="ImagePlanes"> </span></span></p><p><span data-colorid="avxx3c4m45">RenderMan 目前将 image planes 实现为&nbsp;<a href="https://rmanwiki-26.pixar.com/space/REN26/19661891/PxrImageDisplayFilter" data-linked-resource-id="19661891" data-linked-resource-version="1" data-linked-resource-type="page">PxrImageDisplayFilter</a>&nbsp;<em>SampleFilter</em>&nbsp;plug-in。在这种情况下，重要的是 <a href="https://rmanwiki-26.pixar.com/space/REN26/19661963/txmake" data-linked-resource-id="19661963" data-linked-resource-version="4" data-linked-resource-type="page">txmake</a> 从非方形 input image（.png 示例）生成未失真的 texture（.tex），以便 sample filter 能正确投射它。txmake command 大致如下：</span></p><div class="preformatted panel conf-macro output-block" data-hasbody="true" data-macro-id="55481071-6556-424f-9a97-16fd9b2f635c" data-macro-name="noformat" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>$ txmake -resize up imageplane.png imageplane.ip.tex</pre>
+</div></div><p><span data-colorid="x6imxrsxvv">此行为会导致旧版 RenderMan 生成的 image plane textures 不兼容。如果遇到 distortion 问题，很可能是因为你在不同 RenderMan 版本之间使用了相同的 image plane textures（.tex）。也可能是因为你使用错误的 txmake arguments 手动生成了 image plane textures（.tex）（注意 "up-" 与 "up" 的区别）。</span></p><p>Legacy behavior 可以通过禁用 <strong>Image Plane As Sample Filter</strong> option 来获得 legacy behavior；该选项位于 Advanced render settings 下。</p><p><br /></p><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="cc4cde8b-7d8b-4582-b47c-f7a981726467" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>为了使用 pattern plug-in 作为 image plane color，必须禁用 <strong>Image Plane As Sample Filter</strong> option。</p></div></div>
+  </article>
+</main>
+</body>
+</html>

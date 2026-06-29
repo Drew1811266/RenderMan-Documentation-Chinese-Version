@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Updating Existing Installations</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Updating Existing Installations</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/REN27/542212468/Updating+Existing+Installations">https://rmanwiki-27.pixar.com/space/REN27/542212468/Updating+Existing+Installations</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p><strong>在新的</strong> RenderMan 安装完成后，如果需要新的许可证，现在可以使用新的 Pixar License App 下载并轻松升级到新的许可证文件。</p><h5 id="UpdatingExistingInstallations-UpdatingFloatingLicenses">更新浮动许可证</h5><p>要更新现有浮动许可证，请在运行许可证服务器的主机上运行 LicenseApp。</p><p>你应该会看到当前正在提供服务的现有许可证：</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="600" loading="lazy" src="../../attachments/542212468/lin_licapp_withlicense.png" data-image-src="../../attachments/542212468/lin_licapp_withlicense.png" data-height="430" data-width="454" data-unresolved-comment-count="0" data-linked-resource-id="542212486" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="lin_licapp_withlicense.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542212468" data-linked-resource-container-version="2" data-media-id="32d9734a-2cdb-42f2-b67b-da1fd920eb11" data-media-type="file"></span><p>然后可以选择： <strong>Get License </strong>随后会弹出一个对话框，要求你输入论坛 ID 和密码，以及要下载的许可证序列号。</p><p>许可证下载后，正在运行的许可证服务器实际上不会自动加载它。你需要停止并重启许可证服务器，才能使此更改生效。你可以通过重启机器来完成；前提是许可证服务器已设置为在机器启动时自动启动。或者，你也可以手动启动和停止许可证服务器。此过程按操作系统分别说明如下：</p><p><a href="542212557-Linux License Server.html" data-linked-resource-id="542212557" data-linked-resource-version="1" data-linked-resource-type="page">Linux</a></p><p><a href="542212592-macOS License Server.html" data-linked-resource-id="542212592" data-linked-resource-version="1" data-linked-resource-type="page">macOS</a></p><p><a href="542212629-Windows License Server.html" data-linked-resource-id="542212629" data-linked-resource-version="1" data-linked-resource-type="page">Windows</a></p><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="1bbe99a9-027f-42bc-87a1-5f7220c62bf5" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>如果在合理较短的时间内重启许可证服务器，正在运行的渲染任务不应失败。你会看到如下类型的警告：</p><p><sup>R50004 {WARNING} License warning - code 10054: Connection lost to peer</sup></p><p><sup>R50004 {CONTINUED} license source: 9010@MYLICSERVER</sup></p><p><sup>R50004 {WARNING} License warning - license server connection re-established</sup></p></div></div><p> </p><h5 id="UpdatingExistingInstallations-UpdatingNode-LockedLicenses">更新节点锁定许可证</h5><p>要更新现有节点锁定许可证，请在拥有该节点锁定许可证的主机上运行 LicenseApp。</p><p>你应该会看到当前锁定到该机器的现有许可证：</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="600" loading="lazy" src="../../attachments/542212468/nodelocklicapp.png" data-image-src="../../attachments/542212468/nodelocklicapp.png" data-height="422" data-width="450" data-unresolved-comment-count="0" data-linked-resource-id="542212489" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="nodelocklicapp.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542212468" data-linked-resource-container-version="2" data-media-id="7ef88881-a0df-45da-b472-2b999124b788" data-media-type="file"></span><p>然后可以选择： <strong>Get License </strong>随后会弹出一个对话框，要求你输入论坛 ID 和密码，以及要下载的许可证序列号。</p><p>新许可证下载完成后，可以直接关闭 LicenseApp；你的应用程序随后应会使用新的许可证文件运行。</p>
+  </article>
+</main>
+</body>
+</html>

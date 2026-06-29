@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cameras in Maya</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Cameras in Maya</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFM27/544541707/Cameras+in+Maya">https://rmanwiki-27.pixar.com/space/RFM27/544541707/Cameras+in+Maya</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p><style>[data-colorid=avxx3c4m45]{color:#222222} html[data-color-mode=dark] [data-colorid=avxx3c4m45]{color:#dddddd}[data-colorid=x6imxrsxvv]{color:#222222} html[data-color-mode=dark] [data-colorid=x6imxrsxvv]{color:#dddddd}</style>Cameras provide a number of interesting effects in RenderMan for Maya.</p><ul><li><a href="/wiki/spaces/RFM27/pages/544541742/Motion+Blur+in+Maya" data-linked-resource-id="544541742" data-linked-resource-version="1" data-linked-resource-type="page">Motion Blur</a></li><li><a href="/wiki/spaces/RFM27/pages/544542056/Bokeh+in+Maya" data-linked-resource-id="544542056" data-linked-resource-version="1" data-linked-resource-type="page">Bokeh</a></li><li><a href="/wiki/spaces/RFM27/pages/544542112/Tilt-Shift+in+Maya" data-linked-resource-id="544542112" data-linked-resource-version="1" data-linked-resource-type="page">Tilt-Shift</a></li><li><a href="/wiki/spaces/RFM27/pages/544541707/Cameras+in+Maya">Projections</a> (we support the Maya native projection workflow)</li><li><a href="/wiki/spaces/REN26/pages/19661819/Filtering" data-linked-resource-id="19661819" data-linked-resource-version="8" data-linked-resource-type="page">Pixel and Sample Filtering</a></li></ul><div class="confluence-information-macro confluence-information-macro-tip conf-macro output-block" data-hasbody="true" data-macro-id="a365a205-6c92-48fd-bbfc-d29152ae3215" data-macro-name="tip"><span class="aui-icon aui-icon-small aui-iconfont-approve confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>You can learn more about our camera projection plugin (required for advanced features like tilt-shift and vignetting) on the&nbsp;<a href="/wiki/spaces/REN26/pages/19661243/PxrCamera" data-linked-resource-id="19661243" data-linked-resource-version="30" data-linked-resource-type="page">PxrCamera</a>&nbsp;page.</p></div></div><p><br /></p><h2 id="CamerasinMaya-ImagePlanes">Image Planes</h2><p><span class="confluence-anchor-link conf-macro output-inline" data-hasbody="false" data-macro-id="027d2600-8d4e-469c-a5b7-0e1674d769e3" data-macro-name="anchor" id="CamerasinMaya-ImagePlanes"><span class="confluence-anchor-link" id="ImagePlanes"> </span></span></p><p><span data-colorid="avxx3c4m45">RenderMan currently implements image planes as a&nbsp;<a href="/wiki/spaces/REN26/pages/19661891/PxrImageDisplayFilter" data-linked-resource-id="19661891" data-linked-resource-version="1" data-linked-resource-type="page">PxrImageDisplayFilter</a>&nbsp;<em>SampleFilter</em>&nbsp;plug-in. In this case, it's important that <a href="/wiki/spaces/REN26/pages/19661963/txmake" data-linked-resource-id="19661963" data-linked-resource-version="4" data-linked-resource-type="page">txmake</a> generates an undistorted texture (.tex) from the non-square input image (.png example) so that the sample filter can project it properly. The txmake command looks something like this:</span></p><div class="preformatted panel conf-macro output-block" data-hasbody="true" data-macro-id="55481071-6556-424f-9a97-16fd9b2f635c" data-macro-name="noformat" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>$ txmake -resize up imageplane.png imageplane.ip.tex</pre>
+</div></div><p><span data-colorid="x6imxrsxvv">This behavior creates an incompatibility of image plane textures generated by older versions of RenderMan. If you're having distortion problems, it's likely because you're using the same image plane textures (.tex) between different versions of RenderMan. It could also be because you've manually generated the image plane textures (.tex) using the wrong txmake arguments (note &quot;up-&quot; vs &quot;up&quot;).</span></p><p>Legacy behavior can be achieved by disabling the <strong>Image Plane As Sample Filter</strong> option under Advanced render settings.</p><p><br /></p><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="cc4cde8b-7d8b-4582-b47c-f7a981726467" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>You must disable the <strong>Image Plane As Sample Filter</strong> option in order to use a pattern plug-in as your image plane color.</p></div></div>
+  </article>
+</main>
+</body>
+</html>

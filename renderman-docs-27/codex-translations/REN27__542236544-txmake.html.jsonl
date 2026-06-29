@@ -1,0 +1,236 @@
+{"item_id":"8c7ae5e5f3:0","text":"txmake 会读取名为"}
+{"item_id":"8c7ae5e5f3:1","text":"foo.format"}
+{"item_id":"8c7ae5e5f3:2","text":"的图像文件（或多个图像文件），并创建一个 RenderMan texture file，名称为"}
+{"item_id":"8c7ae5e5f3:3","text":"foo.tex"}
+{"item_id":"8c7ae5e5f3:4","text":"的 RenderMan texture file。"}
+{"item_id":"8c7ae5e5f3:5","text":"foo.tex"}
+{"item_id":"8c7ae5e5f3:6","text":"原有内容（如果有）会被静默覆盖。输入文件支持以下格式：BMP、DPX、GIF、HDR、JPEG、MayaIFF、OpenEXR、PIC、PNG、PPM、Pixar DeepData、Pixar Texture、SGI、TGA、TIFF、XPM、Z-File。"}
+{"item_id":"8c7ae5e5f3:7","text":"txmake 基于 IceMan image compositing engine 编写，并增加了对以下功能的支持：可处理大型输入图像，所有图像计算都以 floating point 执行，可选择多个 channels，并且在计算 MIPmap 或 RIPmap 的每个后续层级时都可以应用 filters。"}
+{"item_id":"8c7ae5e5f3:8","text":"纹理（Texture）"}
+{"item_id":"8c7ae5e5f3:9","text":"纹理 Wrap Mode（包裹模式）"}
+{"item_id":"8c7ae5e5f3:10","text":"-mode <m>  将 <m> 设置选择应用到 S 和 T"}
+{"item_id":"8c7ae5e5f3:11","text":"-smode <m>  将 <m> 设置选择应用到 S"}
+{"item_id":"8c7ae5e5f3:12","text":"-tmode <m>  将 <m> 设置选择应用到 T"}
+{"item_id":"8c7ae5e5f3:13","text":"<m> 控制 texture coordinates 位于第一个 ST tile 之外时返回的 texture values。"}
+{"item_id":"8c7ae5e5f3:14","text":"black"}
+{"item_id":"8c7ae5e5f3:15","text":"适用于基于 tile 的工作流，例如 UDIM。"}
+{"item_id":"8c7ae5e5f3:16","text":"clamp"}
+{"item_id":"8c7ae5e5f3:17","text":"适用于非周期性的 texture access。"}
+{"item_id":"8c7ae5e5f3:18","text":"periodic"}
+{"item_id":"8c7ae5e5f3:19","text":"适用于周期性的 texture access。"}
+{"item_id":"8c7ae5e5f3:20","text":"默认值为 'black'。"}
+{"item_id":"8c7ae5e5f3:21","text":"图像尺寸调整（Image Resize）"}
+{"item_id":"8c7ae5e5f3:22","text":"-resize <r>  应用 resize 操作，将尺寸调整到最接近的 2 的幂"}
+{"item_id":"8c7ae5e5f3:23","text":"尺寸。"}
+{"item_id":"8c7ae5e5f3:24","text":"对于简单 texture 或 environment texture，texture file 的分辨率由图像文件的高度、宽度以及 resize option 指定的操作决定。如果图像的宽度或高度正好是 2 的幂，该维度会保持不变。任何不是 2 的幂的维度都会根据 resize operation 调整。如果图像尺寸已经是 2 的幂，则尺寸不会改变。除所用文件类型和执行转换的机器资源之外，转换没有尺寸限制。"}
+{"item_id":"8c7ae5e5f3:25","text":"请注意，许多文件格式可能有独立于 txmake 的存储类型和尺寸限制。TIFF 和 EXR 是最常见的类型。"}
+{"item_id":"8c7ae5e5f3:26","text":"转换为 .tx 的 TIFF 文件可能比其他格式性能更好，但最大尺寸限制为 4GB。"}
+{"item_id":"8c7ae5e5f3:27","text":"OpenEXR 文件可以更大，也可能更慢；但在使用以下设置转换为 .tx 时，它们的限制最少："}
+{"item_id":"8c7ae5e5f3:28","text":"-format openexr"}
+{"item_id":"8c7ae5e5f3:29","text":"<r> resize operation 可以是以下选项之一："}
+{"item_id":"8c7ae5e5f3:30","text":"none"}
+{"item_id":"8c7ae5e5f3:31","text":"不执行 resize。texture map size 将使用下一个更高的 2 的幂。texture file 中未被图像覆盖的区域会设为 black。"}
+{"item_id":"8c7ae5e5f3:32","text":"up"}
+{"item_id":"8c7ae5e5f3:33","text":"将图像向上调整到下一个更高的 2 的幂。texture access 会校正这次 resize。"}
+{"item_id":"8c7ae5e5f3:34","text":"down"}
+{"item_id":"8c7ae5e5f3:35","text":"将图像向下调整到下一个更低的 2 的幂。texture access 会校正这次 resize。"}
+{"item_id":"8c7ae5e5f3:36","text":"round"}
+{"item_id":"8c7ae5e5f3:37","text":"将图像调整到最接近的 2 的幂。texture access 会校正这次 resize。"}
+{"item_id":"8c7ae5e5f3:38","text":"up-"}
+{"item_id":"8c7ae5e5f3:39","text":"将图像向上调整到下一个更高的 2 的幂。生成图像上的 texture coordinates 范围为 0 到 1。"}
+{"item_id":"8c7ae5e5f3:40","text":"down-"}
+{"item_id":"8c7ae5e5f3:41","text":"将图像向下调整到下一个更低的 2 的幂。生成图像上的 texture coordinates 范围为 0 到 1。"}
+{"item_id":"8c7ae5e5f3:42","text":"round-"}
+{"item_id":"8c7ae5e5f3:43","text":"将图像调整到最接近的 2 的幂。生成图像上的 texture coordinates 范围为 0 到 1。"}
+{"item_id":"8c7ae5e5f3:44","text":"图像来源：NASA"}
+{"item_id":"8c7ae5e5f3:45","text":"默认值为 'up'。"}
+{"item_id":"8c7ae5e5f3:46","text":"调整尺寸滤镜（Resize Filter）"}
+{"item_id":"8c7ae5e5f3:47","text":"-filter <f>  在 resized 时应用以下 filter choices 之一。"}
+{"item_id":"8c7ae5e5f3:48","text":"<f> 是用于调整图像尺寸的 Filter。以下选项可用于 resize 图像。sharpening filters 通常更适合放大。"}
+{"item_id":"8c7ae5e5f3:49","text":"point"}
+{"item_id":"8c7ae5e5f3:50","text":"box"}
+{"item_id":"8c7ae5e5f3:51","text":"triangle"}
+{"item_id":"8c7ae5e5f3:52","text":"sinc"}
+{"item_id":"8c7ae5e5f3:53","text":"gaussian"}
+{"item_id":"8c7ae5e5f3:54","text":"gaussian-soft"}
+{"item_id":"8c7ae5e5f3:55","text":"catmull-rom"}
+{"item_id":"8c7ae5e5f3:56","text":"mitchell"}
+{"item_id":"8c7ae5e5f3:57","text":"cubic"}
+{"item_id":"8c7ae5e5f3:58","text":"lanczos"}
+{"item_id":"8c7ae5e5f3:59","text":"bessel"}
+{"item_id":"8c7ae5e5f3:60","text":"blackman-harris"}
+{"item_id":"8c7ae5e5f3:61","text":"默认值为 'catmull-rom'。"}
+{"item_id":"8c7ae5e5f3:62","text":"图像模糊控制（Image Blur：-blur <f> / -sblur <f> / -tblur <f>）"}
+{"item_id":"8c7ae5e5f3:63","text":"-blur <f>    将 blur 应用到 S 和 T 两个方向"}
+{"item_id":"8c7ae5e5f3:64","text":"-sblur <f>  只将 blur 应用到 S"}
+{"item_id":"8c7ae5e5f3:65","text":"-tblue <f>  只将 blur 应用到 T"}
+{"item_id":"8c7ae5e5f3:66","text":"<f> 大于 1.0 的值会模糊图像。"}
+{"item_id":"8c7ae5e5f3:67","text":"默认值为 1.0。"}
+{"item_id":"8c7ae5e5f3:68","text":"Alpha 边缘像素扩展（Bleed Alpha）"}
+{"item_id":"8c7ae5e5f3:69","text":"-bleedalpha"}
+{"item_id":"8c7ae5e5f3:70","text":"围绕 alpha mask 径向扩张 pixel values，适用于"}
+{"item_id":"8c7ae5e5f3:71","text":"texture baking"}
+{"item_id":"8c7ae5e5f3:72","text":"。这个 gutter 有助于避免 ST seams 周围的 sampling artifacts。"}
+{"item_id":"8c7ae5e5f3:73","text":"mipmapping"}
+{"item_id":"8c7ae5e5f3:74","text":"mipmapping 通过根据屏幕上 texture 的可见大小和角度，从 pyramid 中自动选择合适的 texture resolution level，来改善 texture aliasing 和渲染性能。这样可以减少处理时间，代价是损失一些不易察觉的细节。"}
+{"item_id":"8c7ae5e5f3:75","text":"mipmap 模式（Mipmap Pattern）"}
+{"item_id":"8c7ae5e5f3:76","text":"-pattern <p>"}
+{"item_id":"8c7ae5e5f3:77","text":"<p> 可以是以下选项之一："}
+{"item_id":"8c7ae5e5f3:78","text":"single"}
+{"item_id":"8c7ae5e5f3:79","text":"texture file 中只存储一张 texture image。这实际上会禁用 mipmapping，并且对大多数应用来说会导致非常差的 texturing performance。"}
+{"item_id":"8c7ae5e5f3:80","text":"diagonal"}
+{"item_id":"8c7ae5e5f3:81","text":"通过在 S 和 T 两个方向上连续将 texture image 降低到一半分辨率，生成更低分辨率的 textures。这样得到的 texture file 约比原始 texture image 大三分之一。"}
+{"item_id":"8c7ae5e5f3:82","text":"all"}
+{"item_id":"8c7ae5e5f3:83","text":"texture file 中存储完整的一组 texture images（即 ripmap）。这会让 texture file 约为原始 texture image 的四倍大小。"}
+{"item_id":"8c7ae5e5f3:84","text":"默认值为 'diagonal'。"}
+{"item_id":"8c7ae5e5f3:85","text":"mipmap 来源（Mipmap Source）"}
+{"item_id":"8c7ae5e5f3:86","text":"-mipfrom <s/n>"}
+{"item_id":"8c7ae5e5f3:87","text":"<s/n> 可以是以下选项之一，其中使用"}
+{"item_id":"8c7ae5e5f3:88","text":"整数。"}
+{"item_id":"8c7ae5e5f3:89","text":"previous"}
+{"item_id":"8c7ae5e5f3:90","text":"从前一个层级创建每个 mipmap level。"}
+{"item_id":"8c7ae5e5f3:91","text":"source"}
+{"item_id":"8c7ae5e5f3:92","text":"从 source image 创建所有 mipmaps。"}
+{"item_id":"8c7ae5e5f3:93","text":"<n>"}
+{"item_id":"8c7ae5e5f3:94","text":"指定显式的 mipmap level。"}
+{"item_id":"8c7ae5e5f3:95","text":"默认值为 'source'。"}
+{"item_id":"8c7ae5e5f3:96","text":"用户 mipmap（User Mipmaps）"}
+{"item_id":"8c7ae5e5f3:97","text":"-usermipmap <picnames>"}
+{"item_id":"8c7ae5e5f3:98","text":"<picnames> 中的文件对应 pyramid 中的各个层级（picnames 中的第一个名称 = pyramid 的最高分辨率层级）。请注意，生成这些 \"user mipmaps\" 有几条规则："}
+{"item_id":"8c7ae5e5f3:99","text":"第一张图像决定要写入 texture 的 transformation matrix。"}
+{"item_id":"8c7ae5e5f3:100","text":"第一张图像决定 texture 的 dimensions。"}
+{"item_id":"8c7ae5e5f3:101","text":"picnames 中列出的所有图像必须具有相同数量的 channels。"}
+{"item_id":"8c7ae5e5f3:102","text":"picnames 中列出的图像必须至少与对应的 pyramid level 一样大（也就是说，4x4 图像不能放入 8x8 图像）。"}
+{"item_id":"8c7ae5e5f3:103","text":"picnames 中的图像必须全部具有相同的相对尺寸（例如 4x2 图像和 4x4 图像不兼容，但 4x4 与 8x8 兼容，4x2 与 8x4 也兼容）。"}
+{"item_id":"8c7ae5e5f3:104","text":"除非格式为 tiff，否则 picnames 中列出的任何图像都不能大于第一张图像。"}
+{"item_id":"8c7ae5e5f3:105","text":"除非选择 \"singl\"，否则 picnames 中列出的最后一张图像会被向上过滤到 pyramid 的其余部分。"}
+{"item_id":"8c7ae5e5f3:106","text":"mipmap 滤镜（Mipmap Filter）"}
+{"item_id":"8c7ae5e5f3:107","text":"-mipfilter <f>"}
+{"item_id":"8c7ae5e5f3:108","text":"<f> 是用于创建 mipmap 的 pixel filter。请从以下选项中选择："}
+{"item_id":"8c7ae5e5f3:109","text":"point"}
+{"item_id":"8c7ae5e5f3:110","text":"box"}
+{"item_id":"8c7ae5e5f3:111","text":"triangle"}
+{"item_id":"8c7ae5e5f3:112","text":"sinc"}
+{"item_id":"8c7ae5e5f3:113","text":"gaussian"}
+{"item_id":"8c7ae5e5f3:114","text":"gaussian-soft"}
+{"item_id":"8c7ae5e5f3:115","text":"catmull-rom"}
+{"item_id":"8c7ae5e5f3:116","text":"mitchell"}
+{"item_id":"8c7ae5e5f3:117","text":"cubic"}
+{"item_id":"8c7ae5e5f3:118","text":"lanczos"}
+{"item_id":"8c7ae5e5f3:119","text":"bessel"}
+{"item_id":"8c7ae5e5f3:120","text":"blackman-harris"}
+{"item_id":"8c7ae5e5f3:121","text":"默认值为 'box'。"}
+{"item_id":"8c7ae5e5f3:122","text":"环境贴图设置（Environment Map）"}
+{"item_id":"8c7ae5e5f3:123","text":"经纬度贴图（Lat-Long Map）"}
+{"item_id":"8c7ae5e5f3:124","text":"-envlatl"}
+{"item_id":"8c7ae5e5f3:125","text":"创建经纬度环境贴图（lat-long environment map）。"}
+{"item_id":"8c7ae5e5f3:126","text":"漫反射卷积（Diffuse Convolution）"}
+{"item_id":"8c7ae5e5f3:127","text":"-diffconv <brdf,res,mip>"}
+{"item_id":"8c7ae5e5f3:128","text":"txmake 可以生成 side-band data，用于 Monte Carlo integration 的 control variates method。side-bands 是 diffuse BRDF 与 environment map 的 convolution。仅支持 lat-long maps。支持 OpenEXR 和 TIFF 文件。"}
+{"item_id":"8c7ae5e5f3:129","text":"brdf"}
+{"item_id":"8c7ae5e5f3:130","text":"是 {Lambert, KajiyaKay} 之一。此项为必需。"}
+{"item_id":"8c7ae5e5f3:131","text":"xres"}
+{"item_id":"8c7ae5e5f3:132","text":"是 mip-map pyramid 中计算 convolution 时所用的图像宽度。此项可选，默认值为 256。"}
+{"item_id":"8c7ae5e5f3:133","text":"\"mip\" 是可选的 literal。如果添加，convolution image 会生成 mip-map；否则不会生成（其他 mip levels 将包含 black）。"}
+{"item_id":"8c7ae5e5f3:134","text":"立方体环境贴图（Cube Map）"}
+{"item_id":"8c7ae5e5f3:135","text":"-envcube"}
+{"item_id":"8c7ae5e5f3:136","text":"从 6 张图像创建 cube environment map，例如："}
+{"item_id":"8c7ae5e5f3:137","text":"Environment cube maps 会使用特定格式的 layout 创建：tiff、pixar、openexr。"}
+{"item_id":"8c7ae5e5f3:138","text":"视场角设置（Filed of View）"}
+{"item_id":"8c7ae5e5f3:139","text":"-fov <f>"}
+{"item_id":"8c7ae5e5f3:140","text":"<f> 是以度为单位的 cube map field-of-view。"}
+{"item_id":"8c7ae5e5f3:141","text":"Ptex 立方体贴图（Ptex Cube Map）"}
+{"item_id":"8c7ae5e5f3:142","text":"-penvcube"}
+{"item_id":"8c7ae5e5f3:143","text":"从 6 张图像创建 ptex cube environment map。"}
+{"item_id":"8c7ae5e5f3:144","text":"球谐带数（Spherical Harmonic Bands）"}
+{"item_id":"8c7ae5e5f3:145","text":"-shbands <n>"}
+{"item_id":"8c7ae5e5f3:146","text":"嵌入 <n> 个 spherical harmonic bands。"}
+{"item_id":"8c7ae5e5f3:147","text":"格式（Format）"}
+{"item_id":"8c7ae5e5f3:148","text":"图像文件格式（Image Format）"}
+{"item_id":"8c7ae5e5f3:149","text":"-format <f>"}
+{"item_id":"8c7ae5e5f3:150","text":"<f> 对应底层 texture image format（对于生成的大型 >4GB 图像，必须使用 openexr）："}
+{"item_id":"8c7ae5e5f3:151","text":"tiff"}
+{"item_id":"8c7ae5e5f3:152","text":"pixar"}
+{"item_id":"8c7ae5e5f3:153","text":"openexr"}
+{"item_id":"8c7ae5e5f3:154","text":"默认 tiff 是在 rendermn.ini 中作为 configuration option 指定的。"}
+{"item_id":"8c7ae5e5f3:155","text":"数据压缩方式（Data Compression）"}
+{"item_id":"8c7ae5e5f3:156","text":"-compression <c>"}
+{"item_id":"8c7ae5e5f3:157","text":"对于 Pixar format，<c> 为："}
+{"item_id":"8c7ae5e5f3:158","text":"none"}
+{"item_id":"8c7ae5e5f3:159","text":"lossless"}
+{"item_id":"8c7ae5e5f3:160","text":"lossy"}
+{"item_id":"8c7ae5e5f3:161","text":"对于 OpenEXR format，<c> 为："}
+{"item_id":"8c7ae5e5f3:162","text":"none"}
+{"item_id":"8c7ae5e5f3:163","text":"rle"}
+{"item_id":"8c7ae5e5f3:164","text":"zip"}
+{"item_id":"8c7ae5e5f3:165","text":"piz"}
+{"item_id":"8c7ae5e5f3:166","text":"pxr24"}
+{"item_id":"8c7ae5e5f3:167","text":"b44"}
+{"item_id":"8c7ae5e5f3:168","text":"b44a"}
+{"item_id":"8c7ae5e5f3:169","text":"TIFF format 始终使用 LZW compression。Pixar format 默认使用 'lossless' compression，而 OpenEXR 默认使用 'zip'。"}
+{"item_id":"8c7ae5e5f3:170","text":"输出数据类型（Data Type）"}
+{"item_id":"8c7ae5e5f3:171","text":"-byte / -short / -half / -float"}
+{"item_id":"8c7ae5e5f3:172","text":"控制文件格式的数据类型（file format datatype）。"}
+{"item_id":"8c7ae5e5f3:173","text":"byte"}
+{"item_id":"8c7ae5e5f3:174","text":"输出无符号 8-bit 数据（unsigned 8-bit data）"}
+{"item_id":"8c7ae5e5f3:175","text":"short"}
+{"item_id":"8c7ae5e5f3:176","text":"输出有符号 16-bit 数据（signed 16-bit data）"}
+{"item_id":"8c7ae5e5f3:177","text":"half"}
+{"item_id":"8c7ae5e5f3:178","text":"输出 half-float data（OpenEXR/penv）"}
+{"item_id":"8c7ae5e5f3:179","text":"float"}
+{"item_id":"8c7ae5e5f3:180","text":"输出 float data"}
+{"item_id":"8c7ae5e5f3:181","text":"通道（Channel）"}
+{"item_id":"8c7ae5e5f3:182","text":"-ch <#,#:#>"}
+{"item_id":"8c7ae5e5f3:183","text":"默认情况下，texture file 中 channels 的数量和顺序直接取决于 image file 中的 channel 集合。RGBA picture 会生成四通道 texture，RGB picture 会生成三通道 texture，R picture 会生成单通道 texture。-ch option 可用于选择并重新排序 image file 的 channels。channel #'s 用于选择 image file 的 channels。Channels indexing 从 0 开始。对于 RGB，`-ch 1` 只会选择 image file 的 green channel，并将其放入 texture file 的 channel 0。可以使用数字列表选择多个 channels，例如 `-ch 0,1,2` 和 `-ch 0:2` 会选择 image file 的 RGB channels，而 `-ch 2,1,0` 会选择相同 channels，但顺序为 blue、red、green。"}
+{"item_id":"8c7ae5e5f3:184","text":"显示窗口设置（Display Window）"}
+{"item_id":"8c7ae5e5f3:185","text":"-extraargs displaywindow"}
+{"item_id":"8c7ae5e5f3:186","text":"displaywindow 仅用于 exr input。"}
+{"item_id":"8c7ae5e5f3:187","text":"Bump To Roughness（凹凸转 Roughness）"}
+{"item_id":"8c7ae5e5f3:188","text":"Bump to roughness 要求所有 bump maps 或 normal maps 都转换为 *.b2r texture。"}
+{"item_id":"8c7ae5e5f3:189","text":"b2r textures 包含 5 个 channels，并且始终以 OpenEXR format 生成，因为它能为 half-float data 提供最佳 compression ratios。"}
+{"item_id":"8c7ae5e5f3:190","text":"-bumprough <f> <i> <n> <iu> <iv> <i>"}
+{"item_id":"8c7ae5e5f3:191","text":"<f>：roughness scaling factor"}
+{"item_id":"8c7ae5e5f3:192","text":"默认值：2.0（极少需要更改）"}
+{"item_id":"8c7ae5e5f3:193","text":"<i>：invert bump signal（0|1）"}
+{"item_id":"8c7ae5e5f3:194","text":"默认值：0"}
+{"item_id":"8c7ae5e5f3:195","text":"<n>：interpret as normal map（0|1）"}
+{"item_id":"8c7ae5e5f3:196","text":"默认值：0"}
+{"item_id":"8c7ae5e5f3:197","text":"<iu>：在 U 方向 invert map（0|1）"}
+{"item_id":"8c7ae5e5f3:198","text":"默认值：0"}
+{"item_id":"8c7ae5e5f3:199","text":"<iv>：在 V 方向 invert map（0|1）"}
+{"item_id":"8c7ae5e5f3:200","text":"默认值：0"}
+{"item_id":"8c7ae5e5f3:201","text":"<iv>：重新拟合 slope distribution，以获得更好的结果。"}
+{"item_id":"8c7ae5e5f3:202","text":"默认值：1。"}
+{"item_id":"8c7ae5e5f3:203","text":"这一步耗时较长，但从远处观看时能更好地保留 details。"}
+{"item_id":"8c7ae5e5f3:204","text":"典型的 txmake bump map 调用如下："}
+{"item_id":"8c7ae5e5f3:205","text":"normal map 的调用如下："}
+{"item_id":"8c7ae5e5f3:206","text":"已弃用的阴影贴图（Shadow Map deprecated）"}
+{"item_id":"8c7ae5e5f3:207","text":"阴影（Shadow）"}
+{"item_id":"8c7ae5e5f3:208","text":"-shadow"}
+{"item_id":"8c7ae5e5f3:209","text":"从 z-image 创建阴影贴图（shadow map）。"}
+{"item_id":"8c7ae5e5f3:210","text":"最小/最大阴影贴图（Min/Max Shadow Map）"}
+{"item_id":"8c7ae5e5f3:211","text":"-minmaxshadow"}
+{"item_id":"8c7ae5e5f3:212","text":"创建 minmax shadow map。"}
+{"item_id":"8c7ae5e5f3:213","text":"金字塔阴影贴图（Pyramid Shadow Maps）"}
+{"item_id":"8c7ae5e5f3:214","text":"-pyramidshadow"}
+{"item_id":"8c7ae5e5f3:215","text":"创建 pyramid shadow map。"}
+{"item_id":"8c7ae5e5f3:216","text":"命令行选项（Command Line）"}
+{"item_id":"8c7ae5e5f3:217","text":"较新文件检查（Newer）"}
+{"item_id":"8c7ae5e5f3:218","text":"-newer"}
+{"item_id":"8c7ae5e5f3:219","text":"如果 source 比 target texture 更旧，则不执行任何操作。"}
+{"item_id":"8c7ae5e5f3:220","text":"目录映射设置（Directory Map）"}
+{"item_id":"8c7ae5e5f3:221","text":"-dirmap <s> -dirmapend"}
+{"item_id":"8c7ae5e5f3:222","text":"对输入和输出文件应用 dirmapping。可以指定多个 dirmaps。<s> 的语法应类似于 RiOption \"searchpath\" \"dirmap\"，例如："}
+{"item_id":"8c7ae5e5f3:223","text":"[\"NFS\" \"z:/\" \"/mnt/\"] [\"NFS\" \"Z:/\" \"/mnt/\"]"}
+{"item_id":"8c7ae5e5f3:224","text":"线程（Threads）"}
+{"item_id":"8c7ae5e5f3:225","text":"-t:X"}
+{"item_id":"8c7ae5e5f3:226","text":"使用 X 个 threads。默认使用所有 threads。"}
+{"item_id":"8c7ae5e5f3:227","text":"详细输出（Verbose）"}
+{"item_id":"8c7ae5e5f3:228","text":"-verbose"}
+{"item_id":"8c7ae5e5f3:229","text":"在 txmake 执行时打印 updates。"}
+{"item_id":"8c7ae5e5f3:230","text":"版本（Version）"}
+{"item_id":"8c7ae5e5f3:231","text":"-version"}
+{"item_id":"8c7ae5e5f3:232","text":"打印 version 并退出。"}
+{"item_id":"8c7ae5e5f3:233","text":"帮助（Help）"}
+{"item_id":"8c7ae5e5f3:234","text":"-help"}
+{"item_id":"8c7ae5e5f3:235","text":"打印 usage 并退出。"}

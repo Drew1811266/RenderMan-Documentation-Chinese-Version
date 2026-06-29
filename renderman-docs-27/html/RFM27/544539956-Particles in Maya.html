@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Particles in Maya</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Particles in Maya</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFM27/544539956/Particles+in+Maya">https://rmanwiki-27.pixar.com/space/RFM27/544539956/Particles+in+Maya</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><style>[data-colorid=kj66vkufoc]{color:#808284} html[data-color-mode=dark] [data-colorid=kj66vkufoc]{color:#7b7d7f}[data-colorid=wf54ywdnqs]{color:#808284} html[data-color-mode=dark] [data-colorid=wf54ywdnqs]{color:#7b7d7f}</style><img class="confluence-embedded-image image-center" width="900" loading="lazy" src="../../attachments/544539956/RfM_Particles.jpg" data-image-src="../../attachments/544539956/RfM_Particles.jpg" data-height="614" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="544539971" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RfM_Particles.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544539956" data-linked-resource-container-version="1" data-media-id="48ea82b8-be55-48ff-9ba2-11a6b2a9a4c0" data-media-type="file" /></span><p style="text-align: center;"><span data-colorid="wf54ywdnqs">A RenderMan Walking Teapot full of particle spheres</span></p><p><br /></p><p>RenderMan for Maya provides automatic support for Maya particles, including Maya particle instancing.</p><p>The following particle types are supported.</p><ul><li><p>Points</p></li><li><p>Spheres</p></li><li><p>Streak</p></li><li><p>Multistreak</p></li><li><p>Sprites</p></li></ul><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="900" loading="lazy" src="../../attachments/544539956/rfm-particle-types.jpg" data-image-src="../../attachments/544539956/rfm-particle-types.jpg" data-height="256" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="544539968" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfm-particle-types.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544539956" data-linked-resource-container-version="1" data-media-id="ead4ff4d-0fb3-44f1-882a-e28d5199b642" data-media-type="file" /></span><h3 id="ParticlesinMaya-RealPrimitives">Real Primitives</h3><p>RfM renders particles as real geometric primitives. RenderMan's highly optimized particle primitives are fast and efficient and carry many benefits, including:</p><ul><li><p>Antialiasing, motion blur, and full integration into the scene.</p></li><li><p>Particles can cast shadows</p></li><li><p>Arbitrary shaders can be attached</p></li></ul><p>Also, when rendering particles through RenderMan you have control over the physical size of the particles in world space units. This is due to the fact that Pixar's RenderMan is resolution-independent, while hardware rendering modes commonly work in pixel units.</p><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="2adf1824-ac28-41e7-89b9-b8f988719328" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><h3 id="ParticlesinMaya-RayVisibility">Ray Visibility</h3><p>Make sure to force the particles to be visible for indirect rays, as Maya turns this off by default. You can use Maya's attribute spreadsheet to turn on &quot;visible in refraction&quot; and &quot;visible in reflection&quot; in your particle's Render Stats.</p></div></div><h3 id="ParticlesinMaya-ParticleInstancing">Particle Instancing</h3><p>RenderMan for Maya supports Maya particle instancing. For complete details on how to set up your scene for particle instancing, please refer to the Maya documentation.</p><p>There are some cases where RenderMan for Maya does not correctly translate Maya's configuration. Generally, if you stick to the prescribed steps and avoid obscure orientation configurations, you'll get good results.</p><p><br /></p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="900" loading="lazy" src="../../attachments/544539956/RfM_Particles_Instancing.jpg" data-image-src="../../attachments/544539956/RfM_Particles_Instancing.jpg" data-height="615" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="544539974" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RfM_Particles_Instancing.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544539956" data-linked-resource-container-version="1" data-media-id="6b8f9250-81c0-4afa-89c3-e29cf7fd7c24" data-media-type="file" /></span><p style="text-align: center;"><span data-colorid="kj66vkufoc">A RenderMan Walking Teapot full of particle spheres ... now instanced with tiny RenderMan Walking Teapots!</span></p><p style="text-align: center;"><br /></p><h3 id="ParticlesinMaya-Per-ParticleEffects&amp;ArbitraryAttributes">Per-Particle Effects &amp; Arbitrary Attributes</h3><p>RenderMan for Maya automatically establishes the correct rendering context for variations in particle color, opacity, and radius. A useful way to attach the particle's color and opacity, is to use the Cs and Os primvars. You can attach the primvars to the material by using a PxrPrimvar pattern.</p><p>You can write MEL expressions to calculate per-particle radii (<strong>radiusPP</strong>), color (<strong>rgbPP</strong>), opacity (<strong>opacityPP</strong>), and lifespan (<strong>lifespanPP</strong>&nbsp;and&nbsp;<strong>useLifespanPP</strong>). You can also use Maya to setup procedural ramps which remap these values.</p><p>Finally, you can create arbitrary attributes and associate them with the RenderMan representation of your particle objects. This might be of use if you plan to write a custom shader to perform calculations using per-particle or per-particle-object attributes. For more on the general mechanism for transmitting arbitrary primitive attributes through RenderMan, please refer to the primitive variables reference.</p>
+  </article>
+</main>
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Assign materials</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Assign materials</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFM27/544540421/Assign+materials">https://rmanwiki-27.pixar.com/space/RFM27/544540421/Assign+materials</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="contentLayout2">
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h3 id="Assignmaterials-ShaderAssignments">Shader Assignments（着色器分配）</h3><p>gpuCache 在 Maya 中是单个 shape（形状），因此无法像平常一样分配 materials（材质）。但我们可以使用 RenderMan 的 <strong>Dynamic Rules Editor（动态规则编辑器）</strong> 在 render-time（渲染时）分配材质，但有以下限制：</p><ul><li><p>所有被引用的 materials（材质）必须存在于场景中。</p></li><li><p>不支持 per-faceset materials（按 faceset 的材质）。</p></li><li><p>任何会影响 raytracing core（光线追踪核心）的 attribute（属性）都会被渲染器忽略。这包括 group membership definitions（分组成员关系定义）、selective lighting（选择性照明）等。</p></li><li><p>任何 rule change（规则更改）都需要重启 IPR 才会生效。</p></li><li><p>这些限制将在后续版本中解除。</p></li></ul></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<div class="toc-macro client-side-toc-macro  conf-macro output-block" data-hasbody="false" data-headerelements="H1,H2,H3,H4,H5,H6,H7" data-layout="default" data-local-id="b88b75e8-dde7-4fa2-8718-db5bc39b39e3" data-macro-id="076c5bc4-03a9-4b04-8c9c-741c9bf4c623" data-macro-name="toc"> </div></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h3 id="Assignmaterials-RLFEditoroverview">RLF Editor overview（RLF 编辑器概览）</h3><p>打开 Dynamic Rules Editor（动态规则编辑器），看看它的工作方式。</p><p>你可以点击 shelf（工具架）中的双尖括号图标，或点击 gpuCache attribute editor（属性编辑器）中的 <strong>Edit RLF File（编辑 RLF 文件）</strong> 按钮位于 gpuCache 的 attribute editor（属性编辑器）中。shelf 按钮会编辑场景中的所有 alembics，而每个节点上的按钮只会编辑与该节点关联的 RLF。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="1275" loading="lazy" src="../../attachments/544540421/rfm_dynamicRules.png" data-image-src="../../attachments/544540421/rfm_dynamicRules.png" data-height="365" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="544540440" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfm_dynamicRules.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544540421" data-linked-resource-container-version="1" data-media-id="83b32d03-e079-4a0a-8ad8-1f755a889150" data-media-type="file"></span><p /><h4 id="Assignmaterials-Rulesmanagement">Rules management（规则管理）</h4><p>左侧按钮负责所有 rule（规则）和 file management（文件管理）任务：</p><ul><li><p><strong>Add new rule（添加新规则）</strong>：创建一条新的空规则</p></li><li><p><strong>Delete selected rule（删除所选规则）</strong>：点击规则编号选择一条或多条规则，然后按此按钮。</p></li><li><p><strong>Duplicate selected rule（复制所选规则）</strong>：点击规则编号选择一条或多条规则，然后按此按钮。</p></li><li><p><strong>Load RLF file（加载 RLF 文件）</strong>：用磁盘上的文件替换编辑器内容。（仅 scene editor，场景编辑器）</p></li><li><p><strong>Save RLF file（保存 RLF 文件）</strong>：将编辑器内容保存到磁盘。</p></li><li><p><strong>Auto-save changes（自动保存更改）</strong>：当图标为橙色时自动保存到磁盘。（仅 node editor，节点编辑器）</p></li></ul><h4 id="Assignmaterials-Rulesorder">Rules order（规则顺序）</h4><p>规则会按照编辑器中的顺序求值。若要更改顺序，请点击规则编号并拖动到新位置。</p><h4 id="Assignmaterials-Rulecontrols">Rule controls（规则控制）</h4><p><strong>Enable/disable（启用/禁用）</strong>：当 toggle（开关）为绿色时，会对该规则求值。</p><p><strong>Stop/continue（停止/继续）</strong>：当图标为叉号时，如果此规则匹配，规则求值会停止。向下箭头图标表示即使此规则匹配，也会继续求值后续规则。</p><p><strong>Material（材质）</strong>：材质对应的 shading group（着色组），它会引用 surface（曲面）和 displacement shaders（置换着色器）。</p><p><strong>Attributes（属性）</strong>：插入或覆盖 attribute values（属性值）。点击 <strong>new（新建）</strong>/<strong>edit（编辑）</strong> 图标以打开 attribute dialog（属性对话框）。</p><ul><li><p>点击 <strong>+</strong> 图标，并右键点击 attribute field（属性字段）以选择一个受支持的 attribute（属性）。</p></li><li><p>像平常一样选择一个或多个 attributes（属性），然后点击 <strong>-</strong> 图标将其删除。</p></li><li><p>具有固定可接受值列表的 attributes（属性）也可以通过右键点击来设置。</p></li><li><p>保存窗口时，settings（设置）会自动保存。</p></li></ul><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="1128" loading="lazy" src="../../attachments/544540421/abc_attr_setup.gif" data-image-src="../../attachments/544540421/abc_attr_setup.gif" data-height="356" data-width="844" data-unresolved-comment-count="0" data-linked-resource-id="544540437" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="abc_attr_setup.gif" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/gif" data-linked-resource-container-id="544540421" data-linked-resource-container-version="1" data-media-id="531d8722-593a-4c0a-9886-3adbab1c2a3d" data-media-type="file"></span><p><strong>Match type（匹配类型）</strong>：有 3 种 matching engines（匹配引擎）：</p><ul><li><p><strong>exact</strong>：这是最快的方式，并且只匹配完整路径。</p></li><li><p><strong>glob</strong>：基于 glob matching（glob 匹配），使用以下 tokens（标记）：</p><ul><li><p>*：任意数量的字符</p></li><li><p>?：单个字符</p></li><li><p>**：hierarchy（层级）中的任意深度</p></li></ul></li><li><p><strong>re</strong>： <a class="external-link" href="https://github.com/google/re2/wiki/Syntax" rel="nofollow">re2</a> regular expression（正则表达式）。这是最复杂、最精细，也可能最慢的匹配方法。</p></li></ul><p><strong>Path expression（路径表达式）</strong>：你可以双击字段来输入表达式，也可以从 alembic node list（Alembic 节点列表）拖放。</p><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="bff4af30-f259-41c3-8454-31670f73d070" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>若要拖放，必须先在 alembic node list（Alembic 节点列表）中选择节点。</p></div></div><p><strong>Notes（备注）</strong>：当事情变复杂时，可在此字段中写备注...</p><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="c8dd78b4-f94b-46ea-947c-666aa694736e" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>一条规则可以分配：</p><p>• material（材质）</p><p>• attributes（属性）</p><p>• 或两者都分配！</p></div></div><h4 id="Assignmaterials-Aboutattributesandnodetypes">About attributes and node types（关于属性和节点类型）</h4><p>在 RenderMan 中，每个 shape（形状）都是一个 instance（实例）。这意味着附加到特定 shape 的 attribute（属性）会影响该 shape 的所有 instances（实例）。</p><p>如果你想把 attribute（属性）分配给 instance（实例），请创建一个匹配该 instance transform（实例变换）的表达式。这对于类似 <code>maxspeculardepth</code>, <code>maxdiffusedepth</code>, <code>relativepixelvariance</code>等 classic attributes（经典属性）尤其重要。</p><p /><h3 id="Assignmaterials-In-sceneshading">In-scene shading（场景内着色）</h3><p>Dynamic rules（动态规则）使用类似 shell 的 glob expressions（glob 表达式）编写。更多信息请参见下方的 <a href="#DynamicRulesCookBook">Dynamic Rules CookBook（动态规则指南）</a>。</p><p>这是我们的起点：gpuCache 节点使用默认材质渲染：</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="1299" loading="lazy" src="../../attachments/544540421/rfm_dynamicRulesRenderA.png" data-image-src="../../attachments/544540421/rfm_dynamicRulesRenderA.png" data-height="696" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="544540455" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfm_dynamicRulesRenderA.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544540421" data-linked-resource-container-version="1" data-media-id="14bf3549-3b3e-4d55-94e1-ee6fa7edbc67" data-media-type="file"></span><h5 id="Assignmaterials-Assignabasematerialtopartofanarchive">为 archive（归档）的一部分分配 base material（基础材质）</h5><p>我们准备了一些可供分配的 basic materials（基础材质）。先把 <code>hull_srf</code> 材质分配给整个 teapot（茶壶），并写下第一条规则：</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="680" loading="lazy" src="../../attachments/544540421/rfm_dynamicRulesAssign.png" data-image-src="../../attachments/544540421/rfm_dynamicRulesAssign.png" data-height="687" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="544540452" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfm_dynamicRulesAssign.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544540421" data-linked-resource-container-version="1" data-media-id="e81c9179-a920-4d4b-99eb-732625a6371a" data-media-type="file"></span><ul><li><p>在 node list（节点列表）中，选择我们要分配的 hierarchy（层级）的顶层节点：Rolling_Teapot。</p></li><li><p>点击 <strong>Add Rule（添加规则）</strong>（蓝色 + 图标）来创建新规则，或使用初始的空规则</p></li><li><p>双击 expression field（表达式字段）进入编辑模式。此字段是 &gt;_ 列。</p></li><li><p>转到 Alembic node list（Alembic 节点列表），并用鼠标中键将所选节点拖入 expression field（表达式字段）。</p><ul><li><p>请注意，拖放之前必须先在列表中选择一项。（你的窗口也必须 docked（停靠），不能在 Windows OS 上浮动；切换焦点会导致无法用鼠标中键拖动。）</p></li></ul></li><li><p>将表达式从 /Rolling_Teapot_Grp/Rolling_Teapot 编辑为下面这样：</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="ca429d5b-b769-43db-bdc4-910682376422" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">/**/Rolling_Teapot</pre>
+</div></div><ul><li><p>** 表示匹配任意嵌套深度（包括没有嵌套），而 * 只会匹配 / 分隔符之间的字符</p></li><li><p>按 Enter 验证。</p></li></ul></li><li><p>右键点击 <strong>Payload（载荷）</strong> 字段（带 sliders 图标），然后选择 <code>hull_srfSG</code>。</p></li><li><p>启动 IPR 进行测试。</p></li></ul><h5 id="Assignmaterials-Matchsub-stringsinahierarchy">Match sub-strings in a hierarchy（在层级中匹配子字符串）</h5><p>现在我们要为 teapot（茶壶）上的 rivets（铆钉）着色。我们需要更复杂的表达式。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="680" loading="lazy" src="../../attachments/544540421/rfm_dynamicRulesAssignRivets.png" data-image-src="../../attachments/544540421/rfm_dynamicRulesAssignRivets.png" data-height="687" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="544540449" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfm_dynamicRulesAssignRivets.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544540421" data-linked-resource-container-version="1" data-media-id="66d03192-0803-4e80-82c5-7a2b95ae1044" data-media-type="file"></span><ul><li><p>Duplicate the first rule（复制第一条规则）</p><ul><li><p>右键点击规则编号（本例中为 0），然后选择 <strong>Duplicate Rules（复制规则） </strong>（位于 “-” 减号图标正下方的 copy 图标）。</p></li></ul></li><li><p>扩展前一个表达式，以匹配任何包含单词 "rivet" 的 object（对象）。</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="fb5beb1b-24ae-46d5-b1e0-43f5fd7cca25" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">/**/*rivet*/*</pre>
+</div></div><ul><li><p>第二个 ** 表示 rivet object（铆钉对象）可以嵌套在 teapot 下的任意层级</p></li><li><p><strong>* </strong>如果节点名称中出现 rivet，则 rivet * 会匹配。"rivet"、"Arivet" 和 "Brivet2" 都会匹配。</p></li></ul></li><li><p>在该模型上，还有一些 screws（螺丝）可以使用相同材质。复制表达式，让它们也能匹配。</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="a4c54285-0cd1-4374-bdcf-eb9f71063814" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">/**/*screw*/*</pre>
+</div></div><p /></li></ul><h5 id="Assignmaterials-Ruleexecutionorder">Rule execution order（规则执行顺序）</h5><p>我们来为 teapot 的 rings（环）分配材质。</p><p>使用相同工作流：复制规则，将 <code>&quot;rivet&quot;</code> 替换为 <code>&quot;ring&quot;</code> 并将 Payload 设置为 <code>ring_srf</code>。但这并不完全奏效，因为如你在 node list（节点列表）中所见，有些 shapes（形状）名称中同时包含 <code>&quot;rivet&quot;</code> 和 <code>&quot;ring&quot;</code>，而 rings（环）上的 rivets（铆钉）现在使用了错误的材质。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="680" loading="lazy" src="../../attachments/544540421/rfm_dynamicRulesAssignRing.png" data-image-src="../../attachments/544540421/rfm_dynamicRulesAssignRing.png" data-height="687" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="544540446" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfm_dynamicRulesAssignRing.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544540421" data-linked-resource-container-version="1" data-media-id="9fc1d7fb-9e43-4950-9d06-f1b18d77f844" data-media-type="file"></span><p>如果结果不正确，我们可以更改 <strong>rule execution order（规则执行顺序） </strong>（你的顺序可能与图中我的顺序不同）：如果先匹配 rivet，匹配引擎在找到匹配后会停止，随后只有仅包含 "ring" 的 shapes 才会匹配第二条规则。</p><ul><li><p>将光标放在规则编号上，然后用鼠标左键拖动 rule 1（rivets）到 rule 0（ring）上方。</p></li><li><p>渲染以检查结果。</p></li></ul><p>当然，我们只是浅尝辄止，建议你阅读 <a class="external-link" href="https://en.wikipedia.org/wiki/Regular_expression" rel="nofollow">Regular Expressions（正则表达式）</a> 以了解更复杂的用法。</p><p>如果你已完成 shading（着色），请选择 disk/save RLF（RenderMan Look File）图标。导入 asset（资产）时可以使用它，每次分配 shading nodes（着色节点）。这也可以成为你的 asset publishing scheme（资产发布方案）的一部分。</p><h4 id="Assignmaterials-Self-containedAssetShading">Self-contained Asset Shading（自包含资产着色）</h4><p>如果你想导入已经完整着色的 assets（资产），有 2 个选项：</p><ul><li><p>当 RfM 在与 archive 相同的位置找到同名 RLF 文件时，它会自动应用该文件。</p><ul><li><p>这在 pipeline（流程管线）中并不总是很灵活，但对于归档资产可能很有用。</p></li></ul></li></ul><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="c5770734-faf7-44d3-ad55-4864bb219eec" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>RLF 文件格式不包含 material descriptions（材质描述），因此你必须确保：</p><ul><li><p>所有被引用的 materials（材质）都存在于你的场景中。</p></li><li><p><strong>Output All Shaders（输出所有着色器）</strong> 已在 render globals（渲染全局设置）的 Advanced（高级）部分中勾选。</p></li></ul></div></div><ul><li><p>如果 gpuCache 节点的 <strong>RLF File Name（RLF 文件名）</strong> 字段包含指向 RLF 文件的路径，RfM 会将其应用到该 gpuCache 节点。</p><ul><li><p>这样就很容易用脚本进行 look assignment（外观分配）和更新。</p></li></ul></li></ul><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="d29875d9-cce3-437f-9232-0eba65b0bc72" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>请注意，你仍然可以在场景中使用 Dynamic Rule Editor（动态规则编辑器）覆盖自动 RLF assignments（RLF 分配）！</p><p>在这种情况下，scene RLF rules（场景 RLF 规则）会先于 archive 的规则执行，因此有机会覆盖它们。</p></div></div><p /><h5 id="Assignmaterials-NotesaboutRLFexport">Notes about RLF export（关于 RLF 导出的说明）</h5><p>当你在场景中引用多个 RFL files（RFL 文件）时，必须确保所有 shading nodes（着色节点）都有唯一名称。如果多次定义相同名称，渲染器会使用排在最前面的那个，你会得到意外结果。</p><p>你可以通过点击 RLF Editor（RLF 编辑器）中的 <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image" width="24" loading="lazy" src="../../attachments/544540421/rlf_save_icon.png" data-image-src="../../attachments/544540421/rlf_save_icon.png" data-unresolved-comment-count="0" data-linked-resource-id="544540443" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rlf_save_icon.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544540421" data-linked-resource-container-version="1" data-media-id="47670a1f-a31b-42c7-a374-0484ebb866f7" data-media-type="file"></span> 图标导出 RLF 文件，也可以编写一个简单的 Python 脚本，将场景当前的 RLF 数据保存到文件：</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="6a4da272-822b-455a-b036-0f3c42efaea3" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: py; gutter: false; theme: Confluence" data-theme="Confluence">import rfm2.api.nodes as apinodes
+
+
+def save_scene_rlf(filepath):
+    &quot;&quot;&quot;Load the rlf data from the rmanGlobals node and save it to a file.
+    
+    Arguments:
+        filepath {str} -- Full path to the final RLF file
+    &quot;&quot;&quot;
+    rg = apinodes.rman_globals()
+    if rg:
+        json_str = mc.getAttr('%s.rlfData' % rg)
+        try:
+            with open(filepath, 'w') as fhdl:
+                fhdl.write(data)
+        except Exception, err:
+            print 'Failed to write %s: %s' % (filepath, err)
+    else:
+        print 'Warning: Could not find rmanGlobals node in the scene !'</pre>
+</div></div><p /><h3 id="Assignmaterials-DynamicRulesCookBookDynamicRulesCookBook">Dynamic Rules CookBook（动态规则指南）<span class="confluence-anchor-link conf-macro output-inline" data-hasbody="false" data-local-id="26520be4-b7fd-4473-80b9-1b50241c5b7f" data-macro-id="98e0d9a5-360b-4cfa-9449-b5db279cbe1d" data-macro-name="anchor" id="Assignmaterials-DynamicRulesCookBook"><span class="confluence-anchor-link" id="DynamicRulesCookBook"> </span></span></h3><p>假设我们有一个名为 Rolling_Teapot 的 gpuCache 节点...</p><h6 id="Assignmaterials-Everythinginthescope,i.e.theMayascene:">scope（作用域）中的所有内容，即 Maya 场景： </h6><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="3e8dcb6d-e194-4749-8e9a-451e16a3bcea" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">/**/*</pre>
+</div></div><h6 id="Assignmaterials-AllnodesinthegpuCachenode:">gpuCache 节点中的所有节点： </h6><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="9b44b7ed-234f-4702-93eb-1fb3c1dc106c" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">/**/Rolling_Teapot</pre>
+</div></div><h6 id="Assignmaterials-AllnodesofthegpuCachewith&quot;rivet&quot;intheirname:">名称中包含 "rivet" 的 gpuCache 的所有节点：</h6><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="2690916e-a18f-4aca-adfd-cc670ad268a6" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">/**/*rivet*/*</pre>
+</div></div><h6 id="Assignmaterials-AllshapesofthegpuCacheunderatransformstartingwith&quot;ring_&quot;:">gpuCache 中位于以 "ring_" 开头的 transform 下的所有 shapes：</h6><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="c7475554-8a69-463f-9b9b-d678d3b3ccd5" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">/**/ring_*/*</pre>
+</div></div></div>
+</div>
+</div>
+</div>
+  </article>
+</main>
+</body>
+</html>

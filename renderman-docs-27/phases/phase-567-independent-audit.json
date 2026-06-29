@@ -1,0 +1,125 @@
+{
+  "phase": 567,
+  "file": "RU/502759691-Procedural Edge Breakup.html",
+  "file_id": "b6534cfeb2",
+  "source_items": 21,
+  "translation_rows": 21,
+  "source_items_match_translation_rows": true,
+  "duplicate_rows": [],
+  "missing_item_ids": [],
+  "extra_item_ids": [],
+  "tag_fingerprint_identical": true,
+  "rendered_markup_matches_target_markup": true,
+  "glossary_violations": [],
+  "direct_placement_missing": [],
+  "actionable_long_source_residuals": [],
+  "accepted_long_source_residuals": [],
+  "actionable_ascii_heavy_residuals": [],
+  "accepted_ascii_heavy_residuals": [
+    {
+      "item_id": "b6534cfeb2:0",
+      "text": "给 props 添加 edge breakup 是一种常见做法，通常通过在 Adobe Painter 或 The Foundry 的 Mari 等 texturing software 中绘制 masks 来实现。",
+      "ascii_letters": 64,
+      "cjk_chars": 24
+    },
+    {
+      "item_id": "b6534cfeb2:1",
+      "text": "不过在 Pixar，我们倾向于采用 procedural approach 来处理 edge breakup。",
+      "ascii_letters": 34,
+      "cjk_chars": 13
+    },
+    {
+      "item_id": "b6534cfeb2:3",
+      "text": "下面是一份 procedural edge masks 的快速指南。",
+      "ascii_letters": 19,
+      "cjk_chars": 10
+    },
+    {
+      "item_id": "b6534cfeb2:5",
+      "text": "先给我们的 geometry 添加一个使用默认设置的 PxrCurvature node。在这个示例中，我们将使用 RenderMan University shield。",
+      "ascii_letters": 49,
+      "cjk_chars": 27
+    },
+    {
+      "item_id": "b6534cfeb2:10",
+      "text": "把 samples 数量从 4 提高到 8（或 16）会减少 curvature 中的一些 grain，但会略微增加 render time。",
+      "ascii_letters": 31,
+      "cjk_chars": 21
+    },
+    {
+      "item_id": "b6534cfeb2:11",
+      "text": "接下来，我们会载入一张 map 来开始打散 curvature。在这个示例中，我使用了 Grunge Texture Vol 1 Pack 中的 grunge_04.tex，并采用 PxrRoundCube+PxrMultiTexture (Triplanar) approach 进行 mapping。",
+      "ascii_letters": 92,
+      "cjk_chars": 32
+    },
+    {
+      "item_id": "b6534cfeb2:12",
+      "text": "为了给 grunge map 增加一点 contrast，这里使用 PxrThreshold node 来实现该效果。",
+      "ascii_letters": 33,
+      "cjk_chars": 17
+    },
+    {
+      "item_id": "b6534cfeb2:13",
+      "text": "使用 PxrBlend node，并将 mode 设置为 Subtract，我们就可以从 curvature 中减去 grunge map。",
+      "ascii_letters": 42,
+      "cjk_chars": 16
+    },
+    {
+      "item_id": "b6534cfeb2:18",
+      "text": "Refine Details（细化细节）",
+      "ascii_letters": 13,
+      "cjk_chars": 4
+    },
+    {
+      "item_id": "b6534cfeb2:20",
+      "text": "下面是一个示例：两张 grunge maps 分层叠加在 curvature 上，并使用 PxrLayeredBlend node 来处理 layered maps 的 blending modes。",
+      "ascii_letters": 62,
+      "cjk_chars": 22
+    }
+  ],
+  "required_phrase_missing": [],
+  "section_order_positions": [
+    {
+      "pattern": "PxrCurvature",
+      "position": 2669
+    },
+    {
+      "pattern": "RenderMan University shield",
+      "position": 2700
+    },
+    {
+      "pattern": "Output Gain",
+      "position": 4049
+    },
+    {
+      "pattern": "PxrRoundCube",
+      "position": 5126
+    },
+    {
+      "pattern": "PxrMultiTexture",
+      "position": 5139
+    },
+    {
+      "pattern": "PxrThreshold",
+      "position": 5228
+    },
+    {
+      "pattern": "PxrBlend",
+      "position": 6123
+    },
+    {
+      "pattern": "Subtract",
+      "position": 6149
+    },
+    {
+      "pattern": "PxrSplineMap",
+      "position": 7517
+    },
+    {
+      "pattern": "PxrLayeredBlend",
+      "position": 9809
+    }
+  ],
+  "section_order_ok": true,
+  "passed": true
+}

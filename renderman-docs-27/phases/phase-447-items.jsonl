@@ -1,0 +1,27 @@
+{"id": "e2af0955e082290eb31ac5397ed4f98e550f3d7a5335ac979e664e9ab43c0726", "item_id": "a86b05eb38:0", "text": "Follow these sets to set up AOVs in RenderMan for Katana:"}
+{"id": "424458e11e5f03ea0236dfb90e86d2a07ae598341ba01830e954ef7d44cb14c8", "item_id": "a86b05eb38:1", "text": "Create a PrmanOuputChannelDefine node for each AOV channel. This sets up the channel name for RiDisplayChannel."}
+{"id": "1bb946fc4ad912755a10ed25b0dd37c1933c0ce42e4f25a8294cf356152afd43", "item_id": "a86b05eb38:7", "text": "LPE"}
+{"id": "4e9e59a6672d487ab9ead37b37a1c1b00d03016becd49f5cb1762c26b2a8e6ea", "item_id": "a86b05eb38:3", "text": "will require a source to define the light path to collect. For example, Indirect Diffuse would be"}
+{"id": "684a57a9bdf7036c1b9cd24c763db397a51adc380d26ac65d0411d2dec23e7d2", "item_id": "a86b05eb38:4", "text": "Next, Create a RenderOutputDefine (Display Driver) node for each AOV file. This sets up the output file name and channel name be used for RiDisplay."}
+{"id": "932aa637b904f47d3acaa987f8d3427472ced07022da8980d1ade2d7c299b371", "item_id": "a86b05eb38:5", "text": "Wire the PrmanOutputChannelDefine node into RenderOutputDefine to see the added channel in the RenderOutputDefine's channel drop down (MatteID0 in the example above)."}
+{"id": "e657755bd8056517503f79055c90eea3b44c50a8ca8b4cc75311d9f4f49bdb4a", "item_id": "a86b05eb38:6", "text": "To correctly render per-lobe"}
+{"id": "27775ce1268e18e28df6cd1bb86b37838cab315b58d28f948bb95e263d252031", "item_id": "a86b05eb38:8", "text": "in Katana, you need to use an"}
+{"id": "38ec2eb9a5f8ac6ac9040b78c55816fd21ebd8db3b5159244bc427876c0d97f3", "item_id": "a86b05eb38:9", "text": "OpScript"}
+{"id": "0e282db16cf676924bd1d53b3dbe927df6d9319313c408f42bb7fd9df16b77df", "item_id": "a86b05eb38:10", "text": "to declare how these are routed to the outputs. Below is the full OpScript to use for the lobe names defined by PxrSurface and PxrMarschnerHair. If your studio has its own bxdfs with different names, you will need to add those names to these Options."}
+{"id": "b9981033f3b370534a4404e7c6ed80b57828276c0b2b3fccf80ab52b5fcfaffe", "item_id": "a86b05eb38:11", "text": "To make this AOV render interactively you can add it to the interactiveOutputs selection in the RenderSettings node."}
+{"id": "c84b6baf1e8203e481384364adf4bfe610baf23133981e63aeb233b1e4164564", "item_id": "a86b05eb38:12", "text": "Advanced:"}
+{"id": "ebdc5af8ba44922942f5a109a9becb6ece2564b1425622afd171619d09e322c6", "item_id": "a86b05eb38:13", "text": "You can also add a statistics selection to the node. Typically used for diagnosis and tuning:"}
+{"id": "2bda9b000dfcbdcfe0f9e5455a13156074dd33ec8c78b643bdcf9910c189701c", "item_id": "a86b05eb38:14", "text": "\"variance\""}
+{"id": "d81633495d28ee0788d8cf08e9aeafba5e31b4e91157ed8d5e659a91ed634618", "item_id": "a86b05eb38:15", "text": "– estimates the statistical variance of values contributing to the pixel in associated source channel."}
+{"id": "f320f6943409fe451d90b51c70b7b71e6a98c7d8c7b3097f299ec28d8587cf24", "item_id": "a86b05eb38:16", "text": "\"mse\""}
+{"id": "fd2f289c3d97d8118b9a636831c3b2f185c9126c7b8d4805970de765857baccd", "item_id": "a86b05eb38:17", "text": "– like variance, but diminishes towards zero as the number of samples increases. Though somewhat noisy itself, this can provide an estimate for the amount of mean-squared-error versus a hypothetical ground-truth image."}
+{"id": "ec272779d38641ecaf12b71ccc14ecab192bbf06924ac12540dfd5c1c8dda502", "item_id": "a86b05eb38:18", "text": "\"even\""}
+{"id": "b4fe84a479d44a9b56159f0bc2e7c56ea93a8554d2ea7d21f271fc5bb575c354", "item_id": "a86b05eb38:19", "text": "– an image produced using only one half of the camera samples"}
+{"id": "102e069c3720545aa2d57c42829b73b9b3d49f9fa0c35e8bbfa22838dc9fd30e", "item_id": "a86b05eb38:20", "text": "\"odd\""}
+{"id": "7ac80afd0d770cf04573be80cb7b663c28c68210733af1693704b6e4f3708b9c", "item_id": "a86b05eb38:21", "text": "– an image produced using just the other half of the camera samples"}
+{"id": "b52e236c7edd329a67ecf8b65b5d3775556936884990ba14dc59746450ed96e4", "item_id": "a86b05eb38:22", "text": "EXR Metadata"}
+{"id": "3de79856cc71a93a1044a5cb7ae92cbce9109be45871437cdf2d4cf868859fc0", "item_id": "a86b05eb38:23", "text": "You can add metadata to the EXR file to facilitate pipeline functions. The Foundry documents this"}
+{"id": "dd1d122956efde29d2011224d59be74d13f0c13d18b7c82c66aa0bea294bf720", "item_id": "a86b05eb38:24", "text": "here."}
+{"id": "5fa4582b8fa42201f3a72f22b7a06ee65c7552e469f51d9f03d50e9d663f1c68", "item_id": "a86b05eb38:25", "text": "Essentially, on the Render Settings node:"}
+{"id": "58789421447b90199a735c5b9e2631e58de716c870b12d94f4ef6e4bcc051496", "item_id": "a86b05eb38:26", "text": "Setting Custom Display Data"}
+{"id": "2e6e3b75e113960b900948da09776352beaa1485660d504fb85f322d66628335", "item_id": "a86b05eb38:27", "text": "You can pass a custom Katana attribute into the display driver using an OpScript at the /root. Below is a simple example setting \"myParam\" onto a display called \"myDisplay\""}

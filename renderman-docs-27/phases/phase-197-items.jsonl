@@ -1,0 +1,27 @@
+{"id": "531b169b3c7de364e53e047de56f2c684f24a3ac94cd2ff2cce8f54f77e52d46", "item_id": "07ed2d82df:0", "text": "The Manifold Walk option in"}
+{"id": "b0ca096f39650523e3e3deed5b81e84e3fc81b78637d4306f27c0f64dca2069b", "item_id": "07ed2d82df:1", "text": "PxrUnified"}
+{"id": "37aa4dcac9cec3dca8626ef6db84eae80af68025a534a465b23e640d789bbf4e", "item_id": "07ed2d82df:2", "text": "makes use of a technique to generate caustics that can be less expensive than generating photons through the scene. It also excels when using small light sources. You can also fine tune what is and isn't a receiving or caustic generating"}
+{"id": "40b30b4e8f0d137056ac497e859ea198c1a00db4267d1ade9c458d04024e2981", "item_id": "07ed2d82df:3", "text": "material"}
+{"id": "8c6064a60005683671d113120189059443f2a18dd4fef78f68d7b5e5d193ad45", "item_id": "07ed2d82df:4", "text": ". This is especially useful for eyes in VFX and Feature Animation work. You can selectively have the cornea trace caustics onto the iris of the eye adding realism and beauty. You can also better illuminate objects realistically behind or inside transmissive objects."}
+{"id": "cf1ae4c0b427144b5340420c43fe40bb4a33c9abf962d49fc2a877a357ec1d86", "item_id": "07ed2d82df:5", "text": "Below we go over the steps in a simple scene for using the Manifold Walk."}
+{"id": "b0eaa44a8031da8a71f85439db71f6e57bec98d0041ec7bce4e95d6868efef27", "item_id": "07ed2d82df:6", "text": "In the example below we have a simple ground plane and a glass cylinder. The ground plane is diffuse and the cylinder is glass. The default render using"}
+{"id": "f7e6b4609d11deced33efb392b2e874f7e2a88d1420a583ccee5e06183d80cbb", "item_id": "07ed2d82df:7", "text": "Thin Shadows"}
+{"id": "366e7cbbdbc951a7f01ff005cb690b7f510162931160c84f16410ec46fbbaaec", "item_id": "07ed2d82df:8", "text": "produces this result:"}
+{"id": "28c7c949d18356ad1fdb3c23e7b536f151ad7ee376a89e7e5d5ae8ce79495aa9", "item_id": "07ed2d82df:9", "text": "Thin Shadows (default behavior)"}
+{"id": "5c0c5bdbec98e673f9cc48aae715eb37adcba5ac66516956d4cb7c543c08adee", "item_id": "07ed2d82df:10", "text": "This is acceptable but we want some shape to the light focused through the cylinder. So follow these steps below:"}
+{"id": "a814a5cc7ee8fb41d368d02eacde8178faf909720817c58adb451613e2c6ecbc", "item_id": "07ed2d82df:11", "text": "In the ground diffuse"}
+{"id": "288072548e8a8a354cecbd6ca2388acb76eb78806dc8a63c93ef0381d059693a", "item_id": "07ed2d82df:13", "text": "material under the Global Parameters, turn"}
+{"id": "b8d31e852725afb1e26d53bab6095b2bff1749c9275be13ed1c05a56ed31ec09", "item_id": "07ed2d82df:22", "text": "on"}
+{"id": "b07d29b4bee7fa69f53e61c57fa6d9d2632a43ead4276b7b8e38184bc51d55a5", "item_id": "07ed2d82df:15", "text": "Enable Manifold Exploration (mwStartable = 1)"}
+{"id": "3a1c0456c0947e705053db2dd0278d4338a048d9847304e97f9f6ca456ed96c8", "item_id": "07ed2d82df:16", "text": "In the glass"}
+{"id": "f1414801db7d883c05f1aa5dcac4397b8a128eda61e43d835468d15f8830a380", "item_id": "07ed2d82df:18", "text": "material on the cylinder, in the Glass > Advanced turn"}
+{"id": "397c38fb7a577f58d4d7977e6e2482c26eff9216ea3e0fd3693d8228b996588a", "item_id": "07ed2d82df:20", "text": "Enable Manifold Walk (mwWalkable = 1)"}
+{"id": "6677009fe96dd2207004401bc46a9492286a137989003b1e1a31a7c7ca4296e3", "item_id": "07ed2d82df:21", "text": "In the light source (only one here so this is easy, but you an set this per-light) turn"}
+{"id": "269849ce5918eb669ad288844f27d766d4347f9c32a73fffe10a04faf6cdf324", "item_id": "07ed2d82df:23", "text": "Manifold Walk (cheapCaustics = 1)"}
+{"id": "4a36516334a574369ee1dbcced760a17160983b09dce40b6567f4686522ecca6", "item_id": "07ed2d82df:24", "text": "In PxrUnified,"}
+{"id": "e97166b54500da3a32eae48afe8df0970b19abfde3e4f3a50206cd8509feb161", "item_id": "07ed2d82df:25", "text": "enable"}
+{"id": "d3035c7881a975f4eef4c0626daa404e30dadc568430c5104b7591c50781f992", "item_id": "07ed2d82df:26", "text": "the global Manifold Walk selection (manifoldWalk = 1)"}
+{"id": "ac4cd53eeaa9648bc55ecfbdc3cf2d4b009cccd0d06b4892c22152ffab920a08", "item_id": "07ed2d82df:27", "text": "Manifold Walk correct setup"}
+{"id": "29d50d6ee32aa1355c90c0c2883483056b9d3ad6143763b158bc502cfbc1e866", "item_id": "07ed2d82df:28", "text": "The lights provide a location to exclude a particular subset for manifold walks. This is designed to be used when something may block the manifold walk from finding the light source. An example would be if your character has hair dangling in front of their eyes making it difficult for the walk to find the light source through the hair. You can exclude the hair to make this easier."}
+{"id": "4bfd2f7a71fc7d183bee6c5a96a10a8df461a0a7e1966a6e2e8a9490b27b4ae0", "item_id": "07ed2d82df:29", "text": "You can render the simple RIB file attached here."}
+{"id": "f2ea3152a568337bb992b3221cfbb9c587b45f573362f1c03459ca2ad82f46c6", "item_id": "07ed2d82df:30", "text": "manifoldWalk.0001.rib"}

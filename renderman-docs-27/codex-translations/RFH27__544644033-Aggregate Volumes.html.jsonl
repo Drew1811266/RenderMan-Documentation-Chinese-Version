@@ -1,0 +1,10 @@
+{"id":"499cfda82f7e9aa1099902afa82b4eba58a37b98bbd66c991a3dea13c18e5384","item_id":"4549dc28d9:0","text":"Aggregate Volumes（聚合体积）"}
+{"id":"a1de6b3ce785a56105ec6a4b19a1acafe9a6c0b46fee7bb8733f2c5f3f1b5b8d","item_id":"4549dc28d9:1","text":"聚合体积可以通过把多个体积组合成一个供渲染器处理的单一结构来缩短体积渲染时间。要在 RfH 中开始使用 aggregate volumes（聚合体积），需要两个步骤：在体积几何体上设置聚合名称，并在积分器中指定匹配的聚合名称。"}
+{"id":"911d94589e5370ae986dfcb4d86a3429cc44ed70d21655a7d9b4f0477d05edd5","item_id":"4549dc28d9:2","text":"步骤一：将体积分组到聚合中"}
+{"id":"62691def508e25a6387b4abbe955b4c34a849bc55cc45697c9ead1bf644e0df8","item_id":"4549dc28d9:3","text":"首先，选择包含要归入某个聚合的体积的 OBJ 节点。然后可以使用 RenderMan 工具架上的 “Aggregate” shelf tool（Aggregate 工具架工具）、RenderMan 菜单中的 “aggregate Volume” menu tool（aggregate Volume 菜单工具），也可以手动向 OBJ 添加 ri_volume_aggregate 渲染参数。"}
+{"id":"c478a82b88ee05e94613941c4c2cd73edd4b846dc411b1bc11db6a92bbcf74f8","item_id":"4549dc28d9:4","text":"如果使用任一聚合工具，会弹出窗口要求你指定聚合名称。默认值为 globalVolumeAggregate。接受后，该工具会使用给定的聚合名称，把 ri_volume_aggregate 和 ri_volume_dsominmax 添加到 obj 上。"}
+{"id":"6fac99489117521ac38bc0b86859e187b5ab903bf973ba4ccd00eb55c4aa0603","item_id":"4549dc28d9:5","text":"也可以改在 Geometry（几何体）级别指定 volume aggregates（体积聚合）。为此，需要添加一个名为 ri_volume_aggregate 的 primitive attribute（图元属性）。如果 ri_volume_aggregate 同时设置为对象参数和几何体属性，则会使用几何体属性值。"}
+{"id":"bb0d7668d8eed339438797fc3fafcf75caad338a0e19ed71a5771fa267c0c8ea","item_id":"4549dc28d9:6","text":"在 Solaris 中没有用于设置 volume aggregates（体积聚合）的 custom（自定义）工具。必须使用 Geometry Render Setting LOP 添加该设置。"}
+{"id":"92b612045aa8ea6aeebe131460e55843bc6e82f6928689238f00c9716bfa0adb","item_id":"4549dc28d9:7","text":"步骤二：在积分器中指定体积聚合名称"}
+{"id":"9e4f613d40d97b7cb200d4877fa4e9d912be5e1ada0dfe4194f6d43cd139c446","item_id":"4549dc28d9:8","text":"PxrPathTracer 有四个与 aggregate volumes（聚合体积）相关的参数。在简单情况下，只需设置全局 “Volume Aggregate” 参数。但由于标准 visibility attributes（可见性属性）在体积聚合内部不起作用，你可能会遇到需要为每种可见性类型（camera、indirect 和 transmission）分别指定聚合名称的情况。这些名称可以在另外三个覆盖参数中指定。"}
+{"id":"7931d3f044f361da0192386e7494d88c4eea3a4a91aa71cc4bbe8b8540ad6a00","item_id":"4549dc28d9:9","text":"如果尚未向积分器指定体积聚合名称，任何属于体积聚合的体积都不会渲染。"}

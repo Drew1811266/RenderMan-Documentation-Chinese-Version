@@ -1,0 +1,9 @@
+{"item_id":"be0def567a:0","text":"Stirling 项目的渲染设置流程（Rendering）"}
+{"item_id":"be0def567a:1","text":"现在 layering 已经设置好，rendering settings 中只剩少数事项需要考虑。由于我们正在做 plate matching，motion blur 是必须牢记的重要因素。"}
+{"item_id":"be0def567a:2","text":"花时间检查 footage，并评估 images 的 sharp 程度。即使 frames 看起来干净且 crisp，也始终要运行 test renders，确保你的 motion blur 与 plate 中的 motion blur 匹配。"}
+{"item_id":"be0def567a:3","text":"我强烈建议至少加入少量 motion blur，因为它有助于在 frames 之间创建更平滑的 interpolations，增强整体 believability 和 realism。motion blur 的量取决于你的 footage，所以务必调整到匹配状态。"}
+{"item_id":"be0def567a:4","text":"进入 compositing 之前，我也建议你花时间 render 一个 Occlusion pass 和 Cryptomattes。这会在 compositing 中节省大量时间，避免许多小时繁琐的 rotoscopy。可以阅读关于如何设置"}
+{"item_id":"be0def567a:5","text":"Cryptomattes"}
+{"item_id":"be0def567a:6","text":"的文档。"}
+{"item_id":"be0def567a:7","text":"我最后一个 rendering tip 是关于一些有用的 overrides（没错，又是 layer overrides！）。虽然使用 LPE（Light Path Expression）render passes 会非常强大，但在我们的案例中，没有必要为所有 layers 都 render 它们。由于 reflectors 主要由 specular surfaces 组成，生成数百个占用大量存储的 EXR files 几乎没有价值。"}
+{"item_id":"be0def567a:8","text":"为了优化 workflow，你可以停用 LPE display，将某些 layers 限制为只 render beauty pass。只要确保每次都 double-check 自己正在调整正确 layer 的 render settings；你不会想在周一早上回到办公室检查 renders 时遇到不愉快的惊喜！"}

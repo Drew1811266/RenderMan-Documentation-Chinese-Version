@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>tractor-spool</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>tractor-spool</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/TRA/22184276/tractor-spool">https://rmanwiki-27.pixar.com/space/TRA/22184276/tractor-spool</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>spooler 会把 job scripts 送入 Tractor job queue，以便在 farm 上处理和分发。Job scripts 是文件，通常采用 Tractor job scripting format（也称为 Alfred scripts）。这些 scripts 通常由其他 applications 编写，例如 "RenderMan for Maya" plug-in，或各 studio 的专用 job submission scripts。对于简单 tasks，tractor-spool 本身可以根据你想发送到 farm 的简单 command 为你创建 job。如果你已经有一组要提交的 RenderMan RIB files，tractor-spool 也可以根据这些 filenames 自动为你创建 job（参见 "--ribs" example）。</p><p>Usage:</p><p style="margin-left: 30.0px;"><code>tractor-spool [options] [jobfile ...] </code></p><p style="margin-left: 30.0px;"><code>tractor-spool [options] -c [/path/]appname appArg1 appArg2 ... </code></p><p style="margin-left: 30.0px;"><code>tractor-spool [options] --ribs frm1.rib frm2.rib ... </code></p><p style="margin-left: 30.0px;"><code>tractor-spool [options] --rib frm1_prologue.rib frm1.rib... </code></p><p style="margin-left: 30.0px;"><code>tractor-spool [options] --jdelete=JOB_ID --user=JOB_OWNER </code></p><p>其中 "jobfiles" 是描述待执行 work 的 job scripts。可以给出多个 job file names；它们会按顺序提交到 job queue。"-c" 和 "--ribs" variants 会根据 command 或 RIB arguments 为你创建 job scripts，并提交这些 scripts。</p><p>术语说明：Job submission 有时也称为 <a class="external-link" href="https://en.wikipedia.org/wiki/Spooling" rel="nofollow">spooling</a>，这是类比 print spooling 或传统 batch job systems 的说法。</p><p><br/></p><div class="table-wrap"><table class="fixed-table confluenceTable"><colgroup> <col style="width: 202.0px;"/> <col style="width: 625.0px;"/> </colgroup><thead><tr><th style="text-align: left;" class="confluenceTh">Option</th><th style="text-align: left;" class="confluenceTh">说明</th></tr></thead><tbody><tr><td class="confluenceTd">--version</td><td class="confluenceTd">显示程序 version information，然后退出。</td></tr><tr><td class="confluenceTd"><span class="pre">-h,</span> <span class="pre">--help</span></td><td class="confluenceTd">打印 usage summary，然后退出。</td></tr><tr><td class="confluenceTd">-v</td><td class="confluenceTd">添加 verbose 详细状态消息。</td></tr><tr><td class="confluenceTd">-q</td><td class="confluenceTd"><p>Quiet mode 静默模式，不打印状态信息。</p></td></tr><tr><td class="confluenceTd">--engine=HOST[:port]</td><td class="confluenceTd">中央 Tractor Engine service 的 Hostname[:port]，默认值为 tractor-engine:80。hostname "tractor-engine" 通常是 local network administrators 添加的 DNS alias，指向当前运行该 service 的实际 hostname。这个 alias 简化了到 tractor-engine process 的所有 connections，因为默认都会尝试该名称。默认 port 为 80，并且必须与 tractor-engine 实际监听的 port number 匹配（启动 tractor-engine 时选择）。如果未给出此 option，spooler 会先查找名为 TRACTOR_ENGINE 的 environment variable 作为 host:port specification，然后才使用 defaults。</td></tr><tr><td class="confluenceTd"><p><span class="pre">-c<br/></span><span class="pre">--command</span></p><p><span class="pre">-C</span></p></td><td class="confluenceTd"><p class="first">把带有给定 arguments 的 single command 发送到 farm（而不是发送预先写好的 job script）。它会收集所有剩余 command-line parameters，然后创建一个 single-task Tractor job，把给定 command 发送到 remote tractor-blade。 <strong>注意：这必须是给出的 LAST option</strong>，因为 -c 后面的每个 "words"（shell tokens）都会成为给定 application 的单独 arguments。例如：</p><pre style="margin-left: 25.0px;" class="literal-block">tractor-spool --service=required_host_type -c echo hello world
+</pre><p>用于启动给定 command 的 search paths 和其他 environment settings 由每台 host 上的 tractor-blade server 控制。既有 default paths 和 settings，也有 configurable site-defined "environment packages"，例如某个正在 production 的 show 的所有 locked down settings；这些可用此处描述的其他 options 选择，例如下面的 --envkey。</p><p>如果 command 需要特定类型的 remote server，请在 -c 之前添加 --service=name specification。Service name abstractions 在 blade.config 中定义，但如果目标是某个 specific host，也可以直接使用 hostname；如果该 class 中任意 host 都可接受，则可使用 profile name。</p><p>有几个 built-in "portability aliases" 可用于常见 commands，这些 commands 通常用于 test 或 diagnostic 场景。这些 aliases 以 equal-sign 开头，以便和具体 actual executables 区分。最有用的可能是：</p><pre style="margin-left: 25.0px;" class="last literal-block">tractor-spool --service=somehost -c =printenv</pre><p>使用 -c 生成常规 RemoteCmd format，使用 -C 强制生成 local Cmd。</p></td></tr><tr><td class="confluenceTd"><span class="pre">-r,</span> <span class="pre">--ribs</span></td><td class="confluenceTd">把剩余 filename arguments 视为独立 RIB files，并作为不同 remote tractor-blades 上的 INDEPENDENT prman processes 渲染；创建一个 multi-task Tractor job 来处理这些 renderings。</td></tr><tr><td class="confluenceTd">-R, --rib</td><td class="confluenceTd">把剩余 filename arguments 视为 RIB files，并使用 remote tractor-blade 上的 SINGLE prman process 渲染，也就是说 prman 会 concatenate 所有 rib files 进行 rendering；创建一个 single-task Tractor job 来处理该 rendering。</td></tr><tr><td class="confluenceTd">--jobcwd=DIRNAME</td><td class="confluenceTd">从此 job 启动 commands 时，blades 会尝试 chdir 到指定 directory；默认值就是运行 tractor-spool 时的 current directory。</td></tr><tr><td class="confluenceTd">--projects=PROJECTS</td><td class="confluenceTd">project affiliations list，例如 'TheFilm lighting'，可配合 <em>Limit Allocations </em>管理 resource pools 资源池。</td></tr><tr><td class="confluenceTd">--priority=FLOAT</td><td class="confluenceTd">spooled job(s) 的任意正 floating-point priority；priority 值较高的 jobs 会先处理。Studios 通常会制定如何使用 priorities 的 conventions。</td></tr><tr><td class="confluenceTd">--title=&quot;words&quot;</td><td class="confluenceTd">与 -c 和 -r 一起使用，用于更改 auto-generated job 的 default job title。</td></tr><tr><td class="confluenceTd">--svckey=SVCKEY</td><td class="confluenceTd">为 spooled job 中的 Cmds 指定额外 job-wide service key restriction；这些 key(s) 会与 Cmds 自身已有的任何 keys 做 AND。与 -c 或 --rib option 一起使用时，它会覆盖 "PixarRender"，作为用于为这些 Cmds 选择 matching blades 的 sole service key。</td></tr><tr><td class="confluenceTd">--cmdsvckey=CMDSVCKEY<br/>--cmdservice=CMDSVCKEY</td><td class="confluenceTd"><p>与 -c 或 -r option 一起使用，用于为每个 command 指定 sole service key expression；该 expression 会受 RANGE 和 ITER substitution 影响。</p></td></tr><tr><td class="confluenceTd">--remotecleankey=KEY</td><td class="confluenceTd">把 "local" clean-up Cmds 转换为 RemoteCmds。在某些上下文中，user 可能无法控制 job generation 的细节，因此无法以其他方式强制 clean-ups 远程运行。"local" Cmd 必须在 spool 该 job 的同一 host 上运行，例如 artist workstation，这意味着 user 必须在 desktop 上保持 tractor-blade process 运行以处理这些 Cmd clean-ups。相比之下，RemoteCmd clean-up 会在第一台 available farm machine 上运行。给出此 option 时，默认也会把 Job -whenerror 和 -whendone blocks 转换为 RemoteCmds，而不是 local Cmds。此 spooling option 还要求给出 blade service key name，用于指定运行 clean-up 的合适 blade 类型。这个 conversion option 是一种 workaround，用于 job script generator 本身无法更新为在 cleanup blocks 中直接使用 RemoteCmd，并且需要把 Job -whendone/error blocks 转换为更通用 -postscript blocks 的情况。</td></tr><tr><td class="confluenceTd">--envkey=ENVKEY</td><td class="confluenceTd">与 -c 和 -r 一起使用，用于更改 environment key，该 key 会配置应用到这些 auto-generated job scripts 的 environment variables；默认值：None。</td></tr><tr><td class="confluenceTd">--range=RANGE</td><td class="confluenceTd"><p>为 <span>给定 range 中的每个 integer 创建一个带 separate task 的 job。Ranges 可写成 '1-10' 或 '1-4,7,9,16-20'。 </span><span>仅适用于通过 --command (-c) </span><span>option 指定的 command templates。每个 new task 都包含一份 command template 的 copy， </span><span>其中 word '</span><span class="legacy-color-text-blue1">RANGE</span><span>' 会被替换为 </span><span>range sequence 中的下一个 integer。也支持并推荐使用 Python string format() syntax，field name 为 { </span><span>RANGE</span><span class="legacy-color-text-blue1">。</span><span>}. </span><span>若要插入类似 00041、00042 的 leading-zero padding，请使用 {<span class="legacy-color-text-blue1">RANGE</span>:0&gt;NN}，其中 NN 是 digits 数量。 </span><span>（另请参阅 <strong>--ribs</strong>，可轻松提交一系列已有 rib files。）</span></p><p class="first"><span>例如：</span></p><pre style="margin-left: 25.0px;" class="literal-block">tractor-spool --no-spool --range 11-13 -c cp &quot;/src/foo.{RANGE:0&gt;5}.rib&quot; /dst/bar.RANGE.rib
+</pre><p>会显示以下 job file：</p><pre style="margin-left: 25.0px;" class="literal-block">Job -title {cp ...} -subtasks {
+  Task -title {cp} -service pixarRender -cmds {
+     RemoteCmd {cp /src/foo.00011.rib /dst/bar.11.rib}
+  }
+  Task -title {cp} -cmds {
+     RemoteCmd {cp /src/foo.00012.rib /dst/bar.12.rib}
+  }
+  Task -title {cp} -cmds {
+     RemoteCmd {cp /src/foo.00013.rib /dst/bar.13.rib}
+  }
+}<br/> </pre><p>注意： <code>{</code> 和 <code>}</code> characters 对许多 command line shells 有特殊意义。上面使用 double quotes，是为了确保 <code>{</code><span> 和 </span><code>}</code> 会被传入 <code>tractor-spool</code>；这对大多数 shells 都是必需的，包括 <code>cmd.exe</code> 和 <code>bash</code>，以及 <code>csh</code> 等。</p></td></tr><tr><td class="confluenceTd">--range-formatting=both|sfmt|text</td><td class="confluenceTd"><p><span>默认 setting 'both' 会尝试把 range </span><span>integers 替换进 -c command arguments，首先使用 Python </span><span>Python string format() 风格 {</span><span class="legacy-color-text-blue1">RANGE</span><span>} expressions，然后对任何剩余 </span>occurrences<span> 的 </span><span>word </span><span class="legacy-color-text-blue1">RANGE</span><span>做 simple replacement。此处使用 value 'sfmt' 表示只处理 string format </span><span>{</span><span class="legacy-color-text-blue1">RANGE</span><span>} expressions；或使用 value 'text' 表示只做 simple </span><span>replacement 简单文本替换处理。</span></p></td></tr><tr><td class="confluenceTd">--itervalues=LIST </td><td class="confluenceTd"><p>为 list 中的每个 item 创建一个 task；该 list 以 comma-separated items 指定，并在 command string 或 service key expression 中把 ITER 替换为 current value；例如 red,green,blue 或 'red house,green lawn,blue sky'。</p></td></tr><tr><td class="confluenceTd">--iterfile=FILENAME</td><td class="confluenceTd"><p>为 file 中的每个 item 创建一个 task；该 file 指定 line-separated items list。</p></td></tr><tr><td class="confluenceTd">--task-title=TTITLE</td><td class="confluenceTd">Task title pattern，用于使用 RANGE 或 ITER construction 的 auto-generated jobs。</td></tr><tr><td colspan="1" class="confluenceTd">-T [MINSECS,]MAXSEC<br/>--runtime-bounds=[MINSECS,]MAXSECS</td><td colspan="1" class="confluenceTd"><p>与 -c 一起使用，为 command 在 blade 上的 elapsed time 添加 minimum 和 maximum bounds。以 'min,max' 或 'min-max' 形式给出 seconds range。如果 launched command 的 elapsed run time 短于或长于给定 bounds，则标记为 Error。<br/>超过 maximum time 的 commands 会被 kill。如果只给出一个 value，则它指定 max run time。max time 为 0（zero）表示 unbounded。</p></td></tr><tr><td class="confluenceTd">--limit-tags=TAGS</td><td class="confluenceTd"><p>指定要添加到每个 command 的 limit counting tags；会受 RANGE 和 ITER substitution 影响。</p></td></tr><tr><td colspan="1" class="confluenceTd">--tier=TIER</td><td colspan="1" class="confluenceTd">Dispatching tier assignment 调度层级分配，用于 special-case jobs 特殊作业。</td></tr><tr><td class="confluenceTd">--paused</td><td class="confluenceTd">以 paused state spool 该 job，表示在以后把 priority 从 negative 改为 positive number 之前，不会从该 job 启动任何 tasks。</td></tr><tr><td colspan="1" class="confluenceTd">--aftertime='MM DD HH:MM'</td><td colspan="1" class="confluenceTd">把 job start 延迟到给定 date，格式为 'MM DD HH:MM'。</td></tr><tr><td colspan="1" class="confluenceTd">--afterjid=JID</td><td colspan="1" class="confluenceTd"><p>把 job start 延迟到给定 job(s) 完成，指定为 jid(s)。</p></td></tr><tr><td class="confluenceTd">--nrm</td><td class="confluenceTd">让 auto-generated --ribs 使用 local blade 上的 netrender，而不是在 blade 上用 prman direct rendering；当 named RIBfile 无法被 remote blades 直接访问时使用。</td></tr><tr><td colspan="1" class="confluenceTd">--spool-wait</td><td colspan="1" class="confluenceTd"><p>block，直到 job 完全 spooled（到 tractor-engine 2.0+）。</p></td></tr><tr><td class="confluenceTd">--status-json</td><td class="confluenceTd"><p>在 stdout 上以 JSON-format dict 打印 submission confirmation message（或 denial），而不是 plain text。</p></td></tr><tr><td colspan="1" class="confluenceTd">--status-plain</td><td colspan="1" class="confluenceTd"><p>以 human-readable plain text 打印 spool confirmation message；这是 default。</p></td></tr><tr><td class="confluenceTd">-A, --in-alfred（Alfred 输入格式选项）</td><td class="confluenceTd"><p>表示正在提交的 job file 是 Alfred (tcl) format，这是默认值。</p></td></tr><tr><td colspan="1" class="confluenceTd">-J, --in-json</td><td colspan="1" class="confluenceTd"><p>表示正在提交的 job file(s) 格式为 Tractor compliant JSON。</p></td></tr><tr><td colspan="1" class="confluenceTd">--alfescape</td><td colspan="1" class="confluenceTd"><p>处理 job files 时假定它们期望 backward-compatible alfred-style two-level unquoting / substitution。</p></td></tr><tr><td colspan="1" class="confluenceTd">--alf-argv-subst</td><td colspan="1" class="confluenceTd"><p>只对 Cmd executable parameters 应用第二次 substitution pass。</p></td></tr><tr><td colspan="1" class="confluenceTd">--maxactive=MAXACTIVE</td><td colspan="1" class="confluenceTd"><p>限制 job 的 concurrently active commands 并发活动命令 maximum number 最大数量。</p></td></tr><tr><td class="confluenceTd">--user=LOGIN</td><td class="confluenceTd">与此 job 关联的 user（login）；默认值为执行 spooling script 的 user name。Site configuration policies 可能禁止这样设置。</td></tr><tr><td colspan="1" class="confluenceTd">--jdelete=JDEL_ID<br/>--jretire=JDEL_ID</td><td colspan="1" class="confluenceTd">从 active queue 活动队列删除 requested job 请求的作业。</td></tr><tr><td class="confluenceTd"> --haddr=HADDR </td><td class="confluenceTd">submitting host 的 host address selection，通常不需要。只有在 submitting host 有多个 network interfaces，或者 tractor-engine 可能看到 submission script 与 locally running tractor-blade node 的不同 addresses 时，才可能需要它，且通常只针对 "local Cmd" variant jobs。</td></tr><tr><td class="confluenceTd"><p>-p PASSWD<br/><span>--passwd=PASSWD</span></p></td><td class="confluenceTd"><p>提交 job 的 user 的 Tractor login password（如果启用了 engine passwords）。</p></td></tr><tr><td class="confluenceTd">--configfile=CONFIGFILE</td><td class="confluenceTd">包含运行 tractor-spool 的 user 的 cached login 和 password data 的 file。</td></tr><tr><td colspan="1" class="confluenceTd">--parse-debug</td><td colspan="1" class="confluenceTd"><p>parse inbound job text 并 report errors；该 job 不会提交给 engine 处理。</p></td></tr><tr><td class="confluenceTd">-o<br/>--review<br/>--print-alfscript</td><td class="confluenceTd"><p>打印 job alfscript 而不是 spool 它；通常用于查看或保存 tractor-spool 自身基于其他 arguments 生成的 job text，而不是读取现有 job file 时使用。</p></td></tr></tbody></table></div>
+  </article>
+</main>
+</body>
+</html>

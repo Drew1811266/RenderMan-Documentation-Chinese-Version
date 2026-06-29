@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PxrDirt &amp; PxrCurvature</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>PxrDirt &amp; PxrCurvature</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RU/623509593/PxrDirt+%26+PxrCurvature">https://rmanwiki-27.pixar.com/space/RU/623509593/PxrDirt+%26+PxrCurvature</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="RenderManXPU_Bike.jpg" width="760" loading="lazy" src="../../attachments/623509593/RenderManXPU_Bike.jpg" data-image-src="../../attachments/623509593/RenderManXPU_Bike.jpg" data-height="844" data-width="1500" data-unresolved-comment-count="0" data-linked-resource-id="623640612" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderManXPU_Bike.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="623509593" data-linked-resource-container-version="7" data-media-id="5bcef00b-999d-40cc-8a2f-e7c4adc9c042" data-media-type="file"></span><p>procedural shading 中两个基础且常用的 geometry patterns 是 Ambient Occlusion 和 Curvature。RenderMan 可以渲染这两种特性；它们既可以用于 procedural shading network，也可以 bake 出来，再由 PxrTexture 节点重新读取。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><a href="https://renderman.atlassian.net/wiki/download/attachments/623509593/RenderManFundaMentals_MidnightRebel_Teaser.mp4?version=1&amp;modificationDate=1760091039954&amp;cacheVersion=1&amp;api=v2&amp;width=760">RenderManFundaMentals_MidnightRebel_Teaser.mp4</a></span><div class="panel conf-macro output-block" data-hasbody="true" data-macro-id="02b3d48b-b651-4c91-935a-13fea6639e2a" data-macro-name="panel" style="background-color: #4C9AFF;border-width: 1px;"><div class="panelContent" style="background-color: #4C9AFF;">
+<p><strong><span class="legacy-color-text-inverse">PxrDirt（Ambient Occlusion）</span></strong></p>
+</div></div><p>该 <a class="external-link" href="../REN27/542223198-PxrDirt.html" rel="nofollow">PxrDirt</a> 节点会渲染局部几何遮挡。 </p><p>这很适合把 dirt、rust 和 dust 等 shading effects 加到模型的凹槽、缝隙和角落中。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="RenderMan_Dirt_1.jpg" width="760" loading="lazy" src="../../attachments/623509593/RenderMan_Dirt_1.jpg" data-image-src="../../attachments/623509593/RenderMan_Dirt_1.jpg" data-height="1080" data-width="1920" data-unresolved-comment-count="0" data-linked-resource-id="623607851" data-linked-resource-version="2" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Dirt_1.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="623509593" data-linked-resource-container-version="7" data-media-id="93b67797-6316-479c-85f0-1bbbafa8defb" data-media-type="file"></span><div class="panel conf-macro output-block" data-hasbody="true" data-macro-id="fd8a08b0-d175-43f0-87f2-a9b4e90d544f" data-macro-name="panel" style="background-color: #4C9AFF;border-width: 1px;"><div class="panelContent" style="background-color: #4C9AFF;">
+<p><strong><span class="legacy-color-text-inverse">PxrCurvature</span></strong></p>
+</div></div><p>该 <a class="external-link" href="../REN27/542223097-PxrCurvature.html" rel="nofollow">PxrCurvature</a> 节点是一种实用而直接的方法，可创建 edge effects 和基于 curvature 的结果，例如塑料和与其他 surface 接触的物体上的 edge wear、edge breakup 与 edge variation。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="RenderMan_Curvature.jpg" width="760" loading="lazy" src="../../attachments/623509593/RenderMan_Curvature.jpg" data-image-src="../../attachments/623509593/RenderMan_Curvature.jpg" data-height="1080" data-width="1920" data-unresolved-comment-count="0" data-linked-resource-id="623542387" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Curvature.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="623509593" data-linked-resource-container-version="7" data-media-id="1eaca92e-3963-4e58-9b9a-06a2da931c4a" data-media-type="file"></span><p>这两个节点的一个实际例子，是把 PxrCurvature 节点用作两个 layers 之间的 layer mask，例如 Midnight Rebel 场景中 base metal 与上方 paint layer 之间的遮罩。  </p><p>随后可以使用 PxrDirt 节点作为 layer mask，在 paint layer 上添加 dust。</p><p>下面的 Material Layering 视频课程会更深入地讲解这些节点</p><iframe allowfullscreen="" allowtransparency="true" class="fullscreen-video-iframe conf-macro output-block" data-hasbody="false" data-layout="default" data-local-id="bc1ed3e1-9f3f-409b-be22-209766d44434" data-macro-id="f445dd7e084ec4ed2bca3617595ff1c19d3b83fb78174651a8f2d5bd83a3628e" data-macro-name="widget" frameborder="0" height="540" mozallowfullscreen="" src="https://player.vimeo.com/video/521400282" style="border:none; margin:1em 0em;" webkitallowfullscreen="" width="960">
+</iframe>
+
+<p /><p>你可以在这里下载 model 和 scene，跟着练习。</p><a class="external-link" href="https://assets.renderman.pixar.com/Tutorials/renderman-fundamentals/render_man_fundamentals_midnight_rebel.zip" rel="nofollow"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="DownloadButton2.png" width="200" loading="lazy" src="../../attachments/623509593/DownloadButton2.png" data-image-src="../../attachments/623509593/DownloadButton2.png" data-height="68" data-width="286" data-unresolved-comment-count="0" data-linked-resource-id="623509621" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="DownloadButton2.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="623509593" data-linked-resource-container-version="7" data-media-id="fd5a3869-2cfb-482f-bc70-b1b7a53f4fec" data-media-type="file"></span></a>
+  </article>
+</main>
+</body>
+</html>

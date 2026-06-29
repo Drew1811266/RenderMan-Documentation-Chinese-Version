@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Light Filters in Maya</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Light Filters in Maya</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFM27/544541572/Light+Filters+in+Maya">https://rmanwiki-27.pixar.com/space/RFM27/544541572/Light+Filters+in+Maya</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="contentLayout2">
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="64" loading="lazy" src="../../attachments/544541572/rfmShelfLightFilter.png" data-image-src="../../attachments/544541572/rfmShelfLightFilter.png" data-height="40" data-width="40" data-unresolved-comment-count="0" data-linked-resource-id="544541628" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfmShelfLightFilter.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544541572" data-linked-resource-container-version="1" data-media-id="c3483dd3-6cf1-4330-a646-94d29ff76060" data-media-type="file"></span><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="900" loading="lazy" src="../../attachments/544541572/rfmShelfLightFilterMenu.png" data-image-src="../../attachments/544541572/rfmShelfLightFilterMenu.png" data-height="140" data-width="200" data-unresolved-comment-count="0" data-linked-resource-id="544541598" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfmShelfLightFilterMenu.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544541572" data-linked-resource-container-version="1" data-media-id="f64b6271-9e49-4e16-a64b-69c5aea90324" data-media-type="file"></span><p /><p>Light Filters are used to manipulate lighting results. In the real world this is often achieved through the use of stencils and gels to change the color, quality, and amount of light in a shot. RenderMan's light filters are a powerful and flexible way to do the same (and even more) in lighting your scenes. </p><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="b63e3674-2138-4ed9-8000-c686fcb8e995" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>Light filters must <em>always</em> be part of Maya's Default Light Set to work correctly. You check see this by expanding the defaultLightSet group in the Maya Outliner. Anything outside this set can be dragged into it to operate.</p></div></div><h3 id="LightFiltersinMaya-CreatingLightFilters">Creating Light Filters</h3><p>To create a light filter in Maya, first select one or more RenderMan lights.  Then right-click on the light filter button in the RenderMan shelf and choose a type of light filter.  The light filter is created and wired into the selected light.  As a convenience, the light filter is created at the same location as the selected light.  Usually you will want to move the light filter somewhat forward from the light.  The light filter is not parented under the light by default, but you may wish to do that if you want the light filter to always move around with its parent light.</p><p>For all the RenderMan light types, in the Attribute Editor, you'll see a section toward the bottom called &quot;Light Filters&quot;.  The shelf button automatically wires light filters in, but they can also be created and wired in by right-clicking on one of the controls in that section.  More than one light filter can be wired in.  Each time a filter is wired up, a new control will appear to allow for another.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="600" loading="lazy" src="../../attachments/544541572/rfmLightFilterAE.png" data-image-src="../../attachments/544541572/rfmLightFilterAE.png" data-height="552" data-width="430" data-unresolved-comment-count="0" data-linked-resource-id="544541601" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfmLightFilterAE.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544541572" data-linked-resource-container-version="1" data-media-id="83fc874d-71fc-43e8-82d2-de3cf56e791e" data-media-type="file"></span><h3 id="LightFiltersinMaya-LightFilterTypes">Light Filter Types</h3><p>For detailed information about parameters, follow the links for each light filter type.</p><ul><li><p><a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661733" rel="nofollow">PxrBarnLightFilter</a></p></li><li><p><a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661753" rel="nofollow">PxrBlockerLightFilter</a></p></li><li><p><a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661755" rel="nofollow">PxrCookieLightFilter</a></p></li><li><p><a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661757" rel="nofollow">PxrGoboLightFilter</a></p></li><li><p><a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661767" rel="nofollow">PxrIntMultLightFilter</a></p></li><li><p><a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661759" rel="nofollow">PxrRampLightFilter</a></p></li><li><p><a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661773" rel="nofollow">PxrRodLightFilter</a></p></li></ul><h4 id="LightFiltersinMaya-BarnDoorLightFilter">Barn Door Light Filter</h4><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="900" loading="lazy" src="../../attachments/544541572/rfmLightFilterBarn.png" data-image-src="../../attachments/544541572/rfmLightFilterBarn.png" data-height="480" data-width="1028" data-unresolved-comment-count="0" data-linked-resource-id="544541604" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfmLightFilterBarn.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544541572" data-linked-resource-container-version="1" data-media-id="efd2bb06-322b-4bac-a2ce-f8e59f7d4efa" data-media-type="file"></span><p>PxrBarnLightFilter allows you to create physically accurate window barns to simulate real set lighting with correct shadowing. Its other usages include controlling bounce lights in a large scene. In addition to the physical mode, it also provides an analytic mode.</p><h4 id="LightFiltersinMaya-BlockerLightFilter">Blocker Light Filter</h4><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="900" loading="lazy" src="../../attachments/544541572/rfmLightFilterBlocker.png" data-image-src="../../attachments/544541572/rfmLightFilterBlocker.png" data-height="482" data-width="557" data-unresolved-comment-count="0" data-linked-resource-id="544541607" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfmLightFilterBlocker.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544541572" data-linked-resource-container-version="1" data-media-id="a028d076-a7a7-4398-9ffb-8b06cb3726d7" data-media-type="file"></span><p>PxrBlockerLightFilter uses a &quot;rod&quot; like object to block light. The blocker can be shaped into an irregular shape and is then placed next to the object where you want to block the light.</p><h4 id="LightFiltersinMaya-RodLightFilter">Rod Light Filter</h4><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="900" loading="lazy" src="../../attachments/544541572/rfmLightFilterRod.png" data-image-src="../../attachments/544541572/rfmLightFilterRod.png" data-height="481" data-width="720" data-unresolved-comment-count="0" data-linked-resource-id="544541622" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfmLightFilterRod.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544541572" data-linked-resource-container-version="1" data-media-id="16631f10-7449-4d08-a6a9-3da712b091a5" data-media-type="file"></span><p>PxrRodLightFilter is similar to the above PxrBlockerLightFilter but with more controls and flexibility.</p><h4 id="LightFiltersinMaya-GoboLightFilter">Gobo Light Filter</h4><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="900" loading="lazy" src="../../attachments/544541572/rfmLightFilterCookie.png" data-image-src="../../attachments/544541572/rfmLightFilterCookie.png" data-height="481" data-width="1029" data-unresolved-comment-count="0" data-linked-resource-id="544541625" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfmLightFilterCookie.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544541572" data-linked-resource-container-version="1" data-media-id="57213fef-e482-43ef-8362-3bde1a85d87a" data-media-type="file"></span><p>PxrGoboLightFilter projects a painted texture in front of the light.</p><h4 id="LightFiltersinMaya-CookieLightFilter">Cookie Light Filter</h4><p>PxrCookieLightFilter is similar to the PxrGoboLightFilter but with more options and flexibility.</p><h4 id="LightFiltersinMaya-IntensityLightFilter">Intensity Light Filter</h4><p>PxrIntMultLightFilter is a light filter that allows you to multiply the intensity/exposure of the light. This is very useful when you want to isolate a particular asset from the rest of the scene that has different intensity/exposure.</p><p>The position of the PxrIntMultLightFilter is not relevant.  You'll want to use Maya's light linking to link this light filter to particular objects for which a particular lighting effect needs to be brighter or darker.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="900" loading="lazy" src="../../attachments/544541572/rfmLightFitlerIntMultLinking.png" data-image-src="../../attachments/544541572/rfmLightFitlerIntMultLinking.png" data-height="362" data-width="489" data-unresolved-comment-count="0" data-linked-resource-id="544541610" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfmLightFitlerIntMultLinking.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544541572" data-linked-resource-container-version="1" data-media-id="9b30f041-524c-480b-b91b-ce4cde0f7b90" data-media-type="file"></span><h4 id="LightFiltersinMaya-RampLightFilter">Ramp Light Filter</h4></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="779" loading="lazy" src="../../attachments/544541572/rfmLightFilterRamp.png" data-image-src="../../attachments/544541572/rfmLightFilterRamp.png" data-height="482" data-width="585" data-unresolved-comment-count="0" data-linked-resource-id="544541613" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfmLightFilterRamp.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544541572" data-linked-resource-container-version="1" data-media-id="9b6b7a50-d5d0-4912-bdad-4dcbe5b68cb0" data-media-type="file"></span><p /></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="761" loading="lazy" src="../../attachments/544541572/rfmLightFilterRamp2.png" data-image-src="../../attachments/544541572/rfmLightFilterRamp2.png" data-height="481" data-width="565" data-unresolved-comment-count="0" data-linked-resource-id="544541616" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfmLightFilterRamp2.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544541572" data-linked-resource-container-version="1" data-media-id="d2692ffb-0863-43ec-9eac-7611377f2425" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p>PxrRampLightFilter uses a ramp to control the light. This allows complex control of color, intensity, and more.</p><p /><p /><p /></div>
+</div>
+</div>
+</div>
+  </article>
+</main>
+</body>
+</html>

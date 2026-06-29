@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PxrBumpRoughness</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>PxrBumpRoughness</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/REN27/542222907/PxrBumpRoughness">https://rmanwiki-27.pixar.com/space/REN27/542222907/PxrBumpRoughness</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p><strong>Bump Roughness</strong> was created for efficiently sampling micro details. With this pattern, RenderMan automatically switches from a bump map to a roughness value depending on the size of a feature in the camera, effectively improving  your render times by lowering the sampling rates needed to render such details. </p><p><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/542222907/louise-nash-render-01.jpg" data-image-src="../../attachments/542222907/louise-nash-render-01.jpg" data-unresolved-comment-count="0" data-linked-resource-id="542222930" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="louise-nash-render-01.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542222907" data-linked-resource-container-version="1" data-media-id="3fbb84b7-5d6b-4ba9-8b28-548921bed480" data-media-type="file"></span></p><p style="text-align: center;">© Disney/ Pixar</p><p>One such example is Louise Nash (shaded by Yeon Kang) from Cars 3. Here you can see extensive wear of the clear coat on the paint job, which creates micro-scratches and breaks up the specular in interesting ways, also driving the anisotropy in ways which more accurately reflect the intended look-development.</p><p><br/></p><p><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/542222907/lizard-vs-sampling.jpg" data-image-src="../../attachments/542222907/lizard-vs-sampling.jpg" data-unresolved-comment-count="0" data-linked-resource-id="542222927" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="lizard-vs-sampling.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542222907" data-linked-resource-container-version="1" data-media-id="18ea59f1-8f5e-422f-affe-5f6e5b43d6c7" data-media-type="file"></span></p><p style="text-align: center;">© Disney/ Pixar</p><p style="text-align: left;">A crucial feature of <strong>Bump Roughness</strong> is to see micro details when objects are far from the camera. In the example above, you can see how we can get very close to the intended look-development with only 1 sample, instead of having to fire hundreds of rays to visualize the intended level of detail in the textures.</p><p><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/542222907/Bump-Roughness-Teapots.gif" data-image-src="../../attachments/542222907/Bump-Roughness-Teapots.gif" data-unresolved-comment-count="0" data-linked-resource-id="542222921" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Bump-Roughness-Teapots.gif" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/gif" data-linked-resource-container-id="542222907" data-linked-resource-container-version="1" data-media-id="8c687f11-c767-42f2-a128-9e3f74c05550" data-media-type="file"></span></p><p>In the example above we can see how we can drive roughness, anisotropy, and bump with a single texture. When zooming 4X we can appreciate how Bump Roughness maintains detail where bump generally gets lost due to filtering.</p><p>There are many other types of materials that benefit from the added detail that <strong>Bump Roughness</strong> maps bring, such as carbon fibre, metals, plastics, and fabrics.</p><p><br/></p><p><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/542222907/bump-roughness-materials-01.jpg" data-image-src="../../attachments/542222907/bump-roughness-materials-01.jpg" data-unresolved-comment-count="0" data-linked-resource-id="542222939" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="bump-roughness-materials-01.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542222907" data-linked-resource-container-version="1" data-media-id="6382765a-4118-4839-aa85-057e4580cd0b" data-media-type="file"></span></p><p style="text-align: center;">© Disney/ Pixar</p><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="35d4df59-49d6-438a-91d5-ee29a56de6ef" data-macro-name="info"><p class="title">Network Connections</p><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>For Bump Roughness to work appropriately, it needs to be connected to the following material inputs:</p><ul><li>Roughness</li><li>Bump Normal</li><li>Anisotropy</li><li>Anisotropy Direction</li></ul><p><span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image" height="250" loading="lazy" src="../../attachments/542222907/BumpRoughness_OUT.jpg" data-image-src="../../attachments/542222907/BumpRoughness_OUT.jpg" data-unresolved-comment-count="0" data-linked-resource-id="542222924" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="BumpRoughness_OUT.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542222907" data-linked-resource-container-version="1" data-media-id="fcbc9e4a-0a58-41ae-b762-868de978eac6" data-media-type="file" /></span></p></div></div><p><br/></p><h3 id="PxrBumpRoughness-InputParameters">Input Parameters</h3><h4 id="PxrBumpRoughness-b2rTexture">b2r Texture</h4><p>Simply use traditional bump or normal maps and the Texture Manager will convert them to Bump Roughness textures automatically in RFM, RFH or RFB. You'll notice your newly created tex files now have a <strong>b2r</strong> suffix after the file name, such as myTexture_b2r.exr.tex </p><p>See the <a href="/wiki/spaces/REN27/pages/542236544/txmake#txmake-BumpToRoughness" data-linked-resource-id="542236544" data-linked-resource-version="2" data-linked-resource-type="page">txmake documentation</a> for details.</p><h4 id="PxrBumpRoughness-TextureType">Texture Type</h4><p>Map type to be used as your Bump Roughness Map</p><h4 id="PxrBumpRoughness-TxMakeIcon">TxMake Icon</h4><p>Show settings in Texture Manager</p><h4 id="PxrBumpRoughness-Manifold">Manifold</h4><p>Connect a manifold node here to control the position, rotation and tiling of your Bump Roughness map</p><h4 id="PxrBumpRoughness-MultiManifold">Multi Manifold</h4><p>Connect a PxrHexTileManifold or PxrRoundCube Manifold here.</p><h3 id="PxrBumpRoughness-BumpRoughness">Bump Roughness</h3><h4 id="PxrBumpRoughness-BaseRoughness">Base Roughness</h4><p>This is the roughness of the base surface when fully zoomed into the detail.</p><h4 id="PxrBumpRoughness-TextureRoughness">Texture Roughness</h4><p>Set the texture roughness to be provided by the input textures when fully zoomed out from the detail. It is combined with the base roughness. The default of -1.0 lets the texture provide its natural roughness.</p><h4 id="PxrBumpRoughness-Gain">Gain</h4><p>This is a multiplier to the aggregate roughness</p><h4 id="PxrBumpRoughness-BumpNormalGain">Bump Normal Gain</h4><p>multiplier to the normal map magnitude</p><h4 id="PxrBumpRoughness-AnisotropyGain">Anisotropy Gain</h4><p>This is a multiplier to the aggregate anisotropy</p><h3 id="PxrBumpRoughness-Advanced">Advanced</h3><h4 id="PxrBumpRoughness-AdjustAmount">Adjust Amount</h4><p>Amount to adjust the normals when they are facing away from the camera</p><h4 id="PxrBumpRoughness-SurfaceMix">Surface Mix</h4><p>The amount to mix the resulting normals with the surface normals</p><h4 id="PxrBumpRoughness-Blur">Blur</h4><p>Amount of blur to apply to texture lookup.</p><h4 id="PxrBumpRoughness-Filter">Filter</h4><p>Which filter to use. (unfiltered/closest not advisable for displacement.)</p><h4 id="PxrBumpRoughness-FilterScale">Filter Scale</h4><p>Multiplies the size of the texture filter, less than one for sharper textures.</p>
+  </article>
+</main>
+</body>
+</html>

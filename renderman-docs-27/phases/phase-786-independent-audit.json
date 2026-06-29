@@ -1,0 +1,181 @@
+{
+  "phase": 786,
+  "file": "TRA/22184326-Initial Configuration.html",
+  "file_id": "5aa3796705",
+  "source_items": 32,
+  "translation_rows": 32,
+  "source_items_match_translation_rows": true,
+  "duplicate_rows": [],
+  "missing_item_ids": [],
+  "extra_item_ids": [],
+  "tag_fingerprint_identical": true,
+  "rendered_markup_matches_target_markup": true,
+  "glossary_violations": [],
+  "direct_placement_missing": [],
+  "actionable_long_source_residuals": [],
+  "accepted_long_source_residuals": [
+    {
+      "item_id": "5aa3796705:18",
+      "source": "MaxConcurrentDispatch"
+    },
+    {
+      "item_id": "5aa3796705:22",
+      "source": "TractorDataDirectory"
+    },
+    {
+      "item_id": "5aa3796705:28",
+      "source": "Engine Configuration"
+    }
+  ],
+  "actionable_ascii_heavy_residuals": [],
+  "accepted_ascii_heavy_residuals": [
+    {
+      "item_id": "5aa3796705:0",
+      "text": "Tractor 的灵活性和强大能力来自它可被 customized（自定义）的能力。虽然有几十个 tuning parameters，也有编写 custom plug-ins 的机会，但 Tractor 被设计为无需编辑 configuration files 即可投入运行。",
+      "ascii_letters": 71,
+      "cjk_chars": 48
+    },
+    {
+      "item_id": "5aa3796705:1",
+      "text": "如果需要 customizations，则首先",
+      "ascii_letters": 14,
+      "cjk_chars": 7
+    },
+    {
+      "item_id": "5aa3796705:3",
+      "text": "用于存放 configuration files，并且该目录需要可被 engine 的 process owner 读取。因为 engine 使用 /var/spool/tractor 作为默认 data directory，所以 /var/spool/tractor/config 会是 configuration directory 的合理选择。",
+      "ascii_letters": 113,
+      "cjk_chars": 33
+    },
+    {
+      "item_id": "5aa3796705:4",
+      "text": "Configuration files 采用 JSON 编写。",
+      "ascii_letters": 22,
+      "cjk_chars": 4
+    },
+    {
+      "item_id": "5aa3796705:5",
+      "text": "Key Parameters（关键参数）",
+      "ascii_letters": 13,
+      "cjk_chars": 4
+    },
+    {
+      "item_id": "5aa3796705:8",
+      "text": "EngineOwner",
+      "ascii_letters": 11,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "5aa3796705:9",
+      "text": "指定 engine process 的特定 run-time owner。System services 会以 root 启动 tractor-engine，以便获取 port 80 等 protected ports；但随后该 process 会把 privilege level 降低到 EngineOwner。建议 studios 为此创建一个专门的 tractor user。",
+      "ascii_letters": 124,
+      "cjk_chars": 34
+    },
+    {
+      "item_id": "5aa3796705:10",
+      "text": "ListenerPort",
+      "ascii_letters": 12,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "5aa3796705:11",
+      "text": "指定 engine 监听 blade、dashboard 和其他 client connections 的 port。engine 是一种 web server，默认监听常规 HTTP port 80；这对用户和 site administration 来说是最简单的配置。通常只有在 port 80 上已经运行另一个 web server，或者 engine 不是以 root 启动、无法获取 80 时，才需要 alternate port number。",
+      "ascii_letters": 124,
+      "cjk_chars": 59
+    },
+    {
+      "item_id": "5aa3796705:12",
+      "text": "EngineDiscovery",
+      "ascii_letters": 15,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "5aa3796705:13",
+      "text": "指定 blades 和其他 client programs 应如何发现 engine。默认情况下，clients 会尝试连接 hostname tractor-engine，或者连接由 TRACTOR_ENGINE environment variable 或每个 tool 的 --engine=NAME command line parameter 给出的 alternate hostname。当该 hostname 无法解析时，会尝试 EngineDiscovery scheme。",
+      "ascii_letters": 166,
+      "cjk_chars": 42
+    },
+    {
+      "item_id": "5aa3796705:14",
+      "text": "LicenseLocation",
+      "ascii_letters": 15,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "5aa3796705:15",
+      "text": "指定 license file 的 path，或 license server name。此设置",
+      "ascii_letters": 32,
+      "cjk_chars": 7
+    },
+    {
+      "item_id": "5aa3796705:17",
+      "text": "，因为 Tractor 会读取 Tractor installation 父目录中的 thepixar.license 文件，而该文件由所有 Pixar applications 共享。",
+      "ascii_letters": 58,
+      "cjk_chars": 21
+    },
+    {
+      "item_id": "5aa3796705:18",
+      "text": "MaxConcurrentDispatch",
+      "ascii_letters": 21,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "5aa3796705:19",
+      "text": "指定 engine process 将消耗的 Tractor license seats 最大数量。当多个 test engines 从同一个 license server 运行时，custom setting 可能很有用。使用默认值 zero 会使 tractor-engine 在 start-up 时获取",
+      "ascii_letters": 93,
+      "cjk_chars": 36
+    },
+    {
+      "item_id": "5aa3796705:22",
+      "text": "TractorDataDirectory",
+      "ascii_letters": 20,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "5aa3796705:23",
+      "text": "指定一个 EngineOwner 可写的位置，用于存储 job 和 user data。默认位置是 /var/spool/tractor。出于测试、file system permissions 限制，或指向更大/更快 storage volumes 的需要，可以选择其他位置。通常最好选择 engine host 上的某个本地位置。请确保 data directory 先被创建，并可由 EngineOwner 读写；如果 configuration directory 要作为其子目录（例如 /var/spool/tractor/config），这一步无论如何都是必要的。",
+      "ascii_letters": 149,
+      "cjk_chars": 92
+    },
+    {
+      "item_id": "5aa3796705:25",
+      "text": "下面展示的是一个示例 tractor.config 文件，它将存储在站点决定的 configuration directory 中。在此示例中，站点设置了名为 tractor 的 user，使用其 home directory 存储 data，并监听较高的 port。这里使用 in-house license server，并且 engine 只允许 10 个 concurrent dispatches。",
+      "ascii_letters": 113,
+      "cjk_chars": 57
+    },
+    {
+      "item_id": "5aa3796705:26",
+      "text": "Further Reading（进一步阅读）",
+      "ascii_letters": 14,
+      "cjk_chars": 5
+    },
+    {
+      "item_id": "5aa3796705:27",
+      "text": "完整的 engine-specific configuration parameters 集合在",
+      "ascii_letters": 37,
+      "cjk_chars": 6
+    },
+    {
+      "item_id": "5aa3796705:28",
+      "text": "Engine Configuration",
+      "ascii_letters": 19,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "5aa3796705:29",
+      "text": "部分中说明。此内容以及其他 site customization documentation 可以在一般性的",
+      "ascii_letters": 30,
+      "cjk_chars": 19
+    },
+    {
+      "item_id": "5aa3796705:30",
+      "text": "Configuration",
+      "ascii_letters": 13,
+      "cjk_chars": 0
+    }
+  ],
+  "required_phrase_missing": [],
+  "section_order_positions": [],
+  "section_order_ok": true,
+  "passed": true
+}

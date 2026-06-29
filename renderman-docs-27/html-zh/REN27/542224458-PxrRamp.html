@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PxrRamp</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>PxrRamp</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/REN27/542224458/PxrRamp">https://rmanwiki-27.pixar.com/space/REN27/542224458/PxrRamp</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="contentLayout2">
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p>创建一个 color ramp（颜色渐变），在 colors 输入列表中指定的颜色之间逐渐过渡。</p><p>Colors 和 Positions 两个列表必须拥有相同数量的元素。它们共同定义用于 spline 插值的控制点列表。</p><p>注意：From now on（从现在开始），PxrRamp 会在内部向 spline 添加额外点，以输出预期结果。以前 ramp 至少需要 4 个点，并要求用户具备额外知识；现在不再需要。</p><h3 id="PxrRamp-InputParameters">Input Parameters</h3><h4 id="PxrRamp-RampType">Ramp Type</h4><p>控制 ramp 颜色变化的方向。</p><div class="table-wrap"><table data-table-width="1800" data-layout="align-start" data-local-id="201d72f6-ffbb-4d6f-b0c0-0586ff65e2db" class="confluenceTable"><tbody><tr><td class="confluenceTd"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrRampType0.png" width="256" loading="lazy" src="../../attachments/542224458/pxrRampType0.png" data-image-src="../../attachments/542224458/pxrRampType0.png" data-height="256" data-width="256" data-unresolved-comment-count="0" data-linked-resource-id="542224500" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrRampType0.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542224458" data-linked-resource-container-version="1" data-media-id="0b4f670d-a911-487d-b991-9e0f2127476e" data-media-type="file"></span></td><td class="confluenceTd"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrRampType1.png" width="256" loading="lazy" src="../../attachments/542224458/pxrRampType1.png" data-image-src="../../attachments/542224458/pxrRampType1.png" data-height="256" data-width="256" data-unresolved-comment-count="0" data-linked-resource-id="542224497" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrRampType1.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542224458" data-linked-resource-container-version="1" data-media-id="0ba7c82b-e31b-466a-a5e0-1884f2ea88f2" data-media-type="file"></span></td><td class="confluenceTd"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrRampType2.png" width="256" loading="lazy" src="../../attachments/542224458/pxrRampType2.png" data-image-src="../../attachments/542224458/pxrRampType2.png" data-height="256" data-width="256" data-unresolved-comment-count="0" data-linked-resource-id="542224494" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrRampType2.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542224458" data-linked-resource-container-version="1" data-media-id="9ed00e8a-5c91-48b2-ae18-49e8498c1bba" data-media-type="file"></span></td><td class="confluenceTd"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrRampType3.png" width="256" loading="lazy" src="../../attachments/542224458/pxrRampType3.png" data-image-src="../../attachments/542224458/pxrRampType3.png" data-height="256" data-width="256" data-unresolved-comment-count="0" data-linked-resource-id="542224491" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrRampType3.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542224458" data-linked-resource-container-version="1" data-media-id="5b358b94-0b38-4635-9fe4-f975f87ee06a" data-media-type="file"></span></td></tr><tr><td class="confluenceTd"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrRampType4.png" width="256" loading="lazy" src="../../attachments/542224458/pxrRampType4.png" data-image-src="../../attachments/542224458/pxrRampType4.png" data-height="256" data-width="256" data-unresolved-comment-count="0" data-linked-resource-id="542224488" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrRampType4.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542224458" data-linked-resource-container-version="1" data-media-id="cb3f1fc6-cfb8-4e97-bc69-c5d1b1fc1972" data-media-type="file"></span></td><td class="confluenceTd"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrRampType5.png" width="256" loading="lazy" src="../../attachments/542224458/pxrRampType5.png" data-image-src="../../attachments/542224458/pxrRampType5.png" data-height="256" data-width="256" data-unresolved-comment-count="0" data-linked-resource-id="542224485" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrRampType5.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542224458" data-linked-resource-container-version="1" data-media-id="6209b716-f691-4900-bd2c-0984ea49fc1c" data-media-type="file"></span></td><td class="confluenceTd"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrRampType6.png" width="256" loading="lazy" src="../../attachments/542224458/pxrRampType6.png" data-image-src="../../attachments/542224458/pxrRampType6.png" data-height="256" data-width="256" data-unresolved-comment-count="0" data-linked-resource-id="542224482" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrRampType6.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542224458" data-linked-resource-container-version="1" data-media-id="a24bdbb5-3e85-4b83-b2ee-495f1178103b" data-media-type="file"></span></td><td class="confluenceTd"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrRampType7.png" width="256" loading="lazy" src="../../attachments/542224458/pxrRampType7.png" data-image-src="../../attachments/542224458/pxrRampType7.png" data-height="125" data-width="125" data-unresolved-comment-count="0" data-linked-resource-id="542224479" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrRampType7.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542224458" data-linked-resource-container-version="1" data-media-id="7ec8d276-3272-490f-a72f-6ec73ca7f7fb" data-media-type="file"></span></td></tr></tbody></table></div><h4 id="PxrRamp-Tile">Tile</h4><p>确定 ramp 纹理是否重复。</p><h4 id="PxrRamp-Reverse">Reverse</h4><p>启用后会翻转 ramp，使其方向反转。</p><h4 id="PxrRamp-SplineType">Spline Type</h4><p>控制 colors 列表中各颜色之间的中间颜色如何计算。也可以选择 "constant"（21 中为 "None"），让所选颜色之间不进行混合。</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="PxrRamp_spline_linear.png" width="258" loading="lazy" src="../../attachments/542224458/PxrRamp_spline_linear.png" data-image-src="../../attachments/542224458/PxrRamp_spline_linear.png" data-height="91" data-width="209" data-unresolved-comment-count="0" data-linked-resource-id="542224473" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="PxrRamp_spline_linear.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542224458" data-linked-resource-container-version="1" data-media-id="99328449-748e-410e-a3ca-b53d7cfcdd61" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="PxrRamp_spline_constant.png" width="258" loading="lazy" src="../../attachments/542224458/PxrRamp_spline_constant.png" data-image-src="../../attachments/542224458/PxrRamp_spline_constant.png" data-height="91" data-width="209" data-unresolved-comment-count="0" data-linked-resource-id="542224470" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="PxrRamp_spline_constant.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542224458" data-linked-resource-container-version="1" data-media-id="a180c679-d9e4-482d-a289-0f444c54551b" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="PxrRamp_spline_catmullrom.png" width="256" loading="lazy" src="../../attachments/542224458/PxrRamp_spline_catmullrom.png" data-image-src="../../attachments/542224458/PxrRamp_spline_catmullrom.png" data-height="91" data-width="209" data-unresolved-comment-count="0" data-linked-resource-id="542224476" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="PxrRamp_spline_catmullrom.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542224458" data-linked-resource-container-version="1" data-media-id="5bd4cb22-f092-4134-8b44-51782869a0d3" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h4 id="PxrRamp-SplineMap">Spline Map</h4><p>如果连接到一个 pattern，它就是控制 ramp 映射的 1D manifold。例如，如果将它连接到 noise pattern，则 ramp 中颜色变化的方向会跟随该 noise pattern。如果两者都连接，此 map 优先于 manifold 值。</p><p>下图显示一个 PxrVoronoise pattern（frequency 设为 10）通过 splineMap 参数连接到 ramp。noise pattern 的黑色值映射到 ramp 的红色，noise 的白色值映射到 ramp 的蓝色，介于其间的值会映射到 ramp 中部的绿色。</p><span class="confluence-embedded-file-wrapper image-center-wrapper"><img class="confluence-embedded-image image-center" loading="lazy" src="../../attachments/542224458/pxrRampSplineMap.png" data-image-src="../../attachments/542224458/pxrRampSplineMap.png" data-height="256" data-width="256" data-unresolved-comment-count="0" data-linked-resource-id="542224527" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrRampSplineMap.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542224458" data-linked-resource-container-version="1" data-media-id="1d2b731f-d29d-40bb-ab10-eff0770f0cd1" data-media-type="file"></span><h4 id="PxrRamp-RandomSource">Random Source</h4><p>当 Ramp Type 设置为 "Random Object Color" 时，PxrRamp 会使用对象 ID（Attribute "identifier:id"）或对象名称（Attribute "identifier:name"）计算 random seed。该 seed 会用于从 ramp 中选择一种颜色。</p><p>此示例使用 "None" Spline Type，但也支持其他 spline types。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="400" loading="lazy" src="../../attachments/542224458/pxrRampRandomObjNone_render.png" data-image-src="../../attachments/542224458/pxrRampRandomObjNone_render.png" data-height="200" data-width="400" data-unresolved-comment-count="0" data-linked-resource-id="542224524" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrRampRandomObjNone_render.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542224458" data-linked-resource-container-version="1" data-media-id="57f63f6d-a7a9-480b-9ca1-8f2dcd9b2aef" data-media-type="file"></span><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="350" loading="lazy" src="../../attachments/542224458/pxrRampRandomObjNone_ramp.png" data-image-src="../../attachments/542224458/pxrRampRandomObjNone_ramp.png" data-height="87" data-width="350" data-unresolved-comment-count="0" data-linked-resource-id="542224521" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrRampRandomObjNone_ramp.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542224458" data-linked-resource-container-version="1" data-media-id="cd0872c0-5abf-4474-adc2-f7f641737db1" data-media-type="file"></span><p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="454" loading="lazy" src="../../attachments/542224458/pxrVaryPinwheelSM.jpg" data-image-src="../../attachments/542224458/pxrVaryPinwheelSM.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542224530" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrVaryPinwheelSM.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542224458" data-linked-resource-container-version="1" data-media-id="dd982c6b-e810-418b-a653-cdcb56e20522" data-media-type="file"></span><h4 id="PxrRamp-RandomSeed">Random Seed</h4><p>更改此值可获得一组不同的随机变化。</p><p /><h3 id="PxrRamp-ColorRamp(Manual)">Color Ramp (Manual)</h3><h4 id="PxrRamp-Manifold">Manifold</h4><p>控制 ramp 的 2D 放置。默认使用表面几何体的 s 和 t 值，在表面上放置 ramp 颜色。</p><h4 id="PxrRamp-MatchC++patterns">Match C++ patterns</h4><p>匹配 RenderMan23 C++ 场景，但可能减慢渲染。仅在必要时使用。</p><h3 id="PxrRamp-OutputParameters">Output Parameters</h3><h4 id="PxrRamp-resultRGB">resultRGB</h4><p>钳制后的颜色结果。</p><h4 id="PxrRamp-resultR">resultR</h4><p>来自 resultRGB 输出的 R channel。</p><h4 id="PxrRamp-resultG">resultG</h4><p>来自 resultRGB 输出的 G channel。</p><h4 id="PxrRamp-resultB">resultB</h4><p>来自 resultRGB 输出的 B channel。</p></div>
+</div>
+</div>
+</div>
+  </article>
+</main>
+</body>
+</html>

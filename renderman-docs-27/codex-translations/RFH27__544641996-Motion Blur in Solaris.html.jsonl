@@ -1,0 +1,13 @@
+{"id":"3575a1deb8921d5746443140ec4d376a7761a6b624ac65a429aac61490e4939c","item_id":"0d81dc8a0c:0","text":"要在 Solaris 中启用 motion blur（运动模糊），需要正确设置相机和几何体。"}
+{"id":"271487021ad537e89ff9ca70304e134d0d4d1bc0e2b8679a5691a50b25f50635","item_id":"0d81dc8a0c:1","text":"对于相机，请确保已设置所需快门窗口（也可能需要确认 Render Settings LOP 上没有启用 \"Disable Motion Blur\"）。几何体需要正确的属性，并需要通过 Render Geometry Settings LOP 节点应用正确设置。"}
+{"id":"209a2a51e2cf67d53564985d6863624ea69e0c6a7210aee4ae3568f3b19ff5a5","item_id":"0d81dc8a0c:2","text":"相关设置可在 RenderMan > Prototype Attributes > Motion Blur 下找到。"}
+{"id":"39801faec875774e71fc3349dca449ebc418561deb90a00a851c0ede37bb31da","item_id":"0d81dc8a0c:3","text":"首先确保已设置 \"Enable Motion Blur\"。"}
+{"id":"5562ea319efd03350b5789c1cd1b716139e13d3b3786e0a098b9bd0c145712e7","item_id":"0d81dc8a0c:4","text":"然后在 \"Velocity Blur\" Setting 中，为你的 motion blur 类型选择相应设置。"}
+{"id":"5bad0bec918970c888e1a8356d2d2aeaba422f28e53c65de54abce01f785e310","item_id":"0d81dc8a0c:5","text":"No Velocity Blur（无速度模糊）"}
+{"id":"5d803251bbc73d8ea19a783d44d0ee2f00b9482c5041af063356140ee192df22","item_id":"0d81dc8a0c:6","text":"在没有速度运动模糊的情况下，RenderMan 会使用快门窗口内提供的所有位置采样。因此必须确保提供多个位置采样。Cache LOP 节点可用于保留前后帧的位置采样，也可以使用 Motion Blur LOP 节点写出子帧采样。"}
+{"id":"f526a9b5d66a304519b4114bf025f2ff7b1a8083b962746a543b922abe3ac4ad","item_id":"0d81dc8a0c:7","text":"Velocity Blur（速度模糊）"}
+{"id":"736aea23d6d3b97730ab38717d0821eb019867651fb2c0ee7747c4160bb353c8","item_id":"0d81dc8a0c:8","text":"\"velocities\" attribute（属性）用于给出位置在该时间点的运动方向。RenderMan 使用这些值在快门窗口的开始和结束处生成点。"}
+{"id":"8f7b96b1a6af63b7adb7a8dfc41b23a80aceb5a0c48b3226268da8edb764471c","item_id":"0d81dc8a0c:9","text":"Acceleration Blur（加速度模糊）"}
+{"id":"df8a89f5e8ee9d235c290b984ec4364ab46086444d619602e7c31d5bf9c53049","item_id":"0d81dc8a0c:10","text":"\"accelerations\" 和 \"velocities\" attributes（属性）会组合使用，以生成时间上的点。与速度模糊相比，这可以产生不那么线性的结果，因为位置可能沿某个方向弯曲，或在子帧内变快。可以使用 \"Geometry Time Samples\" 生成更多位置，从而获得更平滑的结果，但这可能影响内存。"}
+{"id":"a2a40639c92f74e814ad9ba121f76086b3ea2527a0eec8b59d24a7b09ff3a123","item_id":"0d81dc8a0c:11","text":"Transform Motion Blur（变换运动模糊）"}
+{"id":"33447659ab841926f906dc076f56422348cb1bbc79cb70ded813aac1d8e4ed22","item_id":"0d81dc8a0c:12","text":"这与点运动模糊分开计算，并会变换整个几何体。与 \"No Velocity Blur\" 一样，你需要确保有多个变换采样可供 RenderMan 读取。可以使用 \"Transform Time Samples\" 设置更改变换时间采样的数量。"}

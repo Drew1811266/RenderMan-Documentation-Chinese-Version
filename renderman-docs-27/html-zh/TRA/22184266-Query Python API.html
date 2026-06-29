@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Query Python API</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Query Python API</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/TRA/22184266/Query+Python+API">https://rmanwiki-27.pixar.com/space/TRA/22184266/Query+Python+API</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>tractor.api.query 是一个 Python API，提供与 command line tool tq 相同的 query 和 control 功能。它随 Tractor 自带的 Python interpreter rmanpy 一起安装。</p><p>你也许可以把此 module 与自己的 interpreter 一起使用，但这需要 site-specific configuration，以便正确定位或安装 Tractor Python modules。</p><p>下面的 examples 假定 query module 已按如下方式 import：</p><p><code>import tractor.api.query as tq
+</code></p><h3 id="QueryPythonAPI-ListFunctions">List Functions（列表函数说明）</h3><p>query module 提供用于检索 jobs、tasks、commands、invocations 和 blades 信息的 functions。它们的名称与 command line tool 中的 list commands 相同，即 jobs()、tasks()、commands()、invocations() 和 blades()。</p><p>这些 functions 的第一个 argument 是一个 <a href="22184262-Search Clauses.html" data-linked-resource-id="22184262" data-linked-resource-version="5" data-linked-resource-type="page">search clause（搜索条件子句）</a>，用于缩小 search 范围。</p><p>在此 example 中，这个 list function 会取回一组 users 拥有、且在 8 天前以前 spool 的所有 jobs。list functions 的 return value 是一个 dictionaries list，每个 dictionary 表示一个 matched item。</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="9331005e-2a39-4311-af46-6903d026d768" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">&gt;&gt;&gt; jobs = tq.jobs(&quot;owner in [freddie brian john roger] and spooltime &lt; -8d&quot;)
+&gt;&gt;&gt; print jobs[0]
+{u'comment': u'', u'maxslots': 0, u'numblocked': 0, u'spoolcwd': u'/home/freddie/unitard, u'numerror': 0, u'aftertime': None, u'elapsedsecs': 0.0, u'owner': u'paul', u'spoolhost': u'zanzibar, u'spooladdr': u'138.72.196.92', u'jid': 2680, u'service': u'', u'title': u'Somebody To Render', u'numactive': 0, u'editpolicy': u'', u'spooltime': u'2014-02-17 08:16:53-08', u'projects': [u'flash_gordon', u'hot_space'], u'crews': [u'queen'], u'maxcid': 2, u'metadata': u'', u'numready': 0, u'tags': [], u'afterjids': [], u'stoptime': u'2014-02-17 08:16:57.971-08', u'envkey': [], u'tier': u'', u'etalevel': 1, u'numtasks': 2, u'numdone': 2, u'maxtid': 2, u'assignments': u'', u'spoolfile': u'/home/freddie/champion.alf', u'esttotalsecs': 0.0, u'starttime': u'2014-02-17 08:16:53.73-08', u'pausetime': None, u'minslots': 0, u'deletetime': None, u'priority': 10.0}
+
+</pre>
+</div></div><h3 id="QueryPythonAPI-SearchClause">Search Clause（搜索条件子句）</h3><p>search clause 是一个 boolean expression（上面的 example 使用 and），由 comparisons 和 operators（<em>in 运算符</em>、&lt;）以及 entity attributes（owner、spooltime）组成。为减少输入量，这里做了一些简化。例如，freddie 这样的 string literals 不需要加 quotes，而 string -8d 是表示 "one day ago" 的 short form 简写形式。</p><p>关于 search clause syntax 的更多细节可在 <a href="22184262-Search Clauses.html" data-linked-resource-id="22184262" data-linked-resource-version="5" data-linked-resource-type="page">这里</a>找到。</p><p>注意，search 范围越宽，在定位、传输和存储 results 时消耗的 CPU、memory 和 bandwidth 就越多。这会影响 client、engine 和 backend database server。<br/> </p><h3 id="QueryPythonAPI-Columns">Columns（列选择）</h3><p>默认情况下，query functions 会检索给定 entity 的所有 attributes。不过，如果并不需要所有 attributes，这会浪费 client、engine 和 backend database 的 memory 与 CPU。可以使用 columns= keyword parameter 指定要检索的 attributes list。</p><p>例如，下面只取回 job id、owner、title 和 metadata columns：</p><p><code>&gt;&gt;&gt; tq.jobs(&quot;active&quot;, columns=[&quot;jid&quot;, &quot;owner&quot;, &quot;title&quot;, &quot;metadata&quot;])
+</code></p><h3 id="QueryPythonAPI-Sorting">Sorting（排序）</h3><p>可以使用 sortby= keyword parameter 对 results 排序。可以指定多个 attributes 以表示 secondary sorting。Items 默认按 ascending order 排列，除非 attribute 前面加上 <em>-</em> 来表示 descending order（降序排列）。</p><p>例如，为了显示相似 jobs 在 FIFO queue 中的处理顺序，可以按 priority descending、spooltime ascending 的顺序列出它们，如下所示：</p><p><code>&gt;&gt;&gt; tq.jobs(&quot;active or ready&quot;, sortby=[&quot;-priority&quot;, &quot;spooltime&quot;])
+</code></p><p>虽然 item sorting 可以在 client side 完成，但如果 result set 已通过 limit= keyword parameter 截断，就无法这样做，因为 truncation 会在 server side 发生，早于 client 有机会对 results 排序。</p><p><strong>请注意</strong> sorting 可能会根据 query 的 complexity 和 scope，对 backend database server 产生影响。<br/> </p><h3 id="QueryPythonAPI-Limiting">Limiting（限制返回数量）</h3><p>limit= keyword parameter 会设置 engine 返回 items 数量的 upper bound。</p><p>例如，下面的 statement 会取回 farm 上 active tasks 数量最多的十个 jobs：</p><p><code>&gt;&gt;&gt; tq.jobs(&quot;active&quot;, sortby=[&quot;-numactive&quot;], limit=10)
+</code></p><p>下面的 statement 会列出 disk space 最少的二十台 hosts。</p><p><code>&gt;&gt;&gt; tq.blades(&quot;name like east&quot;, sortby=[&quot;availdisk&quot;], limit=20)
+</code></p><p><strong>请注意</strong> 把 limit 设置为 0 会对返回 records 数量施加 <em>NO LIMIT（无限制）</em>。</p><p>注意，如果未使用 limit= keyword parameter，会有一个生效的 system default upper bound。该 upper bound 为 2500，不过 admins 可以通过在 tractor.config 中设置 SiteMaxListReplyCount 覆盖它。<br/> </p><h3 id="QueryPythonAPI-Affiliation">Affiliation（关联实体属性）</h3><p>在上面的 examples 中，items 的 attributes 用于 search clauses、column specifications 和 sorting。也可以在所有这些情况下指定 affiliated entities 的 attributes，方法是在 attribute 前加上 entity name。例如，下面的 statement 会取回 walt 拥有的 active tasks。</p><p><code>&gt;&gt;&gt; tq.tasks(&quot;state=active and Job.owner=walt&quot;)
+</code></p><p>类似地，下面的 command 会显示过去 24 小时内 spool 的 jobs 中所有 error tasks，包括其 jobs 的 titles 和 spooltimes，并按 job priority 排序。</p><p><code>&gt;&gt;&gt; tq.tasks(&quot;state=error and Job.spooltime &gt; -24h&quot;, columns=[&quot;Job.spooltime&quot;, &quot;Job.title&quot;], sortby=[&quot;Job.priority&quot;])
+</code></p><p>因为 spooltime 和 priority 不是除 job 之外任何 entity 的 attributes，所以不需要 entity prefix。下面的写法等价：</p><p><code>&gt;&gt;&gt; tq.tasks(&quot;state=error and spooltime &gt; -24h&quot;, columns=[&quot;spooltime&quot;, &quot;title&quot;], sortby=[&quot;priority&quot;])
+</code></p><h3 id="QueryPythonAPI-Archives">Archives（归档历史数据）</h3><p>archive= keyword parameter 可以设置为 True，以便搜索已删除 jobs 的 records（以及其关联的 tasks、commands 和 invocations）。</p><p><strong>请注意</strong> archives 可能比 live data set <em>大得多</em>，因此 queries 在执行、传输和存入 memory 时可能会 <em>非常</em> 昂贵。</p><p>可以通过以下方式避免这种开销：</p><ul><li><p>使用明确指定的 search clauses，确保 result sets 较小，</p></li><li><p>不要在 server 上对较大的 sets 排序，并且</p></li><li><p>对可能很大的 result sets 使用 limit argument 且不进行 sorting。<br/> </p></li></ul><h3 id="QueryPythonAPI-Operations">Operations（操作函数）</h3><p>query module 不仅有用于 fetch items 的 functions，还能够对这些 items 执行 operations。 <strong>务必小心</strong> 使用这些 operation functions，因为它们 <strong>非常</strong> 强大，并且可能 <strong>非常</strong> <strong>非常</strong> <strong>非常</strong> <strong>具有破坏性</strong>。</p><p>operation 的第一个 argument 指定要操作哪些 items，可以是以下任意一种：</p><ul><li><p>一个 search clause 搜索条件子句，</p></li><li><p>query function 返回的 objects list 对象列表，</p></li><li><p>list function 返回的 list 中的单个 object，</p></li><li><p>指定 operation 所需 attributes 的 dictionary，或</p></li><li><p>指定 operation 所需 attributes 的 dictionaries list。</p></li></ul><p>例如，下面所有写法都等价：</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="974f9d3b-2224-4028-b8bf-4f5176b045a8" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">&gt;&gt;&gt; tq.retry(&quot;jid=123 and tid=1&quot;)
+&gt;&gt;&gt; tq.retry(tq.tasks(&quot;jid=123 and tid=1&quot;))
+&gt;&gt;&gt; tq.retry(tq.tasks(&quot;jid=123 and tid=1&quot;)[0])
+&gt;&gt;&gt; tq.retry({&quot;jid&quot;: 123, &quot;tid&quot;: 1})
+&gt;&gt;&gt; tq.retry([{&quot;jid&quot;: 123, &quot;tid&quot;: 1}])</pre>
+</div></div><p /><p>最后两个 use cases 允许 authors 构造自己的 objects，用于标识要影响哪些 items。dictionary 中需要的 attributes 会根据被操作的 entity 而不同。Job operations 需要 jid；task operations 需要 jid 和 tid；command operations 需要 jid 和 cid；blade operations 需要 name。</p><p>下面的 statement 会 pause 所有带 errors 的 active jobs：</p><p><code>&gt;&gt;&gt; tq.pause(&quot;active and error&quot;)
+</code></p><p>下面的 statement 会对 disk space 最少的十个 blades 执行 nimby：</p><p><code>&gt;&gt;&gt; tq.nimby(&quot;up and not nimby&quot;, sortby=[&quot;availdisk&quot;], limit=10)
+</code></p><p>某些 operations 有额外的 keyword arguments。例如，修改 job priority 时，会使用 prioriy= keyword parameter 指定 priority。下面的 statement 会把 george 的所有 jobs 的 priority 改为 500。</p><p><code>&gt;&gt;&gt; tq.chpri(&quot;owner=george&quot;, priority=500)</code></p><p /><h3 id="QueryPythonAPI-Connectivity">Connectivity（连接管理设置）</h3><p>Python module 会静默处理你的 engine connectivity，按 lazy 方式与 engine 建立 session。</p><p>可以使用 setEngineClientParam() 更改默认 engine hostname、port、connected user、password 和 debug boolean flag。默认 engine hostname 会是 TRACTOR_ENGINE environment variable 的值；如果未设置，则为 tractor-engine。默认 port 为 80。根据 <a href="22184316-Engine.html#enginediscovery" data-linked-resource-id="22184316" data-linked-resource-version="10" data-linked-resource-type="page">EngineDiscovery</a> 的配置方式，现有 engine 可能无需使用此 function 就会被自动发现。</p><p>默认 user 是 USER environment variable 的值；如果未设置，则为 root。默认 password 不设置。默认 debug flag 设置为 False。</p><p>默认 password 是 TRACTOR_PASSWORD environment variable 的值；否则不设置。</p><p>默认 debug flag 是 TRACTOR_DEBUG environment variable 的值；否则为 False。</p><p>此 example 会覆盖部分默认 connection values。务必在 <em>之前</em> 运行任何 list 或 operation functions 前完成此操作。</p><p><code>&gt;&gt;&gt; tq.setEngineClientParam(hostname=&quot;test-engine&quot;, port=8000, user=&quot;donovan&quot;, debug=True)
+</code></p><p>如果你的 sites 使用 passwords，可以提示 user 输入 password，并按如下方式设置使用的值：</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="6ac60744-582f-45f7-8c18-de495f5d2baa" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">&gt;&gt;&gt; the_password = getpass.getpass()  # the_password may be obtained by other means
+&gt;&gt;&gt; tq.setEngineClientParam(password=the_password)</pre>
+</div></div><p /><p>可以通过 sessionFilename= parameter 把 session information 缓存在文件中，避免 user 每次运行 script 时都输入 password。file name 通常会按 application name、user name 和 host name 限定范围。needsPassword() 会被调用，以判断 cached session id 是否有效，或者是否需要提示 user 输入 password。下面是一个完整 example：</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="ced19dae-5d13-4418-b7b5-7e4da3861e3f" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">&gt;&gt;&gt; import os
+&gt;&gt;&gt; import socket
+&gt;&gt;&gt; import getpass
+&gt;&gt;&gt; import tractor.api.query as tq
+&gt;&gt;&gt;
+&gt;&gt;&gt; home = os.path.expanduser(&quot;~&quot;)
+&gt;&gt;&gt; app = os.path.basename(__file__)
+&gt;&gt;&gt; user = getpass.getuser()
+&gt;&gt;&gt; host = socket.gethostname()
+&gt;&gt;&gt;
+&gt;&gt;&gt; # qualify the session filename by host if it will be stored in a location shared my multiple hosts
+&gt;&gt;&gt; sessionFilename = os.path.join(home, &quot;.{app}.{user}.{host}.session&quot;.format(home=home, app=app, user=user, host=host))
+&gt;&gt;&gt;
+&gt;&gt;&gt; # set the session filename
+&gt;&gt;&gt; tq.setEngineClientParam(sessionFilename=sessionFilename)
+&gt;&gt;&gt;
+&gt;&gt;&gt; # check if the password needs to be obtained; this block will be skipped if the session filen contains a valid session id
+&gt;&gt;&gt; if tq.needsPassword():
+&gt;&gt;&gt;     password = getpass.getpass()
+&gt;&gt;&gt;     tq.setEngineClientParam(password=password)
+&gt;&gt;&gt;
+&gt;&gt;&gt; # the session file will be created when the first successful API call is made
+&gt;&gt;&gt; jobs = tq.jobs(&quot;error&quot;)
+&gt;&gt;&gt; print(&quot;There are {numjobs} jobs with errors.&quot;.format(numjobs=len(jobs)))
+</pre>
+</div></div><p>可以调用 closeEngineClient() 终止 session。这有助于减少 engine 维护的 sessions 数量。这会强制 session 不再有效，因此 app 下次运行时需要重新获取 password。</p><p><code>&gt;&gt;&gt; tq.closeEngineClient()
+</code></p><h3 id="QueryPythonAPI-MoreHelp">More Help（更多帮助）</h3><p>internal module documentation 会显示 query module 中所有可用的 list 和 operation functions。</p><p><code>&gt;&gt;&gt; help(tq)
+</code></p><p />
+  </article>
+</main>
+</body>
+</html>

@@ -1,0 +1,67 @@
+{"item_id":"88611926e0:0","text":"Subdivision surfaces（细分曲面）很好地结合了 polygonal-style modeling（多边形式建模）的简单性，以及数学定义曲面的平滑性。它们在建模 organic（有机）或 curved surfaces（弯曲曲面）时被大量使用。RenderMan 关于"}
+{"item_id":"88611926e0:1","text":"Subdivision Surfaces（细分曲面）"}
+{"item_id":"88611926e0:2","text":"的文档会提供很好的入门说明。"}
+{"item_id":"88611926e0:3","text":"在 Katana 中，你很可能会通过 Alembic 或其他支持 subdivision surfaces（细分曲面）的 geometry format（几何格式）导入细分曲面。作为艺术家，你通常不需要在 Katana 中做任何特殊操作就能使用它们。在 Maya 中，如果使用 RenderMan Archive 工作流，可以把几何体上使用的设置嵌入进去，RfK 应该会直接按这些设置使用。"}
+{"item_id":"88611926e0:4","text":"look development（外观开发）需要的任何 texture coordinates（纹理坐标）或其他 primitive variables（primvars）都必须在 pipeline 上游添加。将 geometry（几何体）导入 Katana 时，这些数据会可用。"}
+{"item_id":"88611926e0:5","text":"要将作为 polymesh 摄入的对象设置为 subdivision mesh（细分网格），需要使用 AttributeSet 节点，将字符串值设置为 subdmesh，并指定所需对象的路径。可以添加 PrmanObjectStatements 来指定 SubD Mesh 类型（Catmull-Clark、Loop 等）。默认值是 Catmull-Clark。"}
+{"item_id":"88611926e0:6","text":"不过，如果需要与 Maya 和 Houdini 匹配（推荐），本页下方提供的 OpScript 应该会匹配它们的默认设置。"}
+{"item_id":"88611926e0:7","text":"Speed Trick（速度技巧）"}
+{"item_id":"88611926e0:8","text":"：如果你的 subdivision surface（细分曲面）在屏幕外，或像素覆盖非常小，将 subdivision surface 转换为 polygonal surface（多边形曲面）可能是合理的。这会节省渲染内存，缩短看到首个像素的时间，并且根据场景复杂度，还会减少渲染时间。"}
+{"item_id":"88611926e0:9","text":"要将 geometry（几何体）从 subdivision surface 改为 polygonal surface，请使用 AttributeSet 节点将 geometry 的 \"type\" 设置为 polymesh。下面的屏幕截图显示了需要执行的设置。"}
+{"item_id":"88611926e0:10","text":"Normals and faceting（法线与分面）"}
+{"item_id":"88611926e0:11","text":"在 Katana 中渲染曲面时，可能需要丢弃 normals（法线）。渲染看起来平滑的曲面的基本工作流如下："}
+{"item_id":"88611926e0:12","text":"为你希望保留 smoothed normals（平滑法线）的 polymeshes 导出 normals，前提是它们"}
+{"item_id":"88611926e0:13","text":"不会"}
+{"item_id":"88611926e0:14","text":"被 subdivided（细分）。这是让需要看起来平滑的 low-poly surfaces（低多边形曲面）显得平滑的常见 \"fake\"（伪装）做法。如果只需要 hard edges/faceting（硬边/分面），则不需要导出 normals。"}
+{"item_id":"88611926e0:15","text":"准备细分网格吗？不要为这些 polymeshes 导出 normals；让 PRMan 在细分时重新计算它们。这样也会节省导出文件的空间，因为不需要包含 normals。"}
+{"item_id":"88611926e0:16","text":"normals 的存在/缺失可能影响 tessellation（镶嵌细分）。否则，如果导出了 normals 但你的意图是细分，请在 Katana 中删除 normals，以移除不需要的 faceting（分面）。"}
+{"item_id":"88611926e0:17","text":"Displacement（置换）"}
+{"item_id":"88611926e0:18","text":"要匹配旧版 RenderMan 的 Displacement（置换），下面的换算可能有用："}
+{"item_id":"88611926e0:19","text":"要获得相似的 tessellation level（细分级别），使用 shading rate（已弃用）值 X，可换算为使用 micropolygonlength 值 sqrt(X)："}
+{"item_id":"88611926e0:20","text":"shading rate = 0.25, micropolygonlength = 0.5"}
+{"item_id":"88611926e0:21","text":"shading rate = 1, micropolygonlength = 1"}
+{"item_id":"88611926e0:22","text":"shading rate = 4, micropolygonlength = 2"}
+{"item_id":"88611926e0:23","text":"To Duplicate the Geometry Settings from Maya（复制 Maya 的 Geometry Settings）"}
+{"item_id":"88611926e0:24","text":"由于 Maya 可能是你的主要建模软件，因此匹配你在 Maya 中看到的结果可能很有用。如果你的 asset（资产）导出时没有包含这些数据，下面是获得相同外观所需的设置。"}
+{"item_id":"88611926e0:25","text":"创建一个 OpScript 节点"}
+{"item_id":"88611926e0:26","text":"在 CEL 部分中，选择要应用这些属性的 mesh(es)（网格）。在此示例中，我们添加了来自 Maya 的 subdmeshes。"}
+{"item_id":"88611926e0:27","text":"Custom CEL statements（Custom CEL 语句）"}
+{"item_id":"88611926e0:28","text":"/root/world/geo//*{@type == \"polymesh\"}"}
+{"item_id":"88611926e0:29","text":"/root/world/geo//*{@type == \"subdmesh\"}"}
+{"item_id":"88611926e0:30","text":"在 script 部分添加以下内容："}
+{"item_id":"88611926e0:31","text":"上面我们设置了几个属性来匹配 Maya 设置。如果需要实验，下面列出其他选项。"}
+{"item_id":"88611926e0:32","text":"geometry.facevaryinterpolateboundary 的选项"}
+{"item_id":"88611926e0:33","text":"0（old style，旧样式）"}
+{"item_id":"88611926e0:34","text":"1（new style，新样式）"}
+{"item_id":"88611926e0:35","text":"2（new style，新样式，无 corners）"}
+{"item_id":"88611926e0:36","text":"3（new style，新样式，仅平滑内部）"}
+{"item_id":"88611926e0:37","text":"这是当前的 Maya 默认值"}
+{"item_id":"88611926e0:38","text":"'geometry.facevaryingpropogatecorners' 的选项"}
+{"item_id":"88611926e0:39","text":"0（off，关闭）"}
+{"item_id":"88611926e0:40","text":"这是 Maya 默认值"}
+{"item_id":"88611926e0:41","text":"1（on，开启）"}
+{"item_id":"88611926e0:42","text":"'geometry.interpolateBoundary' 的选项"}
+{"item_id":"88611926e0:43","text":"0（no interpolation，无插值）"}
+{"item_id":"88611926e0:44","text":"1（edge crease, corner crease，边折痕、角点折痕）"}
+{"item_id":"88611926e0:45","text":"这是 Maya 默认值"}
+{"item_id":"88611926e0:46","text":"2（edge crease only，仅边折痕）"}
+{"item_id":"88611926e0:47","text":"geometry.vertex.N"}
+{"item_id":"88611926e0:48","text":"我们会删除 mesh 上已有的 normals，因为 RenderMan 会为 subdivision mesh 创建自己的 normals。上文部分对此已有说明。"}
+{"item_id":"88611926e0:49","text":"type（类型）"}
+{"item_id":"88611926e0:50","text":"将 mesh 更改为 subdivision surface（细分曲面）"}
+{"item_id":"88611926e0:51","text":"For Developers（面向开发者）"}
+{"item_id":"88611926e0:52","text":"如果你正在为 subdivision surfaces（细分曲面）在 custom Katana plugin（自定义 Katana 插件）中实现支持，你会关心 RenderMan for Katana 如何将 geometry attributes（几何属性）转换为 RenderMan 的 subdivision format（细分格式）。请参阅开发者文档"}
+{"item_id":"88611926e0:53","text":"此处"}
+{"item_id":"88611926e0:54","text":"."}
+{"item_id":"88611926e0:55","text":"我们支持以下属性，它们会被转换为 RenderMan 的内部格式。"}
+{"item_id":"88611926e0:56","text":"prmanStatements.primAttributes.subdivisionMesh.scheme"}
+{"item_id":"88611926e0:57","text":"geometry.holePolyIndices"}
+{"item_id":"88611926e0:58","text":"geometry.creaseLengths"}
+{"item_id":"88611926e0:59","text":"geometry.creaseIndices"}
+{"item_id":"88611926e0:60","text":"geometry.creaseSharpness"}
+{"item_id":"88611926e0:61","text":"geometry.creaseSharpnessLengths"}
+{"item_id":"88611926e0:62","text":"geometry.cornerIndices"}
+{"item_id":"88611926e0:63","text":"geometry.cornerSharpness"}
+{"item_id":"88611926e0:64","text":"geometry.facevaryinginterpolateboundary"}
+{"item_id":"88611926e0:65","text":"geometry.facevaryingpropagatecorners"}
+{"item_id":"88611926e0:66","text":"geometry.interpolateBoundary"}

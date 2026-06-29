@@ -1,0 +1,27 @@
+{"item_id":"d2dabf697b:0","text":"RenderMan procedural primitives 是用户提供的子例程，可在渲染过程中按需调用以生成 geometry。与原生 Maya geometry 相比，procedurals 的优势在于它们可以非常高效地生成复杂 geometry。Procedurals 可以从少量输入创建极高的几何复杂度，而且我们可以把处理延迟到 render time（渲染时）。这可能让渲染比标准 Maya representation 所能表示的场景复杂得多。Procedurals 也可以被视为内存管理单元。renderer 可以选择卸载与某个 procedural 关联的所有具体 geometry，因为它知道如果后续仍有需要，这些 geometry 可以重新生成。"}
+{"item_id":"d2dabf697b:1","text":"RenderManProcedural (RiProcedural)"}
+{"item_id":"d2dabf697b:2","text":"RenderMan for Maya 随附通用 procedural node type RenderManProcedural，可用于加载 RiProcedural 子例程（不是 RiProcedural2）。它的设计目标是快速、简单，不需要安装或 custom 定制。为了提高灵活性，可以使用 Pre Shape Mel attribute 在 scene translation 期间设置 string data 参数。"}
+{"item_id":"d2dabf697b:3","text":"Custom Nodetype Extensions (RiProcedural and RiProcedural2)"}
+{"item_id":"d2dabf697b:4","text":"或者，用户可以使用 .args 文件参数列表，为任意 Maya nodes 指定到 DSO procedurals 的 custom 映射。这旨在让 RenderMan 与现有 Maya plug-ins 无缝集成。"}
+{"item_id":"d2dabf697b:5","text":"Environment Configuration"}
+{"item_id":"d2dabf697b:6","text":"可以在以下位置放置 config/mayaTranslation.json extension file，让 RfM 识别 custom .args 文件 procedurals："}
+{"item_id":"d2dabf697b:7","text":"或"}
+{"item_id":"d2dabf697b:8","text":"。示例 site configuration（站点配置）："}
+{"item_id":"d2dabf697b:9","text":"专门为 procedurals 设计，并接收一个 paths 列表："}
+{"item_id":"d2dabf697b:10","text":"每个 path 都应包含 procedural，以及一个"}
+{"item_id":"d2dabf697b:11","text":"目录，其中可以包含常规文件："}
+{"item_id":"d2dabf697b:12","text":"，等等。"}
+{"item_id":"d2dabf697b:13","text":"位于"}
+{"item_id":"d2dabf697b:14","text":"中的 paths 会被加入 render-time search paths，包括以下 sub paths："}
+{"item_id":"d2dabf697b:15","text":"Nodetype Mapping"}
+{"item_id":"d2dabf697b:16","text":"该目录应包含 config/mayaTranslation.json，用于声明 translator mappings。在这个例子中，我们把 custom Maya nodetype \"MayaSphere\" 映射到 RenderMan procedural \"SphereProc\"。示例 config/mayaTranslation.json："}
+{"item_id":"d2dabf697b:17","text":"RfM 和 RenderMan 会在 RFM_SITE_PATH 与 RFM_SHOW_PATH 中搜索指定名称的 procedurals DSOs 和 Args，也就是 SphereProc.so 与 SphereProc.args。"}
+{"item_id":"d2dabf697b:18","text":"Procedural Args File"}
+{"item_id":"d2dabf697b:19","text":"args 文件应将 plug-in typeTag 设置为 \"procedural\"（用于 RiProcedural）或 \"procedural2\"（用于 RiProcedural2）。还必须把特殊的 \"string __dsoname\" 参数设置为 DSO 的名称。其他 procedural parameter 可以像 shading parameters 一样声明。\"match\" feature 可用于翻译参数名不同的 Maya attributes，例如："}
+{"item_id":"d2dabf697b:20","text":"Example Download"}
+{"item_id":"d2dabf697b:21","text":"带有 RenderMan procedural integration 的示例 Maya plug-in："}
+{"item_id":"d2dabf697b:22","text":"simple_procedural.zip"}
+{"item_id":"d2dabf697b:23","text":"Late Material Binding"}
+{"item_id":"d2dabf697b:24","text":"Materials 可以使用这里描述的 __materialid 机制进行 late bound："}
+{"item_id":"d2dabf697b:25","text":"/wiki/spaces/REN/pages/19859939"}
+{"item_id":"d2dabf697b:26","text":"。在 Maya 中，\"string __materialid\" 参数对应 Maya shading group 名称。用户可能需要在 render settings 的 Advanced 区域下启用 \"Output All Shaders\"，以便预先输出所有 materials。"}

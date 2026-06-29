@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Light Arrays</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Light Arrays</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFK27/546178401/Light+Arrays">https://rmanwiki-27.pixar.com/space/RFK27/546178401/Light+Arrays</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>Light arrays（灯光数组）与 instance arrays 非常相似。主要区别是你不需要 instance source location。Light arrays 可以用 OpScript 创建。 <span class="legacy-color-text-default"> 参见 </span><a href="../../attachments/20218656/lightArray.katana" rel="nofollow"><span class="legacy-color-text-default">lightArray.katana</span></a><span class="legacy-color-text-default"> 文件，其中有一个示例展示如何从 point cloud（点云）创建 light arrays。 </span></p><p><span class="legacy-color-text-default">如果你从 GafferThree 中的一个 light 创建 light array，需要确保 location type 的更改是在 </span><em><span class="legacy-color-text-default">ImplicitResolvers 运行之后</span></em><span class="legacy-color-text-default"> 才发生。例如，如果你通过 OpScript 更改 location type，请将 executionMode 设为 "deferred"。这样 light array 就能遵循 GafferThree light 的 mute 状态。</span></p><p><span class="legacy-color-text-default">创建 light array 的步骤如下：</span></p><ul><li><p>在 GafferThree 中创建一个 light location。这个 light 上已设置的任何 light filters（灯光滤镜）和 light linking（灯光链接），在该 light 转换为 light array 后都会被保留。</p></li><li><p>将 light 的类型设为 "light array"。</p></li><li><p>设置 geomety.instanceMatrix，用它表示 light 的每个 instance 的 transform。light array 的 local transform 会应用到整个 light array，而不是应用到各个单独的 lights。</p></li></ul><p>以下是可以在 light array location 上设置的属性。只有 geometry.instanceMatrix 是必需的：</p><div class="table-wrap"><table data-table-width="1800" data-layout="default" data-local-id="4c00ddb4-cd92-46ad-b192-a5a502a01f65" class="confluenceTable"><tbody><tr><td class="confluenceTd"><p>geometry.instanceMatrix</p></td><td class="confluenceTd"><p>对于 instance array 中的每个 instance，instanceMatrix 中都有 16 个值，用来表示该 instance 的 transformation matrix。注意，这个 transform 是相对于 instance array 自身的 transform。</p></td></tr><tr><td class="confluenceTd"><p>geometry.instanceMaterialOverride</p></td><td class="confluenceTd"><p>可以用此属性覆盖 light 的 attributes。对于每个被覆盖的 attribute，每个 instance 都需要一个元素。例如，要覆盖 intensity，就设置 geometry.instanceMaterialOverride.prmanLightParams.intensity attribute。注意，设置此 attribute 后，你就不再是在实例化该 light，因为 RenderMan light parameters 不能按 instance 变化。</p></td></tr></tbody></table></div><p />
+  </article>
+</main>
+</body>
+</html>

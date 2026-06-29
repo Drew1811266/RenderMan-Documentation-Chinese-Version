@@ -1,0 +1,74 @@
+{"item_id":"719d755046:0","text":"PxrTexture 的专用版本，用于投射纹理；设计上与 PxrProjectionStack 配合使用。"}
+{"item_id":"719d755046:1","text":"它提供额外功能，用于优化 texturing，并一次应用多个 textures。"}
+{"item_id":"719d755046:2","text":"Input Parameters"}
+{"item_id":"719d755046:3","text":"Filename"}
+{"item_id":"719d755046:4","text":"texture 的 filename。必须提供此参数。"}
+{"item_id":"719d755046:5","text":"此参数不应留空，否则会改为投射"}
+{"item_id":"719d755046:6","text":"missing color"}
+{"item_id":"719d755046:7","text":"。"}
+{"item_id":"719d755046:8","text":"First Channel Offset"}
+{"item_id":"719d755046:9","text":"用于 filename 查找的 first channel offset。"}
+{"item_id":"719d755046:10","text":"Filter"}
+{"item_id":"719d755046:11","text":"选择 texture lookup 期间可使用的不同 reconstruction filters。PxrProjectionLayer 可用的 filters 为："}
+{"item_id":"719d755046:12","text":"Value"}
+{"item_id":"719d755046:13","text":"Filter"}
+{"item_id":"719d755046:14","text":"Closest"}
+{"item_id":"719d755046:15","text":"Smart cubic"}
+{"item_id":"719d755046:16","text":"Linear"}
+{"item_id":"719d755046:17","text":"Blur"}
+{"item_id":"719d755046:18","text":"指定从 texture file 读取的图像需要 blur 的程度。"}
+{"item_id":"719d755046:19","text":"Mip Interpolate"}
+{"item_id":"719d755046:20","text":"选择是否在 multi-resolution texture 的相邻分辨率之间插值，从而在 levels 之间获得更平滑的过渡。"}
+{"item_id":"719d755046:21","text":"Missing Color"}
+{"item_id":"719d755046:22","text":"如果打开 texture 时出错，则使用此 color。"}
+{"item_id":"719d755046:23","text":"Missing Alpha"}
+{"item_id":"719d755046:24","text":"如果打开 texture 时出错，则使用此 alpha。"}
+{"item_id":"719d755046:25","text":"Linearize"}
+{"item_id":"719d755046:26","text":"对 texture 应用反向 sRGB transform。如果你在 sRGB space 中绘制 textures（大多数 paint packages 的默认设置），但在 data linear space 中查看数据，textures 会显得发白。此选项会对 texture 应用 sRGB transform，使其再次呈现 visually linear 的效果。"}
+{"item_id":"719d755046:27","text":"PreMultiply"}
+{"item_id":"719d755046:28","text":"如果希望 final color 乘以 alpha，请 Enable（启用）此项。"}
+{"item_id":"719d755046:29","text":"Mask"}
+{"item_id":"719d755046:30","text":"可以使用黑白 mask 来避免在不可见点上读取 texture。PxrProjectionLayer 提供这样的输出（resultMask），用于避免读取被遮挡或位于 projection window 之外的 texels。"}
+{"item_id":"719d755046:31","text":"Manifold"}
+{"item_id":"719d755046:32","text":"提供应用 texture 的范围。在这里接入 PxrProjector，以向 texture function 提供 mapping coordinates。默认值为 s,t。"}
+{"item_id":"719d755046:33","text":"Channels"}
+{"item_id":"719d755046:34","text":"Channels section 允许投射最多 16 个额外 textures，它们可以传递给 PxrProjectionStack 节点进行 compositing，并输出到单独的 AOVs 或 outputs。"}
+{"item_id":"719d755046:35","text":"Premultiply Channels"}
+{"item_id":"719d755046:36","text":"Multiply（相乘）：将 channels color 乘以 resultA。当 channels 尚未被主 texture 的 alpha 和 mask input 预乘时，这很有用。"}
+{"item_id":"719d755046:37","text":"Channels Filenames"}
+{"item_id":"719d755046:38","text":"最多 16 个额外 color textures 的 filename。"}
+{"item_id":"719d755046:39","text":"Channels Linearize"}
+{"item_id":"719d755046:40","text":"对 texture 应用 sRGB linearization。"}
+{"item_id":"719d755046:41","text":"Channels Missing Color"}
+{"item_id":"719d755046:42","text":"无法读取 texture 时使用的 color。"}
+{"item_id":"719d755046:43","text":"Channels Input Black"}
+{"item_id":"719d755046:44","text":"调整 texture 的 black point。类似于 Photoshop 的 \"Levels\"。"}
+{"item_id":"719d755046:45","text":"Channels Input Gamma"}
+{"item_id":"719d755046:46","text":"调整 texture 的 gamma。类似于 Photoshop 的 \"Levels\"。"}
+{"item_id":"719d755046:47","text":"Channels input White"}
+{"item_id":"719d755046:48","text":"调整 texture 的 white point。类似于 Photoshop 的 \"Levels\"。"}
+{"item_id":"719d755046:49","text":"Channels Output Black"}
+{"item_id":"719d755046:50","text":"设置 texture 的 maximum black value。类似于 Photoshop 的 \"Levels\"。"}
+{"item_id":"719d755046:51","text":"Channels Output White"}
+{"item_id":"719d755046:52","text":"设置 texture 的 minimum white value。类似于 Photoshop 的 \"Levels\"。"}
+{"item_id":"719d755046:53","text":"Advanced Texture Settings"}
+{"item_id":"719d755046:54","text":"MipBias"}
+{"item_id":"719d755046:55","text":"Bias mip selection：渲染时选择更高（负整数）或更低分辨率（正整数）的 mip。"}
+{"item_id":"719d755046:56","text":"MaxResolution"}
+{"item_id":"719d755046:57","text":"Clamp mip selection 到首选最大 level。根据你的 selection，这可能会阻止最高分辨率被渲染。"}
+{"item_id":"719d755046:58","text":"OptimizeIndirect"}
+{"item_id":"719d755046:59","text":"在 indirect hits 上将 texture filter 设置为 Box（低成本），而不是使用其他 visible effects 所选的 filter。"}
+{"item_id":"719d755046:60","text":"Output Parameters"}
+{"item_id":"719d755046:61","text":"resultRGB"}
+{"item_id":"719d755046:62","text":"经过过滤的 color result。请注意，所有 results 都会从 startChannel offset 开始查找。"}
+{"item_id":"719d755046:63","text":"resultR"}
+{"item_id":"719d755046:64","text":"R channel result"}
+{"item_id":"719d755046:65","text":"resultG"}
+{"item_id":"719d755046:66","text":"G channel result"}
+{"item_id":"719d755046:67","text":"resultB"}
+{"item_id":"719d755046:68","text":"B channel result"}
+{"item_id":"719d755046:69","text":"resultA"}
+{"item_id":"719d755046:70","text":"Alpha channel，会考虑通过 mask input 提供的 mask。"}
+{"item_id":"719d755046:71","text":"outChannelsRGB"}
+{"item_id":"719d755046:72","text":"RGB channel data 会打包到单个 struct output 中。PxrProjectionStack 会从该 struct 的"}
+{"item_id":"719d755046:73","text":"member 获取可用 layers 数量。"}

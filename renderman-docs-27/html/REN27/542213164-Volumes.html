@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Volumes</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Volumes</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/REN27/542213164/Volumes">https://rmanwiki-27.pixar.com/space/REN27/542213164/Volumes</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p><span class="confluence-embedded-file-wrapper image-center-wrapper"><img class="confluence-embedded-image image-center" loading="lazy" src="../../attachments/542213164/clouds8.jpg" data-image-src="../../attachments/542213164/clouds8.jpg" data-unresolved-comment-count="0" data-linked-resource-id="542213191" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="clouds8.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542213164" data-linked-resource-container-version="1" data-media-id="0ea6ca9d-12f1-46a5-9ab1-64e27ba5aa1f" data-media-type="file"></span></p><p>The rendering of effects like fog, smoke, clouds, cloudy water, and even glass is complicated because light no longer just interacts with the surface of a material; it can be both attenuated and scattered inside and within the <strong>participating media</strong>. <strong>Volume rendering</strong> is required to handle the complex light transport.</p><p>When dealing with volumetric effects that are <strong>homogeneous</strong> (the participating media is unchanging inside the volume, i.e. unclouded glass or water), a dedicated volume shader like <a href="/wiki/spaces/REN27/pages/542220781/PxrVolume" data-linked-resource-id="542220781" data-linked-resource-version="5" data-linked-resource-type="page">PxrVolume</a> or a surface shader that supports some volumetric effects like <a href="/wiki/spaces/REN27/pages/542213836/PxrSurface" data-linked-resource-id="542213836" data-linked-resource-version="2" data-linked-resource-type="page">PxrSurface</a> can be used on closed geometry of any type - for example a <a href="/wiki/spaces/REN27/pages/542213016/Subdivision+Surfaces" data-linked-resource-id="542213016" data-linked-resource-version="1" data-linked-resource-type="page">subdivision mesh</a>. However, if the effects are <strong>heterogeneous</strong> (like fog or clouds), then a special type of geometry is typically needed in order to provide values that change over a three-dimensional domain. RenderMan provides a volume primitive (RiVolume) which supports this need.</p><p>The volume primitive is simply a rectangular axis-aligned box that can return a value for an arbitrary variable at a three-dimension coordinate inside the box. This differs from a parametric surface, which can typically only respond to queries on the surface parameterized by two-dimensional coordinates. For volume rendering of participating media such as smoke, the most typically used variable is the density of the volume. For more complicated situations like fire, densities like fuel, temperature, or velocity may be part of the variables associated with the volume primitive.</p><h4 id="Volumes-VolumeDescription">Volume Description</h4><p>There are two descriptions of the volume primitive typically used with RenderMan.</p><ul><li>The simplest is a box subdivided in three dimensions into a regular lattice of voxels, with values provided for arbitrary variables at every corner of the lattice. A lookup of a variable within the box performs trilinear or tricubic interpolation of the nearest lattice points. This representation, while simple, may lead to unwieldy RIB files for dense volumes.<br/><br/>This approach is used by RenderMan for Maya to render Maya fluids. In the Maya user interface shown below, the bounds of the box are directly manipulated in the viewer on the left. In the attribute editor, the resolution describes the number of subdivisions of the box, which ultimately affect the accuracy of the volume simulation and rendering; in this case, the box is divided into 10x10x10 voxels. The variables associated with the volume are described in the Contents Method pulldown; here, the variables &quot;Density&quot; and &quot;Velocity&quot; are enabled, while &quot;Temperature&quot; and &quot;Fuel&quot; are disabled.</li></ul><p><br/></p><p><br/><span class="confluence-embedded-file-wrapper image-center-wrapper"><img class="confluence-embedded-image image-center" loading="lazy" src="../../attachments/542213164/maya_fluids.png" data-image-src="../../attachments/542213164/maya_fluids.png" data-unresolved-comment-count="0" data-linked-resource-id="542213182" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="maya_fluids.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542213164" data-linked-resource-container-version="1" data-media-id="b10e0a23-621b-4e92-896e-94a875a03c2d" data-media-type="file"></span></p><p><br/></p><ul><li>In situations where the volume is already described via an external resource such as an <strong>OpenVDB</strong> file on disk, the volume primitive supports arbitrary C++ <strong>volume field plugins</strong> which can interface directly with the external resource in order to compute the value of an arbitrary variable within the extents of the box. RenderMan provides a plugin called impl_openvdb which can use VDB files directly. In this case, the volume description simply involves the extents of the box, the OpenVDB file, and the grids from the OpenVDB file which correspond to useful primitive variables.<br/><br/>Below is an illustration of using the OpenVDB Viewer node supplied with RenderMan for Maya. An OpenVDB file has been loaded from disk and the contents of the density grid visualized in Maya. The Primitive Variables tab describes the mapping from the OpenVDB grids to the variables that will be made available to RenderMan.<br/><br/><span class="confluence-embedded-file-wrapper image-center-wrapper"><img class="confluence-embedded-image image-center" loading="lazy" src="../../attachments/542213164/maya_openvdb.png" data-image-src="../../attachments/542213164/maya_openvdb.png" data-unresolved-comment-count="0" data-linked-resource-id="542213185" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="maya_openvdb.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542213164" data-linked-resource-container-version="1" data-media-id="e6646003-38f0-4917-8692-69c0cfd00343" data-media-type="file"></span></li></ul><h4 id="Volumes-VolumeShading">Volume Shading</h4><p>With the geometry description of a volume being relatively simple, setting the shading parameters of the volume is critical to the overall look. For volume effects like fog, smoke, and clouds, RenderMan provides a dedicated shader called <a href="/wiki/spaces/REN27/pages/542220781/PxrVolume" data-linked-resource-id="542220781" data-linked-resource-version="5" data-linked-resource-type="page">PxrVolume</a>. After performing a volumetric simulation, a typical workflow for rendering involves setting up the geometry description as above, deciding which variables in the geometry description need to be mapped either directly to inputs of PxrVolume, or remapped using intermediate Pattern nodes, and finally tweaking the settings in PxrVolume to control the overall volumetric look. Note that scattering in the volume is controlled by the Max Path Length parameter in the chosen integrator and not the individual diffuse and specular trace depths.</p><p><span class="legacy-color-text-default">The &quot;dice&quot; &quot;minlength&quot; attribute should be set to -1 to provide a hint about what the min length should be based on the voxel data. This may become the default behavior in the future.</span></p><p><br/></p><p><br/></p>
+  </article>
+</main>
+</body>
+</html>

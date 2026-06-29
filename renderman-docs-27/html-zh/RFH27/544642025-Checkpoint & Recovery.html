@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Checkpoint &amp; Recovery</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Checkpoint &amp; Recovery</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFH27/544642025/Checkpoint+%26+Recovery">https://rmanwiki-27.pixar.com/space/RFH27/544642025/Checkpoint+%26+Recovery</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><style>[data-colorid=wymscqjtu3]{color:#4269b8} html[data-color-mode=dark] [data-colorid=wymscqjtu3]{color:#476ebd}[data-colorid=yl1pptl9bm]{color:#4269b8} html[data-color-mode=dark] [data-colorid=yl1pptl9bm]{color:#476ebd}[data-colorid=qtorlx3755]{color:#4269b8} html[data-color-mode=dark] [data-colorid=qtorlx3755]{color:#476ebd}</style><img class="confluence-embedded-image image-center" width="846" loading="lazy" src="../../attachments/544642025/RenderMan_Solaris_Checkpointing_2min..jpg" data-image-src="../../attachments/544642025/RenderMan_Solaris_Checkpointing_2min..jpg" data-height="720" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="544642056" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Solaris_Checkpointing_2min..jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544642025" data-linked-resource-container-version="2" data-media-id="6d7d891b-a364-47b7-a2d6-ded3eb4a6bba" data-media-type="file" /></span><p><span class="legacy-color-text-default">PRMan 具备恢复中断渲染的能力。具体方式取决于它运行的 mode（模式）。输出到 TIFF 和 OpenEXR 图像的 Non-incremental renders（非增量渲染）始终可以恢复。 </span></p><p><span class="legacy-color-text-default">输出到 OpenEXR 图像的 incremental renders（增量渲染）也可以恢复，但前提是使用了 checkpointing（检查点）选项。</span><br /><br /></p><p /><hr /><p>Checkpointing（检查点）可以在<em> rendermanrendersettings</em> node 的 Rendering → Render → Checkpoint Render 下找到</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="checkpointRenderSettings.png" width="964" loading="lazy" src="../../attachments/544642025/checkpointRenderSettings.png" data-image-src="../../attachments/544642025/checkpointRenderSettings.png" data-height="370" data-width="964" data-unresolved-comment-count="0" data-linked-resource-id="665518104" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="checkpointRenderSettings.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544642025" data-linked-resource-container-version="2" data-media-id="d8821b4e-637f-4b62-b5a0-6096ee63229b" data-media-type="file" /></span><p /><p><span data-colorid="wymscqjtu3">Checkpoint Exit at</span><br /><span class="legacy-color-text-default">此方法通过限制总渲染时间来工作（使用与 periodic checkpoints（周期检查点）相同的记法指定）。除非达到时间限制，否则渲染会正常进行；达到限制时，它会完成当前 increment（增量），写出 checkpoint image（检查点图像），然后停止渲染该帧。如果有多帧需要渲染，此时会直接继续下一帧；每帧都可以有自己的时间限制。</span><br /></p><p><span class="legacy-color-text-default">可以使用此 parameter（参数）设置 renderer（渲染器）退出的 hour / minutes / seconds（小时/分钟/秒）时间。</span></p><p><span class="legacy-color-text-default">下面是所需格式示例</span></p><ul><li><p>60s - 表示 60 秒</p></li><li><p>60m - 表示 60 分钟</p></li><li><p>60h - 表示 60 小时</p></li><li><p>60d - 表示 60 天<br /><br /></p></li></ul><p>下方 image grid（图像网格）展示了 1m、2m、5m、10m 的 checkpointing 效果</p><div class="table-wrap"><table data-table-width="1800" data-layout="default" data-local-id="b4956a41-2ef2-4d96-b9f3-5a5861ce12dd" class="confluenceTable"><tbody><tr><td class="confluenceTd"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="RenderMan_Solaris_Checkpointing_1min..jpg" width="335" loading="lazy" src="../../attachments/544642025/RenderMan_Solaris_Checkpointing_1min..jpg" data-image-src="../../attachments/544642025/RenderMan_Solaris_Checkpointing_1min..jpg" data-height="1080" data-width="1920" data-unresolved-comment-count="0" data-linked-resource-id="544642050" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Solaris_Checkpointing_1min..jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544642025" data-linked-resource-container-version="2" data-media-id="b23b3ecb-9b55-4d2d-bf74-c8d162c0487b" data-media-type="file" /></span></td><td class="confluenceTd"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="2 Meters.jpg" width="335" loading="lazy" src="../../attachments/544642025/2 Meters.jpg" data-image-src="../../attachments/544642025/2 Meters.jpg" data-height="1080" data-width="1920" data-unresolved-comment-count="0" data-linked-resource-id="544642047" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="2 Meters.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544642025" data-linked-resource-container-version="2" data-media-id="97e567cc-92f8-4476-9a4d-1636c08e62a2" data-media-type="file" /></span></td><td class="confluenceTd"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="RenderMan_Solaris_Checkpointing_5min..jpg" width="335" loading="lazy" src="../../attachments/544642025/RenderMan_Solaris_Checkpointing_5min..jpg" data-image-src="../../attachments/544642025/RenderMan_Solaris_Checkpointing_5min..jpg" data-height="1080" data-width="1920" data-unresolved-comment-count="0" data-linked-resource-id="544642044" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Solaris_Checkpointing_5min..jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544642025" data-linked-resource-container-version="2" data-media-id="8e891c8e-4b78-4226-9db3-efc1763e10b8" data-media-type="file" /></span></td><td class="confluenceTd"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="RenderMan_Solaris_Checkpointing_10min..jpg" width="335" loading="lazy" src="../../attachments/544642025/RenderMan_Solaris_Checkpointing_10min..jpg" data-image-src="../../attachments/544642025/RenderMan_Solaris_Checkpointing_10min..jpg" data-height="1080" data-width="1920" data-unresolved-comment-count="0" data-linked-resource-id="544642041" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Solaris_Checkpointing_10min..jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544642025" data-linked-resource-container-version="2" data-media-id="1c7f9fbc-16b9-4771-81bc-24b6c68558b3" data-media-type="file" /></span></td></tr></tbody></table></div><hr /><p /><h3 id="Checkpoint&amp;Recovery-CheckpointInterval"><span data-colorid="qtorlx3755">Checkpoint Interval（检查点间隔）</span></h3><p><span class="legacy-color-text-default">这是 periodic checkpoint（周期检查点）。可以用 increment 数量（即 image passes（图像遍历次数））或经过的 wall clock time（墙钟时间）作为间隔来指定。例如，可以要求 renderer 每隔 100i 写出 checkpoint，这意味着每 100 个 increments 更新一次磁盘上图像，分别记录第 100、200、300 个 increment 等时的渲染状态。</span></p><p><br /></p><hr /><p><br /><br /></p><p>两种生成 checkpoints 的方法可以一起使用。例如，可以请求每 100 个 increments 写出一个 checkpoint，直到经过 15 分钟。此时，已写出的任何 periodic checkpoints 都会在退出时被最终 checkpoint 直接替换。</p><p>请注意，checkpointing 是为 batch rendering 到磁盘图像而设计的。渲染到实时 framebuffer（如 "it"）时，渲染进行过程中已经会即时更新。在内置 display drivers 中，目前只有 TIFF 和 OpenEXR&nbsp;<a href="https://rmanwiki-26.pixar.com/space/REN26/19661875/Display+Drivers" data-linked-resource-id="19661875" data-linked-resource-version="2" data-linked-resource-type="page">display drivers（显示驱动）</a>&nbsp;支持 checkpointing（检查点）。RenderMan LOP 上的 "Output Type" 必须设为 OpenEXR 或 TIFF，而不是 "Raster"，这样才会使用 RenderMan display drivers（显示驱动）。即使 Husk 可以在 Raster 模式中输出 OpenEXR 或 TIFF 图像，这种情况下也不会使用这些显示驱动，因此检查点不会生效。你可能会注意到 RenderMan 生成的图像文件包含标记为 ~w 的通道；这是为从该文件恢复渲染而存储的数据。<br /><br /><br /></p><hr /><p><br /></p><h3 id="Checkpoint&amp;Recovery-Recovery"><span data-colorid="yl1pptl9bm">Recovery（恢复）</span></h3><p>只要 checkpoint frames（检查点帧）已存在，中断渲染的 Recovery（恢复）就是自动的。</p><p>RenderMan 随后会照常加载 scene（场景），但不会从头开始并覆盖现有图像，而是检查这些图像来确定中断位置。如果成功，它会从接近中断的位置继续。如果图像已经完成、缺失，或由于某种原因与当前 scene 或彼此不匹配，则会静默地从头开始。</p><p>不必在开始渲染的同一台 render machine（渲染机器）上恢复渲染。只要 RenderMan process（RenderMan 进程）仍能找到 scene file（场景文件）指定的图像，并且这些图像处于一致且可恢复的状态，就可以恢复渲染。</p><p>Recovery 也可以与上述 checkpointing 选项配合使用。在 time limit（时间限制）的情况下，这基本上相当于原始时间限制的延伸。incremental renders 可以用这种方式拆分为任意数量的 time slices（时间片）。不过请注意，每次 recovery 都需要重新加载 scene 及其所有 assets，因此应谨慎使用。此外，此功能仅支持 OpenEXR 文件。<br /><br /></p><hr /><p><br /><br /></p><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="0cc5fe0e-6bf1-4099-acde-c8d6fcd49b0c" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>有关 Checkpointing &amp; Recovery 的更多信息可见 <a href="https://rmanwiki-26.pixar.com/space/REN26/19661833/Checkpointing+and+Recovery" data-linked-resource-id="19661833" data-linked-resource-version="3" data-linked-resource-type="page">此处</a>&nbsp;</p></div></div><p><br /></p><p><br /></p><p><br /></p><p><br /></p>
+  </article>
+</main>
+</body>
+</html>

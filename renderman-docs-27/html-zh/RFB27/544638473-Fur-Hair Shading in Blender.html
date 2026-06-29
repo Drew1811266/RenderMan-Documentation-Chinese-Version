@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fur/Hair Shading in Blender</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Fur/Hair Shading in Blender</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFB27/544638473/Fur%2FHair+Shading+in+Blender">https://rmanwiki-27.pixar.com/space/RFB27/544638473/Fur%2FHair+Shading+in+Blender</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="906" loading="lazy" src="../../attachments/544638473/monkey_hair_shading.jpg" data-image-src="../../attachments/544638473/monkey_hair_shading.jpg" data-height="540" data-width="960" data-unresolved-comment-count="0" data-linked-resource-id="544638520" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="monkey_hair_shading.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544638473" data-linked-resource-container-version="1" data-media-id="b008d91e-e9f6-4537-8d37-c48d6458a1ec" data-media-type="file"></span><p>在 RenderMan for Blender 中进行皮毛和毛发渲染/着色时，可以沿用 Blender 中渲染毛发的常规方式。用于毛发的主要 RenderMan 材质是 <a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661553" rel="nofollow">PxrMarschnerHair</a>。</p><h2 id="Fur/HairShadinginBlender-CreatingaHairSystem">创建毛发系统</h2><p>若要创建毛发系统，请选择要添加毛发的网格对象，然后点击粒子属性<span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image" height="27" loading="lazy" src="../../attachments/544638473/particle_properties.png" data-image-src="../../attachments/544638473/particle_properties.png" data-unresolved-comment-count="0" data-linked-resource-id="544638487" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="particle_properties.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544638473" data-linked-resource-container-version="1" data-media-id="f2e7d320-5c8f-44d6-995e-73a327f20da1" data-media-type="file"></span>。添加新的粒子系统，并选择 Hair（毛发）。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="469" loading="lazy" src="../../attachments/544638473/particle_hair.png" data-image-src="../../attachments/544638473/particle_hair.png" data-height="136" data-width="405" data-unresolved-comment-count="0" data-linked-resource-id="544638490" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="particle_hair.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544638473" data-linked-resource-container-version="1" data-media-id="aa6e9c84-04dc-4e98-93cc-c7340ace4ad8" data-media-type="file"></span><p>你的对象在 viewport（视口）中应大致如下。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="477" loading="lazy" src="../../attachments/544638473/monkey_hair.png" data-image-src="../../attachments/544638473/monkey_hair.png" data-height="648" data-width="640" data-unresolved-comment-count="0" data-linked-resource-id="544638493" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="monkey_hair.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544638473" data-linked-resource-container-version="1" data-media-id="8dc62fa4-0127-47f6-ba47-0f28d9001e6c" data-media-type="file"></span><h2 id="Fur/HairShadinginBlender-ShadingHair">毛发着色</h2><p>如前所述，我们会使用 PxrMarschnerHair 材质为毛发着色。为此，请点击网格的材质属性 <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image" height="22" loading="lazy" src="../../attachments/544638473/material_properties.png" data-image-src="../../attachments/544638473/material_properties.png" data-unresolved-comment-count="0" data-linked-resource-id="544638499" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="material_properties.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544638473" data-linked-resource-container-version="1" data-media-id="cd4db534-2415-4f2f-b7a6-25f5dcb164af" data-media-type="file"></span>。在材质列表中，点击 + 按钮添加新的材质插槽，然后点击 New（新建）。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="503" loading="lazy" src="../../attachments/544638473/material_slots1.png" data-image-src="../../attachments/544638473/material_slots1.png" data-height="142" data-width="411" data-unresolved-comment-count="0" data-linked-resource-id="544638502" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="material_slots1.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544638473" data-linked-resource-container-version="1" data-media-id="0144c40d-c076-4032-baa5-38edcab36e4a" data-media-type="file"></span><p>点击 Add RenderMan Nodetree（添加 RenderMan 节点树），然后从下拉菜单中选择 PxrMarschnerHair。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="511" loading="lazy" src="../../attachments/544638473/material_slots2.png" data-image-src="../../attachments/544638473/material_slots2.png" data-height="241" data-width="400" data-unresolved-comment-count="0" data-linked-resource-id="544638505" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="material_slots2.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544638473" data-linked-resource-container-version="1" data-media-id="f71a65b3-70f8-4a79-8b51-8243ecab5cf8" data-media-type="file"></span><p>回到粒子属性 <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image" height="27" loading="lazy" src="../../attachments/544638473/particle_properties.png" data-image-src="../../attachments/544638473/particle_properties.png" data-unresolved-comment-count="0" data-linked-resource-id="544638487" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="particle_properties.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544638473" data-linked-resource-container-version="1" data-media-id="f2e7d320-5c8f-44d6-995e-73a327f20da1" data-media-type="file"></span>中，进入 Render（渲染）部分，并将 Material（材质）改为我们刚添加的 PxrMarschnerHair 新材质。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="521" loading="lazy" src="../../attachments/544638473/hair_material.png" data-image-src="../../attachments/544638473/hair_material.png" data-height="139" data-width="408" data-unresolved-comment-count="0" data-linked-resource-id="544638508" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="hair_material.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544638473" data-linked-resource-container-version="1" data-media-id="e4f66576-423e-4439-9433-2c3c12faf41a" data-media-type="file"></span><h2 id="Fur/HairShadinginBlender-ArtisticControl">Artistic Control（艺术控制）</h2><p>PxrMarschnerHair 材质应该足以渲染真实感毛发。不过，这些参数可能有点偏技术化。为了获得更适合艺术家的控制，可以在 PxrMarschnerHair 之外配合使用 PxrHairColor pattern 节点。PxrHairColor 有三个输出需要连接到 PxrMarschnerHair。最好使用 Shader Editor（着色器编辑器） <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image" height="19" loading="lazy" src="../../attachments/544638473/shader_editor.png" data-image-src="../../attachments/544638473/shader_editor.png" data-unresolved-comment-count="0" data-linked-resource-id="544638511" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="shader_editor.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544638473" data-linked-resource-container-version="1" data-media-id="24c6fc92-9fb3-4e9b-98df-fbf18f9d2c22" data-media-type="file"></span> 来完成这些连接。下图展示了它们应如何连接。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="530" loading="lazy" src="../../attachments/544638473/pxrhaircolor.png" data-image-src="../../attachments/544638473/pxrhaircolor.png" data-height="797" data-width="643" data-unresolved-comment-count="0" data-linked-resource-id="544638514" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrhaircolor.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544638473" data-linked-resource-container-version="1" data-media-id="c886796c-668b-472c-9833-4da9b94ba4bb" data-media-type="file"></span><p>将 Mode（模式）改为 Artistic（艺术化）后，可以获得更适合艺术家的控制，帮助完成毛发着色。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="521" loading="lazy" src="../../attachments/544638473/pxrhaircolor2.png" data-image-src="../../attachments/544638473/pxrhaircolor2.png" data-height="343" data-width="382" data-unresolved-comment-count="0" data-linked-resource-id="544638517" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrhaircolor2.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544638473" data-linked-resource-container-version="1" data-media-id="a490b03c-f8a9-466e-ab23-eeef84c32563" data-media-type="file"></span><h2 id="Fur/HairShadinginBlender-HairIDPrimvar">Hair ID Primvar（毛发 ID Primvar）</h2><p>PxrHairColor 包含用于为颜色添加随机性的控制项。这由一个 ID primitive variable 控制。在 RenderMan for Blender 中，我们会为每一根毛发添加一个 "index" primitive variable。这个 "index" primitive variable 可作为 ID primvar 的来源。</p><p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="530" loading="lazy" src="../../attachments/544638473/hair_random_index.png" data-image-src="../../attachments/544638473/hair_random_index.png" data-height="95" data-width="350" data-unresolved-comment-count="0" data-linked-resource-id="544638523" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="hair_random_index.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544638473" data-linked-resource-container-version="1" data-media-id="2381d869-2255-406e-bc41-938b0c85dd4c" data-media-type="file"></span>
+  </article>
+</main>
+</body>
+</html>

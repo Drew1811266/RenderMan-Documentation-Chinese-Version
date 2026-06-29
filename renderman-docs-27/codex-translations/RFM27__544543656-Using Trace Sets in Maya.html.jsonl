@@ -1,0 +1,15 @@
+{"item_id":"ee1739e114:0","text":"Trace sets"}
+{"item_id":"ee1739e114:1","text":"非常适合控制哪些对象可以彼此反射或投射阴影。这是一个全局控制，因此它不仅影响最终渲染，也会影响输出"}
+{"item_id":"ee1739e114:2","text":"Light Path Expressions"}
+{"item_id":"ee1739e114:3","text":"（LPE），并反映相同的结果。"}
+{"item_id":"ee1739e114:4","text":"在 Maya 中，transform node 控制 RenderMan 中的 attributes，你可以在这里找到主要的 trace set 控制项。不过，你也会在 Lights（用于投射 shadows，即阴影）和 PxrSurface 中找到它们，用于分离 subsurface effects。"}
+{"item_id":"ee1739e114:5","text":"在上方的快速示例中，我们告诉镜子不要反射 redSphere，也不要接收球体造成的任何 blocking shadows（遮挡阴影），以避免在 Dome Light 上形成 cutout；如果背景是另一个对象，则不需要这样做。"}
+{"item_id":"ee1739e114:6","text":"如何创建 Trace Set"}
+{"item_id":"ee1739e114:7","text":"在 Maya 中定义 trace set 有两种简单方式。"}
+{"item_id":"ee1739e114:8","text":"你可以使用 Maya 的 Create > Set 菜单创建一个 set。"}
+{"item_id":"ee1739e114:9","text":"你可以将 Shading Group Node 设置为 selection set（在下方示例中，trace set 名称为 PxrSurfaceSG1，因此你可能需要考虑为 Shading Groups 命名）。"}
+{"item_id":"ee1739e114:10","text":"设置 Trace Sets"}
+{"item_id":"ee1739e114:11","text":"你可以在以下位置设置这些 sets 为 include 或 exclude："}
+{"item_id":"ee1739e114:12","text":"Lights 包含一个区域，可指定是否 trace 某些 sets。"}
+{"item_id":"ee1739e114:13","text":"在 PxrSurface 中，你可以在 Subsurface lobe 中选择加入 sets。不在该 set 中的任何对象都不会被 trace。当与 subsurface 对象相互穿插的对象产生 halos（亮或暗）时，这很有帮助。"}
+{"item_id":"ee1739e114:14","text":"在 transform/instances nodes 上，你会找到 trace set 字段；这些字段只适用于对象/shapes 以及这些对象的集合。例如，它们不适用于 lights（即使 lights 也有 transform node）。"}

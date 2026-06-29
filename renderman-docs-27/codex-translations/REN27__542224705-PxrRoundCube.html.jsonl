@@ -1,0 +1,104 @@
+{"item_id":"8113c73891:0","text":"这是用于三平面映射的 projection manifold（投影 manifold）。这种技术有时也称为 “blended cube（混合立方体）”。它常用于给大型环境添加纹理，而无需担心 UVs。"}
+{"item_id":"8113c73891:1","text":"PxrRoundCube 会根据对象的表面位置和朝向计算纹理坐标（UV），最多可处理 6 组坐标。它还会输出混合权重，供 PxrMultiTexture 使用。"}
+{"item_id":"8113c73891:2","text":"左侧的雕塑来自 3D 扫描，mesh 的不规则拓扑让创建良好 UVs 变得棘手。这正是 PxrRoundCube 的理想用例。"}
+{"item_id":"8113c73891:3","text":"PxrRoundCube 只定义纹理映射坐标，且必须连接到 PxrMultiTexture pattern。具体做法是将 PxrRoundCube.resultMulti 连接到 PxrMultiTexture.manifoldMulti。请参见下面的 Maya 示例。"}
+{"item_id":"8113c73891:4","text":"导入旧场景时，你需要修改 shading networks。"}
+{"item_id":"8113c73891:5","text":"Input Parameters"}
+{"item_id":"8113c73891:6","text":"Number Of Textures"}
+{"item_id":"8113c73891:7","text":"你可以选择投影 1、3 或 6 张图像。下表显示 PxrMultiTexture 节点会使用哪些纹理。"}
+{"item_id":"8113c73891:8","text":"Number of Textures"}
+{"item_id":"8113c73891:9","text":"+X"}
+{"item_id":"8113c73891:10","text":"+Y"}
+{"item_id":"8113c73891:11","text":"+Z"}
+{"item_id":"8113c73891:12","text":"-X"}
+{"item_id":"8113c73891:13","text":"-Y"}
+{"item_id":"8113c73891:14","text":"-Z"}
+{"item_id":"8113c73891:15","text":"Tiling"}
+{"item_id":"8113c73891:16","text":"Tiling Mode"}
+{"item_id":"8113c73891:17","text":"在 Regular 和 Hexagonal tiling modes（平铺模式）之间选择。"}
+{"item_id":"8113c73891:18","text":"Frequency"}
+{"item_id":"8113c73891:19","text":"纹理重复的频率。值为 1 表示纹理不会重复。"}
+{"item_id":"8113c73891:20","text":"Manifold 3D"}
+{"item_id":"8113c73891:21","text":"Transition Width"}
+{"item_id":"8113c73891:22","text":"此参数控制每个轴向投影之间的混合程度。我们使用外观非常平滑的混合函数，让自然纹理能够更好地融合。有效范围为 0 到 1。"}
+{"item_id":"8113c73891:23","text":"Pref"}
+{"item_id":"8113c73891:24","text":"参考位置 primvar 的名称（Maya 使用 __Pref）。位置参考可用于在对象变形时让纹理锚定在表面上。如果你的变形对象使用 PxrRoundCube 进行纹理化，"}
+{"item_id":"8113c73891:25","text":"你需要同时提供 __Pref 和 __Nref"}
+{"item_id":"8113c73891:26","text":"！"}
+{"item_id":"8113c73891:27","text":"Nref"}
+{"item_id":"8113c73891:28","text":"参考法线 primvar 的名称（Maya 使用 __Nref）。法线参考可用于在对象变形时让纹理锚定在表面上。如果你的变形对象使用 PxrRoundCube 进行纹理化，"}
+{"item_id":"8113c73891:29","text":"你需要同时提供 __Nref 和 __Pref"}
+{"item_id":"8113c73891:30","text":"！"}
+{"item_id":"8113c73891:31","text":"Coordinate System"}
+{"item_id":"8113c73891:32","text":"坐标系统 transform 的名称（例如 Maya 中的 place3dtexture 节点）。你可以使用某个预定义空间（\"world\"、\"object\"、\"current\" 等），也可以使用场景中的坐标系统节点名称。如果为空，PxrRoundCube 会使用 \"object\" 空间。"}
+{"item_id":"8113c73891:33","text":"Use Undisplaced Position"}
+{"item_id":"8113c73891:34","text":"当对象使用 PxrRoundCube 进行置换时，bxdf 在着色期间使用的纹理将无法与置换贴图正确对齐。原因很简单：displacement shader 已经移动了 P，而连接到 bxdf 的 patterns 使用的是置换后的 P，而不是原始位置。为避免此问题，启用 useUndisplacedPosition 后，pattern 将使用未置换位置（Po），而不是当前位置（P）。请注意，在内部实现中，启用此选项时，PxrRoundCube 也会使用原始法线（Non），而不是当前法线（N）。"}
+{"item_id":"8113c73891:35","text":"Randomize"}
+{"item_id":"8113c73891:36","text":"有时，随机化某些参数可让结果看起来更自然……"}
+{"item_id":"8113c73891:37","text":"Random Source"}
+{"item_id":"8113c73891:38","text":"为了让每个对象获得不同变化，你需要选择对象上某个唯一的属性来创建唯一 seed。你可以在对象 id 和对象名称之间选择。这些属性由输出 RIB 的软件创建，根据宿主程序不同，某一种方式可能比另一种更可靠。"}
+{"item_id":"8113c73891:39","text":"Value"}
+{"item_id":"8113c73891:40","text":"含义"}
+{"item_id":"8113c73891:41","text":"依赖于"}
+{"item_id":"8113c73891:42","text":"Object ID"}
+{"item_id":"8113c73891:43","text":"Attribute \"identifier\" \"float id\""}
+{"item_id":"8113c73891:44","text":"Object Name"}
+{"item_id":"8113c73891:45","text":"Attribute \"identifier\" \"string name\")"}
+{"item_id":"8113c73891:46","text":"Extra Seed"}
+{"item_id":"8113c73891:47","text":"设置为零时，作用于同一节点的所有 PxrRoundCube patterns 都会计算相同的随机 seed。如果希望其中某个 pattern 计算不同的变化，请将 randomExtraSeed 设置为非零值。"}
+{"item_id":"8113c73891:48","text":"Random Orientation"}
+{"item_id":"8113c73891:49","text":"将此参数设为 1 可随机旋转三平面投影。默认情况下，轴会处于 object-space。这意味着 3 个球体如果使用相同的 PxrRoundCube pattern，看起来会完全一样。随机化各轴的朝向后，即使它们可能具有相同的 transform，也会看起来彼此不同。通常，这可用于从单一来源控制大量对象的随机变化（例如“地面上的岩石”）。"}
+{"item_id":"8113c73891:50","text":"Random Flip"}
+{"item_id":"8113c73891:51","text":"此开关会随机翻转三平面投影每个轴的 st coordinates。"}
+{"item_id":"8113c73891:52","text":"Random Offset"}
+{"item_id":"8113c73891:53","text":"此开关会随机偏移三平面投影每个轴的 st coordinates。你可能需要确保纹理在平铺时不会露出 seams（接缝）。"}
+{"item_id":"8113c73891:54","text":"X Axis"}
+{"item_id":"8113c73891:55","text":"Enable X"}
+{"item_id":"8113c73891:56","text":"Enable（启用）或禁用 X 轴上的纹理。"}
+{"item_id":"8113c73891:57","text":"Project a label"}
+{"item_id":"8113c73891:58","text":"只启用其中一个轴，即可创建一个简单的标签投影。"}
+{"item_id":"8113c73891:59","text":"Scale S"}
+{"item_id":"8113c73891:60","text":"Scale（缩放）X 轴上 s 方向（水平）的纹理。"}
+{"item_id":"8113c73891:61","text":"Scale T"}
+{"item_id":"8113c73891:62","text":"Scale（缩放）X 轴上 t 方向（垂直）的纹理。"}
+{"item_id":"8113c73891:63","text":"Offset S"}
+{"item_id":"8113c73891:64","text":"Offset（偏移）X 轴上 s 方向（水平）的纹理。"}
+{"item_id":"8113c73891:65","text":"Offset T"}
+{"item_id":"8113c73891:66","text":"Offset（偏移）X 轴上 t 方向（垂直）的纹理。"}
+{"item_id":"8113c73891:67","text":"Invert S"}
+{"item_id":"8113c73891:68","text":"在 s 方向（水平）翻转 X 轴上的纹理。"}
+{"item_id":"8113c73891:69","text":"Invert T"}
+{"item_id":"8113c73891:70","text":"在 t 方向（垂直）翻转 X 轴上的纹理。"}
+{"item_id":"8113c73891:71","text":"Swap ST"}
+{"item_id":"8113c73891:72","text":"交换 X 轴上的 s 和 t 方向。这相当于旋转 90 度。"}
+{"item_id":"8113c73891:73","text":"Pivot S"}
+{"item_id":"8113c73891:74","text":"X 轴上缩放中心的 s 位置。"}
+{"item_id":"8113c73891:75","text":"Pivot T"}
+{"item_id":"8113c73891:76","text":"X 轴上缩放中心的 t 位置。"}
+{"item_id":"8113c73891:77","text":"Y Axis"}
+{"item_id":"8113c73891:78","text":"Y 轴使用与上方相同的控制。"}
+{"item_id":"8113c73891:79","text":"Z Axis"}
+{"item_id":"8113c73891:80","text":"Z 轴使用与上方相同的控制。"}
+{"item_id":"8113c73891:81","text":"Output Parameters"}
+{"item_id":"8113c73891:82","text":"resultMask"}
+{"item_id":"8113c73891:83","text":"3 个轴的混合权重，作为 RGB 输出。可用于在 comp（合成）中，或在节点图下游进一步调整投影结果。"}
+{"item_id":"8113c73891:84","text":"resultMulti"}
+{"item_id":"8113c73891:85","text":"输出 PxrMultiTexture pattern 所需全部信息的 struct。"}
+{"item_id":"8113c73891:86","text":"教程"}
+{"item_id":"8113c73891:87","text":"低成本制作岩石"}
+{"item_id":"8113c73891:88","text":"我们从一块几何体开始（一个解释为 subdivision surface 的立方体），将它复制 3 次，并分别以不同方式缩放，得到不同形状。"}
+{"item_id":"8113c73891:89","text":"我们使用 PxrRoundCube 建立一个 texturing network……"}
+{"item_id":"8113c73891:90","text":"……并进行第一次渲染。"}
+{"item_id":"8113c73891:91","text":"由于我们只使用一张石头纹理，可以看出岩石之间的相似性。我们可以使用更多纹理，但这里要低成本完成！接下来使用同一个 PxrRoundCube 添加置换。"}
+{"item_id":"8113c73891:92","text":"现在，相似性明显多了，所以我们会随机"}
+{"item_id":"8113c73891:93","text":"翻转"}
+{"item_id":"8113c73891:94","text":"并"}
+{"item_id":"8113c73891:95","text":"偏移"}
+{"item_id":"8113c73891:96","text":"我们的纹理（参见"}
+{"item_id":"8113c73891:97","text":"PxrRoundCube#Randomize"}
+{"item_id":"8113c73891:98","text":"小节）。"}
+{"item_id":"8113c73891:99","text":"这样开始好看一些了：现在所有石头都显得不同！不过，如果你看最右侧石头的底部，会发现石纹方向与该石头顶部不同。它看起来有点不自然。"}
+{"item_id":"8113c73891:100","text":"这很容易修正。该区域对应 Z 轴，所以我们转到 \"Z Axis\" 小节并开启 \""}
+{"item_id":"8113c73891:101","text":"swap ST"}
+{"item_id":"8113c73891:102","text":"\"。这相当于将 Z 轴上的纹理旋转 90 度。"}
+{"item_id":"8113c73891:103","text":"它们现在看起来都不一样，并且相当自然（对于 10 分钟的工作来说）。这杯咖啡我们算是挣到了！"}

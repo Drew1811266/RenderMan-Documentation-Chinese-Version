@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rendering SOP Volumes</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Rendering SOP Volumes</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFH27/544640830/Rendering+SOP+Volumes">https://rmanwiki-27.pixar.com/space/RFH27/544640830/Rendering+SOP+Volumes</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p /><ul><li><p>Set SOP Path parameter（设置 SOP Path 参数）在 SOP Import LOP 上。</p><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="a4da7339-8264-4811-b1f3-5e7d5cd9ed90" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>RenderMan 仅支持导入的 OpenVDB (VDB) volume SOPs（体积 SOP）。必须在渲染前导出 VDB simulation（VDB 模拟）。</p></div></div></li></ul><p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="566" loading="lazy" src="../../attachments/544640830/rfh_solaris_sopimport.PNG" data-image-src="../../attachments/544640830/rfh_solaris_sopimport.PNG" data-height="382" data-width="566" data-unresolved-comment-count="0" data-linked-resource-id="544640847" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfh_solaris_sopimport.PNG" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544640830" data-linked-resource-container-version="1" data-media-id="19947ce1-97b8-4c54-850b-8b6618961d96" data-media-type="file"></span><p /><ul><li><p>在 Material Library LOP 内使用 <a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661555" rel="nofollow">PxrVolume</a>创建 volume material network（体积材质网络）。下面的网络是使用 density、temperature 和 heat grids 渲染 fireball（火球）的示例网络。</p><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="dc3c312e-1680-4379-ad38-1f2eda4cabf4" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>目前只能渲染 float grids（浮点网格）。Volume motion blur（体积运动模糊）尚不受支持，因为 RenderMan 要求 velocity（速度）是单一 vector grid（向量网格），而不是 3 个 float grids（浮点网格）。</p></div></div></li></ul><p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="803" loading="lazy" src="../../attachments/544640830/rfh_solaris_pxrvolume.PNG" data-image-src="../../attachments/544640830/rfh_solaris_pxrvolume.PNG" data-height="357" data-width="803" data-unresolved-comment-count="0" data-linked-resource-id="544640844" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfh_solaris_pxrvolume.PNG" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544640830" data-linked-resource-container-version="1" data-media-id="bb4c3e01-7187-4222-838d-1f8710ad5ab2" data-media-type="file"></span><p /><ul><li><p>照常使用该 path（路径）进行 Assign Material（分配材质）。</p></li></ul><p />
+  </article>
+</main>
+</body>
+</html>

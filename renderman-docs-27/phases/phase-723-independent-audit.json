@@ -1,0 +1,120 @@
+{
+  "phase": 723,
+  "file": "TRA/22184236-Engine Metrics.html",
+  "file_id": "380fad7a16",
+  "source_items": 26,
+  "translation_rows": 26,
+  "source_items_match_translation_rows": true,
+  "duplicate_rows": [],
+  "missing_item_ids": [],
+  "extra_item_ids": [],
+  "tag_fingerprint_identical": true,
+  "rendered_markup_matches_target_markup": true,
+  "glossary_violations": [],
+  "direct_placement_missing": [],
+  "actionable_long_source_residuals": [],
+  "accepted_long_source_residuals": [],
+  "actionable_ascii_heavy_residuals": [],
+  "accepted_ascii_heavy_residuals": [
+    {
+      "item_id": "380fad7a16:0",
+      "text": "\"Engine Metrics\" tab 以图形方式提供若干 engine health 和 performance statistic 的近期历史。Tractor engine 会定期采样这些值，并发送给已订阅的 Dashboard client。默认情况下，大约每 15 秒采集一次新 sample，graph 中显示约 10 分钟的历史。",
+      "ascii_letters": 87,
+      "cjk_chars": 54
+    },
+    {
+      "item_id": "380fad7a16:5",
+      "text": "：已经 dispatch 到 blade 且当前正在运行的 task 数。",
+      "ascii_letters": 17,
+      "cjk_chars": 12
+    },
+    {
+      "item_id": "380fad7a16:9",
+      "text": "：active running task 消耗的 slot 数。每个 command 使用的数量在 job script 中指定，并且可以是在给定 \"at-least\" 与 \"at-most\" value 之间的动态数量。",
+      "ascii_letters": 55,
+      "cjk_chars": 31
+    },
+    {
+      "item_id": "380fad7a16:11",
+      "text": "：tractor-engine 每秒接收的 HTTP request 总数估计值。其中包括来自 blade、browser 和 external script 的所有 request。",
+      "ascii_letters": 57,
+      "cjk_chars": 20
+    },
+    {
+      "item_id": "380fad7a16:13",
+      "text": "：成功 task assignment 的速率。也就是每秒有多少来自 blade 的 work request 成功匹配 job queue 中 waiting task，并交回 blade 执行。",
+      "ascii_letters": 54,
+      "cjk_chars": 26
+    },
+    {
+      "item_id": "380fad7a16:14",
+      "text": "intake backlog",
+      "ascii_letters": 13,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "380fad7a16:15",
+      "text": "：tractor-engine 已接收但尚未委派给具体 engine subsystem 处理的 inbound HTTP request 的内部度量。",
+      "ascii_letters": 46,
+      "cjk_chars": 19
+    },
+    {
+      "item_id": "380fad7a16:16",
+      "text": "assigner backlog",
+      "ascii_letters": 15,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "380fad7a16:17",
+      "text": "：等待从 queue 分配 task 的 blade pending request 数。其中一些 request 可能已成功处理但不会导致 task launch，例如没有剩余 queued task，或 blade 的 service key 不匹配任何 waiting command 的要求。",
+      "ascii_letters": 84,
+      "cjk_chars": 39
+    },
+    {
+      "item_id": "380fad7a16:18",
+      "text": "i/o pool backlog",
+      "ascii_letters": 13,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "380fad7a16:19",
+      "text": "：tractor 使用一组 \"shipper\" thread 来并发处理 connected socket 上的 i/o operation。此值是等待可用 thread 的 high-level i/o action 数量。",
+      "ascii_letters": 69,
+      "cjk_chars": 21
+    },
+    {
+      "item_id": "380fad7a16:20",
+      "text": "monitor backlog",
+      "ascii_letters": 14,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "380fad7a16:21",
+      "text": "：等待处理的 UI-specific HTTP request 数。",
+      "ascii_letters": 21,
+      "cjk_chars": 6
+    },
+    {
+      "item_id": "380fad7a16:22",
+      "text": "engine load",
+      "ascii_letters": 10,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "380fad7a16:23",
+      "text": "：tractor-engine host 自身当前 \"load average\" 的归一化值。显示值是系统一分钟 loadavg，例如由 'uptime' 或 'top' 给出的值，但会再除以该 host 的 CPU core 数。因此，拥有 16 个 core 且其中 8 个 core 满负载的 host 会报告名义 loadavg 为 \"8.0\"，而此 graph 会报告 \"0.5\"。其意图是表示 host CPU capacity 中正在使用的总体比例。此 load 不一定完全来自 tractor-engine activity。host 上的其他 activity，例如 file-serving 或其他正在运行的 application，也会贡献 load。",
+      "ascii_letters": 157,
+      "cjk_chars": 100
+    },
+    {
+      "item_id": "380fad7a16:25",
+      "text": "：最近连接的 client session 数。其中包括 Dashboard session，以及也使用 HTTP request protocol 接收 job status update 或请求 job/blade detail 的其他 client。由于持续 HTTP \"session\" 的 \"end\" 很难界定，engine 会认为某个 connection 仍然是 \"current\"，直到相当长的 interval 内没有来自预期 client 的其他 activity。具体来说，完全 reload 一个 tractor browser window 会暂时导致旧 session 和新 session 都被计为可能 active。",
+      "ascii_letters": 188,
+      "cjk_chars": 78
+    }
+  ],
+  "required_phrase_missing": [],
+  "section_order_positions": [],
+  "section_order_ok": true,
+  "passed": true
+}

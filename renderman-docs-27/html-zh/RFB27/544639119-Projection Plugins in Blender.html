@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Projection Plugins in Blender</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Projection Plugins in Blender</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFB27/544639119/Projection+Plugins+in+Blender">https://rmanwiki-27.pixar.com/space/RFB27/544639119/Projection+Plugins+in+Blender</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>Projection Plugins（投影插件）是 RenderMan 观察数字场景所通过的 lens（镜头）。可以使用 C++ 创建 custom（自定义）projection plugins（投影插件）。RenderMan 自带多个 plugins（插件），其中 PxrCamera 是常用 projection（投影）。Omnidirectional Stereo projection（全向立体投影）会以适合 VR viewing（VR 观看）的格式渲染图像。</p><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="b8650048-be4f-4db4-97f3-01eca9d8215f" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body">参见 <a class="external-link" href="http://rmanwiki-test.pixar.com/display/REN/Projection+Plugins" rel="nofollow">Projection Plugins（投影插件）</a> 了解更多信息。</div></div><p class="auto-cursor-target">默认情况下，RenderMan for Blender 会使用下表映射默认的 Blender camera types（Blender 摄像机类型）：</p><div class="table-wrap"><table class="confluenceTable"><colgroup><col/><col/></colgroup><tbody><tr><th class="confluenceTh">Blender</th><th class="confluenceTh">RenderMan</th></tr><tr><td colspan="1" class="confluenceTd">Perspective（透视）</td><td colspan="1" class="confluenceTd">PxrCamera</td></tr><tr><td class="confluenceTd">Orthographic（正交）</td><td class="confluenceTd">PxrOrthographic</td></tr><tr><td class="confluenceTd">Panoramic（全景）</td><td class="confluenceTd">PxrSphereCamera</td></tr></tbody></table></div><p><br/></p><p>要显式设置 camera（摄像机）使用的 projection plugin（投影插件），请前往 camera data properties（摄像机数据属性）， <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image confluence-thumbnail" height="25" loading="lazy" src="../../attachments/544639119/camera_data_properties.png" data-image-src="../../attachments/544639119/camera_data_properties.png" data-unresolved-comment-count="0" data-linked-resource-id="544639133" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="camera_data_properties.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544639119" data-linked-resource-container-version="1" data-media-id="f86526ad-1e56-4c66-b0b7-359cdc7eccc7" data-media-type="file"></span>然后在 RenderMan Camera 面板下打开 RenderMan Projection 子面板，并点击 Add Projection Plugin。</p><p><span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image" height="67" loading="lazy" src="../../attachments/544639119/projection_plugin1.png" data-image-src="../../attachments/544639119/projection_plugin1.png" data-unresolved-comment-count="0" data-linked-resource-id="544639136" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="projection_plugin1.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544639119" data-linked-resource-container-version="1" data-media-id="3ce034f3-c7bd-44d3-a501-217fe047a301" data-media-type="file"></span></p><p>接下来，选择你感兴趣的 projection plugin（投影插件），然后点击 OK。</p><p><span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image" height="97" loading="lazy" src="../../attachments/544639119/projection_plugin2.png" data-image-src="../../attachments/544639119/projection_plugin2.png" data-unresolved-comment-count="0" data-linked-resource-id="544639139" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="projection_plugin2.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544639119" data-linked-resource-container-version="1" data-media-id="86a2c779-e39e-4f70-a6ed-8d8677a19176" data-media-type="file"></span></p><p>现在应能在面板中看到该 projection plugin（投影插件）的 parameters（参数）。</p><p><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/544639119/projection_plugin3.png" data-image-src="../../attachments/544639119/projection_plugin3.png" data-unresolved-comment-count="0" data-linked-resource-id="544639142" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="projection_plugin3.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544639119" data-linked-resource-container-version="1" data-media-id="21533918-aa94-4cd6-ba8c-cdf34fccde7b" data-media-type="file"></span></p><p>注意，Use Camera FOV 选项会复制 camera（摄像机）当前使用的 field of view（视场角）设置，从而实际忽略 plugin（插件）上的 FOV 设置。这有助于匹配 viewport（视口）中该 camera（摄像机）的当前视图。</p>
+  </article>
+</main>
+</body>
+</html>

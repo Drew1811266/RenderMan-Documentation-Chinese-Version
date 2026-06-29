@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bakery Lighting</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Bakery Lighting</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RU/657227944/Bakery+Lighting">https://rmanwiki-27.pixar.com/space/RU/657227944/Bakery+Lighting</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<h3 id="BakeryLighting-Lighting">Bakery 烘焙坊场景的灯光设置（Lighting）</h3><p>lighting 的两个主要目标，是触动情绪并讲述故事。</p><p>确实，正是通过 lights 的选择、朝向以及 color/temperature，我们才能创造出唤起情绪和感官的氛围。在这个案例中，想法是营造温暖的日出气氛，突出 bakery 提供的诱人美味。强烈 sunlight 的 orange colors 穿过正面窗户，仿佛揭示出热面包的香气，以及甜美、酥脆、入口即化的 texture。既是视觉盛宴，也是想象力的盛宴！</p><p>这个 set 中我使用了三种类型的 lights。主要 light source，也就是 key light，是用 PxrDistantLight 实现的；它的特点是不会随距离损失能量，并且像太阳一样提供 parallel shadows。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="french-bakery-sun.jpg" width="760" loading="lazy" src="../../attachments/657227944/french-bakery-sun.jpg" data-image-src="../../attachments/657227944/french-bakery-sun.jpg" data-height="720" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="657621028" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="french-bakery-sun.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="657227944" data-linked-resource-container-version="1" data-media-id="56ed8394-0262-476c-8be4-9e508fc98d8f" data-media-type="file"></span><p /><p>太阳的 orange hue 和高 intensity 为 set 建立结构，引导观众视线并支撑 narrative。PxrDistantLight 略微向下倾斜，形成拉长的 shadows，有助于组织画面并强化 perspective。由于 scene 中元素丰富，这些 shadows 也可以用来压暗某些区域，简化图像阅读。</p><p>fill light 的特征是 bluish tint，用来表现 sky 的 indirect illumination，并通过 PxrDomeLight 实现。这样可以避免 pitch black shadows，并为 set 的阴影区域带来有活力的 glow。为了提高 sampling efficiency，使用 PxrPortalLights 的 direct light importance，并将它们放在 windows 的 openings 处。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="french-bakery-sky.jpg" width="760" loading="lazy" src="../../attachments/657227944/french-bakery-sky.jpg" data-image-src="../../attachments/657227944/french-bakery-sky.jpg" data-height="720" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="657621035" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="french-bakery-sky.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="657227944" data-linked-resource-container-version="1" data-media-id="8143b2f3-ff31-4f34-b0ba-9c1bde55c54d" data-media-type="file"></span><p /><p>为了获得更多控制，我在 PxrDomeLight 上附加了 PxrIntMultLightFilter，以降低它在 windows 上的 exposure，因为 glass 上的 reflection 太强，会 burn out image，干扰 pastries 的可见性。maya scene 中放置了三个 PxrRectLights。两个作为 bounce lights，放在 sunlight 的 impact points；另一个放在 door 后方，用来暗示有 baker 在门后工作。</p><p>最后，一个连接到 box primitive 的 PxrVolume 提供了与 golden hour 对应的 diffuse atmosphere。这个 volume 与 sunlight 做 light linked，以避免其他 light sources 让它变得过亮。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="french-bakery-fog.jpg" width="760" loading="lazy" src="../../attachments/657227944/french-bakery-fog.jpg" data-image-src="../../attachments/657227944/french-bakery-fog.jpg" data-height="720" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="657621041" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="french-bakery-fog.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="657227944" data-linked-resource-container-version="1" data-media-id="2d6f4351-1e24-4afb-8ddd-502f66f3f5a6" data-media-type="file"></span><div class="panel conf-macro output-block" data-hasbody="true" data-macro-id="" data-macro-name="panel" style="background-color: #EAE6FF;border-color: #998DD9;border-width: 1px;"><div class="panelContent" style="background-color: #EAE6FF;">
+<p>Tip：outdoor set dress 被用作 shadows 的基础。我从这个 facade 中移除了一些 meshes，并用 camera 外的 planes 替换它们，构建会改变图像的 shadows。</p>
+</div></div><p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="french-bakery-blockers.jpg" width="760" loading="lazy" src="../../attachments/657227944/french-bakery-blockers.jpg" data-image-src="../../attachments/657227944/french-bakery-blockers.jpg" data-height="502" data-width="896" data-unresolved-comment-count="0" data-linked-resource-id="657621047" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="french-bakery-blockers.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="657227944" data-linked-resource-container-version="1" data-media-id="1c6adbfa-1f6e-4fdf-a4d5-2015848b2dc0" data-media-type="file"></span><p /><hr/>
+  </article>
+</main>
+</body>
+</html>

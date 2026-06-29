@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Export to RIB</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Export to RIB</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFH27/544646324/Export+to+RIB">https://rmanwiki-27.pixar.com/space/RFH27/544646324/Export+to+RIB</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="toc-macro client-side-toc-macro  conf-macro output-block" data-hasbody="false" data-headerelements="H1,H2,H3,H4,H5,H6,H7" data-layout="default" data-local-id="ed56eeb0-be02-4930-8490-ba1fc050c3e7" data-macro-id="191c9424-c4e7-4de1-9e39-808604238227" data-macro-name="toc"><style>[data-colorid=afip5bzlg1]{color:#333333} html[data-color-mode=dark] [data-colorid=afip5bzlg1]{color:#cccccc}</style> </div><h2 id="ExporttoRIB-RenderableRIBExport">Renderable RIB Export（可渲染 RIB 导出）</h2><p>在 RenderMan RIS ROP 的 Disk File（磁盘文件）设置，位于 <strong>Driver（驱动）&nbsp;</strong>Tab（选项卡）中。&nbsp;</p><p>勾选该参数旁的复选框，当你选择 Render to Disk（渲染到磁盘）时，它会输出 RIB 文件。</p><p>若要更快导出 RIB，请按 ROP node（ROP 节点）上或 RenderMan Menu（RenderMan 菜单）中的 Dump RIB 按钮。这些工具会自动切换 RIB render checkbox（RIB 渲染复选框）。</p><p /><p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="544" loading="lazy" src="../../attachments/544646324/rfh_ROPdriverRIB.png" data-image-src="../../attachments/544646324/rfh_ROPdriverRIB.png" data-height="448" data-width="868" data-unresolved-comment-count="0" data-linked-resource-id="544646344" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfh_ROPdriverRIB.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544646324" data-linked-resource-container-version="1" data-media-id="c47618bd-d4d8-4328-a706-8d4bbdbeb6a3" data-media-type="file" /></span><ul><li><p>Write RIB（写出 RIB）- 渲染时导出 RIB 文件</p></li><li><p>Binary（二进制）- 默认情况下我们会写出紧凑文件；但如果要手动编辑或调试，请取消勾选此项，以输出更大的 ASCII 文件</p></li><li><p>As Archive（作为归档）- 此输出会包含 scene entities（场景实体），但不包含 render settings（渲染设置）或 displays（显示输出）等 global data（全局数据）。该文件本身不可渲染，但稍后可以在场景中引用</p></li><li><p>Disk File（磁盘文件）- RIB 文件的输出位置，默认使用你的 scene file（场景文件，.hip）所在位置</p></li><li><p>VDB Path（VDB 路径）- VDB data（VDB 数据）的导出位置</p></li><li><p>Create Intermediate Directories（创建中间目录）- 自动创建适当的文件结构</p></li><li><p>Initialize Simulation OPs（初始化模拟 OP）- 渲染时，所有 POP 和 DOP 都会重置为初始状态</p></li><li><p>默认显示 SOHO viewport menu（SOHO 视口菜单）</p></li></ul><p /><h2 id="ExporttoRIB-RIBArchiveCreation">RIB Archive Creation（RIB 归档创建）</h2><p>要创建用于稍后渲染的 archives（归档），可按下面步骤操作。Archives（归档）适合在渲染时延迟读取 scene entities（场景实体），避免把所有内容都加载进 bridge product（桥接产品），从而在这些内容直到渲染时才需要显示或处理的情况下消耗内存和资源。Archives（归档）不能单独渲染，因为它们不包含适当的 render options（渲染选项），它们用于复杂度较高的 scene assembly（场景装配）。</p><p>创建 RenderMan <a href="544646437-The ROP Node.html" rel="nofollow">ROP</a> 节点。</p><p>这里我们在 Objects Tab（Objects 选项卡）中，将 candidate object（候选对象）设置为场景内的 pyro_import 对象。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="646" loading="lazy" src="../../attachments/544646324/rfh_ROP_archiveA.png" data-image-src="../../attachments/544646324/rfh_ROP_archiveA.png" data-height="596" data-width="843" data-unresolved-comment-count="0" data-linked-resource-id="544646347" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfh_ROP_archiveA.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544646324" data-linked-resource-container-version="1" data-media-id="4591c9b0-04fa-4bdd-9a98-4fbfb9a07a1f" data-media-type="file" /></span><p /><p>在 Driver Tab（Driver 选项卡，用于 RIB 导出）中，我们选择 "Write RIB" 和 "As Archive"，并提供适当的路径。</p><p>请注意，我们使用 $F4 token（$F4 标记），这样每一帧都会得到一个 RIB 文件，其中 4 表示 4 位数字填充。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="646" loading="lazy" src="../../attachments/544646324/rfh_ROP_archiveB.png" data-image-src="../../attachments/544646324/rfh_ROP_archiveB.png" data-height="596" data-width="843" data-unresolved-comment-count="0" data-linked-resource-id="544646350" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfh_ROP_archiveB.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544646324" data-linked-resource-container-version="1" data-media-id="3eebdc55-354d-4d66-ae52-f34009bffa4a" data-media-type="file" /></span><h3 id="ExporttoRIB-ImportTheArchive">Import The Archive（导入归档）</h3><p>随后，此 archive node（归档节点）可以在 SHOP 中引用上面从 ROP node（ROP 节点）写出的文件。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="646" loading="lazy" src="../../attachments/544646324/rfh_ROP_archiveC.png" data-image-src="../../attachments/544646324/rfh_ROP_archiveC.png" data-height="834" data-width="844" data-unresolved-comment-count="0" data-linked-resource-id="544646353" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfh_ROP_archiveC.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544646324" data-linked-resource-container-version="1" data-media-id="53ef87f1-3e1a-44fe-a918-d761487162e6" data-media-type="file" /></span><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="5c4d48c5-b1a6-4cb1-b683-b58ad8b4d231" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p><span data-colorid="afip5bzlg1">无法将 geometry shaders（几何着色器）作为 "mat" nodes（"mat" 节点）连接到 collector（收集器）。Geometry shaders（几何着色器）必须放在 graph（图）中较旧的 SHOP 部分。下面可以看到 SHOP 中的 pxrdelayedreadarchive。</span></p></div></div><p>下面可以看到一个 null geometry node（空几何节点），它指向 pxrdelayedreadarchive1，并为 archive（归档）中的 object(s)（对象）分配了适当的 shader（着色器）。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="646" loading="lazy" src="../../attachments/544646324/rfh_ROP_archiveD.png" data-image-src="../../attachments/544646324/rfh_ROP_archiveD.png" data-height="1116" data-width="848" data-unresolved-comment-count="0" data-linked-resource-id="544646356" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfh_ROP_archiveD.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544646324" data-linked-resource-container-version="1" data-media-id="b0e5bdef-0536-419d-9b9d-4bde03d6085f" data-media-type="file" /></span><p /><p /><p />
+  </article>
+</main>
+</body>
+</html>

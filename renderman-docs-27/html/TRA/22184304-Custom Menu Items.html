@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Custom Menu Items</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Custom Menu Items</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/TRA/22184304/Custom+Menu+Items">https://rmanwiki-27.pixar.com/space/TRA/22184304/Custom+Menu+Items</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>The context menus of the Dashboard can be extended with custom items to invoke site-specified scripts. To extend a context menu, an entry must be made in a JSON configuration file named menus.config in the site's configuration directory.</p><h3 id="CustomMenuItems-Example:TriggeringARequestForHelpEmail">Example: Triggering A Request For Help Email</h3><p>The following example demonstrates how a request for help email could be made through a custom menu item.</p><h4 id="CustomMenuItems-ConfigurationEntry">Configuration Entry</h4><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="a52a49db-cdb6-46c2-a1d5-750b938ad5b1" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">{
+  &quot;job&quot;:
+  [
+    {
+      &quot;comment&quot;: &quot;artists use this to request technical assistance for selected jobs&quot;,
+      &quot;title&quot;: &quot;ask for help&quot;,
+      &quot;crews&quot;: [&quot;lighting&quot;, &quot;animation&quot;],
+      &quot;suppress&quot;: true,
+      &quot;exec&quot;: [&quot;menu-scripts/askForHelp&quot;],
+      &quot;values&quot;: [&quot;jid&quot;, &quot;owner&quot;],
+      &quot;enabled&quot;: true
+    }
+  ]
+}</pre>
+</div></div><p /><p>In this example, the menu item will appear in the job list's context menu because it is defined in the list keyed by job in the top-level dictionary. task and blade are the other possible menus under which custom menu items may appear.</p><p>The <strong>comment</strong> attribute documents the purpose of the menu item. It currently does not play a functional role in the Dashboard.</p><p>The <strong>title</strong> attribute defines the name of the menu item as it appears in the menu. In this example, the job list's context menu will show ask for help.</p><p>The <strong>crews</strong> attribute restricts the running of the script to users of the specified crews. If no crews are listed, any user can invoke the menu item. In this example, users in the lighting and animation crews are permitted to invoke the menu item.</p><p>The <strong>suppress</strong> attribute indicates whether the Dashboard will display the output of the script in a new window. In this case, there is no helpful output, so setting this to false helps to avoid window bloat. However, some scripts such as a report generator or image previewer could process the selected items and return them in a textual or graphical response. If there is any script output, the suppress setting is ignored; this is useful for catching exceptions and displaying the traceback as in the example at the end of this page.</p><p>The <strong>exec</strong> attribute specifies the vector of arguments that will be executed by the engine. If the first arguement starts with /, it is considered an absolute path; otherwise, it is considered path relative to the site's configuration directory. In this example, the engine will run a script called askForHelp in the menu-scripts subdirectory the site's configuration directory.</p><p>The <strong>values</strong> attribute indicates which attributes of the selected items will be sent to stdin of the executed script. In this example, the jidand owner of the selected jobs will be sent to stdin of askForHelp; the script could use those values to create a message that describes which user(s) is/are requesting help and which specific jobs they need help with. A reference of all attributes can be found <a class="external-link" href="https://renderman.pixar.com/resources/current/tractor/tractor_glossary.html" rel="nofollow">here</a>. Job attributes such as jid, priority, and owner may be listed for task menu items.</p><p>The <strong>enabled</strong> attributed indicates whether the menu item will be displayed. This is useful for temporarily hiding menu items, or leaving examples in the config file for future use. By default, all menu items are enabled, so it is only required when hiding is desired.</p><h4 id="CustomMenuItems-JSONPayload">JSON Payload</h4><p>The JSON payload sent to the stdin of the script will be a list of dictionaries, each dictionary representing one selected item. In the above example, values is set to [&quot;jid&quot;, &quot;owner&quot;], and the JSON payload sent to askForHelp for three selected jobs would look something like this:</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="82fc92a7-afc1-49da-bb77-64ca6377843d" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">[
+  {&quot;jid&quot;: 1056, &quot;owner&quot;: &quot;harry&quot;},
+  {&quot;jid&quot;: 1058, &quot;owner&quot;: &quot;sally&quot;},
+  {&quot;jid&quot;: 1042, &quot;owner&quot;: &quot;sally&quot;}
+]</pre>
+</div></div><p /><h4 id="CustomMenuItems-Script">Script</h4><p>Here is an example implementation of askForHelp:</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="34e9c769-d920-4927-b57c-60f59559bb83" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">#!/usr/bin/python
+
+import sys, json, smtplib
+from email.mime.text import MIMEText
+
+def askForHelp(jobs):
+    # email wranglers for help with selected jobs
+
+    # the list of job ids is used informatively in the title and body
+    jidsStr = &quot; &quot;.join([str(job[&quot;jid&quot;]) for job in jobs])
+
+    # Create a text/plain message
+    text = &quot;Please inspect the following jobs:\n%s&quot; % jidsStr
+    msg = MIMEText(text)
+
+    msg['Subject'] = &quot;Help Request for %s&quot; % jidsStr
+
+    # site would customize senders and recipients
+    # sender could be set to login username of dashboard through env var
+    sender = &quot;tractor@example.com&quot;
+    # establish list of distinct job owners
+    owners = set([job[&quot;owner&quot;] + &quot;@example.com&quot; for job in jobs])
+    recip = [&quot;wranglers@example.com&quot;] + list(owners)
+
+    msg['From'] = sender
+    msg['To'] = &quot;,&quot;.join(recip)
+
+    s = smtplib.SMTP('localhost')
+    s.sendmail(sender, recip, msg.as_string())
+    s.quit()
+
+if __name__==&quot;__main__&quot;:
+    # determine selected jobs
+    jsonData = sys.stdin.read()
+    jobs = json.loads(jsonData)
+    askForHelp(jobs)
+
+    # in this case, no response is expected because the script was
+    # configured with suppress set to true.
+    # but if one was expected, we could emit &quot;Message sent.&quot;
+    # as follows:
+    #
+    # sys.stdout.write(&quot;Content-type:text/html\r\n\r\n&quot;)
+    # sys.stdout.write(&quot;&lt;html&gt;&lt;body&gt;&quot;)
+    # sys.stdout.write(&quot;Message sent.&quot;)
+    # sys.stdout.write(&quot;&lt;/body&gt;&lt;/html&gt;&quot;)
+</pre>
+</div></div><h3 id="CustomMenuItems-Example:ImageOutput">Example: Image Output</h3><p>The following example demonstrates how an image can be returned and displayed in a new window in the browser.</p><h4 id="CustomMenuItems-ConfigurationEntry.1">Configuration Entry</h4><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="00c49550-4e3d-4e95-93a2-4312446b2047" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">{
+  ...
+  &quot;task&quot;:
+  [
+    ...
+    {
+      &quot;comment&quot;: &quot;display an image for the selected task&quot;,
+      &quot;title&quot;: &quot;show image&quot;,
+      &quot;exec&quot;: [&quot;menu-scripts/showImage&quot;],
+      &quot;values&quot;: [&quot;jid&quot;, &quot;tid&quot;]
+    }
+    ...
+  ]
+  ...
+}</pre>
+</div></div><p>suppress is False by default, so it can be left out of the menu definition if desired.</p><h4 id="CustomMenuItems-JSONPayload.1">JSON Payload</h4><p>The JSON payload for a single selected task would look like this:</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="d6d3cd34-d972-440c-9d07-c37c782eba8c" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">[
+  {&quot;jid&quot;: 1098, &quot;tid&quot;: 5}
+]</pre>
+</div></div><p /><h4 id="CustomMenuItems-Script.1">Script</h4><p>By having the script set Content-type appropriately in the response header, the browser can then now how to handle and display the returned image data.</p><p>For this example to work, you would need to have an image file called eye.png in the engine's /tmp directory that is readable by the engine's process owner.</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="4ec1c98a-2ef0-4769-a58d-6b481b321534" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">#!/usr/bin/python
+
+import sys, json
+
+if __name__==&quot;__main__&quot;:
+    # determine selected tasks
+    jsonData = sys.stdin.read()
+    if jsonData:
+        tasks = json.loads(jsonData)
+
+    # something could be done to determine which image to return
+    # for now just return a test image in /tmp of the engine host
+    filename = &quot;/tmp/eye.png&quot;
+
+    # return the image; it will be displayed in a new browser window
+    with open(filename, &quot;rb&quot;) as content_file:
+        content = content_file.read()
+    sys.stdout.write(&quot;Content-type: image/png\n\n&quot;)
+    sys.stdout.write(content)
+</pre>
+</div></div><h3 id="CustomMenuItems-Troubleshooting">Troubleshooting</h3><p>When setting up or editing custom menu items, the dashboard will need to be reloaded to reflect the changes.</p><h4 id="CustomMenuItems-MissingMenuItem">Missing Menu Item</h4><p>If you are unable to see a custom menu item, make sure that you belong to the menu item's crews if any are listed. Custom menu items are displayed only to users who are authorized to invoke them.</p><p>Another cause of missing custom menu items is a JSON syntax error in the config file. This can be detected by inspecting the browser's console for a related error message, or by running the menus.config file through a JSON validator such as <a class="external-link" href="http://jsonlint.com/" rel="nofollow">http://jsonlint.com</a>.</p><h4 id="CustomMenuItems-TestingFromtheCommandLine">Testing From the Command Line</h4><p>If a menu item appears but fails to run as expected, try some of the following steps.</p><p>Check that the script is readable and executable by the engine owner.</p><p>Check that the menu-scripts directory is readable and executable by the engine owner.</p><p>Try running the script from the command line as the engine owner, piping a test JSON string if it helps cover code paths in question. The following example simulates the command run when two blades named hostA and hostB have been selected, and the menu item's values list indicates each blade's name should be sent.</p><p><code>% echo '[{&quot;name&quot;: &quot;hostA&quot;}, {&quot;name&quot;: &quot;hostB&quot;}]' | ./testScript
+</code></p><h4 id="CustomMenuItems-EditinginWindows">Editing in Windows</h4><p>If the script is edited on Windows or in an editor in Windows mode, a trailing ^M character could be left after the interpreter name, causing the script to fail. The ^M is invisible in certain editors or editing modes. Neither the engine log nor the output window will display this error, making it difficult to detect.</p><p>Testing the script from the command line will reveal this error. Such an error in a python script would appear as:</p><p><code>/usr/bin/python^M: bad interpreter: No such file or directory
+</code></p><h4 id="CustomMenuItems-CatchExceptions">Catch Exceptions</h4><p>One way to debug python scripts is to catch exceptions and have them sent as a response to the browser. This is helpful since stderr is not sent to the brower.</p><p>The following python example shows how any exception can be caught and provide useful feedback to a user or script writer.</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="58319cb1-7ba0-43ac-8148-d3fa98eb6502" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">#!/usr/bin/python
+
+import sys
+import json
+
+def testScript(bladeinfo):
+    # intentional error: bar is not defined
+    foo = bar
+
+if __name__ == &quot;__main__&quot;:
+    try:
+        jsonData = sys.stdin.read()
+        bladeinfo = json.loads(jsonData)
+        testScript(bladeinfo)
+    except:
+        import traceback
+        sys.stdout.write(&quot;Content-type:text/html\r\n\r\n&quot;)
+        sys.stdout.write(&quot;&lt;html&gt;&lt;body&gt;&lt;pre&gt;&quot;)
+        sys.stdout.write(&quot;menu script error:\n&quot;)
+        sys.stdout.write(traceback.format_exc())
+        sys.stdout.write(&quot;&lt;pre&gt;&lt;/body&gt;&lt;/html&gt;&quot;)</pre>
+</div></div><p>An edge case is that currently it is not possible to catch syntax errors, as the script will fail before getting to the main block. Testing the script from the command line will reveal such syntax errors.</p>
+  </article>
+</main>
+</body>
+</html>

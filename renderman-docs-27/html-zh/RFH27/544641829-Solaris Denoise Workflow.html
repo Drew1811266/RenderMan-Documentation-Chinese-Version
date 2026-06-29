@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Solaris Denoise Workflow</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Solaris Denoise Workflow</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFH27/544641829/Solaris+Denoise+Workflow">https://rmanwiki-27.pixar.com/space/RFH27/544641829/Solaris+Denoise+Workflow</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="contentLayout2">
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p>RenderMan 要求启用特定 AOV，denoiser（降噪器）才能在 batch renders（批渲染）中正确工作。  </p><p>这些 AOV 可以通过两种方式应用。</p><p>可以使用 <em>rendermanrendervars </em>node，也可以通过 <em>rendermanrendersettings </em>node。两种都是有效 workflow（工作流）。</p><p>需要激活 Denoiser AOV，最简单的方法是点击右上角的蓝色 R（下方图片中以红色高亮）。</p><p>这会启用 Denoiser 所需的全部 AOV。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="RenderMan_SolarisRenderVars.jpg" width="1800" loading="lazy" src="../../attachments/544641829/RenderMan_SolarisRenderVars.jpg" data-image-src="../../attachments/544641829/RenderMan_SolarisRenderVars.jpg" data-height="790" data-width="1871" data-unresolved-comment-count="0" data-linked-resource-id="634290375" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_SolarisRenderVars.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544641829" data-linked-resource-container-version="8" data-media-id="4c128710-acc6-4fcf-8c28-ea3953c45501" data-media-type="file"></span><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="RenderMan_Solaris_denoiser_Setup2.jpg" width="1800" loading="lazy" src="../../attachments/544641829/RenderMan_Solaris_denoiser_Setup2.jpg" data-image-src="../../attachments/544641829/RenderMan_Solaris_denoiser_Setup2.jpg" data-height="875" data-width="1859" data-unresolved-comment-count="0" data-linked-resource-id="634290387" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Solaris_denoiser_Setup2.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544641829" data-linked-resource-container-version="8" data-media-id="d7078a0c-5840-4bf5-b8ff-0649bac63625" data-media-type="file"></span><p /><p>激活所需的 denoising AOV 后，可以使用以下两种设置之一：</p><hr/><p>Setup 1 - ROP Fetch Node（设置 1 - ROP Fetch 节点）</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="RenderMan_Solaris_Denoise_1.jpg" width="1341" loading="lazy" src="../../attachments/544641829/RenderMan_Solaris_Denoise_1.jpg" data-image-src="../../attachments/544641829/RenderMan_Solaris_Denoise_1.jpg" data-height="745" data-width="1491" data-unresolved-comment-count="0" data-linked-resource-id="544641850" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Solaris_Denoise_1.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544641829" data-linked-resource-container-version="8" data-media-id="bd7d575a-ea9d-483c-b52f-8db21f981742" data-media-type="file"></span><ol start="1"><li><p>在 OUT context（OUT 上下文）中创建一个 ROP <em>fetch</em> node（节点）</p></li><li><p>将 <em>Source</em> parameter（参数）设置为所需的 LOP <em>usdrender_rop</em> node（节点），该节点位于 Solaris/Stage context（上下文）中。</p></li><li><p>将一个 ROP <em>denoise</em> node（节点）连接到 ROP <em>fetch</em> node input（节点输入端）。</p></li><li><p>在 ROP <em>denoise</em> node（节点）上设置 mode type（模式类型）、output location（输出位置）、asymmetry（非对称）、flow 和 debug 选项；准备渲染后，按 Denoise 按钮。<br/><br/>Houdini 将渲染 LOP <em>usdrender_rop</em> node（节点），使用 <em>denoise</em> node 上的帧范围。所有帧渲染完成后，denoise process（降噪过程）将开始。</p></li></ol><p /><hr/><p>Setup 2 - ROP USD Render Node（设置 2 - ROP USD Render 节点）</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="RenderMan_Solaris_Denoise_2.jpg" width="1341" loading="lazy" src="../../attachments/544641829/RenderMan_Solaris_Denoise_2.jpg" data-image-src="../../attachments/544641829/RenderMan_Solaris_Denoise_2.jpg" data-height="1290" data-width="1494" data-unresolved-comment-count="0" data-linked-resource-id="544641847" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Solaris_Denoise_2.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544641829" data-linked-resource-container-version="8" data-media-id="4beabe31-f2ba-4c70-b4a5-3861eb75f2ec" data-media-type="file"></span><ol start="1"><li><p>在 OUT context（OUT 上下文）中创建一个 ROP <em>usdrender</em> node（节点），并将 render delegate（渲染委托）改为 RenderMan RIS（Solaris 中的 denoising 目前不支持 XPU rendering（XPU 渲染））</p></li><li><p>将<em> LOP path </em>parameter（参数）设置为 Solaris/Stage context（上下文）中包含某个 <em>RenderSettings</em> primitive 的目标节点 (最可能的默认情况是 <em>/stage/rendermanrendersettings</em>)</p></li><li><p>将 <em>Render Settings（渲染设置）</em> parameter（参数）设置为场景图树中所需的 <em>RenderSettings</em> primitive 所在的位置（最可能的默认情况是 /Render/rendersettings）</p></li><li><p>将一个 ROP <em>denoise</em> node（节点）连接到 ROP usdrender node input（节点输入端）</p></li><li><p>在 ROP <em>denoise</em> node（节点）上设置所需参数，然后点击 denoise 按钮，开始将帧渲染到磁盘并执行 denoise（降噪）。</p></li></ol><p style="margin-left: 30.0px;">Houdini 将渲染 ROP <em>usdrender</em> node（节点），使用 <em>denoise</em> node 上的帧范围。所有帧渲染完成后，denoise process（降噪过程）将开始。</p><p /><hr/><p /><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="73f72c7c-16d5-4d65-9d8b-bcbb0bf1d622" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>Note（注意）：目前还不支持在 TOPs / PDG 中使用 Solaris 的 denoising workflow（降噪工作流）。</p></div></div><p /></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="RenderMan_Studio_rough_Close_noised.jpg" width="686" loading="lazy" src="../../attachments/544641829/RenderMan_Studio_rough_Close_noised.jpg" data-image-src="../../attachments/544641829/RenderMan_Studio_rough_Close_noised.jpg" data-height="1080" data-width="1920" data-unresolved-comment-count="0" data-linked-resource-id="544641844" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Studio_rough_Close_noised.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544641829" data-linked-resource-container-version="8" data-media-id="dbe58c0d-e329-4cd5-bf71-7880da42e737" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="RenderMan_Studio_rough_Close_denoised.jpg" width="686" loading="lazy" src="../../attachments/544641829/RenderMan_Studio_rough_Close_denoised.jpg" data-image-src="../../attachments/544641829/RenderMan_Studio_rough_Close_denoised.jpg" data-height="1080" data-width="1920" data-unresolved-comment-count="0" data-linked-resource-id="544641841" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Studio_rough_Close_denoised.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544641829" data-linked-resource-container-version="8" data-media-id="8ef87b4c-5f1c-4984-9a2b-e22cc4e94a3c" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><br/>1920 x 1080<br/>Pixel Variance（像素方差） = 0.26<br/>Max Samples（最大采样数） = 64</p></div>
+</div>
+</div>
+</div>
+  </article>
+</main>
+</body>
+</html>

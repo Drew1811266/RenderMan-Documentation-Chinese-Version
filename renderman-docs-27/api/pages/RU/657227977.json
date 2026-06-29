@@ -1,0 +1,34 @@
+{
+  "parentType": "page",
+  "parentId": "604569807",
+  "ownerId": "712020:9d5ecfb2-d6a8-470c-8147-e3a49ba45e31",
+  "lastOwnerId": null,
+  "createdAt": "2025-11-08T08:28:29.554Z",
+  "authorId": "712020:9d5ecfb2-d6a8-470c-8147-e3a49ba45e31",
+  "version": {
+    "number": 1,
+    "message": "",
+    "minorEdit": false,
+    "authorId": "712020:9d5ecfb2-d6a8-470c-8147-e3a49ba45e31",
+    "createdAt": "2025-11-08T08:29:17.819Z",
+    "ncsStepVersion": "9"
+  },
+  "position": 215,
+  "id": "657227977",
+  "spaceId": "476282890",
+  "status": "current",
+  "body": {
+    "view": {
+      "representation": "view",
+      "value": "<h3 id=\"TreasureOptimizations-InteractivityOptimizations\">Interactivity Optimizations</h3><p>It’s incredibly important to get these 200+ million coins to render in a quick and optimized fashion and more importantly, parsing the scene efficiently is crucial for interactivity. Using instancing to achieve this really helped keep deadlines on track, as the first pixel went from 2 hours to only 5 minutes, making a huge difference to a humble single node render machine.</p><p /><p>Houdini was a great tool to use to scatter a large quantity of gold coins and treasure. I started with a simple for-each loop to vary shapes of gold coins, cups, swords, helmets, etc. By utilizing height-field scatter trickery, I managed to create an underlying terrain geometry, which also had the same gold shader applied to it … welcome to CGI, where it’s all about faking things!</p><span class=\"confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size\"><img class=\"confluence-embedded-image image-center\" alt=\"various_treasure_geoSetup.png\" width=\"760\" loading=\"lazy\" src=\"https://renderman.atlassian.net/wiki/download/thumbnails/657227977/various_treasure_geoSetup.png?version=1&amp;modificationDate=1762590550603&amp;cacheVersion=1&amp;api=v2&amp;width=760&amp;height=442\" data-image-src=\"https://renderman.atlassian.net/wiki/download/attachments/657227977/various_treasure_geoSetup.png?version=1&amp;modificationDate=1762590550603&amp;cacheVersion=1&amp;api=v2\" data-height=\"1117\" data-width=\"1917\" data-unresolved-comment-count=\"0\" data-linked-resource-id=\"656998635\" data-linked-resource-version=\"1\" data-linked-resource-type=\"attachment\" data-linked-resource-default-alias=\"various_treasure_geoSetup.png\" data-base-url=\"https://renderman.atlassian.net/wiki\" data-linked-resource-content-type=\"image/png\" data-linked-resource-container-id=\"657227977\" data-linked-resource-container-version=\"1\" data-media-id=\"febd999d-0fea-4aab-9b7f-3a3a190cb44d\" data-media-type=\"file\" srcset=\"https://renderman.atlassian.net/wiki/download/thumbnails/657227977/various_treasure_geoSetup.png?version=1&amp;modificationDate=1762590550603&amp;cacheVersion=1&amp;api=v2&amp;width=1520&amp;height=884 2x, https://renderman.atlassian.net/wiki/download/thumbnails/657227977/various_treasure_geoSetup.png?version=1&amp;modificationDate=1762590550603&amp;cacheVersion=1&amp;api=v2&amp;width=760&amp;height=442 1x\"></span><p /><p>At this point, my instinct was to export a single USD file, which has a surprisingly (dare I say, satisfyingly) slim footprint on disk. Unfortunately, this workflow turned out too good to be true, as this independently loaded each piece of treasure … times 150 million.</p><p>This unexpected result led me to ask some experts if there was an optimization step I missed along the way.Nemanja Stavric (a dear friend and colleague) gave me the idea of combining them instead, so that we’re instancing larger clumps of treasure instead of individual pieces.</p><p>This solution helped me reduce first pixel times, at the expense of slightly higher memory usage.</p><span class=\"confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size\"><img class=\"confluence-embedded-image image-center\" alt=\"scattered_packed_andExported.png\" width=\"760\" loading=\"lazy\" src=\"https://renderman.atlassian.net/wiki/download/thumbnails/657227977/scattered_packed_andExported.png?version=1&amp;modificationDate=1762590550658&amp;cacheVersion=1&amp;api=v2&amp;width=760&amp;height=419\" data-image-src=\"https://renderman.atlassian.net/wiki/download/attachments/657227977/scattered_packed_andExported.png?version=1&amp;modificationDate=1762590550658&amp;cacheVersion=1&amp;api=v2\" data-height=\"1056\" data-width=\"1915\" data-unresolved-comment-count=\"0\" data-linked-resource-id=\"656998642\" data-linked-resource-version=\"1\" data-linked-resource-type=\"attachment\" data-linked-resource-default-alias=\"scattered_packed_andExported.png\" data-base-url=\"https://renderman.atlassian.net/wiki\" data-linked-resource-content-type=\"image/png\" data-linked-resource-container-id=\"657227977\" data-linked-resource-container-version=\"1\" data-media-id=\"6433e2b2-1fc9-498c-811f-28fa85b22540\" data-media-type=\"file\" srcset=\"https://renderman.atlassian.net/wiki/download/thumbnails/657227977/scattered_packed_andExported.png?version=1&amp;modificationDate=1762590550658&amp;cacheVersion=1&amp;api=v2&amp;width=1520&amp;height=838 2x, https://renderman.atlassian.net/wiki/download/thumbnails/657227977/scattered_packed_andExported.png?version=1&amp;modificationDate=1762590550658&amp;cacheVersion=1&amp;api=v2&amp;width=760&amp;height=419 1x\"></span><hr/>"
+    }
+  },
+  "title": "Treasure Optimizations",
+  "_links": {
+    "editui": "/pages/resumedraft.action?draftId=657227977",
+    "webui": "/spaces/RU/pages/657227977/Treasure+Optimizations",
+    "edituiv2": "/spaces/RU/pages/edit-v2/657227977",
+    "tinyui": "/x/yYAsJw",
+    "base": "https://renderman.atlassian.net/wiki"
+  }
+}

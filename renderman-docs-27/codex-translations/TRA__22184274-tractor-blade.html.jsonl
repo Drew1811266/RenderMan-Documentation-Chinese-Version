@@ -1,0 +1,78 @@
+{"item_id":"3b62f4738d:0","text":"Tractor Blade 是运行在每台 renderfarm 主机上的远程执行服务器进程。每台主机上的 tractor-blade 进程会跟踪基本的系统健康指标以及先前启动过的 Tractor tasks。它会判断自身何时具备接收新工作的 capacity，然后从中央 job queue 获取一个 task definition 并启动指定 commands。随后 Tractor Blade 会跟踪每个已启动 app 的状态；可能有多个 app 同时运行，并上报状态与结果。Tractor 系统要求每台 compute server 上都运行 tractor-blade，才能把工作分发到 farm。Usage: tractor-blade [options]"}
+{"item_id":"3b62f4738d:1","text":"Options:"}
+{"item_id":"3b62f4738d:2","text":"Option"}
+{"item_id":"3b62f4738d:3","text":"说明"}
+{"item_id":"3b62f4738d:4","text":"--version"}
+{"item_id":"3b62f4738d:5","text":"显示程序版本信息，然后退出。"}
+{"item_id":"3b62f4738d:6","text":"-h,"}
+{"item_id":"3b62f4738d:7","text":"--help"}
+{"item_id":"3b62f4738d:8","text":"显示 usage 摘要，然后退出。"}
+{"item_id":"3b62f4738d:9","text":"--engine=HOST[:port]"}
+{"item_id":"3b62f4738d:10","text":"tractor-engine 运行所在的 hostname[:port]，默认值为 tractor-engine，通常是一个 DNS alias；默认 port 为 80。如果未给出此选项，blade 还会查找名为 TRACTOR_ENGINE 的 environment variable，用作 host:port 说明。如果显式设置和环境变量都不存在，blade 会尝试通过本地 nameserver 解析 hostname \"tractor-engine\"。如果该名称"}
+{"item_id":"3b62f4738d:11","text":"未"}
+{"item_id":"3b62f4738d:12","text":"注册，blade 就会在 LAN 上发出"}
+{"item_id":"3b62f4738d:13","text":"engine discovery"}
+{"item_id":"3b62f4738d:14","text":"广播，以搜索可用的 engine。"}
+{"item_id":"3b62f4738d:15","text":"-L"}
+{"item_id":"3b62f4738d:16","text":"BPORT"}
+{"item_id":"3b62f4738d:17","text":"此 blade 监听 admin queries 的 port，默认值为 9005；使用 0（zero）可让 operating system 选择一个空闲 port。blade 会把给定 port 注册到 engine。注意，该 port 必须能穿过 blade host 上可能存在的 firewall，因此在使用 firewalls 时，像 9005 这样的固定值比随机值更合适。可以使用 '--listen=addr:port' 选择指定的本地 network interface。"}
+{"item_id":"3b62f4738d:18","text":"--hname=HOSTNAME"}
+{"item_id":"3b62f4738d:19","text":"blade host 的备用名称，会注册到 engine，也会发送给可能需要反向连接的 peers。默认值是 engine 看到的 blade 地址经 reverse look up 得出的 hostname。使用特殊形式 --hname=. 可让 blade 只使用自身本地得出的 hostname。"}
+{"item_id":"3b62f4738d:20","text":"-v,"}
+{"item_id":"3b62f4738d:21","text":"--verbose"}
+{"item_id":"3b62f4738d:22","text":"记录 INFO 及以上 log level。"}
+{"item_id":"3b62f4738d:23","text":"--debug"}
+{"item_id":"3b62f4738d:24","text":"记录 DEBUG 及以上 log level。"}
+{"item_id":"3b62f4738d:25","text":"--trace"}
+{"item_id":"3b62f4738d:26","text":"记录 TRACE 及以上 log level。"}
+{"item_id":"3b62f4738d:27","text":"--warning"}
+{"item_id":"3b62f4738d:28","text":"记录 WARNING 及以上 log level，这是默认值。"}
+{"item_id":"3b62f4738d:29","text":"-q,"}
+{"item_id":"3b62f4738d:30","text":"--quiet"}
+{"item_id":"3b62f4738d:31","text":"只记录 CRITICAL log level。"}
+{"item_id":"3b62f4738d:32","text":"--log=LOGFILE"}
+{"item_id":"3b62f4738d:33","text":"tractor-blade activity log file，达到 25MB 时自动轮转。"}
+{"item_id":"3b62f4738d:34","text":"--logrotate=NNN"}
+{"item_id":"3b62f4738d:35","text":"指定 log-rotation threshold，单位为 megabytes。"}
+{"item_id":"3b62f4738d:36","text":"--logconfig=LOGCONFIG"}
+{"item_id":"3b62f4738d:37","text":"Python 的外部配置文件"}
+{"item_id":"3b62f4738d:38","text":"logging-module"}
+{"item_id":"3b62f4738d:39","text":"，blade 内部使用它记录自身状态。注意，此 blade 启动的每个 Cmd 的输出会按照"}
+{"item_id":"3b62f4738d:40","text":"CmdOutputLogging"}
+{"item_id":"3b62f4738d:41","text":"设置处理，该设置位于 blade.config 中，通常会写入一个 network share。"}
+{"item_id":"3b62f4738d:42","text":"--logenv"}
+{"item_id":"3b62f4738d:43","text":"记录 blade 启动的每条 command 的实际 command line 和 environment。"}
+{"item_id":"3b62f4738d:44","text":"--cmdtee"}
+{"item_id":"3b62f4738d:45","text":"把每条已启动 command 的输出复制到 blade 自身的 log，同时也写入每个 task 的 logs；通常只在调试 blade actions 时使用。"}
+{"item_id":"3b62f4738d:46","text":"--zone=ZONE"}
+{"item_id":"3b62f4738d:47","text":"用于 'dirmap' indexing 的 zone name。"}
+{"item_id":"3b62f4738d:48","text":"--nimby=NAME"}
+{"item_id":"3b62f4738d:49","text":"限制此 blade 将执行的 jobs；给出 user name 表示只接受该用户的 jobs，或给出 '1' 表示接受从此 blade host spool 出来的任何 job。"}
+{"item_id":"3b62f4738d:50","text":"--slots=SLOTS"}
+{"item_id":"3b62f4738d:51","text":"最大并发 slot 数；覆盖 blade.config 中通常的 Capacity parameter MaxSlots；使用 '0' 可把 slot count 设置为系统 CPU cores 的数量。"}
+{"item_id":"3b62f4738d:52","text":"--daemon"}
+{"item_id":"3b62f4738d:53","text":"（仅 unix）让 blade process 脱离 controlling terminal session，并自动在后台运行，从而作为 system daemon 执行。"}
+{"item_id":"3b62f4738d:54","text":"--supersede"}
+{"item_id":"3b62f4738d:55","text":"允许新启动的 blade process 平滑接管仍在运行的旧 blade。如果同一 port 上仍有旧 blade，新 blade 会向它发送 \"drain and exit\" 消息，然后等待旧 blade 退出，再继续成为新的 blade service。在 drain mode 下，旧 blade 会停止从 engine 请求新工作，并在它先前启动的所有 tasks 完成后退出。"}
+{"item_id":"3b62f4738d:56","text":"--profile=NAME"}
+{"item_id":"3b62f4738d:57","text":"指定 blade.config 中要使用的 blade profile name，跳过通常的匹配条件；仅用于 testing scenarios。"}
+{"item_id":"3b62f4738d:58","text":"--env=ENVFILE"}
+{"item_id":"3b62f4738d:59","text":"应用程序 override environment settings 的文件名（例如从 printenv 捕获）。注意：environment settings 通常通过 blade.config 中具名的 EnvKeys collections 定义。"}
+{"item_id":"3b62f4738d:60","text":"--pythonhome=PYTHONHOME"}
+{"item_id":"3b62f4738d:61","text":"为 Tractor 启动的 Python programs 设置 PYTHONHOME。"}
+{"item_id":"3b62f4738d:62","text":"--ld_library_path=LDPATH"}
+{"item_id":"3b62f4738d:63","text":"为 Tractor 启动的 programs 设置 LD_LIBRARY_PATH。"}
+{"item_id":"3b62f4738d:64","text":"--dyld_framework_path=PATH"}
+{"item_id":"3b62f4738d:65","text":"为 Tractor 启动的 programs 设置 LD_FRAMEWORK_PATH。"}
+{"item_id":"3b62f4738d:66","text":"--no-sigint"}
+{"item_id":"3b62f4738d:67","text":"中断 active tasks 时，先用 SIGTERM 而不是 SIGINT 发起 task termination attempts（仅 unix）。"}
+{"item_id":"3b62f4738d:68","text":"--killdelay=SECS"}
+{"item_id":"3b62f4738d:69","text":"清扫 active subprocesses 时，从 SIGNINT 升级到 SIGTERM 再到 SIGKILL 之间等待的秒数。"}
+{"item_id":"3b62f4738d:70","text":"--progresslimit=NSECS"}
+{"item_id":"3b62f4738d:71","text":"限制 percent-done updates 的发送频率，两次发送之间至少等待 NSECS seconds。"}
+{"item_id":"3b62f4738d:72","text":"--startupdelay=SECS"}
+{"item_id":"3b62f4738d:73","text":"service boot 之后、继续执行 blade startup actions 之前的 delay。"}
+{"item_id":"3b62f4738d:74","text":"--minsleep=MINSLEEP"}
+{"item_id":"3b62f4738d:75","text":"最小 idle sleep interval，单位为 seconds。"}
+{"item_id":"3b62f4738d:76","text":"--maxsleep=MAXSLEEP"}
+{"item_id":"3b62f4738d:77","text":"最大 idle sleep interval，单位为 seconds。"}

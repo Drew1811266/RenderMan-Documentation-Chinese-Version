@@ -1,0 +1,21 @@
+{"id": "afe773e42fa0e8939e89e8bd489a3abcf3ce4912375aac4698e94556a0a48ddc", "item_id": "978b8bb725:0", "text": "Using"}
+{"id": "34021bf7c8c11bc51d9f4a4805b32dfa1ca922929d25a857da00d4e07f43e885", "item_id": "978b8bb725:1", "text": "PxrCryptomatte"}
+{"id": "19f6e627621c5d02a9d287b19904cb569ee45170bd080effa13ab1ef085b2201", "item_id": "978b8bb725:2", "text": "workflow, you can output IDs in Katana for easy selection in a compositing application. You can then use that selection as a mask to make changes selectively in post packages."}
+{"id": "37477264b1600a221e8fa12e876cf9c9ee7fd3d052d207e80c12fccd208e0665", "item_id": "978b8bb725:3", "text": "PxrCryptomatte is supplied as a"}
+{"id": "cc771598ef41782ca75003916c5129b4d7f3645bc9f3ff131367be98ea2d23cb", "item_id": "978b8bb725:4", "text": "Sample Filter"}
+{"id": "e52ae222baace1a6cbfcd0fe863483ddc46608b561285bd3cad9c9addd707ea9", "item_id": "978b8bb725:5", "text": "plugin. As such the output for Cryptomatte is stored as a separate EXR file from your beauty or denoise outputs. Please note an OpenEXR output (file.exr) is required to store the values correctly."}
+{"id": "0bcb4e4b188df78b08ae021f9b49c210b8d6a980fd1d52d059d282fb4f7fc47d", "item_id": "978b8bb725:6", "text": "We only render this when using a disk render to avoid overwriting files during an interactive session"}
+{"id": "c36a391c17c0870530052a8153e103a85ae8b74ee5aaff5b8cf34317f2cb5d34", "item_id": "978b8bb725:7", "text": "The attached example file for Katana workflow."}
+{"id": "839b3e4c134591b229ab6d8c8bae17c2a6df5970193e14650cc9817b46e08889", "item_id": "978b8bb725:8", "text": "This file contains two PxrCryptomatte nodes to output both object and material IDs."}
+{"id": "3f37766d4f68009b85f27d9d89eec1d40c0631b513f5da7ca385841a0f40b502", "item_id": "978b8bb725:9", "text": "Example Workflow:"}
+{"id": "27524a03b2503a035651d7fe79ac2ada17a546399d1b700a7367ccd43f703e55", "item_id": "978b8bb725:10", "text": "Create a PxrCryptomatte node. Specify the file name and path. The example file uses a script to write to your Temp directory."}
+{"id": "026c1f0c9bccd7fdc1da0d8231ab01a8c86213afe321f76e2d8ca2b16037b4f3", "item_id": "978b8bb725:11", "text": "Layer: Select the layer type, Name (object) or Material."}
+{"id": "72ab25d0ef6634356f1c619dd33c362f7abd0f47e625b30e9c352815a72b470c", "item_id": "978b8bb725:12", "text": "Connect these to a ShadingNodeArrayConnector"}
+{"id": "36a4ff1aaf98dfbfbffa0908df74de829cc7502281b120e46e225296e29c722a", "item_id": "978b8bb725:13", "text": "Create a PrmanShadingNode and select PxrSampleFilterCombiner. Connect the ShadingNodeArrayConnector.out to the input of this shading node."}
+{"id": "d62525b74e6eb59b94646c07fe1317d650b363ce0557ce58af4418dc14b0d8e8", "item_id": "978b8bb725:14", "text": "Create a NetworkMaterial node , right-click and \"Add terminal\", select \"samplefilter\" in the Prman dropdown."}
+{"id": "d83d79952e2868cf88c57b7e801703526beee4496a4331b63d8183772beda95a", "item_id": "978b8bb725:15", "text": "Connect the prmanSamplefilter.out to the NetworkMaterial."}
+{"id": "11944aa549e4fc6190c3dbfb96bd68aac1dd3ff8eae3de52a44a15f94b439bd0", "item_id": "978b8bb725:16", "text": "Merge the above network (easy to reuse) into the trunk."}
+{"id": "c4514217c6f1760482dc6a420e942b30605273a89eb0034e9255ac6ca7d3eebf", "item_id": "978b8bb725:17", "text": "Create a MaterialAssign node and assign the Cryptomatte NetworkMaterial to /root"}
+{"id": "144d8c37031176bb3ed853032eb8cabe52f316957ae559b57c8382393faac3f5", "item_id": "978b8bb725:18", "text": "Render your scene and look for the output EXR in the path you defined above. The example file will output two EXRs, one with Object IDs and another with Material IDs as seen below."}
+{"id": "b797d63a49ded8b3b6872b497402ab62990b75c2d509dae600e3182631f5f423", "item_id": "978b8bb725:19", "text": "You can download the above scene created in Katana 2.6 v4 as"}
+{"id": "73f3c746489036733a1f7d744202fbacaf16cfc271eef4c429e81092fe9d967b", "item_id": "978b8bb725:20", "text": "cryptomatte_filters.katana"}

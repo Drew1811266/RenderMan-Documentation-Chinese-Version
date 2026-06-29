@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LamaTricolorSSS</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>LamaTricolorSSS</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/REN27/542220410/LamaTricolorSSS">https://rmanwiki-27.pixar.com/space/REN27/542220410/LamaTricolorSSS</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><style>[data-colorid=xrmdagb88w]{color:#4d5156} html[data-color-mode=dark] [data-colorid=xrmdagb88w]{color:#a9adb2}[data-colorid=gnah227wpm]{color:#4d5156} html[data-color-mode=dark] [data-colorid=gnah227wpm]{color:#a9adb2}</style><img class="confluence-embedded-image image-left" width="1280" loading="lazy" src="../../attachments/542220410/the-irishman-sidexside-01-smaller.jpg" data-image-src="../../attachments/542220410/the-irishman-sidexside-01-smaller.jpg" data-height="559" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="542220424" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="the-irishman-sidexside-01-smaller.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542220410" data-linked-resource-container-version="3" data-media-id="a202c0f1-64ae-4847-b4f7-6ad62dd7fffd" data-media-type="file" /></span><p local-id="47b402ab6460" style="text-align: center;">很多时候，仅使用单个 subsurface 波瓣不足以达到照片级真实感，正如这张来自 <em>The Irishman</em> (<span data-colorid="gnah227wpm">© Netflix) 的图像所示，其中 LamaSSS 与 LamaTriColorSSS 结合使用，以便在匹配实拍底板时获得最大灵活性。 </span></p><p local-id="cf9397e44515" style="text-align: center;"><span data-colorid="xrmdagb88w">图像由 Industrial Light &amp; Magic 提供。</span></p><div class="panel conf-macro output-block" data-hasbody="true" data-local-id="d06b2063588a" data-macro-id="730e0918-fdb7-4697-be1b-e8f39f8534d6" data-macro-name="panel" style="background-color: #FFFAE6;border-width: 1px;"><div class="panelContent" style="background-color: #FFFAE6;">
+<p local-id="555f61b3b100">此 MaterialX/Lama 节点目前在 RenderMan XPU 中不可用。</p>
+</div></div><p local-id="50bb73acb9d6" /><p local-id="d59cb965b5c2">Lama Tricolor Subsurface Scattering 在几个重要方面的运行方式不同于 <a href="542220135-LamaSSS.html" data-linked-resource-id="542220135" data-linked-resource-version="1" data-linked-resource-type="page">LamaSSS</a> 。 <br /><br />在大多数情况下，LamaSSS 的结果已经足够好。不过，有些情况下用户可能希望以非物理方式控制散射颜色。LamaSSS 中的 Color 会按参数说明使用提供的 RGB 值来确定颜色散射。这意味着结果可能产生不希望出现的颜色偏移。假设你提供了 RGB 0.51 0.28 0.31 的纹理颜色，也就是一种粉色。 <br /><br />散射结果还会包含绿色（0.28）和蓝色（0.31）的响应。LamaSSS 材质会保持粉色。下面示例使用这个场景展示差异。注意 Path-traced mode（左）上的颜色偏移，而 Tricolor 版本会在已连接的所有深度保持纹理颜色。</p><h3 local-id="fe8a0ee102be" id="LamaTricolorSSS-TricolorParameters">Tricolor Parameters</h3><p local-id="f66ec8138cdf">这些层根据深度指定。Near Layer 是最上层，而 Far Layer 最深。</p><h3 local-id="b815dd692fc0" id="LamaTricolorSSS-NearLayer">Near Layer</h3><p local-id="a379dfef0036">Near Layer 是顶部或最浅的层。</p><p local-id="2f5e6d969859"><strong>Weight</strong></p><p local-id="6c6d0bfa262a">此项指定结果强度，并可使用标量（灰度）信号进行纹理化，以改变强度或遮罩区域。&nbsp;</p><p local-id="1c1b0becf927"><br /></p><p local-id="a41eda69ef14"><strong>Color</strong></p><p local-id="74737a08af1d">Color 通常用于连接纹理或 pattern，以创建最终颜色；也可以直接选择单一颜色。</p><p local-id="de9986e2b9eb"><br /></p><p local-id="401075b81dae"><strong>Radius</strong></p><p local-id="fa4e38395b84">当光进入表面时，它可以在停止（被吸收或离开）之前传播一定距离。此控制项指定以 scene units 计的传播距离。较大的值允许光更深入表面，并增强该效果。这也可能让对象看起来更柔和，并且随着光散射越过细节，导致一些建模出的细小细节丢失。</p><hr local-id="e1ff78aed070" /><h3 local-id="65fc54f746a7" id="LamaTricolorSSS-MidLayer">Mid Layer</h3><p local-id="6b8e02dfb14c">Mid Layer 是 Near Layer 之后的下一层深度。&nbsp;</p><p local-id="58afa0be1811"><strong>Weight</strong></p><p local-id="00ffd1016295">此项指定结果强度，并可使用标量（灰度）信号进行纹理化，以改变强度或遮罩区域。&nbsp;</p><p local-id="d1e2c91523b5"><br /></p><p local-id="641e7a52a6b0"><strong>Color</strong></p><p local-id="984e9379b8bb"><span class="legacy-color-text-default">Color 通常用于连接纹理或 pattern，以创建最终颜色；也可以直接选择单一颜色。</span></p><p local-id="0491c9111ae1"><br /></p><p local-id="1c5c374f405f"><strong>Radius</strong></p><p local-id="92bdaeb97c6d"><span class="legacy-color-text-default">当光进入表面时，它可以在停止（被吸收或离开）之前传播一定距离。此控制项指定以 scene units 计的传播距离。较大的值允许光更深入表面，并增强该效果。这也可能让对象看起来更柔和，并且随着光散射越过细节，导致一些建模出的细小细节丢失。</span></p><p local-id="73f58094c289"><br /></p><hr local-id="ae2cd891172e" /><h3 local-id="ee4760bed0f7" id="LamaTricolorSSS-FarLayer">Far Layer</h3><p local-id="c07b3baf6f11">Far Layer 是最后一层，也是最深的一层。&nbsp;</p><p local-id="eb78999384a0"><strong>Weight</strong></p><p local-id="f86e1ed84e59">此项指定结果强度，并可使用标量（灰度）信号进行纹理化，以改变强度或遮罩区域。&nbsp;</p><p local-id="f760249a7875"><br /></p><p local-id="aa2c1d891812"><strong>Color</strong></p><p local-id="b5d8d478ac70"><span class="legacy-color-text-default">Color 通常用于连接纹理或 pattern，以创建最终颜色；也可以直接选择单一颜色。</span></p><p local-id="d6009084cd0e"><br /></p><p local-id="ce6bedca01f4"><strong>Radius</strong></p><p local-id="47f17b400a80"><span class="legacy-color-text-default">当光进入表面时，它可以在停止（被吸收或离开）之前传播一定距离。此控制项指定以 scene units 计的传播距离。较大的值允许光更深入表面，并增强该效果。这也可能让对象看起来更柔和，并且随着光散射越过细节，导致一些建模出的细小细节丢失。</span></p><hr local-id="62627b763583" /><h3 local-id="83a2a617cb66" id="LamaTricolorSSS-ScatteringParameters">Scattering Parameters</h3><p local-id="9324e9bb3b45"><strong>Scale</strong></p><p local-id="09b24619b96a">这是上方 Radius 效果的简单乘数。它适合快速调整结果，尤其是在用纹理驱动 Radius 且不想重新绘制时。当在不同尺度的场景之间转移已着色资产时，它也很有用。</p><p local-id="a4329cfe827c" /><hr local-id="68b547deb549" /><h3 local-id="89bdb3e3033a" id="LamaTricolorSSS-FollowTopology"><strong>Follow Topology</strong></h3><p local-id="e995e25ac458">这会在计算散射时考虑表面法线（形状和隐含细节）。这可能有助于保留原本会丢失的细节。</p><p local-id="f9fa70f45541"><br /></p><p local-id="5f0a215413c4"><strong>Subset</strong></p><p local-id="6d73a8f17cc7">在这里设置值可以控制哪些对象可随着光从一个表面传播到另一个表面而彼此间接贡献。有时对象彼此穿插时会产生光晕或变暗，而此控制项会根据它们的值指定哪些对象参与贡献、哪些不参与。</p><p local-id="d0dace00f2c8"><br /></p><p local-id="27889f9fef70"><strong>Continuation Rays</strong></p><p local-id="1d99edb2394c">有时你可能有相互嵌入的对象，例如骨骼或牙齿。如果这些对象导致伪影或不想要的结果，将此项设置为“on”会忽略内部对象。</p>
+  </article>
+</main>
+</body>
+</html>

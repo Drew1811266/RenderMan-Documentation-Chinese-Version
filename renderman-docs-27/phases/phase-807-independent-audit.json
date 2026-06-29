@@ -1,0 +1,324 @@
+{
+  "phase": 807,
+  "file": "TRA/22184306-tq- Tractor Query tool.html",
+  "file_id": "9db20aedd4",
+  "source_items": 73,
+  "translation_rows": 73,
+  "source_items_match_translation_rows": true,
+  "duplicate_rows": [],
+  "missing_item_ids": [],
+  "extra_item_ids": [],
+  "tag_fingerprint_identical": true,
+  "rendered_markup_matches_target_markup": true,
+  "glossary_violations": [],
+  "direct_placement_missing": [],
+  "actionable_long_source_residuals": [],
+  "accepted_long_source_residuals": [],
+  "actionable_ascii_heavy_residuals": [],
+  "accepted_ascii_heavy_residuals": [
+    {
+      "item_id": "9db20aedd4:1",
+      "text": "是一个强大的 command line tool，用于 search 并 operate jobs、tasks、commands、invocations 和 blades。它允许对 queue 和 render farm 的当前状态进行广泛 inspection，也可对已经运行过的 commands 进行 historical analysis。",
+      "ascii_letters": 113,
+      "cjk_chars": 35
+    },
+    {
+      "item_id": "9db20aedd4:2",
+      "text": "tq 具有 extensive built-in help，因此无需离开 command-line 就能获得帮助。要访问此 help，只需输入 tq help。",
+      "ascii_letters": 43,
+      "cjk_chars": 22
+    },
+    {
+      "item_id": "9db20aedd4:4",
+      "text": "tq Cookbook",
+      "ascii_letters": 10,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "9db20aedd4:6",
+      "text": "简单使用示例（A Simple Example）",
+      "ascii_letters": 14,
+      "cjk_chars": 6
+    },
+    {
+      "item_id": "9db20aedd4:7",
+      "text": "tq 把 subcommand name 作为第一个 argument。在这个 simple example 中，tq jobs 会列出 system 中的所有 jobs。",
+      "ascii_letters": 53,
+      "cjk_chars": 17
+    },
+    {
+      "item_id": "9db20aedd4:8",
+      "text": "类似地，也可以列出 tasks、commands、invocations 和 blades。",
+      "ascii_letters": 30,
+      "cjk_chars": 9
+    },
+    {
+      "item_id": "9db20aedd4:9",
+      "text": "通常，user 只想查看 items 的一个 subset。Command line 上剩余的 non-option arguments 会组成一个",
+      "ascii_letters": 44,
+      "cjk_chars": 18
+    },
+    {
+      "item_id": "9db20aedd4:10",
+      "text": "search clause",
+      "ascii_letters": 12,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "9db20aedd4:11",
+      "text": "，用于缩小 search 范围。例如，此 command 会列出 user mango 拥有且在 24 小时前 spooled 的所有 jobs：",
+      "ascii_letters": 33,
+      "cjk_chars": 22
+    },
+    {
+      "item_id": "9db20aedd4:12",
+      "text": "简而言之，search clause 是一个 boolean expression（这里使用 and），由 entity attributes（owner、spooltime）的 comparisons（=、<）组成。为了减少 command line 上的输入量，做了一些便利处理。例如，literal mango 没有放在 quotes 中，而 string -1d 是表示 one day ago 的 short form。",
+      "ascii_letters": 127,
+      "cjk_chars": 44
+    },
+    {
+      "item_id": "9db20aedd4:13",
+      "text": "有关 search clause syntax 的更多细节可在",
+      "ascii_letters": 18,
+      "cjk_chars": 9
+    },
+    {
+      "item_id": "9db20aedd4:17",
+      "text": "tq 对每个 commands 都有默认显示的 attributes list。可以使用 --columns 或 -c option 显示另一组 attributes。",
+      "ascii_letters": 48,
+      "cjk_chars": 20
+    },
+    {
+      "item_id": "9db20aedd4:18",
+      "text": "例如，要显示 job id、owner、title 和 metadata columns：",
+      "ascii_letters": 30,
+      "cjk_chars": 6
+    },
+    {
+      "item_id": "9db20aedd4:19",
+      "text": "还可以使用 + 或 - 加 column name，相对于默认 columns set 添加或移除 columns。例如，下面的 command 会移除 title column，并添加 spoolhost 和 spoolfile columns：",
+      "ascii_letters": 70,
+      "cjk_chars": 29
+    },
+    {
+      "item_id": "9db20aedd4:20",
+      "text": "某些 columns 有默认 fixed width；较宽的 values 会被替换为 ... 以适配 column。其他 columns 具有 dynamic width，会设置为要显示的最宽 value。可以使用 = operator 指定 column width，其中 0 用于指定 dynamically sized column。在此示例中，metadata column 的 width 为所显示值中的最宽值，现有 title column 固定为 30 characters：",
+      "ascii_letters": 134,
+      "cjk_chars": 63
+    },
+    {
+      "item_id": "9db20aedd4:21",
+      "text": "注意，在某些 shells（如 zsh）中，如果 option arguments 以 equal sign 开头，必须放在 quotes 中。",
+      "ascii_letters": 39,
+      "cjk_chars": 17
+    },
+    {
+      "item_id": "9db20aedd4:23",
+      "text": "可以使用 --sortby 或 -s option 对 results 排序。可以指定多个 attributes 来表示 secondary sorting。Items 默认按 ascending order 排列，除非 attribute 前加上",
+      "ascii_letters": 74,
+      "cjk_chars": 27
+    },
+    {
+      "item_id": "9db20aedd4:24",
+      "text": "以表示 descending order 降序排列。",
+      "ascii_letters": 15,
+      "cjk_chars": 7
+    },
+    {
+      "item_id": "9db20aedd4:25",
+      "text": "例如，要显示类似 jobs 在 FIFO queue 中会被处理的顺序，可以按 priority descending、spooltime ascending order 列出它们，如下所示：",
+      "ascii_letters": 54,
+      "cjk_chars": 27
+    },
+    {
+      "item_id": "9db20aedd4:27",
+      "text": "Result sets 可以缩短，使其适用于 top lists。例如，此 command 会列出 farm 上 active tasks 数量最多的十个 jobs：",
+      "ascii_letters": 44,
+      "cjk_chars": 23
+    },
+    {
+      "item_id": "9db20aedd4:28",
+      "text": "此 command 会列出 disk space 最少的二十台 hosts。",
+      "ascii_letters": 21,
+      "cjk_chars": 10
+    },
+    {
+      "item_id": "9db20aedd4:29",
+      "text": "关联关系说明（Affiliation）",
+      "ascii_letters": 11,
+      "cjk_chars": 6
+    },
+    {
+      "item_id": "9db20aedd4:30",
+      "text": "在上述 examples 中，items 的 attributes 用于 search clauses、column specifications 和 sorting。在所有这些情况下，也可以通过在 attribute 前加 entity name 来指定 affiliated entities 的 attributes。例如，下面的 command 会显示 walt 拥有的 active tasks。",
+      "ascii_letters": 132,
+      "cjk_chars": 39
+    },
+    {
+      "item_id": "9db20aedd4:31",
+      "text": "类似地，下面的 command 会显示过去 24 小时内 spooled 的 jobs 中的所有 error tasks，包括其 jobs 的 titles 和 spooltimes，并按 job priority 排序。",
+      "ascii_letters": 59,
+      "cjk_chars": 28
+    },
+    {
+      "item_id": "9db20aedd4:32",
+      "text": "因为 spooltime 和 priority 不是 job 以外其他 entity 的 attributes，所以不需要 entity prefix。下面是等价写法：",
+      "ascii_letters": 48,
+      "cjk_chars": 22
+    },
+    {
+      "item_id": "9db20aedd4:33",
+      "text": "Operations（操作）",
+      "ascii_letters": 10,
+      "cjk_chars": 2
+    },
+    {
+      "item_id": "9db20aedd4:34",
+      "text": "tq 不仅可以 list items，也可以 operate on them。这个 command 会显示我所有带 errors 的 active jobs：",
+      "ascii_letters": 47,
+      "cjk_chars": 17
+    },
+    {
+      "item_id": "9db20aedd4:36",
+      "text": "这个 command 会对 disk space 最少的十个 blades 执行 nimby：",
+      "ascii_letters": 27,
+      "cjk_chars": 11
+    },
+    {
+      "item_id": "9db20aedd4:37",
+      "text": "所有可能的 commands 可以用 tq help commands 列出。",
+      "ascii_letters": 22,
+      "cjk_chars": 10
+    },
+    {
+      "item_id": "9db20aedd4:38",
+      "text": "某些 operations 有额外 options。例如，修改 job 的 priority 时，使用 --prioriy 或 -p option 指定 priority。下面的 command 会把我所有 jobs 的 priority 改为 500。",
+      "ascii_letters": 69,
+      "cjk_chars": 27
+    },
+    {
+      "item_id": "9db20aedd4:39",
+      "text": "在对 item 执行 operation 之前，会显示该 item，并提示 user。",
+      "ascii_letters": 21,
+      "cjk_chars": 13
+    },
+    {
+      "item_id": "9db20aedd4:42",
+      "text": "确定目标 items 已正确识别，可以用 --yes option 绕过 prompt；该 option 出现在 command",
+      "ascii_letters": 33,
+      "cjk_chars": 18
+    },
+    {
+      "item_id": "9db20aedd4:44",
+      "text": "。当把 operation 应用于数千 items，或 tq 由另一个 script 或 cron job 调用时，这很有用。",
+      "ascii_letters": 29,
+      "cjk_chars": 20
+    },
+    {
+      "item_id": "9db20aedd4:46",
+      "text": "Global Options（全局选项）",
+      "ascii_letters": 13,
+      "cjk_chars": 4
+    },
+    {
+      "item_id": "9db20aedd4:47",
+      "text": "有些 options 被视为对所有 commands 都 global，因此出现在",
+      "ascii_letters": 21,
+      "cjk_chars": 14
+    },
+    {
+      "item_id": "9db20aedd4:50",
+      "text": "tq help usage 会列出所有 global options。",
+      "ascii_letters": 24,
+      "cjk_chars": 5
+    },
+    {
+      "item_id": "9db20aedd4:51",
+      "text": "--user、password、--login 和 --logout 在需要 authentication 时使用。",
+      "ascii_letters": 37,
+      "cjk_chars": 7
+    },
+    {
+      "item_id": "9db20aedd4:52",
+      "text": "--engine 用于让 tq 指向不同于默认 engine 或 TRACTOR_ENGINE environment variable 所定义 engine 的另一个 engine。",
+      "ascii_letters": 58,
+      "cjk_chars": 18
+    },
+    {
+      "item_id": "9db20aedd4:54",
+      "text": "Archived Jobs（已归档作业）",
+      "ascii_letters": 12,
+      "cjk_chars": 5
+    },
+    {
+      "item_id": "9db20aedd4:55",
+      "text": "默认情况下，运行 tq 时只会 search 非 deleted jobs 的 entities。不过，deleted jobs 的 entities 也可以被",
+      "ascii_letters": 46,
+      "cjk_chars": 19
+    },
+    {
+      "item_id": "9db20aedd4:57",
+      "text": "，方法是使用 --archives 或 -a global option。这使它适合查看 historical invocation data。",
+      "ascii_letters": 45,
+      "cjk_chars": 13
+    },
+    {
+      "item_id": "9db20aedd4:58",
+      "text": "下面的 command 会查找过去一周在 blade c2001 上运行的所有 invocations，包括 deleted jobs 的 invocations：",
+      "ascii_letters": 46,
+      "cjk_chars": 20
+    },
+    {
+      "item_id": "9db20aedd4:61",
+      "text": "deleted jobs 的 results，可以向 search clause 添加 deleted alias。",
+      "ascii_letters": 42,
+      "cjk_chars": 6
+    },
+    {
+      "item_id": "9db20aedd4:62",
+      "text": "要使用 undelete subcommand，--archives flag 是必需的，因为只有 deleted jobs 可以 undeleted。",
+      "ascii_letters": 50,
+      "cjk_chars": 13
+    },
+    {
+      "item_id": "9db20aedd4:65",
+      "text": "tq Cookbook",
+      "ascii_letters": 10,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "9db20aedd4:67",
+      "text": "Built-in Help（内置帮助）",
+      "ascii_letters": 11,
+      "cjk_chars": 4
+    },
+    {
+      "item_id": "9db20aedd4:68",
+      "text": "tq 有详细的 built-in help 和有用 examples，因此无需离开 command line 就能获得更多 information。",
+      "ascii_letters": 43,
+      "cjk_chars": 19
+    },
+    {
+      "item_id": "9db20aedd4:69",
+      "text": "会显示 help topics 帮助主题的 top-level view 顶层视图。",
+      "ascii_letters": 22,
+      "cjk_chars": 12
+    },
+    {
+      "item_id": "9db20aedd4:71",
+      "text": "要获取特定 command 的 help，请用 command name 运行 tq help。例如：",
+      "ascii_letters": 28,
+      "cjk_chars": 12
+    },
+    {
+      "item_id": "9db20aedd4:72",
+      "text": "会显示 usage statement，以及 examples 和每个可用 option 的 detailed description。",
+      "ascii_letters": 47,
+      "cjk_chars": 11
+    }
+  ],
+  "required_phrase_missing": [],
+  "section_order_positions": [],
+  "section_order_ok": true,
+  "passed": true
+}

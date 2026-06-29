@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Render Settings in Katana</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Render Settings in Katana</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFK27/546178764/Render+Settings+in+Katana">https://rmanwiki-27.pixar.com/space/RFK27/546178764/Render+Settings+in+Katana</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>在 RenderMan for Katana 中控制渲染的设置，大致可分为两类：render output（渲染输出）和 render input（渲染输入）。Render "output" 指摄影机、分辨率和裁剪窗口等内容；这些属性主要位于 RenderSettings 节点中。Render "input" 指 RenderMan 选项和属性，以及 RfK 插件配置。访问这些内容主要通过 PrmanGlobalStatements 和 PrmanObjectStatements 节点。</p><h4 id="RenderSettingsinKatana-RenderSettings">RenderSettings</h4><p>RenderSettings 节点是 Katana 原生节点，Katana 在线文档中有详细说明。最常需要注意的属性包括：</p><div class="table-wrap"><table data-table-width="1800" data-layout="default" data-local-id="dbcd1ce7-ffd1-438c-b83c-e8eaded28278" class="confluenceTable"><tbody><tr><th class="confluenceTh"><p style="text-align: center;">Attribute（属性）</p></th><th class="confluenceTh"><p style="text-align: center;">默认值</p></th><th class="confluenceTh"><p style="text-align: center;">说明</p></th></tr><tr><td class="confluenceTd"><p><strong>cameraName</strong></p></td><td class="confluenceTd"><p><em>/root/world/cam/camera</em></p></td><td class="confluenceTd"><p>用于渲染的 Camera（摄影机）。</p></td></tr><tr><td class="confluenceTd"><p><strong>renderer</strong></p></td><td class="confluenceTd"><p><em>prman</em></p></td><td class="confluenceTd"><p>要使用的渲染器。</p></td></tr><tr><td class="confluenceTd"><p><strong>resolution</strong></p></td><td class="confluenceTd"><p><em>512x512</em></p></td><td class="confluenceTd"><p>输出图像的尺寸。</p></td></tr></tbody></table></div><p style="text-align: center;"><em>RenderSettings 节点中的常用属性</em></p><h4 id="RenderSettingsinKatana-PrmanGlobalStatementsandPrmanObjectStatements">PrmanGlobalStatements 和 PrmanObjectStatements</h4><p>RenderMan 的强大能力和灵活性意味着用户可以通过多种设置获得大量控制。这些设置都通过 PrmanIntegratorSettings、PrmanGlobalStatements 和 PrmanObjectStatements 在 RfK 中公开。PrmanGlobalStatements 中的属性用于控制 RenderMan 的全局 Options（选项）。  </p><p><strong>PrmanIntegratorSettings</strong> 设置 <a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661783" rel="nofollow">integrator（积分器）</a>，用于 RenderMan 渲染及其关联控制。生产中通常选择 <a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661775" rel="nofollow">PxrPathTracer</a> integrator（积分器）。</p><p><strong>PrmanGlobalStatements</strong> 用于按位置设置 Attributes（属性）。由于这两个节点中经常使用的设置数量都不多，因此默认情况下二者都会隐藏不太常用的属性。 <strong>Parameter Layout</strong> 设置用于根据常见使用场景展开或折叠属性集合：  <em>Simple、Advanced，</em> 或<em> all。</em> 不过，即使是 <em>Simple</em> 布局也会公开许多设置。下面列出最有用的设置：</p><div class="table-wrap"><table data-table-width="1800" data-layout="default" data-local-id="e988ddd5-2370-4f49-8dda-69a4edc89ee5" class="confluenceTable"><tbody><tr><th class="confluenceTh"><p style="text-align: center;">Attribute（属性）</p></th><th class="confluenceTh"><p style="text-align: center;">默认值</p></th><th class="confluenceTh"><p style="text-align: center;">说明</p></th></tr><tr><td class="confluenceTd"><p><strong>pixelVariance</strong></p></td><td class="confluenceTd"><p><em>0.005</em></p></td><td class="confluenceTd"><p>像素值相对于真实像素值的可接受估计方差上限。</p></td></tr><tr><td class="confluenceTd"><p><strong>maxSamples</strong></p></td><td class="confluenceTd"><p><em>0 (64)</em></p></td><td class="confluenceTd"><p>采样数的显式上限。提高该值可获得更高质量，但渲染更慢。</p></td></tr><tr><td class="confluenceTd"><p><strong>renderDisplay</strong></p></td><td class="confluenceTd"><p><em>Monitor</em></p></td><td class="confluenceTd"><p>Preview 和 Live Rendering 的目标 framebuffer（帧缓冲）。设为 '<em>it</em>' 可使用 RenderMan Image Tool。</p></td></tr></tbody></table></div><p style="text-align: center;"><em>PrmanGlobalStatements 中的常用 Options（选项）</em></p><p><br/></p><p><strong>PrmanObjectStatements</strong> 连接到 scene graph 中的特定位置（例如对象、层级或 CEL 分组）。该节点常用于控制 visibility 属性和 trace depth。下面说明 PrmanObjectStatements 中的一些常用设置：</p><div class="table-wrap"><table data-table-width="1800" data-layout="default" data-local-id="3c2058c3-eb6d-4c41-a841-915e453593d4" class="confluenceTable"><tbody><tr><th class="confluenceTh"><p style="text-align: center;">Attribute（属性）</p></th><th class="confluenceTh"><p style="text-align: center;">默认值</p></th><th class="confluenceTh"><p style="text-align: center;">说明</p></th></tr><tr><td class="confluenceTd"><p><strong>visibility.camera</strong></p></td><td class="confluenceTd"><p><em>Yes</em></p></td><td class="confluenceTd"><p>控制后续图元对摄影机的可见性。</p></td></tr><tr><td class="confluenceTd"><p><strong>visibility.transmission</strong></p></td><td class="confluenceTd"><p><em>Yes</em></p></td><td class="confluenceTd"><p>控制图元对 transmission（shadow）rays 的可见性。</p></td></tr><tr><td class="confluenceTd"><p><strong>trace.maxdiffusedepth</strong></p></td><td class="confluenceTd"><p><em>1</em></p></td><td class="confluenceTd"><p>限制与关联图元相关的间接照明漫反射反弹次数。</p></td></tr><tr><td class="confluenceTd"><p><strong>trace.maxspeculardepth</strong></p></td><td class="confluenceTd"><p><em>2</em></p></td><td class="confluenceTd"><p>限制与关联图元相关的间接照明镜面反弹次数。</p></td></tr></tbody></table></div><p style="text-align: center;"><em>PrmanObjectStatements 中的常用 Options（选项）</em></p><p><br/></p><p>作为额外辅助，这些节点各自都有设置预设，会根据渲染类型调整 RenderMan 控制：  <em>Default、Draft、Intermediate，</em> 或 <em>High Quality。</em>  这些预设之间的差异很小但很重要。它们最适合用于快速切换和参考值。注意，对设置所做的更改不会“粘附”到该预设；如果切换到其他预设，这些更改会丢失。如果需要设置符合特定需求的预设集合，请参阅 custom presets 页面。 </p><h4 id="RenderSettingsinKatana-ErrorHandling">错误处理</h4><p>渲染期间遇到的错误会根据属性 "prmanGlobalStatements.errorHandler" 处理：</p><div class="table-wrap"><table data-table-width="1800" data-layout="default" data-local-id="7dea8ff5-eaa5-410f-8161-8de1710a928a" class="confluenceTable"><tbody><tr><th class="confluenceTh"><p>Error Handler</p></th><th class="confluenceTh"><p>行为</p></th></tr><tr><td class="confluenceTd"><p><code>ignore</code></p></td><td class="confluenceTd"><p>忽略所有错误，且不生成诊断消息</p></td></tr><tr><td class="confluenceTd"><p><code>print</code></p></td><td class="confluenceTd"><p>每次发生错误时都为该错误生成诊断消息</p><p>渲染系统会尝试忽略错误信息并继续渲染</p></td></tr><tr><td class="confluenceTd"><p><code>printonce</code></p></td><td class="confluenceTd"><p>仅在错误首次发生时生成诊断消息</p></td></tr><tr><td class="confluenceTd"><p><code>abort</code></p></td><td class="confluenceTd"><p>第一个错误会导致生成诊断消息，并且渲染系统会立即终止</p></td></tr><tr><td class="confluenceTd"><p><code>abortall</code></p></td><td class="confluenceTd"><p>对 Katana 生成的错误以及 prman 错误都中止渲染</p></td></tr></tbody></table></div><p>RenderMan 或 Katana 的错误处理可以通过使用 <a href="546177430-Error Handling.html" rel="nofollow">error handler override attribute functions（错误处理器覆盖属性函数）</a>来覆盖。这些 attribute functions 提供了按位置或按特定错误更改错误处理行为的机会。attribute function 预期返回一个包含整数 "abort" 属性的 attribute，用于指示是否应终止渲染。</p><p>Error handler override functions（错误处理器覆盖函数）应添加到全局属性 "prmanGlobalStatements.plugin.katanaErrorHandlerAttrFncs" 和 "prmanGlobalStatements.plugin.rendermanErrorHandlerAttrFncs"。</p><h4 id="RenderSettingsinKatana-Logging">日志记录</h4><p>当前日志级别默认为 "INFO"，由 KATANA_HOME 中的日志配置文件决定。要更改日志级别，需要复制配置文件、修改级别并设置环境变量（使用 Linux）：</p><p>mkdir $KATANA_RESOURCES/Logging</p><p>cp $KATANA_HOME/bin/log.conf $KATANA_RESOURCES/Logging/log.conf</p><p>编辑 log.conf，并将 "rootLogger" 改为所需级别："ERROR"、"WARN"、"INFO"、"DEBUG"</p><p><br/></p><p>Windows 中的工作流类似：创建 $KATANA_RESOURCES/Logging 文件夹，复制 log.conf 文件，并将 "rootLogger" 值改为列出的选项。</p><p><br/></p><ul class="childpages-macro conf-macro output-block" data-hasbody="false" data-layout="default" data-local-id="5cecf0c0-ca03-4f11-8195-b5a867c60229" data-macro-id="86c766be-ede4-4c23-909a-dd32810e8758" data-macro-name="children"><li><a href="546178787-Thread Control in Katana.html" data-linked-resource-id="546178787" data-linked-resource-version="4" data-linked-resource-type="page">Katana 中的线程控制</a></li><li><a href="546178826-Checkpoints and Recovery.html" data-linked-resource-id="546178826" data-linked-resource-version="4" data-linked-resource-type="page">检查点和恢复</a></li><li><a href="546178855-PrmanObjectStatements.html" data-linked-resource-id="546178855" data-linked-resource-version="1" data-linked-resource-type="page">PrmanObjectStatements</a></li><li><a href="546178888-PrmanIntegratorSettings.html" data-linked-resource-id="546178888" data-linked-resource-version="4" data-linked-resource-type="page">PrmanIntegratorSettings</a></li><li><a href="546178913-PrmanGlobalStatements.html" data-linked-resource-id="546178913" data-linked-resource-version="1" data-linked-resource-type="page">PrmanGlobalStatements</a></li><li><a href="546178939-XPU in Katana.html" data-linked-resource-id="546178939" data-linked-resource-version="4" data-linked-resource-type="page">Katana 中的 XPU</a></li></ul>
+  </article>
+</main>
+</body>
+</html>

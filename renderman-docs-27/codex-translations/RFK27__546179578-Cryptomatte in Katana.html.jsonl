@@ -1,0 +1,21 @@
+{"item_id":"978b8bb725:0","text":"Using（使用）"}
+{"item_id":"978b8bb725:1","text":"PxrCryptomatte"}
+{"item_id":"978b8bb725:2","text":"workflow，可以在 Katana 中 output IDs，方便在 compositing application 中选择。随后可以将该 selection 用作 mask，在 post packages 中有选择地进行修改。"}
+{"item_id":"978b8bb725:3","text":"PxrCryptomatte 作为"}
+{"item_id":"978b8bb725:4","text":"Sample Filter"}
+{"item_id":"978b8bb725:5","text":"plugin 提供。因此，Cryptomatte 的 output 会作为独立 EXR file 存储，与 beauty 或 denoise outputs 分开。请注意，需要 OpenEXR output（file.exr）才能正确存储这些 values。"}
+{"item_id":"978b8bb725:6","text":"只有在使用 disk render 时才会 render 该输出，以避免在 interactive session 中覆盖 files"}
+{"item_id":"978b8bb725:7","text":"附带的 example file 用于 Katana workflow。"}
+{"item_id":"978b8bb725:8","text":"此 file 包含两个 PxrCryptomatte nodes，用于同时 output object 和 material IDs。"}
+{"item_id":"978b8bb725:9","text":"Example Workflow（示例工作流）："}
+{"item_id":"978b8bb725:10","text":"创建 PxrCryptomatte node。指定 file name 和 path。example file 使用 script 写入 Temp directory。"}
+{"item_id":"978b8bb725:11","text":"Layer：选择 layer type，Name（object）或 Material。"}
+{"item_id":"978b8bb725:12","text":"将这些连接到 ShadingNodeArrayConnector"}
+{"item_id":"978b8bb725:13","text":"创建 PrmanShadingNode 并选择 PxrSampleFilterCombiner。将 ShadingNodeArrayConnector.out 连接到此 shading node 的 input。"}
+{"item_id":"978b8bb725:14","text":"创建 NetworkMaterial node，right-click 并选择 \"Add terminal\"，在 Prman dropdown 中选择 \"samplefilter\"。"}
+{"item_id":"978b8bb725:15","text":"将 prmanSamplefilter.out 连接到 NetworkMaterial。"}
+{"item_id":"978b8bb725:16","text":"将上述 network（易于 reuse）merge 到 trunk 中。"}
+{"item_id":"978b8bb725:17","text":"创建 MaterialAssign node，并将 Cryptomatte NetworkMaterial assign 到 /root"}
+{"item_id":"978b8bb725:18","text":"render scene，然后在上面定义的 path 中查找 output EXR。example file 会 output 两个 EXRs，一个包含 Object IDs，另一个包含 Material IDs，如下所示。"}
+{"item_id":"978b8bb725:19","text":"可以将上方在 Katana 2.6 v4 中创建的 scene 下载为"}
+{"item_id":"978b8bb725:20","text":"cryptomatte_filters.katana"}

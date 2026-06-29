@@ -1,0 +1,198 @@
+{
+  "phase": 728,
+  "file": "TRA/22184246-RMS.html",
+  "file_id": "3967508d7a",
+  "source_items": 52,
+  "translation_rows": 52,
+  "source_items_match_translation_rows": true,
+  "duplicate_rows": [],
+  "missing_item_ids": [],
+  "extra_item_ids": [],
+  "tag_fingerprint_identical": true,
+  "rendered_markup_matches_target_markup": true,
+  "glossary_violations": [],
+  "direct_placement_missing": [],
+  "actionable_long_source_residuals": [],
+  "accepted_long_source_residuals": [],
+  "actionable_ascii_heavy_residuals": [],
+  "accepted_ascii_heavy_residuals": [
+    {
+      "item_id": "3967508d7a:0",
+      "text": "这是 RenderMan 21 及更早版本的 legacy documentation。",
+      "ascii_letters": 28,
+      "cjk_chars": 8
+    },
+    {
+      "item_id": "3967508d7a:2",
+      "text": "RenderMan Studio 的默认 configuration 会通过 Tractor 分发 work。开箱即用时，用户可以进入 Render Options window 并进行设置，使任何不是 local internal render 的 render 都使用 Tractor 来确保 job 正确完成。当然，这也假定你的站点同样使用 Tractor 的默认开箱即用 configuration。",
+      "ascii_letters": 113,
+      "cjk_chars": 61
+    },
+    {
+      "item_id": "3967508d7a:3",
+      "text": "如果你碰巧认为自己很特别，并选择更改默认 configuration，也不用担心。RenderMan Studio 通过 preference 和其他辅助设置提供了你需要的全部 hook，用于在 RenderMan Studio workstation 与 Tractor work dispatching system 之间维持协调配合。",
+      "ascii_letters": 96,
+      "cjk_chars": 54
+    },
+    {
+      "item_id": "3967508d7a:4",
+      "text": "Engine 位置和 Tractor 用户",
+      "ascii_letters": 13,
+      "cjk_chars": 5
+    },
+    {
+      "item_id": "3967508d7a:5",
+      "text": "RenderMan_for_Maya.ini 提供了两个关键 preference，用于确保 RMS 与 Tractor 的连接：",
+      "ascii_letters": 39,
+      "cjk_chars": 15
+    },
+    {
+      "item_id": "3967508d7a:6",
+      "text": "这些 preference 由生成 job script 并 spool job 的 MEL script 使用。与所有 pref 一样，它们可以在基于 aRMS_SCRIPT_PATHS 的 ini override file 中设置。",
+      "ascii_letters": 70,
+      "cjk_chars": 25
+    },
+    {
+      "item_id": "3967508d7a:8",
+      "text": "tractor-engine",
+      "ascii_letters": 13,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "3967508d7a:10",
+      "text": "格式为 engine:port，也就是 engine 和 port。",
+      "ascii_letters": 20,
+      "cjk_chars": 7
+    },
+    {
+      "item_id": "3967508d7a:11",
+      "text": "tractor-spool.py（RMS distribution 中的 tractor.py）的默认行为是以 spool 该 job 的用户身份 spool。你可能希望 job 以特定用户身份 spooled。第二个 preference 可将 job 锁定到特定用户，例如：",
+      "ascii_letters": 74,
+      "cjk_chars": 41
+    },
+    {
+      "item_id": "3967508d7a:13",
+      "text": "RenderMan_for_Maya_Pro.ini file 现在有一个额外 pref，用于指定传递给 Tractor 的默认 environment key。",
+      "ascii_letters": 51,
+      "cjk_chars": 17
+    },
+    {
+      "item_id": "3967508d7a:17",
+      "text": "envhandler",
+      "ascii_letters": 10,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "3967508d7a:18",
+      "text": "处理；它会解析该 key，并在 tractor-blade 上正确设置 $RMSTREE 和 $MAYA_LOCATION`。不过需要特别注意，RenderMan Studio 的 envhandler 会基于 \"default\" installation location 设置 environment，而该位置在不同站点可能不同。",
+      "ascii_letters": 97,
+      "cjk_chars": 42
+    },
+    {
+      "item_id": "3967508d7a:19",
+      "text": "DefaultEnvKey preference 会为 RMS 中的 Render Options（包括",
+      "ascii_letters": 39,
+      "cjk_chars": 6
+    },
+    {
+      "item_id": "3967508d7a:20",
+      "text": "Current Frame",
+      "ascii_letters": 12,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "3967508d7a:23",
+      "text": "）设置默认值。在此 dialog 中，用户可以完全更改发送给 Tractor 的 environment setting，允许用户把其他 envkey 附加到默认值。注意，生成的 envkey 随后会像 batch render dialog 中的其他 value 一样保存到 Maya preference，并传播到未来的 Maya scene。点击 Render Options window 中 Environment Key 的",
+      "ascii_letters": 121,
+      "cjk_chars": 62
+    },
+    {
+      "item_id": "3967508d7a:25",
+      "text": "该按钮会从 .ini file 恢复 DefaultEnvKey。",
+      "ascii_letters": 20,
+      "cjk_chars": 7
+    },
+    {
+      "item_id": "3967508d7a:26",
+      "text": "tractor-blade 的配置说明",
+      "ascii_letters": 12,
+      "cjk_chars": 5
+    },
+    {
+      "item_id": "3967508d7a:27",
+      "text": "如果你更改了 RenderMan Studio 的默认 install location，就需要编辑 blade configuration 来更改 install location，以便 Tractor 正确处理 RMS job。尤其是，有三个 shared.*.envkeys file 会从 tractor-engine 发送到 tractor-blade。这些 envkey file 包含 environment dictionary。envkey \"rms-*-maya-*\" 的 environment dictionary 需要修改为指向正确的 install location。",
+      "ascii_letters": 198,
+      "cjk_chars": 49
+    },
+    {
+      "item_id": "3967508d7a:29",
+      "text": "与 .ini file 一样，我们建议用户不要编辑 factory config file。相反，应将这些 file 复制到站点专用的特殊 config directory，并在那里编辑。然后使用 --configdir=/path/to/config/files option 启动 tractor-engine。",
+      "ascii_letters": 88,
+      "cjk_chars": 41
+    },
+    {
+      "item_id": "3967508d7a:30",
+      "text": "额外的 envhandler 处理器",
+      "ascii_letters": 10,
+      "cjk_chars": 6
+    },
+    {
+      "item_id": "3967508d7a:36",
+      "text": "\"prman-XX.X\"",
+      "ascii_letters": 8,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "3967508d7a:37",
+      "text": "XX.X 指 batch rendering 要启动的 prman version（例如 '19.0'）。当此 key 添加到 batch dialog 后，会调用",
+      "ascii_letters": 43,
+      "cjk_chars": 16
+    },
+    {
+      "item_id": "3967508d7a:38",
+      "text": "rmanhandler",
+      "ascii_letters": 11,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "3967508d7a:39",
+      "text": "。它会在磁盘上定位目标 prman release，在 launch environment 中设置 RMANTREE，并将 $RMANTREE/bin 添加到 launch environment path。",
+      "ascii_letters": 69,
+      "cjk_chars": 19
+    },
+    {
+      "item_id": "3967508d7a:41",
+      "text": "rmantree",
+      "ascii_letters": 8,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "3967508d7a:45",
+      "text": "\"rmantree=/path/to/my/rmantree/installation\"",
+      "ascii_letters": 36,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "3967508d7a:46",
+      "text": "\"rmstree=/path/to/my/rmstree/installation\"",
+      "ascii_letters": 34,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "3967508d7a:48",
+      "text": "rmantree",
+      "ascii_letters": 8,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "3967508d7a:51",
+      "text": "的 path，并把它们作为 $RMANTREE 和 $RMSTREE 添加到 environment 中。它们还会把 $RMANTREE/bin 和 $RMSTREE/bin 附加到 launched command 的 path。",
+      "ascii_letters": 70,
+      "cjk_chars": 22
+    }
+  ],
+  "required_phrase_missing": [],
+  "section_order_positions": [],
+  "section_order_ok": true,
+  "passed": true
+}

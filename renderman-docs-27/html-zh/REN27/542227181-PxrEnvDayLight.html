@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PxrEnvDayLight</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>PxrEnvDayLight</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/REN27/542227181/PxrEnvDayLight">https://rmanwiki-27.pixar.com/space/REN27/542227181/PxrEnvDayLight</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="contentLayout2"><style>[data-colorid=qon4wz5bsa]{color:#3e3f40} html[data-color-mode=dark] [data-colorid=qon4wz5bsa]{color:#bfc0c1}[data-colorid=yr1mwbxbq2]{color:#3e3f40} html[data-color-mode=dark] [data-colorid=yr1mwbxbq2]{color:#bfc0c1}[data-colorid=fhz7xwmy2j]{color:#3e3f40} html[data-color-mode=dark] [data-colorid=fhz7xwmy2j]{color:#bfc0c1}[data-colorid=yum2p9whrt]{color:#3e3f40} html[data-color-mode=dark] [data-colorid=yum2p9whrt]{color:#bfc0c1}[data-colorid=oesho7rklz]{color:#3e3f40} html[data-color-mode=dark] [data-colorid=oesho7rklz]{color:#bfc0c1}[data-colorid=t86nyifdfe]{color:#3e3f40} html[data-color-mode=dark] [data-colorid=t86nyifdfe]{color:#bfc0c1}[data-colorid=wjtuqtump5]{color:#3e3f40} html[data-color-mode=dark] [data-colorid=wjtuqtump5]{color:#bfc0c1}[data-colorid=s6w19tc486]{color:#3e3f40} html[data-color-mode=dark] [data-colorid=s6w19tc486]{color:#bfc0c1}[data-colorid=b2icbnq9d9]{color:#3e3f40} html[data-color-mode=dark] [data-colorid=b2icbnq9d9]{color:#bfc0c1}[data-colorid=z2zhhkmwyo]{color:#3e3f40} html[data-color-mode=dark] [data-colorid=z2zhhkmwyo]{color:#bfc0c1}[data-colorid=vqws4l4iw6]{color:#3e3f40} html[data-color-mode=dark] [data-colorid=vqws4l4iw6]{color:#bfc0c1}[data-colorid=vxqviiprh6]{color:#3e3f40} html[data-color-mode=dark] [data-colorid=vxqviiprh6]{color:#bfc0c1}[data-colorid=h3p4jyg79l]{color:#3e3f40} html[data-color-mode=dark] [data-colorid=h3p4jyg79l]{color:#bfc0c1}[data-colorid=c3zzgtdzt2]{color:#3e3f40} html[data-color-mode=dark] [data-colorid=c3zzgtdzt2]{color:#bfc0c1}[data-colorid=x7y0dy9igd]{color:#3e3f40} html[data-color-mode=dark] [data-colorid=x7y0dy9igd]{color:#bfc0c1}[data-colorid=k2qf4dxgm7]{color:#3e3f40} html[data-color-mode=dark] [data-colorid=k2qf4dxgm7]{color:#bfc0c1}[data-colorid=ibl3ez5qad]{color:#3e3f40} html[data-color-mode=dark] [data-colorid=ibl3ez5qad]{color:#bfc0c1}[data-colorid=nuo460418x]{color:#3e3f40} html[data-color-mode=dark] [data-colorid=nuo460418x]{color:#bfc0c1}[data-colorid=ybst4384kw]{color:#3e3f40} html[data-color-mode=dark] [data-colorid=ybst4384kw]{color:#bfc0c1}[data-colorid=k3k2zu9ty1]{color:#3e3f40} html[data-color-mode=dark] [data-colorid=k3k2zu9ty1]{color:#bfc0c1}[data-colorid=ky41t2ktzq]{color:#3e3f40} html[data-color-mode=dark] [data-colorid=ky41t2ktzq]{color:#bfc0c1}[data-colorid=plruj9l8y8]{color:#3e3f40} html[data-color-mode=dark] [data-colorid=plruj9l8y8]{color:#bfc0c1}</style>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p>当你需要快速轻松地设置室外照明，或者想做一些外观开发，但没有 HDRI 可用于&nbsp;<a href="542226975-PxrDomeLight.html" data-linked-resource-id="542226975" data-linked-resource-version="1" data-linked-resource-type="page">PxrDomeLight</a>&nbsp;时，日光模拟非常有用。它设置简单又具备真实感，因此成为许多艺术家偏爱的灯光。</p><p>这是一种 environment light（环境光），使用一个简单物理模型来模拟晴朗或有霾天空下的地表日光。它的 sky model（天空模型）基于&nbsp;<a class="external-link" href="https://dl.acm.org/doi/10.1145/311535.311545" rel="nofollow">A Practical Analytic Model for Daylight</a>&nbsp;，作者为 A.J. Preetham、Peter Shirley 和 Brian Smits。solar disk model（太阳圆盘模型）则改编自 H.C. Hottel 的&nbsp;<em>A Simple Model for Estimating the Transmittance of Direct Solar Radiation Through Clear Atmospheres</em>，其中参数根据物理数据对 turbidity（浑浊度）进行曲线拟合，并使用一个简单的 limb darkening（临边昏暗）模型。</p><p><br /></p><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="12cfb68d-a2d6-4fc6-8355-d1e6f2f313f7" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>你会看到对“非物理”控制的提及。这些控制用于帮助艺术家通过忽略我们通常模拟的某些物理定律，制作艺术指导图像。</p></div></div><p><br /></p><h3 id="PxrEnvDayLight-Parameters">Parameters（参数）</h3><p><br /></p><p><strong>Intensity</strong></p><p>线性缩放此灯光的贡献。</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_intensity05.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_intensity05.jpg" data-image-src="../../attachments/542227181/pxrDayLght_intensity05.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227332" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_intensity05.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="79c1a2b7-8eb4-4088-bb3f-71accd7219e0" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_intensity10.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_intensity10.jpg" data-image-src="../../attachments/542227181/pxrDayLght_intensity10.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227329" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_intensity10.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="10cdec72-ab1f-427c-aaa9-fbe29fee7186" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_intensity20.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_intensity20.jpg" data-image-src="../../attachments/542227181/pxrDayLght_intensity20.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227326" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_intensity20.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="c2526b65-db32-48c6-b0d1-67b8f85e63ab" data-media-type="file" /></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><br /></p><p><br /></p><p><strong>Exposure</strong></p><p><span data-colorid="h3p4jyg79l">指定 area light 的 Exposure，以 2 的幂表示。Exposure 增加 1 会使光源发出的能量翻倍。值 0 在光源处产生 1 的强度，-1 产生 0.5。你可能会想，为什么要使用&nbsp;</span> <strong>Exposure</strong> <span data-colorid="oesho7rklz">，答案是现实世界照明能量很高，典型 exposure 值较低；如果要获得等效的&nbsp;</span> <strong>Intensity</strong> <span data-colorid="c3zzgtdzt2">，你可能必须输入非常大的数字。对于熟悉摄影测量的艺术家来说，这也更顺手。</span></p><p><span data-colorid="z2zhhkmwyo"> </span></p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_exposure00.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_exposure00.jpg" data-image-src="../../attachments/542227181/pxrDayLght_exposure00.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227323" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_exposure00.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="8c5d8c0d-751f-4bd4-9b28-8ca45dbe6f38" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_exposure10.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_exposure10.jpg" data-image-src="../../attachments/542227181/pxrDayLght_exposure10.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227320" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_exposure10.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="297ae7c2-b5f1-4f07-8fa0-356606ae1015" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_exposureNeg1.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_exposureNeg1.jpg" data-image-src="../../attachments/542227181/pxrDayLght_exposureNeg1.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227317" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_exposureNeg1.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="534244d4-31c2-48ff-b304-11d964ab9f95" data-media-type="file" /></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><br /></p><p><strong>Direction</strong></p><p>该&nbsp;<em>表观的</em>&nbsp;方向，指向太阳中心。zenith（天顶）位于 +Y 方向（正午灯光），horizon（地平线）位于 XZ 平面（日出/日落）。注意，Y 分量必须为非负。如果给定了月份，则会忽略该值。在某些 DCC 应用中，例如 Maya，你可以在视口中用操纵器手动修改 Sun direction（在视口中选中 Daylight 图标后按 't'）。</p><p><br /></p><p><strong>Haziness</strong></p><p>天空的 turbidity（浑浊度）。此模型的下限为 1.7，代表极其晴朗的天空；上限为 10，代表逆温条件。</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_haziness100.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_haziness100.jpg" data-image-src="../../attachments/542227181/pxrDayLght_haziness100.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227311" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_haziness100.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="17297743-8d7e-4164-9f44-dfd94614e49e" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_haziness17.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_haziness17.jpg" data-image-src="../../attachments/542227181/pxrDayLght_haziness17.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227314" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_haziness17.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="b7c41206-021b-4336-b9a3-c9179e0c96cf" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_haziness50.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_haziness50.jpg" data-image-src="../../attachments/542227181/pxrDayLght_haziness50.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227308" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_haziness50.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="3932282b-2adc-44e3-9fe8-91f950205072" data-media-type="file" /></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><br /></p><p><strong>Sky Tint</strong></p><p>微调天空的贡献和颜色。默认的白色会给出基于实测物理值的结果。你也可以用这种方式创建一些有趣的异星天空。将它设为黑色会移除第一张图中显示的天空贡献。</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_skyTintBlack.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_skyTintBlack.jpg" data-image-src="../../attachments/542227181/pxrDayLght_skyTintBlack.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227305" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_skyTintBlack.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="b94c48a3-8226-4eff-a307-e0ee8e1062a6" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_skyTintGreen.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_skyTintGreen.jpg" data-image-src="../../attachments/542227181/pxrDayLght_skyTintGreen.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227302" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_skyTintGreen.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="e9575d87-f738-43b3-a0c2-e27437a9eec2" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_skyTintRed.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_skyTintRed.jpg" data-image-src="../../attachments/542227181/pxrDayLght_skyTintRed.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227299" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_skyTintRed.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="bee51915-8071-40a9-b9fe-0430098dc743" data-media-type="file" /></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><br /></p><p><strong>Sun Tint</strong></p><p>微调太阳的贡献和颜色。默认的白色会给出基于实测物理值的结果。将它设为黑色会像第一张图那样移除太阳贡献（以便你创建自己的太阳光）。</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_sunTintBlack.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_sunTintBlack.jpg" data-image-src="../../attachments/542227181/pxrDayLght_sunTintBlack.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227296" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_sunTintBlack.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="b073eaa1-5626-4d13-885c-f4d5fa3d64ab" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_sunTintBlue.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_sunTintBlue.jpg" data-image-src="../../attachments/542227181/pxrDayLght_sunTintBlue.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227293" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_sunTintBlue.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="7af78242-7630-4e9b-8a27-4e92d5d7be88" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_sunTintRed.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_sunTintRed.jpg" data-image-src="../../attachments/542227181/pxrDayLght_sunTintRed.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227290" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_sunTintRed.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="6ba6825f-70bf-4d60-98a7-5bcce3943310" data-media-type="file" /></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><br /></p><p><strong>Sun Size</strong></p><p>缩放天空中太阳的视大小。保持为 1 可得到真实太阳大小，对应 0.55 度的角直径。设为 0.1 时，你几乎只会注意到太阳贡献有所降低。注意，在 80.0 时，天空中的太阳会非常大，并且由于灯光尺寸直径增加，会投射更柔和的阴影。</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_sunSize01.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_sunSize01.jpg" data-image-src="../../attachments/542227181/pxrDayLght_sunSize01.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227287" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_sunSize01.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="eeffb520-344b-4f62-8ea3-aa25b8e26954" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_sunSize10.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_sunSize10.jpg" data-image-src="../../attachments/542227181/pxrDayLght_sunSize10.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227284" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_sunSize10.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="402b8c47-9702-4714-aff0-4bbc5ebb9e1f" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_sunSize80.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_sunSize80.jpg" data-image-src="../../attachments/542227181/pxrDayLght_sunSize80.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227281" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_sunSize80.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="12bed9e3-e335-402e-82b0-e97abd9c22c0" data-media-type="file" /></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><br /></p><p><strong>Ground Mode</strong></p><p>此菜单允许用户改变虚拟地面平面的外观和效果。Legacy Mode 会按以往方式工作。Horizon Clamping 通过模糊地平线，更好地模拟虚拟地面模式。Diffuse Ground 允许用户为一个无限虚拟地面平面着色。</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_groundClamped.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_groundClamped.jpg" data-image-src="../../attachments/542227181/pxrDayLght_groundClamped.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227278" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_groundClamped.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="dad0a035-5eaa-4574-9b67-cae1ae995d3c" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_groundColorMagenta.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_groundColorMagenta.jpg" data-image-src="../../attachments/542227181/pxrDayLght_groundColorMagenta.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227275" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_groundColorMagenta.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="19b315ea-8223-49e8-bb91-53254ae3d249" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_groundLegacy.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_groundLegacy.jpg" data-image-src="../../attachments/542227181/pxrDayLght_groundLegacy.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227272" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_groundLegacy.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="61d2bec9-d469-4adb-ba98-ef8237a6946e" data-media-type="file" /></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><br /></p><p><strong>Ground Color</strong></p><p>使用此颜色作为渲染出的地面颜色。它不可贴图化，也不接受阴影。</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_groundColorBrown.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_groundColorBrown.jpg" data-image-src="../../attachments/542227181/pxrDayLght_groundColorBrown.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227269" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_groundColorBrown.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="14b70fae-2029-492b-8d91-d6a4f04aa4ea" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_groundColorGreen.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_groundColorGreen.jpg" data-image-src="../../attachments/542227181/pxrDayLght_groundColorGreen.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227266" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_groundColorGreen.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="1d6febbd-9965-4c67-927b-538572d459fc" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_groundColorMagenta2.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_groundColorMagenta2.jpg" data-image-src="../../attachments/542227181/pxrDayLght_groundColorMagenta2.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227197" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_groundColorMagenta2.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="c465e0e2-6257-4243-ad4b-6c2f7ec3c1b6" data-media-type="file" /></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><br /></p><p><strong>Month</strong></p><p>一年中的月份，范围为 1 到 12。默认值为 <em>use direction</em>，表示使用显式给定的太阳方向，而不是自动计算太阳方向。</p><p><br /></p><p><strong>Day</strong></p><p>一月中的日期，范围为 1 到 31。Day 参数会在 Month 设为下列值时被忽略： <em>use direction</em>。</p><p><br /></p><p><strong>Year</strong></p><p>四位数年份。Year 参数会在 Month 设为下列值时被忽略： <em>use direction</em>。</p><p><br /></p><p><strong>Hour</strong></p><p>自午夜以来的小时数，采用当地标准时间。可以使用小数来包含分钟和秒。如果启用了夏令时，请减去 1 以校正为标准时间。Hour 参数会在 Month 设为下列值时被忽略： <em>use direction</em>。</p><p><br /></p><p><strong>Zone</strong></p><p>相对于 GMT/UTC 的标准时区偏移，单位为小时。东区为正，西区为负。例如，太平洋时间为 -8。Zone 参数会在 Month 设为下列值时被忽略： <em>use direction</em>。</p><p><br /></p><p><strong>Latitude</strong></p><p>纬度，单位为度。北纬为正，南纬为负。范围为 -90 到 +90 度。Latitude 参数会在 Month 设为下列值时被忽略： <em>use direction</em>。</p><p><br /></p><p><strong>Longitude</strong></p><p>经度，单位为度。东经为正，西经为负。范围为 -180 到 180 度。Longitude 参数会在 Month 设为下列值时被忽略： <em>use direction</em>。</p><p><br /></p><p><br /></p><hr /><h4 id="PxrEnvDayLight-Refine">Refine</h4><p><br /></p><p><strong>Specular Amount</strong></p><p>发出的 specular light（镜面反射光）数量。这是一个非物理控制。你可以将 Specular Amount 为 0.0 的灯光作为场景对象的纯 diffuse light（漫反射光）来源，并避免添加高光。</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_specAmount0.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_specAmount0.jpg" data-image-src="../../attachments/542227181/pxrDayLght_specAmount0.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227260" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_specAmount0.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="46f05fdf-2421-4543-8e93-d5b6446af402" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_specAmount015.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_specAmount015.jpg" data-image-src="../../attachments/542227181/pxrDayLght_specAmount015.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227254" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_specAmount015.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="5028d842-065d-4c9c-a040-213264e5b138" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_specAmount10.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_specAmount10.jpg" data-image-src="../../attachments/542227181/pxrDayLght_specAmount10.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227257" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_specAmount10.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="f5db7463-b3d0-421e-907f-821d9545b64a" data-media-type="file" /></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><br /></p><p><strong>Diffuse Amount</strong></p><p>发出的 diffuse light（漫反射光）数量。这是一个非物理控制。你可以将 Diffuse Amount 为 0.0 的灯光作为场景对象的纯高光来源。</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_diffAmount00.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_diffAmount00.jpg" data-image-src="../../attachments/542227181/pxrDayLght_diffAmount00.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227251" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_diffAmount00.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="c0283fed-4f9f-4d6e-a0e0-175b8f1af63d" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_diffAmount015.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_diffAmount015.jpg" data-image-src="../../attachments/542227181/pxrDayLght_diffAmount015.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227245" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_diffAmount015.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="61f9d88b-4fea-47f9-b344-7c7801a4ea8b" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_diffAmount10.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_diffAmount10.jpg" data-image-src="../../attachments/542227181/pxrDayLght_diffAmount10.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227248" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_diffAmount10.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="c0b7a102-c9a5-4751-be28-b4502b69d919" data-media-type="file" /></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><br /></p><hr /><h4 id="PxrEnvDayLight-Shadows">Shadows</h4><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="7cbd82f1-65de-4361-8768-98d54e231d0f" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p><span data-colorid="fhz7xwmy2j">如果灯光的&nbsp;</span> <strong>Trace Light Paths</strong> <span data-colorid="ybst4384kw">&nbsp;在 Advanced 中启用，则所有 shadow 参数都会被忽略。下面的选项在脱离默认状态使用时都是非物理控制。如果&nbsp;</span> <strong>Trace Light Paths</strong> <span data-colorid="qon4wz5bsa">&nbsp;启用，则会强制执行其物理属性。</span></p></div></div><p><br /></p><p><strong>Enable Shadows</strong></p><p><span data-colorid="x7y0dy9igd">启用光线追踪阴影。下图分别为开启（默认）和关闭。</span></p><p /></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_shadOff.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_shadOff.jpg" data-image-src="../../attachments/542227181/pxrDayLght_shadOff.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227242" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_shadOff.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="8058faf0-1751-42af-b088-b7d28baa48ad" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_shadOn.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_shadOn.jpg" data-image-src="../../attachments/542227181/pxrDayLght_shadOn.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227239" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_shadOn.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="64b1afca-4155-4957-ae77-c48ff2ba4006" data-media-type="file" /></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><br /></p><p><strong>Shadow Color</strong></p><p><span data-colorid="b2icbnq9d9">发出光投射的阴影颜色。</span></p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_shadColorAqua.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_shadColorAqua.jpg" data-image-src="../../attachments/542227181/pxrDayLght_shadColorAqua.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227236" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_shadColorAqua.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="524279b8-183f-4e56-a634-ade462bfe8a6" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_shadColorGreen.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_shadColorGreen.jpg" data-image-src="../../attachments/542227181/pxrDayLght_shadColorGreen.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227233" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_shadColorGreen.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="dc6df3b7-60d7-4459-94c0-3cab669e471b" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_shadColorRed.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_shadColorRed.jpg" data-image-src="../../attachments/542227181/pxrDayLght_shadColorRed.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227230" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_shadColorRed.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="d7ff3a66-4544-4b90-a14b-c905f8350c5e" data-media-type="file" /></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><span class="legacy-color-text-inverse">.0 0.0 0.0</span></p><p><strong>Shadow Max Distance</strong></p><p><span data-colorid="k3k2zu9ty1">从被着色点位置开始计算的最大阴影距离。-1.0 表示未设置，此时使用被着色点与灯光上点之间的距离。你可以使用此控制人为减少阴影投射的距离。它也可能通过不计算该距离之外的阴影来提高渲染速度。这里用它移除了阳光在后墙上的阴影。</span></p><p /></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_shadDist125.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_shadDist125.jpg" data-image-src="../../attachments/542227181/pxrDayLght_shadDist125.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227227" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_shadDist125.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="9a60bbaa-832b-4281-b9b0-feb773125f47" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_shadDistNeg1.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_shadDistNeg1.jpg" data-image-src="../../attachments/542227181/pxrDayLght_shadDistNeg1.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227224" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_shadDistNeg1.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="b7e0d7aa-704e-422e-8701-b6f7640da844" data-media-type="file" /></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><br /></p><p><strong>Shadow Falloff</strong></p><p><span data-colorid="vxqviiprh6">从灯光处开始发生阴影衰减的距离。-1.0 会关闭阴影衰减。它与&nbsp;</span> <strong>Shadow Max Distance</strong> <span data-colorid="ibl3ez5qad">&nbsp;一起使用，为被&nbsp;</span> <strong>Shadow Max Distance</strong> <span data-colorid="k2qf4dxgm7">&nbsp;参数削弱或截断的阴影创建伪淡出。下方示例同时使用了这两个参数，并提高了 falloff。注意，此参数可能影响复杂灯光设置中的性能。</span></p><p><span data-colorid="s6w19tc486"> </span></p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_shadFalloff025.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_shadFalloff025.jpg" data-image-src="../../attachments/542227181/pxrDayLght_shadFalloff025.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227221" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_shadFalloff025.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="c3340571-5ae8-4d4e-84a2-76b121345bdc" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_shadFalloff10.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_shadFalloff10.jpg" data-image-src="../../attachments/542227181/pxrDayLght_shadFalloff10.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227218" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_shadFalloff10.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="bcd690c8-e51e-41c0-8b3f-26e83b0394f0" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_shadFalloffOff.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_shadFalloffOff.jpg" data-image-src="../../attachments/542227181/pxrDayLght_shadFalloffOff.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227215" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_shadFalloffOff.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="652aa304-59ea-4970-8ca6-d7ab830ac504" data-media-type="file" /></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><br /></p><p><strong>Shadow Falloff Gamma</strong></p><p><span data-colorid="t86nyifdfe">衰减区域中阴影强度的 gamma。这需要使用&nbsp;</span> <strong>Shadow Max Distance&nbsp;</strong> <span data-colorid="plruj9l8y8">和</span> <strong>&nbsp;Shadow Falloff</strong> <span data-colorid="ky41t2ktzq">。</span></p><p /></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_shadFalloffGamma10.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_shadFalloffGamma10.jpg" data-image-src="../../attachments/542227181/pxrDayLght_shadFalloffGamma10.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227212" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_shadFalloffGamma10.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="ac92f727-5106-405a-ae5a-85ad0be81eaf" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_shadFalloffGamma025.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_shadFalloffGamma025.jpg" data-image-src="../../attachments/542227181/pxrDayLght_shadFalloffGamma025.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227209" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_shadFalloffGamma025.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="d597d3d4-19b9-46ad-80a2-adf08d424c42" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_shadFalloffGamma05.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_shadFalloffGamma05.jpg" data-image-src="../../attachments/542227181/pxrDayLght_shadFalloffGamma05.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227206" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_shadFalloffGamma05.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="ddc3626f-e8c7-4d2c-bd33-61ee1bbfc817" data-media-type="file" /></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><br /></p><p><strong>Trace Subset</strong></p><p>要纳入追踪阴影求交的 geometry 集合。如果未指定，则所有 geometry 都会纳入追踪阴影求交。</p><p><br /></p><p><strong>Don't Trace Subset</strong></p><p>要忽略追踪阴影求交的 geometry 集合。如果未指定，则所有 geometry 都用于追踪阴影求交。</p><p><br /></p><p><br /></p><hr /><h4 id="PxrEnvDayLight-Advanced">Advanced</h4><p><br /></p><p><strong>Trace Light Paths</strong></p><p><span data-colorid="wjtuqtump5">启用从此灯光开始的光线和光子追踪。该值会强制使用基于物理的灯光，并且作为副作用禁用上面的&nbsp;</span> <strong>Shadows</strong> <span data-colorid="nuo460418x">&nbsp;控制。使用 PxrVCM 或 PxrUPBP Integrators 时，用户可利用此功能有选择地决定哪些灯光发射光子。</span></p><p><br /></p><p><strong>Thin Shadow</strong></p><p><span data-colorid="yr1mwbxbq2">为此灯光启用 thin shadow（薄阴影）并禁用折射焦散。如果&nbsp;</span> <strong>Trace Light Paths</strong> <span data-colorid="yum2p9whrt">&nbsp;已启用，则会忽略此参数。这是一个非物理控制，可为透射对象创建“伪”彩色阴影，而无需为焦散生成光子。下面我们从 On（默认）切换到 Off（不透明阴影）。注意，选择 Off 时会丢失彩色阴影和内部彩色反射，但会换来一些渲染速度。</span></p><p><span data-colorid="vqws4l4iw6"> </span></p></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_thinShadOff.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_thinShadOff.jpg" data-image-src="../../attachments/542227181/pxrDayLght_thinShadOff.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227203" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_thinShadOff.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="ce22a205-9f38-47b2-9791-84fd074bbf79" data-media-type="file" /></span><p /></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrDayLght_thinShadOn.jpg" width="384" loading="lazy" src="../../attachments/542227181/pxrDayLght_thinShadOn.jpg" data-image-src="../../attachments/542227181/pxrDayLght_thinShadOn.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227200" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrDayLght_thinShadOn.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227181" data-linked-resource-container-version="4" data-media-id="c8169942-dff3-4c75-ae8e-b2809f591e3d" data-media-type="file" /></span><p /></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><br /></p><p><strong>Visible in Refraction</strong></p><p>开启此项可使灯光通过玻璃和窗户等透射效果可见。</p><p><br /></p><p><strong>Manifold Walk</strong></p><p>与 PxrUnified Integrator 一起使用，并启用&nbsp;<strong>Enable Manifold Walk</strong>&nbsp;以创建低成本 caustics（焦散）。注意：你必须禁用 Thin Shadows</p><p><br /></p><p><strong>Manifold Walk Exclude Group</strong></p><p>与 PxrUnified Integrator 一起使用，并启用&nbsp;<strong>Enable Manifold Walk，&nbsp;</strong>在流形探索期间会忽略此 trace set，以避免停止或遮挡流形探索光线</p><p><br /></p><p><strong>Light Samples</strong></p><p>指定此光源要采用的灯光采样数量覆盖值。如果设为非零值，它会覆盖 integrator（积分器）执行的采样。如果此灯光产生难以解决的 noise，且需要更多采样，你可能会用到此设置。</p><p><br /></p><p><strong>Light Group</strong></p><p>指定用于 light group LPEs 的 Light Group 名称。这对于生成 per-light AOVs 以便之后在合成中调整很有用。</p><p><br /></p><p><strong>Importance Multiplier</strong></p><p>用户不必显式设置 Light Samples，而可以通过更改此值来改变内部分配给该灯光的采样数量。RenderMan 会在渲染时为场景中的所有灯光创建一组采样，改变此值会在这些灯光之间重新平衡采样。注意，增大此值会使&nbsp;<em>更多</em>&nbsp;采样从此灯光中被选择，同时减少场景中其他灯光的采样。低于默认值则会&nbsp;<em>减少</em>&nbsp;该灯光的采样，同时为场景中的其他灯光提供更多采样。</p><p><br /></p><p><br /></p><hr /><h3 id="PxrEnvDayLight-Presets">Presets</h3><p>RenderMan for Maya 包含适用于一天中特定时刻的有用预设。</p></div>
+</div>
+</div>
+</div>
+  </article>
+</main>
+</body>
+</html>

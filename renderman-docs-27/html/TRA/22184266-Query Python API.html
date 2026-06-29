@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Query Python API</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Query Python API</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/TRA/22184266/Query+Python+API">https://rmanwiki-27.pixar.com/space/TRA/22184266/Query+Python+API</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>tractor.api.query is a Python API which provides the same query and control functionality as provided by the command line tool, tq. It is installed with the Python interpreter that ships with Tractor, rmanpy.</p><p>You may be able to use this module with your own interpreter, but that will require site-specific configuration to locate or install the Tractor Python modules appropriately.</p><p>The following examples assume that the query module has been imported as follows:</p><p><code>import tractor.api.query as tq
+</code></p><h3 id="QueryPythonAPI-ListFunctions">List Functions</h3><p>The query module provides functions for retrieving info for jobs, tasks, commands, invocations, and blades. They are named the same as the list commands found in the command line tool, namely jobs(), tasks(), commands(), invocations(), and blades().</p><p>The first argument to these functions is a <a href="/wiki/spaces/TRA/pages/22184262/Search+Clauses" data-linked-resource-id="22184262" data-linked-resource-version="5" data-linked-resource-type="page">search clause</a> that is used to narrow the search.</p><p>In this example, this list function fetches all of the jobs owned by a group of users that were spooled over 8 days ago. The return value of the list functions is a list of dictionaries, each dictionary representing one of the matched items.</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="9331005e-2a39-4311-af46-6903d026d768" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">&gt;&gt;&gt; jobs = tq.jobs(&quot;owner in [freddie brian john roger] and spooltime &lt; -8d&quot;)
+&gt;&gt;&gt; print jobs[0]
+{u'comment': u'', u'maxslots': 0, u'numblocked': 0, u'spoolcwd': u'/home/freddie/unitard, u'numerror': 0, u'aftertime': None, u'elapsedsecs': 0.0, u'owner': u'paul', u'spoolhost': u'zanzibar, u'spooladdr': u'138.72.196.92', u'jid': 2680, u'service': u'', u'title': u'Somebody To Render', u'numactive': 0, u'editpolicy': u'', u'spooltime': u'2014-02-17 08:16:53-08', u'projects': [u'flash_gordon', u'hot_space'], u'crews': [u'queen'], u'maxcid': 2, u'metadata': u'', u'numready': 0, u'tags': [], u'afterjids': [], u'stoptime': u'2014-02-17 08:16:57.971-08', u'envkey': [], u'tier': u'', u'etalevel': 1, u'numtasks': 2, u'numdone': 2, u'maxtid': 2, u'assignments': u'', u'spoolfile': u'/home/freddie/champion.alf', u'esttotalsecs': 0.0, u'starttime': u'2014-02-17 08:16:53.73-08', u'pausetime': None, u'minslots': 0, u'deletetime': None, u'priority': 10.0}
+
+</pre>
+</div></div><h3 id="QueryPythonAPI-SearchClause">Search Clause</h3><p>The search clause is a boolean expression (the above example uses and) composed of comparisons and operators (<em>in</em>, &lt;) of the entity's attributes (owner, spooltime). Accommodations are made to reduce the amount of typing. For example, string literals like freddie is not enclosed in quotes, and the string -8d is a short form meaning &quot;one day ago&quot;.</p><p>More details on the search clause syntax can be found <a href="/wiki/spaces/TRA/pages/22184262/Search+Clauses" data-linked-resource-id="22184262" data-linked-resource-version="5" data-linked-resource-type="page">here</a>.</p><p>Note that the broader the search, the more expensive it will be in terms of CPU, memory, and bandwidth for locating, transmitting, and storing the results. This can affect the client, engine, and backend database server.<br/> </p><h3 id="QueryPythonAPI-Columns">Columns</h3><p>By default, the query functions will retrieve all attributes for a given entity. However, this can waste memory and cpu on the client, engine, and backend database if all attributes are not required. The list of retrieved attributes can be specified with the columns= keyword parameter.</p><p>For example, this fetches only the job id, owner, title, and metadata columns:</p><p><code>&gt;&gt;&gt; tq.jobs(&quot;active&quot;, columns=[&quot;jid&quot;, &quot;owner&quot;, &quot;title&quot;, &quot;metadata&quot;])
+</code></p><h3 id="QueryPythonAPI-Sorting">Sorting</h3><p>Results can be ordered using the sortby= keyword parameter. Multiple attributes can be specified to indicate secondary sorting. Items are ordered in ascending order, unless the attribute is prepended with <em>-</em> to indicate descending order.</p><p>For example, to show the order in which similar jobs would be processed in a FIFO queue, we can list them in priority descending, spooltime ascending order as follows:</p><p><code>&gt;&gt;&gt; tq.jobs(&quot;active or ready&quot;, sortby=[&quot;-priority&quot;, &quot;spooltime&quot;])
+</code></p><p>While item sorting could be done client side, it is not possible to do so if the result set was truncated with the limit= keyword parameter because truncation will happen server side before the client has a chance to sort the results.</p><p><strong>Be aware</strong> that sorting could have an impact on the backend database server depending on the complexity and scope of the query.<br/> </p><h3 id="QueryPythonAPI-Limiting">Limiting</h3><p>The limit= keyword parameter sets the upper bound on the number of items returned by the engine.</p><p>For example, this statement will fetch the ten jobs with the most number of active tasks on the farm:</p><p><code>&gt;&gt;&gt; tq.jobs(&quot;active&quot;, sortby=[&quot;-numactive&quot;], limit=10)
+</code></p><p>This statement lists the twenty hosts with the least amount of disk space.</p><p><code>&gt;&gt;&gt; tq.blades(&quot;name like east&quot;, sortby=[&quot;availdisk&quot;], limit=20)
+</code></p><p><strong>Be aware</strong> that setting the limit to 0 places <em>NO LIMIT</em> on the number of records returned.</p><p>Note that there is a system default upper bound in effect when the limit= keyword parameter is not used. This upper bound is 2500, though admins may override this by setting SiteMaxListReplyCount in tractor.config.<br/> </p><h3 id="QueryPythonAPI-Affiliation">Affiliation</h3><p>In the above examples, attribute of items are used in search clauses, column specifications, and sorting. Attributes of affiliated entities can also be specified in all of these cases by prefixing the attribute with the entity name. For example, the following statement fetches the active tasks owned by walt.</p><p><code>&gt;&gt;&gt; tq.tasks(&quot;state=active and Job.owner=walt&quot;)
+</code></p><p>Similarly, the following command displayed all error tasks from jobs spooled within the last 24 hours, including their jobs' titles and spooltimes, and sorted by job priority.</p><p><code>&gt;&gt;&gt; tq.tasks(&quot;state=error and Job.spooltime &gt; -24h&quot;, columns=[&quot;Job.spooltime&quot;, &quot;Job.title&quot;], sortby=[&quot;Job.priority&quot;])
+</code></p><p>Because spooltime and priority are attributes of no other entity than a job, the entity prefix is not required. The following is equivalent:</p><p><code>&gt;&gt;&gt; tq.tasks(&quot;state=error and spooltime &gt; -24h&quot;, columns=[&quot;spooltime&quot;, &quot;title&quot;], sortby=[&quot;priority&quot;])
+</code></p><h3 id="QueryPythonAPI-Archives">Archives</h3><p>The archive= keyword parameter can be set to True in order to search the records of jobs that have been deleted (and its associated tasks, commands, and invocations).</p><p><strong>Be aware</strong> that archives can be <em>much</em> bigger than the live data set, so queries can be <em>MUCH</em> more expensive to execute, transmit, and store in memory.</p><p>Such expense can be avoided by:</p><ul><li><p>using well-specified search clauses to ensure small result sets,</p></li><li><p>not sorting on the server for larger sets, and</p></li><li><p>using the limit argument and no sorting for potentially large result sets.<br/> </p></li></ul><h3 id="QueryPythonAPI-Operations">Operations</h3><p>Not only does the query module have functions to fetch items, it has the ability to operate on them. <strong>BE CAREFUL</strong> using these operation functions because they are <strong>VERY</strong> powerful and can be <strong>VERY</strong> <strong>VERY</strong> <strong>VERY</strong> <strong>DESTRUCTIVE</strong>.</p><p>The first argument to an operation specifies which items are to be operated on, and can be any of the following:</p><ul><li><p>a search clause,</p></li><li><p>a list of objects returned by a query function,</p></li><li><p>a single object from a list returned by a list function,</p></li><li><p>a dictionary specifying the required attributes for the operation, or</p></li><li><p>a list of dictionaries specifying the required attributes for the operation</p></li></ul><p>For example, all of the following are equivalent:</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="974f9d3b-2224-4028-b8bf-4f5176b045a8" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">&gt;&gt;&gt; tq.retry(&quot;jid=123 and tid=1&quot;)
+&gt;&gt;&gt; tq.retry(tq.tasks(&quot;jid=123 and tid=1&quot;))
+&gt;&gt;&gt; tq.retry(tq.tasks(&quot;jid=123 and tid=1&quot;)[0])
+&gt;&gt;&gt; tq.retry({&quot;jid&quot;: 123, &quot;tid&quot;: 1})
+&gt;&gt;&gt; tq.retry([{&quot;jid&quot;: 123, &quot;tid&quot;: 1}])</pre>
+</div></div><p /><p>The last two use cases permit authors to construct their own objects to identify which items to affect. Different attributes will be required in the dictionary, depending on the entity being operated on. Job operations require jid; task operations, jid and tid; command operations, jid and cid; blade operations, name.</p><p>This statement pauses all active jobs with errors:</p><p><code>&gt;&gt;&gt; tq.pause(&quot;active and error&quot;)
+</code></p><p>This statement nimbies the ten blades with the least amount of disk space:</p><p><code>&gt;&gt;&gt; tq.nimby(&quot;up and not nimby&quot;, sortby=[&quot;availdisk&quot;], limit=10)
+</code></p><p>Some operations have additional keyword arguments. For example, when changing the priority of a job, the prioriy= keyword parameter used to specify the priority. The following statement changes the priority of all of george's to 500.</p><p><code>&gt;&gt;&gt; tq.chpri(&quot;owner=george&quot;, priority=500)</code></p><p /><h3 id="QueryPythonAPI-Connectivity">Connectivity</h3><p>The Python module silently handles your engine connectivity, lazily establishing a session with the engine.</p><p>The default engine hostname, port, connected user, password, and debug boolean flag can be changed using setEngineClientParam(). The default engine hostname will be the TRACTOR_ENGINE environment variable value, or tractor-engine if it is not set. The default port is 80. Depending on how <a href="/wiki/spaces/TRA/pages/22184316/Engine#enginediscovery" data-linked-resource-id="22184316" data-linked-resource-version="10" data-linked-resource-type="page">EngineDiscovery</a> has been configured, an existing engine may be automatically discovered without using this function.</p><p>The default user is the USER environment variable value, or root if it is not set. The default password is not set. The default debug flag is set to False.</p><p>The default password is the TRACTOR_PASSWORD environment variable value; otherwise, it is not set.</p><p>The default debug flag is the TRACTOR_DEBUG environment variable value; othewise, it is False.</p><p>This example overrides some of the default connection values. It is important to do this <em>before</em> running any list or operation functions.</p><p><code>&gt;&gt;&gt; tq.setEngineClientParam(hostname=&quot;test-engine&quot;, port=8000, user=&quot;donovan&quot;, debug=True)
+</code></p><p>If your sites uses passwords, you can prompt the user for their password and set the used value as follows:</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="6ac60744-582f-45f7-8c18-de495f5d2baa" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">&gt;&gt;&gt; the_password = getpass.getpass()  # the_password may be obtained by other means
+&gt;&gt;&gt; tq.setEngineClientParam(password=the_password)</pre>
+</div></div><p /><p>You can avoid having the user enter their password each time the script runs by having session information cached in a file using thesessionFilename= parameter. The file name would typically be scoped by application name, user name, and host name.needsPassword() would be called to determine whether the cached session id is valid or whether the user needs to be prompted for their password. The following is a full example:</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="ced19dae-5d13-4418-b7b5-7e4da3861e3f" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">&gt;&gt;&gt; import os
+&gt;&gt;&gt; import socket
+&gt;&gt;&gt; import getpass
+&gt;&gt;&gt; import tractor.api.query as tq
+&gt;&gt;&gt;
+&gt;&gt;&gt; home = os.path.expanduser(&quot;~&quot;)
+&gt;&gt;&gt; app = os.path.basename(__file__)
+&gt;&gt;&gt; user = getpass.getuser()
+&gt;&gt;&gt; host = socket.gethostname()
+&gt;&gt;&gt;
+&gt;&gt;&gt; # qualify the session filename by host if it will be stored in a location shared my multiple hosts
+&gt;&gt;&gt; sessionFilename = os.path.join(home, &quot;.{app}.{user}.{host}.session&quot;.format(home=home, app=app, user=user, host=host))
+&gt;&gt;&gt;
+&gt;&gt;&gt; # set the session filename
+&gt;&gt;&gt; tq.setEngineClientParam(sessionFilename=sessionFilename)
+&gt;&gt;&gt;
+&gt;&gt;&gt; # check if the password needs to be obtained; this block will be skipped if the session filen contains a valid session id
+&gt;&gt;&gt; if tq.needsPassword():
+&gt;&gt;&gt;     password = getpass.getpass()
+&gt;&gt;&gt;     tq.setEngineClientParam(password=password)
+&gt;&gt;&gt;
+&gt;&gt;&gt; # the session file will be created when the first successful API call is made
+&gt;&gt;&gt; jobs = tq.jobs(&quot;error&quot;)
+&gt;&gt;&gt; print(&quot;There are {numjobs} jobs with errors.&quot;.format(numjobs=len(jobs)))
+</pre>
+</div></div><p>You can terminate the session by calling closeEngineClient(). This is helpful for reducing the number of sessions maintained by the engine. This forces the session to be no longer valid, so the password will need to be reacquired by the app the next time it is run.</p><p><code>&gt;&gt;&gt; tq.closeEngineClient()
+</code></p><h3 id="QueryPythonAPI-MoreHelp">More Help</h3><p>The internal module documentation will show all of the list and operation functions available in the query module.</p><p><code>&gt;&gt;&gt; help(tq)
+</code></p><p />
+  </article>
+</main>
+</body>
+</html>

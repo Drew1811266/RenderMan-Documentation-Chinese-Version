@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PxrManifold3D</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>PxrManifold3D</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/REN27/542224088/PxrManifold3D">https://rmanwiki-27.pixar.com/space/REN27/542224088/PxrManifold3D</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="contentLayout2">
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p>This nodes allows artists to place patterns using a 3D projection as opposed to a 2D solution often used for textures reliant on UVs. This allows selection of Pref (for deforming meshes) and specification of a coordinate system to transform to. </p><h3 id="PxrManifold3D-InputParameters">Input Parameters</h3><h4 id="PxrManifold3D-Scale">Scale</h4><p>Scale the frequency of the feature uniformly in 3D.</p><h4 id="PxrManifold3D-Use">Use</h4><p>Select the type of position you want to use.</p><p /><div class="table-wrap"><table data-table-width="1800" data-layout="default" data-local-id="4a589731-9309-41dc-99e4-30b5d6f637c6" class="confluenceTable"><tbody><tr><th class="confluenceTh"><p /></th><th class="confluenceTh"><p><strong>Usage</strong></p></th><th class="confluenceTh"><p><strong>Value</strong></p></th><th class="confluenceTh"><p><strong>Default variable</strong></p></th></tr><tr><td class="confluenceTd"><p><strong>Current position: P</strong></p></td><td class="confluenceTd"><p>Use the current (displaced) surface position</p></td><td class="confluenceTd"><p style="text-align: center;"><code>0</code></p></td><td class="confluenceTd"><p style="text-align: center;"><code>P</code></p></td></tr><tr><td class="confluenceTd"><p><strong>Undisplaced position: Po</strong></p></td><td class="confluenceTd"><p>Use the surface position <u>before</u> it was displaced</p></td><td class="confluenceTd"><p style="text-align: center;"><code>1</code></p></td><td class="confluenceTd"><p style="text-align: center;"><code>Po</code></p></td></tr><tr><td class="confluenceTd"><p><strong>Deform : __Pref</strong></p></td><td class="confluenceTd"><p>Use a reference position primitive variable in object space</p></td><td class="confluenceTd"><p style="text-align: center;"><code>2</code></p></td><td class="confluenceTd"><p style="text-align: center;"><code>__Pref</code></p></td></tr><tr><td class="confluenceTd"><p><strong>Deform &amp; transform: __WPref</strong></p></td><td class="confluenceTd"><p>Use a reference position primitive variable in world space</p></td><td class="confluenceTd"><p style="text-align: center;"><code>3</code></p></td><td class="confluenceTd"><p style="text-align: center;"><code>__WPref</code></p></td></tr></tbody></table></div><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="6b35d092-8d38-461f-9bbe-fd86fc01a1b6" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>You can only use <strong> </strong><code>__Pref</code><strong> </strong> and <strong> </strong><code>__WPref</code><strong> </strong> if these primitive variables have been attached to your geometry using your bridge product. Typically known as a Reference or Rest pose. Note that these are just names, the underlying bridge product provides the data as named, not the pattern node. If using a procedural such as Alembic, be sure the data has Pref baked into the objects on export.</p></div></div><h5 id="PxrManifold3D-Whyusetheun-displacedposition?">Why use the un-displaced position ?</h5><p>When using the same 3d noise in the BxDF and the displacement, you should use Po to make sure the patterns are lining up.</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="PxrManifold3D_P.gif" width="256" loading="lazy" src="../../attachments/542224088/PxrManifold3D_P.gif" data-image-src="../../attachments/542224088/PxrManifold3D_P.gif" data-height="256" data-width="256" data-unresolved-comment-count="0" data-linked-resource-id="542224106" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="PxrManifold3D_P.gif" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/gif" data-linked-resource-container-id="542224088" data-linked-resource-container-version="1" data-media-id="06c786d3-8e6b-46b1-9b41-61e1002ae9ca" data-media-type="file"></span><p /></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="PxrManifold3D_PO.gif" width="256" loading="lazy" src="../../attachments/542224088/PxrManifold3D_PO.gif" data-image-src="../../attachments/542224088/PxrManifold3D_PO.gif" data-height="256" data-width="256" data-unresolved-comment-count="0" data-linked-resource-id="542224103" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="PxrManifold3D_PO.gif" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/gif" data-linked-resource-container-id="542224088" data-linked-resource-container-version="1" data-media-id="d60fe1a2-93af-4cf9-bf75-8b508b48630f" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="PxrManifold3D_P_PO.gif" width="256" loading="lazy" src="../../attachments/542224088/PxrManifold3D_P_PO.gif" data-image-src="../../attachments/542224088/PxrManifold3D_P_PO.gif" data-height="256" data-width="256" data-unresolved-comment-count="0" data-linked-resource-id="542224100" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="PxrManifold3D_P_PO.gif" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/gif" data-linked-resource-container-id="542224088" data-linked-resource-container-version="1" data-media-id="527984db-f217-4eb7-a5db-29c628b44d80" data-media-type="file"></span><p /></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h4 id="PxrManifold3D-Pref">Pref</h4><p>Name of geometry Pref (Maya uses __Pref and __WPref). </p><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="cbe923bf-e867-4a62-91be-fbb897b11b51" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>This field is only used when <strong>Use</strong> is set to &quot;<strong>Deform : __Pref&quot; </strong>or<strong> &quot;Deform &amp; transform: __WPref&quot; </strong>.</p><p>If left empty, we assume either <code>         __Pref       </code> or <code>         __WPref       </code>, based on the current <strong>Use</strong> settings.</p></div></div><h4 id="PxrManifold3D-CoordinateSystem">Coordinate System</h4><p>Name of a coordinate system transform to apply to the manifold. (Maya calls these place3d nodes).</p><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="cc9f03d0-bae7-4bb9-b8b7-a2548f7ca161" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>If left empty, we use the position in <u>object-space</u>, as this is what you need for <em>non-deforming</em> objects.</p></div></div><h4 id="PxrManifold3D-Warp">Warp</h4><p>Connect a noise or texture to warp the domain</p><h4 id="PxrManifold3D-Warpamount">Warp amount</h4><p>Slider control the amount of warp</p><h3 id="PxrManifold3D-OutputParameters">Output Parameters</h3><h4 id="PxrManifold3D-result">result</h4><p>The 3D manifold.</p><h4 id="PxrManifold3D-resultX">resultX</h4><p>A float representation of the X component of the manifold.</p><h4 id="PxrManifold3D-resultY">resultY</h4><p>A float representation of the Y component of the manifold.</p><h4 id="PxrManifold3D-resultZ">resultZ</h4><p>A float representation of the Z component of the manifold.</p></div>
+</div>
+</div>
+</div>
+  </article>
+</main>
+</body>
+</html>

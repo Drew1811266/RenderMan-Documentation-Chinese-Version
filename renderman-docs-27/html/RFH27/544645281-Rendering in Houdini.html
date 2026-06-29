@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rendering in Houdini</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Rendering in Houdini</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFH27/544645281/Rendering+in+Houdini">https://rmanwiki-27.pixar.com/space/RFH27/544645281/Rendering+in+Houdini</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/544645281/RenderMan_NeonSign_R.jpg" data-image-src="../../attachments/544645281/RenderMan_NeonSign_R.jpg" data-unresolved-comment-count="0" data-linked-resource-id="544645298" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_NeonSign_R.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544645281" data-linked-resource-container-version="1" data-media-id="4bc09781-7518-4ea4-b377-f5a99af45416" data-media-type="file"></span></p><p>Houdini exposes all the useful features used for render frames and sequences. Below are the topics covered as well as some descriptions of features you'll see discussed.</p><p><br/><ul class="childpages-macro conf-macro output-block" data-hasbody="false" data-macro-id="0c0e317f-40e1-4a23-b374-aa0e0db737f0" data-macro-name="children"><li><a href="/wiki/spaces/RFH27/pages/544645311/Denoiser+in+Houdini" data-linked-resource-id="544645311" data-linked-resource-version="1" data-linked-resource-type="page">Denoiser in Houdini</a></li><li><a href="/wiki/spaces/RFH27/pages/544645351/Workflows" data-linked-resource-id="544645351" data-linked-resource-version="1" data-linked-resource-type="page">Workflows</a></li><li><a href="/wiki/spaces/RFH27/pages/544645844/Display+Sample+Filters" data-linked-resource-id="544645844" data-linked-resource-version="1" data-linked-resource-type="page">Display &amp; Sample Filters</a></li><li><a href="/wiki/spaces/RFH27/pages/544645926/Output" data-linked-resource-id="544645926" data-linked-resource-version="1" data-linked-resource-type="page">Output</a></li><li><a href="/wiki/spaces/RFH27/pages/544646093/Options" data-linked-resource-id="544646093" data-linked-resource-version="1" data-linked-resource-type="page">Options</a></li><li><a href="/wiki/spaces/RFH27/pages/544646266/Setup" data-linked-resource-id="544646266" data-linked-resource-version="1" data-linked-resource-type="page">Setup</a></li></ul></p><p><br/></p><p><div class="conf-macro output-block" data-hasbody="false" data-macro-name="include" data-macro-id="aefd0f70-b1e0-49f7-82f0-5a021082ac2f"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="io2-04.jpg" width="1285" loading="lazy" src="../../attachments/19661807/io2-04.jpg" data-image-src="../../attachments/19661807/io2-04.jpg" data-height="804" data-width="1920" data-unresolved-comment-count="0" data-linked-resource-id="84115468" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="io2-04.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="19661807" data-linked-resource-container-version="6" data-media-id="f04dedc4-6d99-44c5-959b-7846c5743a4c" data-media-type="file"/></span><p>There are many parts to rendering your completed scene. From handling quality to choosing the appropriate outputs for later compositing, this section handles all of those topics.</p><h3 id="RenderinginHoudini-Quality">Quality</h3><p>To understand how noise removal and anti-aliasing works, we describe <a href="/wiki/spaces/REN26/pages/19661831/Sampling+Modes" data-linked-resource-id="19661831" data-linked-resource-version="3" data-linked-resource-type="page">Sampling</a> and <a href="/wiki/spaces/REN26/pages/19661819/Filtering" data-linked-resource-id="19661819" data-linked-resource-version="8" data-linked-resource-type="page">Filtering</a> for users. This is where the bulk of your tuning may happen and it's important to understand the balance between quality and performance.</p><h3 id="RenderinginHoudini-TraceDepth">Trace Depth</h3><p>Controlling trace depth can alter the look and performance of your scene. Different integrators also handle these settings differently. RenderMan makes tuning of these parameters easy to achieve your required look within your resource constraints.</p><h3 id="RenderinginHoudini-InteractiveRenderingandCheckpointing">Interactive Rendering and Checkpointing</h3><p>Progressive/<a href="/wiki/spaces/REN26/pages/19661821/Interactive+Rendering" data-linked-resource-id="19661821" data-linked-resource-version="1" data-linked-resource-type="page">Interactive</a> Rendering makes easy work of tuning your scene materials and lights. <a href="/wiki/spaces/REN26/pages/19661833/Checkpointing+and+Recovery" data-linked-resource-id="19661833" data-linked-resource-version="3" data-linked-resource-type="page">Checkpointing</a> and Recovery&nbsp;takes this progressive feature and extends it to final renders where you can create save points in your renders as they refine. You can use these for faster approval of incomplete frames and continue where you left off without wasting precious CPU cycles!</p><h3 id="RenderinginHoudini-Diagnostics">Diagnostics</h3><p>RenderMan <a href="/wiki/spaces/REN26/pages/19661835/Statistics+and+Diagnostics" data-linked-resource-id="19661835" data-linked-resource-version="5" data-linked-resource-type="page">diagnostics</a> helps you visualize your scene performance in an easy to read display. Sometimes it may not be clear where your scene is spending the most time or resources, but our diagnostic output will help you pinpoint even the most obscure performance information.</p><h3 id="RenderinginHoudini-HoldoutsandOutputs">Holdouts and Outputs</h3><p><a href="/wiki/spaces/REN26/pages/19661827/Holdouts" data-linked-resource-id="19661827" data-linked-resource-version="4" data-linked-resource-type="page">Holdout</a> workflow is essential for integration of CG objects into live action plates. In some applications this is as simple as a button click! To improve compositing integration and even fully rendered shots, RenderMan makes use of powerful <a href="/wiki/spaces/REN26/pages/19661867/Outputs" data-linked-resource-id="19661867" data-linked-resource-version="4" data-linked-resource-type="page">outputs</a> to make adjustments in compositing easier and powerful with ultimate flexibility.</p><h3 id="RenderinginHoudini-Baking">Baking</h3><p>Reusing certain data in rendering can simplify asset management as well as improve rendering efficiency. <a href="/wiki/spaces/REN26/pages/19662127/Baking" data-linked-resource-id="19662127" data-linked-resource-version="1" data-linked-resource-type="page">Baking</a> provides ways to bake to a 2D or point cloud output.</p><h3 id="RenderinginHoudini-NestedDielectrics">Nested Dielectrics</h3><p>When rendering surfaces that interact with one another, especially transparent/refractive ones, it's important to understand the <a href="/wiki/spaces/REN26/pages/19661549/Nested+Dielectrics" data-linked-resource-id="19661549" data-linked-resource-version="4" data-linked-resource-type="page">Intersect Priority</a> settings. Intersect priority allows users to simply add attributes to get the correct refractions without tedious modeling to solve the problem.</p></div></p>
+  </article>
+</main>
+</body>
+</html>

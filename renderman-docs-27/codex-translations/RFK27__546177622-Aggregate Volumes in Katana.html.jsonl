@@ -1,0 +1,7 @@
+{"item_id":"ade39489bf:0","text":"Aggregate Volumes（聚合体积）"}
+{"item_id":"ade39489bf:1","text":"可以通过把 volumes（体积）合并成一个供渲染器处理的单一结构，减少体积的渲染时间。要开始在 RfK 中使用 aggregate volumes（聚合体积），有两个步骤：在 volume primitives（体积图元）上设置 aggregate name（聚合名称），并在 integrator（积分器）中指定匹配的 aggregate name。"}
+{"item_id":"ade39489bf:2","text":"Step One: 使用 PrmanObjectStatements 将 volumes（体积）分组为 aggregates（聚合）"}
+{"item_id":"ade39489bf:3","text":"首先，将 volumes（体积）添加到 PrmanObjectStatements 的 CEL 组中。volume locations（体积位置）可以直接添加到 CEL，也可以通过 custom（自定义）表达式添加，或者设置在祖先位置（例如 /root）上并继承。"}
+{"item_id":"ade39489bf:4","text":"接下来，使用 prmanStatements.primAttributes.volume.aggregate 属性指定 aggregate name（聚合名称）。开始时，可以为场景中的所有 volumes（体积）指定同一个 aggregate name。没有 aggregate name 的 volumes 会渲染，但不会成为 aggregate structure（聚合结构）的一部分。"}
+{"item_id":"ade39489bf:5","text":"Step Two: 在 integrator（积分器）中指定 volume aggregate name（体积聚合名称）"}
+{"item_id":"ade39489bf:6","text":"PxrPathTracer 有四个与 aggregate volumes（聚合体积）相关的参数。在简单情况下，只需要设置全局 \"Volume Aggregate\" 参数。但由于标准 visibility attributes（可见性属性）在 volume aggregate（体积聚合）内部不起作用，你可能会遇到需要为每种 visibility（可见性）类型（camera、indirect 和 transmission）分别指定 aggregate name 的情况。这些可以在另外三个 override parameters（覆盖参数）中指定。如果 integrator 中没有指定 aggregate，或者 integrator 中指定的 aggregate name 与某个 volume 上设置的名称不匹配，该 volume 将不会渲染。"}

@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Best Practices - PxrSurface</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Best Practices - PxrSurface</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RU/608796697/Best+Practices+-+PxrSurface">https://rmanwiki-27.pixar.com/space/RU/608796697/Best+Practices+-+PxrSurface</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="contentLayout2"><style>[data-colorid=j8ra9sbv59]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=j8ra9sbv59]{color:#004eb3}</style>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="CookiesNMilk_new_Banner.jpg" width="760" loading="lazy" src="../../attachments/608796697/CookiesNMilk_new_Banner.jpg" data-image-src="../../attachments/608796697/CookiesNMilk_new_Banner.jpg" data-height="1073" data-width="1074" data-unresolved-comment-count="0" data-linked-resource-id="608796706" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="CookiesNMilk_new_Banner.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="608796697" data-linked-resource-container-version="3" data-media-id="64a08c3b-7bea-46d8-a9a2-4ea38f76de81" data-media-type="file" /></span><h1 id="BestPractices-PxrSurface-UnderstandingthebasicdesignofPxrSurface.">理解 PxrSurface 的基础设计。</h1><p>在 RenderMan 中，用于制作对象、道具和角色的主要材质就是“ <a class="external-link" href="https://rmanwiki-26.pixar.com/space/REN26/19661415" rel="nofollow"><u>PxrSurface</u></a> ”这一材质。 </p><p>这是一个可用于各种 shading 任务的单一材质，因此也称为“monolithic”（整体式）材质。材质中的每个部分都代表该材质的一个特定 lobe。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="CookiesNMilk_new_pxrsurface.jpg" width="760" loading="lazy" src="../../attachments/608796697/CookiesNMilk_new_pxrsurface.jpg" data-image-src="../../attachments/608796697/CookiesNMilk_new_pxrsurface.jpg" data-height="928" data-width="1005" data-unresolved-comment-count="0" data-linked-resource-id="608632870" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="CookiesNMilk_new_pxrsurface.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="608796697" data-linked-resource-container-version="3" data-media-id="0137fbd9-6c1f-4420-a5b7-2c0a45573b44" data-media-type="file" /></span><p>这些 lobes 的一些例子包括：</p><ul><li><p>Diffuse（漫反射分量）</p></li><li><p>Specular（镜面反射分量）</p></li><li><p>Rough Specular（粗糙镜面反射分量）</p></li><li><p>Sub-Surface（次表面散射分量）</p></li><li><p>等等。</p></li></ul><p>每个 lobe 都有自己的一组控制项，用来定义 look，以及它们如何通过 gain 或 weighting 与其他 lobes 组合。</p><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="a7ead3c4-8739-4199-bb38-f69a79707a55" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>为什么它被称为“lobe”？ </p><p>你可以根据材质的分布函数来想象它如何反射或透射光线；这些分布通常在 2D 或 3D 中可视化为一个 lobe（用拉长的形状表现锐度、强度和方向）。你可以在 <a class="external-link" href="https://en.wikipedia.org/wiki/Bidirectional_scattering_distribution_function" rel="nofollow"><u>Wikipedia</u></a>上了解更多。</p></div></div><p /><hr /><h3 id="BestPractices-PxrSurface-NextSteps"><span data-colorid="j8ra9sbv59">Next Steps（下一步）</span></h3><p>现在，你已经基本理解了整体式着色器，也就是强大的 PxrSurface 的设计；下一课我们来学习纹理基础。</p><p /></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<a href="608829441-Best Practices - Modeling.html" data-linked-resource-id="608829441" data-linked-resource-version="3" data-linked-resource-type="page"><span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" alt="previousLesson.png" width="200" loading="lazy" src="../../attachments/608796697/previousLesson.png" data-image-src="../../attachments/608796697/previousLesson.png" data-height="67" data-width="286" data-unresolved-comment-count="0" data-linked-resource-id="607846814" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="previousLesson.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="608796697" data-linked-resource-container-version="3" data-media-id="b2a870b8-a675-4db4-a42c-83ab2d350d68" data-media-type="file" /></span></a><p /></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<a href="608862209-Best Practices - Textures.html" data-linked-resource-id="608862209" data-linked-resource-version="6" data-linked-resource-type="page"><span class="confluence-embedded-file-wrapper image-right-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-right" alt="nextLesson.png" width="200" loading="lazy" src="../../attachments/608796697/nextLesson.png" data-image-src="../../attachments/608796697/nextLesson.png" data-height="67" data-width="286" data-unresolved-comment-count="0" data-linked-resource-id="607846821" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="nextLesson.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="608796697" data-linked-resource-container-version="3" data-media-id="bcf4a192-f8a9-492b-a247-4c8bc4d4fe1c" data-media-type="file" /></span></a><p /></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<hr /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="RenderManUniversity_logo_Small.png" width="100" loading="lazy" src="../../attachments/608796697/RenderManUniversity_logo_Small.png" data-image-src="../../attachments/608796697/RenderManUniversity_logo_Small.png" data-height="100" data-width="100" data-unresolved-comment-count="0" data-linked-resource-id="607846827" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderManUniversity_logo_Small.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="608796697" data-linked-resource-container-version="3" data-media-id="0eda9d66-96ef-4741-a3a2-0c0ee61eec68" data-media-type="file" /></span><p /></div>
+</div>
+</div>
+</div>
+  </article>
+</main>
+</body>
+</html>

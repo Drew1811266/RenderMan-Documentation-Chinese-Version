@@ -1,0 +1,13 @@
+{"id":"43a570553fecefe5c525e66974e02c7ade83d47e3dde53cf7e29df498bac9a88","text":"这是一个实用工具节点，主要用于将特定着色信号路由到 Lama Material 中的 User lobes，以输出到由光路表达式定义的 AOV。如果不需要 LPE 的完整能力，也可以改用 PxrTee shading node，或使用 OSL debug() closure 的自定义节点。"}
+{"id":"48bef9a1fe3317d431be86581684256716969fc3ea9a687fdd6b97adbf6eede8","text":"不过，如果希望 AOV 只包含通过特定光路看到的着色信号，就需要定义custom LPE（自定义 LPE），在这些光路中收集特定 User lobe，并使用 LamaLPE 节点将信号写入该 User lobe。"}
+{"id":"6c6c4a49a779ae79559913235091b415ded281637ac4c400fd89e1a6baade028","text":"LamaLPE Parameters"}
+{"id":"6b73191a0a4b67420e61d51c9f207c35277eaf18fbbf5beb52a320a23fe09653","text":"Color"}
+{"id":"94192eae05ed4c8746c36f96a971f5fb001398103af00a7d097d361022490f05","text":"要在指定的 LPE accessible lobe 中累积的颜色"}
+{"id":"ca2284f6b0a50dce105dcc5efe2a5fec9002645047c277f04ad4bf740e598ea0","text":"LPE Lobe Name"}
+{"id":"8695f591ed45b2b4c3ee47aa0bb36e1acbc28aab4a2d513b0b720ebf11b85c24","text":"用于指定哪些 LPE 会累积此 lobe 的 lobe 名称"}
+{"id":"c1790bf42184d8cda0a6ac3894681870256c1b29f23fbe95ff39b2d84de7490a","text":"Example Usage（用法示例）"}
+{"id":"11a557d89e67f47e7b6b0e927a832f92b8b52a58b2aaa9ad8c1d8c901c41f1f4","text":"使用 Option \"lpe\" \"string <lobeslot>\" 将名称应用到这些 lobe"}
+{"id":"3b0a5cedae070e7c75e1cf2215278a15af89cca145726cc68e65890ef188f658","text":"[\"Comma,Separated,Lobe,Names\"]"}
+{"id":"5e8429dca8fb28beb962be0c5eeb8b667ee9203545b9f5a1224a0144b15bb620","text":"然后定义一个 LPE，使其从该 <lobeslot> 获取值；可以使用custom LPE（自定义 LPE），也可以使用 displaychannel 行，然后用 display line 输出。"}
+{"id":"f8a60f4ca5664b7c8391937bfe071043ed7972f556462cca2c092777733a8e5a","text":"使用 LamaLPE 节点将输入 Color 写入这些 slot 之一，例如 Bxdf \"LamaLPE\" \"ucolor\" \"reference color LPEColor\" \"voronoise:resultRGB\" \"string LPELobeName\""}
+{"id":"1d5ec68bc1b5a979680d6727678ce3db25fa02034fdcaeacbe7385765accdb7d","text":"[\"Comma\"]"}

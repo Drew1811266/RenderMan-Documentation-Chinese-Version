@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Using Displacement</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Using Displacement</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFK27/546178105/Using+Displacement">https://rmanwiki-27.pixar.com/space/RFK27/546178105/Using+Displacement</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>Using <a href="/wiki/spaces/REN26/pages/19661545/PxrDisplace" data-linked-resource-id="19661545" data-linked-resource-version="2" data-linked-resource-type="page">PxrDisplace</a> to create added geometric details is a common workflow when combined with packages like Mudbox or Zbrush to export maps. We recommend vector displacement as this makes the most sense for layering but we render both scalar and vector maps with the same node.</p><p>You'll need to make sure that the object with displacement has a non-zero displacement bound. For performance reasons this value defaults to zero so one must always increase this for the object where displacements are needed.</p><ul><li><p>Create a PrmanObjectStatements node and assign it to your object (using the CEL parameter)</p></li></ul><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="438" loading="lazy" src="../../attachments/546178105/rfk_displaceObjSettings.jpg" data-image-src="../../attachments/546178105/rfk_displaceObjSettings.jpg" data-height="633" data-width="694" data-unresolved-comment-count="0" data-linked-resource-id="546178119" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfk_displaceObjSettings.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="546178105" data-linked-resource-container-version="3" data-media-id="559d4910-d903-4da1-8870-c6ca54a4b1a5" data-media-type="file"></span><ul><li><p>Find the displacement bound in the PrmanObjectStatements node under &quot;primAttributes.displacementbound&quot;</p></li><li><p>Set &quot;Sphere&quot; to a value greater than zero, something large enough to encapsulate your displacement but small enough that you won't cause the renderer to think that surface extends beyond it's intended final bound. If the bounds are too small you will see clipping or missing pieces. If too large, it may displace the object before it's necessary. We will automatically tighten those bounds afterwards to be more efficient. So better to err on too large than too small. A value of 0 (zero) disables displacement for the object.</p></li></ul><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="500" loading="lazy" src="../../attachments/546178105/rfkDisplacementBounds.png" data-image-src="../../attachments/546178105/rfkDisplacementBounds.png" data-height="512" data-width="1024" data-unresolved-comment-count="0" data-linked-resource-id="546178125" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfkDisplacementBounds.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="546178105" data-linked-resource-container-version="3" data-media-id="0565bc52-80c7-43f3-8886-34996a5c759b" data-media-type="file"></span><p /><p>RenderMan will print a warning for bounds that are too large or too small by a minimum factor of 10 to help you adjust</p><p>Below is a typical network for adding displacement to your object:</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="350" loading="lazy" src="../../attachments/546178105/rfkDisplacementNet.png" data-image-src="../../attachments/546178105/rfkDisplacementNet.png" data-height="809" data-width="484" data-unresolved-comment-count="0" data-linked-resource-id="546178122" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfkDisplacementNet.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="546178105" data-linked-resource-container-version="3" data-media-id="9861fe74-349d-4a99-a631-51c7d236c15c" data-media-type="file"></span><ul><li><p>Create a Network Material</p><ul><li><p>Make a port for the Bxdf or surface shading using Add Terminal in the node</p></li><li><p>Create a second port for Displacement using the same menu</p></li></ul></li><li><p>A PrmanShadingNode is used as the surfaceShader, typically PxrSurface type</p></li><li><p>A second PrmanShadingNode is a PxrDisplace type</p></li><li><p>A pattern out (float for scalar displacement or RGB for vector) is connected to the displacementShader</p></li></ul><p>Render to see your result. Be sure you have a MaterialAssign after the Merge node  with the correct CEL path to your object(s) and the network material location set to the NetworkMaterial</p><p />
+  </article>
+</main>
+</body>
+</html>

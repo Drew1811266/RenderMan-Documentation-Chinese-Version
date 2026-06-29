@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lighting Path</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Lighting Path</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RU/598901006/Lighting+Path">https://rmanwiki-27.pixar.com/space/RU/598901006/Lighting+Path</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="contentLayout2"><style>[data-colorid=dfwiayd6v2]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=dfwiayd6v2]{color:#004eb3}[data-colorid=w9z13ejfqg]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=w9z13ejfqg]{color:#004eb3}[data-colorid=fitf9x93en]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=fitf9x93en]{color:#004eb3}[data-colorid=kupa2lze1h]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=kupa2lze1h]{color:#004eb3}[data-colorid=y6b4b8qsb4]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=y6b4b8qsb4]{color:#004eb3}[data-colorid=aqy6arojv2]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=aqy6arojv2]{color:#004eb3}[data-colorid=mgaeccdzzd]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=mgaeccdzzd]{color:#004eb3}[data-colorid=pjpq40ypxe]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=pjpq40ypxe]{color:#004eb3}[data-colorid=yp8itvvujf]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=yp8itvvujf]{color:#004eb3}[data-colorid=ephee2vltx]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=ephee2vltx]{color:#004eb3}[data-colorid=rfyxmbl7fv]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=rfyxmbl7fv]{color:#004eb3}[data-colorid=zyn55hpc2c]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=zyn55hpc2c]{color:#004eb3}[data-colorid=tb2ykz39o2]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=tb2ykz39o2]{color:#004eb3}[data-colorid=dq2ztu4s23]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=dq2ztu4s23]{color:#004eb3}[data-colorid=ncdoy1rep3]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=ncdoy1rep3]{color:#004eb3}</style>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="lighting_learingPath_banner.jpg" width="760" loading="lazy" src="../../attachments/598901006/lighting_learingPath_banner.jpg" data-image-src="../../attachments/598901006/lighting_learingPath_banner.jpg" data-height="714" data-width="1695" data-unresolved-comment-count="0" data-linked-resource-id="636092420" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="lighting_learingPath_banner.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="598901006" data-linked-resource-container-version="39" data-media-id="9b8bc014-e47a-4cba-afaf-4837d568e2c1" data-media-type="file" /></span><h1 id="LightingPath-StartHere"><strong><span data-colorid="yp8itvvujf">Start Here（从这里开始）</span></strong></h1><p>准备好进一步学习灯光了吗？很好……开始吧！</p><hr /></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<a href="631242816-The Three Light Types.html" data-linked-resource-id="631242816" data-linked-resource-version="5" data-linked-resource-type="page"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="LightBasics_Thumb.jpg" width="261" loading="lazy" src="../../attachments/598901006/LightBasics_Thumb.jpg" data-image-src="../../attachments/598901006/LightBasics_Thumb.jpg" data-height="500" data-width="500" data-unresolved-comment-count="0" data-linked-resource-id="629440578" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="LightBasics_Thumb.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="598901006" data-linked-resource-container-version="39" data-media-id="02a63425-25f9-4094-9a85-1bf02d30837a" data-media-type="file" /></span></a><p><strong><span data-colorid="pjpq40ypxe">The 3 Light Types（三种灯光类型）</span></strong><br />RenderMan 主要灯光类型的介绍</p></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<a href="612728846-Lighting Fundamentals.html" data-linked-resource-id="612728846" data-linked-resource-version="3" data-linked-resource-type="page"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="LightBasics_Thumb.jpg" width="261" loading="lazy" src="../../attachments/598901006/LightBasics_Thumb.jpg" data-image-src="../../attachments/598901006/LightBasics_Thumb.jpg" data-height="500" data-width="500" data-unresolved-comment-count="0" data-linked-resource-id="629440578" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="LightBasics_Thumb.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="598901006" data-linked-resource-container-version="39" data-media-id="02a63425-25f9-4094-9a85-1bf02d30837a" data-media-type="file" /></span></a><p><strong><span data-colorid="ephee2vltx">灯光基础课程（Lighting Fundamentals）</span></strong><br />如果你刚接触灯光，这里是很好的起点。</p></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<a href="399245378-What Light, When-.html" data-linked-resource-id="399245378" data-linked-resource-version="15" data-linked-resource-type="page"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="WhatLight_Thumb.jpg" width="261" loading="lazy" src="../../attachments/598901006/WhatLight_Thumb.jpg" data-image-src="../../attachments/598901006/WhatLight_Thumb.jpg" data-height="500" data-width="500" data-unresolved-comment-count="0" data-linked-resource-id="629604372" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="WhatLight_Thumb.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="598901006" data-linked-resource-container-version="39" data-media-id="eb0b75f4-1f7b-41ff-9f1b-8d0b7888c1ac" data-media-type="file" /></span></a><p><strong><span data-colorid="tb2ykz39o2">What Light When?（何时使用哪种灯光？）</span></strong><br />关于何时使用合适灯光类型的实用指南。</p></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<hr /><h1 id="LightingPath-NextSteps"><strong><span data-colorid="ncdoy1rep3">下一步</span></strong></h1></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<a href="628752397-Light Filters.html" data-linked-resource-id="628752397" data-linked-resource-version="7" data-linked-resource-type="page"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="LightFilters_Thumb.jpg" width="261" loading="lazy" src="../../attachments/598901006/LightFilters_Thumb.jpg" data-image-src="../../attachments/598901006/LightFilters_Thumb.jpg" data-height="500" data-width="500" data-unresolved-comment-count="0" data-linked-resource-id="629375044" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="LightFilters_Thumb.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="598901006" data-linked-resource-container-version="39" data-media-id="da865a7a-925e-4fbc-ae04-1f4521896620" data-media-type="file" /></span></a><p><strong><span data-colorid="zyn55hpc2c">LightFilters（灯光过滤器）</span></strong><br />学习 Pixar 的秘密灯光技巧！</p></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<a href="392953857-Neons.html" data-linked-resource-id="392953857" data-linked-resource-version="6" data-linked-resource-type="page"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Neon_Thumb.jpg" width="261" loading="lazy" src="../../attachments/598901006/Neon_Thumb.jpg" data-image-src="../../attachments/598901006/Neon_Thumb.jpg" data-height="500" data-width="500" data-unresolved-comment-count="0" data-linked-resource-id="639041795" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Neon_Thumb.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="598901006" data-linked-resource-container-version="39" data-media-id="fd648258-91b3-4dff-b208-80710884075d" data-media-type="file" /></span></a><p><strong><span data-colorid="y6b4b8qsb4">Neons（霓虹灯）</span></strong><br />学习如何在 Solaris 中设置 Mesh Lights。</p></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<a href="638877713-Flashy Neons.html" data-linked-resource-id="638877713" data-linked-resource-version="6" data-linked-resource-type="page"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Neon_Thumb_Animate.jpg" width="261" loading="lazy" src="../../attachments/598901006/Neon_Thumb_Animate.jpg" data-image-src="../../attachments/598901006/Neon_Thumb_Animate.jpg" data-height="500" data-width="500" data-unresolved-comment-count="0" data-linked-resource-id="639041870" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Neon_Thumb_Animate.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="598901006" data-linked-resource-container-version="39" data-media-id="fa5d6f6e-5040-4fa7-92c6-7823a9d26f6b" data-media-type="file" /></span></a><p><strong><span data-colorid="mgaeccdzzd">Flashy Neons（闪亮霓虹灯）</span></strong><br />让我们用一些 VEX 代码让霓虹灯活起来！</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="ComingSoon_thumb.jpg" width="261" loading="lazy" src="../../attachments/598901006/ComingSoon_thumb.jpg" data-image-src="../../attachments/598901006/ComingSoon_thumb.jpg" data-height="500" data-width="500" data-unresolved-comment-count="0" data-linked-resource-id="640155650" data-linked-resource-version="4" data-linked-resource-type="attachment" data-linked-resource-default-alias="ComingSoon_thumb.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="598901006" data-linked-resource-container-version="39" data-media-id="b54fb9b3-42d8-4446-a89f-92f0a00e006e" data-media-type="file" /></span><p><strong><span data-colorid="aqy6arojv2">灯光链接技术（Light Linking）</span></strong><br /></p></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="ComingSoon_thumb.jpg" width="261" loading="lazy" src="../../attachments/598901006/ComingSoon_thumb.jpg" data-image-src="../../attachments/598901006/ComingSoon_thumb.jpg" data-height="500" data-width="500" data-unresolved-comment-count="0" data-linked-resource-id="640155650" data-linked-resource-version="4" data-linked-resource-type="attachment" data-linked-resource-default-alias="ComingSoon_thumb.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="598901006" data-linked-resource-container-version="39" data-media-id="b54fb9b3-42d8-4446-a89f-92f0a00e006e" data-media-type="file" /></span><p><strong><span data-colorid="dfwiayd6v2">Controlling Shadows（控制阴影）</span></strong><br /></p></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p /></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<hr /><h1 id="LightingPath-FurtherLearning"><strong><span data-colorid="kupa2lze1h">进一步学习</span></strong></h1></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<a class="external-link" href="657227944-Bakery Lighting.html" rel="nofollow"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="bakeryLighting.jpg" width="261" loading="lazy" src="../../attachments/598901006/bakeryLighting.jpg" data-image-src="../../attachments/598901006/bakeryLighting.jpg" data-height="500" data-width="500" data-unresolved-comment-count="0" data-linked-resource-id="656998938" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="bakeryLighting.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="598901006" data-linked-resource-container-version="39" data-media-id="f21e90bb-9fa9-4b84-af88-742a3904f495" data-media-type="file" /></span></a><p><strong><span data-colorid="dq2ztu4s23">French Bakery Lighting（法式面包店灯光）</span></strong><br />深入了解 French Bakery 项目中的灯光。</p></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<a class="external-link" href="591691817-Light Bulbs.html" rel="nofollow"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="lightbulbs.jpg" width="261" loading="lazy" src="../../attachments/598901006/lightbulbs.jpg" data-image-src="../../attachments/598901006/lightbulbs.jpg" data-height="500" data-width="500" data-unresolved-comment-count="0" data-linked-resource-id="657391902" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="lightbulbs.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="598901006" data-linked-resource-container-version="39" data-media-id="a5e08489-735c-4911-a55d-890b1539f258" data-media-type="file" /></span></a><p><strong><span data-colorid="w9z13ejfqg">灯泡布光课程（Lighting Light Bulbs）</span></strong><br />学习 RenderMan Demo Sign 中灯泡的创建方式。</p></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<a class="external-link" href="596770821-The Smoking Gnome.html" rel="nofollow"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="gnomeLighting.jpg" width="261" loading="lazy" src="../../attachments/598901006/gnomeLighting.jpg" data-image-src="../../attachments/598901006/gnomeLighting.jpg" data-height="500" data-width="500" data-unresolved-comment-count="0" data-linked-resource-id="657391910" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="gnomeLighting.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="598901006" data-linked-resource-container-version="39" data-media-id="c4eed88e-ac2f-4c0c-9147-4cee2e281ce9" data-media-type="file" /></span></a><p><strong><span data-colorid="rfyxmbl7fv">Portrait Lighting（肖像灯光）</span></strong><br />下载 The Smoking Gnome 项目，并学习其灯光设置。</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<a href="656999009-Character Lighting Tips.html" data-linked-resource-id="656999009" data-linked-resource-version="2" data-linked-resource-type="page"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="characterlighting.jpg" width="261" loading="lazy" src="../../attachments/598901006/characterlighting.jpg" data-image-src="../../attachments/598901006/characterlighting.jpg" data-height="500" data-width="500" data-unresolved-comment-count="0" data-linked-resource-id="657391982" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="characterlighting.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="598901006" data-linked-resource-container-version="39" data-media-id="1214b5d7-e3b2-42a3-a5f6-8f4f5cdf042e" data-media-type="file" /></span></a><p><strong><span data-colorid="fitf9x93en">Character Lighting Tips（角色灯光提示）</span></strong><br />来自客座艺术家的一系列灯光提示</p></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p /></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p /></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<hr /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="RenderManUniversity_logo_Small.png" width="100" loading="lazy" src="../../attachments/598901006/RenderManUniversity_logo_Small.png" data-image-src="../../attachments/598901006/RenderManUniversity_logo_Small.png" data-height="100" data-width="100" data-unresolved-comment-count="0" data-linked-resource-id="606503056" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderManUniversity_logo_Small.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="598901006" data-linked-resource-container-version="39" data-media-id="1065817f-b974-4adc-9af3-89c7becf6073" data-media-type="file" /></span></div>
+</div>
+</div>
+</div>
+  </article>
+</main>
+</body>
+</html>

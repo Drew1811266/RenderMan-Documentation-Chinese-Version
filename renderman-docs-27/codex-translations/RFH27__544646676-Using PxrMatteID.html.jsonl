@@ -1,0 +1,20 @@
+{"id":"4caa68bb07e2cb8e1602a4c8a5962f7cda9f2f61b5c4037ffc8eec6be5fc5742","item_id":"d4f06fbfda:0","text":"PxrMatteID"}
+{"id":"7739716cf1b92d3700f7afe106e7e38a90f96c608c149927298d9a3bc76f493b","item_id":"d4f06fbfda:1","text":"输出用于合成的 matte AOVs。这需要添加一个 User Attribute，更多细节见"}
+{"id":"fcec91509759ad995c2cd14bcb26b2720993faf61c29d379b270d442d92290eb","item_id":"d4f06fbfda:2","text":"此处"}
+{"id":"cdb4ee2aea69cc6a83331bbe96dc2caa9a299d21329efb0336fc02a82e1839a8","item_id":"d4f06fbfda:3","text":"。"}
+{"id":"dd0b81050a7d3117a6cd9b1cc4579691c9b55c9093b8db09899c64e86440eeb3","item_id":"d4f06fbfda:4","text":"此后，PxrCryptomatte 已取代该工作流，成为一种有用且几乎自动化的替代方案。"}
+{"id":"1d112e8af4c96ff78f351f9b450ce95b0182fb1e55a5528b8af0f1b694621d11","item_id":"d4f06fbfda:5","text":"为 MatteID0 添加一个 user attribute。"}
+{"id":"b4170134f8af78386813ff8a23c5dd7e7f4c5af27c04e05b2d48760225980d1c","item_id":"d4f06fbfda:6","text":"复制以下字段："}
+{"id":"14b2f4d531207a70b8fd57f168d9145db34f5e260f481a2e008d19cd6e3fcfe7","item_id":"d4f06fbfda:7","text":"Name"}
+{"id":"aa3e972e8495269586779409d66c4420ce051521ba31ae6b069a88d6e02eb0df","item_id":"d4f06fbfda:8","text":"Label（这是 UI 名称）"}
+{"id":"56e6f7e9ea0164f0e3adf73ca6b111a90d8b0feab449e8d448e298d1d25d6b30","item_id":"d4f06fbfda:9","text":"Tags（交互式渲染期间查看和编辑 RenderMan attributes 所必需）"}
+{"id":"f5329b67c1787f410df66114e9fe889f0463d6266e31bf6b967c6e7f1d87d509","item_id":"d4f06fbfda:10","text":"script_ritype color"}
+{"id":"f9dff80c04440d16b3c5ce38eb6b9d4064e911e440469c0abb42674f5c51b4cd","item_id":"d4f06fbfda:11","text":"renderman attr"}
+{"id":"4a712352375e5be57aad005f63a0d17bf1400f6f2cc9248eac50178eff7144c8","item_id":"d4f06fbfda:12","text":"设置其类型和颜色值。"}
+{"id":"2d1f886f702a0633088c5e8d17ff860efc17b66a2c843bd03d6461902812c7c1","item_id":"d4f06fbfda:13","text":"添加 PxrMatteID"}
+{"id":"22c8ac606ffab224fc49bbd5ba9c2898acae014a22a465f4e5410de77349e7ed","item_id":"d4f06fbfda:14","text":"创建一个 Houdini buildarray 节点，用于连接到 PxrSurface 材质上的 Utility Pattern。然后按下图所示，将 PxrMatteID Pattern node（Pattern 节点）连接到 buildarray。"}
+{"id":"2c17eb130f17cdb16d99ec03107ed55f55ec73703e0b63ef8a7ea79e7c0d690f","item_id":"d4f06fbfda:15","text":"在 PxrMaterialBuilder Network 中添加 PxrMatteID VOP。将颜色设置为上面的 user attribute。"}
+{"id":"e434e801078f9fc5f861d022211ffce805641e42e422114fbcd5fb580e2fe08a","item_id":"d4f06fbfda:16","text":"将 PxrMatteID 的 resultAOV 连接到 PxrSurface 的 Utility Pattern。"}
+{"id":"b0f487f675a36b1c9b0b5916af78e6e9e11559084ee1def0bf5ad4d89d7992f5","item_id":"d4f06fbfda:17","text":"为 Output 设置 AOV"}
+{"id":"99d518ecaa2892b93a8cf116f80ba8102e9fb6b119ef70ddc24e0ecfb8827dd0","item_id":"d4f06fbfda:18","text":"从 RenderMan ROP 节点的 Displays Tab 中选择正确/对应的 MatteID AOV 输出"}
+{"id":"0f6388b8cf90782d435d12c4045f2fa6e14892dc91be28cce8bb8a1c9348499a","item_id":"d4f06fbfda:19","text":"你会注意到，我们在 OBJ 上通过 attribute 设置了一种颜色，同时 MatteID pattern 本身也有一种颜色。这样做是为了将 attribute 的颜色与 pattern 节点相乘。例如，你可以向 MatteID pattern 节点提供一个 texture mask，并让它与 MatteID Attribute 中选择的颜色相乘。"}

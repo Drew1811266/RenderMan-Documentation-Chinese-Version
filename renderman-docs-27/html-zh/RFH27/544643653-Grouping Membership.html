@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Grouping Membership</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Grouping Membership</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFH27/544643653/Grouping+Membership">https://rmanwiki-27.pixar.com/space/RFH27/544643653/Grouping+Membership</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>通过几何体上的 <em>categories（类别）</em> 参数为几何体设置 grouping membership（分组成员关系），以便在 <a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661865" rel="nofollow">trace set（追踪集合）</a> 或 shadow subset（阴影子集）中使用这些分组。 </p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="544" loading="lazy" src="../../attachments/544643653/rfh_setsTrace.png" data-image-src="../../attachments/544643653/rfh_setsTrace.png" data-height="581" data-width="868" data-unresolved-comment-count="0" data-linked-resource-id="544643673" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfh_setsTrace.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544643653" data-linked-resource-container-version="1" data-media-id="4cef69ff-aaee-4635-994a-2f373542d430" data-media-type="file"></span><p /><p>Simple Tokens（简单标记）：</p><ul><li><p>Asterisk *（星号 *）- Everything（全部对象），默认值</p></li><li><p>仅对象名称/路径 - 包含后面的对象，例如 sphere_object</p></li><li><p>Caret ^（插入符 ^）- 排除后面的对象，例如 ^sphere_object</p></li><li><p>The @ symbol（@ 符号）- 包含这组对象 bundle/grouping（捆绑/分组），例如 @carEngine</p></li></ul><p>以下面的 PxrRectLight 为例，使用时只需在 Light Mask 中指定该 grouping membership（分组成员关系）名称，并添加 caret ^（插入符 ^）来排除指定的灯光路径。在下例中，网格对象不会被 PxrRectLight 照亮。注意，这可以通过 Light Bank 和 light Linking（灯光链接）的 UI 完成，也同样适用于 trace sets（追踪集合）。也可以只写 ^pxrrectlight，省略 /obj/ 路径。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="544" loading="lazy" src="../../attachments/544643653/rfh_excludeLight.png" data-image-src="../../attachments/544643653/rfh_excludeLight.png" data-height="581" data-width="868" data-unresolved-comment-count="0" data-linked-resource-id="544643676" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfh_excludeLight.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544643653" data-linked-resource-container-version="1" data-media-id="071ac9cb-a923-4d33-960f-bedaa50e92b5" data-media-type="file"></span><p>下面我们同时省略 sphere object 的反射以及 rect light 的灯光影响。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="544" loading="lazy" src="../../attachments/544643653/rfh_excludeReflection.png" data-image-src="../../attachments/544643653/rfh_excludeReflection.png" data-height="581" data-width="868" data-unresolved-comment-count="0" data-linked-resource-id="544643679" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfh_excludeReflection.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544643653" data-linked-resource-container-version="1" data-media-id="8ed75b35-12d6-45dc-9cba-5c54d4f0b104" data-media-type="file"></span><p>另一个常见需求是忽略特定对象投射的 shadows（阴影）。为此，请使用 Edit the Parameter Interface（编辑参数界面）（Object Name 字段旁的齿轮图标）。</p><p>可以按下图所示复制 Reflection Mask 并重命名来添加 Shadow Mask。随后可用该字段选择哪些对象允许为该对象投射阴影，或哪些对象应被排除。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="598" loading="lazy" src="../../attachments/544643653/rfh_createShadowMask.png" data-image-src="../../attachments/544643653/rfh_createShadowMask.png" data-height="786" data-width="1115" data-unresolved-comment-count="0" data-linked-resource-id="544643682" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfh_createShadowMask.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544643653" data-linked-resource-container-version="1" data-media-id="6732ae32-9e7b-495d-9fc0-45f39c920d25" data-media-type="file"></span><p /><p />
+  </article>
+</main>
+</body>
+</html>

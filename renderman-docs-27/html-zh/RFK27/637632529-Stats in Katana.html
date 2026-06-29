@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Stats in Katana</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Stats in Katana</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFK27/637632529/Stats+in+Katana">https://rmanwiki-27.pixar.com/space/RFK27/637632529/Stats+in+Katana</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p><style>[data-colorid=l73gqxdl6s]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=l73gqxdl6s]{color:#004eb3}[data-colorid=kzy79oiypp]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=kzy79oiypp]{color:#004eb3}[data-colorid=cuuufojamx]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=cuuufojamx]{color:#004eb3}[data-colorid=xtey98ddpv]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=xtey98ddpv]{color:#004eb3}</style>RenderMan 诊断信息在 Katana 中可以通过 live stats（实时统计）和离线 JSON reports 使用。也可以通过 environment variable（环境变量）或专用 OpScript 访问更高级的配置。</p><h2 id="StatsinKatana-LiveStats"><span data-colorid="kzy79oiypp">Live Stats（实时统计）</span></h2><p>PrmanLiveStats Tab 会显示 active Katana render 中指标数据的 live overview。 </p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="kat_livestats_27.png" width="713" loading="lazy" src="../../attachments/637632529/kat_livestats_27.png" data-image-src="../../attachments/637632529/kat_livestats_27.png" data-height="561" data-width="713" data-unresolved-comment-count="0" data-linked-resource-id="638124060" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="kat_livestats_27.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="637632529" data-linked-resource-container-version="4" data-media-id="d5bbd62c-a43c-4399-a647-041c5949205f" data-media-type="file" /></span><p /><p>它会实时显示多个关键指标，包括进程内存、经过的 wall clock time 和渲染进度。窗口会在渲染开始和停止时自动连接和断开连接。当渲染完成或取消后，其数据会保留在 live stats view 中，直到下一个渲染开始或加载新的 scene。</p><p>请参阅 <a href="https://rmanwiki-27.pixar.com/space/REN27/542233487/Live+Stats+Overview" data-linked-resource-id="542233487" data-linked-resource-version="16" data-linked-resource-type="page">Live Stats Overview（Live Stats 概览）</a>，了解此窗口内容的详细信息。</p><h2 id="StatsinKatana-JSONReport"><span data-colorid="l73gqxdl6s">JSON Report（JSON 报告）</span></h2><p>要生成渲染结束时的 diagnostic report，请将 PrmanGlobalStatements <strong>JSON Report Filename </strong>attribute 设置为所需的输出文件名（prmanGlobalStatements.options.statistics.jsonFilename）。 </p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="kat_pgs_json.png" width="614" loading="lazy" src="../../attachments/637632529/kat_pgs_json.png" data-image-src="../../attachments/637632529/kat_pgs_json.png" data-height="620" data-width="614" data-unresolved-comment-count="0" data-linked-resource-id="638091417" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="kat_pgs_json.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="637632529" data-linked-resource-container-version="4" data-media-id="6427ac74-db37-4b74-8059-1abf9bc55840" data-media-type="file" /></span><p>请参阅 <a href="https://rmanwiki-27.pixar.com/space/REN27/542233529/Diagnostic+Report" data-linked-resource-id="542233529" data-linked-resource-version="9" data-linked-resource-type="page">Diagnostic Report（诊断报告）</a>文档，了解此 report 的配置和解读的详细信息。</p><h2 id="StatsinKatana-CustomConfiguration"><span data-colorid="cuuufojamx">Custom Configuration（自定义配置）</span></h2><p>要更细致地控制 diagnostic output，可以指定 RfK 使用一个 <a href="https://rmanwiki-27.pixar.com/space/REN27/542233443/Configuration" data-linked-resource-id="542233443" data-linked-resource-version="23" data-linked-resource-type="page">configuration file（配置文件）</a>，并通过 environment variable（环境变量） <a href="https://rmanwiki-27.pixar.com/space/REN27/542233443/Configuration#Search-Path" data-linked-resource-id="542233443" data-linked-resource-version="23" data-linked-resource-type="page">$RMAN_STATS_CONFIG_PATH</a>来设置。此外，RfK 支持通过 specialized attributes 自定义 configuration file 的 search path 和/或 file name：</p><p style="margin-left: 30.0px;"><code>prmanGlobalStatements.stats.configPath</code>（default：&nbsp;<code>&ldquo;$RMANTREE/etc&quot;</code>)</p><p style="margin-left: 30.0px;"><code>prmanGlobalStatements.stats.configFile</code>（default：&nbsp;<code>&quot;stats.ini&quot;</code>)</p><p>如果设置了这些 attributes，它们会优先于其他 options。“stats” attributes 不会暴露在 PrmanGlobalStatements 中；必须通过 AttributeSet 或 OpScript 设置。下面的 OpScript 会把这两个 attributes 作为 user args 暴露出来，并使用上面列出的 defaults。将其复制并粘贴到你的 Katana scene 中，并按需修改 user attributes configPath 和 configFile name。</p><p>RfK 将按以下优先级搜索 configuration file：</p><ol start="1"><li><p><code>The prmanGlobalStatements.stats</code> options 的优先级高于所有其他 options（见下方 OpScript）。</p></li><li><p><code>$RMAN_STATS_CONFIG_PATH/stats.ini</code> 如果设置了该 environment variable。</p></li><li><p><code>$RMANTREE/etc/stats.ini</code></p></li></ol><div class="expand-container conf-macro output-block" data-hasbody="true" data-layout="wide" data-macro-id="8ab8d908-c5f8-48e9-9883-1380a606b2e3" data-macro-name="expand" id="expander-687643637"><div id="expander-control-687643637" class="expand-control"><span class="expand-control-icon icon">&nbsp;</span><span class="expand-control-text">PrmanStatsConfiguration OpScript</span></div><div id="expander-content-687643637" class="expand-content expand-hidden"><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="2de40bc6-3b5c-4509-b4a7-d5557beb2e7a" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: xml; gutter: false; theme: Confluence" data-theme="Confluence">&lt;katana release=&quot;8.0v4&quot; version=&quot;7.0.5.000001&quot;&gt;
+  &lt;node name=&quot;__SAVE_exportedNodes&quot; type=&quot;Group&quot;&gt;
+    &lt;node baseType=&quot;OpScript&quot; edited=&quot;true&quot; name=&quot;PrmanStatsConfiguration&quot; ns_basicDisplay=&quot;1&quot; ns_colorb=&quot;0.4&quot; ns_colorg=&quot;0.1&quot; ns_colorr=&quot;0.14&quot; ns_errorGlow=&quot;0.0&quot; ns_fromContext=&quot;legacy&quot; selected=&quot;true&quot; type=&quot;OpScript&quot; x=&quot;-64.5&quot; y=&quot;-101.473&quot;&gt;
+      &lt;port name=&quot;i0&quot; source=&quot;MaterialAssign.out&quot; type=&quot;in&quot;/&gt;
+      &lt;port name=&quot;out&quot; type=&quot;out&quot;/&gt;
+      &lt;group_parameter name=&quot;PrmanStatsConfiguration&quot;&gt;
+        &lt;string_parameter name=&quot;CEL&quot; value=&quot;((/root))&quot;/&gt;
+        &lt;string_parameter name=&quot;location&quot; value=&quot;/root/world/location&quot;/&gt;
+        &lt;group_parameter name=&quot;script&quot;&gt;
+          &lt;string_parameter name=&quot;lua&quot; value=&quot; -- Default: &amp;apos;stats.ini&amp;apos;&amp;#0010;local configFile = Interface.GetOpArg(&amp;apos;user.configFile&amp;apos;):getValue()&amp;#0010;Interface.SetAttr(&amp;apos;prmanGlobalStatements.stats.configFile&amp;apos;, StringAttribute(configFile))&amp;#0010;&amp;#0010;-- Default: &amp;apos;.:${RMANTREE}/etc&amp;apos;&amp;#0010;-- This will override RMAN_STATS_CONFIG_PATH environment variable, if set.&amp;#0010;local configPath = Interface.GetOpArg(&amp;apos;user.configPath&amp;apos;):getValue()&amp;#0010;Interface.SetAttr(&amp;apos;prmanGlobalStatements.stats.configPath&amp;apos;, StringAttribute(configPath))&amp;#0010;&quot;/&gt;
+        &lt;/group_parameter&gt;
+        &lt;string_parameter name=&quot;executionMode&quot; value=&quot;immediate&quot;/&gt;
+        &lt;string_parameter name=&quot;applyWhere&quot; value=&quot;at locations matching CEL&quot;/&gt;
+        &lt;string_parameter name=&quot;applyWhen&quot; value=&quot;during op resolve&quot;/&gt;
+        &lt;string_parameter name=&quot;modifierNameMode&quot; value=&quot;node name&quot;/&gt;
+        &lt;string_parameter name=&quot;modifierName&quot; value=&quot;modifier&quot;/&gt;
+        &lt;string_parameter name=&quot;resolveIds&quot; value=&quot;&quot;/&gt;
+        &lt;number_parameter name=&quot;recursiveEnable&quot; value=&quot;0&quot;/&gt;
+        &lt;string_parameter name=&quot;disableAt&quot; value=&quot;&quot;/&gt;
+        &lt;string_parameter name=&quot;inputBehavior&quot; value=&quot;by index&quot;/&gt;
+        &lt;number_parameter name=&quot;multisampleUserOpArgs&quot; value=&quot;0&quot;/&gt;
+        &lt;group_parameter hints=&quot;{}&quot; name=&quot;user&quot;&gt;
+          &lt;string_parameter hints=&quot;{&amp;apos;widget&amp;apos;: &amp;apos;fileInput&amp;apos;, &amp;apos;help&amp;apos;: &amp;apos;Sets the file name for the configuration of RenderMan statistics. This file name will be appended to the configPath setting to build the full path to the configuration file. Configuration files are not merged so the path built by these settings will override the RMAN_STATS_CONFIG_PATH search path.&amp;apos;}&quot; name=&quot;configFile&quot; value=&quot;stats.ini&quot;/&gt;
+          &lt;string_parameter expression=&quot;getenv(&amp;apos;RMANTREE&amp;apos;, &amp;apos;&amp;apos;)+&amp;apos;/etc&amp;apos;&quot; hints=&quot;{&amp;apos;help&amp;apos;: &amp;apos;Sets the search path for the configuration of RenderMan statistics. This path will be will be combined with the configFile setting to build the full path to the configuration file. Configuration files are not merged so the path built by these settings will override the RMAN_STATS_CONFIG_PATH search path.&amp;apos;}&quot; name=&quot;configPath&quot;/&gt;
+        &lt;/group_parameter&gt;
+      &lt;/group_parameter&gt;
+    &lt;/node&gt;
+  &lt;/node&gt;
+&lt;/katana&gt;</pre>
+</div></div></div></div><h2 id="StatsinKatana-Troubleshooting"><span data-colorid="xtey98ddpv">Troubleshooting（故障排查）</span></h2><p>通常，stats system 会在后台安静地完成大部分工作。不过，当情况没有按预期运行时，系统内置了一些机制，可用于获取 diagnostics system 自身的 diagnostics。</p><p>首先要明白，你不能禁用 stats <em>collection（收集）</em>。此功能嵌入渲染器，并保持 “always on”。不过，你可以控制 diagnostic data 如何 <em>delivered（交付） </em>和<em> presented（呈现）</em>。</p><p>用于配置 stats system 的 stats.ini 文件包含一些 flags，可在 config file 加载和后续处理期间提高 verbosity。如果没有明确使用 custom（自定义）stats.ini 文件，则默认配置将来自 $RMANTREE/etc/stats.ini。</p><p>在 config file 中，将 stats debug <em>logLevel</em> 设置为 5：</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="14d3ad19-233c-45f2-8824-6fedfe6ee390" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence"># Stats processing log level.
+# Range is 0 (none) to 5 (debug output). Default is 3 (warnings)
+logLevel 5</pre>
+</div></div><p>你应该会看到 <code>RZ0000</code> 输出到 Render Log 的消息增加，这会帮助你验证它正在读取预期的 stats.ini 文件。它还会告诉你 WebSocket stats server 是否已为 live stats 启用。</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="78570448-58a3-445a-a622-904d4e804523" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">RZ0000 {INFO} &nbsp; : SessionConfig - Loaded stats config from file: '/path/to/stats.ini'.
+RZ9000 rfk_statsserver_&lt;renderboot_PID&gt;
+RZ0000 {INFO} : Session - Created stats session: 'Stats Session Name'.
+RZ0000 {DEBUG} : Session - WebSocket stats server not enabled
+RZ0000 {DEBUG} : Session - Loading listeners​</pre>
+</div></div><p>如果提高 log level verbosity 后仍未看到这些日志消息，你很可能正在读取另一个 stats.ini configuration file。请检查 RMAN_STATS_CONFIG_PATH environment variable（环境变量），或来自 <code>prmanGlobalStatements.stats</code> attributes 的 path/filename values。</p><p>请参阅通用 <a href="https://rmanwiki-27.pixar.com/space/REN27/542233691/Troubleshooting" data-linked-resource-id="542233691" data-linked-resource-version="5" data-linked-resource-type="page">Troubleshooting（故障排查）</a> 文档，以获取诊断 stats system 问题的进一步帮助。</p>
+  </article>
+</main>
+</body>
+</html>

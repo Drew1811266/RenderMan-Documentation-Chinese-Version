@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Assign materials</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Assign materials</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFM27/544540421/Assign+materials">https://rmanwiki-27.pixar.com/space/RFM27/544540421/Assign+materials</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="contentLayout2">
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h3 id="Assignmaterials-ShaderAssignments">Shader Assignments</h3><p>A gpuCache is a single shape in Maya, so it is impossible to assign materials as usual. But we can use RenderMan's <strong>Dynamic Rules Editor</strong> to assign materials at render-time, with the following limitation:</p><ul><li><p>All referenced materials must be present in the scene.</p></li><li><p>Per-faceset materials are not supported.</p></li><li><p>Any attribute influencing the raytracing core will be ignored by the renderer. This includes group membership definitions, selective lighting, etc.</p></li><li><p>Any rule change will require an IPR restart to take effect.</p></li><li><p>These limitations will be lifted in an upcoming release.</p></li></ul></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<div class="toc-macro client-side-toc-macro  conf-macro output-block" data-hasbody="false" data-headerelements="H1,H2,H3,H4,H5,H6,H7" data-layout="default" data-local-id="b88b75e8-dde7-4fa2-8718-db5bc39b39e3" data-macro-id="076c5bc4-03a9-4b04-8c9c-741c9bf4c623" data-macro-name="toc"> </div></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h3 id="Assignmaterials-RLFEditoroverview">RLF Editor overview</h3><p>Open the Dynamic Rules Editor and let's see how it works.</p><p>You can either click the double angle bracket icon in the shelf or the <strong>Edit RLF File</strong> button in the gpuCache's attribute editor. The shelf button edits all scene alembics and the per-node button edits only the RLF associated to that node.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="1275" loading="lazy" src="../../attachments/544540421/rfm_dynamicRules.png" data-image-src="../../attachments/544540421/rfm_dynamicRules.png" data-height="365" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="544540440" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfm_dynamicRules.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544540421" data-linked-resource-container-version="1" data-media-id="83b32d03-e079-4a0a-8ad8-1f755a889150" data-media-type="file"></span><p /><h4 id="Assignmaterials-Rulesmanagement">Rules management</h4><p>The left-side buttons handle all rule and file management tasks:</p><ul><li><p><strong>Add new rule</strong>: create a new empty rule</p></li><li><p><strong>Delete selected rule</strong>: Select one or more rules by clicking the rule number and press the button.</p></li><li><p><strong>Duplicate selected rule</strong>: Select one or more rules by clicking the rule number and press the button.</p></li><li><p><strong>Load RLF file</strong>: replace the editor's contents with a file on disk. (scene editor only)</p></li><li><p><strong>Save RLF file</strong>: save the editor's contents to disk.</p></li><li><p><strong>Auto-save changes</strong>: automatically save to disk when the icon is orange. (node editor only)</p></li></ul><h4 id="Assignmaterials-Rulesorder">Rules order</h4><p>Rules are evaluated in the editor's order. To change their order, click in the rule number and drag to the new position.</p><h4 id="Assignmaterials-Rulecontrols">Rule controls</h4><p><strong>Enable/disable</strong>: when the toggle is green the rule will be evaluated.</p><p><strong>Stop/continue</strong>: When the icon is a cross, the rule evaluation will stop if this rule is matching. The arrow down icon indicate that subsequent rules will be evaluated even if this rule is matching.</p><p><strong>Material</strong>: The shading group of the material, which references the surface and displacement shaders.</p><p><strong>Attributes</strong>: insert or override attribute values. Click the <strong>new</strong>/<strong>edit</strong> icon to open the attribute dialog.</p><ul><li><p>Click the <strong>+</strong> icon and right-click the attribute field to choose one of the supported attributes.</p></li><li><p>Select one or more attributes as usual and click the <strong>-</strong> icon to delete them.</p></li><li><p>Attributes with a fixed list of acceptable values can be set by right-clicking too.</p></li><li><p>Settings are automatically saved when the window is saved.</p></li></ul><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="1128" loading="lazy" src="../../attachments/544540421/abc_attr_setup.gif" data-image-src="../../attachments/544540421/abc_attr_setup.gif" data-height="356" data-width="844" data-unresolved-comment-count="0" data-linked-resource-id="544540437" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="abc_attr_setup.gif" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/gif" data-linked-resource-container-id="544540421" data-linked-resource-container-version="1" data-media-id="531d8722-593a-4c0a-9886-3adbab1c2a3d" data-media-type="file"></span><p><strong>Match type</strong>: There are 3 matching engines:</p><ul><li><p><strong>exact</strong>: this is the fastest and will only match a full path.</p></li><li><p><strong>glob</strong>: based on glob matching with the following tokens:</p><ul><li><p>* : any number of character</p></li><li><p>? : a single character</p></li><li><p>** : any depth in the hierarchy</p></li></ul></li><li><p><strong>re</strong>: <a class="external-link" href="https://github.com/google/re2/wiki/Syntax" rel="nofollow">re2</a> regular expression. The most sophisticated, complex and potentially slow matching method.</p></li></ul><p><strong>Path expression</strong>: You can either double-click in the field to type your expression or drag and drop from the alembic node list.</p><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="bff4af30-f259-41c3-8454-31670f73d070" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>To drag and drop, you must first select the node in the alembic node list.</p></div></div><p><strong>Notes</strong>: A field to write notes when things get complicated...</p><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="c8dd78b4-f94b-46ea-947c-666aa694736e" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>A rule can assign:</p><p>• a material</p><p>• attributes</p><p>• or both !</p></div></div><h4 id="Assignmaterials-Aboutattributesandnodetypes">About attributes and node types</h4><p>In RenderMan, every shape is an instance. This means that an attribute attached to a specific shape will influence all instances of that shape.</p><p>If you want to assign an attribute to an instance, create an expression matching the instance's transform. This is particularly important for classic attributes like <code>maxspeculardepth</code>, <code>maxdiffusedepth</code>, <code>relativepixelvariance</code>, etc.</p><p /><h3 id="Assignmaterials-In-sceneshading">In-scene shading</h3><p>Dynamic rules are written using glob expressions, similar to a shell. See the <a href="#DynamicRulesCookBook">Dynamic Rules CookBook</a> below for more info.</p><p>This is our starting point: the gpuCache node renders with the default material:</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="1299" loading="lazy" src="../../attachments/544540421/rfm_dynamicRulesRenderA.png" data-image-src="../../attachments/544540421/rfm_dynamicRulesRenderA.png" data-height="696" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="544540455" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfm_dynamicRulesRenderA.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544540421" data-linked-resource-container-version="1" data-media-id="14bf3549-3b3e-4d55-94e1-ee6fa7edbc67" data-media-type="file"></span><h5 id="Assignmaterials-Assignabasematerialtopartofanarchive">Assign a base material to part of an archive</h5><p>We have prepared a number of basic materials to assign. Let's start by assigning the <code>hull_srf</code> material to the whole teapot and write our first rule:</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="680" loading="lazy" src="../../attachments/544540421/rfm_dynamicRulesAssign.png" data-image-src="../../attachments/544540421/rfm_dynamicRulesAssign.png" data-height="687" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="544540452" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfm_dynamicRulesAssign.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544540421" data-linked-resource-container-version="1" data-media-id="e81c9179-a920-4d4b-99eb-732625a6371a" data-media-type="file"></span><ul><li><p>In the node list, select the top node of the hierarchy we want to assign to: Rolling_Teapot.</p></li><li><p>Click <strong>Add Rule</strong> (the blue + icon) to create a new rule or use the initial empty rule</p></li><li><p>Double-click the expression field to put it in edit mode. This field is the &gt;_ column.</p></li><li><p>Go to the Alembic node list and middle-mouse-drag the selected node into the expression field.</p><ul><li><p>Please note that you must select an item in the list before drag-and-dropping. (Your windows must also be docked and not floating on the Windows OS is the switching focus will not allow you to middle mouse drag.)</p></li></ul></li><li><p>Edit the expression from this /Rolling_Teapot_Grp/Rolling_Teapot to the below:</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="ca429d5b-b769-43db-bdc4-910682376422" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">/**/Rolling_Teapot</pre>
+</div></div><ul><li><p>** means match any depth of nesting (including none) whereas * will only match characters between the / separator</p></li><li><p>Press enter to validate.</p></li></ul></li><li><p>Right-click the <strong>Payload</strong> field (with the icon of sliders) and select <code>hull_srfSG</code>.</p></li><li><p>Launch the IPR to test.</p></li></ul><h5 id="Assignmaterials-Matchsub-stringsinahierarchy">Match sub-strings in a hierarchy</h5><p>Now we will shade the rivets on the teapot. We will need a more complicated expression.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="680" loading="lazy" src="../../attachments/544540421/rfm_dynamicRulesAssignRivets.png" data-image-src="../../attachments/544540421/rfm_dynamicRulesAssignRivets.png" data-height="687" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="544540449" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfm_dynamicRulesAssignRivets.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544540421" data-linked-resource-container-version="1" data-media-id="66d03192-0803-4e80-82c5-7a2b95ae1044" data-media-type="file"></span><ul><li><p>Duplicate the first rule</p><ul><li><p>Right-click on the rule number (0 in our case) and select <strong>Duplicate Rules </strong>(the copy icon just below the &quot;-&quot; minus icon).</p></li></ul></li><li><p>Extend the previous expression to match any object containing the word &quot;rivet&quot;.</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="fb5beb1b-24ae-46d5-b1e0-43f5fd7cca25" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">/**/*rivet*/*</pre>
+</div></div><ul><li><p>The second ** means the rivet object can be nested at any level under the teapot</p></li><li><p><strong>* </strong>rivet * matches if rivet appears in node name. &quot;rivet&quot;, &quot;Arivet&quot; and &quot;Brivet2&quot; would all match.</p></li></ul></li><li><p>On that model, there are also screws that could use the same material. Copy the expression to match those too.</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="a4c54285-0cd1-4374-bdcf-eb9f71063814" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">/**/*screw*/*</pre>
+</div></div><p /></li></ul><h5 id="Assignmaterials-Ruleexecutionorder">Rule execution order</h5><p>Let's assign a material to the teapot's rings.</p><p>We use the same workflow: duplicate the rule, replace <code>&quot;rivet&quot;</code> with <code>&quot;ring&quot;</code> and set the Payload to <code>ring_srf</code>. But it doesn't quite work because, as you can see in the node list, some shapes have both <code>&quot;rivet&quot;</code> and <code>&quot;ring&quot;</code> in their name and rivets on the rings are now using the wrong material.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="680" loading="lazy" src="../../attachments/544540421/rfm_dynamicRulesAssignRing.png" data-image-src="../../attachments/544540421/rfm_dynamicRulesAssignRing.png" data-height="687" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="544540446" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfm_dynamicRulesAssignRing.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544540421" data-linked-resource-container-version="1" data-media-id="9fc1d7fb-9e43-4950-9d06-f1b18d77f844" data-media-type="file"></span><p>We can change the <strong>rule execution order if the result is incorrect </strong>(maybe your order is different than mine in the image): if we match rivet first, the matching engine will stop when it finds a match and then only shapes only containing &quot;ring&quot; will match the second rule.</p><ul><li><p>Position the cursor over the rule's number and left-button-drag rule 1 (rivets) above rule 0 (ring).</p></li><li><p>Render to check.</p></li></ul><p>Of course, we have only scratched the surface and we recommend that you read up on <a class="external-link" href="https://en.wikipedia.org/wiki/Regular_expression" rel="nofollow">Regular Expressions</a> for more sophisticated use.</p><p>If you're done shading, select the disk/save RLF (RenderMan Look File) icon. This can be used in the import of the asset to assign the shading nodes each time. This can then be part of your asset publishing scheme.</p><h4 id="Assignmaterials-Self-containedAssetShading">Self-contained Asset Shading</h4><p>If you want to import fully shaded assets, there are 2 options:</p><ul><li><p>When RfM finds a RLF file in the same location and with the same name as the archive, it will automatically apply it.</p><ul><li><p>This is not always very flexible in a pipeline, but may be useful for archiving assets.</p></li></ul></li></ul><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="c5770734-faf7-44d3-ad55-4864bb219eec" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>The RLF file format does not include material descriptions and you have to make sure that:</p><ul><li><p>All referenced materials exist in your scene.</p></li><li><p><strong>Output All Shaders</strong> is checked in the Advanced section of the render globals.</p></li></ul></div></div><ul><li><p>If the <strong>RLF File Name</strong> field of a gpuCache node contains a path to a RLF file, RfM will apply it to that gpuCache node.</p><ul><li><p>It becomes easy to script look assignment and updating.</p></li></ul></li></ul><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="d29875d9-cce3-437f-9232-0eba65b0bc72" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>Note that you can still override automatic RLF assignments in the scene with the Dynamic Rule Editor !</p><p>In that case, the scene RLF rules will be executed before the archive's rules and thus have a chance to override them.</p></div></div><p /><h5 id="Assignmaterials-NotesaboutRLFexport">Notes about RLF export</h5><p>When you reference multiple RFL files in a scene, you must make sure that all shading nodes have unique names. If you define the same name multiple times, the renderer will use the first in line and you will get unexpected results.</p><p>You can export a RLF file by clicking the <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image" width="24" loading="lazy" src="../../attachments/544540421/rlf_save_icon.png" data-image-src="../../attachments/544540421/rlf_save_icon.png" data-unresolved-comment-count="0" data-linked-resource-id="544540443" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rlf_save_icon.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544540421" data-linked-resource-container-version="1" data-media-id="47670a1f-a31b-42c7-a374-0484ebb866f7" data-media-type="file"></span> icon in the RLF Editor, or write a simple Python script that will save the scene's current RLF data to a file:</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="6a4da272-822b-455a-b036-0f3c42efaea3" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: py; gutter: false; theme: Confluence" data-theme="Confluence">import rfm2.api.nodes as apinodes
+
+
+def save_scene_rlf(filepath):
+    &quot;&quot;&quot;Load the rlf data from the rmanGlobals node and save it to a file.
+    
+    Arguments:
+        filepath {str} -- Full path to the final RLF file
+    &quot;&quot;&quot;
+    rg = apinodes.rman_globals()
+    if rg:
+        json_str = mc.getAttr('%s.rlfData' % rg)
+        try:
+            with open(filepath, 'w') as fhdl:
+                fhdl.write(data)
+        except Exception, err:
+            print 'Failed to write %s: %s' % (filepath, err)
+    else:
+        print 'Warning: Could not find rmanGlobals node in the scene !'</pre>
+</div></div><p /><h3 id="Assignmaterials-DynamicRulesCookBookDynamicRulesCookBook">Dynamic Rules CookBook<span class="confluence-anchor-link conf-macro output-inline" data-hasbody="false" data-local-id="26520be4-b7fd-4473-80b9-1b50241c5b7f" data-macro-id="98e0d9a5-360b-4cfa-9449-b5db279cbe1d" data-macro-name="anchor" id="Assignmaterials-DynamicRulesCookBook"><span class="confluence-anchor-link" id="DynamicRulesCookBook"> </span></span></h3><p>Imagine we have a gpuCache node named Rolling_Teapot...</p><h6 id="Assignmaterials-Everythinginthescope,i.e.theMayascene:">Everything in the scope, i.e. the Maya scene: </h6><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="3e8dcb6d-e194-4749-8e9a-451e16a3bcea" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">/**/*</pre>
+</div></div><h6 id="Assignmaterials-AllnodesinthegpuCachenode:">All nodes in the gpuCache node: </h6><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="9b44b7ed-234f-4702-93eb-1fb3c1dc106c" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">/**/Rolling_Teapot</pre>
+</div></div><h6 id="Assignmaterials-AllnodesofthegpuCachewith&quot;rivet&quot;intheirname:">All nodes of the gpuCache with &quot;rivet&quot; in their name:</h6><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="2690916e-a18f-4aca-adfd-cc670ad268a6" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">/**/*rivet*/*</pre>
+</div></div><h6 id="Assignmaterials-AllshapesofthegpuCacheunderatransformstartingwith&quot;ring_&quot;:">All shapes of the gpuCache under a transform starting with &quot;ring_&quot;:</h6><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="c7475554-8a69-463f-9b9b-d678d3b3ccd5" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">/**/ring_*/*</pre>
+</div></div></div>
+</div>
+</div>
+</div>
+  </article>
+</main>
+</body>
+</html>

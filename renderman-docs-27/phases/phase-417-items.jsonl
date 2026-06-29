@@ -1,0 +1,30 @@
+{"id": "2c269de36f4288c5b150531f8bb9bebb535715f28caa606af10df496ebc7d6a9", "item_id": "5b0cba552f:0", "text": "Shading and Look Development in RfK combines Katana's built in look development tools with Pixar's powerful material systems. By combining Pixar's built-in"}
+{"id": "2f03f1e41697a172a37568d09e19412624e5a6d61a4db2f2b2611226fb864941", "item_id": "5b0cba552f:1", "text": "Bxdfs"}
+{"id": "fae3dab560a812e0ecdfa2fe243b790fddfa11f116c3d4f98e189b8bcb1abbc3", "item_id": "5b0cba552f:2", "text": "(materials) and"}
+{"id": "56f6e20b34a1bbe401e0dc790e8e8417ece857f5ee6807ec94acf125eace2d20", "item_id": "5b0cba552f:4", "text": "(material modifiers) nearly any look could be achieved."}
+{"id": "3be7f1038c9b0d0c90f7690dff5184c389f2b5d9f6a08165c83b9db7146a952e", "item_id": "5b0cba552f:5", "text": "Adding shaders to geometry is a matter of:"}
+{"id": "ea379341065f7dbbd27086f3155fd6c05945bcd39b4bb40c93dbc17aa0a8fd33", "item_id": "5b0cba552f:6", "text": "creating a shader or shading network"}
+{"id": "70ad9f5ba1892290ca364cb445892ffab50e14e760fb4315675a0da888c0e6fa", "item_id": "5b0cba552f:7", "text": "attaching that shader to one or more objects"}
+{"id": "18c2a185b0b3186f4c26ebe768dae96585b64d0dc29471d5ce884c614d67a170", "item_id": "5b0cba552f:8", "text": "A single material can be added to the Material node. Many types of shading effects can be created using only PRMan's"}
+{"id": "f5022924bc1b2682555c99c36013e2294c12c2ff2f40ca488f3be5e73650167a", "item_id": "5b0cba552f:10", "text": ". PxrDiffuse is a good fast and simple option, and there are also the specialty materials:"}
+{"id": "6b2b3cbd4ad476016050e61b781d1112117b06945fb578fbffcfc4ff3f6daa69", "item_id": "5b0cba552f:11", "text": "PxrVolume"}
+{"id": "ccf31fc48275c143b867da4b33a4ee3f6d4e505c6b15e85616384686e98b23fe", "item_id": "5b0cba552f:13", "text": "PxrMarschnerHair"}
+{"id": "540e3873a4accf2b46904b03b1c0a0e30b2797a860209f000ce86c01c6857298", "item_id": "5b0cba552f:14", "text": ". More complex materials can be built with a collection of PrmanShadingNodes which feed into a NetworkMaterial node. The table below has a breakdown of these two scenarios with small Node Graph examples:"}
+{"id": "f3a896df75d85ad258538906f87abc9e89d96aa969cb222b75e747542d6b6045", "item_id": "5b0cba552f:15", "text": "Material Type"}
+{"id": "02122f8dded653f1a174794679b61feed6dc9f0ce0791e27ea0f25b25aec760a", "item_id": "5b0cba552f:16", "text": "Node Type"}
+{"id": "8888a029aaf60b70574640efd1655343d1c46c692918c113c16f44f606477253", "item_id": "5b0cba552f:18", "text": "Single"}
+{"id": "616cb218a65b982f61fd738e24ebe00d5a2ae039c0d386fed975a51d51b772f8", "item_id": "5b0cba552f:19", "text": "Material"}
+{"id": "78b48bfbdf2be83dcb1b794ee38d0b7f9527c8dc0da06a965e2bad5c7edd338d", "item_id": "5b0cba552f:20", "text": "Complex or Layered"}
+{"id": "5ea870edb404f098f36db96dc857b68a535146be1a6c12fc21444cb293c79ecd", "item_id": "5b0cba552f:21", "text": "PrmanShadingNode(s) + NetworkMaterial"}
+{"id": "10a0b393e00e7bd51852505ca749ad9bf1189ad75c66c975aeab4c76826c85ce", "item_id": "5b0cba552f:22", "text": "In both cases the material (Material or NetworkMaterial) is attached to object(s) using the MaterialAssign node. In the simplest case the material is assigned to a single object. A more common case would be to assign the material to multiple locations either all grouped together (e.g. the parent in a hierarchy) or distributed through the scene and identified through a defined commonality (e.g. a \"collection\"). Details of complex assignments are outside our scope but explained in detail in the Katana documentation for"}
+{"id": "4a9c5c773eb95e86adb041f65879a9155eb694ea899bf28be1ad1c54c79a8601", "item_id": "5b0cba552f:23", "text": "Collections and CEL"}
+{"id": "4133834c152a2ad679e9ed0cb606cef363a2f3357f430f353488fb90a8989c7f", "item_id": "5b0cba552f:25", "text": "In the table above we've broken down the material types into \"Single\", \"Complex\", or \"Layered\". The difference between Single and Complex/Layered is the ability to add pattern inputs to the bxdf shader. A Material node can only be used with a single bxdf. If additional material modifications such as texture are needed you must use a PrmanShadingNode bxdf with a NetworkMaterial node. The difference between Complex and Layered is, as the name implies, the ability to layer materials. The teapot image at the top of the page is a rendering of these three workflows. The chrome teapot in the center is shaded with simply a PxrSurface Material node. The red teapot is assigned a NetworkMaterial with a PxrSurface bxdf whose"}
+{"id": "1212c46e23dda7e49091178122c83c3641d0487f367e83456f40bb273bf4d383", "item_id": "5b0cba552f:26", "text": "Global Bump"}
+{"id": "b743bf7c378b627c6a0b18128b1957be8b5d351527fc5ccc734eafd4185d714a", "item_id": "5b0cba552f:27", "text": "attribute is fed by PxrBump and PxrWorley. On the right is a NetworkMaterial with a PxrLayerSurface bxdf."}
+{"id": "b7ec5c3dd2824cd278b17988092285709226f237a2256873ff3abf63746e1b5a", "item_id": "5b0cba552f:28", "text": "PxrLayerSurface"}
+{"id": "e8d06bfee295ca0a7b3235d8b1237de40a4ad15b4235f94d4f4ce2bec06298ca", "item_id": "5b0cba552f:29", "text": "is a specialized version of PxrSurface set up for layering with PxrLayer and PxrLayerMixer."}
+{"id": "3f86b834e243323bd671c9d3d3867d5a6cffdabbe063b257302fda50abcb4cb2", "item_id": "5b0cba552f:30", "text": "See Also"}
+{"id": "57f74610e3648d502781457fb28f5561bd1d2cb1d75e797a886b0ffd6a0f7daa", "item_id": "5b0cba552f:31", "text": "PrmanSignalVisualizer"}
+{"id": "b87a1e22bd9021e12a42194207cbad5bf84677c4448ff88b8f8343d6310e9e56", "item_id": "5b0cba552f:32", "text": "Using Displacement"}
+{"id": "2b570088096b0a31a211cbb0b701c4028950a35bbc262912e780bae2cfdd998e", "item_id": "5b0cba552f:33", "text": "Material Layers in Katana"}
+{"id": "6e75f6c8e72348ebeeee209b99e4e274ae47a581c382cb81aafd074382b19639", "item_id": "5b0cba552f:34", "text": "Surface Orientation"}

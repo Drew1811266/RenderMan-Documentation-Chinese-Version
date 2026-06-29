@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Aggregate Volumes</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Aggregate Volumes</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/REN27/542213347/Aggregate+Volumes">https://rmanwiki-27.pixar.com/space/REN27/542213347/Aggregate+Volumes</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="contentLayout2"><style>[data-colorid=uvflfpnlbu]{color:#808284} html[data-color-mode=dark] [data-colorid=uvflfpnlbu]{color:#7b7d7f}[data-colorid=d51bxtc1rs]{color:#808284} html[data-color-mode=dark] [data-colorid=d51bxtc1rs]{color:#7b7d7f}</style>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="combined.jpg" width="686" loading="lazy" src="../../attachments/542213347/combined.jpg" data-image-src="../../attachments/542213347/combined.jpg" data-height="1080" data-width="1998" data-unresolved-comment-count="0" data-linked-resource-id="542213386" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="combined.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542213347" data-linked-resource-container-version="1" data-media-id="ea643569-6eb6-4079-b48d-b8189cd152f0" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="TAKES_v108_48.take_47.413.jpg" width="686" loading="lazy" src="../../attachments/542213347/TAKES_v108_48.take_47.413.jpg" data-image-src="../../attachments/542213347/TAKES_v108_48.take_47.413.jpg" data-height="1080" data-width="1998" data-unresolved-comment-count="0" data-linked-resource-id="542213383" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="TAKES_v108_48.take_47.413.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542213347" data-linked-resource-container-version="1" data-media-id="d2480b5e-fef8-4c8d-97d9-bd46a9bfb8cb" data-media-type="file" /></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p style="text-align: center;"><span data-colorid="d51bxtc1rs">云景聚合体积组合与最终渲染对比 - Luca © Disney/Pixar</span></p><h3 id="AggregateVolumes-WhyAggregateVolumes?">为什么使用聚合体积？</h3><p>聚合体积是为包含许多个体体积、且这些体积没有任何边界行为的工作流设计的。 <span class="legacy-color-text-blue3">由于已知光线不会在体积边界处反射或折射，渲染器就可以针对大量这类体积执行显著优化。 </span></p><p><span class="legacy-color-text-blue3">在上面展示的 Luca 云层场景中，几十个独立云元素被分层组合成统一的云景。聚合体积工作流允许这些云元素高效渲染，而不必把它们合并为单个体积；合并可能是渲染器外部一个代价很高的过程。</span><br /></p><p>此外，聚合体积允许创建命名的体积集合，可用于特殊场景，例如把非均匀内部介质绑定到电介质表面的内部。</p><h3 id="AggregateVolumes-Workflow">工作流</h3><p>聚合体积的常规工作流，是通过把 <code>Attribute &quot;volume&quot; &quot;string aggregate&quot;</code> <code>[&quot;name&quot;]</code> 附加到一个或多个 <a href="542213164-Volumes.html" data-linked-resource-id="542213164" data-linked-resource-version="1" data-linked-resource-type="page">RiVolumes</a> 图元上来创建一个命名聚合体积，其中 <code>&quot;name&quot;</code> 是所需的聚合体积名称。这些体积图元应使用 <a href="542220781-PxrVolume.html" data-linked-resource-id="542220781" data-linked-resource-version="5" data-linked-resource-type="page">PxrVolume</a> 着色器来控制其体积外观。当多个体积图元都用相同名称标记了该属性后，可以把这个命名聚合体积作为 <code>&quot;volumeAggregate&quot;</code> 参数提供给 <a href="542231984-PxrPathTracer.html" data-linked-resource-id="542231984" data-linked-resource-version="2" data-linked-resource-type="page">PxrPathTracer</a> 积分器。这表示场景的 <em>全局体积聚合</em> 就是这个命名聚合体积。这个命名体积聚合现在会出现在渲染中。体积如何积分和采样由 PxrPathTracer 积分器上的参数控制。</p><p>如果这些体积的数据源是 <a class="external-link" href="http://www.openvdb.org/" rel="nofollow">OpenVDB</a> 文件，密度信号直接来自文件，并且不会通过着色增加，那么强烈建议将新的 <code>Attribute &quot;volume&quot; &quot;int dsominmax&quot; </code>设置为<code> [1]</code>。这样做可以让渲染器利用密度的最小值和最大值，更快地为体积构建加速结构；这些值可以直接从 VDB 文件中读取预烘焙数据，也可以在体积加载时即时生成。这样会显著缩短首个像素时间，因为渲染器不再需要在发射光线之前预先运行密度着色预处理。如果体积密度是在着色器中以 procedural 方式派生的，那么 <code>dsominmax</code> 应设置为 0。对于需要快速进行密度操作的情况存在一个例外： <a href="542213271-OpenVDB Implicit Field Plugin.html" data-linked-resource-id="542213271" data-linked-resource-version="1" data-linked-resource-type="page">impl_openvdb</a> 支持新的控制项，可以对密度进行全局缩放和塑形，同时仍然支持 <code>dsominmax</code> 为 1 时的优化。</p><p>此外，如果 OpenVDB 文件细节非常丰富，并且预计文件密度可能超出实际需求，可以选择先用 <a href="https://rmanwiki-27.pixar.com/space/REN27/542236616/vdbmake" data-linked-resource-id="542236616" data-linked-resource-version="1" data-linked-resource-type="page">vdbmake</a> 预处理 VDB 文件以生成 mipmap。这样做 <em>可能</em> 降低峰值内存需求，因为渲染器只需要加载 mipmap 金字塔中较低层级的数据。另一方面，加载两个精细层级的 mipmap 金字塔往往也可能比只加载金字塔的基础层级使用更多内存；尤其是 OpenVDB 文件格式，可能会让 mipmapping 的优势不如其他潜在体积文件格式中那么明显。</p><p>虽然 PxrPathTracer 积分器通常只能渲染一个全局体积聚合，但可以创建任意数量的聚合。这些聚合可以作为内部介质绑定到使用 <a href="542213836-PxrSurface.html" data-linked-resource-id="542213836" data-linked-resource-version="2" data-linked-resource-type="page">PxrSurface</a> 材质的闭合电介质表面上。与常规体积不同，聚合体积可以作为 <em>非均匀</em> 内部介质供 PxrSurface 完整支持。这是创建复杂效果的最佳方式，例如宝石内部的遮挡、晶球内部旋转的烟雾球，或者 Luca 在带有曙暮光光束的海洋中游泳。</p></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="v173_4j.light_fog_beams_render.508.jpg" width="686" loading="lazy" src="../../attachments/542213347/v173_4j.light_fog_beams_render.508.jpg" data-image-src="../../attachments/542213347/v173_4j.light_fog_beams_render.508.jpg" data-height="1080" data-width="1998" data-unresolved-comment-count="0" data-linked-resource-id="542213380" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="v173_4j.light_fog_beams_render.508.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542213347" data-linked-resource-container-version="1" data-media-id="aed5174a-faf0-485f-9cd9-e80520f90e19" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="v173_4j.light_comp_render.508.jpg" width="686" loading="lazy" src="../../attachments/542213347/v173_4j.light_comp_render.508.jpg" data-image-src="../../attachments/542213347/v173_4j.light_comp_render.508.jpg" data-height="1080" data-width="1998" data-unresolved-comment-count="0" data-linked-resource-id="542213377" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="v173_4j.light_comp_render.508.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542213347" data-linked-resource-container-version="1" data-media-id="582c1fd2-2191-4429-976a-af8c47ae19f2" data-media-type="file" /></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p style="text-align: center;"><span data-colorid="uvflfpnlbu">绑定到海洋内部的聚合体积雾束层与最终合成对比 - Luca © Disney/Pixar</span></p><h3 id="AggregateVolumes-CapabilitiesandAdvantages">能力与优势</h3><p>聚合体积受到 <a href="542231984-PxrPathTracer.html" data-linked-resource-id="542231984" data-linked-resource-version="2" data-linked-resource-type="page">PxrPathTracer</a> 和 <a href="542232083-PxrUnified.html" data-linked-resource-id="542232083" data-linked-resource-version="3" data-linked-resource-type="page">PxrUnified</a> 积分器完全支持。如上所述，在存在数十个甚至数百个重叠体积的情况下，聚合体积设计上比以前的体积工作流更高效，并且不限制重叠体积的数量。其设计也意味着，在处理重合几何体时（例如重合的体积边界，或与表面重合的体积），聚合体积远不容易出现相关问题。</p><p>聚合体积还提供了非聚合体积没有的若干优势。当体积密度直接来自 VDB 文件且不会通过着色增加时，聚合体积通常能在复杂渲染中大幅缩短首次可判断结果时间。聚合体积还支持 <em>mipmapped</em> 体积，这可以在体积细节过高时潜在降低内存消耗。聚合体积在复杂光传输场景中也可能收敛更快，因为渲染器可以访问场景中更多体积的信息，从而对采样做出更好的全局决策。</p><p>预计聚合体积将成为未来版本 XPU 渲染器中主要支持的体积工作流。</p><h3 id="AggregateVolumes-Limitations">限制</h3><p>聚合体积的主要限制在于，它会为多个体积构建单个加速结构，而这个加速结构无法存储各个体积的许多属性。这是出于性能原因；如果必须构建一个了解所有这些单独属性的加速结构，就会极大拖慢对这些体积的迭代。除非经过特殊处理，否则会影响光线遍历的单个体积属性无法与聚合体积配合使用，而这种特殊处理会要求渲染器在体积中的每一步执行额外检查。举例来说，把体积分组到 trace memberships 并使用 ray subsets <em>确实可行</em>，但可能不如常规表面渲染情况高效。</p><p>主要不起作用的单个体积属性包括：</p><ul><li><p>体积采样标志：PxrVolume 上控制采样技术的参数（例如 <code>minSamples, maxSamples, equiangularWeight</code>）在使用聚合体积时不适用。相反，体积采样控制项设置在主 PxrPathTracer 积分器中。&nbsp;</p></li></ul><p>若干限制也与可以跨许多不相交体积工作的渲染器优化有关。聚合体积不支持单次散射；多重散射是唯一选择，并且 <code>multiScatter</code> 参数对 <code>PxrVolume</code> 会被忽略。聚合体积也没有针对严格均匀体积进行优化。虽然渲染算法针对接近均匀的体积做了优化，但它们仍然假定聚合体积整体是非均匀的，即使某个单独元素是均匀的，也无法据此完美地对这些体积进行重要性采样。</p><p>聚合体积只支持使用 <code>RiVolume</code> 几何图元。</p><p>与非聚合体积相比，单个体积的高速变换运动模糊在聚合体积工作流中不会那么高效。</p><p>虽然聚合体积可以作为内部介质绑定到 PxrSurface，但不建议在复杂的嵌套电介质场景中使用聚合体积（例如雾气房间中有一块有色玻璃，玻璃中又有浑浊的有色水）。</p><p>PxrVCM 目前不支持聚合体积。PxrPathTracer 和 PxrUnified 都完全支持聚合体积。</p><p>多重散射优化受到完全支持，但 PxrVolume 上的相关控制项会在聚合体积上被忽略。相反，在聚合体积工作流中，这些控制项现在位于灯光本身。</p><h3 id="AggregateVolumes-Mipmapping">Mipmapping</h3><p>Mipmapping 是一种标准技术，它会根据纹理在屏幕上的观察尺寸和角度，从金字塔中自动选择适当的纹理分辨率层级，以改善纹理走样和渲染性能。这项技术可以 <em>选择性地</em> 应用于由体素组成的体积数据：与 2D mipmap 金字塔层级包含由四个更精细 texel 平均得到的 texel 类似，3D mipmap 金字塔层级包含的每个体素都由八个更精细体素平均得到。对体积资产进行 mipmapping 会显著增加其磁盘空间占用；如果最精细体素的大小与相机所需细节层级相匹配，渲染时内存也可能略有增加。不过，如果体素细节远比相机设置所需更精细，mipmapping 可以节省大量 RAM 和渲染时间，因为渲染器只会加载更粗的平均体素。使用 <a href="542213271-OpenVDB Implicit Field Plugin.html" data-linked-resource-id="542213271" data-linked-resource-version="1" data-linked-resource-type="page">impl_openvdb</a> 插件作为体积图元数据源的聚合体积，可以启用 mipmapping，方法是将 <code>filterWidth</code> 参数设置为大于 0 的值；该参数是渲染器计算出的标准 filterwidth 的乘数。</p><p><a href="https://rmanwiki-27.pixar.com/space/REN27/542236616/vdbmake" data-linked-resource-id="542236616" data-linked-resource-version="1" data-linked-resource-type="page">vdbmake</a>&nbsp;是 RenderMan 发行版随附的新工具，用于帮助创建 OpenVDB 格式的这些优化文件。 <code>vdbmake</code> 以包含一组网格的 OpenVDB 文件作为输入，并创建带有辅助 mipmapped 网格以及这些网格的预烘焙加速信息的 OpenVDB 文件。</p><h3 id="AggregateVolumes-Multi-scatteringapproximation">多重散射近似</h3><p>用于近似深度多重散射体积外观的技术，依赖于根据相机光线深度改变体积的密度属性。对于体积聚合，相关控制项已经移到了灯光上。更多信息请参阅 <a href="542213419-Rendering Clouds with Aggregate Volumes.html" data-linked-resource-id="542213419" data-linked-resource-version="5" data-linked-resource-type="page">使用聚合体积渲染云</a>。</p></div>
+</div>
+</div>
+</div>
+  </article>
+</main>
+</body>
+</html>

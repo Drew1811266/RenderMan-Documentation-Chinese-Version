@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PxrSwitch</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>PxrSwitch</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/REN27/542224974/PxrSwitch">https://rmanwiki-27.pixar.com/space/REN27/542224974/PxrSwitch</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>此 pattern 用于根据可从不同节点读取的 index，评估不同的 pattern 网络。</p><hr/><p><br/></p><h3 id="PxrSwitch-Switch">Switch</h3><h4 id="PxrSwitch-Index">Index</h4><p>这个 float 值指示要评估网络的哪一部分，并且通常从 attribute 读取。值的读取方式如下：</p><p>-0.5 到 0.49 为 input 0</p><p>  0.5 到 1.49 为 input 1</p><p>  1.5 到 2.49 为 input 2，依此类推。</p><p><br/></p><h3 id="PxrSwitch-Inputs">Inputs</h3><h4 id="PxrSwitch-InputsRGB">Inputs RGB</h4><p>要评估的输入数组，评估依据是返回的索引值。</p><p><br/></p><p>下面是一个简单示例：每个球体 transform 都被分配一个 user attribute 作为 index，值为 0.0、1.0、2.0。可用颜色及其 index 是 Red[0]、Green[1] 和 Blue[2]（向 Inputs RGB 数组中添加的三个输入）。</p><p>同一个 <a href="542213836-PxrSurface.html" data-linked-resource-id="542213836" data-linked-resource-version="2" data-linked-resource-type="page">PxrSurface</a> 会附加到这三个球体上，并且一个 <a href="542222552-PxrAttribute.html" data-linked-resource-id="542222552" data-linked-resource-version="1" data-linked-resource-type="page">PxrAttribute</a> 节点连接到材质的 Diffuse Color 输入。</p><p>该 attribute 可以使用你想要的任意名称，并采用 Float data type（Float 数据类型）。</p><p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" height="250" loading="lazy" src="../../attachments/542224974/rps_pxrSwitchExample.png" data-image-src="../../attachments/542224974/rps_pxrSwitchExample.png" data-unresolved-comment-count="0" data-linked-resource-id="542224990" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rps_pxrSwitchExample.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542224974" data-linked-resource-container-version="1" data-media-id="b3b292ba-feef-4a6d-9fd7-d12ec20e6d1f" data-media-type="file"></span></p>
+  </article>
+</main>
+</body>
+</html>

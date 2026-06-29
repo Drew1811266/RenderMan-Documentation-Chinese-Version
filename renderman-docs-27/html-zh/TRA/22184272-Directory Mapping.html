@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Directory Mapping</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Directory Mapping</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/TRA/22184272/Directory+Mapping">https://rmanwiki-27.pixar.com/space/TRA/22184272/Directory+Mapping</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="document"><p>Directory Mapping（目录映射）是 Tractor 的一项功能，允许你指定一个系统上的 file system paths，使其对应到另一个 operating system 上的相同 asset paths。例如，如果 job script 在 Windows 系统上使用 UNC file paths 创建，而你希望该 job 在通过 NFS 访问文件的 Linux 或 macOS 系统上运行，就可以指定 directory mapping，将 UNC paths 改写为 NFS paths。Directory maps 也可用于把 Windows paths 中的 drive letter 替换为 fully qualified UNC path。</p><p>要指定 directory map，可以添加 Job 参数 <a href="22184256-Job Scripting Operators.html#job" data-linked-resource-id="22184256" data-linked-resource-version="25" data-linked-resource-type="page">-dirmaps</a>，形式如下：</p><pre class="codefhead literal-block">Job -dirmaps { <em>maps</em> }
+</pre><p>其中 maps 是采用以下格式的 directory maps 列表：</p><pre class="codefhead literal-block">{ { <em>source</em> } { <em>destination</em> } <em>zone</em> }
+</pre><p>在此格式中，如果 job 正在指定 zone 的计算机上运行，file path 中的 source 会被 destination 替换。</p><p>例如，下面是 job script 中一些有效的 directory maps：</p><pre class="codefhead literal-block"> Job -title {A Simple Job}
+     -dirmaps {
+         {{mayabatch} {maya} NFS}
+         {{X:/} {//fileserver/projects/} UNC}
+         {{X:/} {/fileserver/projects/} NFS}
+     }
+     -subtasks {
+         Task -title {render a.rib} -cmds {
+             RemoteCmd {%D(mayabatch) -batch -file {%D(X:/proj1/scenes/test.ma)} -proj {%D(X:/proj1)}} -service {RfMRender}
+     }
+ }
+</pre><p>这个 -dirmap option 中指定了三个不同的 maps。第一个指定当 job 在 NFS zone 的计算机上运行时，mayabatch 应被替换为 maya。第二个指定当 job 在 UNC zone 的计算机上运行时，X:/ 应被替换为 //fileserver/projects/。Directory maps 只应用于 command 中 %D() 区域内的文本。因此，如果这个 job 在 UNC zone 的 Windows 计算机上运行，command 将按如下方式运行：</p><pre class="codefhead literal-block">mayabatch -batch -file //fileserver/projects/proj1/scenes/test.ma -proj //fileserver/projects/proj1
+</pre><p>如果该 job 在 NFS zone 的 Linux 或 macOS 计算机上运行，则会按如下方式运行：</p><pre class="codefhead literal-block">maya -batch -file /fileserver/projects/proj1/scenes/test.ma -proj /fileserver/projects/proj1
+</pre><p>默认情况下，在 Windows 上运行的 Tractor Blades 会使用 UNC zone，而 Linux 和 macOS blades 会使用 NFS zone。也可以通过在匹配的 <a href="22184312-Server Profiles.html" data-linked-resource-id="22184312" data-linked-resource-version="6" data-linked-resource-type="page">blade profile</a></p><p>中指定 DirMapZone 值，为给定 hosts 显式设置 zone name。另请注意，directory maps <strong>仅</strong> 在 <strong>%D()</strong> 中的文本以 directory map 的 source text 开头时才会应用。因此，如果一个 directory map 写作 { {x} {y} UNC }，那么 %D(zzzx) 中的文本不会改变，但 %D(xzzz) 中的文本会变为 yzzz。 </p><h3 class="document" id="DirectoryMapping-SettingUpDirectoryMappingforRenderManforMaya">为 RenderMan for Maya 设置 Directory Mapping</h3><p>你可以在 <a href="22184208-RenderMan for Maya.html" data-linked-resource-id="22184208" data-linked-resource-version="1" data-linked-resource-type="page">这里找到这些说明。</a></p><h3 class="document" id="DirectoryMapping-WindowsServiceConsiderations">Windows Service Considerations（Windows 服务注意事项）</h3><div class="section"><p>Windows services 无法访问 mapped drives。因此，如果你的 Maya project 设置为类似 X:\projects\proj1 的 mapped drive 位置，那么你需要设置 directory mapping，使作为 Windows service 运行的 Tractor Blades 能访问该位置。如果你的 X: drive 映射到 \\fileserver\projects，那么应为 UNC zone 设置类似下面的 directory mapping：</p><pre class="codefhead literal-block">SetPref WSDirMaps { {X:/ //fileserver/projects/ UNC } }
+</pre><p><strong>Note（注意）：</strong> Windows 有时会缓存 SMB mount credentials，也有时会清除之前已认证 credentials 的缓存。尤其是在较新的 Windows 版本（8.1+）中，当 blade 作为 service 运行时，UNC name 的 credential 需要把 Persistence 设置为 “enterprise”。如果你只是用 File Explorer 浏览到 share 并在那里输入密码，它不会被设置成这种值。设置 persistence 的步骤如下：</p><ul class="simple"><li>打开 Control Panel-&gt;User Accounts and Family Safety-&gt;Manage Windows Credentials</li><li>如果给定 share 的旧 credentials 的 persistence 尚不是 “enterprise”，则删除它们</li><li>点击 “add a Windows credential”（添加 Windows 凭据）</li><li>输入相应的 \\server\share、account name 和 password。</li></ul><p>记得将 tractor-blade service 配置为以同一用户运行。* 进入 Control Panel-&gt;...-&gt;Services，并将 blade service 的 “Run As Account” 设置为你选择的 account。* 重启该 service</p></div></div>
+  </article>
+</main>
+</body>
+</html>

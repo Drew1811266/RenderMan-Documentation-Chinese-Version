@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Presence and Opacity</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Presence and Opacity</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/REN27/542221558/Presence+and+Opacity">https://rmanwiki-27.pixar.com/space/REN27/542221558/Presence+and+Opacity</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="contentLayout2">
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p>In RenderMan, you can control the opacity of an object using the Presence Parameter on the materials. Typically designed to work as a 0 or 1 &quot;cutout&quot; effect, values in-between can be used for semi-transparent objects or ghost-like effects.</p><p /></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="elephant_Ear.jpg" width="686" loading="lazy" src="../../attachments/542221558/elephant_Ear.jpg" data-image-src="../../attachments/542221558/elephant_Ear.jpg" data-height="540" data-width="960" data-unresolved-comment-count="0" data-linked-resource-id="542221594" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="elephant_Ear.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542221558" data-linked-resource-container-version="1" data-media-id="0b1b7898-dd08-47f6-8c7e-bcf0f59881ac" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="elephant_Ear_No_Presence.jpg" width="686" loading="lazy" src="../../attachments/542221558/elephant_Ear_No_Presence.jpg" data-image-src="../../attachments/542221558/elephant_Ear_No_Presence.jpg" data-height="540" data-width="960" data-unresolved-comment-count="0" data-linked-resource-id="542221591" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="elephant_Ear_No_Presence.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542221558" data-linked-resource-container-version="1" data-media-id="3a8d208e-cf31-4f53-95c7-0d67b411326d" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><br/></p><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="be49cf23-2efc-4c69-b188-a5553b97cabd" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>If using a value between 0 and 1 (or a pattern with middle gray values) you will notice noise by default since we use a stochastic sampling technique. However, integrators allow for smoother effects by specifying a depth in the Stochastic Opacity Depth parameter. Where each intersection counts as a depth limit. This will be explained below.</p><p>If rendering thick glass, presence is ignored as we need to know when we enter and exit a volume. A cutout here could cause issues with that condition.</p></div></div><p /><p>The simplest example is that of a leaf. Rather than physically model a leaf which can be painful for the artist and increase geometric complexity in a scene, typically a plane is used to represent the leaf and a map is used to provide the shape. This map is then connected to the Presence Parameter.</p><p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rman_presenceNone.png" width="512" loading="lazy" src="../../attachments/542221558/rman_presenceNone.png" data-image-src="../../attachments/542221558/rman_presenceNone.png" data-height="512" data-width="512" data-unresolved-comment-count="0" data-linked-resource-id="542221588" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_presenceNone.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542221558" data-linked-resource-container-version="1" data-media-id="292e61d6-77da-47b4-902f-e1800527d5df" data-media-type="file"></span><p /><p>Without using presence, you may end up with something like the image shown here:</p><p /><p>This won't work, so we apply a map to the Presence parameter where the leaf area is 1.0 and the empty area we want to remove is 0.0. It's a simple black and white map without any greyscale values.</p><p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rman_presenceCutout.png" width="505" loading="lazy" src="../../attachments/542221558/rman_presenceCutout.png" data-image-src="../../attachments/542221558/rman_presenceCutout.png" data-height="512" data-width="512" data-unresolved-comment-count="0" data-linked-resource-id="542221585" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_presenceCutout.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542221558" data-linked-resource-container-version="1" data-media-id="5c2ed74e-830a-456d-89b5-2948a41a6b8e" data-media-type="file"></span><p /><p>Notice several things:</p><ul><li><p>The shadow is now correct</p></li><li><p>The area outside the leaf is now completely ignored by the renderer</p></li><li><p>There's a small bit of darkening around the leaf, this is handled by bleeding the leaf color beyond the border of the <em>color</em> texture</p></li></ul><p>This is the traditional way to use the parameter. But you may wish to use partial presence values in rendering for something semi-opaque. By default, we use a stochastic method to determine presence. This means we randomly sample at varying levels of presence when the value is not a 0 or 1. This can generate noise and require more samples to clear up or converge. Below we have a set of overlapping planes set to a Presence value of 0.15. Notice that <em>lower</em> presence values will show more noise than higher values.</p><p /><p>Some production integrators support a solution to this with a parameter called &quot;Stochastic Opacity Depth&quot;. This value defaults to 0, meaning &quot;off&quot;. However, at each increment, it tells the renderer to composite a semi-opaque color instead of sample randomly at that specified depth and no further. Below are examples at depth 1, 2, and 3</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rman_presenceStochastic.png" width="512" loading="lazy" src="../../attachments/542221558/rman_presenceStochastic.png" data-image-src="../../attachments/542221558/rman_presenceStochastic.png" data-height="512" data-width="512" data-unresolved-comment-count="0" data-linked-resource-id="542221582" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_presenceStochastic.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542221558" data-linked-resource-container-version="1" data-media-id="89664403-b664-47b4-9514-bafa3bdc21b8" data-media-type="file"></span><p>Depth 1, notice the areas of the plane where there is no stacking are now free of noise.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rman_presenceStochastic_1.png" width="512" loading="lazy" src="../../attachments/542221558/rman_presenceStochastic_1.png" data-image-src="../../attachments/542221558/rman_presenceStochastic_1.png" data-height="512" data-width="512" data-unresolved-comment-count="0" data-linked-resource-id="542221579" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_presenceStochastic_1.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542221558" data-linked-resource-container-version="1" data-media-id="1f6808d2-0ffa-497f-9a7d-f0e90830d072" data-media-type="file"></span><p>Depth 2, notice that planes overlapping one another once are now free from noise.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rman_presenceStochastic_2.png" width="512" loading="lazy" src="../../attachments/542221558/rman_presenceStochastic_2.png" data-image-src="../../attachments/542221558/rman_presenceStochastic_2.png" data-height="512" data-width="512" data-unresolved-comment-count="0" data-linked-resource-id="542221576" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_presenceStochastic_2.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542221558" data-linked-resource-container-version="1" data-media-id="bc546a36-1b76-40e0-8840-18b61c41f664" data-media-type="file"></span><p>The render is now noise-free at depth 3.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rman_presenceStochastic_3.png" width="512" loading="lazy" src="../../attachments/542221558/rman_presenceStochastic_3.png" data-image-src="../../attachments/542221558/rman_presenceStochastic_3.png" data-height="512" data-width="512" data-unresolved-comment-count="0" data-linked-resource-id="542221573" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_presenceStochastic_3.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542221558" data-linked-resource-container-version="1" data-media-id="d47c0aca-6326-404a-8bc8-54d7a552a81d" data-media-type="file"></span><p /><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="6cfd3fec-daa7-4889-8e5a-b40add3a9c1e" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>As a performance consideration, you may notice that overlapping objects with high levels of opacity will create less noise. You may only need to set the Stochastic Opacity Depth to where the noise is agreeable relative to the rest of the scene instead of literally counting the overlapping surfaces and using that value as the setting.</p></div></div><h3 id="PresenceandOpacity-CachedversusUncached">Cached versus Uncached</h3><p /><p>To avoid some expensive work, we cache the presence value with the micropolygon of the geometry. Typically this is fine as we default to a dicing scheme that creates micropolygons the size of a pixel or smaller. However, you may notice that poorly tessellated objects have fringing or incorrect values.</p><p>Notice here the edges of the leaf are semi-transparent and incorrect. There are two ways to solve this:</p><ul><li><p>If using cached, decrease the micropolygon length to create smaller microplygons and therefore more detail</p></li><li><p>You may switch from cached to non-cached and instead evaluate with each shading sample, this could be expensive but it is &quot;easiest&quot; as a solution</p></li></ul><p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rman_presenceCachedPoor.png" width="512" loading="lazy" src="../../attachments/542221558/rman_presenceCachedPoor.png" data-image-src="../../attachments/542221558/rman_presenceCachedPoor.png" data-height="512" data-width="512" data-unresolved-comment-count="0" data-linked-resource-id="542221570" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rman_presenceCachedPoor.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542221558" data-linked-resource-container-version="1" data-media-id="63505602-7920-44cf-843d-fba9b7f11c9b" data-media-type="file"></span><p><br/></p><p><br/></p></div>
+</div>
+</div>
+</div>
+  </article>
+</main>
+</body>
+</html>

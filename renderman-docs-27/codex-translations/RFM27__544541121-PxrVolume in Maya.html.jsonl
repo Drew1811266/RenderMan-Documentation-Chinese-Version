@@ -1,0 +1,258 @@
+{"item_id": "c50df2d8c8:0", "text": "PxrVolume 是一种 Bxdf，应在任何 Shading Group (SG) node 的 Material Connection 中使用。连接到 Volume connection 对 RenderMan 来说是不正确的。"}
+{"item_id": "c50df2d8c8:1", "text": "OpenVDB node 的默认设置会将 indirect visibility 设为 \"off\"，这是因为 Maya 的旧默认值会在 attribute editor（Attribute Editor）的 Render Stats rollout 中把导入对象设为对 reflections/refractions 不可见。请开启这些选项以获得正确 rendering（渲染）。"}
+{"item_id": "c50df2d8c8:2", "text": "由于 Maya Cloud Pattern/Texture 计算 falloff effect（衰减效果）的方式，它在 PxrVolume 中不会按预期工作。"}
+{"item_id": "c50df2d8c8:3", "text": "如下所述，也可以让 emissive volume（自发光体积）从 PxrVolume material 作为 light（灯光）工作；但在 Maya 中，你也可以为 shading group node 指定 Meshlight（右键并创建）。如果 volume 具有 emission values，它就会发光；你还可以使用 mesh light shader 上的 light filter controls，而 PxrVolume 选项不支持 light filters。"}
+{"item_id": "c50df2d8c8:4", "text": "Moana Cloud"}
+{"item_id": "c50df2d8c8:5", "text": "使用 RenderMan 渲染 - VDB 资产由"}
+{"item_id": "c50df2d8c8:6", "text": "Walt Disney Animation"}
+{"item_id": "c50df2d8c8:7", "text": "。"}
+{"item_id": "c50df2d8c8:8", "text": "CC BY-SA 3.0"}
+{"item_id": "c50df2d8c8:9", "text": "许可。"}
+{"item_id": "c50df2d8c8:10", "text": "Basic Workflows（基础工作流）"}
+{"item_id": "c50df2d8c8:11", "text": "Constant fog（恒定雾）"}
+{"item_id": "c50df2d8c8:12", "text": "Smoke（烟雾）"}
+{"item_id": "c50df2d8c8:13", "text": "Clouds（云）"}
+{"item_id": "c50df2d8c8:14", "text": "Advanced Workflows（高级工作流）"}
+{"item_id": "c50df2d8c8:15", "text": "Crepuscular Beams（曙暮光束）"}
+{"item_id": "c50df2d8c8:16", "text": "Performance Suggestions（性能建议）"}
+{"item_id": "c50df2d8c8:17", "text": "Parameters（参数）"}
+{"item_id": "c50df2d8c8:18", "text": "Diffuse Color"}
+{"item_id": "c50df2d8c8:19", "text": "Emit Color"}
+{"item_id": "c50df2d8c8:20", "text": "Light Source"}
+{"item_id": "c50df2d8c8:21", "text": "Multiple Scattering"}
+{"item_id": "c50df2d8c8:22", "text": "Velocity and Motion Blur（速度与运动模糊）"}
+{"item_id": "c50df2d8c8:23", "text": "PxrVolume 是一种材质，可用于渲染复杂度差异极大的体积效果，包括："}
+{"item_id": "c50df2d8c8:24", "text": "Constant fog（恒定雾）"}
+{"item_id": "c50df2d8c8:25", "text": "（一种恒定的"}
+{"item_id": "c50df2d8c8:26", "text": "均匀"}
+{"item_id": "c50df2d8c8:27", "text": "体积，具有"}
+{"item_id": "c50df2d8c8:28", "text": "单次散射"}
+{"item_id": "c50df2d8c8:29", "text": "Smoke（烟雾）"}
+{"item_id": "c50df2d8c8:30", "text": "（一种"}
+{"item_id": "c50df2d8c8:31", "text": "非均匀"}
+{"item_id": "c50df2d8c8:32", "text": "体积，单次散射即可满足需求）；"}
+{"item_id": "c50df2d8c8:33", "text": "Fire（火）"}
+{"item_id": "c50df2d8c8:34", "text": "（一种具有"}
+{"item_id": "c50df2d8c8:35", "text": "发光"}
+{"item_id": "c50df2d8c8:36", "text": "属性的非均匀体积）；"}
+{"item_id": "c50df2d8c8:37", "text": "Clouds（云）"}
+{"item_id": "c50df2d8c8:38", "text": "（一种通常需要"}
+{"item_id": "c50df2d8c8:39", "text": "多重散射"}
+{"item_id": "c50df2d8c8:40", "text": "的非均匀体积）"}
+{"item_id": "c50df2d8c8:41", "text": "PxrVolume 旨在作为一种基础材质，输入少量体积属性即可使用。复杂体积属性的建模应由上游节点处理，或由模拟工具烘焙到 OpenVDB 等体积文件格式中。"}
+{"item_id": "c50df2d8c8:42", "text": "PxrVolume 用户应了解均匀体积与非均匀体积的区别：均匀体积具有恒定的密度和颜色，而非均匀体积的密度和/或颜色会变化。非均匀体积的渲染通常比均匀体积慢得多，也更容易产生噪点。"}
+{"item_id": "c50df2d8c8:43", "text": "PxrVolume 是一个"}
+{"item_id": "c50df2d8c8:44", "text": "专用的"}
+{"item_id": "c50df2d8c8:45", "text": "volume shader，针对处理 \"pure\" volumes（纯体积）进行了优化。它不能处理两种不同 media（介质）边界处的 refraction（折射）或 reflection（反射）等 surface effects（表面效果），因此不能用 PxrVolume 渲染浑浊玻璃或水面之类对象。如果你需要既能处理 surface effects，又能处理有限 volumetric effects（体积效果）的 shader，请查看"}
+{"item_id": "c50df2d8c8:46", "text": "PxrSurface"}
+{"item_id": "c50df2d8c8:47", "text": "。"}
+{"item_id": "c50df2d8c8:48", "text": "Basic Workflows（基础工作流）"}
+{"item_id": "c50df2d8c8:49", "text": "Constant fog（恒定雾）"}
+{"item_id": "c50df2d8c8:50", "text": "恒定的雾效（即涉及均匀体积的效果）只使用 PxrVolume 参数即可轻松建模，不需要任何输入连接。这会提供最高效的渲染。"}
+{"item_id": "c50df2d8c8:51", "text": "对于任何包围相机或包裹光源的雾效，PxrVolume 必须附加到"}
+{"item_id": "c50df2d8c8:52", "text": "RiVolume"}
+{"item_id": "c50df2d8c8:53", "text": "对象上。否则，PxrVolume 可以附加到任何封闭几何体上，用于创建形状区域等简单效果。"}
+{"item_id": "c50df2d8c8:54", "text": "如果只需要深度衰减，"}
+{"item_id": "c50df2d8c8:55", "text": "Diffuse Color"}
+{"item_id": "c50df2d8c8:56", "text": "可以设为黑色：光不会被体积散射，只会被吸收，并且"}
+{"item_id": "c50df2d8c8:57", "text": "Density"}
+{"item_id": "c50df2d8c8:58", "text": "是唯一重要的参数。否则，diffuse color 需要设为雾的颜色。"}
+{"item_id": "c50df2d8c8:59", "text": "Smoke（烟雾）"}
+{"item_id": "c50df2d8c8:60", "text": "对于 Smoke 等非均匀介质，典型做法是将烟雾属性烘焙到 OpenVDB file 等文件中。OpenVDB file 会包含少量属性，包括密度、velocity（如果使用 motion blur）以及可能的 albedo。OpenVDB 应附加到"}
+{"item_id": "c50df2d8c8:61", "text": "RiVolume"}
+{"item_id": "c50df2d8c8:62", "text": "并使用 impl_openvdb plugin 读取。随后会将 OpenVDB file 中密度属性的名称直接用于 PxrVolume 的"}
+{"item_id": "c50df2d8c8:63", "text": "Density Float PrimVar"}
+{"item_id": "c50df2d8c8:64", "text": "参数。"}
+{"item_id": "c50df2d8c8:65", "text": "Smoke 通常具有很低的 albedo，因此"}
+{"item_id": "c50df2d8c8:66", "text": "Diffuse Color"}
+{"item_id": "c50df2d8c8:67", "text": "参数会使用较暗的颜色。（如果颜色已烘焙到 OpenVDB file 中，可使用 PxrPrimVar node 从中提取 color 属性。）由于这种低 albedo，体积中多次散射后的光量通常很低，因此"}
+{"item_id": "c50df2d8c8:68", "text": "Multiple Scattering"}
+{"item_id": "c50df2d8c8:69", "text": "可以保持关闭，并且"}
+{"item_id": "c50df2d8c8:70", "text": "Samples"}
+{"item_id": "c50df2d8c8:71", "text": "可以提高到 1 以上，以加快渲染。"}
+{"item_id": "c50df2d8c8:72", "text": "由于 Smoke 通常是各向同性的，"}
+{"item_id": "c50df2d8c8:73", "text": "Anisotropy"}
+{"item_id": "c50df2d8c8:74", "text": "设置可以保持默认。"}
+{"item_id": "c50df2d8c8:75", "text": "Equiangular weight"}
+{"item_id": "c50df2d8c8:76", "text": "如果预计光源位于体积附近或体积内部，可保持原值；如果预计没有任何光源靠近体积，可设为 0.0。"}
+{"item_id": "c50df2d8c8:77", "text": "Clouds（云）"}
+{"item_id": "c50df2d8c8:78", "text": "Moana Cloud"}
+{"item_id": "c50df2d8c8:79", "text": "使用 RenderMan 渲染 - VDB 资产由"}
+{"item_id": "c50df2d8c8:80", "text": "Walt Disney Animation"}
+{"item_id": "c50df2d8c8:81", "text": "。"}
+{"item_id": "c50df2d8c8:82", "text": "CC BY-SA 3.0"}
+{"item_id": "c50df2d8c8:83", "text": "许可。"}
+{"item_id": "c50df2d8c8:84", "text": "Clouds 是非常难渲染的体积，因为水滴的聚合行为及其与光的交互是复杂现象。与 Smoke 不同，从云到达眼睛的光通常已经在云内部反弹了数十甚至数百次。除此之外，散射行为（光在云内部反弹的方式）也非常复杂，因为它既涉及前向散射，也涉及后向散射，并且两者都有多个峰值。"}
+{"item_id": "c50df2d8c8:85", "text": "对云本身建模的典型方法，是将云的密度烘焙到 OpenVDB file 等文件中，然后将 OpenVDB file 中密度属性的名称直接用于 PxrVolume 的"}
+{"item_id": "c50df2d8c8:86", "text": "Density Float PrimVar"}
+{"item_id": "c50df2d8c8:87", "text": "参数。Clouds 通常会反射所有光，因此一个简单的"}
+{"item_id": "c50df2d8c8:88", "text": "Diffuse Color"}
+{"item_id": "c50df2d8c8:89", "text": "（1, 1, 1）设置就足够。为了捕捉云本身复杂的光照行为，"}
+{"item_id": "c50df2d8c8:90", "text": "Multiple Scattering"}
+{"item_id": "c50df2d8c8:91", "text": "是必需的，并且还需要设置"}
+{"item_id": "c50df2d8c8:92", "text": "Primary and Secondary Anisotropy。"}
+{"item_id": "c50df2d8c8:93", "text": "下方 Anisotropy 设置体现了对真实云复杂散射行为的物理近似。由于使用了 multiple scattering，sample 参数不会被使用，可设为 1。最后，如果云内部没有光源，"}
+{"item_id": "c50df2d8c8:94", "text": "Equiangular weight"}
+{"item_id": "c50df2d8c8:95", "text": "可以设为 0.0，因为 equiangular sampling 不会带来收益。（另一方面，在暴风天气中，如果可能在云内部放置光源来模拟闪电，equiangular sampling 可能会有帮助。）"}
+{"item_id": "c50df2d8c8:96", "text": "注意，体积中的散射由所选 integrator 中的 Max Path Length 参数以及 diffuse trace depth 控制。更多信息可在下方名为"}
+{"item_id": "c50df2d8c8:97", "text": "Multiple Scattering"}
+{"item_id": "c50df2d8c8:98", "text": "。"}
+{"item_id": "c50df2d8c8:99", "text": "Advanced Workflows（高级工作流）"}
+{"item_id": "c50df2d8c8:100", "text": "Crepuscular Beams（曙暮光束）"}
+{"item_id": "c50df2d8c8:101", "text": "Crepuscular beams（有时称为“God rays（神光）”）只是体积中光散射的结果。当这种光被分离成光束时（例如穿过森林冠层的几束阳光），体积中会散射光的部分与其余部分之间的对比会形成醒目的效果。"}
+{"item_id": "c50df2d8c8:102", "text": "为了高效渲染 Crepuscular beams，需要尽量最大化"}
+{"item_id": "c50df2d8c8:103", "text": "直接照明"}
+{"item_id": "c50df2d8c8:104", "text": "- 即最大化体积中可直接追踪到光源的部分。如果体积必须经过另一个表面或材质，以间接方式追踪到光源，光束的收敛可能会非常慢，并产生不可接受的噪点。在上图中，右侧的彩色玻璃窗被建模为"}
+{"item_id": "c50df2d8c8:105", "text": "“thin glass（薄玻璃）”"}
+{"item_id": "c50df2d8c8:106", "text": "：它不是依赖二次材质反弹来经玻璃折射，而是让从体积朝光源追踪的 shadow rays 不受阻挡（不折射），只依赖彩色玻璃材质的 shadow tinting（阴影着色）行为。“thin” 参数在"}
+{"item_id": "c50df2d8c8:107", "text": "PxrSurface"}
+{"item_id": "c50df2d8c8:108", "text": "中（位于 glass 参数下）可实现这一优化。"}
+{"item_id": "c50df2d8c8:109", "text": "Performance Suggestions（性能建议）"}
+{"item_id": "c50df2d8c8:110", "text": "Density"}
+{"item_id": "c50df2d8c8:111", "text": "是体积最关键的属性。它同时衡量体积会吸收多少光、散射多少光。一次渲染过程中，体积积分可能需要数十亿次密度求值，因此必须确保渲染器能尽快评估密度。这也是将复杂信号烘焙到 OpenVDB 等体积文件格式中会很有用的原因，因为渲染器可以直接从数据中查找值。为了获得最佳性能，我们强烈建议尽可能使用"}
+{"item_id": "c50df2d8c8:112", "text": "PrimVar density parameters"}
+{"item_id": "c50df2d8c8:113", "text": "，而不是使用输入连接，即使该输入连接只是一个单独的 PxrPrimVar node。"}
+{"item_id": "c50df2d8c8:114", "text": "对于使用 RiVolume primitive 的非均匀体积，在渲染开始时，PxrVolume 会自动计算体积内部各处的密度，并在渲染过程中利用这些信息大幅加速密度采样。此计算的精度（以及变形运动模糊的精度）由"}
+{"item_id": "c50df2d8c8:115", "text": "dice"}
+{"item_id": "c50df2d8c8:116", "text": "attribute"}
+{"item_id": "c50df2d8c8:117", "text": "micropolygonlength"}
+{"item_id": "c50df2d8c8:118", "text": "控制。将 micropolygonlength 设为较低数值会得到非常精确的密度估计，但可能导致初始计算耗时很长（表现为第一次渲染迭代很慢），也可能导致渲染器使用大量内存。将该值设得过高会使密度估计不够准确，可能漏掉体积中局部密度很高的孤立区域。对于 2K 渲染，除非变形运动模糊需要更低设置，否则建议使用 5 或更高的设置。如果相机穿过体积或靠近体积，可能适合将 dicing projection 从 planar 改为 world 或 spherical。这样可能会损失相机附近的一些细节，但也可能避免在镜头附近生成大量数据。"}
+{"item_id": "c50df2d8c8:119", "text": "Emissive volumes（发光体积）"}
+{"item_id": "c50df2d8c8:120", "text": "可能收敛非常慢，尤其当它们是场景中唯一的光源时，可能需要数百甚至数千个 camera samples 才能渲染出无噪图像。在体积被支持为可用于直接照明的完整光源之前，我们建议非常谨慎地使用发光体积。"}
+{"item_id": "c50df2d8c8:121", "text": "Multiple Scattering"}
+{"item_id": "c50df2d8c8:122", "text": "是一种非常昂贵的效果，因为它意味着光会在体积中多反弹许多次，同时也因为 PxrVolume 本身无法采集更多样本（"}
+{"item_id": "c50df2d8c8:123", "text": "Samples"}
+{"item_id": "c50df2d8c8:124", "text": "参数会被忽略），只能受 Integrator 设置支配。此外，multiple scattering 可能会减慢体积后方对象的收敛。因此，我们建议尽可能避免 multiple scattering。对于低 albedo 介质，multiple scattering 对最终渲染的贡献很小。对于 Clouds 等介质，其光传输涉及数十或数百次光反弹，遗憾的是 multiple scattering 可能无法避免。"}
+{"item_id": "c50df2d8c8:125", "text": "使用"}
+{"item_id": "c50df2d8c8:126", "text": "单次散射"}
+{"item_id": "c50df2d8c8:127", "text": "时，提高体积中采集的"}
+{"item_id": "c50df2d8c8:128", "text": "Samples"}
+{"item_id": "c50df2d8c8:129", "text": "数量来改善收敛，通常比增加 camera samples 数量更具成本效益。"}
+{"item_id": "c50df2d8c8:130", "text": "Equiangular sampling（等角采样）"}
+{"item_id": "c50df2d8c8:131", "text": "可改善由体积内部或附近光源照明的体积的收敛；但如果光源很远，反而会拖慢体积渲染。equiangular sampling 的默认值（0.5）是一种折衷，在大多数场景中表现尚可。如果确定体积附近没有光源，应将 equiangular weight 设为 0.0 以加快渲染。在 21.5 及更高版本中，multi-scatter volumes 会禁用 Equiangular sampling。"}
+{"item_id": "c50df2d8c8:132", "text": "在 samples 较低时，Equiangular sampling 可能导致 volume alpha 出现负值。这是该参数工作方式产生的副作用。有两种解决方式：将 Equiangular Weight 设为 0.0，或允许采集更多 samples，使结果正确平均为正数。"}
+{"item_id": "c50df2d8c8:133", "text": "Anisotropic"}
+{"item_id": "c50df2d8c8:134", "text": "体积由于所涉及采样的本质，往往比各向同性体积收敛更慢。"}
+{"item_id": "c50df2d8c8:135", "text": "Parameters（参数）"}
+{"item_id": "c50df2d8c8:136", "text": "Diffuse Color"}
+{"item_id": "c50df2d8c8:137", "text": "体积的颜色。默认值为白色（1,1,1）。在此参数上建立连接会创建非均匀体积。"}
+{"item_id": "c50df2d8c8:138", "text": "如果熟悉散射、吸收和消光系数，请注意这里的 diffuse color 是"}
+{"item_id": "c50df2d8c8:139", "text": "scattering albedo（散射反照率）"}
+{"item_id": "c50df2d8c8:140", "text": "，即散射系数除以消光系数。"}
+{"item_id": "c50df2d8c8:141", "text": "Emit Color"}
+{"item_id": "c50df2d8c8:142", "text": "体积的发光颜色。这可用于建模磷光雾或火焰等效果。默认值为黑色（0,0,0），即体积不会发光。下列图像展示了在场景中没有其他光源时，将 emit color 设为（1, 1, 1）和（5, 2.5, 2.5）的效果。"}
+{"item_id": "c50df2d8c8:143", "text": "Light Source"}
+{"item_id": "c50df2d8c8:144", "text": "选择此选项时，体积的发光属性会作为光源采样。通过改进采样，这可能会使场景变亮。注意，emit color 不能为黑色，否则此功能不会生效。对于单次散射体积，即使 Max Path Length 为 1，它也等价于关闭 light source 选项的 multiscatter volume。下方为关闭与开启的对比。"}
+{"item_id": "c50df2d8c8:145", "text": "属于"}
+{"item_id": "c50df2d8c8:146", "text": "聚合体积"}
+{"item_id": "c50df2d8c8:147", "text": "的体积不能作为光源处理。在某些 DCCs 中，将体积放入 aggregate 意味着选择 light source 选项不会产生效果，并且需要将该体积从 aggregate 中移除。"}
+{"item_id": "c50df2d8c8:148", "text": "如果体积光源还需要配合高级照明功能，例如"}
+{"item_id": "c50df2d8c8:149", "text": "light filters（灯光滤镜）"}
+{"item_id": "c50df2d8c8:150", "text": "，则无法使用 light source 选项。在这种情况下，需要创建体积副本，并附加"}
+{"item_id": "c50df2d8c8:151", "text": "PxrMeshLight"}
+{"item_id": "c50df2d8c8:152", "text": "shader。有关此工作流设置的更多细节，请参阅下方 Using Meshlight 部分。"}
+{"item_id": "c50df2d8c8:153", "text": "Multiple Scattering"}
+{"item_id": "c50df2d8c8:154", "text": "使用"}
+{"item_id": "c50df2d8c8:155", "text": "聚合体积"}
+{"item_id": "c50df2d8c8:156", "text": "时，此参数无效，因为 aggregate volumes 总是执行 multiple scattering。"}
+{"item_id": "c50df2d8c8:157", "text": "此参数用于提示体积是否应在体积内部计算间接照明（也称为"}
+{"item_id": "c50df2d8c8:158", "text": "多重散射"}
+{"item_id": "c50df2d8c8:159", "text": "，因为光会在体积中散射"}
+{"item_id": "c50df2d8c8:160", "text": "不止一次"}
+{"item_id": "c50df2d8c8:161", "text": "）。如果 multiple scattering 参数设为 0，并且 integrator 遵循此提示，PxrVolume 将只执行"}
+{"item_id": "c50df2d8c8:162", "text": "单次散射"}
+{"item_id": "c50df2d8c8:163", "text": "：体积内部的点只会由光源直接照明。如果设为 1，体积内部的点也会受到间接照明。下方第一张图将 multiple scattering 设为 0，即单次散射体积。中间图开启 multiple scattering，并使用 2 次光反弹。右侧图开启 multiple scattering，并使用 4 次光反弹。"}
+{"item_id": "c50df2d8c8:164", "text": "对于具有高各向异性的极高密度体积，光在到达眼睛前往往会在体积内部散射许多次，multiple scattering 是获得正确外观的唯一方式。它也常常是正确渲染体积焦散等特定效果的唯一方式。另一方面，multiple scattering 可能非常昂贵，这也是该参数默认为 0（关闭）的原因。此外，在渲染均匀体积时，关闭 multiple scattering 可能会让直接照明的"}
+{"item_id": "c50df2d8c8:165", "text": "表面"}
+{"item_id": "c50df2d8c8:166", "text": "在体积后方时噪点更少。"}
+{"item_id": "c50df2d8c8:167", "text": "注意，由于某些 integrators 的算法性质，尤其是 PxrVCM 等双向路径追踪器，它们只能实现体积的 multiple scattering，因此会忽略这一提示。"}
+{"item_id": "c50df2d8c8:168", "text": "Velocity and Motion Blur（速度与运动模糊）"}
+{"item_id": "c50df2d8c8:169", "text": "与 RenderMan 中所有其他几何体类型不同，"}
+{"item_id": "c50df2d8c8:170", "text": "deformation motion-blur（变形运动模糊）体积主要使用 Bxdf controls 启用"}
+{"item_id": "c50df2d8c8:171", "text": "。使用 PxrVolume 启用变形运动模糊很直接：为 velocity 参数指定一个 vector-valued 值。在底层，渲染器会自动使用 velocity vector 为所有 varying inputs 生成随时间变化的数据。这个预处理步骤发生在渲染开始时，并会增加首个像素时间；不过，为了大幅提高渲染模糊体积的效率，这是必要的。"}
+{"item_id": "c50df2d8c8:172", "text": "渲染器支持使用“Eulerian”方法处理 deformation motion-blur（变形运动模糊）体积，该方法在 23.5 中加入（现在也是唯一支持的方法）。此方法预处理时间短、内存开销很低、bias 较低（假设 micropolygon length 设为合理值），并且相当准确。这项技术的缺点是 velocity 值"}
+{"item_id": "c50df2d8c8:173", "text": "必须非零，并且必须在运动路径的所有位置提供"}
+{"item_id": "c50df2d8c8:174", "text": "，即使体积在当前烘焙 shutter time 的该路径上没有“presence”也一样。这是因为 Eulerian 技术假定体积随时间变化的属性（例如随时间变化的密度）可以通过使用当前时间的 velocity 值进行回溯，并在回溯位置查找密度来近似。下列来自 Houdini 的图像展示了 Eulerian motion blur 的边界速度要求。第 1 张图显示两个带密度的球体，以及代表 velocity field bounds 的线框盒。绿色线条表示体积预期运动。如果 velocity field 没有在整个运动范围内完整写出，Eulerian motion blur 会像右侧渲染图像所示那样裁切 velocity。注意，在某些高度混沌的流体场景中，即使不满足此要求，渲染图像仍可能看起来可以接受（裁切可能并不明显）。"}
+{"item_id": "c50df2d8c8:175", "text": "velocity vector 值应相对于整个 shutter range。如果使用以每秒单位测量的 velocity data，而 shutter 未设置为整整一秒的时间长度，可能需要按每秒帧数（即 1/24.0）缩放数据，才能得到正确图像。我们提供了 Velocity Multiplier 控制项，帮助在数据测量方式不正确时进行转换，也允许对 motion blur 做艺术化调整。或者，也可以直接在几何体上设置 Attribute \"volume\" \"fps\" 来完成同样的事；在这种情况下，该属性的值应直接是每秒帧数（24），而不是倒数。"}
+{"item_id": "c50df2d8c8:176", "text": "下列图像使用 Eulerian motion blur 渲染，并结合了一个包含 velocity grid 的 OpenVDB file。左图在没有 blur 的情况下渲染，右图则通过连接到 PxrPrimVar node 从文件读取 velocity grid 来提供 velocity。velocity 被夸大了 10 倍。注意，这个 OpenVDB file（来自"}
+{"item_id": "c50df2d8c8:177", "text": "openvdb.org"}
+{"item_id": "c50df2d8c8:178", "text": "）不满足在所有运动区域都具有 velocity data 的边界要求；这一点可从体积轮廓边缘在夸大的运动下仍没有显著变化看出。不过，没有明显令人反感的伪影，并且远离边界的体积区域传达了所需的 velocity detail。"}
+{"item_id": "c50df2d8c8:179", "text": "Density Parameters（密度参数）"}
+{"item_id": "c50df2d8c8:180", "text": "Extinction Distance"}
+{"item_id": "c50df2d8c8:181", "text": "这是均匀体积变为不透明时的距离（以 scene units 计）。如果此值非零，它会覆盖 density connections，并保持均匀体积。这非常适合创建填满场景的 fog/mist。下方我们先将参数设为较低值，然后逐渐增大，直到场景中最后一盏灯清晰可见。"}
+{"item_id": "c50df2d8c8:182", "text": "Density Float PrimVar"}
+{"item_id": "c50df2d8c8:183", "text": "来自几何体的 primvar，会覆盖体积的 density float，默认未设置。设置此项会覆盖 densityFloat input，并且比简单使用 PxrPrimVar pattern connection 更高效。"}
+{"item_id": "c50df2d8c8:184", "text": "对于使用烘焙体积表示（例如 OpenVDB file）的工作流，我们强烈建议使用此参数设置，而不是使用连接到 Density Float 参数的 noise pattern。"}
+{"item_id": "c50df2d8c8:185", "text": "Density Float"}
+{"item_id": "c50df2d8c8:186", "text": "体积密度直接控制光如何被体积衰减，即直接影响体积如何投射 shadows（阴影）。如果 density color 从默认值改变，density float 参数会被 density color 覆盖。除非需要 colored shadows（彩色阴影），否则应优先设置此参数，而不是 density color 参数，因为这样体积渲染会更高效。"}
+{"item_id": "c50df2d8c8:187", "text": "在此参数上建立 input connection 会创建非均匀体积。"}
+{"item_id": "c50df2d8c8:188", "text": "密度也称为消光系数（吸收系数与散射系数之和）。"}
+{"item_id": "c50df2d8c8:189", "text": "下方从左到右：密度为 0.1、0.25 和 2.0。"}
+{"item_id": "c50df2d8c8:190", "text": "Density Color PrimVar"}
+{"item_id": "c50df2d8c8:191", "text": "来自几何体的 primvar，会覆盖体积的 density color，默认未设置。设置此项会覆盖 densityColor input，并且比简单使用 PxrPrimVar pattern connection 更高效。"}
+{"item_id": "c50df2d8c8:192", "text": "对于使用烘焙体积表示（例如 OpenVDB file）的工作流，我们强烈建议使用此参数设置，而不是使用连接到 Density Color 参数的输入。"}
+{"item_id": "c50df2d8c8:193", "text": "Density Color"}
+{"item_id": "c50df2d8c8:194", "text": "体积密度直接控制光如何被体积衰减，即直接影响体积如何投射 shadows（阴影）。如果 density color 从默认值改变，density color 参数会覆盖 density float。如果不需要来自体积的 colored shadows（彩色阴影），则应设置 density float 参数，并保持 density color 参数不变；这样体积渲染会更高效。"}
+{"item_id": "c50df2d8c8:195", "text": "在此参数上建立 input connection 会创建非均匀体积。"}
+{"item_id": "c50df2d8c8:196", "text": "密度也称为消光系数（吸收系数与散射系数之和）。"}
+{"item_id": "c50df2d8c8:197", "text": "下方从左到右：density color 为（1.0, 0.25, 0.25）、（2.0, 0.25, 0.25）和（5.0, 0.25, 0.25）。注意，由于体积密度在红色通道中更高，更多红光会被散射掉，留下青色贡献。"}
+{"item_id": "c50df2d8c8:198", "text": "Max Density"}
+{"item_id": "c50df2d8c8:199", "text": "max density 参数只由非均匀体积使用，并控制用于采样体积的步长。为了获得正确的无偏渲染，max density 必须高于体积内部遇到的任何 density。较高的 max density 值可能导致渲染变慢，因为需要更多步来采样体积。将 max density 设得过小会加快渲染，但也会导致不正确的（有偏）渲染，因为体积中的高密度区域会采样不足。"}
+{"item_id": "c50df2d8c8:200", "text": "从 20.7 版开始，仅对于 RiVolumes，PxrVolume 还会自动计算体积各子区域的 density bounds，并利用这些信息沿光线改变步长。这意味着只有在体积中密度更高的部分才会采用更多步。因此，对于非常非均匀的体积，设置较高的 max density 值不会再对整个体积产生负面影响；在实践中，通常可以直接将其设为很高的值，而不再担心该参数。"}
+{"item_id": "c50df2d8c8:201", "text": "max density 的默认值为 1.0。"}
+{"item_id": "c50df2d8c8:202", "text": "Anisotropy Parameters（各向异性参数）"}
+{"item_id": "c50df2d8c8:203", "text": "Primary Anisotropy"}
+{"item_id": "c50df2d8c8:204", "text": "控制体积散射光的方向。anisotropy 参数范围为 -1 到 1，默认值为 0。值为 0 表示体积是各向同性的：光以相等概率向所有方向散射。大于 0 的正值表示体积为前向散射：入射光更可能沿同一方向散射（远离入射光方向）。小于 0 的 anisotropy 值表示体积为后向散射：入射光更可能沿反方向散射（朝向入射光方向返回）。"}
+{"item_id": "c50df2d8c8:205", "text": "许多体积（例如 Smoke）通常是各向同性的，但其他体积可能具有很强的各向异性。例如，肉和皮肤等有机材料往往具有很强的前向散射特性。注意，一旦涉及 multiple scattering，高各向异性的影响会减弱，因为这类材质在多次光反弹后往往会收敛到各向同性行为。"}
+{"item_id": "c50df2d8c8:206", "text": "下方是单次散射体积在 anisotropy 为 -0.8、0.0 和 0.8 时的示例。"}
+{"item_id": "c50df2d8c8:207", "text": "这里是 multiple scattering 体积在 anisotropy 为 -0.8、0.0 和 0.8 时的更多示例。"}
+{"item_id": "c50df2d8c8:208", "text": "Secondary Anisotropy and Lobe Blend Factor（二级各向异性与瓣混合因子）"}
+{"item_id": "c50df2d8c8:209", "text": "某些体积材质的散射特性无法用单个 anisotropy lobe 捕捉。例如，Clouds 的散射行为非常复杂：它们大多具有很强的前向散射，但仍有相当大的后向散射分量，这很大程度上造成了暗云上可见的 “silver lining（银边亮缘）”。为了渲染这类材质，可以在体积上启用第二个 anisotropy lobe，并配合一个 blend factor，用于决定如何在两个独立 lobe 之间混合。blend factor 为 0（默认）表示只考虑 primary anisotropy。blend factor 为 1 表示只使用 secondary anisotropy，而 blend factor 为 0.5 表示两个 lobe 被同等考虑。"}
+{"item_id": "c50df2d8c8:210", "text": "从左到右：对于 primary anisotropy = 0.0、secondary anisotropy = 0.8 的单次散射体积，lobe blend factor 分别设为 0、0.5 和 1.0。注意，第一张和第三张图本质上使用单个 anisotropic lobe 渲染。"}
+{"item_id": "c50df2d8c8:211", "text": "从左到右：对于 primary anisotropy = 0.0、secondary anisotropy = 0.8 的 multiple scattering 体积，lobe blend factor 分别设为 0、0.5 和 1.0。注意，第一张和第三张图本质上使用单个 anisotropic lobe 渲染。"}
+{"item_id": "c50df2d8c8:212", "text": "Sampling Parameters（采样参数）"}
+{"item_id": "c50df2d8c8:213", "text": "这些采样参数对"}
+{"item_id": "c50df2d8c8:214", "text": "聚合体积"}
+{"item_id": "c50df2d8c8:215", "text": "无效。"}
+{"item_id": "c50df2d8c8:216", "text": "Equiangular Weight"}
+{"item_id": "c50df2d8c8:217", "text": "设置使用 equiangular sampling 而不是 density sampling 的概率。Equiangular sampling 可改善靠近光源的体积的收敛，而处理密集或密度高度变化的体积时，density sampling 可能是更好的技术。默认值 0.5 表示两种技术会同等使用，并通过 multiple importance sampling 组合。如果体积较密且远离光源，降低 equiangular weight 可能会改善收敛。此设置不适用于 multi-scatter volumes。"}
+{"item_id": "c50df2d8c8:218", "text": "min/max Samples"}
+{"item_id": "c50df2d8c8:219", "text": "此设置控制单次散射体积的 sample quality。更多 volume samples 会以渲染时间为代价改善体积收敛。不过，在包含其他对象的场景中，这种取舍是：体积会采样更多，但不会增加图像其他区域的成本，并可能改善结果。注意，体积内部的收敛速率也会变化，这意味着某些区域用少量 volume samples 就能合理收敛，而其他区域可能需要更多帮助。"}
+{"item_id": "c50df2d8c8:220", "text": "minSamples 强制设置采样下限，仅在 Single Scattering 下有效"}
+{"item_id": "c50df2d8c8:221", "text": "maxSamples 是 Volume 内每条 ray 的最大限制"}
+{"item_id": "c50df2d8c8:222", "text": "Multiscatter Optimization"}
+{"item_id": "c50df2d8c8:223", "text": "Multiscatter Optimization (Valid for PxrPathTracer)（多重散射优化，适用于 PxrPathTracer）"}
+{"item_id": "c50df2d8c8:224", "text": "On/Off，默认值为 off。"}
+{"item_id": "c50df2d8c8:225", "text": "Extinction Multiplier"}
+{"item_id": "c50df2d8c8:226", "text": "此参数在"}
+{"item_id": "c50df2d8c8:227", "text": "Multiscatter"}
+{"item_id": "c50df2d8c8:228", "text": "体积渲染期间使用。该值必须大于 0.0，默认值为 1.0，即不做修改。低于 1 的值会降低 extinction coefficients，高于 1.0 的值会提高它们。"}
+{"item_id": "c50df2d8c8:229", "text": "Contribution Multiplier"}
+{"item_id": "c50df2d8c8:230", "text": "此 multiplier 在"}
+{"item_id": "c50df2d8c8:231", "text": "Multiscatter"}
+{"item_id": "c50df2d8c8:232", "text": "体积渲染期间使用。此参数会乘到 multi scatter events 的直接照明贡献上。值必须大于 0.0，默认值为 1.0，即不做修改。低于 1.0 的值会降低直接照明贡献，高于 1.0 的值会提高它们（这可能让体积显得更柔和、更半透明）。"}
+{"item_id": "c50df2d8c8:233", "text": "Using Meshlight（使用 Meshlight）"}
+{"item_id": "c50df2d8c8:234", "text": "上面的 “Light Source” 参数在使用具有发光属性的体积时适用于很多场景。但有时需要控制来自体积的光的影响范围。这需要使用"}
+{"item_id": "c50df2d8c8:235", "text": "light filter（灯光滤镜）"}
+{"item_id": "c50df2d8c8:236", "text": "。PxrVolume material 无法使用 light filter，因此可以将"}
+{"item_id": "c50df2d8c8:237", "text": "PxrMeshlight"}
+{"item_id": "c50df2d8c8:238", "text": "material 与用于 shading 的 PxrVolume 一起应用到 volume object 上。"}
+{"item_id": "c50df2d8c8:239", "text": "这样做会照亮场景，同时允许通过 mesh light controls 连接并使用 light filter。但此工作流有一个注意事项，需要在设置时额外考虑。"}
+{"item_id": "c50df2d8c8:240", "text": "将 mesh light 应用于体积时，可能会注意到照明增强和/或额外噪点。这是因为体积发光与 mesh light 本身产生了双重贡献。以下是当前用于减少此问题的步骤。"}
+{"item_id": "c50df2d8c8:241", "text": "如果不需要 light filter，则此工作流是不必要的，直接使用 “Light Source” 参数即可。"}
+{"item_id": "c50df2d8c8:242", "text": "复制原始体积"}
+{"item_id": "c50df2d8c8:243", "text": "在副本上指定一个重复的 PxrVolume，并让它正确连接到原始 patterns；这些 patterns 可能用于驱动 emission、density 等"}
+{"item_id": "c50df2d8c8:244", "text": "使用 DCC application options（SG Node、Material Builder 等）将 PxrMeshlight 指定给体积"}
+{"item_id": "c50df2d8c8:245", "text": "从 indirect visibility 中隐藏此体积，我们只需要 light contribution。"}
+{"item_id": "c50df2d8c8:246", "text": "在原始体积中断开 emission；它现在会由副本体积的 mesh light source 照亮。这可防止双重光照贡献"}
+{"item_id": "c50df2d8c8:247", "text": "按需将 light filter 应用于带有 meshlight 的副本体积"}
+{"item_id": "c50df2d8c8:248", "text": "示例："}
+{"item_id": "c50df2d8c8:249", "text": "Using Light Source（使用 Light Source）"}
+{"item_id": "c50df2d8c8:250", "text": "添加 mesh light 会增加场景中的光照和噪点，这是"}
+{"item_id": "c50df2d8c8:251", "text": "incorrect（错误的）"}
+{"item_id": "c50df2d8c8:252", "text": "workflow（工作流）"}
+{"item_id": "c50df2d8c8:253", "text": "此图像使用"}
+{"item_id": "c50df2d8c8:254", "text": "above workflow（上述工作流）"}
+{"item_id": "c50df2d8c8:255", "text": "来创建收敛良好的渲染，同时允许使用 light filter"}
+{"item_id": "c50df2d8c8:256", "text": "User Lobes（用户瓣）"}
+{"item_id": "c50df2d8c8:257", "text": "PxrVolume 还会写入 U2 user lobe，名称为 “DiffuseAlbedo”"}

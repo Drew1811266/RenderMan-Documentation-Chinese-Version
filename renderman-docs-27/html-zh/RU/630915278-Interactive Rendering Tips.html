@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Interactive Rendering Tips</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Interactive Rendering Tips</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RU/630915278/Interactive+Rendering+Tips">https://rmanwiki-27.pixar.com/space/RU/630915278/Interactive+Rendering+Tips</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="beginwithWords.jpg" width="760" loading="lazy" src="../../attachments/630915278/beginwithWords.jpg" data-image-src="../../attachments/630915278/beginwithWords.jpg" data-height="414" data-width="1000" data-unresolved-comment-count="0" data-linked-resource-id="636682263" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="beginwithWords.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="630915278" data-linked-resource-container-version="8" data-media-id="cc905192-cfdd-42a7-adce-52b822340571" data-media-type="file"></span><p>一份用于优化 RenderMan XPU interactive render 体验的实用指南</p><p /><div class="panel conf-macro output-block" data-hasbody="true" data-macro-id="84c728ca-0508-4d5f-bfb1-c7454cbaff45" data-macro-name="panel" style="background-color: #4C9AFF;border-width: 1px;"><div class="panelContent" style="background-color: #4C9AFF;">
+<p><strong><span class="legacy-color-text-inverse">交互式降噪器（Interactive Denoiser）</span></strong></p>
+</div></div><p>RenderMan 出色的 batch denoiser 也可以在 interactive viewport mode 中运行，因此开启它后，当你处理 shaders、lighting、camera 和最终细化时，它会对 viewport 进行 denoise。</p><p>对于较小的 scenes，例如 prop lookdev，你可能希望把 Interactive Denoiser Min Samples 保持在 4；对于 geometry、instancing 和 shaders 更多的大型 scenes，可以把它提高到 10 或 15。  </p><p>这会告诉 RenderMan 在 denoiser 开始发挥作用之前要 render 多少 samples。</p><p>调整 Interval 也能带来一些 interactive denoising 加速。  </p><p>这完全取决于你的 scene 及其 complexity。</p><p /><div class="panel conf-macro output-block" data-hasbody="true" data-macro-id="206dd9ab-2045-404a-99de-3a87f2b97bdb" data-macro-name="panel" style="background-color: #4C9AFF;border-width: 1px;"><div class="panelContent" style="background-color: #4C9AFF;">
+<p><strong><span class="legacy-color-text-inverse">图像分辨率（Image Resolution）</span></strong></p>
+</div></div><p>降低 image resolution 会提升 interactive performance，尤其是在更大、更复杂的 scenes 中。</p><p /><div class="panel conf-macro output-block" data-hasbody="true" data-macro-id="01b710a9-3239-4718-94cf-5b767c8466cb" data-macro-name="panel" style="background-color: #4C9AFF;border-width: 1px;"><div class="panelContent" style="background-color: #4C9AFF;">
+<p><strong><span class="legacy-color-text-inverse">缩放分辨率（Scale Resolution）</span></strong></p>
+</div></div><p>缩放 IPR resolution 可以显著提升 interactive responsiveness。例如，在 RfB 中有选项可把 resolution scale 改为 75%、50%、33%、25% 和 10%</p><p>Solaris 也有类似选项。</p><p>实际效果是将 resolution 降低，再让 DCC 把 image 重新缩放回 viewport size，为 artist 提供更“blocky”的 render；这通常已经足够在 layout、lighting 和 staging 中做创作决策。</p><p /><div class="panel conf-macro output-block" data-hasbody="true" data-macro-id="b305f273-c921-46d0-84f5-143cfb1691e9" data-macro-name="panel" style="background-color: #4C9AFF;border-width: 1px;"><div class="panelContent" style="background-color: #4C9AFF;">
+<p><strong><span class="legacy-color-text-inverse">裁剪（Pruning）</span></strong></p>
+</div></div><p>Pruning（或 hiding）shot frame 或 camera frustum 之外的 geometry，有助于加快 RenderMan 的 time to first pixel，并提升 interactivity。你需要记住，camera 外的 objects 可能仍会影响 shot 的整体 look，例如投射 shadows；但如果这不是问题，pruning 这些 objects 是良好实践。</p><p>按 distance pruning objects 也是有效的。</p><p /><div class="panel conf-macro output-block" data-hasbody="true" data-macro-id="a498691f-0dfa-4397-a41d-98efaa64ef7c" data-macro-name="panel" style="background-color: #4C9AFF;border-width: 1px;"><div class="panelContent" style="background-color: #4C9AFF;">
+<p><strong><span class="legacy-color-text-inverse">Progressive Pixels（渐进像素）</span></strong></p>
+</div></div><p>将 RenderMan Progressive Pixels 设置为 2 - 4，会提高 viewport interactivity speed。</p><p /><div class="panel conf-macro output-block" data-hasbody="true" data-macro-id="0459f5a7-98b6-4e4f-8ca7-12b2cf28bdeb" data-macro-name="panel" style="background-color: #4C9AFF;border-width: 1px;"><div class="panelContent" style="background-color: #4C9AFF;">
+<p><strong><span class="legacy-color-text-inverse">首像素时间（Time to First Pixel）</span></strong></p>
+</div></div><p>当你第一次启动 XPUGPU 或 Hybrid interactive render 时，NVidia driver 需要进行一些初始的繁重工作，把 RenderMan 编译成适合你的 GFX card 的 CUDA code。  </p><p>第二次重新启动 IPR session 时，这项工作已经被 driver 缓存，因此你的 time to first pixel 会快得多。</p><p /><div class="panel conf-macro output-block" data-hasbody="true" data-macro-id="13e3ce04-248b-4d3c-8849-e5e6bc61625b" data-macro-name="panel" style="background-color: #4C9AFF;border-width: 1px;"><div class="panelContent" style="background-color: #4C9AFF;">
+<p><strong><span class="legacy-color-text-inverse">Camera Distance（相机距离）</span></strong></p>
+</div></div><p>如果 objects 应用了 SubDivision 且靠近 camera，XPU 的启动时间会比这些 objects 距离更远时更长。较低的 MicroPolygon length 也会影响 XPU 的初始启动时间。</p><p /><div class="panel conf-macro output-block" data-hasbody="true" data-macro-id="5f14f39d-60c6-45ee-80ad-178fb7d6f369" data-macro-name="panel" style="background-color: #4C9AFF;border-width: 1px;"><div class="panelContent" style="background-color: #4C9AFF;">
+<p><strong><span class="legacy-color-text-inverse">关闭 Subdivision &amp; Displacement</span></strong></p>
+</div></div><p>关闭 Subdivision 和 Displacement 会加快 XPU 的 time to first pixel；在很多情况下，即使不启用这两个功能，你仍然可以做出有效的艺术判断。</p><p /><div class="panel conf-macro output-block" data-hasbody="true" data-macro-id="629b2fa7-7afe-4a9f-bc93-2f072e37fb0b" data-macro-name="panel" style="background-color: #4C9AFF;border-width: 1px;"><div class="panelContent" style="background-color: #4C9AFF;">
+<p><strong><span class="legacy-color-text-inverse">提高 MicroPolygon Length</span></strong></p>
+</div></div><p>Meshes 会在 render 开始时相对于 camera 进行 dicing。提高 MicroPolygon length 会减少 renderer 启动前需要完成的 tessellation 工作量，从而加快 time to first pixel。这也会带来更低的 memory consumption。</p><p /><div class="panel conf-macro output-block" data-hasbody="true" data-macro-id="26ffb475-076f-4b98-84c0-15871895923c" data-macro-name="panel" style="background-color: #4C9AFF;border-width: 1px;"><div class="panelContent" style="background-color: #4C9AFF;">
+<p><strong><span class="legacy-color-text-inverse">材质覆盖（Material Override）</span></strong></p>
+</div></div><p>在处理 layout 或 camera staging 时，你并不总是需要看到所有 textures 和复杂的 shading networks，因此可以给 scene geometry 应用一个简单的 material override，或使用 PxrOcclusion integrator。</p><p>完成你的 layout 工作，然后回到 PxrPathTracer！</p><p>只使用 geometry 的 DisplayColor 来 render override material，也是一种有用技术。 </p><p /><div class="panel conf-macro output-block" data-hasbody="true" data-macro-id="26caa8bc-8218-4351-a5e6-d8b1aaf7232d" data-macro-name="panel" style="background-color: #4C9AFF;border-width: 1px;"><div class="panelContent" style="background-color: #4C9AFF;">
+<p><strong><span class="legacy-color-text-inverse">局部渲染区域（Render Regions）</span></strong></p>
+</div></div><p>永远不要低估 crop window 或 render region of interest 的力量，它们可以加快 scene 中特定区域的 refinement。</p><p /><p /><p /><p />
+  </article>
+</main>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PxrProjector</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>PxrProjector</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/REN27/542224403/PxrProjector">https://rmanwiki-27.pixar.com/space/REN27/542224403/PxrProjector</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>此节点用于与 PxrProjectionLayer 配合使用，但也可以作为通用 projection manifold 使用。此 manifold 支持 camera、spherical 和 cylindrical mapping。它为 pattern generators 封装 2D parameterization，并允许进行 transformations 以及选择绑定到 primitives 的任意 variables。</p><p><br/></p><div class="section">Input Parameters<br/><p><strong>Projection</strong></p>选择 projection：<ul class="simple"><li>0: Camera</li><li>1: Spherical</li><li>2: Cylindrical</li><li>3: Planar</li></ul><div class="line-block"><div class="line"><p><br/></p></div></div><p class="section"><strong>Coordinate System</strong></p><div class="section">coordinate system transform 的名称（例如 Maya 中的 place3dTexture 节点或 camera）。</div><div class="section"><p><br/></p><div class="confluence-information-macro confluence-information-macro-warning conf-macro output-block" data-hasbody="true" data-macro-id="50e0b520-60e6-4f90-b3be-eed664a497f5" data-macro-name="warning"><span class="aui-icon aui-icon-small aui-iconfont-error confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>你 <strong>必须</strong> 设置 coordinate system。此字段不能留空。</p></div></div></div><div class="line-block"><div class="line"><p><br/></p></div></div><p class="section"><strong>Use</strong></p><div class="section">选择要投射到哪些 positions 上。</div><ul><li><strong>0: P - N  </strong>P 是 current position，N 是 current normal</li><li><strong>1: Pref - Nref</strong>  如果 object 正在变形，并且你希望 projected texture 能够 'stick'，请使用此选项。它依赖两个 primvars： <code>__Pref</code> 和 <code>__Nref</code> ，它们应存在于 deforming geometry 上。在 Maya 中，使用 RenderMan &gt; Primvars &gt; Freeze 菜单将它们添加到所选 geometry。</li><li><strong>2: WPref - WNref  </strong>如果 object 正在变形并且经过 transform，此选项可让 projected texture 仍然 stick。它依赖 <code>__WPref</code> 和 <code>__WNref</code> primvars。在 Maya 中，使用 RenderMan &gt; Primvars &gt; Freeze 菜单将它们添加到所选 geometry。</li></ul><div class="line-block"><div class="line"><p><br/></p></div></div><p><strong>Occlusion frontOnly</strong> <br/>将 projection 限制到朝向 projection direction 的点。</p><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="ca54d704-8650-4597-80b2-94b86c32bf87" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body">此设置会更新 <strong>resultMask</strong> output，因此你可以用它在 projection 与 underlying surface material 之间进行混合。</div></div><p><br/></p><p><strong>Front Falloff</strong> <br/>使用 frontOnly 时引入平滑过渡。适合在不同 projections 之间混合过渡。默认值 0.0 表示没有 falloff。</p><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="9665434a-88b6-4055-bfa4-b06e10638cf4" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body">此设置会更新 <strong>resultMask</strong> output，因此你可以用它在 projection 与 underlying surface material 之间进行混合。</div></div><p><br/> <strong>Trace Occlusion</strong> <br/>发射 rays，以避免从 projection 的视角投射到被 geometry 遮挡的区域。</p><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="3a442cda-0bd8-45ff-bd1d-d680c4e23d41" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body">此设置会更新 <strong>resultMask</strong> output，因此你可以用它在 projection 与 underlying surface material 之间进行混合。</div></div><p><br/> <strong>Trace Max Distance</strong> <br/>当 traceOcclusion 开启时，可以限制 ray length。此数值以 scene units 表示，无论你的 authoring package 中使用什么单位。</p><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="6436a7b8-55e9-4660-983d-8cc33366cea7" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body">此设置会更新 <strong>resultMask</strong> output，因此你可以用它在 projection 与 underlying surface material 之间进行混合。</div></div><p><br/> <strong>Trace Set</strong> <br/>trace set 的名称，用于将 ray hits 限制到特定对象组。默认会考虑场景中的所有对象。</p><p><br/></p><h3 id="PxrProjector-Camera">Camera</h3><p><br/> <strong>Horizontal Resolution</strong> <br/>水平图像分辨率。它用于指定图像在 txmake-ing 之前的原始分辨率。</p><p><br/> <strong>Vertical resolution</strong> <br/>垂直图像分辨率。它用于指定图像在 txmake-ing 之前的原始分辨率。</p><h4 id="PxrProjector-HorizontalOverscan">Horizontal Overscan</h4><p>以 pixels 表示的 Horizontal overscan</p><h4 id="PxrProjector-VerticalOverscan">Vertical Overscan</h4><p>以 pixels 表示的 Vertical Overscan</p><h4 id="PxrProjector-CameraType">Camera Type</h4><p>Is Orthographic</p><p><br/> <strong>Focal Length</strong> <br/>camera 的 focal length 以 millimeters (mm) 为单位。要将 Field of View (fov) 转换为 Focal Length，请使用此公式</p><div class="section"><div class="section"><p><br/></p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="b2d2e516-9fcf-4ec8-80cb-804268ae2947" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">fov = atan((0.5 * aperture) / (focalLength * 0.0393701))</pre>
+</div></div></div><div class="line-block"><div class="line"><p><br/></p></div></div><p class="section"><strong>Horizontal Aperture</strong></p><div class="section">camera film back 的 width（宽度），以 inches 为单位。</div><div class="line-block"><div class="line"><p><br/></p></div></div><p class="section"><strong>Vertical Aperture</strong></p><div class="section">camera film back 的高度，以 inches 为单位。</div><div class="line-block"><div class="line"><p><br/></p></div></div><p class="section"><strong>Near Clip Plane</strong></p><div class="section">比此距离更靠近 coordinate system 的 positions 会被 masked。此数值以 scene units 表示，无论你的 authoring package 中使用什么单位。</div><div class="section"><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="133a523c-b7af-48e8-a0a3-75f7d79e4ac7" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body">此设置会更新 <strong>resultMask</strong> output，因此你可以用它在 projection 与 underlying surface material 之间进行混合。</div></div></div><p class="section"><strong>Far Clip Plane</strong></p><div class="section">比此距离更远离 coordinate system 的 positions 会被 masked。此数值以 scene units 表示，无论你的 authoring package 中使用什么单位。</div><div class="section"><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="5b62de2c-34b0-4ee0-a48e-1f3610c4719e" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body">此设置会更新 <strong>resultMask</strong> output，因此你可以用它在 projection 与 underlying surface material 之间进行混合。</div></div></div><p class="section"><strong>Film Fit</strong></p><div class="section">当 image 与 film back 具有不同 aspect ratios 时，image 适配到 film back 的方式。它模拟 Maya 的 camera settings。</div><ul class="simple"><li>0: Fill</li><li>1: Horizontal</li><li>2: Vertical</li><li>3: overscan</li></ul><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="e1faa5a2-a398-464c-a7db-f3c192ce0898" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body">此设置会更新 <strong>resultMask</strong> output，因此你可以用它在 projection 与 underlying surface material 之间进行混合。</div></div><div class="line-block"><div class="line"><p><br/></p></div></div><p class="section"><strong>Clamp To</strong></p><div class="section">激活 mask output。你可以 mask 不同区域，但这主要对 camera projection 有用。</div><ul class="simple"><li>0: <strong>Off</strong>  projected texture 会出现在所有位置</li><li>1: <strong>Frustum</strong>  projected texture 只出现在 camera frustum 内部</li><li>2: <strong>Texture</strong>  texture 会完整投射，不受 camera frustum 限制。</li></ul><div class="line-block"><div class="line"><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="dfec44e6-f796-4c0d-a3a4-2f128b133c4d" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body">此设置会更新 <strong>resultMask</strong> output，因此你可以用它在 projection 与 underlying surface material 之间进行混合。</div></div><h3 id="PxrProjector-Planar">Planar</h3><p><strong>Clamp To</strong></p><p>Clamp planar projection，假设 coordinate system 表示为一个 cube。</p><ul><li>0: <strong>Off</strong>  projected texture 会出现在所有位置。</li><li>1: <strong>XY</strong>  projected texture 会出现在 coordinate system 的 XY plane 上。</li><li>2: <strong>XZ</strong>  projected texture 会出现在 coordinate system 的 XZ plane 上。</li><li>3: <strong>YZ</strong>  projected texture 会出现在 coordinate system 的 YZ plane 上。</li><li>4: <strong>XYZ</strong>  projected texture 会出现在 coordinate system 的 volume 内部。</li></ul><p><span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image" width="600" loading="lazy" src="../../attachments/542224403/PxrProjectorPlanarClampTo.gif" data-image-src="../../attachments/542224403/PxrProjectorPlanarClampTo.gif" data-unresolved-comment-count="0" data-linked-resource-id="542224418" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="PxrProjectorPlanarClampTo.gif" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/gif" data-linked-resource-container-id="542224403" data-linked-resource-container-version="1" data-media-id="7b607067-265c-44bc-8e5a-5a55608a873b" data-media-type="file"></span></p><p><br/></p><p><strong>CoordSys Type</strong></p><p>有 2 种不同类型，用于匹配不同的 viewport representations。</p><ul><li>0: <strong>Generic</strong>  coordinate system 是宽 1 unit 的 cube。</li><li>1: <strong>Maya place3dTexture</strong>  place3dTexture 宽 2 units。</li></ul><p><span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image" width="600" loading="lazy" src="../../attachments/542224403/PxrProjectorCoordSysType.gif" data-image-src="../../attachments/542224403/PxrProjectorCoordSysType.gif" data-unresolved-comment-count="0" data-linked-resource-id="542224415" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="PxrProjectorCoordSysType.gif" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/gif" data-linked-resource-container-id="542224403" data-linked-resource-container-version="1" data-media-id="0eadc984-c792-4532-924e-1431d9fed0a4" data-media-type="file"></span></p></div></div></div><h3 class="section" id="PxrProjector-2DParameters">2D Parameters</h3><p class="section"><strong>Angle</strong></p><div class="section">围绕 origin 的 Rotation angle。</div><div class="section"><div class="line-block"><div class="line"><p><br/></p></div></div><p class="section"><strong>Scale S</strong></p><div class="section">S direction 上 feature 的 Frequency。</div><div class="line-block"><div class="line"><p><br/></p></div></div><p class="section"><strong>Scale T</strong></p><div class="section">T direction 上 feature 的 Frequency。</div><div class="line-block"><div class="line"><p><br/></p></div></div><p class="section"><strong>Offset S</strong></p><div class="section">S direction 上相对于 origin 的 Offset。</div><div class="line-block"><div class="line"><p><br/></p></div></div><p class="section"><strong>Offset T</strong></p><div class="section">T direction 上相对于 origin 的 Offset。</div><div class="line-block"><div class="line"><p><br/></p></div></div><p class="section"><strong>Invert T</strong></p><div class="section">在 T direction 上翻转 manifold。</div><div class="line-block"><div class="line"><p><br/></p></div></div></div><h3 class="section" id="PxrProjector-Advanced">Advanced</h3><p class="section"><strong>Verbose</strong></p><div class="section">Outputs（输出）各种信息，帮助你 debug scenes。</div><div class="section"><div class="line-block"><div class="line"><p><br/></p><p><strong>Front Only Tolerance</strong></p><p>此参数有时可用于避免投射到接近 grazing angle 的 surfaces 上。</p></div></div></div></div><h3 class="section" id="PxrProjector-OutputParameters">Output Parameters</h3><p><br/></p><p class="section"><strong>result</strong></p><div class="section">2D manifold。</div><p class="section"><strong>resultS</strong></p><div class="section">manifold 的 S component 的 float representation。</div><p class="section"><strong>resultT</strong></p><div class="section">manifold 的 T component 的 float representation。</div><p class="section"><strong>resultMask</strong></p><div class="section">定义 restricted projection area 的 binary mask。</div><div class="section">应将其接入 PxrProjectionLayer 的 mask input，或用于在 projection 与 underlying texture 之间进行混合。</div><div class="section"><span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image" width="600" loading="lazy" src="../../attachments/542224403/PxrProjectorMasking.gif" data-image-src="../../attachments/542224403/PxrProjectorMasking.gif" data-unresolved-comment-count="0" data-linked-resource-id="542224421" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="PxrProjectorMasking.gif" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/gif" data-linked-resource-container-id="542224403" data-linked-resource-container-version="1" data-media-id="e289587a-29b8-4466-8655-d20e41924a9e" data-media-type="file"></span></div>
+  </article>
+</main>
+</body>
+</html>

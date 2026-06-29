@@ -1,0 +1,54 @@
+{"item_id": "6dcc2e0355:0", "text": "The sampling tab gives users control over basic quality via"}
+{"item_id": "6dcc2e0355:1", "text": "Max Samples"}
+{"item_id": "6dcc2e0355:2", "text": "and"}
+{"item_id": "6dcc2e0355:3", "text": "Pixel Variance"}
+{"item_id": "6dcc2e0355:4", "text": ", the choice of"}
+{"item_id": "6dcc2e0355:5", "text": "Integrator"}
+{"item_id": "6dcc2e0355:6", "text": "and its relevant settings,"}
+{"item_id": "6dcc2e0355:7", "text": "Default Ray Depths"}
+{"item_id": "6dcc2e0355:8", "text": "Clamping"}
+{"item_id": "6dcc2e0355:9", "text": "Russian Roulette"}
+{"item_id": "6dcc2e0355:10", "text": "(which can be used for reducing path lengths), and"}
+{"item_id": "6dcc2e0355:11", "text": "Filtering"}
+{"item_id": "6dcc2e0355:12", "text": ".  This is mainly where you control the quality and render time of a render."}
+{"item_id": "6dcc2e0355:13", "text": "In the Presets menu at the top of the window, there are sampling presets for draft, production, etc.  Furthermore, you can save your own sampling presets there."}
+{"item_id": "6dcc2e0355:14", "text": "Alternatively you can use the presets for parameters noted by the triple bar icon next to the parameter name."}
+{"item_id": "6dcc2e0355:15", "text": "Presets for parameters can be accessed like this:"}
+{"item_id": "6dcc2e0355:16", "text": "IPR Samples"}
+{"item_id": "6dcc2e0355:17", "text": "The IPR samples provide separate Max Samples and Pixel Variance for IPR rendering.  By default, this is set lower than render settings for quick feedback."}
+{"item_id": "6dcc2e0355:18", "text": "Interactive refinement uses a technique to sparsely sample the image and then refine it over time to provide faster feedback on updating the scene. The levels are 0 - 6 where 0 is off and 6 allows the renderer to be the most aggressive at deciding how few pixels to update at a time. The fewer the pixels that are updated the more likely you may see some blurry or ghosting artifacts at first while it resamples the frame but provide you with an updated hint more quickly."}
+{"item_id": "6dcc2e0355:19", "text": "Progressive Pixels"}
+{"item_id": "6dcc2e0355:20", "text": "Note: When running an IPR in XPU mode, setting Interactive Refinement above 1 will activate Progressive Pixels."}
+{"item_id": "6dcc2e0355:21", "text": "Integrator"}
+{"item_id": "6dcc2e0355:22", "text": "Lets you choose the"}
+{"item_id": "6dcc2e0355:23", "text": "Integrator"}
+{"item_id": "6dcc2e0355:24", "text": "to use for the render.  The default,"}
+{"item_id": "6dcc2e0355:25", "text": "PxrPathTracer"}
+{"item_id": "6dcc2e0355:26", "text": "is a fine choice for most rendering situations."}
+{"item_id": "6dcc2e0355:27", "text": "See the page for each integrator for information about their settings:"}
+{"item_id": "6dcc2e0355:28", "text": "PxrDefault"}
+{"item_id": "6dcc2e0355:29", "text": "PxrDirectLighting"}
+{"item_id": "6dcc2e0355:30", "text": "PxrOcclusion"}
+{"item_id": "6dcc2e0355:31", "text": "PxrPathTracer"}
+{"item_id": "6dcc2e0355:32", "text": "PxrVCM"}
+{"item_id": "6dcc2e0355:33", "text": "PxrValidateBxdf"}
+{"item_id": "6dcc2e0355:34", "text": "PxrVisualizer"}
+{"item_id": "6dcc2e0355:35", "text": "Default Ray Depths"}
+{"item_id": "6dcc2e0355:36", "text": "Max Specular Depth:"}
+{"item_id": "6dcc2e0355:37", "text": "Number of bounces for reflections and refractions. A value of 1 or 2 is sufficient unless you need multi bounce effects or have panes of glass or windows. This attribute can be overridden on individual objects."}
+{"item_id": "6dcc2e0355:38", "text": "Max Diffuse Depth:"}
+{"item_id": "6dcc2e0355:39", "text": "Number of diffuse bounces for indirect illumination. A value of 1 is usually sufficient, larger values are slower. This attribute can be overridden on individual objects."}
+{"item_id": "6dcc2e0355:40", "text": "Filter"}
+{"item_id": "6dcc2e0355:41", "text": "Filter:"}
+{"item_id": "6dcc2e0355:42", "text": "The"}
+{"item_id": "6dcc2e0355:43", "text": "filter"}
+{"item_id": "6dcc2e0355:44", "text": "for rendered pixels. The box, triangle, disk, gaussian, and blackman-harris are softening filters while catmull-rom, sinc, mitchell, separable-catmull-rom, lanczos and bessel are sharpening filters. Separable-catmull-rom is a good compromise."}
+{"item_id": "6dcc2e0355:45", "text": "Filter Size:"}
+{"item_id": "6dcc2e0355:46", "text": "The width of the pixel filter. Typically from 1 to 6. Set to 0 to use the standard width for the chosen pixel filter."}
+{"item_id": "6dcc2e0355:47", "text": "Integrator Overrides"}
+{"item_id": "6dcc2e0355:48", "text": "When it's necessary to override the settings for a render layer, follow these steps:"}
+{"item_id": "6dcc2e0355:49", "text": "Create your desire layer in Render Setup, be sure you are on this layer (visible checked, the eyeball icon)"}
+{"item_id": "6dcc2e0355:50", "text": "Choose the integrator you wish to use for this layer in the Render Settings. This will create the necessary node."}
+{"item_id": "6dcc2e0355:51", "text": "Right click on the integrator and choose"}
+{"item_id": "6dcc2e0355:52", "text": "\"Create Connection Override for Visible Layer\""}
+{"item_id": "6dcc2e0355:53", "text": "4. To connect this new integrator, simply type the name of the integrator you've chosen in the menu and add .msg to the name. For example, enter: PxrOcclusion.msg then press Enter/Return. This will connect the integrator and the override will be visible in the Render Settings as an Orange highlight."}

@@ -1,0 +1,21 @@
+{"item_id": "b7a699cd39:0", "text": "在生产环境中，通常希望创建并添加自己的 patterns 和 C++ plugins（materials、lights、patterns 等）到 Maya 的用户界面中，并在 RenderMan 加载时一同加载。这样 artists 就能在 Maya session 中访问这些 nodes。想要这样做的用户必须从 Autodesk 获取 Maya Node ID（这些 ID 通常按区块分配）。这让 Maya 能够分配唯一 ID 并识别 nodes。"}
+{"item_id": "b7a699cd39:1", "text": "由于我们不建议修改随附的 rfm.json 文件，可以使用系统环境变量，"}
+{"item_id": "b7a699cd39:2", "text": "RFM_SHOW_PATH 或 RFM_SITE_PATH，"}
+{"item_id": "b7a699cd39:3", "text": "来引用你的 custom（自定义）版本。"}
+{"item_id": "b7a699cd39:4", "text": "RenderMan for Maya 会按以下顺序搜索，并按相同顺序进行 merge/override（合并/覆盖）。"}
+{"item_id": "b7a699cd39:5", "text": "注意"}
+{"item_id": "b7a699cd39:6", "text": "：这个层级流程也适用于其他 config files：shelf.json、aovs.json、menu.json 等。"}
+{"item_id": "b7a699cd39:7", "text": "rfm 会读取 RFMTREE/config/rfm.json。这是基础 configuration，绝不应由你修改；请制作一个 custom（自定义）版本。"}
+{"item_id": "b7a699cd39:8", "text": "rfm 会查找 RFM_SITE_PATH 和 RFM_SHOW_PATH。它们既可以是 environment variables，也可以是主 rfm.json 中的值（优先使用 Environment Variable 方式）。"}
+{"item_id": "b7a699cd39:9", "text": "rfm 会查找 RFM_SITE_PATH/config/rfm.json。如果找到，其内容会与 base config 合并。"}
+{"item_id": "b7a699cd39:10", "text": "rfm 会查找 RFM_SHOW_PATH/config/rfm.json。如果找到，其内容会 merge/override base config 和 site config。"}
+{"item_id": "b7a699cd39:11", "text": "rfm 会查找 ~/rfm/config/rfm.json。如果找到，其内容会 merge/override base config、site config 和 show config。"}
+{"item_id": "b7a699cd39:12", "text": "override.json 可用于覆盖标准和 custom（自定义）RfM nodes 的默认值。"}
+{"item_id": "b7a699cd39:13", "text": "要添加额外 nodes（patterns、bxdfs、integrators 等），应扩展 resources/user/nodes/search_paths。rfm 始终期望相同的目录结构："}
+{"item_id": "b7a699cd39:14", "text": "OSL Shaders（OSL 着色器）"}
+{"item_id": "b7a699cd39:15", "text": "Patterns 的 Node IDs 嵌入在 metadata 中。下面是来自"}
+{"item_id": "b7a699cd39:16", "text": "PxrLayer"}
+{"item_id": "b7a699cd39:17", "text": "OSL shader 的示例。"}
+{"item_id": "b7a699cd39:18", "text": "C++ Plug-ins（C++ 插件）"}
+{"item_id": "b7a699cd39:19", "text": "在你的 custom（自定义）rfm.json 文件中，可以像下面的示例这样加载你的文件："}
+{"item_id": "b7a699cd39:20", "text": "这些项的 Node IDs 包含在 .args file 中。顺序无关紧要，但必须位于 tags 的第一层。下面的示例用于一个 light。"}

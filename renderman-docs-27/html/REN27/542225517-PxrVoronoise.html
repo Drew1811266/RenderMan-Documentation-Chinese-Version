@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PxrVoronoise</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>PxrVoronoise</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/REN27/542225517/PxrVoronoise">https://rmanwiki-27.pixar.com/space/REN27/542225517/PxrVoronoise</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/542225517/RenderMan_Voronoise.jpg" data-image-src="../../attachments/542225517/RenderMan_Voronoise.jpg" data-unresolved-comment-count="0" data-linked-resource-id="542225534" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Voronoise.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542225517" data-linked-resource-container-version="1" data-media-id="8017ff16-cfb6-49f8-8d25-455e1ecbeae6" data-media-type="file"></span></p><p><br/></p><p>Like all texture style nodes, this node takes a manifold that describes either a 2D or 3D domain to apply a voronoise texture to. The default behavior if no manifold is attached is to apply over P in 3D. This node computes the voronoise function, which is a blend of noise and <a class="external-link" href="http://www.iquilezles.org/www/articles/voronoise/voronoise.htm" rel="nofollow" style="text-decoration: underline;">Voronoi</a> as described by Inigo Quilez.</p><p>The jitter and smoothness parameters allow you to create different types of patterns.</p><ul class="simple"><li><code>jitter=0,smoothness=0</code> produces a minimum distance non-jittered grid of values, like RSL's cellnoise.</li><li><code>jitter=0,smoothness=1</code> gives a noise function, similar to perlin's.</li><li><code>jitter=1,smoothness=0</code> produces a jittered, minimum distance Voronoi pattern.</li><li><code>jitter=1,smoothness=1</code> produces a combination of jittered Voronoi and noise : &quot;voronoise&quot; !</li></ul><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="4e42fd16-f8f3-4e00-94de-ffb0aa2b63cd" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>Compared to Inigo's code, this version also adds fractal octaves and turbulence</p></div></div><p><br/></p><p><span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image" height="400" loading="lazy" src="../../attachments/542225517/voronoise_space.png" data-image-src="../../attachments/542225517/voronoise_space.png" data-unresolved-comment-count="0" data-linked-resource-id="542225531" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="voronoise_space.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542225517" data-linked-resource-container-version="1" data-media-id="eef9b3d3-e176-4724-bf97-6affc350cd1e" data-media-type="file"></span> </p><div class="section"><h4 id="PxrVoronoise-Manifold">Manifold</h4><p><br/>The manifold over which to apply the noise. (The default is P).</p><h3 id="PxrVoronoise-Global">Global</h3><h4 id="PxrVoronoise-SurfacePosition">Surface Position</h4><h4 id="PxrVoronoise-Frequency">Frequency</h4>Sets the lowest (starting) frequency of the noise layers.<div class="line-block"><div class="line"><p><br/></p><p><br/></p></div></div><h4 class="section" id="PxrVoronoise-Octaves">Octaves</h4><div class="section">The number of noise octaves used. More octaves add successively more noise.</div><div class="line-block"><div class="line"><p><br/></p><h3 id="PxrVoronoise-InnerLoop">Inner Loop</h3></div></div><h4 class="section" id="PxrVoronoise-Gain">Gain</h4><div class="section">Also known as persistence. Used to shrink or expand the amplitude of each successive octave of noise. 1/f noise is achieved when gain = 1/lacunarity</div><div class="line-block"><div class="line"><p><br/></p><p><br/></p></div></div><h4 class="section" id="PxrVoronoise-Lacunarity">Lacunarity</h4><div class="section">The scaler used to determine the frequency of each successive octave of noise. Smaller numbers will cause the layers to be more closely spaced in frequency. Larger values will space them further apart.</div><div class="line-block"><div class="line"><p><br/></p><p><br/></p></div></div><h4 class="section" id="PxrVoronoise-Jitter">Jitter</h4><div class="section">Controls the amount of jitter applied. 0 gives a regular grid, 1 gives a Voronoi like grid</div><div class="line-block"><div class="line"><p><br/></p><p><br/></p></div></div><h4 class="section" id="PxrVoronoise-Smoothness">Smoothness</h4>Using 0 produces a voronoi/cellnoise pattern, 1 results in smooth noise.<div class="line"><p><br/></p><p><br/></p></div><h4 class="section" id="PxrVoronoise-Turbulent">Turbulent</h4><div class="section">Should the noise be turbulent</div><h4 class="section" id="PxrVoronoise-BetterContrast">Better Contrast</h4><div class="line-block"><div class="line"><p>Improve contrast when smoothness increases</p><h3 id="PxrVoronoise-Octaves.1">Octaves</h3><h4 id="PxrVoronoise-SmoothnessOffset">Smoothness Offset</h4><p>Increase/decrease smoothness per octave</p><p><br/></p><h4 id="PxrVoronoise-SmoothnessOffsetWrap">Smoothness Offset Wrap</h4><p>Wrap the smoothness range (0-1) or just clamp</p><h3 id="PxrVoronoise-Advanced">Advanced</h3><h4 id="PxrVoronoise-Filter">Filter</h4></div></div><p>Change the filter size</p><p><br/></p><div class="section"><h3 id="PxrVoronoise-AdjustOutput">Adjust Output</h3><h4 id="PxrVoronoise-ColorScale">Color Scale</h4><p>A multiplier for the color values in a texture can be used to adjust brightness or manipulate individual color channels</p><p><br/></p><h4 id="PxrVoronoise-ColorOffset">Color Offset</h4><p>Apply an offset to the result, shifting the colors of the result</p><h4 id="PxrVoronoise-FloatScale">Float Scale</h4><p>Scalar float value </p><h4 id="PxrVoronoise-FloatOffset">Float Offset</h4><p>Float Offset value </p><p><br/></p></div><div class="line-block"><h3 class="line" id="PxrVoronoise-OutputParameters"><span style="font-size: 16.0px;line-height: 1.5;">Output Parameters</span></h3><p><span style="font-size: 16.0px;line-height: 1.5;"><br/></span></p></div></div><div class="section"><h4 id="PxrVoronoise-resultF">resultF</h4><p>The result of voronoise texture.</p><h4 id="PxrVoronoise-resultRGB">resultRGB</h4><p>The voronoise texture as a monochromatic color.</p></div>
+  </article>
+</main>
+</body>
+</html>

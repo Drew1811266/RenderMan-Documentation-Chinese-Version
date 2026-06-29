@@ -1,0 +1,52 @@
+{"id":"e3030f1c95da5af80d69ac42e51505848607643ac654ecb594617cff6a5ccede","text":"Bump Roughness"}
+{"id":"6cbb300e51d79e1d2ee329384bf6b6bc2126914eb9f7c99e761f939dc4583fee","text":"用于高效采样微细节。使用此 pattern 节点时，RenderMan 会根据特征在相机中的尺寸，自动从凹凸贴图切换为粗糙度值，从而降低渲染这些细节所需的采样率，并有效改善渲染时间。"}
+{"id":"1e9344f2782868982bbd5497d6123ef1cfc6f46e4ec73974862fca5c26bef83d","text":"© Disney/ Pixar"}
+{"id":"d8bf976894bd8434ecb7d190e88a88cec3b2928d8c31fe56f746034920aeff22","text":"这样的一个例子是 Cars 3 中由 Yeon Kang 负责着色的 Louise Nash。这里可以看到车漆清漆涂层的大面积磨损，它形成微划痕，并以有趣的方式打散镜面反射，同时还驱动各向异性，使其更准确地反映预期的外观开发效果。"}
+{"id":"408f343c65e2ea48975e3f6ac019670a3e11f8de2098c7c3a5c28e197090a0d9","text":"一个关键特性是"}
+{"id":"6a3fd6d06a11fe2183aed9dd99db54db0171448ccd881295ce7137079e25fbe9","text":"能在物体远离相机时仍呈现微细节。在上面的示例中可以看到，只用 1 个采样，而不必发射数百条光线，就能非常接近预期的外观开发效果，并可视化纹理中的目标细节层级。"}
+{"id":"735a771c82ef910c8603e1458ff5512bdee8e8b481fdedb5afc908abf8877dbd","text":"在上面的示例中可以看到，如何用一张纹理同时驱动粗糙度、各向异性和凹凸。放大 4X 时可以看到，Bump Roughness 能在凹凸通常会因纹理过滤而丢失的地方保留细节。"}
+{"id":"f521606c9b681bc1a8dccda6597ff66120fe9bc7136f9f23c1e30a78c471b1d7","text":"还有许多其他类型的材质也能受益于"}
+{"id":"8ec19d1ef22ccf8278197c7bab157509850ae2684690fe6bcd02601734e44cbe","text":"贴图带来的额外细节，例如碳纤维、金属、塑料和织物。"}
+{"id":"b0064bc8efbaa085c97d082d7615522f80a0ae140662a2104659774dc91ffe74","text":"网络连接"}
+{"id":"922a0998808ef95ed036bcc124d9ded32c144f3c302c4c65ac5508bd138d8b1a","text":"为了让 Bump Roughness 正常工作，需要将它连接到以下材质输入："}
+{"id":"53c54d59d08d281f0b74143be6111a639cf3f06675680aa503b95239b7b2ec7a","text":"Anisotropy Direction"}
+{"id":"a5e892d913496dd1a1c7ae0b53258693ef8c71c2452360aca72b656c44efb08a","text":"b2r Texture"}
+{"id":"1572ee9b0ea2a83975309e0319e44d2bfe6cf5f9828032b3f297dee3987a4f3e","text":"只需使用传统的凹凸贴图或法线贴图，Texture Manager 就会在 RFM、RFH 或 RFB 中自动将它们转换为 Bump Roughness 纹理。你会注意到新创建的 tex 文件现在会在文件名后带有"}
+{"id":"79b7f036be6f01e7cd33e01daa113e0386451417710c7a6db12cf9dfe4b863ff","text":"b2r"}
+{"id":"87502ee822b5dc129d04d8aa3265c9dd734d0a7d6bfe4c1665495cd9fde47f3b","text":"后缀，例如 myTexture_b2r.exr.tex"}
+{"id":"23c70433345d24b0b7271b2e2a31f9542241c544057fd7fbe2c8a90582725d8b","text":"请参阅"}
+{"id":"ea1205ad79c17a47a02bd11d8f0285ac763e764adf3c3128044cdcf645744601","text":"txmake 文档"}
+{"id":"c14ed31f0bdf407b54d5074863c6ac679b898c5123e7d0a89c9d016215894177","text":"了解详细信息。"}
+{"id":"d3f85443727b4c942afdb6e6f0a213507d2d9a8f9abedb5a2c012e88d16790e5","text":"Texture Type"}
+{"id":"5f96e6a791981be09e6671329544399f62171792576228b439262672b541128c","text":"要用作 Bump Roughness Map 的贴图类型"}
+{"id":"d916d74eb9a68497993a20260bda8c6269e0074e21ee4e5c4806b34e57a6e36b","text":"TxMake Icon"}
+{"id":"bf5f0a70080a0ecebb4577233740968866e0f7ca857cb9d16db0d74d493fc57f","text":"在 Texture Manager 中显示设置"}
+{"id":"e29793dea8429f58cc913ce697117a3614eaa231b5a3942af954b66c44d43850","text":"Manifold"}
+{"id":"669f8424f75f5bbb02415a5d2d0a206cd5a29478cfb9662553244d9019706c8d","text":"在此连接一个 manifold 节点，用来控制 Bump Roughness 贴图的位置、旋转和平铺"}
+{"id":"b479d09bdae9c3a764ce6cdd3b361bc38fed3ca61bb0635cf506610c1137b9a5","text":"Multi Manifold"}
+{"id":"c97d7a90b0d5a88f53ddc6091447d489b5a09139ac71ea55c0d9c911269c7aa3","text":"在此连接 PxrHexTileManifold 或 PxrRoundCube Manifold。"}
+{"id":"89910e0fc340798c2406030f2b70683048cdc84082defaf23cdbf77c418cb1a7","text":"Base Roughness"}
+{"id":"23da41c6c5910da06d1837f7ab2b9606192ccc0844c2afe20e6efdbfd205b9dc","text":"这是完全放大到细节时基础表面的粗糙度。"}
+{"id":"ce931f7c8b41f60a753045e066504fb63a67bad6b033b6f0b2938fd78ce18687","text":"Texture Roughness"}
+{"id":"2645f4bac56942249eb04c4b5c774213c6e712c1ca15b045dd4c5e981dc7a09a","text":"设置在完全远离细节时由输入纹理提供的纹理粗糙度。它会与基础粗糙度结合。默认值 -1.0 允许纹理提供其自然粗糙度。"}
+{"id":"6a4dc3d96d5c4265adebfecc15fec638c0a5cf377f505e87a3b7d4eadf0428d7","text":"这是聚合粗糙度的乘数"}
+{"id":"1677f91c358712f64264e873604a62f42be8931494bdc506330f11c7270acd8c","text":"Bump Normal Gain"}
+{"id":"9ca5f24770e9cd60271f69eb6ab398b0b0d4dec3e3522f5b16b8d589f2d47710","text":"法线贴图幅度的乘数"}
+{"id":"1a8780c2dc055a02bfcd2113d99fab9ecf3879319b761d82c91c0fb1b32bc51c","text":"Anisotropy Gain"}
+{"id":"97c3f8920a8392df52a38db331323342d2dbf73d8cf2c994af02347c3ee67627","text":"这是聚合各向异性的乘数"}
+{"id":"9f088dbebd6c3c70a5ddbc2c943b11e4ca9acea5757b0b4f2b32479f0dbb747e","text":"Advanced"}
+{"id":"22e51f047f90beac7936ab4aca9ca2269e04e5ca5be52b8d38f9abf5a0c348d3","text":"Adjust Amount"}
+{"id":"737e5129cd50c854b398760ff67399a3f86d52c8ef5e2b62c1fe9205ffcd1079","text":"Amount，用于在法线背向相机时调整法线"}
+{"id":"0ca59ad9a8b7e5c5aa31f63f47a98ca95789c762c409f15887216e0f83a9fc0e","text":"Surface Mix"}
+{"id":"2920c99eb6aac2d36ed98c2fef7770f60ab2ac1227a2871b75a891fb26ec8372","text":"将结果法线与表面法线混合的量"}
+{"id":"cd83e6731d2b17369af0704c1f52ff42262363a5521f650c36383b48bd35833b","text":"Blur"}
+{"id":"01d8a33f185c5ff09de1f51e81d93382b1feea040bed7e532531bb7844b94915","text":"Amount，用于控制应用到纹理查找的模糊量。"}
+{"id":"638e249f4a15ebb84957da130701d138a6e06d88dceeaa2e6dcd91db70cc1381","text":"Filter"}
+{"id":"d057d46ffe6b3232e2af17f05d60b1b5e7f511bfbf4a977c134a75b61aefa073","text":"要使用的过滤器。（不建议将 unfiltered/closest 用于置换。）"}
+{"id":"37005615d7ead2e94ae2c13a7b5193aa4df670c640a5b6f8f9a51a19d22b750a","text":"Filter Scale"}
+{"id":"1af13947724699620ea3bb68f1d5bee0c318cae453ba0cbae0dff42ccb6616ee","text":"乘以纹理过滤器大小；小于 1 会让纹理更锐利。"}
+{"id": "dd1d5242ada9028a453f20315be9161e9cd32954daeb1fcd3f1745b6be406567", "item_id": "760a4a4fed:15", "text": "Roughness"}
+{"id": "0831c68d0b80eb0844b8ebb84a1bc29b9423212e5eb46f2a1825cc4c077661f9", "item_id": "760a4a4fed:16", "text": "Bump Normal"}
+{"id": "8d92c2498f5ca083b4554452796bb60e0c21fed9667a057002c36465571d949d", "item_id": "760a4a4fed:17", "text": "Anisotropy"}
+{"id": "e8756d05615a8b9aac2d138a9ae82553f3231ff237868a66679a30001b4f326b", "item_id": "760a4a4fed:19", "text": "Input Parameters（输入参数）"}
+{"id": "4e125a3ef68a00b029459c9aa8aa94aa07e74cc54188ffef7f60f38f016e61ca", "item_id": "760a4a4fed:40", "text": "Gain"}

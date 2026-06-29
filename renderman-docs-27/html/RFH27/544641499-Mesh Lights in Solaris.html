@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mesh Lights in Solaris</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Mesh Lights in Solaris</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFH27/544641499/Mesh+Lights+in+Solaris">https://rmanwiki-27.pixar.com/space/RFH27/544641499/Mesh+Lights+in+Solaris</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p /><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="a8990e34-8474-41f6-84cf-02e230b58ea4" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>Note : For Houdini 21 onwards, please use the <em>geometrylight </em>LOP when creating mesh lights</p></div></div><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><a href="/wiki/download/attachments/544641499/DemoSign_v01_h264.mov?version=2&amp;modificationDate=1755862870868&amp;cacheVersion=1&amp;api=v2&amp;width=1800">DemoSign_v01_h264.mov</a></span><p>Rendering mesh lights with RenderMan XPU in other DCCs is straightword.  You simply select the geometry you wish to turn into a mesh light and </p><p>In Solaris there is a little setup to converting geometry into mesh lights, but once completed, we have quite a bit of control over how the mesh light looks and emits light.</p><p>As an overview, in Solaris we need to have a material with a Glow parameter assigned to the geometry we wish to turn into a mesh light.</p><p /><div class="panel conf-macro output-block" data-hasbody="true" data-macro-id="e40485d7-d5d9-4541-b345-08859683a356" data-macro-name="panel" style="background-color: #4C9AFF;border-width: 1px;"><div class="panelContent" style="background-color: #4C9AFF;">
+<p><strong><span class="legacy-color-text-inverse">USD Asset Setup</span></strong></p>
+</div></div><p>So, in Solaris we have our Neon R sign which was created into a USD asset using the component builder.  </p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Neon_Solaris_1.jpg" width="760" loading="lazy" src="../../attachments/544641499/Neon_Solaris_1.jpg" data-image-src="../../attachments/544641499/Neon_Solaris_1.jpg" data-height="1338" data-width="2558" data-unresolved-comment-count="0" data-linked-resource-id="657162997" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Neon_Solaris_1.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544641499" data-linked-resource-container-version="13" data-media-id="a7526c41-410f-457a-9193-52503a0ba37e" data-media-type="file"></span><p>We have a material with it’s textures that is applied to the sign, neon brackets, neon holes and the pole.</p><p>We then have four other shaders, each one is a PxrSurface with Glow enabled and a slight color variation in each one - we have three glowing orange materials and one glowing white material.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Neon_Solaris_shaders.jpg" width="760" loading="lazy" src="../../attachments/544641499/Neon_Solaris_shaders.jpg" data-image-src="../../attachments/544641499/Neon_Solaris_shaders.jpg" data-height="861" data-width="1449" data-unresolved-comment-count="0" data-linked-resource-id="657163004" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Neon_Solaris_shaders.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544641499" data-linked-resource-container-version="13" data-media-id="0c07c6b9-0e6c-494e-8487-bfb36e588de6" data-media-type="file"></span><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Neon_Solaris_GlowShader.jpg" width="760" loading="lazy" src="../../attachments/544641499/Neon_Solaris_GlowShader.jpg" data-image-src="../../attachments/544641499/Neon_Solaris_GlowShader.jpg" data-height="690" data-width="1510" data-unresolved-comment-count="0" data-linked-resource-id="657163010" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Neon_Solaris_GlowShader.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544641499" data-linked-resource-container-version="13" data-media-id="597215f0-30f6-4a5a-bbd6-452730a4a7c7" data-media-type="file"></span><p>Once all the materials were assigned, the USD asset was written out to disc.</p><p /><div class="panel conf-macro output-block" data-hasbody="true" data-macro-id="051921fe-36ab-4e95-bf6d-3d51394bfbf9" data-macro-name="panel" style="background-color: #4C9AFF;border-width: 1px;"><div class="panelContent" style="background-color: #4C9AFF;">
+<p><strong><span class="legacy-color-text-inverse">Solaris Geometry Lights</span></strong></p>
+</div></div><p>Moving on to our main Solaris setup, the first we do is read in the USD asset of the Neon Sign.</p><p>Now comes the mesh light magic and that’s courtest of Solaris’s Geometry Light node.</p><p>As you can see from the image below, we have four <em>geometrylight </em>nodes, each one creating a mesh light from the prims we define.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Neon_Solaris_GeometryLights_1.jpg" width="760" loading="lazy" src="../../attachments/544641499/Neon_Solaris_GeometryLights_1.jpg" data-image-src="../../attachments/544641499/Neon_Solaris_GeometryLights_1.jpg" data-height="1338" data-width="2557" data-unresolved-comment-count="0" data-linked-resource-id="657163016" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Neon_Solaris_GeometryLights_1.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544641499" data-linked-resource-container-version="13" data-media-id="12e106d8-35ce-4503-871d-f7129bcbbd6d" data-media-type="file"></span><p>Breaking this down into one neon tube, let’s take a closer look at the setip.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Neon_Solaris_GeometryLights_2.jpg" width="760" loading="lazy" src="../../attachments/544641499/Neon_Solaris_GeometryLights_2.jpg" data-image-src="../../attachments/544641499/Neon_Solaris_GeometryLights_2.jpg" data-height="562" data-width="1003" data-unresolved-comment-count="0" data-linked-resource-id="657163022" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Neon_Solaris_GeometryLights_2.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544641499" data-linked-resource-container-version="13" data-media-id="75c6c5a2-1630-407f-a201-2145a38ea29f" data-media-type="file"></span><p>In the Primitives parameter, we are telling Solaris/RenderMan which prims we want to turn into a mesh light.  We need to set the API Schema to MeshLightAPI too</p><p /><p>The Material Sync Mode has a number of different modes:</p><p><strong>Material Glow Tints Light</strong></p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Neon_Solaris_GeometryLights_MaterialGlow.jpg" width="760" loading="lazy" src="../../attachments/544641499/Neon_Solaris_GeometryLights_MaterialGlow.jpg" data-image-src="../../attachments/544641499/Neon_Solaris_GeometryLights_MaterialGlow.jpg" data-height="1115" data-width="2558" data-unresolved-comment-count="0" data-linked-resource-id="657163028" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Neon_Solaris_GeometryLights_MaterialGlow.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544641499" data-linked-resource-container-version="13" data-media-id="6f5c1227-caf5-497e-81a4-842b3b2e4aae" data-media-type="file"></span><p>This allows us to use the Glow parameter from the assigned PxrSurface as the initial mesh light intensity and color.  </p><p /><p><strong>Independant</strong></p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Neon_Solaris_GeometryLights_independant.jpg" width="760" loading="lazy" src="../../attachments/544641499/Neon_Solaris_GeometryLights_independant.jpg" data-image-src="../../attachments/544641499/Neon_Solaris_GeometryLights_independant.jpg" data-height="1116" data-width="2558" data-unresolved-comment-count="0" data-linked-resource-id="657163034" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Neon_Solaris_GeometryLights_independant.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544641499" data-linked-resource-container-version="13" data-media-id="54270d34-8696-4169-9ce6-548c1d110e82" data-media-type="file"></span><p>This enables us to alter the intensity, color and other values independantly from the Glow and demonstrated here with each neon tube emitting a different color from the original glow color.</p><p /><p><strong>No Material Response.</strong></p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Neon_Solaris_GeometryLights_noResponse.jpg" width="760" loading="lazy" src="../../attachments/544641499/Neon_Solaris_GeometryLights_noResponse.jpg" data-image-src="../../attachments/544641499/Neon_Solaris_GeometryLights_noResponse.jpg" data-height="1115" data-width="2558" data-unresolved-comment-count="0" data-linked-resource-id="657163040" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Neon_Solaris_GeometryLights_noResponse.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544641499" data-linked-resource-container-version="13" data-media-id="b9fdd5e4-f358-4efc-9f5d-93c9425543e2" data-media-type="file"></span><p>This in effect, makes the geometry invisble to camera, yet we can still emit light from the prim(s) and control it’s light values.  We still have our whacky colors, but we don’t see the mesh light prim.</p><p>Limitations</p><p>Houdini 20.5 and below</p><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="bad500ad-b0c0-43a4-adac-e2ed6bc6d51f" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>If your scene consists only of mesh lights, Solaris will automatically add a default headlight. This is a known issue, and we are working with SideFX to resolve it. The current workaround is to add a zero-intensity light to your scene to trick Solaris into believing the default headlight isn't needed.</p></div></div><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="5ec3a4dd-1734-4aae-981b-ee6ace48721e" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>Currently, you can only turn &quot;Mesh&quot; primitives into mesh lights. Other primitives, such as &quot;Sphere,&quot; will not work. In order to get mesh lights working in older versions of USD, we turn the Mesh primitive into a PxrMesh primitive. Both these limitations should be resolved in a future version of Solaris.</p></div></div><p />
+  </article>
+</main>
+</body>
+</html>

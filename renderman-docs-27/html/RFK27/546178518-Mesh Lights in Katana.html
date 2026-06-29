@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mesh Lights in Katana</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Mesh Lights in Katana</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFK27/546178518/Mesh+Lights+in+Katana">https://rmanwiki-27.pixar.com/space/RFK27/546178518/Mesh+Lights+in+Katana</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<h3 id="MeshLightsinKatana-CreatingMeshLights">Creating Mesh Lights</h3><p>Mesh Lights in RenderMan are created with a <a href="/wiki/spaces/REN26/pages/19661735/PxrMeshLight" data-linked-resource-id="19661735" data-linked-resource-version="2" data-linked-resource-type="page">PxrMeshLight</a>.  Any piece of geometry can be used as a mesh light (also referred to as a &quot;geometric area light&quot;). The two main workflows for creating mesh lights in RfK are described below. </p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="512" loading="lazy" src="../../attachments/546178518/rfkShaderBallMeshLight.png" data-image-src="../../attachments/546178518/rfkShaderBallMeshLight.png" data-height="512" data-width="512" data-unresolved-comment-count="0" data-linked-resource-id="546178538" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfkShaderBallMeshLight.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="546178518" data-linked-resource-container-version="4" data-media-id="bef19192-c023-427d-9c3e-320b6b84fd87" data-media-type="file"></span><h4 id="MeshLightsinKatana-Method1:PxrMeshLightGafferThreePackage">Method 1: PxrMeshLight GafferThree Package</h4><p>Creating mesh lights is simple with this method. First, select the geometry that you wish to turn into a mesh light in the Scenegraph. Then in GafferThree, add a PxrMeshLight.</p><span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="1065" loading="lazy" src="../../attachments/546178518/rfkPxrMeshLight.png" data-image-src="../../attachments/546178518/rfkPxrMeshLight.png" data-height="498" data-width="1065" data-unresolved-comment-count="0" data-linked-resource-id="546178535" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfkPxrMeshLight.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="546178518" data-linked-resource-container-version="4" data-media-id="5ac89ab0-275d-497d-bcb2-0849f1555425" data-media-type="file"></span><p /><p>The Mesh Light Geometry parameter can also reference a node with a Scene Graph location. Node Graph references will automatically update the parameter if the geometry's name or location changes.</p><p /><h4 id="MeshLightsinKatana-Method2:Thegeometry.areaLightGeometrySourceAttribute">Method 2: The geometry.areaLightGeometrySource Attribute</h4><p>Mesh light geometry needs to be attached to the light using a specific attribute that RfK looks for when processing the lights. That attribute is named &quot;geometry.areaLightGeometrySource&quot;. The attribute is a string attribute on the light and it's value should be the geometry location. For convenience, the PrmanMeshLightCreate macro, a part of the RfK distribution, demonstrates this set up.</p><span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="834" loading="lazy" src="../../attachments/546178518/rfkMeshLightAS.png" data-image-src="../../attachments/546178518/rfkMeshLightAS.png" data-height="423" data-width="834" data-unresolved-comment-count="0" data-linked-resource-id="546178532" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfkMeshLightAS.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="546178518" data-linked-resource-container-version="4" data-media-id="b8695ca4-c9e9-4a0c-a6a4-ca67007f5a9f" data-media-type="file"></span><h4 id="MeshLightsinKatana-Method3:AssignaPxrMeshLightMaterial">Method 3: Assign a PxrMeshLight Material</h4><p>You may assign a PxrMeshLight material to an object to create a mesh light. However, you will not be able to take advantage of light linking and light filter options.</p><h3 id="MeshLightsinKatana-InstancingMeshLights">Instancing Mesh Lights</h3><p>If you have created your mesh light with Method 1 or 2 described above, the scene will have two locations associated with a single mesh light.  So which location do you instance?  It will always be the geometry location.</p><p>If you are using hierachical instancing or instance arrays, make sure that the mesh light is below the instance source location so that RfK will maintain the material properties and light filters associated with the light location.</p><p>Mesh lights can also be used in light arrays.  In this case, RfK uses the material from the light array location rather than the material on the geometry location.</p><p /><h3 id="MeshLightsinKatana-AdditionalNotes">Additional Notes</h3><p>The geometry can be rendered with or without a Bxdf. RfK assigns PxrBlack to mesh lights if no other Bxdf is assigned (does not apply to Method 3). If a Bxdf is assigned to the geometry then the geometry will be rendered according to the characteristics of that shader.</p><p>It is recommended that you increase the micropolygonlength on the mesh light for improved performance. This attribute is available on the PxrMeshLight GafferThree package in the Object Tab.</p><p>If you want to use the Texture Color parameter of PxrMeshLight, you can create a shading network with PrmanShadingNodes and a NetworkMaterial node.  Then assign the NetworkMaterial to the light location with a MaterialAssign node, downstream of the GafferThree where the light was created.</p>
+  </article>
+</main>
+</body>
+</html>

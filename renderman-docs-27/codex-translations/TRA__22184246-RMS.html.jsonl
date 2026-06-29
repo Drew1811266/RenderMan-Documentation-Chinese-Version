@@ -1,0 +1,52 @@
+{"item_id":"3967508d7a:0","text":"这是 RenderMan 21 及更早版本的 legacy documentation。"}
+{"item_id":"3967508d7a:1","text":"简介"}
+{"item_id":"3967508d7a:2","text":"RenderMan Studio 的默认 configuration 会通过 Tractor 分发 work。开箱即用时，用户可以进入 Render Options window 并进行设置，使任何不是 local internal render 的 render 都使用 Tractor 来确保 job 正确完成。当然，这也假定你的站点同样使用 Tractor 的默认开箱即用 configuration。"}
+{"item_id":"3967508d7a:3","text":"如果你碰巧认为自己很特别，并选择更改默认 configuration，也不用担心。RenderMan Studio 通过 preference 和其他辅助设置提供了你需要的全部 hook，用于在 RenderMan Studio workstation 与 Tractor work dispatching system 之间维持协调配合。"}
+{"item_id":"3967508d7a:4","text":"Engine 位置和 Tractor 用户"}
+{"item_id":"3967508d7a:5","text":"RenderMan_for_Maya.ini 提供了两个关键 preference，用于确保 RMS 与 Tractor 的连接："}
+{"item_id":"3967508d7a:6","text":"这些 preference 由生成 job script 并 spool job 的 MEL script 使用。与所有 pref 一样，它们可以在基于 aRMS_SCRIPT_PATHS 的 ini override file 中设置。"}
+{"item_id":"3967508d7a:7","text":"默认情况下，Tractor 会 spool 到一台名为"}
+{"item_id":"3967508d7a:8","text":"tractor-engine"}
+{"item_id":"3967508d7a:9","text":"、端口为 80 的机器。由于各种原因，这可能不是你的设置，但你可以在站点专用 ini 中覆盖此 pref，例如："}
+{"item_id":"3967508d7a:10","text":"格式为 engine:port，也就是 engine 和 port。"}
+{"item_id":"3967508d7a:11","text":"tractor-spool.py（RMS distribution 中的 tractor.py）的默认行为是以 spool 该 job 的用户身份 spool。你可能希望 job 以特定用户身份 spooled。第二个 preference 可将 job 锁定到特定用户，例如："}
+{"item_id":"3967508d7a:12","text":"EnvKeys"}
+{"item_id":"3967508d7a:13","text":"RenderMan_for_Maya_Pro.ini file 现在有一个额外 pref，用于指定传递给 Tractor 的默认 environment key。"}
+{"item_id":"3967508d7a:14","text":"此"}
+{"item_id":"3967508d7a:15","text":"envkey"}
+{"item_id":"3967508d7a:16","text":"由 Tractor"}
+{"item_id":"3967508d7a:17","text":"envhandler"}
+{"item_id":"3967508d7a:18","text":"处理；它会解析该 key，并在 tractor-blade 上正确设置 $RMSTREE 和 $MAYA_LOCATION`。不过需要特别注意，RenderMan Studio 的 envhandler 会基于 \"default\" installation location 设置 environment，而该位置在不同站点可能不同。"}
+{"item_id":"3967508d7a:19","text":"DefaultEnvKey preference 会为 RMS 中的 Render Options（包括"}
+{"item_id":"3967508d7a:20","text":"Current Frame"}
+{"item_id":"3967508d7a:21","text":"和"}
+{"item_id":"3967508d7a:22","text":"Batch"}
+{"item_id":"3967508d7a:23","text":"）设置默认值。在此 dialog 中，用户可以完全更改发送给 Tractor 的 environment setting，允许用户把其他 envkey 附加到默认值。注意，生成的 envkey 随后会像 batch render dialog 中的其他 value 一样保存到 Maya preference，并传播到未来的 Maya scene。点击 Render Options window 中 Environment Key 的"}
+{"item_id":"3967508d7a:24","text":"Default"}
+{"item_id":"3967508d7a:25","text":"该按钮会从 .ini file 恢复 DefaultEnvKey。"}
+{"item_id":"3967508d7a:26","text":"tractor-blade 的配置说明"}
+{"item_id":"3967508d7a:27","text":"如果你更改了 RenderMan Studio 的默认 install location，就需要编辑 blade configuration 来更改 install location，以便 Tractor 正确处理 RMS job。尤其是，有三个 shared.*.envkeys file 会从 tractor-engine 发送到 tractor-blade。这些 envkey file 包含 environment dictionary。envkey \"rms-*-maya-*\" 的 environment dictionary 需要修改为指向正确的 install location。"}
+{"item_id":"3967508d7a:28","text":"重要提示"}
+{"item_id":"3967508d7a:29","text":"与 .ini file 一样，我们建议用户不要编辑 factory config file。相反，应将这些 file 复制到站点专用的特殊 config directory，并在那里编辑。然后使用 --configdir=/path/to/config/files option 启动 tractor-engine。"}
+{"item_id":"3967508d7a:30","text":"额外的 envhandler 处理器"}
+{"item_id":"3967508d7a:31","text":"还有几个其他 envhandler 可用，其中最常用的可能是"}
+{"item_id":"3967508d7a:32","text":"prman"}
+{"item_id":"3967508d7a:33","text":"envkey。"}
+{"item_id":"3967508d7a:34","text":"prman"}
+{"item_id":"3967508d7a:35","text":"key 的格式为："}
+{"item_id":"3967508d7a:36","text":"\"prman-XX.X\""}
+{"item_id":"3967508d7a:37","text":"XX.X 指 batch rendering 要启动的 prman version（例如 '19.0'）。当此 key 添加到 batch dialog 后，会调用"}
+{"item_id":"3967508d7a:38","text":"rmanhandler"}
+{"item_id":"3967508d7a:39","text":"。它会在磁盘上定位目标 prman release，在 launch environment 中设置 RMANTREE，并将 $RMANTREE/bin 添加到 launch environment path。"}
+{"item_id":"3967508d7a:40","text":"如果 RMS 或 RPS 安装在非标准位置，则可以改用"}
+{"item_id":"3967508d7a:41","text":"rmantree"}
+{"item_id":"3967508d7a:42","text":"和"}
+{"item_id":"3967508d7a:43","text":"rmstree"}
+{"item_id":"3967508d7a:44","text":"handler。"}
+{"item_id":"3967508d7a:45","text":"\"rmantree=/path/to/my/rmantree/installation\""}
+{"item_id":"3967508d7a:46","text":"\"rmstree=/path/to/my/rmstree/installation\""}
+{"item_id":"3967508d7a:47","text":"这些 handler 会取出"}
+{"item_id":"3967508d7a:48","text":"rmantree"}
+{"item_id":"3967508d7a:49","text":"和"}
+{"item_id":"3967508d7a:50","text":"rmstree"}
+{"item_id":"3967508d7a:51","text":"的 path，并把它们作为 $RMANTREE 和 $RMSTREE 添加到 environment 中。它们还会把 $RMANTREE/bin 和 $RMSTREE/bin 附加到 launched command 的 path。"}

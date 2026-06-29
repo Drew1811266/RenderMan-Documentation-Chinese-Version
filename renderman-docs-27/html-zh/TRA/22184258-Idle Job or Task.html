@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Idle Job or Task</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Idle Job or Task</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/TRA/22184258/Idle+Job+or+Task">https://rmanwiki-27.pixar.com/space/TRA/22184258/Idle+Job+or+Task</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="document"><p>调度系统用户常见的问题是： <em>为什么这个 job（或 task）没有运行？</em> job 可能不运行有许多原因：network 或 hardware failure、system misconfiguration，或者只是正常 scheduling rules 阻止了 job execution。</p><p>要理解 job 如何以及何时变为 active，跟踪 job task 在系统中的生命周期可能会有帮助。</p><p><strong>job 必须已经提交。</strong></p><p>首先，你必须已经按下某个 in-app button 或发出提交 job 的 command。job 必须先由 engine 处理并加载。</p><p>要验证 engine 是否已收到 job，请检查它是否在 dashboard 中可见。如果看不到该 job：</p><ul class="simple"><li>确保没有 job filter 或 client side search box 阻止 job 显示，</li><li>检查 dashboard 是否指向与 spool 该 job 的 entity 相同的 engine，并且</li><li>检查 engine log file 中是否在 job 被 spooled 时出现过 “job Loaded” message。log file 中相邻的 error messages 可能表明 job file 存在 syntax error。</li></ul><p>你也可以在 command line 上查看最近 spooled jobs，例如 “tq jobs mine --sort jid”。</p><p><strong>job 必须能够运行。</strong></p><p>验证 job <em>没有</em>处于以下状态：</p><ul class="simple"><li>paused，</li><li>delayed，且</li><li>没有按照其 afterJids list 所指定的那样等待其他 jobs 完成。</li></ul><p><strong>job 必须有 ready tasks（就绪任务）。</strong></p><p>验证 job 确实有 ready tasks。提交 job 后，至少会有一个可运行的 ready task（除非 job author 能够编织出具有 circular dependencies 的 job！）。Ready tasks 会是 job graph 上的 leaf nodes，不过并非所有 leaf nodes 都一定 ready。可以在 command line 上用 “tq tasks state=ready and jid=&lt;jid&gt;” 列出 job 的 ready tasks。</p><p>submission time 的 remaining tasks 会处于 blocked 状态；一旦其所有 child tasks 成功完成（或被 manually skipped），某个 task 就会变为 ready。对于 serial subtasks，task 可能还必须等待其 “older” sibling tasks 完成后才能变为 ready。</p><p><strong>Blades 必须正在请求 work。</strong></p><p>验证 blades 确实正在请求 work（并且请求正确的 engine:port）。参与的 blades 会在 dashboard 的 blades tab 中可见。如果一个都没有，请确保 blades 正在联系正确的 engine，并且 blade 和 engine hosts 的 firewall 中打开了 proper ports。engine 的默认 port 是 80 (TCP)，blades 的默认 port 是 9005 (TCP)。（注意，blade 和 engine 上必须打开 9005 (UDP)，progress messages 才能报告给 engine；不过这不会影响 task 是否在 blade 上启动。）</p><p>你可以在 dashboard 中运行 tracer，验证某个 blade 是否正在请求 work。这会报告哪些 jobs 已被考虑用于 dispatching。如果相关 job 显示在 trace 中，也会显示它未被 picked up 的原因。如果相关 job 没有显示，可能是因为选择了更高 priority job 的 task，或因为其他 scheduling rules 会阻止该 job 在该 blade 上运行。</p><p>还要考虑，如果 blades 在某个 interval 内发生若干 task failures，它们可能不会请求 work。这样的 blades 会在 blade list 的 Note column 中标记为 error accrual hiatus。 <a href="22184312-Server Profiles.html" data-linked-resource-id="22184312" data-linked-resource-version="6" data-linked-resource-type="page">blade's profile（blade 配置档案页面）</a> 中的 RecentErrorThrottle setting 管理这个 hiatus calculation 的 parameters。</p><p><strong>Scheduling rules 必须允许考虑该 job。</strong></p><p>有几条 scheduling rules 决定 task 是否在给定 blade 上运行：</p><ul class="simple"><li>requesting blade 的 service keys 必须匹配 task 的 service key expression，</li><li>requesting blade 的 metrics 必须满足 task 的 metric requirements，</li><li>task 不得受 limits 限制。这里的 limits 可能由 job、task 或 task 当前 command 的 limit tags 表示，并且</li><li>task 不得受 sharing limits 限制。这里的 limits 是与 job project 关联的那些 limits。</li></ul><p>即使某个 task 满足这些 requirements，也可能存在一个更高 priority job 的 task 同样满足这些 requirements，并因此被 job 选中。</p><p>还要注意，每次 task assignment 和 completion 都会影响 limit counters，这会影响哪些 tasks 有资格响应下一个 blade request。</p></div>
+  </article>
+</main>
+</body>
+</html>

@@ -1,0 +1,26 @@
+{"item_id":"380fad7a16:0","text":"\"Engine Metrics\" tab 以图形方式提供若干 engine health 和 performance statistic 的近期历史。Tractor engine 会定期采样这些值，并发送给已订阅的 Dashboard client。默认情况下，大约每 15 秒采集一次新 sample，graph 中显示约 10 分钟的历史。"}
+{"item_id":"380fad7a16:1","text":"这些 graph 旨在为 administrator 提供 engine status 的快速概览，并帮助在 performance issue 出现时识别问题。由于 graph 基于从快速变化系统中采集的 sample，并非所有显示值都会在每一刻都精确匹配系统状态。"}
+{"item_id":"380fad7a16:2","text":"等待中的 task"}
+{"item_id":"380fad7a16:3","text":"：整个 job queue 中等待执行的 task 数。"}
+{"item_id":"380fad7a16:4","text":"活动 task"}
+{"item_id":"380fad7a16:5","text":"：已经 dispatch 到 blade 且当前正在运行的 task 数。"}
+{"item_id":"380fad7a16:6","text":"总 slot 数"}
+{"item_id":"380fad7a16:7","text":"：farm 上所有 blade 报告的 \"slot\" count 总和。slot 是可分配容量的抽象单位。有些站点会为每台 host 配置一个 slot，有些会为每个 core 使用一个 slot，其他站点则会向 blade 添加自己的 plug-in，以生成动态 slot value。"}
+{"item_id":"380fad7a16:8","text":"活动 slot 数"}
+{"item_id":"380fad7a16:9","text":"：active running task 消耗的 slot 数。每个 command 使用的数量在 job script 中指定，并且可以是在给定 \"at-least\" 与 \"at-most\" value 之间的动态数量。"}
+{"item_id":"380fad7a16:10","text":"每秒 request 数"}
+{"item_id":"380fad7a16:11","text":"：tractor-engine 每秒接收的 HTTP request 总数估计值。其中包括来自 blade、browser 和 external script 的所有 request。"}
+{"item_id":"380fad7a16:12","text":"每秒调度数"}
+{"item_id":"380fad7a16:13","text":"：成功 task assignment 的速率。也就是每秒有多少来自 blade 的 work request 成功匹配 job queue 中 waiting task，并交回 blade 执行。"}
+{"item_id":"380fad7a16:14","text":"intake backlog"}
+{"item_id":"380fad7a16:15","text":"：tractor-engine 已接收但尚未委派给具体 engine subsystem 处理的 inbound HTTP request 的内部度量。"}
+{"item_id":"380fad7a16:16","text":"assigner backlog"}
+{"item_id":"380fad7a16:17","text":"：等待从 queue 分配 task 的 blade pending request 数。其中一些 request 可能已成功处理但不会导致 task launch，例如没有剩余 queued task，或 blade 的 service key 不匹配任何 waiting command 的要求。"}
+{"item_id":"380fad7a16:18","text":"i/o pool backlog"}
+{"item_id":"380fad7a16:19","text":"：tractor 使用一组 \"shipper\" thread 来并发处理 connected socket 上的 i/o operation。此值是等待可用 thread 的 high-level i/o action 数量。"}
+{"item_id":"380fad7a16:20","text":"monitor backlog"}
+{"item_id":"380fad7a16:21","text":"：等待处理的 UI-specific HTTP request 数。"}
+{"item_id":"380fad7a16:22","text":"engine load"}
+{"item_id":"380fad7a16:23","text":"：tractor-engine host 自身当前 \"load average\" 的归一化值。显示值是系统一分钟 loadavg，例如由 'uptime' 或 'top' 给出的值，但会再除以该 host 的 CPU core 数。因此，拥有 16 个 core 且其中 8 个 core 满负载的 host 会报告名义 loadavg 为 \"8.0\"，而此 graph 会报告 \"0.5\"。其意图是表示 host CPU capacity 中正在使用的总体比例。此 load 不一定完全来自 tractor-engine activity。host 上的其他 activity，例如 file-serving 或其他正在运行的 application，也会贡献 load。"}
+{"item_id":"380fad7a16:24","text":"用户连接"}
+{"item_id":"380fad7a16:25","text":"：最近连接的 client session 数。其中包括 Dashboard session，以及也使用 HTTP request protocol 接收 job status update 或请求 job/blade detail 的其他 client。由于持续 HTTP \"session\" 的 \"end\" 很难界定，engine 会认为某个 connection 仍然是 \"current\"，直到相当长的 interval 内没有来自预期 client 的其他 activity。具体来说，完全 reload 一个 tractor browser window 会暂时导致旧 session 和新 session 都被计为可能 active。"}

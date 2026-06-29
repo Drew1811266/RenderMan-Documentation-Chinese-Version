@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Stylized Looks in Maya Overview</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Stylized Looks in Maya Overview</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFM27/544541301/Stylized+Looks+in+Maya+Overview">https://rmanwiki-27.pixar.com/space/RFM27/544541301/Stylized+Looks+in+Maya+Overview</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>Getting started with Stylized Looks in RenderMan is very straightforward and can be achieved in one of 2 ways.</p><p><br/></p><p><span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image confluence-thumbnail" height="78" loading="lazy" src="../../attachments/544541301/stylized shelf icon.jpg" data-image-src="../../attachments/544541301/stylized shelf icon.jpg" data-unresolved-comment-count="0" data-linked-resource-id="544541321" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="stylized shelf icon.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544541301" data-linked-resource-container-version="1" data-media-id="5da18f16-0080-4566-afb4-1e8e6858747d" data-media-type="file"></span></p><p>The first way is to use the automatic setup route by simply selecting your objects and clicking on the Stylized shelf button. This will:</p><ul><li>Enable Stylized Looks in the Render Settings and add in all the Stylized AOVs that are required</li><li>Adds and connects a PxrStylizedControl node to each of the surface shaders for the selected objects</li><li>Add a Hatching display filter, so you are ready to get Stylized Rendering!</li></ul><p><br/></p><hr/><p><br/></p><p>Or, if you prefer to set them up manually, you can follow these steps </p><ol><li><a href="#StylizedLooksinMayaOverview-step1">Enable Stylized Looks</a></li><li><a href="#StylizedLooksinMayaOverview-step2">Attach Stylized Pattern</a></li><li><a href="#StylizedLooksinMayaOverview-step3">Attach Stylized Display Filters</a></li></ol><p><br/></p><h4 id="StylizedLooksinMayaOverview-1.step1EnableStylizedLooks">1.  <span class="confluence-anchor-link conf-macro output-inline" data-hasbody="false" data-macro-id="332288e1-0002-46a2-bed0-156c9493e31f" data-macro-name="anchor" id="StylizedLooksinMayaOverview-step1"><span class="confluence-anchor-link" id="step1"> </span></span>Enable Stylized Looks</h4><p>The power behind the Stylized Looks system in RenderMan lies with the <strong>custom set of AOVs</strong> that the system needs to determine such features as Hatching, line work, and toon shading. </p><p>Luckily in Maya, setting these AOVs up is a one-click process.  Simply click on &quot;Enable Stylized Looks&quot; and RenderMan for Maya will create all the necessary AOVs for you.</p><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="1ca93480-9ad8-42fe-bb95-956bacd3c791" data-macro-name="info"><p class="title">View AOVs</p><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>Don't forget to enable the &quot;Output AOVs&quot; option in the <a href="/wiki/spaces/RFM27/pages/544539366/Prefs+-+Render" data-linked-resource-id="544539366" data-linked-resource-version="1" data-linked-resource-type="page">RenderMan preferences</a>.</p></div></div><p><br/></p><p><span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image" width="500" loading="lazy" src="../../attachments/544541301/enable stylized looks rfm.jpg" data-image-src="../../attachments/544541301/enable stylized looks rfm.jpg" data-unresolved-comment-count="0" data-linked-resource-id="544541324" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="enable stylized looks rfm.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544541301" data-linked-resource-container-version="1" data-media-id="5ba0d0ac-e457-4dab-ba22-e0e112f91bf3" data-media-type="file"></span></p><p><br/></p><p><br/></p><h4 id="StylizedLooksinMayaOverview-2.step2AttachStylizedPattern-PxrStylizedControl">2. <span class="confluence-anchor-link conf-macro output-inline" data-hasbody="false" data-macro-id="61182b1b-eb73-42e4-babe-f7c0db5665ce" data-macro-name="anchor" id="StylizedLooksinMayaOverview-step2"><span class="confluence-anchor-link" id="step2"> </span></span>Attach Stylized Pattern - PxrStylizedControl</h4><p>Once you've loaded all the AOVs, you now have to go through each of the shaders that are attached to your model and connect the <strong>AOV Output</strong> from a <strong>PxrStylizedControl</strong> node into the <strong>Utility Pattern</strong> input of your Materials. </p><p><span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image" height="250" loading="lazy" src="../../attachments/544541301/StylizedLooks_Material_Connection.gif" data-image-src="../../attachments/544541301/StylizedLooks_Material_Connection.gif" data-unresolved-comment-count="0" data-linked-resource-id="544541327" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="StylizedLooks_Material_Connection.gif" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/gif" data-linked-resource-container-id="544541301" data-linked-resource-container-version="1" data-media-id="57a1ecf8-6291-4408-af33-c4674c2e6f63" data-media-type="file"></span></p><p><br/></p><h4 id="StylizedLooksinMayaOverview-3.step3AttachStylizedDisplayFilters">3. <span class="confluence-anchor-link conf-macro output-inline" data-hasbody="false" data-macro-id="25b95ed6-e97e-4711-b2a1-638f20e51cfd" data-macro-name="anchor" id="StylizedLooksinMayaOverview-step3"><span class="confluence-anchor-link" id="step3"> </span></span>Attach Stylized Display Filters</h4><p>This is where the fun really starts! You are now ready to begin adding <strong>Stylized Looks Display Filters</strong>. </p><ul><li><p><a href="/wiki/spaces/REN26/pages/19660918/Stylized+Hatching" data-linked-resource-id="19660918" data-linked-resource-version="5" data-linked-resource-type="page"><em>PxrStylizedHatching</em> </a>- This filter adds an art-driven generalization of illustrative Hatching.</p></li><li><em><a href="/wiki/spaces/REN26/pages/19661561/Stylized+Lines" data-linked-resource-id="19661561" data-linked-resource-version="3" data-linked-resource-type="page">PxrStylizedLines&nbsp;</a>- </em>Add curvature line work, outlines, and other cool and unique looks</li><li><a href="/wiki/spaces/REN26/pages/19660910/Stylized+Toon" data-linked-resource-id="19660910" data-linked-resource-version="6" data-linked-resource-type="page">PxrStylizedToon&nbsp;</a>- The perfect Display Filter for adding stepped toon shading effects</li></ul><p>Stylized Looks Tip</p><blockquote><p>To avoid an empty background, use a <strong>PxrBackgroundDisplayFilter</strong> to simulate paper or other backgrounds. </p></blockquote><h4 id="StylizedLooksinMayaOverview-4.Addlighting">4. Add lighting</h4><p>Get creative with your lighting from the selection of RenderMan lights.  Remember, the smaller the light, the sharper your shadows will look.</p><h4 id="StylizedLooksinMayaOverview-5.InteractiveRendering">5. Interactive Rendering </h4><p>One of the main strengths of the Stylized Looks system is that artists can see these new treatments directly in the rendering viewport of the authoring application as they move lights, change geometry, alter animation, and adjust shading parameters.  This “in-camera” capability in the same application can dramatically speed up artistic explorations and decision making.</p><h4 id="StylizedLooksinMayaOverview-6.CombineDisplayFilterstoreallygetcreative">6. Combine Display Filters to really get creative</h4><p>A lot of customization is possible since many of the treatments can be driven by painted or procedural maps.  In addition, the specialized display filters that apply the treatments are driven by pattern signals that are selected by artists. It is easy (and fun!) to come up with novel uses of the supplied pattern AOVs or add others to the mix. Effects can also be driven by rendering quantities such as light intensity, light filter domain, facing ratios, distance from the camera, etc. </p><p><span>Create a PxrStylizedToon as your first Stylized filter, then add a PxrStylizedHatching filter with the halftone preset applied, and then create your unique look by adding a PxrStylizedLines filter to create beautiful and detailed outlines.</span></p><p>The Stylized Looks display filter nodes can also be daisy-chained to produce a layered composition of looks, and those permutations are endless.</p><p><br/></p><p><br/></p>
+  </article>
+</main>
+</body>
+</html>

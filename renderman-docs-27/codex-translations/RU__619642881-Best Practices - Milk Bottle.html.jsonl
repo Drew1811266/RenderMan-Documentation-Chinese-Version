@@ -1,0 +1,34 @@
+{"item_id":"a500b5fb2c:0","text":"牛奶瓶（Milk Bottle）制作"}
+{"item_id":"a500b5fb2c:1","text":"现在我们可以看看牛奶和瓶子了。"}
+{"item_id":"a500b5fb2c:2","text":"牛奶本身没有使用 textures，后面会单独介绍；因此我们先隔离瓶子，讨论它如何真实地实现“dirty bottle”（脏瓶子）外观。"}
+{"item_id":"a500b5fb2c:3","text":"玻璃具有几项独特特性，使它显得很特别。也正因如此，PxrSurface material 有完整的一节用于重建玻璃及最常见的外观。要理解不完美和脏污玻璃，可以试着拆解图像中发生的事情。不完美玻璃的表面 roughness 会发生变化。与水晶和少数其他表面不同，许多陈旧和磨损的玻璃物体并非完美 reflective 或 transmissive（refractive）。玻璃表面还会增加 fingerprints 和 smudges。你可以使用 masks 生成这些效果，并把它们添加到 diffuse lobe 中，混入 dirt、paint、dust 等额外元素。"}
+{"item_id":"a500b5fb2c:4","text":"更轻松地分层这个效果有两个选项可讨论，另外还有第三个关于 trace depth 的注意事项，会在另一篇文档中介绍："}
+{"item_id":"a500b5fb2c:5","text":"使用“"}
+{"item_id":"a500b5fb2c:6","text":"PxrLayerSurface"}
+{"item_id":"a500b5fb2c:7","text":"”来分离并重新组合玻璃和污垢的 shading。"}
+{"item_id":"a500b5fb2c:8","text":"正确的 UV layout，可以防止内外表面出现 texture repetition。"}
+{"item_id":"a500b5fb2c:9","text":"合理控制“"}
+{"item_id":"a500b5fb2c:10","text":"ray depth"}
+{"item_id":"a500b5fb2c:11","text":"”，以获得玻璃的正确物理结果。"}
+{"item_id":"a500b5fb2c:12","text":"最好以体积方式建模对象。它们应该有真实厚度，玻璃表面之间的空间会像真实世界中一样工作，也应按你的预期表现。除非确实合理，例如叶片或纸张这类对象，否则应避免使用二维模型。"}
+{"item_id":"a500b5fb2c:13","text":"渲染大多数带液体的玻璃容器时，理解"}
+{"item_id":"a500b5fb2c:14","text":"intersection priority"}
+{"item_id":"a500b5fb2c:15","text":"会很有帮助，可避免 artifacts 和 “air gaps”。技术上，这称为 dielectric interface 或 nested dielectrics。"}
+{"item_id":"a500b5fb2c:16","text":"首先，我们移除上层的污垢和牛奶，检查玻璃层。"}
+{"item_id":"a500b5fb2c:17","text":"在 glass base material 中，diffuse channel 以较低 gain 0.2 加入了一些 dirt。低 gain 结合较暗的 texture，可以确保该效果不会过于 opaque，否则瓶子会显得不像玻璃制成。"}
+{"item_id":"a500b5fb2c:18","text":"在 glass base material 中，diffuse channel 以较低 gain 0.2 加入了一些 dirt。低 gain 结合较暗的 texture，可以确保该效果不会过于 opaque，否则瓶子会看起来不像玻璃制成。"}
+{"item_id":"a500b5fb2c:19","text":"请注意，瓶子的内壁和外壁是分别映射的。fingerprint 通常不应该同时出现在瓶子的外侧"}
+{"item_id":"a500b5fb2c:20","text":"和"}
+{"item_id":"a500b5fb2c:21","text":"内侧。"}
+{"item_id":"a500b5fb2c:22","text":"reflection gain 像托盘和桌子一样使用 texture，用于定义瓶子最 reflective 的区域，或最少磨损和脏污的区域。"}
+{"item_id":"a500b5fb2c:23","text":"refraction color 用来为穿过玻璃的 light transmission 着色或衰减。在这个例子中，为了暗示更多不完美之处，一张 map 被连接到这个 color input。白色区域表示这些位置的玻璃是 clear"}
+{"item_id":"a500b5fb2c:24","text":"且"}
+{"item_id":"a500b5fb2c:25","text":"无色的。"}
+{"item_id":"a500b5fb2c:26","text":"roughness 与 diffuse map 类似，但移除了颜色，并调整了 black point。这意味着 texture 上不应有任何区域是完全黑色，或值为 0, 0, 0。"}
+{"item_id":"a500b5fb2c:27","text":"相反，它被略微提高到 2%，即使最清澈的区域也会带有细微 roughness，这对这张图像来说更真实。"}
+{"item_id":"a500b5fb2c:28","text":"在这个 glass layer 上方，是一张简单的 dried milk smudge map，作为 PxrLayerSurface 中的上层应用。一个简单 mask 被应用到白色 diffuse color 上。"}
+{"item_id":"a500b5fb2c:29","text":"下面是在瓶子上渲染出的 diffuse color 和 mask。"}
+{"item_id":"a500b5fb2c:30","text":"这里是使用的 mask；它在 PxrLayerMixer 中用于全局控制 “MilkDirt_Layer”。"}
+{"item_id":"a500b5fb2c:31","text":"然后将这些内容合成为最终结果。你会发现，选择创建 PxrLayerSurface material 的选项后，自动创建的 Mix node 能让这个过程非常直接。"}
+{"item_id":"a500b5fb2c:32","text":"Next Steps（下一步）"}
+{"item_id":"a500b5fb2c:33","text":"很好，我们已经调出了玻璃牛奶瓶的 look。现在来看看牛奶本身。"}

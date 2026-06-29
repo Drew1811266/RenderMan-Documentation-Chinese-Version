@@ -1,0 +1,105 @@
+{
+  "phase": 658,
+  "file": "RU/656834654-Treasure Scattering.html",
+  "file_id": "bf127f3d50",
+  "source_items": 8,
+  "translation_rows": 8,
+  "source_items_match_translation_rows": true,
+  "duplicate_rows": [],
+  "missing_item_ids": [],
+  "extra_item_ids": [],
+  "tag_fingerprint_identical": true,
+  "rendered_markup_matches_target_markup": true,
+  "glossary_violations": [],
+  "direct_placement_missing": [],
+  "actionable_long_source_residuals": [],
+  "accepted_long_source_residuals": [],
+  "actionable_ascii_heavy_residuals": [],
+  "accepted_ascii_heavy_residuals": [
+    {
+      "item_id": "bf127f3d50:0",
+      "text": "宝藏散布（Treasure Scatter）流程",
+      "ascii_letters": 15,
+      "cjk_chars": 6
+    },
+    {
+      "item_id": "bf127f3d50:1",
+      "text": "让我们从 static gold sea 的 scattering 开始。在这一部分，我使用了 height-field scatter technique。起初，我使用一组预先 simulated 的 coins、armor pieces 和其他 miscellaneous assets，来创建的不只是 coins，而是一簇繁忙 treasure cluster 的 look。",
+      "ascii_letters": 118,
+      "cjk_chars": 43
+    },
+    {
+      "item_id": "bf127f3d50:2",
+      "text": "做完一个 quick sim，让这些 pieces 在 ground plane 中放松后，我把结果导出为单个 USD file。为了快速得到 Gold Sea 的 shape，我使用了几个非常简单的 height-field techniques 来 sculpt 最终 shape。",
+      "ascii_letters": 76,
+      "cjk_chars": 42
+    },
+    {
+      "item_id": "bf127f3d50:3",
+      "text": "使用同一个 output，并利用出色的 heightfield scatter node，加上一些 mask painting，并在反复试错中确定 scatter density 后，我找到了适合 composition 的 coverage 比例，同时不留下 gaps……由于这永远不会完美，我在 base geometry 上应用了同样的 gold material 来填补剩余 treasure gaps。",
+      "ascii_letters": 113,
+      "cjk_chars": 62
+    },
+    {
+      "item_id": "bf127f3d50:4",
+      "text": "金币模拟（Coin Simulation）流程",
+      "ascii_letters": 14,
+      "cjk_chars": 6
+    },
+    {
+      "item_id": "bf127f3d50:5",
+      "text": "在这段旅程开始时，我开始尝试用各种方式创建具有 fluid-like coin motion 的 simulation。在最初的一次尝试中，我创建了一个 flip fluid tank，并以非常低的 particle separation density 运行 simulation。这给了我可管理数量的 points 用于 instancing。随后，我尝试运行 rigid body dynamic sims。",
+      "ascii_letters": 113,
+      "cjk_chars": 65
+    },
+    {
+      "item_id": "bf127f3d50:6",
+      "text": "这最终变得非常 computationally expensive，因此我把方法从会堵满 256 GB RAM 的独立 multi-million-points，提炼成创建 treasure clusters（与 scattering 步骤中使用的相同 technique），并非常高效地使用 collision geometry 来避免漫长而精确的 collisions。这个方法带来了快得多的 simulation，尽管准确性稍低。",
+      "ascii_letters": 119,
+      "cjk_chars": 69
+    },
+    {
+      "item_id": "bf127f3d50:7",
+      "text": "为了进一步加速，我使用 separate caches 将需要 sim 的位置局部化，这些 caches 都按 sequential manner 计时运行，以符合我根据 camera movement 所追求的 art direction。",
+      "ascii_letters": 65,
+      "cjk_chars": 37
+    }
+  ],
+  "required_phrase_missing": [],
+  "section_order_positions": [
+    {
+      "pattern": "宝藏散布（Treasure Scatter）流程",
+      "position": 1938
+    },
+    {
+      "pattern": "height-field scatter",
+      "position": 2018
+    },
+    {
+      "pattern": "USD",
+      "position": 2224
+    },
+    {
+      "pattern": "Gold Sea",
+      "position": 2240
+    },
+    {
+      "pattern": "金币模拟（Coin Simulation）流程",
+      "position": 2581
+    },
+    {
+      "pattern": "flip fluid tank",
+      "position": 2689
+    },
+    {
+      "pattern": "256 GB",
+      "position": 2871
+    },
+    {
+      "pattern": "separate caches",
+      "position": 3063
+    }
+  ],
+  "section_order_ok": true,
+  "passed": true
+}

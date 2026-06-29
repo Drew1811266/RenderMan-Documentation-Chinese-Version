@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PxrBumpRoughness</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>PxrBumpRoughness</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/REN27/542222907/PxrBumpRoughness">https://rmanwiki-27.pixar.com/space/REN27/542222907/PxrBumpRoughness</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p><strong>Bump Roughness</strong> 用于高效采样微细节。使用此 pattern 节点时，RenderMan 会根据特征在相机中的尺寸，自动从凹凸贴图切换为粗糙度值，从而降低渲染这些细节所需的采样率，并有效改善渲染时间。 </p><p><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/542222907/louise-nash-render-01.jpg" data-image-src="../../attachments/542222907/louise-nash-render-01.jpg" data-unresolved-comment-count="0" data-linked-resource-id="542222930" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="louise-nash-render-01.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542222907" data-linked-resource-container-version="1" data-media-id="3fbb84b7-5d6b-4ba9-8b28-548921bed480" data-media-type="file"></span></p><p style="text-align: center;">© Disney/ Pixar</p><p>这样的一个例子是 Cars 3 中由 Yeon Kang 负责着色的 Louise Nash。这里可以看到车漆清漆涂层的大面积磨损，它形成微划痕，并以有趣的方式打散镜面反射，同时还驱动各向异性，使其更准确地反映预期的外观开发效果。</p><p><br/></p><p><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/542222907/lizard-vs-sampling.jpg" data-image-src="../../attachments/542222907/lizard-vs-sampling.jpg" data-unresolved-comment-count="0" data-linked-resource-id="542222927" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="lizard-vs-sampling.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542222907" data-linked-resource-container-version="1" data-media-id="18ea59f1-8f5e-422f-affe-5f6e5b43d6c7" data-media-type="file"></span></p><p style="text-align: center;">© Disney/ Pixar</p><p style="text-align: left;">一个关键特性是 <strong>Bump Roughness</strong> 能在物体远离相机时仍呈现微细节。在上面的示例中可以看到，只用 1 个采样，而不必发射数百条光线，就能非常接近预期的外观开发效果，并可视化纹理中的目标细节层级。</p><p><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/542222907/Bump-Roughness-Teapots.gif" data-image-src="../../attachments/542222907/Bump-Roughness-Teapots.gif" data-unresolved-comment-count="0" data-linked-resource-id="542222921" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Bump-Roughness-Teapots.gif" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/gif" data-linked-resource-container-id="542222907" data-linked-resource-container-version="1" data-media-id="8c687f11-c767-42f2-a128-9e3f74c05550" data-media-type="file"></span></p><p>在上面的示例中可以看到，如何用一张纹理同时驱动粗糙度、各向异性和凹凸。放大 4X 时可以看到，Bump Roughness 能在凹凸通常会因纹理过滤而丢失的地方保留细节。</p><p>还有许多其他类型的材质也能受益于 <strong>Bump Roughness</strong> 贴图带来的额外细节，例如碳纤维、金属、塑料和织物。</p><p><br/></p><p><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/542222907/bump-roughness-materials-01.jpg" data-image-src="../../attachments/542222907/bump-roughness-materials-01.jpg" data-unresolved-comment-count="0" data-linked-resource-id="542222939" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="bump-roughness-materials-01.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542222907" data-linked-resource-container-version="1" data-media-id="6382765a-4118-4839-aa85-057e4580cd0b" data-media-type="file"></span></p><p style="text-align: center;">© Disney/ Pixar</p><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="35d4df59-49d6-438a-91d5-ee29a56de6ef" data-macro-name="info"><p class="title">网络连接</p><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>为了让 Bump Roughness 正常工作，需要将它连接到以下材质输入：</p><ul><li>Roughness</li><li>Bump Normal</li><li>Anisotropy</li><li>Anisotropy Direction</li></ul><p><span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image" height="250" loading="lazy" src="../../attachments/542222907/BumpRoughness_OUT.jpg" data-image-src="../../attachments/542222907/BumpRoughness_OUT.jpg" data-unresolved-comment-count="0" data-linked-resource-id="542222924" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="BumpRoughness_OUT.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542222907" data-linked-resource-container-version="1" data-media-id="fcbc9e4a-0a58-41ae-b762-868de978eac6" data-media-type="file" /></span></p></div></div><p><br/></p><h3 id="PxrBumpRoughness-InputParameters">Input Parameters（输入参数）</h3><h4 id="PxrBumpRoughness-b2rTexture">b2r Texture</h4><p>只需使用传统的凹凸贴图或法线贴图，Texture Manager 就会在 RFM、RFH 或 RFB 中自动将它们转换为 Bump Roughness 纹理。你会注意到新创建的 tex 文件现在会在文件名后带有 <strong>b2r</strong> 后缀，例如 myTexture_b2r.exr.tex </p><p>请参阅 <a href="542236544-txmake.html#txmake-BumpToRoughness" data-linked-resource-id="542236544" data-linked-resource-version="2" data-linked-resource-type="page">txmake 文档</a> 了解详细信息。</p><h4 id="PxrBumpRoughness-TextureType">Texture Type</h4><p>要用作 Bump Roughness Map 的贴图类型</p><h4 id="PxrBumpRoughness-TxMakeIcon">TxMake Icon</h4><p>在 Texture Manager 中显示设置</p><h4 id="PxrBumpRoughness-Manifold">Manifold</h4><p>在此连接一个 manifold 节点，用来控制 Bump Roughness 贴图的位置、旋转和平铺</p><h4 id="PxrBumpRoughness-MultiManifold">Multi Manifold</h4><p>在此连接 PxrHexTileManifold 或 PxrRoundCube Manifold。</p><h3 id="PxrBumpRoughness-BumpRoughness">Bump Roughness</h3><h4 id="PxrBumpRoughness-BaseRoughness">Base Roughness</h4><p>这是完全放大到细节时基础表面的粗糙度。</p><h4 id="PxrBumpRoughness-TextureRoughness">Texture Roughness</h4><p>设置在完全远离细节时由输入纹理提供的纹理粗糙度。它会与基础粗糙度结合。默认值 -1.0 允许纹理提供其自然粗糙度。</p><h4 id="PxrBumpRoughness-Gain">Gain</h4><p>这是聚合粗糙度的乘数</p><h4 id="PxrBumpRoughness-BumpNormalGain">Bump Normal Gain</h4><p>法线贴图幅度的乘数</p><h4 id="PxrBumpRoughness-AnisotropyGain">Anisotropy Gain</h4><p>这是聚合各向异性的乘数</p><h3 id="PxrBumpRoughness-Advanced">Advanced</h3><h4 id="PxrBumpRoughness-AdjustAmount">Adjust Amount</h4><p>Amount，用于在法线背向相机时调整法线</p><h4 id="PxrBumpRoughness-SurfaceMix">Surface Mix</h4><p>将结果法线与表面法线混合的量</p><h4 id="PxrBumpRoughness-Blur">Blur</h4><p>Amount，用于控制应用到纹理查找的模糊量。</p><h4 id="PxrBumpRoughness-Filter">Filter</h4><p>要使用的过滤器。（不建议将 unfiltered/closest 用于置换。）</p><h4 id="PxrBumpRoughness-FilterScale">Filter Scale</h4><p>乘以纹理过滤器大小；小于 1 会让纹理更锐利。</p>
+  </article>
+</main>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nested Dielectrics</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Nested Dielectrics</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/REN27/542221623/Nested+Dielectrics">https://rmanwiki-27.pixar.com/space/REN27/542221623/Nested+Dielectrics</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="contentLayout2">
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<div class="panel conf-macro output-block" data-hasbody="true" data-local-id="2ea4c2c72bd7" data-macro-id="adbe819f-e19b-4507-add1-360b96e28987" data-macro-name="panel" style="background-color: #DEEBFF;border-width: 1px;"><div class="panelContent" style="background-color: #DEEBFF;">
+<p local-id="c0ac7f166e2d">XPU 尚不支持 intersection priority（交点优先级）。</p>
+</div></div><p local-id="fa8004d3010f">渲染折射对象时，需要特别注意界面（对象彼此接触的位置）。设置不佳可能显示空气间隙、颜色错误等伪影，或者在使用焦散时得到错误结果。当你渲染玻璃中的液体、香槟或冰块中的气泡，或复杂流体模拟时，就需要考虑这种工作流程。</p><p local-id="3edc0d002ff3">通常，用户会通过创建布尔操作来建模这类对象，使这些表面不会真正彼此接触；它们要么存在其一，要么存在另一方，不会同时存在。这样设置可能很复杂，而当尝试用流动水体这样的模拟来实现这种效果时，几乎不可能。因此在 RenderMan 中，可以向 shape 添加一个名为 <strong>Intersection Priority。</strong> 它是一个简单数值，用来指定优先级；数值越高，优先级越高。</p><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-local-id="0083ed6132d8" data-macro-id="905cabc9-258b-465a-abdb-a52879916cca" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p local-id="93acf20ffc81">可以在这里找到该主题的论文：</p><ul local-id="0280bbcf25f1"><li local-id="2cbbb04130bb"><p local-id="2d0243ed2687">Charles M Schmidt、Brian Budge。 <a class="external-link" href="http://graphics.cs.ucdavis.edu/~bcbudge/deep/research/nested_dielectrics.pdf" rel="nofollow"><u>Simple Nested Dielectrics in Ray Traced Images</u></a>, 2002</p></li></ul></div></div><p local-id="3601f9faa30b"><br/></p><p local-id="7c47b6d367df">我们会缓存材质中设置的 IOR，用它确定光线弯折；你可以用属性覆盖此值，也可以让材质自行设置。</p><p local-id="acfddf467b77"><br/></p><p local-id="6bff15833076">下面是几种不同解决方案的示例。</p><div class="table-wrap"><table data-table-width="1800" data-layout="align-start" data-local-id="b88ae9df-40e2-4b80-b0d7-a6f2296b3230" class="confluenceTable"><tbody><tr data-local-id="e6c9b2a07063"><td data-local-id="840bbc0d13ca" class="confluenceTd"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="nestedDielectric.jpg" width="318" loading="lazy" src="../../attachments/542221623/nestedDielectric.jpg" data-image-src="../../attachments/542221623/nestedDielectric.jpg" data-height="352" data-width="500" data-unresolved-comment-count="0" data-linked-resource-id="542221655" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="nestedDielectric.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542221623" data-linked-resource-container-version="2" data-media-id="1352ca10-c73c-4e6d-8f6f-c9a782f17f8d" data-media-type="file"></span></td><td data-local-id="c47b837655b5" class="confluenceTd"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="nestedDielectricIntersected.jpg" width="318" loading="lazy" src="../../attachments/542221623/nestedDielectricIntersected.jpg" data-image-src="../../attachments/542221623/nestedDielectricIntersected.jpg" data-height="352" data-width="500" data-unresolved-comment-count="0" data-linked-resource-id="542221652" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="nestedDielectricIntersected.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542221623" data-linked-resource-container-version="2" data-media-id="436b40f8-ef15-4876-8915-c4499b14aae3" data-media-type="file"></span></td><td data-local-id="125616721fc5" class="confluenceTd"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="nestedDielectricSame.jpg" width="318" loading="lazy" src="../../attachments/542221623/nestedDielectricSame.jpg" data-image-src="../../attachments/542221623/nestedDielectricSame.jpg" data-height="352" data-width="500" data-unresolved-comment-count="0" data-linked-resource-id="542221649" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="nestedDielectricSame.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542221623" data-linked-resource-container-version="2" data-media-id="cefa640c-d677-429b-9d8a-c1ba61c7505d" data-media-type="file"></span></td><td data-local-id="b58450c8a154" class="confluenceTd"><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="nestedDielectricShrink.jpg" width="318" loading="lazy" src="../../attachments/542221623/nestedDielectricShrink.jpg" data-image-src="../../attachments/542221623/nestedDielectricShrink.jpg" data-height="352" data-width="500" data-unresolved-comment-count="0" data-linked-resource-id="542221646" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="nestedDielectricShrink.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542221623" data-linked-resource-container-version="2" data-media-id="ca01cb5c-8448-4691-8fb1-888237303291" data-media-type="file"></span></td></tr></tbody></table></div><p local-id="0215c46483f9">从左到右：使用 intersection priority（交点优先级）和重叠；液体与玻璃重叠；玻璃与液体相接；液体略小于玻璃</p><p local-id="6ebdec0faabb" style="text-align: center;"></p><p local-id="13fe8185d711">为了更好地理解液体放置方式，下面用玻璃横截面展示了几种可能选项。</p><ul local-id="b4a50bf27e74"><li local-id="b461932f0a6b"><p local-id="70b749c542d3"><span class="legacy-color-text-red2">Coincident（重合）</span> - 这种方式中，表面完全相接。注意同一位置上的着色点彼此争抢时产生的噪点伪影。</p></li><li local-id="3738472e1216"><p local-id="68bda8a10af5"><span class="legacy-color-text-red2">Shrink（收缩）</span> - 这个示例将玻璃内部的液体略微缩小，但会产生空气间隙。</p></li><li local-id="52dba3a07d67"><p local-id="19a168d7963b"><span class="legacy-color-text-green4">Intersecting/Overlapping（相交/重叠）</span> - 这是避免问题的最佳放置方式，但需要向渲染器提供更好的提示，说明它们具有不同优先级。</p></li></ul><p local-id="58a51fdebf72"><br/></p><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-local-id="07db755aa4ac" data-macro-id="8cfc6045-6635-45b7-bc16-c26906c6e080" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p local-id="88e0a2f9dbb9">RenderMan 的 intersection priority（交点优先级）和 IOR 假定模型按体积方式构建（没有二维对象），并使用朝外法线。</p></div></div><p local-id="47e4df092cc5" /></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-right-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-right" alt="placement1.jpg" width="384" loading="lazy" src="../../attachments/542221623/placement1.jpg" data-image-src="../../attachments/542221623/placement1.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542221643" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="placement1.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542221623" data-linked-resource-container-version="2" data-media-id="73c28952-8a0c-41ad-8f24-e0ca31bcc36a" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="placement2.jpg" width="384" loading="lazy" src="../../attachments/542221623/placement2.jpg" data-image-src="../../attachments/542221623/placement2.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542221640" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="placement2.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542221623" data-linked-resource-container-version="2" data-media-id="2d863530-7730-4609-af56-1b96e7d43b69" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" alt="placement3.jpg" width="384" loading="lazy" src="../../attachments/542221623/placement3.jpg" data-image-src="../../attachments/542221623/placement3.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542221637" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="placement3.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542221623" data-linked-resource-container-version="2" data-media-id="e58ed261-5d9d-4c4e-84f2-45fb1bfb8eb0" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p local-id="186c628a0383" /><p local-id="036af3547769">在上面的示例中，重叠的液体和玻璃最接近正确方法：使用重叠，同时将 <strong>Intersection Priority</strong> 添加到玻璃和液体 shape 上。注意液体颜色的变化，以及它捕捉光线和折射的效果好了多少。玻璃的 <strong>Intersection Priority</strong> 为 1，而液体为 2。如果加入冰块，则冰块为 3。</p><p local-id="83cb8d0c3d91"><br/></p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="670" loading="lazy" src="../../attachments/542221623/correctCaustics.jpg" data-image-src="../../attachments/542221623/correctCaustics.jpg" data-height="352" data-width="500" data-unresolved-comment-count="0" data-linked-resource-id="542221658" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="correctCaustics.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542221623" data-linked-resource-container-version="2" data-media-id="5057a78d-3ece-4ff8-8800-cd7d6683ffb8" data-media-type="file"></span><p local-id="dce992614c8d"><br/></p><p local-id="3387c3dc95b4">在某些情况下，你可能会在几何体重叠处看到一条很细的暗线。要解决这个问题，可以创建一个 <strong>Trace Bias</strong> 属性并添加到 glass shape 上。默认值为 0.0001，但可以用非常小的增量提高，直到伪影消失。请注意， <strong>Trace Auto Bias</strong> 的属性必须添加到对象并关闭，手动 trace bias 设置才会生效，除非 <em>global setting</em> 中的 <strong>Trace Auto Bias</strong> 已经关闭。</p><p local-id="88e26ce71155"><br/></p><p local-id="1b5b240a50c1">玻璃场景由 Julien Duval 提供。</p><p local-id="0a4b4a62e713" /></div>
+</div>
+</div>
+</div>
+  </article>
+</main>
+</body>
+</html>

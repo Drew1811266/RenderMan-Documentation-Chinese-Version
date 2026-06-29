@@ -1,0 +1,6 @@
+{"item_id":"72e8dcc9ec:0","text":"Bakery 烘焙坊场景合成流程（Compositing）"}
+{"item_id":"72e8dcc9ec:1","text":"AOVs 经过 Denoised 后，我使用 Light Groups 在 Nuke 中 rebuild beauty pass。这样我可以直接修改 lights，无论是 exposure、tint 还是 contrast。"}
+{"item_id":"72e8dcc9ec:2","text":"为了进一步 stylization，shadows 被 tint 成 blue，而 highlights 带有轻微 orange 和 violet tint，这有助于强调温暖感。merge layers 之前，我会在某些 glass objects 上使用 Cryptomattes，因为它们的 brightness 压过了 image。要做到这一点，只需要降低它们在 Light Groups 中的 reflection，以及在 LPEs 中的 specularity。使用 utilities 中的 Z pass 设置好 depth of field 后，就可以 merge layers 了！"}
+{"item_id":"72e8dcc9ec:3","text":"下一步是使用 Grade node 来降低 gamma，从而强调 viewing direction。由此产生的 contrast 会把注意力集中到 light areas。"}
+{"item_id":"72e8dcc9ec:4","text":"Glow 和 eFibonacciGlow nodes 让我可以增强 sunlight，为它添加 glow，并模拟 lens smear，让 scene 呈现梦幻 look。为了防止 light 扩散到 shadows areas，很重要的一点是用 Keyer node 在 mask 中 isolate 这些 highlights。"}
+{"item_id":"72e8dcc9ec:5","text":"最后，我们重新创建 camera 的 chromatic aberrations，对 image 应用 lens vignetting，并加入一点 grain。尽情玩这个 project 吧！"}

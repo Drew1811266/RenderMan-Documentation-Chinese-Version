@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Texture Randomization</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Texture Randomization</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RU/637272149/Texture+Randomization">https://rmanwiki-27.pixar.com/space/RU/637272149/Texture+Randomization</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="contentLayout2"><style>[data-colorid=xstrcc39z4]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=xstrcc39z4]{color:#004eb3}[data-colorid=i00s3kvb62]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=i00s3kvb62]{color:#004eb3}[data-colorid=qz5bnx0ta1]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=qz5bnx0ta1]{color:#004eb3}[data-colorid=i4uji132z8]{color:#4c9aff} html[data-color-mode=dark] [data-colorid=i4uji132z8]{color:#004eb3}</style>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="RenderMan_SprayCans_Header.jpg" width="760" loading="lazy" src="../../attachments/637272149/RenderMan_SprayCans_Header.jpg" data-image-src="../../attachments/637272149/RenderMan_SprayCans_Header.jpg" data-height="1080" data-width="1920" data-unresolved-comment-count="0" data-linked-resource-id="637272170" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_SprayCans_Header.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="637272149" data-linked-resource-container-version="11" data-media-id="6ad29e3e-7942-4218-af32-e7062340792f" data-media-type="file" /></span><a class="external-link" href="https://downloads.renderman.pixar.com/RU/Resources/USD/SprayCans.zip" rel="nofollow"><span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" alt="DownloadButton2.png" width="158" loading="lazy" src="../../attachments/637272149/DownloadButton2.png" data-image-src="../../attachments/637272149/DownloadButton2.png" data-height="68" data-width="286" data-unresolved-comment-count="0" data-linked-resource-id="638615857" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="DownloadButton2.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="637272149" data-linked-resource-container-version="11" data-media-id="b3f05aad-63c2-4e96-b40f-a5adb5c6e68b" data-media-type="file" /></span></a><p>RenderMan 提供了多个 nodes，可用于随机 texture colouring、file selection，以及随机 orientation/placement。</p><p>我们要看的两个 nodes 是 <a class="external-link" href="../REN27/542225490-PxrVary.html" rel="nofollow">PxrVary </a>节点和 <a class="external-link" href="../REN27/542224582-PxrRandomTextureManifold.html" rel="nofollow">PxrRandomTileManifold </a>节点。</p><p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="RenderMan_SprayCans_Dull.jpg" width="760" loading="lazy" src="../../attachments/637272149/RenderMan_SprayCans_Dull.jpg" data-image-src="../../attachments/637272149/RenderMan_SprayCans_Dull.jpg" data-height="1080" data-width="1920" data-unresolved-comment-count="0" data-linked-resource-id="638779559" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_SprayCans_Dull.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="637272149" data-linked-resource-container-version="11" data-media-id="6effe6c1-d474-41e1-8336-e3b1273c756e" data-media-type="file" /></span><p>在这个示例中，我们有七个 spray cans；目前它们看起来相当乏味。  </p><p>本课的目标是为每个罐子创建随机颜色的 lids。</p><p>我们还设计了七种不同的 labels，希望把它们随机应用到罐身的 labels 上。</p><p /><div class="panel conf-macro output-block" data-hasbody="true" data-macro-id="1b1af81b-2921-4788-b5b3-565a726e1511" data-macro-name="panel" style="background-color: #4C9AFF;border-width: 1px;"><div class="panelContent" style="background-color: #4C9AFF;">
+<p><strong><span class="legacy-color-text-inverse">Spray Can Colored Lids（喷漆罐彩色盖）</span></strong></p>
+</div></div><p>我们先处理 lids，使用一个极其实用的 randomization node：PxrVary。  </p><p>该 node 接收 base color（或 colored input），并允许 hue、saturation、gamma 以及许多其他 parameters 按 instance 具有随机值。</p><p>先把 PxrVary 连接到 PxrSurface 的 Diffuse color，并将 Input Color 设置为明亮的 orange。  </p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="SprayCans_AllOrange.jpg" width="760" loading="lazy" src="../../attachments/637272149/SprayCans_AllOrange.jpg" data-image-src="../../attachments/637272149/SprayCans_AllOrange.jpg" data-height="1080" data-width="1920" data-unresolved-comment-count="0" data-linked-resource-id="638583009" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="SprayCans_AllOrange.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="637272149" data-linked-resource-container-version="11" data-media-id="b67b3629-4f12-4481-933a-0ce5a89de110" data-media-type="file" /></span><p>这会把所有 lids 都变成同一种 orange color，而这不是我们想要的。  </p><p>我们希望每个 lid 都有随机颜色。</p><p>调整以下 values 后，会得到下面的 image。<br /></p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><strong><span data-colorid="qz5bnx0ta1">Hue</span></strong></p><p>0.58</p></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><strong><span data-colorid="xstrcc39z4">Saturation</span></strong></p><p>0.81</p></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><strong><span data-colorid="i4uji132z8">Luminance</span></strong></p><p>0</p><p><strong><span data-colorid="i00s3kvb62">Gamma</span></strong></p><p>0.1</p></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="SprayCansCans_PxrVary_one.jpg" width="760" loading="lazy" src="../../attachments/637272149/SprayCansCans_PxrVary_one.jpg" data-image-src="../../attachments/637272149/SprayCansCans_PxrVary_one.jpg" data-height="1080" data-width="1920" data-unresolved-comment-count="0" data-linked-resource-id="638615745" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="SprayCansCans_PxrVary_one.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="637272149" data-linked-resource-container-version="11" data-media-id="95d8f214-c62e-4702-977f-19e8860bdabf" data-media-type="file" /></span><p>这样看起来“还可以”，但我们其实不想让 RenderMan 决定选择哪些 random colors。我们想自己选择它们。  </p><p>我们希望 art-direct PxrVary 随机选择颜色时使用的 color palette。</p><p>实现方式是使用 PxrRamp node，在其中设置 ramp colors。我们还需要把 Ramp Type 设置为 Random Object Color。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="PxrRamp_Palette.jpg" width="760" loading="lazy" src="../../attachments/637272149/PxrRamp_Palette.jpg" data-image-src="../../attachments/637272149/PxrRamp_Palette.jpg" data-height="508" data-width="1328" data-unresolved-comment-count="0" data-linked-resource-id="638779569" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="PxrRamp_Palette.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="637272149" data-linked-resource-container-version="11" data-media-id="67b349d9-f225-4a3b-81e6-5586a454ff42" data-media-type="file" /></span><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="SprayCans_Network.jpg" width="760" loading="lazy" src="../../attachments/637272149/SprayCans_Network.jpg" data-image-src="../../attachments/637272149/SprayCans_Network.jpg" data-height="855" data-width="1591" data-unresolved-comment-count="0" data-linked-resource-id="639041682" data-linked-resource-version="2" data-linked-resource-type="attachment" data-linked-resource-default-alias="SprayCans_Network.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="637272149" data-linked-resource-container-version="11" data-media-id="d7cf03d0-6eff-4e35-971b-d800cce1d661" data-media-type="file" /></span><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="9d376f09-1ef3-4eb2-b3a8-4431c375e3d0" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>注意！这项技术只有在你把 <strong>Ramp Type</strong> 设置为<strong> Random Object Color 时才会生效。</strong></p></div></div><p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="SprayCansCans_PxrVary_Ramp.jpg" width="760" loading="lazy" src="../../attachments/637272149/SprayCansCans_PxrVary_Ramp.jpg" data-image-src="../../attachments/637272149/SprayCansCans_PxrVary_Ramp.jpg" data-height="1080" data-width="1920" data-unresolved-comment-count="0" data-linked-resource-id="638779591" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="SprayCansCans_PxrVary_Ramp.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="637272149" data-linked-resource-container-version="11" data-media-id="560e7a53-8aa3-490c-8641-d73f69923fab" data-media-type="file" /></span><p>理解这是一个 random node 很有帮助，因此有时很难 art-direct 哪个 lid 获得哪个 random color。有时，如你所见，PxrVary 会随机给两个 lids 分配相同颜色。</p><p>另外，ramp 中 colors 的宽度会决定随机分配和概率，因此要调出你想要的准确 random look 可能有点棘手。  </p><p>这里的关键词就是 Random！</p><p>如果你有 100 个 cans，而且并不在意哪个 lid 是哪种 color，那么 PxrVary 就是解决方案；但如果你需要特定 cans 拥有特定 colored lids，那么为每个 can 定义 PrimVar value（然后在 PxrVary 的 PrimVar attribute 中指定 PrimVar name）才是办法，不过那是另一课的内容。</p><p>我们想要 random-colored lids……也确实得到了 random-colored lids。</p><p>接下来处理 labels。</p><p /><div class="panel conf-macro output-block" data-hasbody="true" data-macro-id="a92523c7-2cfd-44dd-aa64-49f728d0980c" data-macro-name="panel" style="background-color: #4C9AFF;border-width: 1px;"><div class="panelContent" style="background-color: #4C9AFF;">
+<p><strong><span class="legacy-color-text-inverse">Spray Can Labels（喷漆罐标签）</span></strong></p>
+</div></div><p /><p>这里有几张 textures，我们想再次随机地分配给每个 label，不太在意哪张配哪个 label。我们要的就是 random！</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="SprayCans_Labels.jpg" width="760" loading="lazy" src="../../attachments/637272149/SprayCans_Labels.jpg" data-image-src="../../attachments/637272149/SprayCans_Labels.jpg" data-height="847" data-width="842" data-unresolved-comment-count="0" data-linked-resource-id="638582937" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="SprayCans_Labels.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="637272149" data-linked-resource-container-version="11" data-media-id="8a1b6cd3-958c-486b-a995-6dc393246559" data-media-type="file" /></span><p>要实现这一点，我们需要两个 nodes。</p><p>第一个是 PxrMultiTexture node，我们会把所有 maps 加载到每个 filename parameter 中。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="SprayCans_Label_MultiTexture.jpg" width="760" loading="lazy" src="../../attachments/637272149/SprayCans_Label_MultiTexture.jpg" data-image-src="../../attachments/637272149/SprayCans_Label_MultiTexture.jpg" data-height="600" data-width="767" data-unresolved-comment-count="0" data-linked-resource-id="638779601" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="SprayCans_Label_MultiTexture.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="637272149" data-linked-resource-container-version="11" data-media-id="b4264359-bc76-4a2e-9d56-64a91dead031" data-media-type="file" /></span><p>然后，需要一个 PxrRandomTextureManifold node，通过把 PxrMultiTexture files 分配到 cans 上，来控制它们的 randomness。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="SprayCans_Label_RandomManifold.jpg" width="760" loading="lazy" src="../../attachments/637272149/SprayCans_Label_RandomManifold.jpg" data-image-src="../../attachments/637272149/SprayCans_Label_RandomManifold.jpg" data-height="556" data-width="779" data-unresolved-comment-count="0" data-linked-resource-id="638779610" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="SprayCans_Label_RandomManifold.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="637272149" data-linked-resource-container-version="11" data-media-id="7d29ba4a-2478-4438-abac-01f90599d666" data-media-type="file" /></span><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="SprayCans_Network_Label.jpg" width="760" loading="lazy" src="../../attachments/637272149/SprayCans_Network_Label.jpg" data-image-src="../../attachments/637272149/SprayCans_Network_Label.jpg" data-height="785" data-width="1549" data-unresolved-comment-count="0" data-linked-resource-id="638582975" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="SprayCans_Network_Label.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="637272149" data-linked-resource-container-version="11" data-media-id="7955613b-53dc-4890-97aa-7fd841a967b2" data-media-type="file" /></span><p>像上面的 network 那样连接它们，你就会得到类似这样的结果！</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="RenderMan_SprayCans_Header.jpg" width="760" loading="lazy" src="../../attachments/637272149/RenderMan_SprayCans_Header.jpg" data-image-src="../../attachments/637272149/RenderMan_SprayCans_Header.jpg" data-height="1080" data-width="1920" data-unresolved-comment-count="0" data-linked-resource-id="637272170" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_SprayCans_Header.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="637272149" data-linked-resource-container-version="11" data-media-id="6ad29e3e-7942-4218-af32-e7062340792f" data-media-type="file" /></span><p /><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="4a44e1d9-37f3-4aee-a51b-2a55570ca0a7" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>注意：你需要把<strong> Number of Textures</strong> parameter 设置为要使用的 file list 中 textures 的数量。</p></div></div><p /><p>PxrRandomTextureManifold 还有各种可调 parameters，可以添加更多 randomization，例如 random texture orientation、flipping、offset 等等，所以 texture randomization 的数量……几乎没有尽头！</p><p /><div class="panel conf-macro output-block" data-hasbody="true" data-macro-id="95da1204-dac6-4283-aa0a-d98a17ef0e21" data-macro-name="panel" style="background-color: #4C9AFF;border-width: 1px;"><div class="panelContent" style="background-color: #4C9AFF;">
+<p><strong><span class="legacy-color-text-inverse">更多用途</span></strong></p>
+</div></div><p>这两个 nodes 并不只是用于随机选择 colors 或 diffuse textures。</p><p>例如，PxrRandomTextureManifold 也可以用于随机分配和变换 roughness/bump maps、叠加 random textures、变换 random edge breakup masks 等。</p><p>PxrVary 可以为 roughness maps 添加 random color/saturation variation，让每个 instance 拥有不同的 roughness values。同样的 technique 也可用于设置 random bump 和 specular values，以及控制 clear coat 上的 random thickness。  </p><p>这两个 nodes 的可能性没有尽头。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Rfb_Instancing.png" width="760" loading="lazy" src="../../attachments/637272149/Rfb_Instancing.png" data-image-src="../../attachments/637272149/Rfb_Instancing.png" data-height="1074" data-width="1916" data-unresolved-comment-count="0" data-linked-resource-id="639140142" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Rfb_Instancing.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="637272149" data-linked-resource-container-version="11" data-media-id="08dc763d-dfbd-4cc3-9785-42ea9046142f" data-media-type="file" /></span><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Weave.png" width="760" loading="lazy" src="../../attachments/637272149/Weave.png" data-image-src="../../attachments/637272149/Weave.png" data-height="3000" data-width="3000" data-unresolved-comment-count="0" data-linked-resource-id="638779916" data-linked-resource-version="2" data-linked-resource-type="attachment" data-linked-resource-default-alias="Weave.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="637272149" data-linked-resource-container-version="11" data-media-id="809a082a-72b3-46ad-b659-323df0bb4246" data-media-type="file" /></span><p /><p>如果你想在所有 instances 上实现完整的 shading randomization，这两个 nodes 是不错的起点！</p><p /><p /><p /><p /><p /></div>
+</div>
+</div>
+</div>
+  </article>
+</main>
+</body>
+</html>

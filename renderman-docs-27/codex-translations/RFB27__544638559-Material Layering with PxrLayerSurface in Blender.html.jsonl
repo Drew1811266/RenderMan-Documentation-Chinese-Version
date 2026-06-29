@@ -1,0 +1,30 @@
+{"id":"538839a01e282727fdb03640a3f7d993ba74b7dbbc4eaf98a4d03e584f21440f","item_id":"41904fac6f:0","text":"RenderMan 允许通过材质分层来创建复杂外观。这意味着车漆、瓶身标签、尘土或泥污等效果，都可以高效地分层并用于渲染。"}
+{"id":"5fd2eab25a88f32efd320f99d3a4d557e4ae879ea036885932a2cde7567f845f","item_id":"41904fac6f:1","text":"下面是一个分步示例，展示如何使用"}
+{"id":"b7ec5c3dd2824cd278b17988092285709226f237a2256873ff3abf63746e1b5a","item_id":"41904fac6f:2","text":"PxrLayerSurface"}
+{"id":"504f28d5998228808f2e8e9f76d6fcda4d8f987247868ebd5434914613c763d9","item_id":"41904fac6f:3","text":"在青铜猴头上创建铜绿效果。PxrLayerSurface 与"}
+{"id":"317a36ea6f94313ada095ee9857da0e12f8818fa29e96956ad9fc9574290871f","item_id":"41904fac6f:5","text":"相同，只是大多数不适用于分层的参数都已从 UI 中隐藏。"}
+{"id":"a9c0ffda1f6faa6d493c35480b45743afa39918d46065a76be7c0241464d54a3","item_id":"41904fac6f:6","text":"Attach Material（附加材质）"}
+{"id":"8c70d70145626d7ee2b80db8543f60435828180cec9f558e4d6d3480113c4064","item_id":"41904fac6f:7","text":"将 PxrLayerSurface 材质附加到选中的对象。可以通过 Object Context Menu（对象上下文菜单）完成。"}
+{"id":"6df4b2116da88418cd9254615189cb2b8c38f3230ee736349d4480693bb43f18","item_id":"41904fac6f:8","text":"对于 PxrLayerSurface，RenderMan for Blender 会自动添加一个 PxrLayerMixer 节点，以及两个 PxrLayer 节点；它们会分别作为 base layer（基础层）和 upper layer（上层）。起始时，你的网络应如下所示："}
+{"id":"0d8abcd3f3660e054e757171970f124cf749f48b8b9d0a57fc653a2cce75bc1a","item_id":"41904fac6f:9","text":"Base Layer（copper，铜）"}
+{"id":"34c049befb1f6c19d16e13a18efcb0a812b9ffcdd24cea232248c143b5da05b5","item_id":"41904fac6f:10","text":"对于 base layer（基础层），我们将创建铜质外观。首先，将连接到 PxrLayerMixer 的 Base Layer 参数的 PxrLayer 节点重命名为类似 copper 的名称。下面是铜层使用的设置："}
+{"id":"4087163f5a03455b7ecb76186a2f719625e588554b9d7725998cb2bc8af2885f","item_id":"41904fac6f:11","text":"Layer 1（patina，铜绿）"}
+{"id":"1e9642425a49dac0b4b791ac7393c720408dafaf1cef5bb1c944439085546448","item_id":"41904fac6f:12","text":"对于 upper layer（上层），我们将创建铜绿外观。和基础层一样，将 PxrLayer 节点重命名为 patina（铜绿）；它连接到 PxrLayerMixer 的 Layer 1 参数。下面是铜绿层使用的设置。"}
+{"id":"479568ed294d1da49398ccaa0f7e8283926770594c858de8c64f86661f72fa9e","item_id":"41904fac6f:13","text":"Masking（遮罩）"}
+{"id":"b94bc577d60d640f44266b4d10b56478e1dbc7e99bdf4c368b322b05f58b48f0","item_id":"41904fac6f:14","text":"如果直接渲染当前场景，你会发现只显示 patina（铜绿）层，而看不到 copper（铜）层。为了将两者混合在一起，我们需要使用一个遮罩值。对于遮罩，我们将使用一个"}
+{"id":"0f123871934a8f1d3a31e1224b2194decd2124a5bc786fc9289335d4e9213eaa","item_id":"41904fac6f:16","text":"pattern 节点。Start（开始）时先创建一个 PxrDirt 节点，并将 resultR 输出连接到 PxrLayerMixer 的 Layer 1 Mask 参数。可以在 Shader Editor（着色器编辑器）中这样操作，如下图所示："}
+{"id":"b01df44f5a07d5704c6bc8393c84e72d8b92ce03527f7d2d6e34c93ac6253bd9","item_id":"41904fac6f:17","text":"也可以像这样使用材质面板中的连接控件："}
+{"id":"676a8f01f104b9d1a66849a61718eeab646035a472b330e8c0f515548e6b9c28","item_id":"41904fac6f:18","text":"下面是我们将用于 PxrDirt 的设置。"}
+{"id":"e7428ad2e0d91909bd03a9df8b3041970bd35054208417b301342a738e8b268a","item_id":"41904fac6f:19","text":"为了让遮罩稍微更有变化，我们将一个"}
+{"id":"e265dcc1b87e824a1d938d54173ff90caee98a5405a3673ca3e2ee7e438bb395","item_id":"41904fac6f:20","text":"PxrGamma"}
+{"id":"3f0fdbec94fa567c2d56e053f0cfe7c1c76b307e049e984dc2ea7df1f1c406e9","item_id":"41904fac6f:21","text":"连接到 Unoccluded 参数，然后又将一个"}
+{"id":"af35650cc85049546ece42a3dfad6274a3910b77e643971c058711881a71c2a8","item_id":"41904fac6f:22","text":"PxrFractal"}
+{"id":"ca72326ce32453e1f67c55937bc6b3ea2c7713e199f8fd272fc3f7d7d267bec6","item_id":"41904fac6f:23","text":"pattern 连接到 PxrGamma 的 Input Color 参数。"}
+{"id":"20aa44b40fdfa1fd4aa5a2fc0b2f26f26d04d119d349f31b057219ad3beb4b8a","item_id":"41904fac6f:24","text":"如果你想在脱离整个网络的情况下调整遮罩值，可以使用 Solo Node 功能。点击材质面板上的连接控件，然后点击 Solo Input Node。"}
+{"id":"711fbdc4ed4df44e83565a877e65dbff5aa30b1e7f19a007ed634129d140bd7a","item_id":"41904fac6f:26","text":"下面是分层材质的最终结果。"}
+{"id":"76284d680e6d5b24f914ded9a2f2ae873a36e6a26f99f88c0ea5596162e0a267","item_id":"41904fac6f:27","text":"为了进一步增加真实感，可以考虑使用"}
+{"id":"10f9f9360b1d578541a89100e5b69757ec910776abae23bd7afdecc2ab238c0d","item_id":"41904fac6f:28","text":"PxrBump"}
+{"id":"92727e313922f27da24194b2639bc6a18c6ede79ebddb46ef9710d3ff1cc5e52","item_id":"41904fac6f:29","text":"pattern，并将其连接到每个 layer 的 Global Bump 参数，以创建更不平整的表面。"}
+{"id": "8608905e6533fb79c29dcbee9e54642763cc7988fd456046ba16656c6564e8fd", "item_id": "41904fac6f:4", "text": "PxrSurface"}
+{"id": "65f361ab8ee7b27c2d67ab75789aff3b05a94f107b20c13e6f03b8c31c2186ce", "item_id": "41904fac6f:15", "text": "PxrDirt"}
+{"id": "6e7d50e84f4731ef74187cf8cfa2672184eed8866b0b0074a772f4a64e0f4ba2", "item_id": "41904fac6f:25", "text": "Result（结果）"}

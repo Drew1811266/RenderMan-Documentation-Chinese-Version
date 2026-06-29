@@ -1,0 +1,25 @@
+{"id":"df2380792bb241ec77a8ffe36cf5f295dcd9bfd88742ce2353bb53fce370aea8","item_id":"673fc7d039:0","text":"RfB 应该支持 Blender 中大多数与实例化相关的工作流。"}
+{"id":"f0794a4853b1f60fe3641f952b677bfc5b31e167f8bf6aa6baf6e11ed588527d","item_id":"673fc7d039:1","text":"将子对象实例化到 mesh（网格）的顶点或面上，就是 RenderMan 支持的这类工作流之一。"}
+{"id":"c8f544798209fb850e4e314bfe6e830bf46e34e2bd39c87e979da479ad453387","item_id":"673fc7d039:2","text":"在下图中，我们把单个 locker（储物柜）实例化到了平面几何体的顶点上。"}
+{"id":"6d06e770f8896b50c8c3dd7454f7fe802eb2f52cde7bfb26ad21866f08be359f","item_id":"673fc7d039:3","text":"如需进一步控制，也可以使用 Blender 中的 Collection Instancing（集合实例化，Shift A）工作流，如下例所示。"}
+{"id":"613471e98b95971cd5a1246c8ef1cf4a755cd6ca308ce947ade91c5f03bf4725","item_id":"673fc7d039:4","text":"RenderMan 还支持通过 Blender 的 Geometry Nodes（几何节点）进行 mesh（网格）和 collection（集合）实例化。在下面的示例中，我们使用一个简单的 Geometry Nodes 设置，沿一条线实例化 Locker Collection（储物柜集合）。"}
+{"id":"c1260a82649012c0817b515d901f66bcbd3b367336bc02582c7b44032da7cd01","item_id":"673fc7d039:5","text":"Shading Variation（着色变化）"}
+{"id":"f6def3a7f9d67d790d40fa17080c094c67c702a6e44a66a433198e631591131a","item_id":"673fc7d039:6","text":"现实世界中没有什么东西看起来完全相同，那么实例化出来的储物柜为什么要一模一样呢？"}
+{"id":"46491ea6a2cf59f0675885196ebe2faafa6311ffb14b8322656d775c226bf73d","item_id":"673fc7d039:7","text":"先来看一下我们用于储物柜的 Lama 着色设置。它由多个层构成。"}
+{"id":"906b045727cda003964049f28f74badff3d1c99df30377953333b15cdae8fd05","item_id":"673fc7d039:8","text":"Layer 1（第 1 层）：Base Metal（基础金属）- LamaConductor"}
+{"id":"15cbfc1a165a7152b1e97deefa85126525ea922eac56ab07d07cb59277f6dbce","item_id":"673fc7d039:9","text":"基础材质是一个 LamaConductor，IOR 设置为 Aluminium（铝）。"}
+{"id":"bcc1da5a998398bdfe3ee2a81551159684907d702b82a2ecd1f87a2290791425","item_id":"673fc7d039:10","text":"Layer 2（第 2 层）：Paint（油漆）- LamaDiffuse + LamaDielectric"}
+{"id":"40e8ffa83293281b4df4d9abe3d4b9f02bbc01485557f62ce207e7104343a745","item_id":"673fc7d039:11","text":"为了在金属储物柜表面创建油漆层，我们使用一个 LamaDiffuse 设置提供 base color（基础颜色）。在 LamaDiffuse 之上（Over），再添加一个 LamaDielectric 层来加入 Specular Roughness（镜面粗糙度）。"}
+{"id":"986446a7f2c00b7257c5353dd30b01bf296a6921fb1360379ea41e51f9097fbc","item_id":"673fc7d039:12","text":"随后使用 edge mask（边缘遮罩）设置，把这个油漆层叠加到基础金属之上；该设置会加入边缘破损和划痕，让下方的基础金属层显露出来。"}
+{"id":"e1e67ca905d1462ae8a8f4cb56ed5db7e64284a235efbe3cb9bbc21d44bec29d","item_id":"673fc7d039:13","text":"Layer 3（第 3 层）：Dirt（污垢）- LamaDiffuse"}
+{"id":"3a1c37e8948e9d2b0006dd70c321f57bfb3c63959c8bedbc08f6248812ad42d6","item_id":"673fc7d039:14","text":"储物柜顶部又添加了一层污垢，它由一个简单的污垢色 LamaDiffuse 节点提供，并通过 PxrDirt 节点控制，把污垢加入储物柜的遮蔽区域。"}
+{"id":"0adf0bd1c7e8ae35a47f89bafe0de4785c0d2c34bb87294d70085f75e634b727","item_id":"673fc7d039:15","text":"那么，如果希望每个储物柜都有不同颜色呢？"}
+{"id":"7a139fbed85d32fea7e587f0458aa5c32a8926035d49bed60a66e8e2c3c0fd8c","item_id":"673fc7d039:16","text":"这很简单！"}
+{"id":"8622e47b1ddb84ddbe1e04dd81bc63a30990f7aca70212f2f0375f9eccdaeab5","item_id":"673fc7d039:17","text":"关键在于 PxrVary 节点。"}
+{"id":"706078819a71822165faa4eeedc33c040f2345196f16f256122d5a9eb470c26c","item_id":"673fc7d039:18","text":"在下面的示例中，我们把 PxrVary 节点连接到了 PxrHSL 节点的 input color（输入颜色）；PxrHSL 提供了原始的红色 base color。"}
+{"id":"1100d360622c235c2d4f0ca6fa6bc74fc657a865b988fc6864110520fc180c51","item_id":"673fc7d039:19","text":"为了展示材质变化，我们调大了 PxrVary 的 hue（色相）值，以演示 PxrVary 产生的效果。"}
+{"id":"b2ecdaad401bd30420917938e511c011151e1ddee945197b01cbd6d5923d5dcb","item_id":"673fc7d039:20","text":"它们看起来很花哨，但现实中，每个储物柜通常会有相似的基础颜色，只带一点颜色变化。可以想象，每个储物柜最初都是同一种颜色（毕竟都来自同一桶漆），但随着时间推移，有些被阳光晒褪色了，有些则重新喷过漆。"}
+{"id":"4ec8cc4ee8d32f02517719737cc34ad3d70b8767aa8ab02b45406f0ec5d82909","item_id":"673fc7d039:21","text":"下面的示例通过 Hue 参数设置基础红色，然后细微调整每个实例的饱和度、亮度和 gamma。每个储物柜之间的差异很轻微，而这正是我们想要的效果。"}
+{"id":"ae0bc731b54c55736a16f55565ba5667c27516bfbcd762b8acce4b4ce3367465","item_id":"673fc7d039:22","text":"如果进一步强化这个储物柜 shader（着色器），细心观察会发现，每个储物柜都有不同的边缘破损、污渍和 roughness（粗糙度）。"}
+{"id":"dbfb68eeece1bd424d1696b66b6df99eb357f1e758a39e0ace77c95299005b2d","item_id":"673fc7d039:23","text":"不仅储物柜基础红色的变化由 PxrVary 随机化，所有已用纹理的 placement（放置）也会通过 PxrRoundCube 节点内部的 Randomise（随机化）参数来随机化。"}
+{"id":"cadf1233ab43824c215d83b5b82acea2469c712edf497f60bcd11e3e386f7da8","item_id":"673fc7d039:24","text":"了解这一点后，就可以在 RfB 的实例化中尽情发挥创意了……为 The Redwood Wildcats 加油！"}

@@ -1,0 +1,31 @@
+{"id":"4f1fa2f75bd139bc5ac47804eb7c40afb11d5d2e55639dff82aea7bb09826e81","item_id":"a7baf3e3e3:0","text":"渲染雾、烟、云、浑浊水体甚至玻璃等效果很复杂，因为光不再只是与材质表面交互；它还会在"}
+{"id":"fa016109f308e592725970960c8c929bc32174d60ade3d4a36371c59548085cc","item_id":"a7baf3e3e3:1","text":"参与介质中发生衰减和散射"}
+{"id":"61503bf880be598d49a0d287c47414c1b7780fa3091f33adb224ed07ee194584","item_id":"a7baf3e3e3:3","text":"体积渲染"}
+{"id":"ea5218221d3e82485e2fd6e2aba8299028c605f393260b2189167dcf1a4200ab","item_id":"a7baf3e3e3:4","text":"是处理复杂光传输所必需的。"}
+{"id":"5a2a7a2b18a1ebc9f462f5c25d6b9940ac1ca7edfbe3ed595b255f597b87eda7","item_id":"a7baf3e3e3:5","text":"处理"}
+{"id":"9527c1c86df82e51bc870d9886e2f99d3028e68e4b12d018c4793b7217d50130","item_id":"a7baf3e3e3:6","text":"均匀"}
+{"id":"290082e799253e47205aa5e0ccbe4ba1d5b2829ac1f5b88887acf80df908f18b","item_id":"a7baf3e3e3:7","text":"体积效果时（参与介质在体积内部不发生变化，即清澈玻璃或清水），可以使用像"}
+{"id":"6b2b3cbd4ad476016050e61b781d1112117b06945fb578fbffcfc4ff3f6daa69","item_id":"a7baf3e3e3:29","text":"PxrVolume"}
+{"id":"1f6e9ab4a4e482ae206a58b42f19fe28286f25db96273200142e301d10d522a2","item_id":"a7baf3e3e3:9","text":"这样的专用体积着色器，或使用像"}
+{"id":"8608905e6533fb79c29dcbee9e54642763cc7988fd456046ba16656c6564e8fd","item_id":"a7baf3e3e3:10","text":"PxrSurface"}
+{"id":"0a95a0d255db7ccc14bbce4b06a58e5dd353179857c0fcfdb34e45f73bfb6fab","item_id":"a7baf3e3e3:11","text":"这样支持某些体积效果的表面着色器，并将其应用到任意类型的闭合几何体上，例如"}
+{"id":"a894a85bcfe065a2ba7519cc5d920dba29465c6b9475f887fabc9267a2de09f7","item_id":"a7baf3e3e3:12","text":"细分网格"}
+{"id":"e6da724993d7fac4729070dfc4d5a9757f84602ce74de32843b572ccfddd0b70","item_id":"a7baf3e3e3:13","text":"。不过，如果效果是"}
+{"id":"bd9999a0cfe6293814243d68ccb4a72927e72505b12161e395fb0fdb4e970a90","item_id":"a7baf3e3e3:14","text":"非均匀"}
+{"id":"452b98cf2341fe5a44d660003ec1e71ff7b161ee21abf4f79601da134d94fbde","item_id":"a7baf3e3e3:15","text":"的（例如雾或云），通常就需要一种特殊几何类型，以提供会在三维域中变化的值。RenderMan 提供了体积图元（RiVolume）来满足这一需求。"}
+{"id":"3ca6e8a0eb3acc7954caf20ee0f126ffbf10c265d1af62bdb844fe1a0247a4fd","item_id":"a7baf3e3e3:16","text":"体积图元本质上就是一个与坐标轴对齐的矩形盒，它可以在盒内的三维坐标处返回任意变量的值。这不同于参数曲面，参数曲面通常只能响应由二维坐标参数化的表面查询。对于烟雾等参与介质的体积渲染，最常用的变量是体积密度。对于火焰等更复杂的情况，燃料、温度或速度等数据场也可能是与体积图元关联的变量的一部分。"}
+{"id":"ceca1d92ad5ccd922fefc90636d3c6401fa03b8db77fc06eb21ba04addf56951","item_id":"a7baf3e3e3:17","text":"体积描述"}
+{"id":"b5ab818275481c1bc0aa5519f45c9cb67046147387d9baaf824d332f99c35c9b","item_id":"a7baf3e3e3:18","text":"RenderMan 通常使用两种体积图元描述方式。"}
+{"id":"916e2d95e3d0411f5a5f3fdc0321897b033d35b75edd9c05de4423904ab1288c","item_id":"a7baf3e3e3:19","text":"最简单的方式是一个在三维中细分为规则体素栅格的盒，并在栅格的每个角点为任意变量提供值。在盒内查找某个变量时，会对最近的栅格点执行三线性或三次插值。这种表示虽然简单，但对于高密度体积可能会生成笨重难用的 RIB 文件。"}
+{"id":"00b4d05366207e11b766029c85a99a00b9017f2979ed0f8ede28764b6fb7452f","item_id":"a7baf3e3e3:20","text":"RenderMan for Maya 使用这种方法来渲染 Maya fluids。在下面所示的 Maya 用户界面中，盒的边界可在左侧查看器中直接操作。在属性编辑器中，resolution 描述盒的细分数量，这最终会影响体积模拟和渲染的精度；在此例中，盒被划分为 10x10x10 个体素。与体积关联的变量在 Contents Method 下拉菜单中描述；这里启用了变量“Density”和“Velocity”，而“Temperature”和“Fuel”处于禁用状态。"}
+{"id":"208441e66bab6cd3103108b78661ce89ffa75ba3c1a13eb3458d2e5e41acfd9a","item_id":"a7baf3e3e3:21","text":"如果体积已经通过外部资源描述，例如磁盘上的"}
+{"id":"967c81997ef678305248f46b3566459a9d8a76a42fbb7354f93cc64c80bc08c5","item_id":"a7baf3e3e3:22","text":"OpenVDB"}
+{"id":"a33d0143213d478e1601949b3106ca111a6ee77a8a90c8c048e030ff3a5d4545","item_id":"a7baf3e3e3:23","text":"文件，则体积图元支持任意 C++"}
+{"id":"c016adbd8e073bdcf2f23bd54e99b0db64591249379c03c99d0e5e1aa7e0d69c","item_id":"a7baf3e3e3:24","text":"体积场插件"}
+{"id":"83b1f6b0e7b21493d4f92e27cc6e309f2cc824529ac9b277922041c498781204","item_id":"a7baf3e3e3:25","text":"，这些插件可以直接与外部资源对接，以计算盒范围内任意变量的值。RenderMan 提供了一个名为 impl_openvdb 的插件，可以直接使用 VDB 文件。在这种情况下，体积描述只涉及盒的范围、OpenVDB 文件，以及 OpenVDB 文件中对应有用图元变量的网格。"}
+{"id":"5b03f3d21f15d04cf8855a72b21c4fd1c02c61d12d30b571f6583ce89276dbff","item_id":"a7baf3e3e3:26","text":"下面的插图展示了如何使用 RenderMan for Maya 提供的 OpenVDB Viewer 节点。这里已经从磁盘加载了一个 OpenVDB 文件，并在 Maya 中可视化了密度网格的内容。Primitive Variables 选项卡描述了从 OpenVDB 网格到将提供给 RenderMan 的变量之间的映射。"}
+{"id":"ead2d14bf150f9f3f6e717906bde8800884bcc903ee937c0137d39434ae97b7a","item_id":"a7baf3e3e3:27","text":"体积着色"}
+{"id":"66b5413a143dd0aba2a6535d18fdc0faf0a478aca3a44be67bea16799774897a","item_id":"a7baf3e3e3:28","text":"由于体积的几何描述相对简单，设置体积的着色参数对整体外观至关重要。对于雾、烟和云等体积效果，RenderMan 提供了专用着色器"}
+{"id":"081c79ea81cfcab304275d2a486ca8dcd03d73bd5f20f248fd5a8291b249a3f8","item_id":"a7baf3e3e3:30","text":"。完成体积模拟后，典型的渲染工作流包括：按上文设置几何描述，决定几何描述中的哪些变量需要直接映射到 PxrVolume 的输入，或使用中间 Pattern 节点重新映射，最后调整 PxrVolume 中的设置以控制整体体积外观。请注意，体积中的散射由所选积分器中的 Max Path Length 参数控制，而不是由单独的漫反射和镜面追踪深度控制。"}
+{"id":"7500a2ea73994430a3bc95619cd8333748f5a10ee1a16ff117d7414cf6712540","item_id":"a7baf3e3e3:31","text":"“dice” “minlength”属性应设置为 -1，以根据体素数据为最小长度应取的值提供提示。未来这可能成为默认行为。"}
+{"id": "cdb4ee2aea69cc6a83331bbe96dc2caa9a299d21329efb0336fc02a82e1839a8", "item_id": "a7baf3e3e3:2", "text": "。"}

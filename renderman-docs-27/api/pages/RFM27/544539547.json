@@ -1,0 +1,34 @@
+{
+  "parentType": "page",
+  "parentId": "544538919",
+  "ownerId": "62462b56699649006ae7453f",
+  "lastOwnerId": null,
+  "createdAt": "2025-08-05T22:05:45.537Z",
+  "authorId": "62462b56699649006ae7453f",
+  "version": {
+    "number": 1,
+    "message": "",
+    "minorEdit": false,
+    "authorId": "62462b56699649006ae7453f",
+    "createdAt": "2025-08-05T22:05:45.537Z",
+    "ncsStepVersion": null
+  },
+  "position": 4,
+  "spaceId": "544243716",
+  "status": "current",
+  "body": {
+    "view": {
+      "representation": "view",
+      "value": "<p><style>[data-colorid=crel4yumt9]{color:#4269b8} html[data-color-mode=dark] [data-colorid=crel4yumt9]{color:#476ebd}[data-colorid=vxcxu3md2a]{color:#4269b8} html[data-color-mode=dark] [data-colorid=vxcxu3md2a]{color:#476ebd}[data-colorid=izcrl5jt9j]{color:#4269b8} html[data-color-mode=dark] [data-colorid=izcrl5jt9j]{color:#476ebd}[data-colorid=e5rsa5hosd]{color:#4269b8} html[data-color-mode=dark] [data-colorid=e5rsa5hosd]{color:#476ebd}[data-colorid=o4l4l3wvk2]{color:#4269b8} html[data-color-mode=dark] [data-colorid=o4l4l3wvk2]{color:#476ebd}</style>RenderMan for Maya can substitute a number of predefined tokens in string parameters. They can be used for animated texture sequences, referencing specific storage locations, etc.</p><p>&nbsp;</p><div class=\"table-wrap\"><table class=\"confluenceTable\"><colgroup><col /><col /></colgroup><tbody><tr><th class=\"confluenceTh\">Token</th><th class=\"confluenceTh\">Meaning</th></tr><tr><td class=\"confluenceTd\">&lt;scene&gt;</td><td class=\"confluenceTd\">Scene name</td></tr><tr><td class=\"confluenceTd\">&lt;layer&gt;</td><td class=\"confluenceTd\">Maya Render Layer name</td></tr><tr><td class=\"confluenceTd\">&lt;camera&gt;</td><td class=\"confluenceTd\">Render camera name</td></tr><tr><td colspan=\"1\" class=\"confluenceTd\">&lt;aov&gt;</td><td colspan=\"1\" class=\"confluenceTd\">AOV or LPE name</td></tr><tr><td colspan=\"1\" class=\"confluenceTd\">&lt;aovdir&gt;</td><td colspan=\"1\" class=\"confluenceTd\">This will write AOVs to named sub-directories</td></tr><tr><td colspan=\"1\" class=\"confluenceTd\">&lt;f4&gt;</td><td colspan=\"1\" class=\"confluenceTd\">Frame padding, 4 in this case, can be omitted for no padding or use lower numbers</td></tr><tr><td colspan=\"1\" class=\"confluenceTd\">&lt;ext&gt;</td><td colspan=\"1\" class=\"confluenceTd\">File type extension</td></tr><tr><td colspan=\"1\" class=\"confluenceTd\">&lt;ws&gt;</td><td colspan=\"1\" class=\"confluenceTd\">Maya's current workspace, the file path in your project</td></tr><tr><td colspan=\"1\" class=\"confluenceTd\">&lt;version&gt;</td><td colspan=\"1\" class=\"confluenceTd\">Inserts the version number specified above</td></tr><tr><td colspan=\"1\" class=\"confluenceTd\">&lt;take&gt;</td><td colspan=\"1\" class=\"confluenceTd\">Inserts the take number specified above</td></tr><tr><td colspan=\"1\" class=\"confluenceTd\">&lt;date&gt;</td><td colspan=\"1\" class=\"confluenceTd\">Current date</td></tr><tr><td colspan=\"1\" class=\"confluenceTd\">&lt;assetlib&gt;</td><td colspan=\"1\" class=\"confluenceTd\">Path to the standard RenderMan Asset Library</td></tr><tr><td colspan=\"1\" class=\"confluenceTd\">&lt;file&gt;</td><td colspan=\"1\" class=\"confluenceTd\">Scene file name</td></tr><tr><td colspan=\"1\" class=\"confluenceTd\">&lt;frame&gt;</td><td colspan=\"1\" class=\"confluenceTd\">Decimal frame number</td></tr><tr><td colspan=\"1\" class=\"confluenceTd\">&lt;jobid&gt;</td><td colspan=\"1\" class=\"confluenceTd\">Unique job identifier</td></tr><tr><td colspan=\"1\" class=\"confluenceTd\">&lt;shape&gt;</td><td colspan=\"1\" class=\"confluenceTd\">Short shape name (all instances have the same shape name)</td></tr><tr><td colspan=\"1\" class=\"confluenceTd\">&lt;shapepath&gt;</td><td colspan=\"1\" class=\"confluenceTd\">Long shape name (all instances have unique <span>shapepath names)</span></td></tr><tr><td colspan=\"1\" class=\"confluenceTd\">&lt;time&gt;</td><td colspan=\"1\" class=\"confluenceTd\">Current time</td></tr><tr><td colspan=\"1\" class=\"confluenceTd\">&lt;udim&gt;</td><td colspan=\"1\" class=\"confluenceTd\">UDIM identifier (only substituted at render time)</td></tr><tr><td colspan=\"1\" class=\"confluenceTd\">&lt;imagedir&gt;</td><td colspan=\"1\" class=\"confluenceTd\">This contains the full image output directory</td></tr><tr><td colspan=\"1\" class=\"confluenceTd\">_MAPID_</td><td colspan=\"1\" class=\"confluenceTd\">Generic texture atlas identifier <span>(only substituted at render time)</span></td></tr></tbody></table></div><h2 id=\"StringtokensinRfM-EnvironmentVariables\">Environment Variables</h2><p>Environment variables must start with the $ sign and only use capitals, numbers and &quot;_&quot; characters:</p><ul><li><span data-colorid=\"crel4yumt9\"><code>$RMANTREE/bin/txmake</code></span>: returns the path to the txmake utility.</li><li>Curly braces can also be used for composition:&nbsp;<ul><li><span data-colorid=\"o4l4l3wvk2\"><code>${SHOW}_assets/&lt;shape.assetName&gt;/&lt;shape.assetVersion&gt;/tex/&lt;shape&gt;_diff.&lt;udim&gt;.tex</code></span></li></ul></li></ul><h2 id=\"StringtokensinRfM-Retrievingattributevalues\">Retrieving attribute values</h2><p>RfM does not support TCL expression anymore but allows for attribute evaluation:</p><ul><li><span data-colorid=\"vxcxu3md2a\"><code>&lt;shape.time&gt;</code></span>&nbsp;returns the value of the 'time' attribute on the shape node ('shape' as opposed to the 'transform' node).</li><li>It is also possible to format numerical attribute values by specifying a formatting string:<ul><li><span data-colorid=\"izcrl5jt9j\"><code>&lt;shape.time:%04d&gt;</code></span>: if time's value is <code>12.2</code>, this will return <span data-colorid=\"e5rsa5hosd\">0012</span>.</li><li>This is using <a class=\"external-link\" href=\"https://docs.python.org/2/library/stdtypes.html#string-formatting-operations\" rel=\"nofollow\">python's standard format specifiers</a>.</li></ul></li></ul><p>&nbsp;</p><p>&nbsp;</p>"
+    }
+  },
+  "title": "String tokens in RfM",
+  "id": "544539547",
+  "_links": {
+    "editui": "/pages/resumedraft.action?draftId=544539547",
+    "webui": "/spaces/RFM27/pages/544539547/String+tokens+in+RfM",
+    "edituiv2": "/spaces/RFM27/pages/edit-v2/544539547",
+    "tinyui": "/x/mwN1I",
+    "base": "https://renderman.atlassian.net/wiki"
+  }
+}

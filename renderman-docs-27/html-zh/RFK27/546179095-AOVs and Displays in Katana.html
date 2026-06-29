@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AOVs and Displays in Katana</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>AOVs and Displays in Katana</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFK27/546179095/AOVs+and+Displays+in+Katana">https://rmanwiki-27.pixar.com/space/RFK27/546179095/AOVs+and+Displays+in+Katana</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="toc-macro client-side-toc-macro  conf-macro output-block" data-hasbody="false" data-headerelements="H1,H2,H3,H4,H5,H6,H7" data-layout="default" data-local-id="0a48e6d0-6701-4b9f-943c-6aafd32f29c4" data-macro-id="2224561a-8a66-471f-9fb9-c6f5bde799e3" data-macro-name="toc"> </div><p>按照以下 steps 在 RenderMan for Katana 中设置 AOVs：</p><ul><li><p>为每个 AOV channel 创建一个 PrmanOuputChannelDefine node。这会为 RiDisplayChannel 设置 channel name。</p></li></ul><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="684" loading="lazy" src="../../attachments/546179095/rfkMatteID0ChannelDefine.png" data-image-src="../../attachments/546179095/rfkMatteID0ChannelDefine.png" data-height="96" data-width="637" data-unresolved-comment-count="0" data-linked-resource-id="546179122" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfkMatteID0ChannelDefine.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="546179095" data-linked-resource-container-version="1" data-media-id="d3e3bd9a-a05c-4394-aa4a-a2d553ce14cf" data-media-type="file"></span><ul><li><p><a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661883" rel="nofollow">LPE</a> 需要一个 source 来定义要收集的 light path。例如，Indirect Diffuse 会是</p></li></ul><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="f16266ad-04a2-45e2-a860-1f390d061273" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">color lpe:C&lt;RD&gt;.+[&lt;L.&gt;O]</pre>
+</div></div><ul><li><p>接下来，为每个 AOV file 创建一个 RenderOutputDefine（Display Driver）node。这会设置用于 RiDisplay 的 output file name 和 channel name。</p></li></ul><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="684" loading="lazy" src="../../attachments/546179095/rfkMatteID0OutputDefine.png" data-image-src="../../attachments/546179095/rfkMatteID0OutputDefine.png" data-height="314" data-width="640" data-unresolved-comment-count="0" data-linked-resource-id="546179119" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfkMatteID0OutputDefine.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="546179095" data-linked-resource-container-version="1" data-media-id="eb4dee79-676e-4460-8602-48103d9902bb" data-media-type="file"></span><ul><li><p>将 PrmanOutputChannelDefine node 连接到 RenderOutputDefine，即可在 RenderOutputDefine 的 channel drop down 中看到新增的 channel（上例中的 MatteID0）。</p></li></ul><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="687" loading="lazy" src="../../attachments/546179095/rfkAOVChannelDefines.png" data-image-src="../../attachments/546179095/rfkAOVChannelDefines.png" data-height="154" data-width="389" data-unresolved-comment-count="0" data-linked-resource-id="546179116" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfkAOVChannelDefines.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="546179095" data-linked-resource-container-version="1" data-media-id="267c4148-6eeb-411c-b9ea-23855a4873ec" data-media-type="file"></span><p><br/></p><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="b7ebd80a-b7dc-44d8-8460-2f111905ed09" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>要正确渲染 per-lobe <a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661883" rel="nofollow">LPE</a>，在 Katana 中需要使用一个 <a class="external-link" href="https://help.thefoundry.co.uk/katana/dev-guide/OpsAndOpScript/CookInterface/OpScript.html" rel="nofollow">OpScript</a> 来声明这些 lobe 如何 route 到 outputs。下面是针对 PxrSurface 和 PxrMarschnerHair 定义的 lobe names 可使用的完整 OpScript。如果你的 studio 有自己的 bxdfs 且名称不同，需要把这些 names 添加到这些 Options 中。</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="9885070f-0d6c-49ab-9c15-cbf0371f76cb" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">Interface.SetAttr('prmanGlobalStatements.options.lpe.diffuse2', StringAttribute(&quot;Diffuse,HairDiffuse,diffuse,translucent,hair4,irradiance&quot;))
+Interface.SetAttr('prmanGlobalStatements.options.lpe.diffuse3', StringAttribute(&quot;Subsurface,subsurface&quot;))
+Interface.SetAttr('prmanGlobalStatements.options.lpe.specular2', StringAttribute(&quot;Specular,HairSpecularR,specular,hair1&quot;))
+Interface.SetAttr('prmanGlobalStatements.options.lpe.specular3', StringAttribute(&quot;RoughSpecular,HairSpecularTRT,hair3&quot;))
+Interface.SetAttr('prmanGlobalStatements.options.lpe.specular4', StringAttribute(&quot;Clearcoat&quot;))
+Interface.SetAttr('prmanGlobalStatements.options.lpe.specular5', StringAttribute(&quot;Iridescence&quot;))
+Interface.SetAttr('prmanGlobalStatements.options.lpe.specular6', StringAttribute(&quot;Fuzz,HairSpecularGLINTS&quot;))
+Interface.SetAttr('prmanGlobalStatements.options.lpe.specular7', StringAttribute(&quot;SingleScatter,HairSpecularTT,hair2&quot;))
+Interface.SetAttr('prmanGlobalStatements.options.lpe.specular8', StringAttribute(&quot;Glass,specular&quot;))
+Interface.SetAttr('prmanGlobalStatements.options.lpe.user2', StringAttribute(&quot;Albedo,DiffuseAlbedo,SubsurfaceAlbedo,HairAlbedo&quot;))
+Interface.SetAttr('prmanGlobalStatements.options.lpe.user3', StringAttribute(&quot;Position&quot;))
+Interface.SetAttr('prmanGlobalStatements.options.lpe.user4', StringAttribute(&quot;UserColor&quot;))
+Interface.SetAttr('prmanGlobalStatements.options.lpe.user6', StringAttribute(&quot;Normal,DiffuseNormal,HairTangent,SubsurfaceNormal,SpecularNormal,RoughSpecularNormal,SingleScatterNormal,FuzzNormal,IridescenceNormal,GlassNormal&quot;))
+
+</pre>
+</div></div></div></div><p><br/></p><ul><li><p>要让此 AOV 进行 interactive render，可以将它添加到 RenderSettings node 的 interactiveOutputs selection 中。</p></li></ul><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="687" loading="lazy" src="../../attachments/546179095/rfk_addInteractAOV.png" data-image-src="../../attachments/546179095/rfk_addInteractAOV.png" data-height="615" data-width="1018" data-unresolved-comment-count="0" data-linked-resource-id="546179113" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfk_addInteractAOV.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="546179095" data-linked-resource-container-version="1" data-media-id="b927ce95-67a4-45b6-a833-40b76529e163" data-media-type="file"></span><p><br/></p><ul><li><p><strong>Advanced（高级）：</strong> 也可以向 node 添加 statistics selection。通常用于 diagnosis 和 tuning：</p></li></ul><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="683" loading="lazy" src="../../attachments/546179095/rfkAOV_Stats.png" data-image-src="../../attachments/546179095/rfkAOV_Stats.png" data-height="294" data-width="1024" data-unresolved-comment-count="0" data-linked-resource-id="546179125" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfkAOV_Stats.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="546179095" data-linked-resource-container-version="1" data-media-id="e56e8bc9-8545-4c53-8fa0-fb0d4dc043fc" data-media-type="file"></span><ul><li><p /><ul><li><p><strong>&quot;variance&quot;</strong>：估算 associated source channel 中对 pixel 有贡献的 values 的 statistical variance。</p></li><li><p><strong>&quot;mse&quot;</strong>：类似 variance，但会随着 samples 数量增加而向 zero 衰减。虽然它本身也有些 noisy，但可以估算相对于假想 ground-truth image 的 mean-squared-error 数量。</p></li><li><p><strong>&quot;even&quot;</strong>：仅使用 camera samples 的一半生成的 image</p></li><li><p><strong>&quot;odd&quot;</strong>：仅使用 camera samples 的另一半生成的 image</p></li></ul></li></ul><h3 id="AOVsandDisplaysinKatana-EXRMetadata">EXR Metadata（EXR 元数据）</h3><p>可以向 EXR file 添加 metadata，以便支持 pipeline functions。The Foundry 的说明见 <a class="external-link" href="https://learn.foundry.com/katana/current/Content/ug/rendering_scene/openexr_header_metadata.html" rel="nofollow">这里。</a></p><p>本质上，在 Render Settings node 上：</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="aa817eec-ab1e-47b3-b64e-d44aee705013" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">SetAttr(&quot;renderSettings.ouputs.primary.rendererSettings.exrheaders.test_string&quot;,[ &quot;Your string&quot; ] )</pre>
+</div></div><h3 id="AOVsandDisplaysinKatana-SettingCustomDisplayData">Setting Custom Display Data（设置自定义显示数据）</h3><p>可以在 /root 使用 OpScript，将 custom Katana attribute 传入 display driver。下面是一个简单示例，将 "myParam" 设置到名为 "myDisplay" 的 display 上</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="16c383be-f518-420a-be88-673516080211" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">Interface.SetAttr(&quot;renderSettings.outputs.myDisplay.rendererSettings.displayOptions.myParam&quot;, StringAttribute(&quot;paramValue&quot;))</pre>
+</div></div><p><br/></p><p><br/></p>
+  </article>
+</main>
+</body>
+</html>

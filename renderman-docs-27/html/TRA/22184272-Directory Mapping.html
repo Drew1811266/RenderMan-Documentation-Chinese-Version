@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Directory Mapping</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Directory Mapping</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/TRA/22184272/Directory+Mapping">https://rmanwiki-27.pixar.com/space/TRA/22184272/Directory+Mapping</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="document"><p>Directory Mapping is a Tractor feature that allows you to specify file system paths on one system that correspond to the same asset paths on a different operating system. For example, if a job script is created on a Windows system with UNC file paths, and you want the job to run on a Linux or macOS system where files are accessed through NFS, then you can specify a directory mapping which will alter the UNC paths to NFS paths. Directory maps can also be useful to replace a drive letter in Windows paths with a fully qualified UNC path.</p><p>To specify a directory map, you can add the Job parameter <a href="/wiki/spaces/TRA/pages/22184256/Job+Scripting+Operators#job" data-linked-resource-id="22184256" data-linked-resource-version="25" data-linked-resource-type="page">-dirmaps</a> in this form:</p><pre class="codefhead literal-block">Job -dirmaps { <em>maps</em> }
+</pre><p>where maps is a list of directory maps in this format:</p><pre class="codefhead literal-block">{ { <em>source</em> } { <em>destination</em> } <em>zone</em> }
+</pre><p>In this format, source will be replaced by destination in a file path if the job is being run on a computer in the specified zone.</p><p>For example, here are some valid directory maps in a job script:</p><pre class="codefhead literal-block"> Job -title {A Simple Job}
+     -dirmaps {
+         {{mayabatch} {maya} NFS}
+         {{X:/} {//fileserver/projects/} UNC}
+         {{X:/} {/fileserver/projects/} NFS}
+     }
+     -subtasks {
+         Task -title {render a.rib} -cmds {
+             RemoteCmd {%D(mayabatch) -batch -file {%D(X:/proj1/scenes/test.ma)} -proj {%D(X:/proj1)}} -service {RfMRender}
+     }
+ }
+</pre><p>There are three different maps specified in this -dirmap option. The first one specifies that mayabatch should be replaced by maya when the job is run on a computer in the NFS zone. The second one specifies that X:/ should be replaced by //fileserver/projects/ when the job is run on a computer in the UNC zone. Directory maps are only applied to the text within the %D() areas of the command. So, if this job was run on a Windows computer in the UNC zone, then the command would be run as:</p><pre class="codefhead literal-block">mayabatch -batch -file //fileserver/projects/proj1/scenes/test.ma -proj //fileserver/projects/proj1
+</pre><p>If the job was run on a Linux or macOS computer in the NFS zone, then it would be run as:</p><pre class="codefhead literal-block">maya -batch -file /fileserver/projects/proj1/scenes/test.ma -proj /fileserver/projects/proj1
+</pre><p>By default, Tractor Blades running on Windows will use the UNC zone, while Linux and macOS blades will use the NFS zone. The zone name can instead be set explicitly for given hosts by specifying the &quot;DirMapZone&quot; value in the matching <a href="/wiki/spaces/TRA/pages/22184312/Server+Profiles" data-linked-resource-id="22184312" data-linked-resource-version="6" data-linked-resource-type="page">blade profile.</a></p><p>Also, note that directory maps are <strong>only</strong> applied if the text within the <strong>%D()</strong> that begins with the source text from the directory map. So, if a directory map was listed as { {x} {y} UNC }, then the text in %D(zzzx) would not change, but the text in %D(xzzz) would change to yzzz. </p><h3 class="document" id="DirectoryMapping-SettingUpDirectoryMappingforRenderManforMaya">Setting Up Directory Mapping for RenderMan for Maya</h3><p>You can find those instructions <a href="/wiki/spaces/TRA/pages/22184208/RenderMan+for+Maya" data-linked-resource-id="22184208" data-linked-resource-version="1" data-linked-resource-type="page">here.</a></p><h3 class="document" id="DirectoryMapping-WindowsServiceConsiderations">Windows Service Considerations</h3><div class="section"><p>Windows services run without access to mapped drives. So, if your Maya project is set to a mapped drive location such as X:\projects\proj1, then you will need to set up directory mapping so that your Tractor Blades running as a Windows service can access that location. If your X:drive is mapped to \\fileserver\projects, then you will want to set up a directory mapping for the UNC zone like this:</p><pre class="codefhead literal-block">SetPref WSDirMaps { {X:/ //fileserver/projects/ UNC } }
+</pre><p><strong>Note:</strong> Windows will sometimes cache SMB mount credentials, or sometimes it will clear its cache of previously authenticated credentials. Particularly on recent Windows editions (8.1+) when the blade is running as a service, the credential for the UNC name will need to have its Persistence set to &quot;enterprise&quot;. This is not what it will be set to if you simply browse to the share in the File Explorer and type the password in there. To set the persistence:</p><ul class="simple"><li>Open Control Panel-&gt;User Accounts and Family Safety-&gt;Manage Windows Credentials</li><li>Delete any old credentials for the given share, IF the persistence is not already &quot;enterprise&quot;</li><li>Click &quot;add a Windows credential&quot;</li><li>Enter the appropriate \\server\share, account name and password.</li></ul><p>Remember to configure the tractor-blade service to run as the same user. * Go into the Control Panel-&gt;...-&gt;Services and set blade service's &quot;Run As Account&quot; to your selected account. * Restart the service</p></div></div>
+  </article>
+</main>
+</body>
+</html>

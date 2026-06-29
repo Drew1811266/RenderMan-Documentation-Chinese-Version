@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Primitive Variables</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Primitive Variables</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFK27/546177881/Primitive+Variables">https://rmanwiki-27.pixar.com/space/RFK27/546177881/Primitive+Variables</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p><style>[data-colorid=hv8k6ybsxt]{color:#333333} html[data-color-mode=dark] [data-colorid=hv8k6ybsxt]{color:#cccccc}[data-colorid=c25wwd2vl3]{color:#333333} html[data-color-mode=dark] [data-colorid=c25wwd2vl3]{color:#cccccc}[data-colorid=gj2btgrhu0]{color:#404040} html[data-color-mode=dark] [data-colorid=gj2btgrhu0]{color:#bfbfbf}[data-colorid=he9ysxsosi]{color:#333333} html[data-color-mode=dark] [data-colorid=he9ysxsosi]{color:#cccccc}[data-colorid=wpdsi07uvn]{color:#333333} html[data-color-mode=dark] [data-colorid=wpdsi07uvn]{color:#cccccc}[data-colorid=mv4lnyoten]{color:#333333} html[data-color-mode=dark] [data-colorid=mv4lnyoten]{color:#cccccc}</style>Primitive Variables (also known as primvars) are data stored on objects.&nbsp; This data can be used for shading variation, much like <a href="/wiki/spaces/RFK27/pages/546177856/User+Attributes" data-linked-resource-id="546177856" data-linked-resource-version="4" data-linked-resource-type="page">user attributes</a>.&nbsp; There are two main distinctions between the two - primvars cannot vary across instances, but they&nbsp;allow more specific variation - constant, uniform, varying, vertex, and facevarying.</p><p><strong>Constant:</strong> <span data-colorid="he9ysxsosi">&nbsp;One value remains constant over the entire surface primitive. This is the only level that can be achieved with user attributes.</span> <br /><strong>Uniform:</strong> <span data-colorid="c25wwd2vl3">&nbsp;One value remains constant for each uv patch segment of the surface primitive.&nbsp;</span> <br /><strong>Varying:</strong> <span data-colorid="mv4lnyoten">&nbsp;Four values are interpolated over each uv patch segment of the surface. Bilinear interpolation is used for interpolation between the four values.&nbsp;</span> <br /><strong>Vertex:</strong> <span data-colorid="wpdsi07uvn">&nbsp;Values are interpolated between each vertex in the surface primitive. The basis function of the surface is used for interpolation between vertices.&nbsp;</span> <br /><strong>Facevarying:</strong> <span data-colorid="hv8k6ybsxt">&nbsp;For polygons and subdivision surfaces, four values are interpolated over each face of the mesh. Bilinear interpolation is used for interpolation between the four values.&nbsp;</span></p><h3 id="PrimitiveVariables-Settingarbitraryprimvars">Setting arbitrary primvars</h3><p>RenderMan for Katana supports primitive variables using Katana's standard&nbsp;<a class="external-link" href="https://learn.foundry.com/katana/dev-guide/AttributeConventions/ArbitraryAttributes.html" rel="nofollow">Arbitrary Attribute</a> convention.&nbsp;</p><p>Here is the list of supported values for <span data-colorid="gj2btgrhu0">geometry.arbitrary.&lt;group&gt;.</span> outputType.&nbsp; Katana's documentation lists other types, but these are the only ones supported by RenderMan:</p><ul><li><p>float</p></li><li><p>double (converted to float)</p></li><li><p>string</p></li><li><p>int</p></li><li><p>color3</p></li><li><p>normal3</p></li><li><p>vector2</p></li><li><p>vector3</p></li><li><p>point2</p></li><li><p>point3</p></li><li><p>point4</p></li><li><p>matrix16</p></li></ul><p>Katana only has four values for arbitrary attribute &quot;scope&quot;: primitive, face, point, and vertex.&nbsp; For the most part, these scope values map to the RenderMan primvar tags as follows: primitive = constant, face = uniform, point = varying, and vertex = facevarying.&nbsp; Subdivision meshes support different interpolation of primvars with the &quot;point&quot; scope using the &quot;interpolationType&quot; attribute.&nbsp; If geometry.arbitrary.&lt;group&gt;.interpolationType is set to &quot;subdiv&quot;, the primvar will be &quot;vertex&quot;, otherwise the primvar will be &quot;varying&quot;.</p><p>Here is an example OpScript showing how to set an arbitrary constant color primvar:</p><div class="table-wrap"><table data-table-width="795" data-layout="center" data-local-id="93308de8-ef6c-4fd2-a03b-64a7ffcf0abe" class="confluenceTable"><colgroup><col style="width: 795.0px;" /></colgroup><tbody><tr><td class="confluenceTd"><p><code>Interface.SetAttr(&quot;geometry.arbitrary.myColor.scope&quot;,StringAttribute(&quot;primitive&quot;))</code></p><p><code>Interface.SetAttr(&quot;geometry.arbitrary.myColor.value&quot;,FloatAttribute({0.0,&nbsp;1.0,&nbsp;0.0}))</code></p><p><code>Interface.SetAttr(&quot;geometry.arbitrary.myColor.inputType&quot;,StringAttribute(&quot;color3&quot;))</code></p></td></tr></tbody></table></div><h3 id="PrimitiveVariables-UsingPrimvars">Using Primvars</h3><p>Typically, production workflows will export these arbitrary attributes as a part of the alembic or USD asset, so no set up inside of Katana is required.&nbsp; Otherwise, you can use an OpScript to set the geometry.arbitrary attribute directly on a geometry location - the attribute is not inheritable.</p><p>Primvars are read by various shading plugins. <a href="/wiki/spaces/REN26/pages/19661665/PxrPrimvar" data-linked-resource-id="19661665" data-linked-resource-version="1" data-linked-resource-type="page">PxrPrimvar</a>, <a href="/wiki/spaces/REN26/pages/19661719/PxrVariable" data-linked-resource-id="19661719" data-linked-resource-version="1" data-linked-resource-type="page">PxrVariable</a>, and <a href="/wiki/spaces/REN26/pages/19661737/PxrVary" data-linked-resource-id="19661737" data-linked-resource-version="1" data-linked-resource-type="page">PxrVary</a> are some plugins distributed with RenderMan that use arbitrary primvars.</p>
+  </article>
+</main>
+</body>
+</html>

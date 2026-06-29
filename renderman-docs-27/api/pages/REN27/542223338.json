@@ -1,0 +1,34 @@
+{
+  "parentType": "page",
+  "parentId": "542222258",
+  "ownerId": "62462b56699649006ae7453f",
+  "lastOwnerId": null,
+  "createdAt": "2025-08-04T18:03:21.886Z",
+  "authorId": "62462b56699649006ae7453f",
+  "position": 326470915,
+  "version": {
+    "number": 1,
+    "message": "",
+    "minorEdit": false,
+    "authorId": "62462b56699649006ae7453f",
+    "createdAt": "2025-08-04T18:03:21.886Z",
+    "ncsStepVersion": null
+  },
+  "spaceId": "541786132",
+  "status": "current",
+  "body": {
+    "view": {
+      "representation": "view",
+      "value": "<p>This pattern layers the input scalar displacement patterns. </p><p>Each PxrDispScalarLayer supports up to 5 layers. </p><div class=\"confluence-information-macro confluence-information-macro-tip conf-macro output-block\" data-hasbody=\"true\" data-macro-id=\"62deae2e-9068-4629-aa31-efe599db3a24\" data-macro-name=\"tip\"><span class=\"aui-icon aui-icon-small aui-iconfont-approve confluence-information-macro-icon\"> </span><div class=\"confluence-information-macro-body\"><p>If you need more than 5 layers, connect the result of one PxrDispScalarLayer node to the input of another PxrDispScalarLayer node.</p></div></div><div class=\"confluence-information-macro confluence-information-macro-note conf-macro output-block\" data-hasbody=\"true\" data-macro-id=\"9e5060b6-d101-4abf-8208-59738a0e0bf3\" data-macro-name=\"note\"><span class=\"aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon\"> </span><div class=\"confluence-information-macro-body\"><p>We need to connect the result of this pattern to the input of <a href=\"/wiki/spaces/REN27/pages/542221096/PxrDisplace\" data-linked-resource-id=\"542221096\" data-linked-resource-version=\"1\" data-linked-resource-type=\"page\">PxrDisplace</a>'s Scalar Displacement in order to displace the geometry.</p></div></div><p> </p><p><span class=\"confluence-embedded-file-wrapper image-center-wrapper\"><img class=\"confluence-embedded-image image-center\" confluence-query-params=\"effects=drop-shadow\" loading=\"lazy\" src=\"https://renderman.atlassian.net/wiki/download/attachments/542223338/pxrdispscalarlayer.png?version=1&amp;modificationDate=1754330601942&amp;cacheVersion=1&amp;api=v2&amp;effects=drop-shadow\" data-image-src=\"https://renderman.atlassian.net/wiki/download/attachments/542223338/pxrdispscalarlayer.png?version=1&amp;modificationDate=1754330601942&amp;cacheVersion=1&amp;api=v2\" data-unresolved-comment-count=\"0\" data-linked-resource-id=\"542223352\" data-linked-resource-version=\"1\" data-linked-resource-type=\"attachment\" data-linked-resource-default-alias=\"pxrdispscalarlayer.png\" data-base-url=\"https://renderman.atlassian.net/wiki\" data-linked-resource-content-type=\"image/png\" data-linked-resource-container-id=\"542223338\" data-linked-resource-container-version=\"1\" data-media-id=\"e1ce2d30-c0cb-4687-97bb-43e2e6e3c936\" data-media-type=\"file\"></span></p><h3 id=\"PxrDispScalarLayer-InputParameters\">Input Parameters</h3><h4 id=\"PxrDispScalarLayer-OverallGain\">Overall Gain</h4><p>Controls the gain of the final layered scalar displacement result. This is handy when we want to globally adjust the amount of all layered displacement values. Each layer's gain is being multiplied by this parameter.</p><h3 id=\"PxrDispScalarLayer-BaseLayer\">Base Layer</h3><h4 id=\"PxrDispScalarLayer-Enabled\">Enabled</h4><p>By default, the base layer is enabled. But say we need to debug, we can disable the base by unchecking this parameter. It if is unchecked, the base layer will be skipped for layering.</p><h4 id=\"PxrDispScalarLayer-BaseLayerGain\">Base Layer Gain</h4><p>Gain for the base layer.</p><h4 id=\"PxrDispScalarLayer-BaseLayerScalar\">Base Layer Scalar</h4><p>Connection to the scalar displacement pattern.  It can be any pattern's output float result such as resultF, resultR, resultG, resultB.</p><h3 id=\"PxrDispScalarLayer-Layer1\">Layer1</h3><h4 id=\"PxrDispScalarLayer-Enabled.1\">Enabled</h4><p>If checked, layer 1 is enabled.</p><h4 id=\"PxrDispScalarLayer-Layer1Gain\">Layer 1 Gain</h4><p>Gain for the layer 1.</p><h4 id=\"PxrDispScalarLayer-Layer1Scalar\">Layer 1 Scalar</h4><p>Connection to the scalar displacement. It can be any pattern's output float result such as resultF, resultR, resultG, resultB.</p><h4 id=\"PxrDispScalarLayer-Layer1Mask\">Layer 1 Mask</h4><p>Mask for this layer 1. Value that is closer to zero will apply less of this layer.</p><h4 id=\"PxrDispScalarLayer-Layer1Operation\">Layer 1 Operation</h4><p>Choose how this layer's displacement combines with the base layer.</p><ul><li>1: Add - adds layer 1 to the base layer.</li><li>2: Over - composites layer 1 on top of the base layer.</li><li>3: Multiply - multiplies layer 1 with the base layer.</li><li>4: Average - returns the average between layer 1 and the base layer.</li><li>5: Min - returns the minimum between layer 1 and the base layer.</li><li>6: Max - returns the maximum between layer 1 and the base layer.</li></ul><h3 id=\"PxrDispScalarLayer-Layer2\">Layer2</h3><h4 id=\"PxrDispScalarLayer-Enabled.2\">Enabled</h4><p>If checked, layer 2 is enabled.</p><h4 id=\"PxrDispScalarLayer-Layer2Gain\">Layer 2 Gain</h4><p>Gain for the layer 2.</p><h4 id=\"PxrDispScalarLayer-Layer2Scalar\">Layer 2 Scalar</h4><p>Connection to the scalar displacement.  It can be any pattern's output float result such as resultF, resultR, resultG, resultB.</p><h4 id=\"PxrDispScalarLayer-Layer2Mask\">Layer 2 Mask</h4><p>Mask for this layer 2.  Value that is closer to zero will apply less of this layer.</p><h4 id=\"PxrDispScalarLayer-Layer2Operation\">Layer 2 Operation</h4><p>Choose how this layer's displacement combines with the previous layer.  If the layer 1 is not enabled, it will combine with the result of the base layer.</p><ul><li>1: Add - adds layer 2 to layer 1.</li><li>2: Over - composites layer 2 on top of layer 1.</li><li>3: Multiply - multiplies layer 2 with layer 1.</li><li>4: Average - returns the average between layer 2 and layer 1.</li><li>5: Min - returns the minimum between layer 2 and layer 1.</li><li>6: Max - returns the maximum between layer 2 and layer 1.</li></ul><h3 id=\"PxrDispScalarLayer-Layer3to4\">Layer 3 to 4</h3><p>Similar parameters to Layer 2.</p><h3 id=\"PxrDispScalarLayer-OutputParameters\">Output Parameters</h3><h4 id=\"PxrDispScalarLayer-resultF\">resultF</h4><p>The float output.</p><p> </p>"
+    }
+  },
+  "title": "PxrDispScalarLayer",
+  "id": "542223338",
+  "_links": {
+    "editui": "/pages/resumedraft.action?draftId=542223338",
+    "webui": "/spaces/REN27/pages/542223338/PxrDispScalarLayer",
+    "edituiv2": "/spaces/REN27/pages/edit-v2/542223338",
+    "tinyui": "/x/6qtRI",
+    "base": "https://renderman.atlassian.net/wiki"
+  }
+}

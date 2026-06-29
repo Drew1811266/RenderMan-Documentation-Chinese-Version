@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Alternative Authentication</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Alternative Authentication</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/TRA/22184252/Alternative+Authentication">https://rmanwiki-27.pixar.com/space/TRA/22184252/Alternative+Authentication</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="document"><p>这里讨论不使用 PAM 来管理 custom authentication 的替代方法。</p><div class="section"><h3 id="AlternativeAuthentication-CustomChallenge-ResponseHashingFunctions">Custom 自定义 Challenge-Response Hashing Function</h3><p>这种方法在下文称为 "Scheme #1"，可以对 transmitted credential 提供更好的保护，但需要 custom coding，才能与站点 password database 正确集成。</p><p><strong>背景：</strong> remote login 有两种基本 password scheme，应根据站点需要权衡它们的 benefit 和 risk。</p><p><em>Scheme #1 - 对 Hashed Password 使用 Challenge/Response</em></p><blockquote><ul class="simple"><li>best practice 级别的基础保护</li><li>不在 network 上传输 password</li><li>通常需要 custom account/password database</li><li>需要在 server 和 client 上实现匹配的 hash</li></ul></blockquote><p>此方法的优点是不会通过 network 发送可恢复的 password，并可防止 replay attack（即有人捕获一次 successful login 的 network traffic，稍后重放该 sequence 以获取 access）。主要缺点是需要在 server side 创建并存储一个特殊的 "account" database。它也很可能需要编写代码，在 server 和每种 client 上实现匹配的 hash function。</p><p>该 scheme 的工作方式如下：在使用系统之前，每个用户 password 的 hashed version（见下文）会存储到 server-side database 中，该 database 可以是磁盘上的简单 file。login 期间，一个新的 one-time random string（称为 challenge）会发送到 UI，server 也会保留该 string 的副本。UI 提示用户输入 login name 和 password，然后 UI 依次执行两次 hash operation。第一次 hash 与在 server 上创建用户 account entry 时使用的 hash 相同。然后第一次 hash 的 output 会与 server 的 random challenge string 组合，并再次 hash。第二次 hash 的 output 会连同用户 login name 的 plain-text 一起发送到 server 进行 validation。server 通过重新计算第二次 hash 来 validate login，其 input 包括它之前发送给该 client 的 one-time challenge，以及它自己在 password database 中已有的该用户 pre-hashed entry。server 将自己的计算结果与 UI 发送来的结果比较，如果匹配则授予 access。</p><p>用于创建 initial password database 的 hash，以及 client 的第一次 hash，是一个 one-way cryptographic-quality function，应用于由用户 login name、其选择的 password，以及永久 site-wide "realm" string 组合而成的 character string。realm string 可以是 company name、website name 或其他本地唯一 string，它有助于确保 attacker 不能使用预计算 hashed password 的 look-up table 轻易破解 password database。例如，如果用户 "baker" 选择 password "Cherry3.417"，则 hash function 的 input 可能是 "baker|Cherry3.417|<a class="external-link" href="http://example.com" rel="nofollow">example.com</a>"。使用 MD5 或更强 function 进行 hashing 后，此 input string 会转换为一组新的 output character。hash 不是 random；给定相同 input 时，它总会生成可重复的 output。良好的 hashing function 永远不应是 "reversable"，也就是说，不能通过对 hashed output 运行某个 function 来恢复 input。此外，良好的 hash 会让两个不同 input string 映射到相同 output 的可能性极低。</p><p>initial hash 确保 user password 不会以可恢复形式存储在 disk 上，也不会以 plain-text form 通过 network 发送。hashed value 只能用于与另一个 hash computation 比较。第二个 challenge-based hash 确保 transmitted string 本身并非 "password-equivalent"，也就是说，它不会匹配从 server password database file 中复制出来的 string。由于 challenge string 每次 login attempt 都不同，第二个 hash 还有助于确保不能通过重放之前捕获的 login transaction 来获得 login access。</p><p>这里的主要困难在于创建、维护并访问用于 server-side password hash 的 storage scheme。LDAP 可能是此用途的方便候选。其次，有时也很难找到并正确实现一个在 server 和所有可能 client 上表现完全一致的 hashing algorithm。</p><p><em>Scheme #2 - Basic 基本的 "/etc/passwd" Server-Side Approach</em></p><blockquote><ul class="simple"><li>hashing 仅在 server 上执行</li><li>password 会以 encoded 但可恢复的形式从 client 发送</li><li>经典但早已过时的 unix 传统</li></ul></blockquote><p>如果已有简单的 /etc/passwd 风格 password hash database，此方法更容易实现。缺点是 network snooping 可用于恢复 password，而该 password 很可能也是用户的主 desktop/system password。如果 client 与 server 之间的 network connection 本身可信，例如使用 SSL，则此 scheme 更安全。</p><p>流程大致如下：提示用户输入 login name 和 password 后，dialog 的 client-side handler 会以某种方式 encode password，然后将 login request 发送到 server。server 接收 request 并 decode message，从而恢复用户刚刚输入的 plaintext password 和 user name。随后 server 对 password 运行 one-way hash，并将其与此前存储的该用户 password hash version 比较（当然使用相同 algorithm hash）。主要弱点来自 transmitted password encoding 必须可恢复这一事实。还应注意，client-side encoding 本身可能在 source-available context 中实现，例如 web page 内很容易看到的 JavaScript function，因此 attacker 很容易看到所用 encoding algorithm。</p><p>注意，此 scheme <em>不会</em> 因为由 client 而不是 server 在发送 password 之前执行 one-way hash 而得到改进。这样做会使 transmitted hash 变成 "password equivalent"，就像 unhashed password 存储在 server 上一样，使 replay attack 变得非常容易。不过，如果 replay attack 不是问题，那么让 client 执行 hash 或许可以让 Tractor 使用普通 system /etc/passwd database，而无需通过 wire 传输这些 password。然而，尤其对于 /etc/passwd，Dashboard client code 需要外部方式获取每个 passwd entry 中已有的 per-user "salt" value，才能计算正确的 crypt-style hash。对于少量用户，这些 value 也许可以以某种自动化方式直接内置到 trSiteDashboardFunctions script 中。</p></div><hr class="docutils"/><div class="section"><h3 id="AlternativeAuthentication-EnablingTractorPasswordValidation">启用 Tractor Password Validation</h3><ul><li><p class="first">密码验证（password validation）使用一 <strong>对</strong> site-defined function 实现：一个从 Dashboard client 的 web-browser 发送 credential，另一个在 tractor-engine server 上 validate credential。</p></li><li><p class="first">这对 function 协同实现 validation scheme，示例包括上面概述的两种方法。</p></li><li><p class="first">client side code 必须插入位于 Tractor "config" directory 中的 trSiteDashboardFunctions.js file。该 file 内有一个名为 trSitePasswordHash 的 function，必须修改它，使其返回适当的 password hash 或 encoding。实际的 hash 或 encoding 计算可以在此 file 中完成，也可以根据各站点的 plug-in availability 和 external code convention 放在其他位置。如果 trSitePasswordHash 返回 JavaScript value null，则 Dashboard 会忽略 password processing。否则，该 function 应返回新计算出的 string，结果会连同用户输入的 login name 一起发送给 Engine。</p></li><li><p class="first">收到 login credential string 后，Engine 会调用 external validation program，并通过 stdin 将这些 string 作为 input 传入。要调用的 program 在 crews.config file 中用 dictionary key SitePasswordValidator 指定。</p></li><li><p class="first">config directory 中提供了一个用 python 编写的 example validator script。下面是调用它的 crews.config entry 示例：</p><blockquote><p>&quot;SitePasswordValidator&quot;: &quot;python ${TractorConfigDirectory}/trSiteLoginValidator.py&quot;</p></blockquote></li><li><p class="first">被调用 program 的 exit code 决定 password 和 user name pair 是否有效。program 应以 0（zero）退出表示 success，以 non-zero 退出表示不允许 login。</p></li><li><p class="first">example program trSiteLoginValidator.py 展示了如何以 /etc/passwd crypt() 的风格对 plaintext password 计算 one-way hash，然后将该 hash 与从 unix call "getpwnam()" 取得的 value 比较；该 call 可以访问简单的 /etc/passwd 或 NIS（yp）entry。 <strong>注意</strong> 这个简单示例假定 Dashboard client-side function trSitePasswordHash() 只是把 inbound plaintext password 作为 output 返回，这是为了便于说明；真实 implementation 应强加密 password 后再传输，或切换到使用 Tractor-specific password database 的 challenge/response scheme（即上文的 "Scheme #1"）。</p></li></ul></div></div>
+  </article>
+</main>
+</body>
+</html>

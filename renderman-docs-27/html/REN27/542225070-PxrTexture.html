@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PxrTexture</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>PxrTexture</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/REN27/542225070/PxrTexture">https://rmanwiki-27.pixar.com/space/REN27/542225070/PxrTexture</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p><style>[data-colorid=ujmllzs5ee]{color:#3d90b3} html[data-color-mode=dark] [data-colorid=ujmllzs5ee]{color:#4c9fc2}</style>The PxrTexture is the main node to load in textures and like all texture style nodes, this node takes a manifold that describes either a 2D or 3D domain to apply the texture to.</p><p>If no manifold is attached, the default behavior is to apply over the s,t domain defined on the geometry.</p><p>Texture atlas format files can be read in UDIM (Mari), ZBrush, or Mudbox formats. This plugin also supports&nbsp;Rtx&nbsp;procedural texture plugins.</p><p /><hr /><h3 id="PxrTexture-InputParameters">Input Parameters</h3><h4 id="PxrTexture-Filename">Filename</h4><p>The filename of the texture. This parameter must be supplied.</p><p>To use an image sequence, Typically, you'll use string substitutions to construct texture map references by embedding the frame number in your favorite representation. Here's an example:</p><div class="panel conf-macro output-block" data-hasbody="true" data-layout="default" data-local-id="d552c9f0-a52c-499b-ad56-eaa9d1f24be6" data-macro-id="312f9835-005f-4e92-a903-863cbe28cc57" data-macro-name="panel" style="background-color: lightgrey;border-color: black;border-style: solid;border-width: 1px;"><div class="panelContent" style="background-color: lightgrey;">
+<p><sup>(For Maya)   $PROJPATH/sourceimages/flapping.&lt;f4&gt;.tex</sup></p><p><sup>(For Katana) '/images/flapping.%04d.tex' % frame</sup></p><p><sup>(For Houdini) use $F $F3 in the file name or Houdini expressions,`padzero(3, $F)`</sup></p>
+</div></div><p /><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="a84f29c8-d8b0-46d3-9117-540c10027643" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>It's best to avoid special characters, diacritics, and spaces in your file path as these may not be resolved correctly and result in the texture failing to render.</p></div></div><p>In addition to the Atlas substitution strings we support, you can also reference a constant string primvar in your filename to make it easy to reuse a texture across different pieces of geometry, where the primvar dictates a filename convention.</p><ul><li><p>&lt;primstr:primvarname&gt; - will substitute the value of the named constant string primitive variable, such as the name of an asset in for example &quot;/assets/&lt;primstr:model&gt;/diffuse.tex&quot; on an apple with &quot;const string model&quot;&nbsp;[&quot;apple&quot;] would be expanded to &quot;/assets/apple/diffuse.tex&quot;</p></li></ul><h4 id="PxrTexture-FirstChannelOffset">First Channel Offset</h4><p>Offsets the first channel to be looked up.</p><p /><h4 id="PxrTexture-AtlasStyle">Atlas Style</h4><p>If you specify an atlas style, the&nbsp;<em>filename</em>&nbsp;must contain &lt;UDIM&gt; which will be substituted automatically according to the surface parameterization and&nbsp;<em>atlasStyle. </em><br /><br />A Mari UDIM example for the first UV tile would be&nbsp;<span data-colorid="ujmllzs5ee">Diffuse.1001.tex</span> where &quot;1001&quot; replaces &lt;UDIM&gt; in the texture filename.&nbsp;</p><p /><div class="table-wrap"><table data-table-width="771" data-layout="wide" data-local-id="862c9a0e-c252-4702-be25-a38beb59157f" class="confluenceTable"><tbody><tr><th class="confluenceTh"><p><strong>Value</strong></p></th><th class="confluenceTh"><p><strong>Filename</strong></p></th><th class="confluenceTh"><p><strong>Atlas Style</strong></p></th><th class="confluenceTh"><p><strong>Use in path</strong></p></th><th class="confluenceTh"><p><strong>Alternative</strong></p></th></tr><tr><td class="confluenceTd"><p>0</p></td><td class="confluenceTd"><p>Diffuse.1001.tex</p></td><td class="confluenceTd"><p>UDIM (Mari)</p></td><td class="confluenceTd"><p>Diffuse.&lt;UDIM&gt;.tex</p></td><td class="confluenceTd"><p>Diffuse.&lt;udim&gt;.tex</p></td></tr><tr><td class="confluenceTd"><p>1</p></td><td class="confluenceTd"><p>Diffuse.U1_V1.tex</p></td><td class="confluenceTd"><p>UV Tile Base-1 (Mudbox)</p></td><td class="confluenceTd"><p>Diffuse.&lt;U&gt;_&lt;V&gt;.tex</p></td><td class="confluenceTd"><p /></td></tr><tr><td class="confluenceTd"><p>2</p></td><td class="confluenceTd"><p>Diffuse.u0_v0.tex</p></td><td class="confluenceTd"><p>UV Tile Base-0 (Zbrush)</p></td><td class="confluenceTd"><p>Diffuse.&lt;u&gt;_&lt;v&gt;.tex</p></td><td class="confluenceTd"><p /></td></tr></tbody></table></div><p /><p>So, for example.&nbsp; <br /><br />If your textures use the Mari UDIM style and the filename is: <strong>Diffuse.1001.tex</strong>, you need to use <strong>Diffuse.&lt;UDIM&gt;.tex </strong>for the textures to load into their correct UDIMs.&nbsp;&nbsp;<br /><br />Note : &lt;UDIM&gt; can be in either UPPER or lowercase &lt;udim&gt;<br /><br /><br /><br /></p><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="72e9635c-6848-408e-ad08-faf1ee0372e6" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>Users should avoid negative texture coordinates for all atlas texture workflows</p></div></div><p /><h4 id="PxrTexture-InvertT">Invert T</h4><p>Inverts the t parameter for the texture lookup.</p><p /><h4 id="PxrTexture-Filter">Filter</h4><p>Selects different reconstruction filters that can be used during texture lookup. The filters available for PxrTexture are:</p><ul><li><p>0: Nearest</p></li><li><p>1: Box</p></li><li><p>2: Bilinear</p></li><li><p>3: Bspline</p></li><li><p>6: Gaussian</p></li><li><p>7: Lagrangian</p></li></ul><p /><h4 id="PxrTexture-Blur">Blur</h4><p>Specifies how much to blur the image retrieved from the texture file.</p><p /><h4 id="PxrTexture-MipInterpolate">Mip Interpolate</h4><p>Selects whether to interpolate between adjacent resolutions in the multi-resolution texture, resulting in smoother transitions between levels.</p><p /><h4 id="PxrTexture-MissingColor">Missing Color</h4><p>If there is an error opening the texture, use this color.</p><p><span class="legacy-color-text-inverse">.0 0.0 1.0</span></p><h4 id="PxrTexture-MissingAlpha">Missing Alpha</h4><p>If there is an error opening the texture, use this alpha.</p><p /><h4 id="PxrTexture-Linearize">Linearize</h4><p>Apply the reverse sRGB transform your texture. If you are painting textures in sRGB space (default for most paint packages) but viewing your data in data linear space, your textures will look washed out. This will apply the sRGB transform to your texture, which should make it appear visually linear again.</p><p /><h4 id="PxrTexture-Manifold">Manifold</h4><p>Provides the domain over which to apply the texture. Defaults to s,t.<br /><br /><br /></p><hr /><h3 id="PxrTexture-AdjustOutput"><br />Adjust Output</h3><h4 id="PxrTexture-ColorScale">Color Scale</h4><p>A multiplier for the color values in a texture can be used to adjust brightness or manipulate individual color channels</p><p /><h4 id="PxrTexture-ColorOffset">Color Offset</h4><p>Apply an offset to the result, shifting the colors of the result</p><p /><h4 id="PxrTexture-Saturation">Saturation</h4><p>Increase (greater than one) or decrease (less than one) the saturation of the texture result</p><p /><h4 id="PxrTexture-AlphaScale">Alpha Scale</h4><p>A multiplier for the alpha channel, useful when the alpha is used to drive a parameter</p><p /><h4 id="PxrTexture-AlphaOffset">Alpha Offset</h4><p>An offset for the alpha channel, useful when the alpha is used to drive a parameter<br /><br /></p><hr /><h3 id="PxrTexture-AdvancedSettings">Advanced Settings</h3><h4 id="PxrTexture-MipBias"><span class="legacy-color-text-default">MipBias</span></h4><p><span class="legacy-color-text-default">Bias mip selection is chosen for rendering to either a higher (negative integers) or lower resolution (positive integers) selection.</span></p><h4 id="PxrTexture-MaxResolution"><span class="legacy-color-text-default">&nbsp;</span> <br /><span class="legacy-color-text-default">MaxResolution</span></h4><p><span class="legacy-color-text-default">Clamp mip selection to a preferred maximum level. This may prevent the highest resolutions from being rendered depending on your selection.</span></p><h4 id="PxrTexture-OptimizeIndirect"><span class="legacy-color-text-default">&nbsp;</span> <br /><span class="legacy-color-text-default">OptimizeIndirect</span></h4><p><span class="legacy-color-text-default">Sets texture filter to Box (inexpensive) on indirect hits instead of the selected filter used for other visible effects.</span></p><p /><hr /><p /><h3 id="PxrTexture-OutputParameters">Output Parameters</h3><h4 id="PxrTexture-resultRGB">resultRGB</h4><p>The filtered color result. Note that all results are looked up starting at the&nbsp;<em>startChannel</em>&nbsp;offset.</p><h4 id="PxrTexture-resultR">resultR</h4><p>The R channel result</p><h4 id="PxrTexture-resultG">resultG</h4><p>The G channel result</p><h4 id="PxrTexture-resultB">resultB</h4><p>The B channel result</p><h4 id="PxrTexture-resultA">resultA</h4><p>If alpha is present and resultRGB is connected it returns the channel after RGB. If RGB is not connected it returns the first channel.<br /><br /><br /></p><p /><p />
+  </article>
+</main>
+</body>
+</html>

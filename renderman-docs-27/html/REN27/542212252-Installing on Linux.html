@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Installing on Linux</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Installing on Linux</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/REN27/542212252/Installing+on+Linux">https://rmanwiki-27.pixar.com/space/REN27/542212252/Installing+on+Linux</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<h3 id="InstallingonLinux-MinimumSystemRequirements"><style>[data-colorid=yi8hsvj7xs]{color:#1d1c1d} html[data-color-mode=dark] [data-colorid=yi8hsvj7xs]{color:#e3e2e3}[data-colorid=aosrod4mi0]{color:#2c2d30} html[data-color-mode=dark] [data-colorid=aosrod4mi0]{color:#cfd0d3}[data-colorid=gygma37fj9]{color:#2c2d30} html[data-color-mode=dark] [data-colorid=gygma37fj9]{color:#cfd0d3}[data-colorid=ae2uhsvnrz]{color:#2c2d30} html[data-color-mode=dark] [data-colorid=ae2uhsvnrz]{color:#cfd0d3}</style>Minimum System Requirements</h3><p>The following operating systems are supported for this release. RenderMan may operate outside of this requirement, but it may be unstable and is not supported:</p><ul><li><p>Compatible with any Linux distribution supporting gcc 11.2 and glibc 2.34 or higher (e.g. RHEL9.x and newer)</p></li></ul><p>RenderMan is designed to efficiently scale across many CPU cores, so while the above is a minimum requirement, systems with multiple processors will see the best performance.</p><p>Pixar's RenderMan software is delivered as:&nbsp;</p><ul><li><p>RenderMan-Installer-<em>version</em>-linux<em>flavor</em>.rpm - The RenderMan rendering toolkit.</p></li></ul><p>The&nbsp; <em>flavor</em> &nbsp;string includes the common distribution, e.g. RHEL9, the&nbsp; <em>gcc/icc</em> &nbsp;versions, and the microprocessor instruction set. Putting them all together provides, for example, an RHEL package named RenderMan-Installer-27.0.0_2376203<em>-linuxRHEL9_gcc11icx232.x86_64.rpm</em> .</p><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="f90b7a86-5493-485c-94e7-8b037d1dfd86" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>Note that users must set their environment variables manually on Linux to allow for using an executable from a terminal window. This process is explained below Command Line Installation.</p></div></div><p>You must also meet the requirements listed on the top-level <a href="/wiki/spaces/REN27/pages/542212198/Installation+and+Licensing" data-linked-resource-id="542212198" data-linked-resource-version="11" data-linked-resource-type="page">Installation and Licensing</a> page.</p><h3 id="InstallingonLinux-GUI-basedInstallation">GUI-based Installation</h3><p>Although RPM packages are typically installed via the command line, some Linux distributions have GUI-based package managers, like&nbsp; <strong>gnomerpm</strong> . Some distributions will also allow for double-clicking the RPM file in a directory browser, which will invoke RPM with default arguments. You can try this with your Linux-based system. Should it not begin the installation on its own (because you do not have the necessary components to double click an .rpm) then you may begin the process using the steps below.</p><div class="panel conf-macro output-block" data-hasbody="true" data-macro-id="" data-macro-name="panel" style="background-color: #EAE6FF;border-color: #998DD9;border-width: 1px;"><div class="panelContent" style="background-color: #EAE6FF;">
+<p>The process below will apply to the 27.0 release, not the Beta. The 27.0 Beta does not include the GUI Installer. Instead, you can download each RPM and install it with a command like this (only the one for RenderManProServer is shown, but the other components can be installed similarly). Prefix the command with <code>sudo</code> if your system&rsquo;s permissions require it:</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="b0981645-85a0-4504-8ae9-531e14d338aa" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">rpm -ivh RenderManProServer-27.0b1_2376203-linuxRHEL9_gcc11icx232.x86_64.rpm</pre>
+</div></div>
+</div></div><p>To install RenderMan using the GUI Installer (27.0 release only), run:</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="62b86044-3b41-4370-bcf0-14ac5d04a110" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">rpm -ivh RenderMan-Installer-27.0_2376203-linuxRHEL9_gcc11icx232.x86_64.rpm</pre>
+</div></div><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="a78489fe-dcd0-4bc1-a390-b150a72f8111" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>Due to user security changes in EL9, it may be necessary to run the following command line before running the RenderMan Installer application if it fails to start under sudo:</p><p><code>$ xhost local:root</code></p></div></div><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="1c6f9f4e-a168-4e5f-bb86-5d1a7d5e7b2e" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>The RenderMan RtxSVG.so plugin requires the compat-expat1 package be installed.  If you plan to use SVG textures, please install compat-expat1 first.</p></div></div><p>If you have already unpacked the .rpm, you can then run the following command to begin the GUI-based installer:</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="7c4f629c-8fd6-4837-89a8-fe6409ca6c7b" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">sudo /opt/pixar/RenderMan-Installer/bin/RenderManInstaller</pre>
+</div></div><p /><p>The installer will connect with the RenderMan Pixar Server and download your licensed components. During the installation process you will see that the default location for installation is /opt/pixar&nbsp;This will become the root directory for all of the software components listed above.</p><p>We'll now go step by step through the process. <br /><br />First, you must log in with your forum account and provide the serial number for the license you have purchased.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="644" loading="lazy" src="../../attachments/542212252/installer.jpg" data-image-src="../../attachments/542212252/installer.jpg" data-height="528" data-width="514" data-unresolved-comment-count="0" data-linked-resource-id="542212286" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="installer.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542212252" data-linked-resource-container-version="4" data-media-id="d225e394-79a2-4669-834f-b27e94b2b598" data-media-type="file" /></span><p><span data-colorid="aosrod4mi0">Next, you may see the following if you are installing on a floating license server for the </span><strong><span data-colorid="ae2uhsvnrz">FIRST</span></strong><span data-colorid="gygma37fj9"> time:</span></p><span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="376" loading="lazy" src="../../attachments/542212252/licenseKeyV21.png" data-image-src="../../attachments/542212252/licenseKeyV21.png" data-height="290" data-width="376" data-unresolved-comment-count="0" data-linked-resource-id="542212289" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="licenseKeyV21.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542212252" data-linked-resource-container-version="4" data-media-id="20405707-ce3e-431f-a254-efb745266770" data-media-type="file" /></span><p>This is telling you that the installer is about to key your license server to the host you are running the installer on.</p><div class="confluence-information-macro confluence-information-macro-warning conf-macro output-block" data-hasbody="true" data-macro-id="a954d20f-5cb3-496f-a7e0-b3db35c92af0" data-macro-name="warning"><span class="aui-icon aui-icon-small aui-iconfont-error confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p><span class="legacy-color-text-default">If this is&nbsp;</span> <strong>NOT</strong> <span class="legacy-color-text-default">&nbsp;the machine you want to run your license server on, press the&nbsp;</span> <strong>Cancel </strong><span class="legacy-color-text-default">button and re-run the installer on the machine you want to designate as the license server.</span></p></div></div><p>If you decide to make this machine your license server or you are installing a node-locked license, the installer will then contact Pixar and retrieve your license file. It will place this license file by default in:</p><ul><li><p>Windows: C:\Program Files\Pixar\pixar.license</p></li><li><p>macOS: &nbsp;/Applications/Pixar/pixar.license</p></li><li><p>Linux: /opt/pixar/pixar.license</p></li></ul><p><br /><br />Next, you will see a list of packages you wish to install.&nbsp;</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="644" loading="lazy" src="../../attachments/542212252/installer_choices.jpg" data-image-src="../../attachments/542212252/installer_choices.jpg" data-height="528" data-width="514" data-unresolved-comment-count="0" data-linked-resource-id="542212283" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="installer_choices.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542212252" data-linked-resource-container-version="4" data-media-id="2efebec6-c006-4105-aeb7-e81e02226999" data-media-type="file" /></span><p>The installer will try to find the appropriate plugins to install as well. However, if it cannot find a Maya installation or determines you have already installed the latest version of the software, it will give you a warning that something strange is afoot.</p><p>Here you can now decide which software and packages you wish to install. For instance, if you do not wish to install the Katana plugins, you can deselect those. If you <strong>WOULD</strong> like to install the license server for a floating license installation, you may select the &quot;Show All&quot; button and select the license server package as well.&nbsp;<strong> </strong><a href="/wiki/spaces/REN27/pages/542212504/Installing+The+License+Server" data-linked-resource-id="542212504" data-linked-resource-version="1" data-linked-resource-type="page"><strong>Installing The License Server</strong></a><strong> </strong>talks in detail about the steps that must be taken on each platform once the installation finishes ensuring that the floating license server is functioning correctly.</p><p>Once the desired packages are selected, hitting the <strong>Next</strong> button goes to the download and installation phase.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="644" loading="lazy" src="../../attachments/542212252/installerInstalling.jpg" data-image-src="../../attachments/542212252/installerInstalling.jpg" data-height="528" data-width="514" data-unresolved-comment-count="0" data-linked-resource-id="542212277" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="installerInstalling.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542212252" data-linked-resource-container-version="4" data-media-id="77ed7c90-e6e3-4f86-8925-4a7f4d998831" data-media-type="file" /></span><p>Once this phase is complete a <strong>Success!</strong> screen should appear. At this point, you can exit the installer.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="644" loading="lazy" src="../../attachments/542212252/installer_Done.jpg" data-image-src="../../attachments/542212252/installer_Done.jpg" data-height="528" data-width="514" data-unresolved-comment-count="0" data-linked-resource-id="542212274" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="installer_Done.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542212252" data-linked-resource-container-version="4" data-media-id="8f1b755d-d478-4a98-9ba1-4abfb1491371" data-media-type="file" /></span><div class="confluence-information-macro confluence-information-macro-warning conf-macro output-block" data-hasbody="true" data-macro-id="0d042b2c-3d39-4327-95a5-0abe72be60e6" data-macro-name="warning"><span class="aui-icon aui-icon-small aui-iconfont-error confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>When the installer is finished, the floating license service has <strong>NOT BEEN INSTALLED</strong> or <strong>STARTED.</strong></p><p><strong> </strong><a href="/wiki/spaces/REN27/pages/542212557/Linux+License+Server" data-linked-resource-id="542212557" data-linked-resource-version="1" data-linked-resource-type="page"><strong>Linux License Server</strong></a><strong>&nbsp;</strong>goes over all the details for installing and starting the floating license services.</p></div></div><p /><h4 id="InstallingonLinux-Downloads">Downloads</h4><p>Other types of files besides RenderMan, the License Server, and the DCC plugins can be downloaded with the installer as well. These include the RenderMan Examples. These will be placed in the user who ran the RenderManInstaller Download directory.</p><h4 id="InstallingonLinux-Python">Python</h4><p>If you plan to take advantage of the Python binding you will need to download Python installer from&nbsp;<a class="external-link" href="http://www.python.org/" rel="nofollow">www.python.org</a>. RenderMan Pro Server 27 binding is compatible with 3.7, <span data-colorid="yi8hsvj7xs">3.9, 3.10, and 3.11</span>.</p><h4 id="InstallingonLinux-Help">Help</h4><p>If you require further assistance, please check out the&nbsp;<a class="external-link" href="https://renderman.pixar.com/forum/index.php" rel="nofollow">RenderMan Support Forum</a>. Note that registration is required.</p><p />
+  </article>
+</main>
+</body>
+</html>

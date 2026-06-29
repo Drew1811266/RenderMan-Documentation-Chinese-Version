@@ -1,0 +1,27 @@
+{"id": "538839a01e282727fdb03640a3f7d993ba74b7dbbc4eaf98a4d03e584f21440f", "item_id": "41904fac6f:0", "text": "RenderMan allows for creating complex looks through layering materials. This means effects like car paint, labels on bottles, dirt or mud, can all be layered efficiently for rendering."}
+{"id": "5fd2eab25a88f32efd320f99d3a4d557e4ae879ea036885932a2cde7567f845f", "item_id": "41904fac6f:1", "text": "Below you can find a step by step example of creating a patina on a bronze monkey head, using"}
+{"id": "b7ec5c3dd2824cd278b17988092285709226f237a2256873ff3abf63746e1b5a", "item_id": "41904fac6f:2", "text": "PxrLayerSurface"}
+{"id": "504f28d5998228808f2e8e9f76d6fcda4d8f987247868ebd5434914613c763d9", "item_id": "41904fac6f:3", "text": ". PxrLayerSurface is the same as"}
+{"id": "317a36ea6f94313ada095ee9857da0e12f8818fa29e96956ad9fc9574290871f", "item_id": "41904fac6f:5", "text": "except that most of the parameters that don't apply to layering have been hidden from the UI."}
+{"id": "a9c0ffda1f6faa6d493c35480b45743afa39918d46065a76be7c0241464d54a3", "item_id": "41904fac6f:6", "text": "Attach Material"}
+{"id": "8c70d70145626d7ee2b80db8543f60435828180cec9f558e4d6d3480113c4064", "item_id": "41904fac6f:7", "text": "Attach a PxrLayerSurface material to your selected object. You can do this via the object context menu."}
+{"id": "6df4b2116da88418cd9254615189cb2b8c38f3230ee736349d4480693bb43f18", "item_id": "41904fac6f:8", "text": "For PxrLayerSurface, RenderMan for Blender will automatically add a PxrLayerMixer node, along with two PxrLayer nodes that will act as a base layer and an upper layer. Here's what your network should look like at the start:"}
+{"id": "0d8abcd3f3660e054e757171970f124cf749f48b8b9d0a57fc653a2cce75bc1a", "item_id": "41904fac6f:9", "text": "Base Layer (copper)"}
+{"id": "34c049befb1f6c19d16e13a18efcb0a812b9ffcdd24cea232248c143b5da05b5", "item_id": "41904fac6f:10", "text": "For the base layer, we will create a copper look. First, rename the PxrLayer node that's connected to the PxrLayerMixer's Base Layer parameter, to something like copper. Here are the settings for our copper layer:"}
+{"id": "4087163f5a03455b7ecb76186a2f719625e588554b9d7725998cb2bc8af2885f", "item_id": "41904fac6f:11", "text": "Layer 1 (patina)"}
+{"id": "1e9642425a49dac0b4b791ac7393c720408dafaf1cef5bb1c944439085546448", "item_id": "41904fac6f:12", "text": "For the upper layer, we will create a patina look. Like the base layer, rename the PxrLayer node to be called patina (this is connected to PxrLayerMixer's Layer 1 parameter). Here are the settings for our patina layer."}
+{"id": "479568ed294d1da49398ccaa0f7e8283926770594c858de8c64f86661f72fa9e", "item_id": "41904fac6f:13", "text": "Masking"}
+{"id": "b94bc577d60d640f44266b4d10b56478e1dbc7e99bdf4c368b322b05f58b48f0", "item_id": "41904fac6f:14", "text": "If you render your scene as is, you'll notice that only the patina layer is showing, and none of the copper layer. In order to mix the two together, we need to use a mask value. For the mask, we will use a"}
+{"id": "0f123871934a8f1d3a31e1224b2194decd2124a5bc786fc9289335d4e9213eaa", "item_id": "41904fac6f:16", "text": "pattern node. Start by creating a PxrDirt node and connecting the resultR output to the Layer 1 Mask parameter of PxrLayerMixer. You can do this in the shader editor, like the image below:"}
+{"id": "b01df44f5a07d5704c6bc8393c84e72d8b92ce03527f7d2d6e34c93ac6253bd9", "item_id": "41904fac6f:17", "text": "or use the connection widget in the material panel, like this:"}
+{"id": "676a8f01f104b9d1a66849a61718eeab646035a472b330e8c0f515548e6b9c28", "item_id": "41904fac6f:18", "text": "Below are the settings we will use for our PxrDirt."}
+{"id": "e7428ad2e0d91909bd03a9df8b3041970bd35054208417b301342a738e8b268a", "item_id": "41904fac6f:19", "text": "To help break up the mask a bit, we connected a"}
+{"id": "e265dcc1b87e824a1d938d54173ff90caee98a5405a3673ca3e2ee7e438bb395", "item_id": "41904fac6f:20", "text": "PxrGamma"}
+{"id": "3f0fdbec94fa567c2d56e053f0cfe7c1c76b307e049e984dc2ea7df1f1c406e9", "item_id": "41904fac6f:21", "text": "to the Unoccluded parameter, and then connected a"}
+{"id": "af35650cc85049546ece42a3dfad6274a3910b77e643971c058711881a71c2a8", "item_id": "41904fac6f:22", "text": "PxrFractal"}
+{"id": "ca72326ce32453e1f67c55937bc6b3ea2c7713e199f8fd272fc3f7d7d267bec6", "item_id": "41904fac6f:23", "text": "pattern to PxrGamma's Input Color parameter."}
+{"id": "20aa44b40fdfa1fd4aa5a2fc0b2f26f26d04d119d349f31b057219ad3beb4b8a", "item_id": "41904fac6f:24", "text": "If you want to work on the mask value, independent of the whole network, you can use the Solo Node function. Click the connection widget on the material panel, then click on Solo Input Node."}
+{"id": "711fbdc4ed4df44e83565a877e65dbff5aa30b1e7f19a007ed634129d140bd7a", "item_id": "41904fac6f:26", "text": "Here's the result of our layered material."}
+{"id": "76284d680e6d5b24f914ded9a2f2ae873a36e6a26f99f88c0ea5596162e0a267", "item_id": "41904fac6f:27", "text": "For more added realism, consider using a"}
+{"id": "10f9f9360b1d578541a89100e5b69757ec910776abae23bd7afdecc2ab238c0d", "item_id": "41904fac6f:28", "text": "PxrBump"}
+{"id": "92727e313922f27da24194b2639bc6a18c6ede79ebddb46ef9710d3ff1cc5e52", "item_id": "41904fac6f:29", "text": "pattern, connected to the Global Bump parameter of each layer to create a more uneven surface."}

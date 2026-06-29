@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Light Filters in Blender</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Light Filters in Blender</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFB27/544638842/Light+Filters+in+Blender">https://rmanwiki-27.pixar.com/space/RFB27/544638842/Light+Filters+in+Blender</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="39" loading="lazy" src="../../attachments/544638842/rfmShelfLightFilter.png" data-image-src="../../attachments/544638842/rfmShelfLightFilter.png" data-height="40" data-width="40" data-unresolved-comment-count="0" data-linked-resource-id="544638868" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfmShelfLightFilter.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544638842" data-linked-resource-container-version="1" data-media-id="08350f2c-515a-4c94-942c-8f6037396b6b" data-media-type="file"></span><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="200" loading="lazy" src="../../attachments/544638842/rfmShelfLightFilterMenu.png" data-image-src="../../attachments/544638842/rfmShelfLightFilterMenu.png" data-height="140" data-width="200" data-unresolved-comment-count="0" data-linked-resource-id="544638871" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfmShelfLightFilterMenu.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544638842" data-linked-resource-container-version="1" data-media-id="c8a087b1-1cde-4446-b0e0-2c094ddce66e" data-media-type="file"></span><p> </p><p>Light Filters are used to manipulate lighting results. In the real world this is often achieved through the use of stencils and gels to change the color, quality, and amount of light in a shot. RenderMan's light filters are a powerful and flexible way to do the same (and even more) in lighting your scenes. </p><h3 id="LightFiltersinBlender-CreateLightFilters">Create Light Filters</h3><p>To add a light filter to a light, first create a light filter from the Add menu:</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="680" loading="lazy" src="../../attachments/544638842/add_light_filter.png" data-image-src="../../attachments/544638842/add_light_filter.png" data-height="240" data-width="530" data-unresolved-comment-count="0" data-linked-resource-id="544638874" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="add_light_filter.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544638842" data-linked-resource-container-version="1" data-media-id="3f52faef-f959-4f6a-9de7-49f2507197e8" data-media-type="file"></span><p>Next, select the light you want to be filter, and look at the object properties panel. You should see a Light Filters panel. </p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="683" loading="lazy" src="../../attachments/544638842/light_filters_panel.png" data-image-src="../../attachments/544638842/light_filters_panel.png" data-height="121" data-width="412" data-unresolved-comment-count="0" data-linked-resource-id="544638877" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="light_filters_panel.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544638842" data-linked-resource-container-version="1" data-media-id="fe57aef3-d4ef-4b52-ae27-0575ff5f4de8" data-media-type="file"></span><p>Click the <strong>+ </strong>to add a new entry, then select which light filter object you want to link to.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="683" loading="lazy" src="../../attachments/544638842/light_filters_panel2.png" data-image-src="../../attachments/544638842/light_filters_panel2.png" data-height="136" data-width="414" data-unresolved-comment-count="0" data-linked-resource-id="544638880" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="light_filters_panel2.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544638842" data-linked-resource-container-version="1" data-media-id="854a41d5-c4c2-415d-8962-51a565917048" data-media-type="file"></span><h3 id="LightFiltersinBlender-Shortcut">Shortcut</h3><p>You can also use the shortcut in the object context menu. Select the light you want to filter and select the light filter you want to add from the Attach New Light Filter menu. The new light filter will automatically be added to the light filters list.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="683" loading="lazy" src="../../attachments/544638842/attach_light_filter.png" data-image-src="../../attachments/544638842/attach_light_filter.png" data-height="272" data-width="591" data-unresolved-comment-count="0" data-linked-resource-id="544638883" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="attach_light_filter.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544638842" data-linked-resource-container-version="1" data-media-id="ba9243f4-68ac-4b10-bc90-d56b1515dfcf" data-media-type="file"></span><p /><h3 id="LightFiltersinBlender-LightFilterTypes">Light Filter Types</h3><p>For detailed information about parameters, follow the links for each light filter type.</p><ul><li><p><a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661733" rel="nofollow">PxrBarnLightFilter</a></p></li><li><p><a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661753" rel="nofollow">PxrBlockerLightFilter</a></p></li><li><p><a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661755" rel="nofollow">PxrCookieLightFilter</a></p></li><li><p><a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661757" rel="nofollow">PxrGoboLightFilter</a></p></li><li><p><a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661767" rel="nofollow">PxrIntMultLightFilter</a></p></li><li><p><a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661759" rel="nofollow">PxrRampLightFilter</a></p></li><li><p><a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661773" rel="nofollow">PxrRodLightFilter</a></p></li></ul>
+  </article>
+</main>
+</body>
+</html>

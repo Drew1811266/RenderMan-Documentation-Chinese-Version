@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Stirling Rendering</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Stirling Rendering</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RU/657424403/Stirling+Rendering">https://rmanwiki-27.pixar.com/space/RU/657424403/Stirling+Rendering</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<h3 id="StirlingRendering-Rendering">Rendering</h3><p>Now that our layering has been set up, there are only a few things left to consider in the rendering settings. Since we’re working with plate matching, motion blur is an essential factor to keep in mind.</p><p>Take the time to examine your footage and evaluate how sharp the images are. Even if your frames appear clean and crisp, always run test renders to ensure that your motion blur matches the one in your plate.</p><p>I highly recommend adding at least a slight amount of motion blur, as it helps create smoother interpolations between frames, enhancing overall believability and realism. The amount of motion blur depends on your footage, so make sure you adjust it to match.</p><p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image20.jpg" width="760" loading="lazy" src="../../attachments/657424403/image20.jpg" data-image-src="../../attachments/657424403/image20.jpg" data-height="411" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="657227827" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image20.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="657424403" data-linked-resource-container-version="1" data-media-id="564bbba2-52e5-41c6-9ba7-9e96c0501ef5" data-media-type="file"></span><p>Before moving on to compositing, I’d also recommend you take the time to render an Occlusion pass and Cryptomattes. This will make you gain a lot of time in compositing, saving you from many hours of tedious rotoscopy. Feel free to read the documentation on how to set up <strong>Cryptomattes</strong>.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image4.jpg" width="760" loading="lazy" src="../../attachments/657424403/image4.jpg" data-image-src="../../attachments/657424403/image4.jpg" data-height="720" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="657227834" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image4.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="657424403" data-linked-resource-container-version="1" data-media-id="8291af2f-754d-498b-943c-ff39b3658b23" data-media-type="file"></span><p>My final rendering tip is about some useful overrides (yes, layer overrides again!). While working with LPE (Light Path Expression) render passes can be incredibly powerful, in our case, rendering them for all layers isn’t necessary. Since the reflectors are primarily composed of specular surfaces, there’s little to no value in generating hundreds of storage-intensive EXR files.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image19.jpg" width="760" loading="lazy" src="../../attachments/657424403/image19.jpg" data-image-src="../../attachments/657424403/image19.jpg" data-height="720" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="657227840" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image19.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="657424403" data-linked-resource-container-version="1" data-media-id="5bbde590-b4df-40d7-9ade-6de974ea986b" data-media-type="file"></span><p>To optimize your workflow, you can limit certain layers to rendering only the beauty pass by deactivating the LPE display. Just be sure to double-check that you're adjusting the render settings for the correct layer every time—you don’t want any unpleasant surprises when reviewing your renders at the office on Monday morning!</p>
+  </article>
+</main>
+</body>
+</html>

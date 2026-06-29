@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Displacement in Blender</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Displacement in Blender</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFB27/544638415/Displacement+in+Blender">https://rmanwiki-27.pixar.com/space/RFB27/544638415/Displacement+in+Blender</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="contentLayout2">
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p>要在 RenderMan for Blender 中为几何体渲染置换，请使用 <a href="https://rmanwiki-26.pixar.com/space/REN26/19661545/PxrDisplace" data-linked-resource-id="19661545" data-linked-resource-version="2" data-linked-resource-type="page">PxrDisplace</a> 节点。</p><h2 id="DisplacementinBlender-AddingPxrDisplace">添加 PxrDisplace</h2><p /><p>要添加 PxrDisplace，请确认已经为几何体添加了 RenderMan 材质。在材质属性 <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image" height="22" loading="lazy" src="../../attachments/544638415/material_properties.png" data-image-src="../../attachments/544638415/material_properties.png" data-unresolved-comment-count="0" data-linked-resource-id="544638447" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="material_properties.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544638415" data-linked-resource-container-version="1" data-media-id="4b58f4a7-54c1-4658-8a64-8a4f37b3c8a5" data-media-type="file"></span> 中，在 Displacement（置换）面板下，从 "Displacement" 旁边的下拉列表中选择 PxrDisplace。</p><p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="displacement_pxrdisplace.png" width="683" loading="lazy" src="../../attachments/544638415/displacement_pxrdisplace.png" data-image-src="../../attachments/544638415/displacement_pxrdisplace.png" data-height="73" data-width="413" data-unresolved-comment-count="0" data-linked-resource-id="544638444" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="displacement_pxrdisplace.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544638415" data-linked-resource-container-version="1" data-media-id="af7dd030-9748-4b57-8d56-244c921e0049" data-media-type="file"></span><p /><p>你可能主要会使用以下参数：</p><ul><li><p><strong>Gain</strong>： <span class="legacy-color-text-default">置换的 Gain。若为零，则不会产生置换。 </span></p></li><li><p><strong>Scalar Displacement</strong>： <span class="legacy-color-text-default">Scalar Displacement（标量置换）输入。这是一个 float 置换（浮点置换）。</span></p></li><li><p><strong>Vector Displacement</strong>： <span class="legacy-color-text-default">Vector Displacement（矢量置换）输入。矢量置换数据是一个三通道数据文件，即 XYZ。</span></p></li></ul><p>还有一些用于置换的实用图案节点：</p><ul><li><p>对于与置换变换相关的功能，请使用 <a href="https://rmanwiki-26.pixar.com/space/REN26/19661615/PxrDispTransform" data-linked-resource-id="19661615" data-linked-resource-version="1" data-linked-resource-type="page">PxrDispTransform</a> 图案节点。 </p></li><li><p>对于置换分层，请使用 <a href="https://rmanwiki-26.pixar.com/space/REN26/19661613/PxrDispScalarLayer" data-linked-resource-id="19661613" data-linked-resource-version="1" data-linked-resource-type="page">PxrDispScalarLayer</a> 和 <a href="https://rmanwiki-26.pixar.com/space/REN26/19662123/PxrDispVectorLayer" data-linked-resource-id="19662123" data-linked-resource-version="1" data-linked-resource-type="page">PxrDispVectorLayer</a> 图案节点。 </p></li></ul><h2 id="DisplacementinBlender-Avoidingcracksonpolygonalmeshes">避免多边形网格出现裂缝</h2><p /><p>对具有硬法线的网格进行置换时，面可能会分离并产生裂缝。置换会沿顶点自身法线的方向移动顶点，但硬边两侧的相邻顶点具有不同法线，因此会朝不同方向移动，从而产生间隙或裂缝。</p><p>RenderMan 提供了 "<code>polygon:smoothdisplacement</code>" 属性，它会创建一份完全平滑的法线副本，并用它代替原始法线。</p><p>在 RenderMan for Blender 中，可以通过对象数据属性里的 "Prevent polygon cracking"（防止多边形开裂）复选框启用该属性 <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image" height="30" loading="lazy" src="../../attachments/544638415/object_data_properties.png" data-image-src="../../attachments/544638415/object_data_properties.png" data-unresolved-comment-count="0" data-linked-resource-id="544638450" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="object_data_properties.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544638415" data-linked-resource-container-version="1" data-media-id="1eaee564-e108-439a-ba47-42ebe636dd4c" data-media-type="file"></span> ，该复选框位于网格上。 </p><p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="prevent_polygon_cracks.png" width="683" loading="lazy" src="../../attachments/544638415/prevent_polygon_cracks.png" data-image-src="../../attachments/544638415/prevent_polygon_cracks.png" data-height="105" data-width="409" data-unresolved-comment-count="0" data-linked-resource-id="544638441" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="prevent_polygon_cracks.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544638415" data-linked-resource-container-version="1" data-media-id="78edbbbc-bcd1-4c93-81d5-261af83c1a39" data-media-type="file"></span><p /><p>下面是为立方体网格附加置换前后的效果对比。</p></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrdisplace_before.jpg" width="686" loading="lazy" src="../../attachments/544638415/pxrdisplace_before.jpg" data-image-src="../../attachments/544638415/pxrdisplace_before.jpg" data-height="540" data-width="960" data-unresolved-comment-count="0" data-linked-resource-id="544638438" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrdisplace_before.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544638415" data-linked-resource-container-version="1" data-media-id="7e3465fe-8569-472a-8faa-52631eed5534" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrdisplace_after.jpg" width="686" loading="lazy" src="../../attachments/544638415/pxrdisplace_after.jpg" data-image-src="../../attachments/544638415/pxrdisplace_after.jpg" data-height="540" data-width="960" data-unresolved-comment-count="0" data-linked-resource-id="544638435" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrdisplace_after.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544638415" data-linked-resource-container-version="1" data-media-id="23acd254-d549-469c-b8d9-4b7c59f2254d" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="354f0fdf-5cf4-4d89-9470-49b89684e17b" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>"Prevent polygon cracking"（防止多边形开裂）只应在必要时启用，因为它会多占用一点内存。占用量与网格中的顶点数量成正比。</p></div></div><p><br/></p></div>
+</div>
+</div>
+</div>
+  </article>
+</main>
+</body>
+</html>

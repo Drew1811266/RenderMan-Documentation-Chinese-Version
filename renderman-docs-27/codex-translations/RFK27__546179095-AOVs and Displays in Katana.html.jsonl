@@ -1,0 +1,28 @@
+{"item_id":"a86b05eb38:0","text":"按照以下 steps 在 RenderMan for Katana 中设置 AOVs："}
+{"item_id":"a86b05eb38:1","text":"为每个 AOV channel 创建一个 PrmanOuputChannelDefine node。这会为 RiDisplayChannel 设置 channel name。"}
+{"item_id":"a86b05eb38:2","text":"LPE"}
+{"item_id":"a86b05eb38:3","text":"需要一个 source 来定义要收集的 light path。例如，Indirect Diffuse 会是"}
+{"item_id":"a86b05eb38:4","text":"接下来，为每个 AOV file 创建一个 RenderOutputDefine（Display Driver）node。这会设置用于 RiDisplay 的 output file name 和 channel name。"}
+{"item_id":"a86b05eb38:5","text":"将 PrmanOutputChannelDefine node 连接到 RenderOutputDefine，即可在 RenderOutputDefine 的 channel drop down 中看到新增的 channel（上例中的 MatteID0）。"}
+{"item_id":"a86b05eb38:6","text":"要正确渲染 per-lobe"}
+{"item_id":"a86b05eb38:7","text":"LPE"}
+{"item_id":"a86b05eb38:8","text":"，在 Katana 中需要使用一个"}
+{"item_id":"a86b05eb38:9","text":"OpScript"}
+{"item_id":"a86b05eb38:10","text":"来声明这些 lobe 如何 route 到 outputs。下面是针对 PxrSurface 和 PxrMarschnerHair 定义的 lobe names 可使用的完整 OpScript。如果你的 studio 有自己的 bxdfs 且名称不同，需要把这些 names 添加到这些 Options 中。"}
+{"item_id":"a86b05eb38:11","text":"要让此 AOV 进行 interactive render，可以将它添加到 RenderSettings node 的 interactiveOutputs selection 中。"}
+{"item_id":"a86b05eb38:12","text":"Advanced（高级）："}
+{"item_id":"a86b05eb38:13","text":"也可以向 node 添加 statistics selection。通常用于 diagnosis 和 tuning："}
+{"item_id":"a86b05eb38:14","text":"\"variance\""}
+{"item_id":"a86b05eb38:15","text":"：估算 associated source channel 中对 pixel 有贡献的 values 的 statistical variance。"}
+{"item_id":"a86b05eb38:16","text":"\"mse\""}
+{"item_id":"a86b05eb38:17","text":"：类似 variance，但会随着 samples 数量增加而向 zero 衰减。虽然它本身也有些 noisy，但可以估算相对于假想 ground-truth image 的 mean-squared-error 数量。"}
+{"item_id":"a86b05eb38:18","text":"\"even\""}
+{"item_id":"a86b05eb38:19","text":"：仅使用 camera samples 的一半生成的 image"}
+{"item_id":"a86b05eb38:20","text":"\"odd\""}
+{"item_id":"a86b05eb38:21","text":"：仅使用 camera samples 的另一半生成的 image"}
+{"item_id":"a86b05eb38:22","text":"EXR Metadata（EXR 元数据）"}
+{"item_id":"a86b05eb38:23","text":"可以向 EXR file 添加 metadata，以便支持 pipeline functions。The Foundry 的说明见"}
+{"item_id":"a86b05eb38:24","text":"这里。"}
+{"item_id":"a86b05eb38:25","text":"本质上，在 Render Settings node 上："}
+{"item_id":"a86b05eb38:26","text":"Setting Custom Display Data（设置自定义显示数据）"}
+{"item_id":"a86b05eb38:27","text":"可以在 /root 使用 OpScript，将 custom Katana attribute 传入 display driver。下面是一个简单示例，将 \"myParam\" 设置到名为 \"myDisplay\" 的 display 上"}

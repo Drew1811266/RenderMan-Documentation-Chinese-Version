@@ -1,0 +1,440 @@
+{"item_id":"34f70bdcf7:0","text":"实体"}
+{"item_id":"34f70bdcf7:1","text":"Tractor 有 5 个关键实体，它们会在数据库中跟踪，并可在 Dashboard、tq 命令行工具和 Python API 中查看。"}
+{"item_id":"34f70bdcf7:2","text":"Job（作业）"}
+{"item_id":"34f70bdcf7:3","text":"job"}
+{"item_id":"34f70bdcf7:4","text":"是提交给系统进行处理的逻辑工作体。它描述需要完成什么以及以什么顺序完成。它可以构建得任意大且复杂，从渲染单帧单层，到在一系列帧上渲染多层。它可以包含渲染、合成、管理以及任何能在主机上运行的其他 process。"}
+{"item_id":"34f70bdcf7:5","text":"Task（任务）"}
+{"item_id":"34f70bdcf7:6","text":"task"}
+{"item_id":"34f70bdcf7:7","text":"是部分完成 job 的工作单元。task 可以与其他 task 并行运行，也可以串行运行。Tasks 及其操作顺序构成 job 的结构。"}
+{"item_id":"34f70bdcf7:8","text":"Command（命令）"}
+{"item_id":"34f70bdcf7:9","text":"command"}
+{"item_id":"34f70bdcf7:10","text":"是在"}
+{"item_id":"34f70bdcf7:11","text":"blade"}
+{"item_id":"34f70bdcf7:12","text":"上执行的单个程序。它可以是 render、notification script、administration command，或任何其他能在该主机上执行的程序。"}
+{"item_id":"34f70bdcf7:13","text":"Invocation（调用记录实体）"}
+{"item_id":"34f70bdcf7:14","text":"一个"}
+{"item_id":"34f70bdcf7:15","text":"invocation"}
+{"item_id":"34f70bdcf7:16","text":"是一组描述 command 在 blade 上执行情况的 metric 指标。当一个 command 多次运行时，它会有多个 invocation，用来显示它何时运行、在哪里运行，以及使用了多少内存和 CPU 资源。"}
+{"item_id":"34f70bdcf7:17","text":"Blade（执行节点）"}
+{"item_id":"34f70bdcf7:18","text":"blade"}
+{"item_id":"34f70bdcf7:19","text":"是远程执行服务器，也就是一个运行"}
+{"item_id":"34f70bdcf7:20","text":"commands"}
+{"item_id":"34f70bdcf7:21","text":"并将 command 结果报告给 engine 的程序。"}
+{"item_id":"34f70bdcf7:22","text":"属性"}
+{"item_id":"34f70bdcf7:23","text":"Job 属性"}
+{"item_id":"34f70bdcf7:24","text":"name"}
+{"item_id":"34f70bdcf7:25","text":"type"}
+{"item_id":"34f70bdcf7:26","text":"description"}
+{"item_id":"34f70bdcf7:27","text":"jid"}
+{"item_id":"34f70bdcf7:28","text":"integer（整数）"}
+{"item_id":"34f70bdcf7:29","text":"Job Identifier，即作业的唯一数字 identifier 标识符。"}
+{"item_id":"34f70bdcf7:30","text":"owner"}
+{"item_id":"34f70bdcf7:31","text":"string（字符串）"}
+{"item_id":"34f70bdcf7:32","text":"提交该 job 的用户。"}
+{"item_id":"34f70bdcf7:33","text":"spoolhost"}
+{"item_id":"34f70bdcf7:34","text":"string（字符串）"}
+{"item_id":"34f70bdcf7:35","text":"提交该 job 的主机。"}
+{"item_id":"34f70bdcf7:36","text":"spoolfile"}
+{"item_id":"34f70bdcf7:37","text":"string（字符串）"}
+{"item_id":"34f70bdcf7:38","text":"已 spool 的 jobfile 文件名路径。"}
+{"item_id":"34f70bdcf7:39","text":"spoolcwd"}
+{"item_id":"34f70bdcf7:40","text":"string（字符串）"}
+{"item_id":"34f70bdcf7:41","text":"spool 该 job 的 command 的工作目录。"}
+{"item_id":"34f70bdcf7:42","text":"spooladdr"}
+{"item_id":"34f70bdcf7:43","text":"ip adress（IP 地址类型字段）"}
+{"item_id":"34f70bdcf7:44","text":"spool 该 job 的主机 IP 地址。"}
+{"item_id":"34f70bdcf7:45","text":"title"}
+{"item_id":"34f70bdcf7:46","text":"string（字符串）"}
+{"item_id":"34f70bdcf7:47","text":"job 的标题。"}
+{"item_id":"34f70bdcf7:48","text":"assignments"}
+{"item_id":"34f70bdcf7:49","text":"encoded string（编码字符串）"}
+{"item_id":"34f70bdcf7:50","text":"这些是全局 job variable assignment，定义在 job file 的"}
+{"item_id":"34f70bdcf7:51","text":"Assign"}
+{"item_id":"34f70bdcf7:52","text":"section 中。"}
+{"item_id":"34f70bdcf7:53","text":"dirmap"}
+{"item_id":"34f70bdcf7:54","text":"json structure（JSON 结构类型字段）"}
+{"item_id":"34f70bdcf7:55","text":"根据 architecture 转换路径的映射。"}
+{"item_id":"34f70bdcf7:56","text":"tier"}
+{"item_id":"34f70bdcf7:57","text":"string（字符串）"}
+{"item_id":"34f70bdcf7:58","text":"tier 的名称。tier 是 queue 的有序分区。"}
+{"item_id":"34f70bdcf7:59","text":"priority"}
+{"item_id":"34f70bdcf7:60","text":"float（浮点数）"}
+{"item_id":"34f70bdcf7:61","text":"priority 决定 job 在 queue 中的位置。"}
+{"item_id":"34f70bdcf7:62","text":"crews"}
+{"item_id":"34f70bdcf7:63","text":"string list（字符串列表）"}
+{"item_id":"34f70bdcf7:64","text":"该 job 的 crew 列表。这会限制该 job 只能在配置为接受这些 crew 下运行作业的 blade 上运行。"}
+{"item_id":"34f70bdcf7:65","text":"projects"}
+{"item_id":"34f70bdcf7:66","text":"string list（字符串列表）"}
+{"item_id":"34f70bdcf7:67","text":"designation 标记列表，会影响 sharing limits 中 active task 的计数方式。"}
+{"item_id":"34f70bdcf7:68","text":"tags"}
+{"item_id":"34f70bdcf7:69","text":"string list（字符串列表）"}
+{"item_id":"34f70bdcf7:70","text":"将约束该 job 所有 command 的 limit 名称。limit 会限制带有该 limit name 的 command 的并发执行数量。"}
+{"item_id":"34f70bdcf7:71","text":"service"}
+{"item_id":"34f70bdcf7:72","text":"string（字符串）"}
+{"item_id":"34f70bdcf7:73","text":"将约束该 job 所有 command 的 service key expression。service key expression 是 boolean expression，用于把 command 与具备运行能力或 designation 的 blade 匹配。"}
+{"item_id":"34f70bdcf7:74","text":"envkey"}
+{"item_id":"34f70bdcf7:75","text":"string list（字符串列表）"}
+{"item_id":"34f70bdcf7:76","text":"environment key name 列表，用来建立该 job 所有 command 将运行于其中的环境。"}
+{"item_id":"34f70bdcf7:77","text":"editpolicy"}
+{"item_id":"34f70bdcf7:78","text":"string（字符串）"}
+{"item_id":"34f70bdcf7:79","text":"影响哪些用户可以操作 job 的 policy 名称。"}
+{"item_id":"34f70bdcf7:80","text":"minslots"}
+{"item_id":"34f70bdcf7:81","text":"integer（整数）"}
+{"item_id":"34f70bdcf7:82","text":"运行该 job 的一个 command 所需的最小 slot 数。"}
+{"item_id":"34f70bdcf7:83","text":"maxslots"}
+{"item_id":"34f70bdcf7:84","text":"integer（整数）"}
+{"item_id":"34f70bdcf7:85","text":"运行该 job 的一个 command 所需的最大 slot 数。"}
+{"item_id":"34f70bdcf7:86","text":"etalevel"}
+{"item_id":"34f70bdcf7:87","text":"integer（整数）"}
+{"item_id":"34f70bdcf7:88","text":"用于估算剩余完成时间的 job graph 层级（未使用）。"}
+{"item_id":"34f70bdcf7:89","text":"afterjids"}
+{"item_id":"34f70bdcf7:90","text":"string（字符串）"}
+{"item_id":"34f70bdcf7:91","text":"必须在此 job 启动前完成的 job id 列表。"}
+{"item_id":"34f70bdcf7:92","text":"maxactive"}
+{"item_id":"34f70bdcf7:93","text":"integer（整数）"}
+{"item_id":"34f70bdcf7:94","text":"该 job 允许的最大并发 active command 数。"}
+{"item_id":"34f70bdcf7:95","text":"serialsubtasks"}
+{"item_id":"34f70bdcf7:96","text":"boolean（布尔值）"}
+{"item_id":"34f70bdcf7:97","text":"一个 boolean 值，表示 subtask 是否要串行执行。"}
+{"item_id":"34f70bdcf7:98","text":"spooltime"}
+{"item_id":"34f70bdcf7:99","text":"timestamp（时间戳类型）"}
+{"item_id":"34f70bdcf7:100","text":"该 job 被 spooled 的时间。"}
+{"item_id":"34f70bdcf7:101","text":"pausetime"}
+{"item_id":"34f70bdcf7:102","text":"timestamp（时间戳类型）"}
+{"item_id":"34f70bdcf7:103","text":"job 被暂停的时间。"}
+{"item_id":"34f70bdcf7:104","text":"aftertime"}
+{"item_id":"34f70bdcf7:105","text":"timestamp（时间戳类型）"}
+{"item_id":"34f70bdcf7:106","text":"此时间之后，该 job 才会被纳入 scheduling 考虑。"}
+{"item_id":"34f70bdcf7:107","text":"starttime"}
+{"item_id":"34f70bdcf7:108","text":"timestamp（时间戳类型）"}
+{"item_id":"34f70bdcf7:109","text":"job 首次拥有 active task 的时间。"}
+{"item_id":"34f70bdcf7:110","text":"stoptime"}
+{"item_id":"34f70bdcf7:111","text":"timestamp（时间戳类型）"}
+{"item_id":"34f70bdcf7:112","text":"该 job 最近一次有 task 完成的时间。"}
+{"item_id":"34f70bdcf7:113","text":"deletetime"}
+{"item_id":"34f70bdcf7:114","text":"timestamp（时间戳类型）"}
+{"item_id":"34f70bdcf7:115","text":"job 被删除的时间。"}
+{"item_id":"34f70bdcf7:116","text":"elapsedsecs"}
+{"item_id":"34f70bdcf7:117","text":"integer（整数）"}
+{"item_id":"34f70bdcf7:118","text":"该 job 处于 active 状态的总 elapsed seconds。"}
+{"item_id":"34f70bdcf7:119","text":"esttotalsecs"}
+{"item_id":"34f70bdcf7:120","text":"integer（整数）"}
+{"item_id":"34f70bdcf7:121","text":"该 job 完成所需的估计 total elapsed task seconds。"}
+{"item_id":"34f70bdcf7:122","text":"numtasks"}
+{"item_id":"34f70bdcf7:123","text":"integer（整数）"}
+{"item_id":"34f70bdcf7:124","text":"该 job 中的 task 数量。"}
+{"item_id":"34f70bdcf7:125","text":"numblocked"}
+{"item_id":"34f70bdcf7:126","text":"integer（整数）"}
+{"item_id":"34f70bdcf7:127","text":"该 job 中 blocked task 的数量。blocked task 需要其他 task 完成后，才能变为 ready，并随后变为 active。"}
+{"item_id":"34f70bdcf7:128","text":"numready"}
+{"item_id":"34f70bdcf7:129","text":"integer（整数）"}
+{"item_id":"34f70bdcf7:130","text":"此 job 中 ready task 的数量。ready task 是一种等待中的 task，它不需要任何其他 task 完成即可变为 active。"}
+{"item_id":"34f70bdcf7:131","text":"numactive"}
+{"item_id":"34f70bdcf7:132","text":"integer（整数）"}
+{"item_id":"34f70bdcf7:133","text":"job 中 active task 的数量总计。"}
+{"item_id":"34f70bdcf7:134","text":"numerror"}
+{"item_id":"34f70bdcf7:135","text":"integer（整数）"}
+{"item_id":"34f70bdcf7:136","text":"job 中 error task 的数量总计。"}
+{"item_id":"34f70bdcf7:137","text":"numdone"}
+{"item_id":"34f70bdcf7:138","text":"integer（整数）"}
+{"item_id":"34f70bdcf7:139","text":"此 job 中 done task 的数量。"}
+{"item_id":"34f70bdcf7:140","text":"maxtid"}
+{"item_id":"34f70bdcf7:141","text":"integer（整数）"}
+{"item_id":"34f70bdcf7:142","text":"该 job 所有 task 中最高的 task id，包括 detached task。engine 使用它管理从 expand task 新创建的 task 的 task id 分配。detached task 是指由 expand task 生成、但由于 job 后来被 restarted 而不再纳入 scheduling 考虑的 task。"}
+{"item_id":"34f70bdcf7:143","text":"maxcid"}
+{"item_id":"34f70bdcf7:144","text":"integer（整数）"}
+{"item_id":"34f70bdcf7:145","text":"该 job 所有 command 中最高的 command id，包括 detached task 中的 command。engine 使用它管理从 expand task 新创建的 command 的 command id 分配。"}
+{"item_id":"34f70bdcf7:146","text":"comment"}
+{"item_id":"34f70bdcf7:147","text":"string（字符串）"}
+{"item_id":"34f70bdcf7:148","text":"用户定义的 job comment 字符串。"}
+{"item_id":"34f70bdcf7:149","text":"metadata"}
+{"item_id":"34f70bdcf7:150","text":"string（字符串）"}
+{"item_id":"34f70bdcf7:151","text":"job 的用户定义 metadata。"}
+{"item_id":"34f70bdcf7:152","text":"pil"}
+{"item_id":"34f70bdcf7:153","text":"integer（整数）"}
+{"item_id":"34f70bdcf7:154","text":"Place In Line：job 相对于相同 priority 的其他 job 的排序；初始设为 jid。"}
+{"item_id":"34f70bdcf7:155","text":"lastnoteid"}
+{"item_id":"34f70bdcf7:156","text":"integer（整数）"}
+{"item_id":"34f70bdcf7:157","text":"job 最近一条 note 的 id。"}
+{"item_id":"34f70bdcf7:158","text":"Task 属性"}
+{"item_id":"34f70bdcf7:159","text":"name"}
+{"item_id":"34f70bdcf7:160","text":"type"}
+{"item_id":"34f70bdcf7:161","text":"description"}
+{"item_id":"34f70bdcf7:162","text":"jid"}
+{"item_id":"34f70bdcf7:163","text":"integer（整数）"}
+{"item_id":"34f70bdcf7:164","text":"该 task 所属 job 的唯一 identifier 标识符。"}
+{"item_id":"34f70bdcf7:165","text":"tid"}
+{"item_id":"34f70bdcf7:166","text":"integer（整数）"}
+{"item_id":"34f70bdcf7:167","text":"Task Identifier，即 job 内 task 的唯一 identifier 标识符。"}
+{"item_id":"34f70bdcf7:168","text":"title"}
+{"item_id":"34f70bdcf7:169","text":"string（字符串）"}
+{"item_id":"34f70bdcf7:170","text":"task 的标题。"}
+{"item_id":"34f70bdcf7:171","text":"id"}
+{"item_id":"34f70bdcf7:172","text":"string（字符串）"}
+{"item_id":"34f70bdcf7:173","text":"job 内该 task 的唯一 string id。"}
+{"item_id":"34f70bdcf7:174","text":"service"}
+{"item_id":"34f70bdcf7:175","text":"string（字符串）"}
+{"item_id":"34f70bdcf7:176","text":"将约束该 task 所有 command 的 service key expression。service key expression 是 boolean expression，用于把 command 与具备运行能力或 designation 的 blade 匹配。"}
+{"item_id":"34f70bdcf7:177","text":"minslots"}
+{"item_id":"34f70bdcf7:178","text":"integer（整数）"}
+{"item_id":"34f70bdcf7:179","text":"运行该 task 的一个 command 所需的最小 slot 数。"}
+{"item_id":"34f70bdcf7:180","text":"maxslots"}
+{"item_id":"34f70bdcf7:181","text":"integer（整数）"}
+{"item_id":"34f70bdcf7:182","text":"运行该 task 的一个 command 所需的最大 slot 数。"}
+{"item_id":"34f70bdcf7:183","text":"cids"}
+{"item_id":"34f70bdcf7:184","text":"integer list（整数列表类型）"}
+{"item_id":"34f70bdcf7:185","text":"该 task 的 command id 标识符列表。"}
+{"item_id":"34f70bdcf7:186","text":"serialsubtasks"}
+{"item_id":"34f70bdcf7:187","text":"boolean（布尔值）"}
+{"item_id":"34f70bdcf7:188","text":"一个 boolean 值，表示 subtask 是否要串行执行。"}
+{"item_id":"34f70bdcf7:189","text":"ptids"}
+{"item_id":"34f70bdcf7:190","text":"integer list（整数列表类型）"}
+{"item_id":"34f70bdcf7:191","text":"parent task 的 task id 列表。只有带有关联 Instance 的 task 才会有多个 parent。所有 child task 必须成功完成，其 parent 才能变为 active。"}
+{"item_id":"34f70bdcf7:192","text":"attached"}
+{"item_id":"34f70bdcf7:193","text":"boolean（布尔值）"}
+{"item_id":"34f70bdcf7:194","text":"一个 boolean 值；如果为 false，表示该 task 是某个已 retry 的 expand task 的结果。"}
+{"item_id":"34f70bdcf7:195","text":"state"}
+{"item_id":"34f70bdcf7:196","text":"string（字符串）"}
+{"item_id":"34f70bdcf7:197","text":"task state 状态取值，可为 blocked、ready、active、error 或 done。"}
+{"item_id":"34f70bdcf7:198","text":"statetime"}
+{"item_id":"34f70bdcf7:199","text":"timestamp（时间戳类型）"}
+{"item_id":"34f70bdcf7:200","text":"task 变为当前 state 的时间。"}
+{"item_id":"34f70bdcf7:201","text":"readytime"}
+{"item_id":"34f70bdcf7:202","text":"timestamp（时间戳类型）"}
+{"item_id":"34f70bdcf7:203","text":"task 变为 ready 的时间。"}
+{"item_id":"34f70bdcf7:204","text":"activetime"}
+{"item_id":"34f70bdcf7:205","text":"timestamp（时间戳类型）"}
+{"item_id":"34f70bdcf7:206","text":"task 变为 active 的时间。"}
+{"item_id":"34f70bdcf7:207","text":"currcid"}
+{"item_id":"34f70bdcf7:208","text":"integer（整数）"}
+{"item_id":"34f70bdcf7:209","text":"下一个将运行或当前正在运行的 command 的 command id。"}
+{"item_id":"34f70bdcf7:210","text":"haslog"}
+{"item_id":"34f70bdcf7:211","text":"boolean（布尔值）"}
+{"item_id":"34f70bdcf7:212","text":"一个 boolean，表示 task 是否有 log 输出。"}
+{"item_id":"34f70bdcf7:213","text":"preview"}
+{"item_id":"34f70bdcf7:214","text":"string list（字符串列表）"}
+{"item_id":"34f70bdcf7:215","text":"preview command 的 command argument（argv）参数列表。"}
+{"item_id":"34f70bdcf7:216","text":"chaser"}
+{"item_id":"34f70bdcf7:217","text":"string list（字符串列表）"}
+{"item_id":"34f70bdcf7:218","text":"chaser command 的 command argument（argv）参数列表。"}
+{"item_id":"34f70bdcf7:219","text":"progress"}
+{"item_id":"34f70bdcf7:220","text":"float（浮点数）"}
+{"item_id":"34f70bdcf7:221","text":"task progress，以 0 到 100 之间的百分比值表示。当 task 发出 ALF_PROGRESS 消息时会设置此值。"}
+{"item_id":"34f70bdcf7:222","text":"metadata"}
+{"item_id":"34f70bdcf7:223","text":"string（字符串）"}
+{"item_id":"34f70bdcf7:224","text":"task 的用户定义 metadata。"}
+{"item_id":"34f70bdcf7:225","text":"resumeblock"}
+{"item_id":"34f70bdcf7:226","text":"boolean（布尔值）"}
+{"item_id":"34f70bdcf7:227","text":"一个 boolean，表示该 task 是否会自动 resume 任何可 resume 的 ancestor task。"}
+{"item_id":"34f70bdcf7:228","text":"retrycount"}
+{"item_id":"34f70bdcf7:229","text":"integer（整数）"}
+{"item_id":"34f70bdcf7:230","text":"如果 job 一直运行到完成，该 task 将经历的 pass 数计数器。如果 task 曾在某个时间点变为 active，task retry 或 job restart 会递增该值。"}
+{"item_id":"34f70bdcf7:231","text":"Command 属性"}
+{"item_id":"34f70bdcf7:232","text":"name"}
+{"item_id":"34f70bdcf7:233","text":"type"}
+{"item_id":"34f70bdcf7:234","text":"description"}
+{"item_id":"34f70bdcf7:235","text":"jid"}
+{"item_id":"34f70bdcf7:236","text":"integer（整数）"}
+{"item_id":"34f70bdcf7:237","text":"该 command 所属 job 的唯一 identifier 标识符。"}
+{"item_id":"34f70bdcf7:238","text":"tid"}
+{"item_id":"34f70bdcf7:239","text":"integer（整数）"}
+{"item_id":"34f70bdcf7:240","text":"该 command 所属 task 的唯一 identifier 标识符。"}
+{"item_id":"34f70bdcf7:241","text":"cid"}
+{"item_id":"34f70bdcf7:242","text":"integer（整数）"}
+{"item_id":"34f70bdcf7:243","text":"Command Identifier，即 job 内 command 的唯一 identifier 标识符。"}
+{"item_id":"34f70bdcf7:244","text":"argv"}
+{"item_id":"34f70bdcf7:245","text":"string list（字符串列表）"}
+{"item_id":"34f70bdcf7:246","text":"表示 command 的 command argument 列表。"}
+{"item_id":"34f70bdcf7:247","text":"local"}
+{"item_id":"34f70bdcf7:248","text":"boolean（布尔值）"}
+{"item_id":"34f70bdcf7:249","text":"如果 command 要在 spooling host 上运行，则此 boolean 为 true。"}
+{"item_id":"34f70bdcf7:250","text":"expand"}
+{"item_id":"34f70bdcf7:251","text":"boolean（布尔值）"}
+{"item_id":"34f70bdcf7:252","text":"如果 command 的输出会发出定义更多 task 的 script，则此 boolean 为 true。"}
+{"item_id":"34f70bdcf7:253","text":"runtype"}
+{"item_id":"34f70bdcf7:254","text":"string（字符串）"}
+{"item_id":"34f70bdcf7:255","text":"command 的类型。可能的值包括 \"normal\" 和 \"cleanup\"。"}
+{"item_id":"34f70bdcf7:256","text":"msg"}
+{"item_id":"34f70bdcf7:257","text":"string（字符串）"}
+{"item_id":"34f70bdcf7:258","text":"blade 发送到 command stdin 管道中的字符串值。"}
+{"item_id":"34f70bdcf7:259","text":"service"}
+{"item_id":"34f70bdcf7:260","text":"string（字符串）"}
+{"item_id":"34f70bdcf7:261","text":"将约束该 task 所有 command 的 service key expression。service key expression 是 boolean expression，用于把 command 与具备运行能力或 designation 的 blade 匹配。"}
+{"item_id":"34f70bdcf7:262","text":"tags"}
+{"item_id":"34f70bdcf7:263","text":"string list（字符串列表）"}
+{"item_id":"34f70bdcf7:264","text":"将约束该 job 所有 command 的 limit 名称。limit 会限制带有该 limit name 的 command 的并发执行数量。"}
+{"item_id":"34f70bdcf7:265","text":"id"}
+{"item_id":"34f70bdcf7:266","text":"string（字符串）"}
+{"item_id":"34f70bdcf7:267","text":"job 内该 task 的唯一 string id。"}
+{"item_id":"34f70bdcf7:268","text":"refersto"}
+{"item_id":"34f70bdcf7:269","text":"string（字符串）"}
+{"item_id":"34f70bdcf7:270","text":"另一个 task 或 command 的 id。设置此值会让该 command 在被引用 task 或 command 曾运行所在的同一 blade 上运行。"}
+{"item_id":"34f70bdcf7:271","text":"minslots"}
+{"item_id":"34f70bdcf7:272","text":"integer（整数）"}
+{"item_id":"34f70bdcf7:273","text":"运行该 command 所需的最小 slot 数。"}
+{"item_id":"34f70bdcf7:274","text":"maxslots"}
+{"item_id":"34f70bdcf7:275","text":"integer（整数）"}
+{"item_id":"34f70bdcf7:276","text":"运行该 command 所需的最大 slot 数。"}
+{"item_id":"34f70bdcf7:277","text":"envkey"}
+{"item_id":"34f70bdcf7:278","text":"string list（字符串列表）"}
+{"item_id":"34f70bdcf7:279","text":"environment key name 列表，用来建立该 command 将运行于其中的环境。"}
+{"item_id":"34f70bdcf7:280","text":"retryrcodes"}
+{"item_id":"34f70bdcf7:281","text":"integer list（整数列表类型）"}
+{"item_id":"34f70bdcf7:282","text":"会触发该 command auto-retry logic 的 return code 列表。"}
+{"item_id":"34f70bdcf7:283","text":"metadata"}
+{"item_id":"34f70bdcf7:284","text":"string（字符串）"}
+{"item_id":"34f70bdcf7:285","text":"command 的用户定义 metadata。"}
+{"item_id":"34f70bdcf7:286","text":"resumewhile"}
+{"item_id":"34f70bdcf7:287","text":"string list（字符串列表）"}
+{"item_id":"34f70bdcf7:288","text":"由 blade 执行的 command argument list，或 special keyword 列表；任一者都会决定该 command 是否可 resume。"}
+{"item_id":"34f70bdcf7:289","text":"resumepin"}
+{"item_id":"34f70bdcf7:290","text":"boolean（布尔值）"}
+{"item_id":"34f70bdcf7:291","text":"一个 boolean 值，表示 command 在 resume 时是否应在同一 host 上运行。"}
+{"item_id":"34f70bdcf7:292","text":"minrunsecs"}
+{"item_id":"34f70bdcf7:293","text":"float（浮点数）"}
+{"item_id":"34f70bdcf7:294","text":"command 运行后不被视为 error 所需的最少秒数。"}
+{"item_id":"34f70bdcf7:295","text":"maxrunsecs"}
+{"item_id":"34f70bdcf7:296","text":"float（浮点数）"}
+{"item_id":"34f70bdcf7:297","text":"command 在被 kill 之前允许运行的最大秒数。"}
+{"item_id":"34f70bdcf7:298","text":"Invocation 调用记录属性"}
+{"item_id":"34f70bdcf7:299","text":"name"}
+{"item_id":"34f70bdcf7:300","text":"type"}
+{"item_id":"34f70bdcf7:301","text":"description"}
+{"item_id":"34f70bdcf7:302","text":"jid"}
+{"item_id":"34f70bdcf7:303","text":"integer（整数）"}
+{"item_id":"34f70bdcf7:304","text":"该 invocation 所属 job 的唯一 identifier 标识符。"}
+{"item_id":"34f70bdcf7:305","text":"tid"}
+{"item_id":"34f70bdcf7:306","text":"integer（整数）"}
+{"item_id":"34f70bdcf7:307","text":"该 invocation 所属 task 的唯一 identifier 标识符。"}
+{"item_id":"34f70bdcf7:308","text":"cid"}
+{"item_id":"34f70bdcf7:309","text":"integer（整数）"}
+{"item_id":"34f70bdcf7:310","text":"该 invocation 所属 command 的唯一 identifier 标识符。"}
+{"item_id":"34f70bdcf7:311","text":"iid"}
+{"item_id":"34f70bdcf7:312","text":"integer（整数）"}
+{"item_id":"34f70bdcf7:313","text":"Invocation Identifier，即 command 内 invocation 的唯一 identifier 标识符。"}
+{"item_id":"34f70bdcf7:314","text":"current"}
+{"item_id":"34f70bdcf7:315","text":"boolean（布尔值）"}
+{"item_id":"34f70bdcf7:316","text":"如果这是最新 invocation，则此 boolean 值为 true。当 task 被 retried 时，任何现有 invocation 都不会被视为 current。"}
+{"item_id":"34f70bdcf7:317","text":"numslots"}
+{"item_id":"34f70bdcf7:318","text":"integer（整数）"}
+{"item_id":"34f70bdcf7:319","text":"该 invocation 使用的 slot 数量。"}
+{"item_id":"34f70bdcf7:320","text":"limits"}
+{"item_id":"34f70bdcf7:321","text":"string list（字符串列表）"}
+{"item_id":"34f70bdcf7:322","text":"invocation 正在使用的 limit 列表。如果 engine 被重启，此值用于从当前正在运行的 invocation 重建 limit counter。"}
+{"item_id":"34f70bdcf7:323","text":"starttime"}
+{"item_id":"34f70bdcf7:324","text":"timestamp（时间戳类型）"}
+{"item_id":"34f70bdcf7:325","text":"invocation 的开始时间。"}
+{"item_id":"34f70bdcf7:326","text":"stoptime"}
+{"item_id":"34f70bdcf7:327","text":"timestamp（时间戳类型）"}
+{"item_id":"34f70bdcf7:328","text":"invocation 的停止时间。"}
+{"item_id":"34f70bdcf7:329","text":"pid"}
+{"item_id":"34f70bdcf7:330","text":"integer（整数）"}
+{"item_id":"34f70bdcf7:331","text":"invocation 的 process id 进程标识符。"}
+{"item_id":"34f70bdcf7:332","text":"rss"}
+{"item_id":"34f70bdcf7:333","text":"float（浮点数）"}
+{"item_id":"34f70bdcf7:334","text":"进程 resident set size，单位为 GB。"}
+{"item_id":"34f70bdcf7:335","text":"mem"}
+{"item_id":"34f70bdcf7:336","text":"float（浮点数）"}
+{"item_id":"34f70bdcf7:337","text":"进程的 memory usage，单位为 GB。"}
+{"item_id":"34f70bdcf7:338","text":"cpu"}
+{"item_id":"34f70bdcf7:339","text":"float（浮点数）"}
+{"item_id":"34f70bdcf7:340","text":"进程的当前 CPU utilization。"}
+{"item_id":"34f70bdcf7:341","text":"elapsedapp"}
+{"item_id":"34f70bdcf7:342","text":"float（浮点数）"}
+{"item_id":"34f70bdcf7:343","text":"进程的 elapsed user time，单位为秒。"}
+{"item_id":"34f70bdcf7:344","text":"elapsedsys"}
+{"item_id":"34f70bdcf7:345","text":"float（浮点数）"}
+{"item_id":"34f70bdcf7:346","text":"进程的 elapsed system time，单位为秒。"}
+{"item_id":"34f70bdcf7:347","text":"elapsedreal"}
+{"item_id":"34f70bdcf7:348","text":"float（浮点数）"}
+{"item_id":"34f70bdcf7:349","text":"进程的 elapsed wall-clock time，单位为秒。"}
+{"item_id":"34f70bdcf7:350","text":"rcode"}
+{"item_id":"34f70bdcf7:351","text":"integer（整数）"}
+{"item_id":"34f70bdcf7:352","text":"进程的 return code 返回代码。"}
+{"item_id":"34f70bdcf7:353","text":"retrycount"}
+{"item_id":"34f70bdcf7:354","text":"integer（整数）"}
+{"item_id":"34f70bdcf7:355","text":"invocation 运行时 task retry counter 的值。如果 task 曾在某个时间点变为 active，task retry 或 job restart 会递增它。"}
+{"item_id":"34f70bdcf7:356","text":"resumecount"}
+{"item_id":"34f70bdcf7:357","text":"integer（整数）"}
+{"item_id":"34f70bdcf7:358","text":"一个按 resume pass 对 iteration 排序的数字。此源句存在明显残缺；按上下文，它描述 invocation 运行时与 task retry/resume 计数相关的值。"}
+{"item_id":"34f70bdcf7:359","text":"resumable"}
+{"item_id":"34f70bdcf7:360","text":"boolean（布尔值）"}
+{"item_id":"34f70bdcf7:361","text":"如果 command 可以 resume，则此 boolean 值为 true。"}
+{"item_id":"34f70bdcf7:362","text":"bladeid"}
+{"item_id":"34f70bdcf7:363","text":"id"}
+{"item_id":"34f70bdcf7:364","text":"invocation 的 command 正在运行或曾运行所在 blade 的 bladeid。"}
+{"item_id":"34f70bdcf7:365","text":"Blade 属性"}
+{"item_id":"34f70bdcf7:366","text":"name"}
+{"item_id":"34f70bdcf7:367","text":"type"}
+{"item_id":"34f70bdcf7:368","text":"description"}
+{"item_id":"34f70bdcf7:369","text":"name"}
+{"item_id":"34f70bdcf7:370","text":"string（字符串）"}
+{"item_id":"34f70bdcf7:371","text":"blade 名称。它是 blade 的唯一 identifier 标识符，通常是该 blade 的 hostname。"}
+{"item_id":"34f70bdcf7:372","text":"ipaddr"}
+{"item_id":"34f70bdcf7:373","text":"string（字符串）"}
+{"item_id":"34f70bdcf7:374","text":"host 的 IP 地址。"}
+{"item_id":"34f70bdcf7:375","text":"port"}
+{"item_id":"34f70bdcf7:376","text":"integer（整数）"}
+{"item_id":"34f70bdcf7:377","text":"blade 正在监听的 port number。"}
+{"item_id":"34f70bdcf7:378","text":"osname"}
+{"item_id":"34f70bdcf7:379","text":"string（字符串）"}
+{"item_id":"34f70bdcf7:380","text":"blade 运行所在 operating system 的名称。"}
+{"item_id":"34f70bdcf7:381","text":"osversion"}
+{"item_id":"34f70bdcf7:382","text":"string（字符串）"}
+{"item_id":"34f70bdcf7:383","text":"blade 运行所在 operating system 的版本。"}
+{"item_id":"34f70bdcf7:384","text":"boottime"}
+{"item_id":"34f70bdcf7:385","text":"timestamp（时间戳类型）"}
+{"item_id":"34f70bdcf7:386","text":"host 的 boot time 启动时间。"}
+{"item_id":"34f70bdcf7:387","text":"numcpu"}
+{"item_id":"34f70bdcf7:388","text":"integer（整数）"}
+{"item_id":"34f70bdcf7:389","text":"host 的 CPU/core 数量。"}
+{"item_id":"34f70bdcf7:390","text":"loadavg"}
+{"item_id":"34f70bdcf7:391","text":"float（浮点数）"}
+{"item_id":"34f70bdcf7:392","text":"host 的 CPU load average。"}
+{"item_id":"34f70bdcf7:393","text":"availmemory"}
+{"item_id":"34f70bdcf7:394","text":"float（浮点数）"}
+{"item_id":"34f70bdcf7:395","text":"host 的 available memory 可用内存，单位为 GB。"}
+{"item_id":"34f70bdcf7:396","text":"availdisk"}
+{"item_id":"34f70bdcf7:397","text":"float（浮点数）"}
+{"item_id":"34f70bdcf7:398","text":"host 的 available disk space 可用磁盘空间，单位为 GB。"}
+{"item_id":"34f70bdcf7:399","text":"version"}
+{"item_id":"34f70bdcf7:400","text":"string（字符串）"}
+{"item_id":"34f70bdcf7:401","text":"Tractor blade 版本。"}
+{"item_id":"34f70bdcf7:402","text":"profile"}
+{"item_id":"34f70bdcf7:403","text":"string（字符串）"}
+{"item_id":"34f70bdcf7:404","text":"blade 使用的 profile name 配置档名称。"}
+{"item_id":"34f70bdcf7:405","text":"nimby"}
+{"item_id":"34f70bdcf7:406","text":"string（字符串）"}
+{"item_id":"34f70bdcf7:407","text":"blade 的 NIMBY 状态。"}
+{"item_id":"34f70bdcf7:408","text":"starttime"}
+{"item_id":"34f70bdcf7:409","text":"timestamp（时间戳类型）"}
+{"item_id":"34f70bdcf7:410","text":"blade process 的开始时间。"}
+{"item_id":"34f70bdcf7:411","text":"numslots"}
+{"item_id":"34f70bdcf7:412","text":"integer（整数）"}
+{"item_id":"34f70bdcf7:413","text":"blade 上的 slot 总数数量。"}
+{"item_id":"34f70bdcf7:414","text":"udi"}
+{"item_id":"34f70bdcf7:415","text":"float（浮点数）"}
+{"item_id":"34f70bdcf7:416","text":"blade 的 Universal Desirability Index（通用期望指数），用于帮助某些 blade 比其他 blade 更早被分配 task。值越高，blade 被分配工作的机会越高。"}
+{"item_id":"34f70bdcf7:417","text":"status"}
+{"item_id":"34f70bdcf7:418","text":"string（字符串）"}
+{"item_id":"34f70bdcf7:419","text":"blade 的 status note 状态说明。"}
+{"item_id":"34f70bdcf7:420","text":"heartbeattime"}
+{"item_id":"34f70bdcf7:421","text":"timestamp（时间戳类型）"}
+{"item_id":"34f70bdcf7:422","text":"blade 上次联系 engine 的时间。"}
+{"item_id":"34f70bdcf7:423","text":"bladeid"}
+{"item_id":"34f70bdcf7:424","text":"id"}
+{"item_id":"34f70bdcf7:425","text":"blade 的 universally unique identifier 通用唯一标识符。Over time（随着时间推移），hostname、port 和 IP address 等属性可能会被不同 host 复用。填充 invocation record 时使用此 id，以便永久正确识别运行该 command 的特定 blade。"}
+{"item_id":"34f70bdcf7:426","text":"cleartime"}
+{"item_id":"34f70bdcf7:427","text":"timestamp（时间戳类型）"}
+{"item_id":"34f70bdcf7:428","text":"用户请求清除 blade data 的时间。只有 heartbeattime 大于 cleartime 的 blade 才会在 dashboard 中可见。"}
+{"item_id":"34f70bdcf7:429","text":"gpulabel"}
+{"item_id":"34f70bdcf7:430","text":"string（字符串）"}
+{"item_id":"34f70bdcf7:431","text":"Blade host GPU 信息。"}
+{"item_id":"34f70bdcf7:432","text":"覆盖属性"}
+{"item_id":"34f70bdcf7:433","text":"Job 和 task 可以指定与 command 相关的 attribute value。这些 attribute 包括"}
+{"item_id":"34f70bdcf7:434","text":"service"}
+{"item_id":"34f70bdcf7:435","text":"tags"}
+{"item_id":"34f70bdcf7:436","text":"maxslots"}
+{"item_id":"34f70bdcf7:437","text":"，以及"}
+{"item_id":"34f70bdcf7:438","text":"envkey"}
+{"item_id":"34f70bdcf7:439","text":"。在 command 级别定义的 value 会覆盖 task 和 job 级别指定的 value；在 task 级别定义的 value 会覆盖 job 级别指定的 value。"}

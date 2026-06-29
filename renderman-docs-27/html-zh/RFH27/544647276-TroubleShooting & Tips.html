@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TroubleShooting &amp; Tips</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>TroubleShooting &amp; Tips</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFH27/544647276/TroubleShooting+%26+Tips">https://rmanwiki-27.pixar.com/space/RFH27/544647276/TroubleShooting+%26+Tips</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<h3 id="TroubleShooting&amp;Tips-Lighting">Lighting（灯光）</h3><ul><li><p>加载旧场景时，请确保 shop_lightpath 指向 PxrCollect VOP。</p></li><li><p>Pxr Std Lights（即 RSL lights）已在 RenderMan 21 中弃用。请创建新的 Pxr C++ light。请参见 <a href="544645130-Adding Lights.html" rel="nofollow">Adding Lights（添加灯光）</a>。</p></li></ul><h3 id="TroubleShooting&amp;Tips-Shading">Shading（着色）</h3><ul><li><p>新的材质工作流要求最下游的 VOP node（VOP 节点）是 PxrMaterialBuilder。 </p></li><li><p>RenderMan 21 已移除对 RSL（RenderMan Shading Language）的支持。Materials（材质，BxDFs）是 C++ 构造，patterns（图案）应尽可能使用 OSL。</p></li><li><p>我们接受 Houdini attribute names（属性名称）用于着色，方法是连接 <a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661665" rel="nofollow">PxrPrimvar</a> 或 <a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661579" rel="nofollow">PxrAttribute</a> node（节点）到某个参数，并使用相应名称。</p></li></ul><h3 id="TroubleShooting&amp;Tips-Geometry">Geometry（几何）</h3><ul><li><p>镶嵌细分质量较差的（非细分）曲面在渲染时可能出现暗边和轮廓线等伪影。建议渲染平滑细分曲面以避免该伪影。也可以使用未定义法线的多边形后再细分；RenderMan 会为你计算法线。</p></li></ul><h3 id="TroubleShooting&amp;Tips-Rendering">Rendering（渲染）</h3><ul><li><p>RenderMan 21 ROP 使用 21 Soho workflow（Soho 工作流）进行渲染。建议使用 <em>新的</em> RenderMan ROP，以利用 RenderMan 22 中的交互式工作流。</p></li></ul>
+  </article>
+</main>
+</body>
+</html>

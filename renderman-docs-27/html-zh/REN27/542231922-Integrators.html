@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Integrators</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Integrators</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/REN27/542231922/Integrators">https://rmanwiki-27.pixar.com/space/REN27/542231922/Integrators</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="contentLayout2">
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="elio-27-banner.jpg" width="1280" loading="lazy" src="../../attachments/542231922/elio-27-banner.jpg" data-image-src="../../attachments/542231922/elio-27-banner.jpg" data-height="361" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="572915741" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="elio-27-banner.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542231922" data-linked-resource-container-version="2" data-media-id="87c614f6-1f55-4a11-a50e-b941354d1786" data-media-type="file"></span><p>RenderMan 积分器系统是极其灵活的工具，它接收 camera rays（摄影机光线）并将结果返回给渲染器。对于主积分器，这些结果是沿光线从外部可见表面获得的光能（radiance（辐射亮度））估计。主积分器负责计算整体光传输，也就是光从光源出发，穿过场景，在对象之间传递（或穿过对象和体积），最终到达摄影机。内部积分器则在特殊场景中处理表面或体积内部的光照。我们提供三个生产级主积分器，不过用户也可以替换为自己的积分器。</p><p><a href="542231984-PxrPathTracer.html" data-linked-resource-id="542231984" data-linked-resource-version="2" data-linked-resource-type="page">PxrPathTracer</a> 实现了单向路径追踪器。它将命中点处的材质信息与灯光采样结合起来，用于估计直接照明和阴影，然后生成/发射额外光线来处理间接照明。它很适合环境光以及大型直接光源。通常，外景场景、由 dome lights/HDRI 照亮的场景，以及许多常见视觉特效镜头都会使用此积分器渲染。</p><p><a href="542232008-PxrVCM.html" data-linked-resource-id="542232008" data-linked-resource-version="2" data-linked-resource-type="page">PxrVCM</a> 在此基础上扩展了双向路径追踪。除了从摄影机出发的路径外，它还会从光源追踪路径，并尝试将这些路径连接起来。它可以解析使用 PxrPathTracer 时可能收敛缓慢的复杂间接路径。尤其是，它专为处理镜面焦散而设计。焦散是光线在表面反射或折射后被重新聚焦产生的效果。上方图像展示了这两种效果。如果你的场景需要这些效果，或者存在复杂照明，其中某些灯光可能被灯具遮盖或隐藏，那么 PxrVCM 积分器通常是最高效的选择。</p><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="ab1c2c09-4613-4c69-b1a2-0ac13be4a826" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>PxrUnified 可用，但在它支持 commercial RenderMan（商业版 RenderMan）的全部功能之前，目前仍属于实验性功能。</p></div></div><p /><h3 id="Integrators-Examples">示例</h3><p>PRMan 包含示例 RIB 文件和 shader，用于演示位于 RenderMan 核心的积分器。这些示例位于 PixarRenderMan-Examples-XX.X/scenes/integrator 目录中。下面的页面会详细讨论其中一些示例。无论你是否愿意打开终端窗口并跟随渲染，这些页面都可以作为 PRMan 功能和能力的广泛概览。</p></div>
+</div>
+</div>
+<div class="columnLayout two-left-sidebar" data-layout="two-left-sidebar">
+<div class="cell aside" data-type="aside">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Integrators_image2.png" width="200" loading="lazy" src="../../attachments/542231922/Integrators_image2.png" data-image-src="../../attachments/542231922/Integrators_image2.png" data-height="200" data-width="200" data-unresolved-comment-count="0" data-linked-resource-id="542231949" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Integrators_image2.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542231922" data-linked-resource-container-version="2" data-media-id="4281e8b2-a763-44be-8a05-023dd2536863" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><a class="external-link" href="https://rmanwiki-26.pixar.com/space/REN26/19661809/Integrator+Examples#Soho" rel="nofollow">Soho</a> - 一个茶壶和体积中的发光几何体，四周都有反射；这个场景展示了复杂照明情景中改进后的体积采样能力。此示例使用 <a class="external-link" href="https://rmanwiki-26.pixar.com/space/REN26/19661775/PxrPathTracer" rel="nofollow">PxrPathTracer</a> 积分器</p></div>
+</div>
+</div>
+<div class="columnLayout two-left-sidebar" data-layout="two-left-sidebar">
+<div class="cell aside" data-type="aside">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Integrators_image3.png" width="200" loading="lazy" src="../../attachments/542231922/Integrators_image3.png" data-image-src="../../attachments/542231922/Integrators_image3.png" data-height="200" data-width="200" data-unresolved-comment-count="0" data-linked-resource-id="542231946" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Integrators_image3.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542231922" data-linked-resource-container-version="2" data-media-id="ccef4678-e8ab-4c84-8f5c-89e508382fc0" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><a class="external-link" href="https://rmanwiki-26.pixar.com/space/REN26/19661809/Integrator+Examples#Skulls" rel="nofollow">Skulls</a> - 此示例展示了 <a class="external-link" href="https://rmanwiki-26.pixar.com/space/REN26/19661785/PxrVCM" rel="nofollow">PxrVCM</a> 积分器解析复杂光路的能力，尤其是由焦散的反射或折射产生的 specular-diffuse-specular（镜面-漫反射-镜面）路径。</p></div>
+</div>
+</div>
+</div>
+  </article>
+</main>
+</body>
+</html>

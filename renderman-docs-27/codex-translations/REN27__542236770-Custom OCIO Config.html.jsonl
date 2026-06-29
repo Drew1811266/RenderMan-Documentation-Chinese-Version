@@ -1,0 +1,106 @@
+{"item_id":"5314035cd6:0","text":"使用自己的 OCIO config"}
+{"item_id":"5314035cd6:1","text":"OCIO Roles（OCIO 角色）"}
+{"item_id":"5314035cd6:2","text":"RenderMan 依赖几个 OpenColorIO roles，需要在你的"}
+{"item_id":"5314035cd6:3","text":"config.ocio"}
+{"item_id":"5314035cd6:4","text":"文件中定义。"}
+{"item_id":"5314035cd6:5","text":"rendering"}
+{"item_id":"5314035cd6:6","text":"："}
+{"item_id":"5314035cd6:7","text":"MANDATORY（必需）"}
+{"item_id":"5314035cd6:8","text":"这是 renderer 执行所有计算时所在的 space。"}
+{"item_id":"5314035cd6:9","text":"data"}
+{"item_id":"5314035cd6:10","text":"："}
+{"item_id":"5314035cd6:11","text":"STANDARD（标准）"}
+{"item_id":"5314035cd6:12","text":"这类 input 不需要转换，因为它提供的是 numerical data（normal map、bump map、roughness map 等）。"}
+{"item_id":"5314035cd6:13","text":"srgb_linear"}
+{"item_id":"5314035cd6:14","text":"："}
+{"item_id":"5314035cd6:15","text":"MANDATORY（必需）"}
+{"item_id":"5314035cd6:16","text":"线性 sRGB/Rec.709 图像，例如 HDRI environment map。"}
+{"item_id":"5314035cd6:17","text":"srgb_texture"}
+{"item_id":"5314035cd6:18","text":"："}
+{"item_id":"5314035cd6:19","text":"非线性 sRGB 图像，例如 JPEG、PNG 等。"}
+{"item_id":"5314035cd6:20","text":"这个 role 已添加到我们的 basic linear configuration 和 Filmic-Blender configuration 中。"}
+{"item_id":"5314035cd6:21","text":"在 ACES-1.2 中，它已经是以下项的 alias："}
+{"item_id":"5314035cd6:22","text":"Utility - sRGB - Texture"}
+{"item_id":"5314035cd6:23","text":"。"}
+{"item_id":"5314035cd6:24","text":"实际使用中，这 4 个 roles 会满足大多数人有效使用 colour-management（色彩管理）的需求。不过，仍然可以通过 JSON configuration file 添加更多 role。"}
+{"item_id":"5314035cd6:25","text":"JSON Configuration file（JSON 配置文件）"}
+{"item_id":"5314035cd6:26","text":"许多 configurations 包含大量 color spaces，其中很多是面向与 3D rendering 无关的特殊情况。对 3D artists 真正重要的内容可以归结为少数几个 controls。"}
+{"item_id":"5314035cd6:27","text":"为了提供集中配置点，RenderMan 需要一个 JSON configuration file 来提供："}
+{"item_id":"5314035cd6:28","text":"UI controls 中可用的 Roles/ColorSpaces 列表。"}
+{"item_id":"5314035cd6:29","text":"将插入到 texture names 中、用于消除歧义的 aliases（shortened forms）列表。"}
+{"item_id":"5314035cd6:30","text":"可显示在 UI controls 中的 help strings 列表。"}
+{"item_id":"5314035cd6:31","text":"一组供 Texture Manager 分配初始 txmake settings 的 rules。"}
+{"item_id":"5314035cd6:32","text":"配置 JSON 文件名（File name）"}
+{"item_id":"5314035cd6:33","text":"JSON file 的名称基于包含"}
+{"item_id":"5314035cd6:34","text":"file 的目录："}
+{"item_id":"5314035cd6:35","text":"配置文件位置（File location）"}
+{"item_id":"5314035cd6:36","text":"启动时，位于"}
+{"item_id":"5314035cd6:37","text":"中的文件总是会被读取。"}
+{"item_id":"5314035cd6:38","text":"如果定义了"}
+{"item_id":"5314035cd6:39","text":"environment variable，则所有匹配"}
+{"item_id":"5314035cd6:40","text":"pattern、位于该目录中的文件都会被加载。这个机制可用于覆盖 stock configurations，或为 custom OpenColorIO configuration 添加支持。"}
+{"item_id":"5314035cd6:41","text":"配置示例文件（Sample file）"}
+{"item_id":"5314035cd6:42","text":"rman_color_config_ACES-1.2.json"}
+{"item_id":"5314035cd6:43","text":"规则（Rules）"}
+{"item_id":"5314035cd6:44","text":"Rules 允许 Texture Manager 为新引用的 images 设置合理的 conversion defaults。如果设置得当，它可以完全自动化 texture conversion。"}
+{"item_id":"5314035cd6:45","text":"Rules 由 node types 定义：pattern、light、lightfilter 和 imageplane。这样可以专门化 conversion，而无需依赖一套复杂 rules。"}
+{"item_id":"5314035cd6:46","text":"args"}
+{"item_id":"5314035cd6:47","text":"这是一个 txmake flags 及其 values 的 dictionary，用来定义可由 rules 修改的 baseline。"}
+{"item_id":"5314035cd6:48","text":"带有"}
+{"item_id":"5314035cd6:49","text":"null"}
+{"item_id":"5314035cd6:50","text":"值的 rules 会被禁用。"}
+{"item_id":"5314035cd6:51","text":"texture_type"}
+{"item_id":"5314035cd6:52","text":"\"regular\" 用于通用 textures，\"envlatl\" 用于 environment light textures。"}
+{"item_id":"5314035cd6:53","text":"texture_format"}
+{"item_id":"5314035cd6:54","text":"texture 的 file format：\"pixar\"、\"tiff\"、\"openexr\""}
+{"item_id":"5314035cd6:55","text":"resize"}
+{"item_id":"5314035cd6:56","text":"使用给定 mode 将图像 resize 到 2 的幂：\"none\"、\"up\"、\"up-\"、\"down\"、\"down-\"、\"round\"、\"round-\"。"}
+{"item_id":"5314035cd6:57","text":"texture_filter"}
+{"item_id":"5314035cd6:58","text":"用于 resize 的 Filter：\"point\"、\"box\"、\"triangle\"、\"sinc\"、\"gaussian\"、\"gaussian-soft\"、\"catmull-rom\"、\"mitchell\"、\"cubic\"、\"lanczos\"、\"bessel\"、\"blackman-harris\""}
+{"item_id":"5314035cd6:59","text":"smode"}
+{"item_id":"5314035cd6:60","text":"s 方向上的 repeat mode：\"black\"、\"clamp\"、\"periodic\""}
+{"item_id":"5314035cd6:61","text":"tmode"}
+{"item_id":"5314035cd6:62","text":"t 方向上的 repeat mode：\"black\"、\"clamp\"、\"periodic\""}
+{"item_id":"5314035cd6:63","text":"data_type"}
+{"item_id":"5314035cd6:64","text":"\"float\"（float 32）、\"half\"（float 16）、\"byte\"（int 8）、\"short\"（int 16）"}
+{"item_id":"5314035cd6:65","text":"compression"}
+{"item_id":"5314035cd6:66","text":"用于 texture tiles 的 Compression，可节省磁盘空间。它依赖 texture format；请参阅 txmake help。"}
+{"item_id":"5314035cd6:67","text":"compression_level"}
+{"item_id":"5314035cd6:68","text":"支持该参数的 compressors 使用的 Compression level；请参阅 txmake help。"}
+{"item_id":"5314035cd6:69","text":"ociocolorspace"}
+{"item_id":"5314035cd6:70","text":"destination colorspace 是目标颜色空间，也就是 texture 的 colorspace。"}
+{"item_id":"5314035cd6:71","text":"ocioconvert"}
+{"item_id":"5314035cd6:72","text":"source colorspace 是源颜色空间，也就是 image 的 colorspace。"}
+{"item_id":"5314035cd6:73","text":"ociodither"}
+{"item_id":"5314035cd6:74","text":"输出到 non-float texture format 时，可选地对 pixel values 执行 dither。不推荐。"}
+{"item_id":"5314035cd6:75","text":"bumprough"}
+{"item_id":"5314035cd6:76","text":"这个参数是一个 dict，包含 bump to roughness conversion values：\"factor\"、\"normalmap\"、\"invert\"、\"invertU\"、\"invertV\"、\"refit\""}
+{"item_id":"5314035cd6:77","text":"mipfilter"}
+{"item_id":"5314035cd6:78","text":"用于创建 MIP levels 的 resizing filter。与 texture_filter 相同。"}
+{"item_id":"5314035cd6:79","text":"rules"}
+{"item_id":"5314035cd6:80","text":"Rules 是应当 evaluate 为 True 或 False 的 Python strings。"}
+{"item_id":"5314035cd6:81","text":"所有 rules 都按文件中的顺序进行 evaluate"}
+{"item_id":"5314035cd6:82","text":"来修改 args dict。如果想在 rule 为 True 时跳过后续 rules，可以在 rule 中添加一个"}
+{"item_id":"5314035cd6:83","text":"entry，以便在 rule 为 True 时跳过后续 rules。"}
+{"item_id":"5314035cd6:84","text":"它们可以包含以下 substitution tokens："}
+{"item_id":"5314035cd6:85","text":"node_type"}
+{"item_id":"5314035cd6:86","text":"PxrTexture、PxrDomeLight 等"}
+{"item_id":"5314035cd6:87","text":"classification"}
+{"item_id":"5314035cd6:88","text":"bxdf、pattern、light、lightfilter 等"}
+{"item_id":"5314035cd6:89","text":"img_name"}
+{"item_id":"5314035cd6:90","text":"不含 extension 的图像名称（image name）"}
+{"item_id":"5314035cd6:91","text":"img_ext"}
+{"item_id":"5314035cd6:92","text":"image 的 extension（图像扩展名）"}
+{"item_id":"5314035cd6:93","text":"img_atlas"}
+{"item_id":"5314035cd6:94","text":"如果是 texture atlas，则为 True"}
+{"item_id":"5314035cd6:95","text":"img_type"}
+{"item_id":"5314035cd6:96","text":"'int' 或 'float'"}
+{"item_id":"5314035cd6:97","text":"img_depth"}
+{"item_id":"5314035cd6:98","text":"8、16 或 32"}
+{"item_id":"5314035cd6:99","text":"img_nchan"}
+{"item_id":"5314035cd6:100","text":"image 中包含的 channels 数量"}
+{"item_id":"5314035cd6:101","text":"ocioconfig"}
+{"item_id":"5314035cd6:102","text":"OCIO config 的 full path"}
+{"item_id":"5314035cd6:103","text":"ocioconfig_name"}
+{"item_id":"5314035cd6:104","text":"OCIO config 的 name：'basic'、'ACES-1.2' 等"}
+{"item_id":"5314035cd6:105","text":"要让 ACES colorspace 正确应用到 lights，你的 rendering role 必须命名为（或 alias 为）\"ACES - ACEScg\" 或 \"ACEScg\"。此外，RenderMan 依赖 OCIO configs 中定义的 luma coefficients。这些系数在 OCIO v2 中已 deprecated，并且在 default ACES config 中可能不正确。"}

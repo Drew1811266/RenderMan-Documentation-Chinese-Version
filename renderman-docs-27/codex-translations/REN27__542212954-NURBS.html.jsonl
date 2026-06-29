@@ -1,0 +1,14 @@
+{"id":"7086f58c515e8f7b49b4c958c1550171a916f2baba89947546b96a594818066a","item_id":"24d3637c46:0","text":"Al's Car（来自《Toy Story 2》）完全使用 trimmed NURBS 建模"}
+{"id":"262e1d0964f695f92c048e5eb137e05ab0f33336bf300730f51b20920006328f","item_id":"24d3637c46:1","text":"RIS 支持 NURBS。"}
+{"id":"d9b92c8418165ebf78361d4417efe9f1ba68221eb488e77142efbf73c4985377","item_id":"24d3637c46:2","text":"RenderMan XPU 不支持，也不会支持 NURBS。"}
+{"id":"bcd178d28a0e76002adb4acc88305f6d551da81dc9ccd2b27cfd6dd047685b03","item_id":"24d3637c46:3","text":"在"}
+{"id":"c1362831054c724549ceabad5cb0f299e6a3ed4b1b3e14c67d1e9c2230f4c588","item_id":"24d3637c46:4","text":"细分曲面"}
+{"id":"86852883e01b52cefcbb52b45a936c7d97b79d9a81ff5aa46847c7cafc40e87d","item_id":"24d3637c46:5","text":"出现之前，非均匀有理 B 样条（即 NURBS）曾是创建平滑曲面时的行业标准。"}
+{"id":"bbccd0b51ff94e84889f8c227dc4dc430c9435f7639f5fae54ea4b79dfc110e3","item_id":"24d3637c46:6","text":"与细分曲面一样，NURBS 天生就是平滑曲面，不会受到多边形近似相关的分面伪影影响。事实上，RenderMan 始终会把 NURB 作为平滑曲面高效渲染。不过，与细分曲面不同，NURBS 存在固有的拓扑约束：NURB 的控制曲面是由行和列构成的矩形网格。这意味着 NURB 用于贴图的参数空间很容易理解（它是一个矩形！），但也意味着在创建人类角色等复杂有机形状时，建模师需要把这种复杂形状拆分成一组矩形片段，而每个片段都是一个独立的 NURB。此外，如果网格的某个部分需要更多细节并因此需要添加额外节点（行与列的交点），为了满足矩形网格约束，就必须在整个 NURB 上添加额外的行和列。这会很快导致模型变得难以处理。"}
+{"id":"baca4f9a7cc645bdd38b80e06d209e3d836f922a7c753c3e9d804652b402db08","item_id":"24d3637c46:7","text":"为了缓解这些限制，可以使用"}
+{"id":"073f3c701722d652c8ff2c6f5c18499a6e03e0a81ec2cf65a1bf6596f0686033","item_id":"24d3637c46:8","text":"trimmed"}
+{"id":"b81720233efecd3a8d9f963e04728bee15b6c918c580f14ba29b29e3355abac4","item_id":"24d3637c46:10","text":"。"}
+{"id":"dbde6ca7a81b347b3d659fa6798c9e6d81425a9445f9b8e02eedecc6dedfc27e","item_id":"24d3637c46:11","text":"trimcurve"}
+{"id":"c4179eb235f6d6151cf508e2b4631fcae458212558a2755087a27ab11a29b3d0","item_id":"24d3637c46:12","text":"是在 UV 参数空间中指定的任意区域，可用于切除 NURB。这一功能是 NURBS 所独有的。虽然这有助于创建复杂的圆角和连接，但修剪成本较高，容易出现数值误差，并且很难在 trimcurve 接缝处保持平滑度和绝对连续性，尤其是在模型在动画中发生变形时。尽管如此，完全支持 trimmed NURBS 的建模程序过去一直是、现在也仍然是配合 RenderMan 使用的可行工作流。"}
+{"id":"4270f8ed49d40613efd126754918cc940100885e0bcada9b16b95a4a40e5d41a","item_id":"24d3637c46:13","text":"还值得注意的是，NURBS 仍然是唯一能够精确且轻松表示球体的建模图元（除内置的 Sphere 图元之外）！"}
+{"id": "537ba225d370e2c98a740ba78a5c9a4e54507081e3ed84341931b38749750d22", "item_id": "24d3637c46:9", "text": "NURBS"}

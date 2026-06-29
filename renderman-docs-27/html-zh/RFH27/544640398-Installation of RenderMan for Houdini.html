@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Installation of RenderMan for Houdini</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Installation of RenderMan for Houdini</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFH27/544640398/Installation+of+RenderMan+for+Houdini">https://rmanwiki-27.pixar.com/space/RFH27/544640398/Installation+of+RenderMan+for+Houdini</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="1280" loading="lazy" src="../../attachments/544640398/RenderMan_Solaris_Volumes.jpg" data-image-src="../../attachments/544640398/RenderMan_Solaris_Volumes.jpg" data-height="666" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="544640416" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Solaris_Volumes.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544640398" data-linked-resource-container-version="7" data-media-id="5a86c710-b0d8-43b6-96ff-e79e76ea87c9" data-media-type="file"></span><p><br/></p><p>有关支持的 Houdini 版本，请访问 <a class="external-link" href="../REN27/542212198-Installation and Licensing.html" rel="nofollow">Installation and Licensing（安装与许可）</a>。<br/>可以使用 RenderMan Installer 安装 RenderMan for Houdini；该安装器负责下载、安装和许可 RenderMan Pro Server（实际渲染器）以及所有桥接产品。<br/></p><hr/><h3 id="InstallationofRenderManforHoudini-PackageInstallation">Package Installation（包安装）</h3><p>RenderMan for Houdini 可以通过 packages 文件安装，该文件位于 RfH 安装目录中。 <br/><br/>将 packages JSON 文件复制到下列位置之一，以便 Houdini 在启动时找到它。SideFX 的高级 package 说明在 <a class="external-link" href="https://www.sidefx.com/docs/houdini/ref/plugins.html" rel="nofollow">此处</a>。</p><ul><li><p><code>$HOUDINI_USER_PREF_DIR/packages</code></p></li><li><p><code>$HFS/packages</code></p></li><li><p><code>$HSITE/houdinimajor.minor/packages</code> (例如， <code>$HSITE/houdini21.0/packages</code>)</p></li><li><p><code>$HOUDINI_PACKAGE_DIR</code><br/></p></li></ul><hr/><h3 id="InstallationofRenderManforHoudini-ManualInstallation">Manual Installation（手动安装） </h3><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="02a1b9cf-3e56-4fb6-8001-a357a9d37781" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>RfH 的环境变量必须在 houdini.env 文件中排在第一位。（Windows 需要使用分号）例如：</p><p>HOUDINI_PATH=$RFHTREE/3.11/21.0.512:&amp;</p><p><br /></p><p>带 Solaris 的 RenderMan for Houdini 需要在配置文件中增加一行，才能渲染内存中的 VDB：</p><p>RMAN_PROCEDURALPATH = $RFHTREE/3.11/21.0.512/openvdb:&amp;</p><p> </p><p> </p><p>从 Houdini 21 开始，为了支持在 RenderMan 中读取 COP 纹理，需要定义以下变量：</p><p>RMAN_TEXTUREPATH = $RFHTREE/3.11/21.0.512/rtxplugins:&amp;<br /></p><p> </p><p>RenderMan for Houdini 在 <strong>Windows</strong> 上需要在配置文件中增加一行：</p><p>PATH=$RMANTREE\bin;&amp;</p><p><br /></p><p><strong>本文档下方提供了更多说明和详细信息。</strong></p></div></div><p><br/></p><p>安装插件后，Houdini 需要修改主目录中的 Houdini 环境才能加载 RenderMan 插件。Houdini 专用环境变量也可以在 houdini.env 中设置；各操作系统对应位置如下：</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="52d3ea4c-5008-4679-ada6-87bec194ff8a" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">Windows: %HOME%\Documents\houdiniXX.X\houdini.env
+Mac: ~/Library/Preferences/houdini/YY.Y/houdini.env
+Linux: ~/houdiniZZ.Z/houdini.env</pre>
+</div></div><p><strong>NOTE（注意）：</strong> 首次运行新版 Houdini 时，可能需要运行两次，上述位置才会出现 houdini.env 文件；文件创建后，就可以添加下面提到的各行。</p><p><br/></p><p>需要用文本编辑器编辑 houdini.env 文件，并在启动 Houdini 之前把下面几行放入该文件。每个正在使用的 Houdini 新主版本只需要执行一次。</p><p><br/><br/></p><hr/><p><br/><br/><strong>EXAMPLES（示例）</strong></p><p>例如在 Linux 上，应编辑此文件：$HOME/houdini21.0/houdini.env：</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="68b9bbae-9f5a-4590-8304-aadbfc8bea69" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">RMANTREE=/opt/pixar/RenderManProServer-27.0
+RFHTREE=/opt/pixar/RenderManForHoudini-27.0
+RMAN_PROCEDURALPATH=$RFHTREE/3.11/21.0.512/openvdb:&amp;
+RMAN_TEXTUREPATH=$RFHTREE/3.11/21.0.512/rtxplugins:&amp;
+HOUDINI_PATH=$RFHTREE/3.11/21.0.512/:&amp;</pre>
+</div></div><p>在 Windows 上，应编辑此文件：\Users\<em>myself</em>\Documents\houdini21.0\houdini.env：</p><p><strong>NOTE（注意）</strong>：Windows 使用分号而不是冒号来分隔 HOUDINI_PATH！</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="b00a8ff5-f314-42cf-9bd2-da811449a76a" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">RMANTREE=&quot;C:\Program Files\Pixar\RenderManProServer-27.0&quot;
+RFHTREE=&quot;C:\Program Files\Pixar\RenderManForHoudini-27.0&quot;
+RMAN_PROCEDURALPATH=$RFHTREE\3.11\21.0.512\openvdb;&amp;
+RMAN_TEXTUREPATH=$RFHTREE\3.11\21.0.512\rtxplugins:&amp;
+HOUDINI_PATH=$RFHTREE\3.11\21.0.512;&amp;
+PATH=$RMANTREE\bin;&amp;</pre>
+</div></div><p>最后一个 macOS 示例，应编辑：/Users/<em>myself</em>/Library/Preferences/houdini/21.0/houdini.env：</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="2abb3386-a741-496d-91ba-d5eefc611fc2" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">RMANTREE=/Applications/Pixar/RenderManProServer-27.0
+RFHTREE=/Applications/Pixar/RenderManForHoudini-27.0
+RMAN_PROCEDURALPATH=$RFHTREE/3.11/21.0.512/openvdb:&amp;
+RMAN_TEXTUREPATH=$RFHTREE/3.11/21.0.512/rtxplugins:&amp;
+HOUDINI_PATH=$RFHTREE/3.11/21.0.512:&amp;</pre>
+</div></div><p><br/></p><p><br/></p>
+  </article>
+</main>
+</body>
+</html>

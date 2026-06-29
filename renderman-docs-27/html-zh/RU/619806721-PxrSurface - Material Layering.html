@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PxrSurface - Material Layering</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>PxrSurface - Material Layering</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RU/619806721/PxrSurface+-+Material+Layering">https://rmanwiki-27.pixar.com/space/RU/619806721/PxrSurface+-+Material+Layering</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="contentLayout2">
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="RenderManXPU_Bike.jpg" width="760" loading="lazy" src="../../attachments/619806721/RenderManXPU_Bike.jpg" data-image-src="../../attachments/619806721/RenderManXPU_Bike.jpg" data-height="844" data-width="1500" data-unresolved-comment-count="0" data-linked-resource-id="619512180" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderManXPU_Bike.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="619806721" data-linked-resource-container-version="7" data-media-id="eaf4ebec-675e-4d87-b2ca-bf93fdaaaf8f" data-media-type="file"></span><p>Pixar 的 shading artists 经常为 props、sets 和 environments 分层 materials，从而获得 layering 带来的创作控制。例如，可以在不同镜头之间控制干净道具上方的 dirt 量，或根据影片 Shading lead 或导演的反馈，简单改变道具的 look and feel，例如：</p><h2 id="PxrSurface-MaterialLayering-‘Canyoumakethispropalittlelessdirtyinthisshot?’"><em>“你能让这个 prop 在这个 shot 里稍微不那么脏吗？” </em></h2><p>或者</p><h2 id="PxrSurface-MaterialLayering-‘Thispropneedstofeelmoredamagedinthissequence’"><em>“这个 prop 在这个 sequence 里需要感觉受损更严重。”</em></h2><p /><p>拥有 procedural and layered workflow for materials，可以让艺术家快速细化资产的 look，而不必返回去重新绘制 textures、全部导出并重新 render。</p><p>使用 PxrSurface 进行 material layering 是 Pixar 材质工作的创意核心，因此本页旨在帮助你理解 material layering 的基础和灵活性，让你能在自己的工作中应用这些技术。</p><p>虽然这个主题可能会变得相当复杂，但此时我们不必过于担心深入到更细的细节。</p><p>下面的视频会介绍基本概念。</p><iframe allowfullscreen="" allowtransparency="true" class="fullscreen-video-iframe conf-macro output-block" data-hasbody="false" data-layout="default" data-local-id="7ee04424-df48-4d10-8003-ffa60144230a" data-macro-id="727da81e9c5d22c00ef48ce218f11398a706ef5ef196767f5b0a5c5635d11417" data-macro-name="widget" frameborder="0" height="540" mozallowfullscreen="" src="https://player.vimeo.com/video/521400282" style="border:none; margin:1em 0em;" webkitallowfullscreen="" width="960">
+</iframe>
+
+<p /><p /><div class="panel conf-macro output-block" data-hasbody="true" data-macro-id="8a8f4d28-bec5-46b1-b19c-cf5ae3d504df" data-macro-name="panel" style="background-color: #4C9AFF;border-width: 1px;"><div class="panelContent" style="background-color: #4C9AFF;">
+<p><strong><span class="legacy-color-text-inverse">示例渲染（Example Renders）结果</span></strong></p>
+</div></div><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="BikeRender01.jpg" width="760" loading="lazy" src="../../attachments/619806721/BikeRender01.jpg" data-image-src="../../attachments/619806721/BikeRender01.jpg" data-height="1080" data-width="1920" data-unresolved-comment-count="0" data-linked-resource-id="634290231" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="BikeRender01.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="619806721" data-linked-resource-container-version="7" data-media-id="733b0858-23e1-47fd-afc9-2cb56972ce6c" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="RenderMan_Dirt_1.jpg" width="356" loading="lazy" src="../../attachments/619806721/RenderMan_Dirt_1.jpg" data-image-src="../../attachments/619806721/RenderMan_Dirt_1.jpg" data-height="1080" data-width="1920" data-unresolved-comment-count="0" data-linked-resource-id="634486815" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Dirt_1.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="619806721" data-linked-resource-container-version="7" data-media-id="23745dfc-c5db-4552-bfe0-aab400f25426" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="RenderMan_Dirt_2.jpg" width="356" loading="lazy" src="../../attachments/619806721/RenderMan_Dirt_2.jpg" data-image-src="../../attachments/619806721/RenderMan_Dirt_2.jpg" data-height="1080" data-width="1920" data-unresolved-comment-count="0" data-linked-resource-id="634486821" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Dirt_2.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="619806721" data-linked-resource-container-version="7" data-media-id="3326fd1b-e23e-47c7-9152-13cfbc519f4a" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><a href="https://renderman.atlassian.net/wiki/download/attachments/619806721/RenderManFundaMentals_MidnightRebel_Teaser.mp4?version=1&amp;modificationDate=1761637573156&amp;cacheVersion=1&amp;api=v2&amp;width=760">RenderManFundaMentals_MidnightRebel_Teaser.mp4</a></span><p /></div>
+</div>
+</div>
+</div>
+  </article>
+</main>
+</body>
+</html>

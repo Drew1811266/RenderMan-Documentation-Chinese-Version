@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Variation of Instances in Maya</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Variation of Instances in Maya</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFM27/544543597/Variation+of+Instances+in+Maya">https://rmanwiki-27.pixar.com/space/RFM27/544543597/Variation+of+Instances+in+Maya</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<h3 id="VariationofInstancesinMaya-PxrVary">PxrVary</h3><p>The <a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661737" rel="nofollow">PxrVary</a> pattern allows for random variation.  Let's try varying the color of the teacups based on the Particle ID.</p><p>Select the nParticleShape1 node. Look under the Instancer attributes. Change the Object Index from None to Particle ID.</p><p>This causes a primvar called particleId to be available on the instances.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="299" loading="lazy" src="../../attachments/544539792/rfmInstancesParticleID.png" data-image-src="../../attachments/544539792/rfmInstancesParticleID.png" data-height="869" data-width="435" data-unresolved-comment-count="0" data-linked-resource-id="544539841" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfmInstancesParticleID.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544539792" data-linked-resource-container-version="1" data-media-id="f0cdcddc-0bf3-42c7-8ed9-2c713f87d2bd" data-media-type="file"></span><p /><p>Next, wire a PxrVary pattern into the color of the material used for each of the cup and the saucer.</p><p /><span class="confluence-embedded-file-wrapper image-center-wrapper"><img class="confluence-embedded-image image-center" loading="lazy" src="../../attachments/544539792/rfmInstancesPxrVary.png" data-image-src="../../attachments/544539792/rfmInstancesPxrVary.png" data-height="86" data-width="383" data-unresolved-comment-count="0" data-linked-resource-id="544539838" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfmInstancesPxrVary.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544539792" data-linked-resource-container-version="1" data-media-id="9ab947b8-b63b-467f-98fb-8adf86f9a6aa" data-media-type="file"></span><p /><p>Set up the PxrVary to use the particleId as its seed for randomization.  </p><ul><li><p>Change the Vary Source to Primvar.</p></li><li><p>Type in <strong>particleId</strong> as the Variable Name.</p></li><li><p>Move the Hue slider value to 1, for maximum variation of the hue.<br/><br/></p></li></ul><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="367" loading="lazy" src="../../attachments/544539792/rfmInstancesPxrVaryAE.png" data-image-src="../../attachments/544539792/rfmInstancesPxrVaryAE.png" data-height="297" data-width="444" data-unresolved-comment-count="0" data-linked-resource-id="544539844" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfmInstancesPxrVaryAE.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544539792" data-linked-resource-container-version="1" data-media-id="54a0a98e-b306-43d5-ba43-0876b4acc2e9" data-media-type="file"></span><p>Now the render looks like this:</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="394" loading="lazy" src="../../attachments/544539792/rfmInstancesPxrVaryRender.png" data-image-src="../../attachments/544539792/rfmInstancesPxrVaryRender.png" data-height="480" data-width="640" data-unresolved-comment-count="0" data-linked-resource-id="544539847" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfmInstancesPxrVaryRender.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544539792" data-linked-resource-container-version="1" data-media-id="e74a1336-1c10-4aaa-87cd-bf50f65cf400" data-media-type="file"></span>
+  </article>
+</main>
+</body>
+</html>

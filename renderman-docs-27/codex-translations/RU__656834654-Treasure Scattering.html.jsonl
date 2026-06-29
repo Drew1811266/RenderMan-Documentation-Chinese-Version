@@ -1,0 +1,8 @@
+{"item_id":"bf127f3d50:0","text":"宝藏散布（Treasure Scatter）流程"}
+{"item_id":"bf127f3d50:1","text":"让我们从 static gold sea 的 scattering 开始。在这一部分，我使用了 height-field scatter technique。起初，我使用一组预先 simulated 的 coins、armor pieces 和其他 miscellaneous assets，来创建的不只是 coins，而是一簇繁忙 treasure cluster 的 look。"}
+{"item_id":"bf127f3d50:2","text":"做完一个 quick sim，让这些 pieces 在 ground plane 中放松后，我把结果导出为单个 USD file。为了快速得到 Gold Sea 的 shape，我使用了几个非常简单的 height-field techniques 来 sculpt 最终 shape。"}
+{"item_id":"bf127f3d50:3","text":"使用同一个 output，并利用出色的 heightfield scatter node，加上一些 mask painting，并在反复试错中确定 scatter density 后，我找到了适合 composition 的 coverage 比例，同时不留下 gaps……由于这永远不会完美，我在 base geometry 上应用了同样的 gold material 来填补剩余 treasure gaps。"}
+{"item_id":"bf127f3d50:4","text":"金币模拟（Coin Simulation）流程"}
+{"item_id":"bf127f3d50:5","text":"在这段旅程开始时，我开始尝试用各种方式创建具有 fluid-like coin motion 的 simulation。在最初的一次尝试中，我创建了一个 flip fluid tank，并以非常低的 particle separation density 运行 simulation。这给了我可管理数量的 points 用于 instancing。随后，我尝试运行 rigid body dynamic sims。"}
+{"item_id":"bf127f3d50:6","text":"这最终变得非常 computationally expensive，因此我把方法从会堵满 256 GB RAM 的独立 multi-million-points，提炼成创建 treasure clusters（与 scattering 步骤中使用的相同 technique），并非常高效地使用 collision geometry 来避免漫长而精确的 collisions。这个方法带来了快得多的 simulation，尽管准确性稍低。"}
+{"item_id":"bf127f3d50:7","text":"为了进一步加速，我使用 separate caches 将需要 sim 的位置局部化，这些 caches 都按 sequential manner 计时运行，以符合我根据 camera movement 所追求的 art direction。"}

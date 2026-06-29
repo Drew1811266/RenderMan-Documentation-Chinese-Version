@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NIMBY</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>NIMBY</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/TRA/22184284/NIMBY">https://rmanwiki-27.pixar.com/space/TRA/22184284/NIMBY</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div style="margin-left: 60.0px;" class="contents local topic"><p><br/></p></div><div class="section"><p>"NIMBY" -- "Not In My Back Yard" -- 控制 user-managed desktop blades 的访问。</p><p>Tractor 允许把 user desktop machines 作为 site-wide renderfarm 的一部分使用，方法很简单：像更典型的 server hosts 一样，在它们上面运行 tractor-blade server program。blade process 可以作为 system service 自动启动，也可以由 users 自己手动启动；随后 blade 会自动向 tractor-engine 注册。</p><p>不过，并不总是希望允许 site job queue 中的所有 jobs 在每台 machine 上运行，尤其是 desktop machines。Tractor 提供了多个层级的控制，用来决定哪些 jobs 允许在给定 blade 上运行。</p><p>在某些情况下，host 并不适合运行某些 <strong>types（类型）</strong> 的 jobs。有些 jobs 会要求 target blades 上安装 special software，或要求一定的 minimum installed RAM 或 disk。这类情况下，会使用 "service key" job scripting system，把 job requirements 与 server capabilities 匹配起来。关于这种 restriction 的更多细节，请参阅 job scripting 中对 "RemoteCmd -service" keys 的讨论，以及 blade profile 中对 "Provides" lists 的讨论。</p><p>blade.config 中的 Blade profile definitions 也可以定义哪些 <strong>job owners（作业所有者）</strong> 可以访问给定的一组 blades。blade profile 中的 "Access" parameters 会为该 profile 的 <em>所有</em> member blades 定义这些 user restrictions。对于典型 farm machines，这通常是合适的控制层级。</p><p>相比之下，给定 blade 的 NIMBY settings 通常用于进一步限制会在该特定 host 上运行的 jobs 集合。另外，与 blade.config profile settings 不同，NIMBY settings 可以由 users 或 wranglers 通过 main dashboard 或 desktop nimby application 动态更改。desktop blades 最常见的 NIMBY restriction 形式，是限制它们只接受从同一 host <em>spooled</em> 出来的 jobs，也就是坐在该 desktop 前的 user 提交的 jobs。</p><div class="figure align-left"><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/22184284/nimbyui.png" data-image-src="../../attachments/22184284/nimbyui.png" data-unresolved-comment-count="0" data-linked-resource-id="22195923" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="nimbyui.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="22184284" data-linked-resource-container-version="4" data-media-id="d3b37825-85fc-4037-916e-7e029ec0abaa" data-media-type="file"></span><br/><br/></div></div><div class="section"><h3 id="NIMBY-RunningtheNIMBYapplication">运行 NIMBY application</h3><ul><li><p class="first"><strong>macOS</strong></p><p>该 <em>nimby</em> application 位于 /Applications/Pixar/tractor-blade-$version directory 中。Start/启动该 application 的方式是运行 /Applications/Pixar/tractor-blade-$version/nimby``。</p></li><li><p class="first"><strong>Linux</strong></p><p>该 <em>nimby</em> application 位于 /opt/tractor-blade-$version directory 中。Start/启动该 application 的方式是运行 /opt/pixar/tractor-blade-$version/nimby``。</p></li><li><p class="first"><strong>Windows</strong></p><p>该 <em>nimby.bat</em> batch file 位于 C:Program FilesPixartractor-blade-$version directory 中。Start/启动该 application 的方式是运行： <span class="pre">C:\Program</span> <span class="pre">Files\Pixar\tractor-blade-$version\nimby.bat<br/> </span></p></li></ul></div><div class="section"><h3 id="NIMBY-ProgramArguments">Program Arguments（程序参数）</h3><p>NIMBY application 会响应以下 command line arguments：</p>General Options（通用选项）<div class="table-wrap"><table class="wrapped confluenceTable"><thead><tr><th style="text-align: left;" class="confluenceTh">Option（命令行选项）</th><th style="text-align: left;" class="confluenceTh">Description（参数用途说明）</th></tr></thead><tbody><tr><td class="confluenceTd"><span class="pre">-h,</span> <span class="pre">--help</span></td><td class="confluenceTd">显示 help message，然后退出。</td></tr><tr><td class="confluenceTd">--monitor=MONITOR</td><td class="confluenceTd"><div class="first last line-block"><div class="line">Tractor monitor hostname 和 port（host:port）。</div><div class="line">Default（默认连接地址）：tractor-engine:80</div></div></td></tr><tr><td class="confluenceTd"><span class="pre">-P</span> MPORT</td><td class="confluenceTd"><div class="first last line-block"><div class="line">tractor daemon(s) 正在监听的 port。</div><div class="line">Default（默认值）：80</div></div></td></tr><tr><td class="confluenceTd"><span class="pre">-L</span> BPORT</td><td class="confluenceTd"><div class="first last line-block"><div class="line">blade 用于监听 admin queries 的 port。</div><div class="line">Default（默认值）：9005</div></div></td></tr><tr><td class="confluenceTd">--nimby=NIMBY</td><td class="confluenceTd"><div class="first last line-block"><div class="line">限制 blade 将执行的 jobs；'1' 表示只接受从此 blade host spool 出来的 jobs，'0' 表示始终允许 remote jobs，'private' 表示只接受当前 user 的 remote 或 local jobs，'screensaver' 表示只在 screen saver active 时接受 remote jobs。</div></div></td></tr><tr><td class="confluenceTd">--querytime=JOBQUERYTIME</td><td class="confluenceTd"><div class="first last line-block"><div class="line">nimby 在查询 blade 上 running jobs 时使用的 query interval（单位 seconds）。默认值为 5 seconds。</div></div></td></tr><tr><td class="confluenceTd">--user=USER</td><td class="confluenceTd"><div class="first last line-block"><div class="line">用于 login 的 Tractor user。</div><div class="line">Default（默认值）：当前 computer logged in user。</div></div></td></tr><tr><td class="confluenceTd">--pass=PASSWD</td><td class="confluenceTd"><div class="first last line-block"><div class="line">用于 tractor user login 登录认证的 password 密码。</div><div class="line">Default（默认值）：None。</div></div></td></tr><tr><td class="confluenceTd">--configfile=CONFIGFILE</td><td class="confluenceTd"><div class="first last line-block"><div class="line">包含 login 登录信息和 password information 密码信息的 file 文件。</div><div class="line">Default（默认值）：None。</div></div></td></tr></tbody></table></div><p><br/></p>Logging Options（日志选项）<div class="table-wrap"><table class="wrapped confluenceTable"><thead><tr><th style="text-align: left;" class="confluenceTh">Option（命令行选项）</th><th style="text-align: left;" class="confluenceTh">Description（参数用途说明）</th></tr></thead><tbody><tr><td class="confluenceTd"><span class="pre">-v,</span> <span class="pre">--verbose</span></td><td class="confluenceTd">把 logging level 设置为 INFO 及以上。</td></tr><tr><td class="confluenceTd">--debug</td><td class="confluenceTd">把 logging level 设置为 DEBUG 及以上。</td></tr><tr><td class="confluenceTd">--warning</td><td class="confluenceTd">把 logging level 设置为 WARNING 及以上。这是 default logging level。</td></tr><tr><td class="confluenceTd"><span class="pre">-q,</span> <span class="pre">--quiet</span></td><td class="confluenceTd">把 logging level 设置为仅 CRITICAL。</td></tr><tr><td class="confluenceTd">--logfile=LOGFILE</td><td class="confluenceTd">定义用于 logging 的 local file。Default logging 输出到 stdout。如果指定 logfile，Python logger 会使用 rotating file handler，使 log file 可以按不同 intervals 轮转。</td></tr></tbody></table></div><p><br/></p></div><div class="section"><h3 id="NIMBY-OperationalModes">Operational Modes（运行模式）</h3><p>NIMBY UI 支持 4 种 operation modes：</p><ul><li><p class="first"><strong>Always allow remote commands（始终允许远程命令）</strong></p><p>选中后，local blade 会接受来自任意 job 的 remote 或 local commands，只要该 job 匹配正常的 service key 和 crew based requirements。</p></li><li><p class="first"><strong>Private use for:（专供以下用户使用：）</strong> <em>username</em></p><p>选中后，local blade 会接受指定 user 的 remote 或 local commands。</p></li><li><p class="first"><strong>Local command use only - no remote jobs（仅本地命令使用 - 不接受远程作业）</strong></p><p>选中后，local blade 只接受 local commands。即使 remote commands 来自 local user，也会被 rejected。</p></li><li><p class="first"><strong>Remote Use during screen saver only（仅屏幕保护期间远程使用）</strong></p><p>与上面的 local command use only 类似，但此 mode 会在 screen saver 运行时切换为接受所有 remote commands。这样当 machine 被认为 idle 时，blade 就可以用于 work。</p><p>在 Linux 上，最后一个 checkbox 会显示为 <strong>Remote use after 5 minutes idle（空闲 5 分钟后允许远程使用）</strong>。在 Linux 上很难判断 screen saver 是否正在运行，因此改为查询 X11 server 的 idle time。默认情况下，如果 mouse 已 idle 5 minutes，UI 会把 NIMBY mode 切换为接受所有 remote 或 local commands。<br/> </p></li></ul></div><div class="section"><h3 id="NIMBY-EjectingActiveJobs">Ejecting Active Jobs（弹出活动作业）</h3><p>如果 local blade 上正在运行一个或多个 active commands，它们会在 UI 的 <em>Active Jobs（当前活动作业列表）</em> box 中详细列出。如果上面的 operational mode 更改为不允许访问的 mode，current jobs 会被允许完成，但 blade 不会再拾取 new tasks。</p><p>点击 <em>Eject Active Jobs（弹出活动作业）</em> button 会让 blade 向 engine 发送消息，kill 当前 running task，并将其重新放回 queue。<br/> </p></div><div class="section"><h3 id="NIMBY-NIMBYProfileSettings">NIMBY Profile Settings（NIMBY Profile 设置）</h3><p>默认情况下，所有 Tractor blades 都会接受来自任意 job owner 的 work，前提是 service keys 匹配且其他 dispatching criteria 满足。profile definition 中可选的 "NIMBY" entry 可用于限制能够到达使用该 profile 的 blades 的 jobs：</p><pre class="codefhead literal-block"><strong>&quot;NIMBY&quot;:1</strong>
+</pre><div class="codefbody container">如果向 blade 的 profile 添加 "NIMBY": 1,"，它将只接受 <em>local（本地）</em> jobs，也就是从该 blade host spool 出来的 jobs。把它设置为 0 会恢复上文描述的 default behavior。</div><pre class="codefhead literal-block"><strong>&quot;NIMBY&quot;:&quot;username&quot;</strong>
+</pre><div class="codefbody container">"NIMBY" setting 也可以接受一个 user name string。这样做时，匹配该 profile 的所有 blades 将只接受来自指定 user 的 jobs。</div><p>注意：此 parameter 位于 profile definition 的 "top" level， <em>不是</em> 放在 "Access" dictionary 中。还要注意，可通过 Tractor Dashboard 中的 blade list context menus 修改单个 blade 的这个 value。<br/> </p></div><div class="section"><h3 id="NIMBY-SettingNIMBY">Setting NIMBY（设置 NIMBY）</h3><p>除了使用 blade profiles 外，还有另外两种方式可以设置 NIMBY state：</p><ul><li><p class="first">可以在 startup 时把 --nimby=foo 添加到 tractor-blade command line options。此方法始终会 override blade profile 中的任何 setting，即使 profile reload 之后也是如此。</p></li><li><p class="first">可以向 engine 发送新的 NIMBY change request <a class="external-link" href="https://renderman.pixar.com/resources/current/tractor/tractor_url_api.html" rel="nofollow" style="text-decoration: underline;">via URL（通过 URL 地址方式）</a>，就像 Tractor Dashboard 通过 blade context menu 所做的那样。engine 会联系 blade 来实现该 change。URL values 可以是：</p><ul class="simple"><li><strong>1</strong> - 将只接受从该 blade host spool 出来的 jobs。</li><li><strong>username</strong> - 将只接受来自指定 user 的 jobs。</li><li><strong>0</strong> - 将接受来自任何人的 jobs。</li><li><strong>default</strong> - 将 blade 恢复为 profile settings，或恢复为 startup 时通过 command line options 设置的 state。</li></ul><p>通过 URL 发送的 values 是 sticky 的，会一直 persist，直到被另一个 URL 更改，或直到 blade 完全 restarted。需要特别注意，URL settings <em>会</em> override command line options <em>以及</em> profile settings 配置文件设置。<br/> </p></li></ul></div><div class="section"><h3 id="NIMBY-WorkingwithAuthentication">Working with Authentication（处理身份认证流程）</h3><p>从 Tractor 1.5 版本开始，scripts 现在可以通过 engine 进行 authenticate。NIMBY application 支持三种不同方式来处理 authentication 所需的 password。</p><ul><li><p class="first"><strong>Direct Prompt（直接提示）</strong></p><p>如果 tractor system 启用了 authentication，并且没有使用 command-line option 提供必要的 login password，nimby application 会在 terminal 中提示输入一次 password。<br/> </p></li><li><p class="first"><strong>Password in the Clear（明文密码）</strong></p><p>如果 password security 不重要，可以使用 --pass option 在 command line 上指定 password。注意，这并不安全，process searches 或 history searches 会暴露此 password。<br/> </p></li><li><p class="first"><strong>Password Contained in a Configuration File（配置文件中的密码）</strong></p><p>发送 password 的更安全方法，是使用 --configfile command line option。此 parameter 指定的 file 是 JSON file，至少应在 tractorconfig dictionary 中包含 user 和 passwd information。</p><p>此 file 预期应由 system level file permissions 妥善保护。</p><p>file format 应如下所示：</p><pre style="margin-left: 25.0px;" class="literal-block">{
+  &quot;tractorconfig&quot;: {
+      &quot;monitor&quot;: &quot;tractor-engine&quot;,
+      &quot;port&quot;: 8080,
+      &quot;user&quot;: &quot;buildrobot&quot;,
+      &quot;passwd&quot;: &quot;fixem&quot;
+  }
+}
+</pre></li></ul><p>注意，configuration file 可能包含其他 information，供同样需要 authentication 的其他 tractor scripts 读取。NIMBY application 会读取并使用上文所示 Tractor config dictionary 中定义的任何 information。</p></div>
+  </article>
+</main>
+</body>
+</html>

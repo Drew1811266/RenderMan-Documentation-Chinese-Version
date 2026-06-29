@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Adding Displacement</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Adding Displacement</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFH27/544640621/Adding+Displacement">https://rmanwiki-27.pixar.com/space/RFH27/544640621/Adding+Displacement</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>要为几何添加 Displacement（置换），首先需要使用 PxrDisplace 搭建 material network（材质网络），如 <a href="544644642-Using Displacement.html" rel="nofollow">此处</a>所示；完成后，还需要为几何添加 displacement settings（置换设置）。</p><p>这些参数可在 RenderMan &gt; Prototype Attributes &gt; Shading &gt; Displacement（RenderMan &gt; 原型属性 &gt; 着色 &gt; 置换）下找到；至少需要将 primvars:displacementbound:sphere 设置为大于 0 的值，确保置换后的表面有足够包围范围，避免渲染时被裁切。这是启用置换边界的最低要求。 </p><p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="997" loading="lazy" src="../../attachments/544640621/RenderMan_Displacement.gif" data-image-src="../../attachments/544640621/RenderMan_Displacement.gif" data-height="548" data-width="997" data-unresolved-comment-count="0" data-linked-resource-id="544640635" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Displacement.gif" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/gif" data-linked-resource-container-id="544640621" data-linked-resource-container-version="1" data-media-id="ed351850-c94a-4c7b-8453-c576400cc897" data-media-type="file"></span><p /><p>如果出现 tearing（撕裂），请在 Prototype Attributes &gt; Geometry &gt; Polygon（原型属性 &gt; 几何 &gt; 多边形）下选择 Smooth Normals 和 Smooth Displacement；这会平滑法线与置换结果，减少多边形边界处的裂缝，通常用于解决置换后表面破裂或接缝明显的问题。 </p><p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="997" loading="lazy" src="../../attachments/544640621/RenderMan_Displacement_Dicing.gif" data-image-src="../../attachments/544640621/RenderMan_Displacement_Dicing.gif" data-height="801" data-width="997" data-unresolved-comment-count="0" data-linked-resource-id="544640638" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Displacement_Dicing.gif" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/gif" data-linked-resource-container-id="544640621" data-linked-resource-container-version="1" data-media-id="131883a8-521f-4ca8-925a-ff9eb7f70749" data-media-type="file"></span><p />
+  </article>
+</main>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>macOS License Server</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>macOS License Server</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/REN27/542212592/macOS+License+Server">https://rmanwiki-27.pixar.com/space/REN27/542212592/macOS+License+Server</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>If you installed the License Server using the RenderMan Installer then you already have the pixar.license file you need in:</p><p><sup> /Applications/Pixar/pixar.license</sup></p><p>If you installed by downloading and running the package installer, then after the installation run the Pixar LicenseApp, which is normally located here:</p><p><sup> /Applications/Pixar/PixarLicense-LA-23.0./LicenseApp/bin/LicenseApp</sup></p><p>This will help you download and install the license file for the license server. When LicenseApp discovers there is no license file it will look like:</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="600" loading="lazy" src="../../attachments/542212592/mac_licapp_nolicense.png" data-image-src="../../attachments/542212592/mac_licapp_nolicense.png" data-height="421" data-width="450" data-unresolved-comment-count="0" data-linked-resource-id="542212606" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="mac_licapp_nolicense.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542212592" data-linked-resource-container-version="1" data-media-id="836f6869-fda2-45e6-add8-20395a237186" data-media-type="file"></span><p> </p><p>Click the &quot;Get License&quot; button to download a new license file for the license server. <span class="legacy-color-text-default">It will place this license file in:</span></p><p><span class="legacy-color-text-default"> </span></p><p><sup>/Applicaitons/Pixar/pixar.license</sup></p><p>If you do have a license, but the license server has not yet been started, RenderMan will report a license error:</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="dcb63c74-bda4-4e85-8b64-de6b254221ac" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">R50005 {SEVERE}  License error - code 111:  connect Connection refused
+R50005 {CONTINUED} license source: 9010@mylicserver</pre>
+</div></div><p>If you then run the LicenseApp, it will likewise report that it was not able to run contact the license server.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="600" loading="lazy" src="../../attachments/542212557/licenseAppServerDown.png" data-image-src="../../attachments/542212557/licenseAppServerDown.png" data-height="521" data-width="529" data-unresolved-comment-count="0" data-linked-resource-id="542212575" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="licenseAppServerDown.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542212557" data-linked-resource-container-version="1" data-media-id="f7579382-b6cc-40cb-95c0-b5385aa7a728" data-media-type="file"></span><p>The LicenseApp is a useful tool for indicating the current state of your license server, it can be run on the client machines as well and will remotely query the server for the status.</p><h3 id="macOSLicenseServer-SettinguptheLicenseServiceonmacOS">Setting up the License Service on macOS</h3><p>Before the License Server can be started, it must be installed as a service on the macOS machine that the floating license is keyed to. To do this, execute the following command in a shell window:</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="2cf8f37d-9038-4db1-8f10-df86e2916e8c" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">sudo /Applications/Pixar/PixarLicense-LA-23.0/macOS_installService.sh 23 /Applications/Pixar</pre>
+</div></div><h3 id="macOSLicenseServer-StartingtheLicenseServer">Starting the License Server</h3><div class="confluence-information-macro confluence-information-macro-warning conf-macro output-block" data-hasbody="true" data-macro-id="26266174-4b4e-4dc5-a637-1b3b7ec04233" data-macro-name="warning"><span class="aui-icon aui-icon-small aui-iconfont-error confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>NOTE: You must setup the license service using the command outlined above to ensure that the service can be easily started and stopped.</p></div></div><p> </p><p>To start the license service, execute the following command in a shell window:</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="f3ed07ae-b56b-402e-bb49-7aa5c45332f2" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">sudo launchctl load /Library/LaunchDaemons/com.pixar.renderman.LicenseServer.plist</pre>
+</div></div><p>When the License Server is running correctly, the LicenseApp program will display information about license features and the counts:</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="600" loading="lazy" src="../../attachments/542212557/lin_licapp_withlicense.png" data-image-src="../../attachments/542212557/lin_licapp_withlicense.png" data-height="430" data-width="454" data-unresolved-comment-count="0" data-linked-resource-id="542212572" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="lin_licapp_withlicense.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542212557" data-linked-resource-container-version="1" data-media-id="5f02e820-c2b2-440e-ac3d-830687db15d4" data-media-type="file"></span><h3 id="macOSLicenseServer-StoppingtheLicenseServer">Stopping the License Server</h3><p>If you need to stop the license service to have it reset to read a new license file, execute the following command in a shell window:</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="6efb6969-046c-4d23-886d-003bf1dbceb0" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">sudo launchctl unload /Library/LaunchDaemons/com.pixar.renderman.LicenseServer.plist</pre>
+</div></div><p>When the License Server is no longer running, the LicenseApp program will display that information:</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="600" loading="lazy" src="../../attachments/542212557/licenseAppServerDown.png" data-image-src="../../attachments/542212557/licenseAppServerDown.png" data-height="521" data-width="529" data-unresolved-comment-count="0" data-linked-resource-id="542212575" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="licenseAppServerDown.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542212557" data-linked-resource-container-version="1" data-media-id="f7579382-b6cc-40cb-95c0-b5385aa7a728" data-media-type="file"></span><p>RenderMan and other plugins will no longer execute.</p><h3 id="macOSLicenseServer-RestartingtheLicenseServer">Restarting the License Server</h3><p>Every time you update your license file, you will then need to restart the license service to pick up the new license contents. The license can be restarted by typing the following commands into a shell:</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="9d1a161b-3e28-45de-a34a-1c46b30fde49" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">sudo launchctl unload /Library/LaunchDaemons/com.pixar.renderman.LicenseServer.plist
+sudo launchctl load /Library/LaunchDaemons/com.pixar.renderman.LicenseServer.plist</pre>
+</div></div><p> </p><p>The license server is installed, by default, in /opt/pixar/PixarLicense-LA-&lt;version&gt; and contains the following components and scripts:</p><p>The license server is installed, by default, in /Applications/Pixar/PixarLicense-LA-&lt;version&gt; and contains the following components and scripts:</p><ol start="1"><li><p /><ul><li><p><strong>PixarLicenseServer </strong>- the license server program</p></li><li><p><strong>LicenseApp/bin/LicenseApp </strong>- the license status application</p></li><li><p>queryPRMan.py - an example python script for querying the license server</p></li><li><p>macOS_installService.sh - a script used by the installer to setup the license server system service</p></li></ul></li></ol><p> </p>
+  </article>
+</main>
+</body>
+</html>

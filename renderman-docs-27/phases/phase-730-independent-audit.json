@@ -1,0 +1,475 @@
+{
+  "phase": 730,
+  "file": "TRA/22184250-Logging.html",
+  "file_id": "36ce3a1059",
+  "source_items": 96,
+  "translation_rows": 96,
+  "source_items_match_translation_rows": true,
+  "duplicate_rows": [],
+  "missing_item_ids": [],
+  "extra_item_ids": [],
+  "tag_fingerprint_identical": true,
+  "rendered_markup_matches_target_markup": true,
+  "glossary_violations": [],
+  "direct_placement_missing": [],
+  "actionable_long_source_residuals": [],
+  "accepted_long_source_residuals": [
+    {
+      "item_id": "36ce3a1059:6",
+      "source": "Command Output Logs"
+    },
+    {
+      "item_id": "36ce3a1059:8",
+      "source": "command output logs"
+    },
+    {
+      "item_id": "36ce3a1059:15",
+      "source": "--log=/var/log/tractor-engine.log"
+    },
+    {
+      "item_id": "36ce3a1059:37",
+      "source": "SiteCmdLogServerStartup"
+    },
+    {
+      "item_id": "36ce3a1059:53",
+      "source": "SiteCmdLogRetrievalURL"
+    },
+    {
+      "item_id": "36ce3a1059:79",
+      "source": "SiteCmdLogRetrievalURL"
+    }
+  ],
+  "actionable_ascii_heavy_residuals": [],
+  "accepted_ascii_heavy_residuals": [
+    {
+      "item_id": "36ce3a1059:1",
+      "text": "Tractor 会生成几种类型的 log file：",
+      "ascii_letters": 14,
+      "cjk_chars": 8
+    },
+    {
+      "item_id": "36ce3a1059:3",
+      "text": "engine 会输出有关自身 status 和 ongoing activity 的 log，例如新 job 被 spooled，或 command 被分配给 blade。这些 log 会写入 engine command-line 上通过 tractor-engine --log=filename option 指定的 file。",
+      "ascii_letters": 106,
+      "cjk_chars": 29
+    },
+    {
+      "item_id": "36ce3a1059:5",
+      "text": "运行在 server host 上的每个 blade，都会输出有关 tractor-blade process 自身 status 及其 ongoing activity 的 log，例如准备从用户 job 启动 command。这些 blade log 会写入 blade command-line 上通过 tractor-blade --log=filename option 指定的 file。",
+      "ascii_letters": 125,
+      "cjk_chars": 38
+    },
+    {
+      "item_id": "36ce3a1059:7",
+      "text": "由 tractor-blade 启动的每个 command，例如 prman，也可以生成由 Tractor 捕获的 log output。其中包括 launched program 写入 stdout 或 stderr 的任何内容。这些是",
+      "ascii_letters": 67,
+      "cjk_chars": 32
+    },
+    {
+      "item_id": "36ce3a1059:8",
+      "text": "command output logs",
+      "ascii_letters": 17,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "36ce3a1059:11",
+      "text": "：当 engine 或 blade 作为 systemd service 安装时，默认由 journald 处理 logging，因此不需要 --log option。",
+      "ascii_letters": 49,
+      "cjk_chars": 17
+    },
+    {
+      "item_id": "36ce3a1059:12",
+      "text": "日志轮转（Log Rotation）",
+      "ascii_letters": 11,
+      "cjk_chars": 4
+    },
+    {
+      "item_id": "36ce3a1059:13",
+      "text": "Engine logs：",
+      "ascii_letters": 10,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "36ce3a1059:14",
+      "text": "可以使用 Linux logrotate facility 等外部机制进行轮转。engine 收到 SIGHUP 后，会关闭由其 --log command-line option 指定的 file，然后重新打开同一 filename 继续 logging。Linux logrotate facility 或类似工具可以根据站点指定的 criteria 轮转 log：先通过 mv 操作移动 log file（重命名它，同时 Tractor 保持同一个 i-node 打开），然后向 Tractor 发送 SIGHUP，使其创建新的 log file。注意：如果 system configuration 对 engine log 使用 logrotate，并且同时使用 \"compress\" option，则也应为 engine log handler 添加 \"delaycompress\" option。logrotate 在创建 gz file 时存在 race condition，可能会在 engine 对旧 log 的未完成 log transaction 结束之前移除旧 log，而不是仅仅重命名它。下面是一个 configuration 示例，例如 /etc/logrotate.d/tractor-engine，假定 tractor-engine process 本身使用以下 option 启动：",
+      "ascii_letters": 352,
+      "cjk_chars": 151
+    },
+    {
+      "item_id": "36ce3a1059:15",
+      "text": "--log=/var/log/tractor-engine.log",
+      "ascii_letters": 25,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "36ce3a1059:17",
+      "text": "Blade logs：",
+      "ascii_letters": 9,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "36ce3a1059:18",
+      "text": "tractor-blade.py 自身的 diagnostic output 会定向到 --log option 指定的 file，或默认定向到 stdout。使用 file 时，它们达到约 25 MB 大小时会自动轮转。Rotation 由 Python 的 logging.handlers.RotatingFileHandler 执行。tractor-blade command line option",
+      "ascii_letters": 132,
+      "cjk_chars": 36
+    },
+    {
+      "item_id": "36ce3a1059:19",
+      "text": "--logrotate=NNN",
+      "ascii_letters": 12,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "36ce3a1059:23",
+      "text": "需要 advanced behavior 的情况下，也可以使用 Python 内置的 \"logging.configs.fileConfig\" scheme 来指定 blade 的 logging configuration。tractor-blade.py option --logconfig=FILE 指定一个 external configuration，假定它采用 Python 内置 logging module 期望的 format。下面是一个 logging config file 示例，它实现默认 logging scheme，但重定向到特定 file：",
+      "ascii_letters": 190,
+      "cjk_chars": 51
+    },
+    {
+      "item_id": "36ce3a1059:26",
+      "text": "的 application output，例如 render，不会进行轮转。对于这些 command，每个 task 会创建一个新的 log file。",
+      "ascii_letters": 41,
+      "cjk_chars": 22
+    },
+    {
+      "item_id": "36ce3a1059:27",
+      "text": "Command Output Logs 详细信息",
+      "ascii_letters": 17,
+      "cjk_chars": 4
+    },
+    {
+      "item_id": "36ce3a1059:28",
+      "text": "command output 的保存方式",
+      "ascii_letters": 13,
+      "cjk_chars": 5
+    },
+    {
+      "item_id": "36ce3a1059:29",
+      "text": "每个 tractor-blade 启动的 individual command 的 output 会写入 per-task logfile。blade 还会过滤 command output stream，以提取",
+      "ascii_letters": 73,
+      "cjk_chars": 16
+    },
+    {
+      "item_id": "36ce3a1059:30",
+      "text": "progress indicator",
+      "ascii_letters": 17,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "36ce3a1059:31",
+      "text": "，用于生成 user-interface update，例如 percent-done bar。",
+      "ascii_letters": 33,
+      "cjk_chars": 6
+    },
+    {
+      "item_id": "36ce3a1059:32",
+      "text": "blade.config profile setting",
+      "ascii_letters": 25,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "36ce3a1059:33",
+      "text": "CmdOutputLogging",
+      "ascii_letters": 16,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "36ce3a1059:34",
+      "text": "控制每种 blade 如何执行这些写入。Output log 可以通过 Tractor-specific TCP socket connection 传递到 central Tractor（Python）logging server；也可以使用标准（network）file i/o（例如 NFS）\"directly\" 写入 central fileserver 上的 shared logging area。",
+      "ascii_letters": 139,
+      "cjk_chars": 32
+    },
+    {
+      "item_id": "36ce3a1059:35",
+      "text": "对于已经将 central fileserver 用于其他用途的站点，\"direct logging to a fileserver\" 方法应视为 best-practice strategy，因为它性能更高，通常更稳健，并且 output 能以自然方式供其他 tool 和 user 使用。此 fileserver 方法确实要求 shared network logfile location 可由每个 blade 写入。每种 blade profile 所看到的 share/mount 名称可以不同，这取决于该类 system 的 OS 和 mounting requirement。",
+      "ascii_letters": 169,
+      "cjk_chars": 78
+    },
+    {
+      "item_id": "36ce3a1059:36",
+      "text": "使用 Tractor-specific logging server 的替代方法是默认设置，因为它不要求站点在所有 blade 上配置并 mount central fileserver。不过，它要求 logging server 本身必须启动，并指向正确位置来存储 log file。它还必须有权限在 logserver host 上未使用的 network port 上开始 listening connection。启动 server 的 command 通过",
+      "ascii_letters": 131,
+      "cjk_chars": 69
+    },
+    {
+      "item_id": "36ce3a1059:37",
+      "text": "SiteCmdLogServerStartup",
+      "ascii_letters": 23,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "36ce3a1059:38",
+      "text": "setting 在 tractor.config file 中指定。如果设置了该项，则 tractor-engine 会在 engine 启动时将 logserver 作为 subprocess 启动。hostname 和 port 的选择也必须与 blade.config 中每种 blade type 的 CmdOutputLogging setting 协调。",
+      "ascii_letters": 117,
+      "cjk_chars": 36
+    },
+    {
+      "item_id": "36ce3a1059:39",
+      "text": "command output log 的检索方式",
+      "ascii_letters": 16,
+      "cjk_chars": 5
+    },
+    {
+      "item_id": "36ce3a1059:40",
+      "text": "检索并查看 output log 的机制，与上面选择哪种方法把 output file 传递到 central log location 无关。",
+      "ascii_letters": 37,
+      "cjk_chars": 23
+    },
+    {
+      "item_id": "36ce3a1059:41",
+      "text": "Tractor Dashboard 以及其他感兴趣的 application 可以通过 HTTP request 检索 log text。例如，web browser 可以直接获取并显示 log text。要使其工作，需要一个 HTTP server 向 requester 提供这些 file。此 webserver 可以是 Tractor Engine 本身，也可以是站点已在使用的现有 web server（Apache 等）。它只需要能通过 document root scheme 访问 logfile。",
+      "ascii_letters": 147,
+      "cjk_chars": 68
+    },
+    {
+      "item_id": "36ce3a1059:42",
+      "text": "每个 captured output log file 使用的名称，会根据与 command 关联的 job identifier 和 task identifier 选择。这样 file 可以很容易被 user interface 引用，也可以在不再需要时清理。",
+      "ascii_letters": 72,
+      "cjk_chars": 38
+    },
+    {
+      "item_id": "36ce3a1059:43",
+      "text": "filename template string 可以包含如下 substitution pattern：",
+      "ascii_letters": 41,
+      "cjk_chars": 6
+    },
+    {
+      "item_id": "36ce3a1059:44",
+      "text": "将命令 Output 输出记录到 Central Fileserver",
+      "ascii_letters": 23,
+      "cjk_chars": 8
+    },
+    {
+      "item_id": "36ce3a1059:45",
+      "text": "把 Tractor command output 记录到 central fileserver 应视为一种",
+      "ascii_letters": 37,
+      "cjk_chars": 9
+    },
+    {
+      "item_id": "36ce3a1059:46",
+      "text": "best-practice",
+      "ascii_letters": 12,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "36ce3a1059:48",
+      "text": "整体 performance 是让每个 blade 写入自身 command log output 的基本动机。与所有 log 都通过 TCP socket 自动回流到 common location 的方案相比（例如 Alfred command log 的情况），此 scheme 管理起来没有那么简单。然而，对于非常大量的 output，例如使用每个 pixel 都有 print statement 的 shader 进行 rendering，将数据写入每个 blade 的 local disk 非常快，且不会产生 network traffic。使用 \"local\" file operation 直接写入 high-performance network share 的效果也几乎同样好，并在 log access 和 management 方面提供许多额外好处。每个 blade 看到的 logging location 由",
+      "ascii_letters": 232,
+      "cjk_chars": 117
+    },
+    {
+      "item_id": "36ce3a1059:49",
+      "text": "CmdOutputLogging",
+      "ascii_letters": 16,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "36ce3a1059:50",
+      "text": "setting 在 blade.config file 中定义。关于此 setting 的更多详情见下文。",
+      "ascii_letters": 29,
+      "cjk_chars": 15
+    },
+    {
+      "item_id": "36ce3a1059:51",
+      "text": "当 user interface 向 tractor-engine 请求 task log 时，engine 实际返回一个（JSON formatted）URL，UI 可以使用该 URL 自行获取 log。此方法让具体 UI implementation 决定如何获取 log，同时也允许 UI 和实际 log server 之间进行 content negotiation。例如，在 mobile device 上查看 log 时，这可能很重要。",
+      "ascii_letters": 126,
+      "cjk_chars": 57
+    },
+    {
+      "item_id": "36ce3a1059:52",
+      "text": "tractor-engine 传递给 UI 的 URL 形式由",
+      "ascii_letters": 18,
+      "cjk_chars": 7
+    },
+    {
+      "item_id": "36ce3a1059:53",
+      "text": "SiteCmdLogRetrievalURL",
+      "ascii_letters": 22,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "36ce3a1059:54",
+      "text": "setting 在主 tractor.config file 中决定。",
+      "ascii_letters": 24,
+      "cjk_chars": 5
+    },
+    {
+      "item_id": "36ce3a1059:55",
+      "text": "下面是实现 centralized logging 所需步骤的摘要：",
+      "ascii_letters": 18,
+      "cjk_chars": 12
+    },
+    {
+      "item_id": "36ce3a1059:56",
+      "text": "选择一个有大量空间的 fileserver，它可以作为 writable directory 被每个 blade host mount。常见 network filesystem scheme 包括 NFS、DFS 和 SMB。",
+      "ascii_letters": 73,
+      "cjk_chars": 23
+    },
+    {
+      "item_id": "36ce3a1059:57",
+      "text": "所选 fileserver share 必须能由每个 blade host 上的 blade process owner 写入；这里指的是",
+      "ascii_letters": 41,
+      "cjk_chars": 17
+    },
+    {
+      "item_id": "36ce3a1059:58",
+      "text": "blade process",
+      "ascii_letters": 12,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "36ce3a1059:60",
+      "text": "由于 blade process 往往在 boot time 作为 \"daemon\" 启动（通过 init.d、launchd 或 Windows 上的 System Services），fileserver mount 通常也必须在 boot time 可用，最好在 blade 启动之前可用。",
+      "ascii_letters": 87,
+      "cjk_chars": 31
+    },
+    {
+      "item_id": "36ce3a1059:61",
+      "text": "每个 blade 启动时会从 central Tractor blade.config file 获取 command logging location 的名称。此 file 由 tractor-engine 按需传递给每个 blade，一个站点应只有一个 blade.config file；它包含",
+      "ascii_letters": 93,
+      "cjk_chars": 33
+    },
+    {
+      "item_id": "36ce3a1059:62",
+      "text": "blade profile",
+      "ascii_letters": 12,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "36ce3a1059:65",
+      "text": "的 blade host 的各种 configuration setting，包括 CmdOutputLogging location。",
+      "ascii_letters": 53,
+      "cjk_chars": 6
+    },
+    {
+      "item_id": "36ce3a1059:66",
+      "text": "用于 command log 的 network share 名称在每个 blade host 看来",
+      "ascii_letters": 31,
+      "cjk_chars": 10
+    },
+    {
+      "item_id": "36ce3a1059:69",
+      "text": "profile entry",
+      "ascii_letters": 12,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "36ce3a1059:70",
+      "text": "的所有 blade，它必须相同。例如，Linux machine 可能使用 automount path，而 Windows machine 可能使用指向 share 的 UNC path。例如：",
+      "ascii_letters": 56,
+      "cjk_chars": 24
+    },
+    {
+      "item_id": "36ce3a1059:71",
+      "text": "\"CmdOutputLogging\": \"logfile=/net/spindles/tractor/cmd-logs/%u/J%j/T%t.log\"",
+      "ascii_letters": 56,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "36ce3a1059:73",
+      "text": "\"CmdOutputLogging\": \"logfile=//spindles/tractor/cmd-logs/%u/J%j/T%t.log\"",
+      "ascii_letters": 53,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "36ce3a1059:74",
+      "text": "请注意，建议格式即使在 Windows 上也使用 forward slash，而不是 backslash。你可以使用标准 Windows backslash notation，但需要把每个 backslash 都写成双反斜杠。这里的 definition 会发送给 blade，并且 backslash 会被当作 escape character（在 python 中）处理。",
+      "ascii_letters": 106,
+      "cjk_chars": 54
+    },
+    {
+      "item_id": "36ce3a1059:75",
+      "text": "注意，administrator 可以对 blade.config 进行 run-time change，并通过向 engine 发送 \"reconfigure\" request，使更新后的版本重新分发给所有正在运行的 blade。",
+      "ascii_letters": 66,
+      "cjk_chars": 32
+    },
+    {
+      "item_id": "36ce3a1059:76",
+      "text": "在启动会使用 central log location 的 blade 之前，务必先创建该位置。还应做一些测试，确保 server host 上的 blade owner 可以在那里创建 subdirectory 并写入。",
+      "ascii_letters": 55,
+      "cjk_chars": 38
+    },
+    {
+      "item_id": "36ce3a1059:77",
+      "text": "然后决定 user interface 应如何通过 URL 访问新 shared location 中的 file。一个有用的方法是在站点中找到一个现有 standard web server，它已经对 common log directory 具有 read access，并可按 request 提供这些 text file。例如，可以在 web server 的 main document root 下添加指向 log repository 的 symbolic link。（另见下方 \"CORS\" 说明。）",
+      "ascii_letters": 148,
+      "cjk_chars": 63
+    },
+    {
+      "item_id": "36ce3a1059:78",
+      "text": "然后修改 engine 的 tractor.config file，使其引用 shared log URL。",
+      "ascii_letters": 35,
+      "cjk_chars": 9
+    },
+    {
+      "item_id": "36ce3a1059:79",
+      "text": "SiteCmdLogRetrievalURL",
+      "ascii_letters": 22,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "36ce3a1059:80",
+      "text": "setting 是一个 URL template，其中包含 requested log file 的 placeholder，engine 会从 UI request 中提供这些值。例如：",
+      "ascii_letters": 60,
+      "cjk_chars": 18
+    },
+    {
+      "item_id": "36ce3a1059:82",
+      "text": "logfile template '%u/J%j/T%t.log' 在 logfile definition 和 retrieval URL 中保持匹配非常重要。",
+      "ascii_letters": 52,
+      "cjk_chars": 11
+    },
+    {
+      "item_id": "36ce3a1059:84",
+      "text": "使用 standard web server 向 Tractor Dashboard 和其他 requester 传递这些 command log 有几个好处。首先，它可以把这类 file i/o 从 Tractor Engine 本身卸载出去。更重要的是，它还允许用户通过 generic web browser 直接浏览 log，只需遍历 web server 提供的 job directory listing 即可。显然，底层 shared fileserver 本身也允许任意 utility 和 script 使用普通 file read operation 访问 log。",
+      "ascii_letters": 168,
+      "cjk_chars": 74
+    },
+    {
+      "item_id": "36ce3a1059:85",
+      "text": "对 \"Inline\" Dashboard Request 的 CORS 跨源访问支持",
+      "ascii_letters": 26,
+      "cjk_chars": 8
+    },
+    {
+      "item_id": "36ce3a1059:86",
+      "text": "在 Tractor Dashboard 中，可以通过双击 job diagram 中的 task box，或从该 task 的右键 menu 中选择 \"Logs\" 来查看 command log。这会在 Dashboard interface \"内部\" 的新 pane 中显示 log。也可以选择名为 \"Logs (in new window)\" 的 menu entry，让 log 显示在新的 independent browser window 中。",
+      "ascii_letters": 131,
+      "cjk_chars": 47
+    },
+    {
+      "item_id": "36ce3a1059:87",
+      "text": "使用 webserver 而不是 tractor engine 来提供这些 log file 时，有一个技术细节：可能需要对 webserver configuration 做一个小改动，才能让它与你 browser 的 \"same-origin security policy\" setting 成功配合。这些 policy 通常很有用，可在某个站点的 javascript 试图在你不知情的情况下访问完全不同 web site 的 resource 时保护 privacy。在某些情况下，如果你",
+      "ascii_letters": 127,
+      "cjk_chars": 84
+    },
+    {
+      "item_id": "36ce3a1059:89",
+      "text": "希望两个 website 协作，例如 tractor-engine 和你的 log webserver，就需要在 log webserver 上明确指定哪些 content 可共享。",
+      "ascii_letters": 51,
+      "cjk_chars": 25
+    },
+    {
+      "item_id": "36ce3a1059:91",
+      "text": "cross-origin resource sharing",
+      "ascii_letters": 26,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "36ce3a1059:94",
+      "text": "，也就是 for short 的简称形式；大多数 webserver 都提供启用方式。基本思路是：Dashboard 由 tractor-engine 提供给 browser 的 html 和 javascript content 组成，有时该 javascript 会向另一个 webserver（log server）发出 HTTP（XHR）request。只有 log server 允许这种 sharing 时，browser 才会允许该 \"cross-site\" transaction。以 Linux 上的 Apache 为例，可以向 /etc/httpd/conf.d 中的新 file 或现有 file 添加类似下面的 text：",
+      "ascii_letters": 188,
+      "cjk_chars": 74
+    },
+    {
+      "item_id": "36ce3a1059:95",
+      "text": "当然，你应使用 centralized log area 的实际 path。你也可以使用比 \"*\" 更严格的 setting；详情请查阅 webserver documentation。",
+      "ascii_letters": 51,
+      "cjk_chars": 25
+    }
+  ],
+  "required_phrase_missing": [],
+  "section_order_positions": [],
+  "section_order_ok": true,
+  "passed": true
+}

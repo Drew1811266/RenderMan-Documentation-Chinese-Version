@@ -1,0 +1,32 @@
+{"item_id":"0480c5e679:0","text":"通过操控 aperture（光圈）创建的 Bokeh"}
+{"item_id":"0480c5e679:1","text":"Bokeh"}
+{"item_id":"0480c5e679:2","text":"是一个术语，用来描述图像中失焦区域的模糊质量。它与摄影机的 aperture（光圈）以及镜头质量有关。图像中失焦的一个点不再被渲染为点，而是一个模糊圆盘。根据镜头对 spherical aberration（球面像差）的校正方式（也就是光线打到镜面边缘造成的缺陷），圆盘可能会被均匀照亮（“constant” bokeh），也可能边缘更亮（“bad” bokeh），或中间附近更亮（“good” bokeh）。"}
+{"item_id":"0480c5e679:3","text":"校正较差的镜头会在焦距距离前方显示一种圆盘，在后方显示另一种圆盘；这有时也可能是可取的，因为这些边缘较暗的圆形可以在周围图像中产生更平滑、轮廓不那么明确的形状。当 aperture（光圈）从最大尺寸收小时，失焦点会被模糊成 aperture 的多边形形状，而不是完美圆形。某些现代摄影机的 aperture blades（光圈叶片）带有弯曲边缘，或具有更多叶片，以尽可能让 bokeh 更接近圆形。"}
+{"item_id":"0480c5e679:4","text":"真实镜头的 aperture 形状。"}
+{"item_id":"0480c5e679:5","text":"RenderMan 的虚拟摄影机可以精细控制 aperture（光圈）的形状和行为。你可以指定 aperture 形状的边数（即 blades/叶片数）、旋转 aperture 的角度、让 aperture 的边向内或向外弯曲（即改变 aperture 的 roundness），并控制 aperture 的 density 以改变亮度形状。"}
+{"item_id":"0480c5e679:6","text":"aperture 形状由"}
+{"item_id":"0480c5e679:7","text":"aperture"}
+{"item_id":"0480c5e679:8","text":"摄影机投影选项控制，例如"}
+{"item_id":"0480c5e679:9","text":"PxrCamera"}
+{"item_id":"0480c5e679:10","text":" 中提供的选项。你可以在保留这些控制项的同时切换 projection。"}
+{"item_id":"0480c5e679:11","text":"Sides:"}
+{"item_id":"0480c5e679:12","text":"diaphragm blades（光阑叶片）的数量严格来说并不控制 bokeh，但会控制 blur circle（模糊圆）的形状（但不控制其中的光照分布）。改变边数会让原本完美的圆形高光按照指定边数呈现分面效果（三边形例如会产生三角形）。"}
+{"item_id":"0480c5e679:13","text":"Angle:"}
+{"item_id":"0480c5e679:14","text":"此项会旋转 aperture，从而旋转失焦点。"}
+{"item_id":"0480c5e679:15","text":"Roundness:"}
+{"item_id":"0480c5e679:16","text":"Roundness 会弯曲 aperture blades（光圈叶片）的边缘，使其外观更圆润，因此也会让高光具有更圆润的形状。"}
+{"item_id":"0480c5e679:17","text":"Density:"}
+{"item_id":"0480c5e679:18","text":"“Good bokeh” 在每个 de-focused point（失焦光点）中心更亮，并向边缘衰减。不过并非每个镜头都有 good bokeh。你可以使用此控制项模拟镜头中优质（或劣质）的光照衰减。默认值 0 提供 constant brightness（恒定亮度，neutral bokeh），-1 表示中心更亮并向边缘衰减（good bokeh），而 1 会产生明亮的边缘光圈（bad bokeh）。"}
+{"item_id":"0480c5e679:19","text":"一些示例（请注意"}
+{"item_id":"0480c5e679:20","text":"Depth Of Field"}
+{"item_id":"0480c5e679:21","text":"必须开启才会产生 Bokeh 效果）："}
+{"item_id":"0480c5e679:22","text":"默认 aperture 是圆形；我们可以通过使用一个失焦的细小亮点看出这一点。通常，失焦到这种程度的点不会可见，因为它的光会在胶片平面上扩散得太开，因此我们必须人为提高它的亮度才能显示出来。得到的图像如下："}
+{"item_id":"0480c5e679:23","text":"将 sides 设为 5 时，aperture 会变成五边形。"}
+{"item_id":"0480c5e679:24","text":"将 angle 设为 36 时，aperture 会逆时针旋转 36 度。"}
+{"item_id":"0480c5e679:25","text":"正 roundness 值会让五边形的边向外弯曲。"}
+{"item_id":"0480c5e679:26","text":"负 roundness 会让五边形的边向内弯曲。注意，由于光线分布在更小的区域内，此处的 bokeh 会稍微更亮。"}
+{"item_id":"0480c5e679:27","text":"正 density 会让 aperture 在边缘透过更多光。"}
+{"item_id":"0480c5e679:28","text":"负 density 会让 aperture 在中心透过更多光。"}
+{"item_id":"0480c5e679:29","text":"我们还可以使用 dofaspect 参数修改“ellipse of confusion”（弥散椭圆）的离心率；它指的是胶片平面上被失焦对象样本击中的区域。大于 1 的值会让模糊在水平方向变大（例如这里的 2.0）："}
+{"item_id":"0480c5e679:30","text":"介于 0 和 1 之间的值会让模糊在垂直方向变大（例如这里的 0.5）。这会模拟 anamorphic lens（变形宽银幕镜头）产生的椭圆形散焦模糊。"}
+{"item_id":"0480c5e679:31","text":"虽然不能作为设置直接控制，但值得注意的是，当光源尺寸接近 circle of confusion（弥散圆）时，光源自身形状也会开始显著影响 bokeh 的形状。例如，如果我们通过默认圆形 aperture 看到的是一个较大的正方形，而不是一个细小点，bokeh 会呈现如下形状（为强调形状，图中未使用 tonemapping）："}

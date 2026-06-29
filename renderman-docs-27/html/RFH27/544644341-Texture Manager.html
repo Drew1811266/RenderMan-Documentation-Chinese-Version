@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Texture Manager</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Texture Manager</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFH27/544644341/Texture+Manager">https://rmanwiki-27.pixar.com/space/RFH27/544644341/Texture+Manager</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>The Texture Manager has one simple role: convert images to RenderMan's texture format, using OpenImageIO or <a href="/wiki/spaces/REN26/pages/19661963/txmake" data-linked-resource-id="19661963" data-linked-resource-version="4" data-linked-resource-type="page">txmake</a>. It handles single images as well as texture atlases (UDIM, Mudbox, ZBrush).</p><p>You can add this pane to Houdini by selecting New Tab and choosing RenderMan Texture Manager at the bottom of the list for <strong>New Pane Type</strong>.</p><h2 id="TextureManager-Userinterface">User interface</h2><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Group 1.png" width="1397" loading="lazy" src="../../attachments/544644341/Group 1.png" data-image-src="../../attachments/544644341/Group 1.png" data-height="625" data-width="1397" data-unresolved-comment-count="0" data-linked-resource-id="546799704" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Group 1.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544644341" data-linked-resource-container-version="6" data-media-id="f7176031-5d00-48df-8ceb-16832e512ea4" data-media-type="file"></span><p /><p>When you open a new scene, the Texture Manager will find all images used as textures and add them to a queue to convert them. The conversion settings will be based on a set of rules defined in a <a href="/wiki/spaces/RFM27/pages/544541201/Texture+Manager#txmakeconfig" data-linked-resource-id="544541201" data-linked-resource-version="10" data-linked-resource-type="page">json file</a> (see below). Use the Settings pane to modify the settings for the currently selected image(s), then the Apply button to re-convert the image(s) with the new settings.</p><p>Just press <strong>Parse Scene</strong> whenever you want new textures to be converted. <strong>Pick Images</strong> and <strong>Pick Directories</strong> allow you to pre-convert images without having to know how to use OpenImageIO or <a href="/wiki/spaces/REN26/pages/19661963/txmake" data-linked-resource-id="19661963" data-linked-resource-version="4" data-linked-resource-type="page">txmake</a>.</p><h3 id="TextureManager-Stop/Starttheconversionqueue">Stop / Start the conversion queue</h3><p>By default, the conversion queue is always running, but sometimes you may want to stop the conversion process.</p><p>The conversion queue can be stopped and restarted by clicking on the icon on the right of the progress bar. When the queue is stopped, the running txmake processes are immediately killed but existing textures are intact. When you restart, it pick up where it left.</p><h3 id="TextureManager-Conversioninformation">Conversion information</h3><p>There is a disk usage and progress indicator at the bottom of the Texture Manager window.</p><p>Each file in the list also has a status icon.</p><h3 id="TextureManager-InteractiveversusBatchrendering">Interactive versus Batch rendering</h3><ul><li><p>During interactive renders, the texture manager will add new textures to the queue and return a temporary texture until the conversion is done. Once done, it will send an update to the renderer and your texture will appear.</p></li><li><p>When you start a <strong>Batch</strong> or a <strong>Preview</strong> render, you need all your textures to be converted first.</p></li></ul><h3 id="TextureManager-Settings">Settings</h3><p><strong>Backend</strong>: <em>OpenImageIO</em> will use the OpenImageIO library for texture conversion, launching rmanoiiotool processes. <em>Legacy</em> will use RenderMan’s txmake processes. This change will take effect after Houdini is restarted.</p><p><strong>Fallback Path</strong>: By default, the texture manager saves the texture next to the source image. If, for any reason, it is impossible to save in that directory, the fallback texture path will be used.</p><p><strong>Ignore Texture</strong>: List of extensions that do not need to be converted by the Texture Manager.</p><p><strong>Workers</strong>: How many worker processes will be launched at the same time. The default is 2 but it is often beneficial to add more processes to speed up the queue.</p><p><strong>Always Fallback</strong>: Always save converted textures in the fallback texture directory.</p><p><strong>Keep Extensions:</strong> Keep the extension of the original input image.</p><p><strong>Show Advanced</strong>: Show more advanced options in the user interface.</p><h2 id="TextureManager-txmakeconfigTextureManagerConfiguration"><span class="confluence-anchor-link conf-macro output-inline" data-hasbody="false" data-local-id="3b33eef9-c507-4606-ae31-d64ffee22629" data-macro-id="30013bc6-1e66-41b4-991d-a45d561dd2f8" data-macro-name="anchor" id="TextureManager-txmakeconfig"><span class="confluence-anchor-link" id="txmakeconfig"> </span></span>Texture Manager Configuration</h2><p>The texture manager uses a set of rules to choose optimal OpenImageIO/txmake parameters based on:</p><ul><li><p>The type of node using the texture: <code>pattern</code>, <code>light</code>, <code>lightfilter</code> or <code>imageplane</code>.</p></li><li><p>A set of base parameters for that type of node</p></li><li><p>one or more rules to modify the base parameters when considering the file's name, the bit depth, etc.</p></li></ul><p>Custom settings can be defined by the <a href="/wiki/spaces/REN26/pages/19661971/Custom+OCIO+Config" data-linked-resource-id="19661971" data-linked-resource-version="3" data-linked-resource-type="page">ocio configuration</a>. </p><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="6ac96918-6eb3-4f84-86cd-98065469b8d7" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>The default rules are built for efficiency and you shouldn't have to modify them unless you have specific pipeline requirements</p></div></div><p />
+  </article>
+</main>
+</body>
+</html>

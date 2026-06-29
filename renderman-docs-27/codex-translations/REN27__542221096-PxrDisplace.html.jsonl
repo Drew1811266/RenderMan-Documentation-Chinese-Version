@@ -1,0 +1,46 @@
+{"id":"70299d67c1ac81dc02fe225d2dc3078b14997382baef73f2d8124ed473ebbd0a","text":"这是一个 displacement plugin，会在当前空间（通常是 object space）中置换表面点 P。它同时支持 scalar 和 vector 输入。在执行实际置换之前，它会先把所有已连接的 scalar 和 vector 输入相加。"}
+{"id":"a52ace420f2175d08b1577a1bea5445e36801229c074ef9ed6c55a73401fd9c2","text":"所有"}
+{"id":"c3987c5416c18a49ec51c538e271d27c9c798378e00d43bbbff457fa5349a772","text":"与 displacement transform 相关的"}
+{"id":"10d2c0859f1c36091e49fe7426fae404f5cd3703837668b0fc0521881b2e5301","text":"函数都位于"}
+{"id":"85d3f5d45df9c9dcfddceb0c407ec06186cc4f4c76c032986a9b2c12a0705d4a","text":"PxrDispTransform"}
+{"id":"e3c4a37241b9af7c66d1872d2f1f932e592a37f40a95aa243e41621696c055d7","text":"pattern 中。"}
+{"id":"9758d8c3c80a7c5f0fe4547999186aeac5340301132f3210c1dc0a77af98dbf8","text":"置换分层函数"}
+{"id":"ba78973ddcf98d4e5369f5e722d681d94f5106895e5d6cf6fa3ca8240fabdc14","text":"都位于"}
+{"id":"ecc4098587d3f352c2205d6b4e2590c250609dadf291b7e4eb59ebca3a8fa2f5","text":"PxrDispScalarLayer"}
+{"id":"488ca18ef60afb3006b759adcf17f7c3ad467e19d618b333e69aa63c5c4ab7f3","text":"PxrDispVectorLayer"}
+{"id":"a0906e78452446b53e350649d2c5c8b35463d3364b97462525549a7d0d800a8c","text":"这种模块化设计没有把所有函数都放进一个大型 displacement plugin，而是将 transform 与 layering 分离开来，为支持不同的生产级置换工作流提供更多灵活性和效率。"}
+{"id":"aec4971b846315c2344b0cc01ed27612957cc22e380fbc4b19c0af96f059e1b0","text":"需要设置 displacement bound（置换边界）才能看到置换。出于性能原因，默认并不总是设置它。先使用较小的值；如果发生裁切，再缓慢增大该值。"}
+{"id":"c965299d8e37125c76e181e32219a21b6f816d538311abb0cc1c35c0edfd07d8","text":"若要匹配旧版 RenderMan 的 Displacement，以下换算可能有用："}
+{"id":"44bda401b3dd561b5a0682e73d34c35977d7439c93157edb4bf5495b454d2852","text":"若要获得类似的细分级别，使用 X 的 shading rate（已弃用）值，大致可换算为使用 sqrt(X) 的 micropolygonlength 值："}
+{"id":"f2872eef0711c369c264aaafb8cf294d662febf113962f649bcb256f135aee62","text":"shading rate（着色率）= 0.25，micropolygonlength = 0.5"}
+{"id":"c2dea6f299f31448f4e79d3c5303cfcd3c9a1fd92123397a63a8a31bba0df9d1","text":"shading rate（着色率）= 1，micropolygonlength = 1"}
+{"id":"f139532e3d38874faad6bf582a95b9448b4449c61c1f4aa227e582310a4eeb37","text":"shading rate（着色率）= 4，micropolygonlength = 2"}
+{"id":"873d143e5456a72636c660393cccd452fd811d0a0ac7dcb7b5f0e1f24c3abf9c","text":"Displacement Space（置换空间）"}
+{"id":"994c2dfdf2e02d9ffb2c9b338866afdf575677ae4f0dd5b6541d2d95b1ab1a50","text":"我们提供两种用于指定 displacement 的渲染空间：world 和 object space。这些设置在"}
+{"id":"ea48db26a448d33a9cf8dce54a30793f1ed5d4626a03934e129f990b9eda4f3c","text":"node 中指定，但在这里解释。"}
+{"id":"f68fee9c4dae22c2ae905cdb532777a3afd6cbd18f6e7a9f4765f1e63304ad3e","text":"默认情况下，RenderMan 会在 Object space 中执行置换。这通常适合雕刻模型。但对某些对象来说，这可能导致不连续。例如，一组一起置换的对象，比如由一组平面组成的环境部件。在 object space 中，它们可能会像下图那样在 patch 之间产生缝隙或不连续。"}
+{"id":"b04f060937ed71e883fe4dfdfae799b5355358464435ee6a5cabd3885a1e2b15","text":"要修正这个特定场景，可以选择 World Space，使用相同的八个 patch 获得下方结果。这会解决海面平面、悬崖和岩石等问题，在这些情况下 displacement 会跨多个形状共享。"}
+{"id":"c210b2e2a0c9b2bb809b4537fe3bdfa035d763c67d643055da6cc4933be852ff","text":"Displacement Types（置换类型）"}
+{"id":"4125d0a64bf90ff739260ae2f8e568f659243d8f0de68fd94c7c2a0414618ff8","text":"置换有两种类型：scalar 和 vector。两类 displacement 的来源都可以是 procedural，也可以是 textured。"}
+{"id":"ba621a908c04adaeda20c756d7dbbd9222632bd9869adf7410d09ebf25b1cc7a","text":"标量置换是一种 float displacement。它只有一个 float 值。因此，它会让 P 向上或向下置换。"}
+{"id":"ab63898e253ef210871a01ef55c77653875662c17ac43aa0f8b511033fb86e10","text":"矢量置换会在 XYZ 三个维度上置换 P。"}
+{"id":"3a2f88bb08a53874aa25c5265b498de20e1d81d5c988f2d4fc4de74e5a4b777f","text":"下方示例展示了使用同一组 displacement values 时，scalar displacement（使用 float，例如 resultF、resultR 等）与 vector displacement（使用 vector，例如 resultRGB、resultXYZ）会产生不同结果。"}
+{"id":"e8756d05615a8b9aac2d138a9ae82553f3231ff237868a66679a30001b4f326b","text":"Input Parameters（输入参数）"}
+{"id":"92c1cdfdf4cb9cf6fcca962f206de36fd5d60db1178bc9461052f8de703a0e06","text":"Enabled"}
+{"id":"95ef715d706092c28fcfa094657b233902a93cf4957ad721b1312d773ac2228c","text":"如果勾选，则启用 displacement。这对调试很有用，因为有时需要关闭 displacement。"}
+{"id":"4e125a3ef68a00b029459c9aa8aa94aa07e74cc54188ffef7f60f38f016e61ca","text":"Gain"}
+{"id":"5e34fc63def9ef6c9c9c4c6966dc618b7449271728833a528b5f22b56c7b5d87","text":"displacement 的 Gain。如果为零，则不会产生 displacement。较高数值会产生更大的 displacement。注意，如果它超过设置的 Displacement Bounds，可能会造成问题，并会在渲染时打印警告。"}
+{"id":"ddf9afdd443e2577dd48cedfa6b905a1cb7c215b7e3d85564f6f71a7a8484be4","text":"Scalar Displacement"}
+{"id":"fd7401edb5f69976508885ac98c8aada9fc642816668fb9a9d8660a65e098e08","text":"Scalar displacement 输入。这是一个 float displacement。可以将它连接到"}
+{"id":"ccc6ebd6189c8d8f6fed82ba1bfef6ebca467a2b94a4677ddb9068b32719f8d7","text":"PxrTexture"}
+{"id":"70e01501f40383473076aa27a1588479dd9434271eec3007dee0e576e63f27d2","text":"pattern node 或任何 float pattern node。"}
+{"id":"b84c3fc76a6d996fe5573a9b78d2502728998886dc853d641cc50b65d37629ab","text":"Vector Displacement"}
+{"id":"8688ae8f96fae90ca82de08866c099a52434486958f2b48f145126b6af00b651","text":"Vector displacement 输入。Vector displacement data 是一个三通道数据文件，即 XYZ。可以将它连接到"}
+{"id":"233c2c0b4901844d284a8a0c121f49d1366f772fd517e37b87d41411b1543e4a","text":"pattern node，或任何输出 vector 或 color 的 pattern node。"}
+{"id":"a0e3ef84c6baad0d1cd7c45ce62787c8ee14fa594680edad8074686b0218fffa","text":"Model Displacement"}
+{"id":"d8d5c264772b4482f4ad225c89b5e58c78cce2e44d759a2314aa86dbe8bc09cf","text":"Model Displacement 是模型的 vector displacement。它会加到上面的 Vector Displacement 上。"}
+{"id":"ca6dee6655b8fc044863f0763c280d6df6066c38aa0d6452ea288b8ae345a8e4","text":"建模师使用 Mudbox 或 ZBrush 雕刻模型并不少见。随后 shading artist 会通过程序化创建 vector displacement 来做 look development，以添加更多细节。因此，同时提供 Model Displacement 和 Vector Displacement 可支持这种灵活工作流。"}
+{"id":"81e5982237db0a6ff4e42c335e2b9ba50674ab4184b5a15c888b532a0b683b76","text":"性能提示："}
+{"id":"4f644ccbec711dcd4dd4f707596f39cf10c20889e2fee3849b34ca4d9bd1d922","text":"如果需要从渲染相机（位于最终帧的正确位置）获得更高质量，可以使用 Micropolygon Length 并缓慢降低该数值来减小多边形尺寸（减小最终多边形尺寸以获得更细的细节）。"}
+{"id":"62aa522426b7998c2b9b92f32e6759160980a8ec0c39d607436f028996ccfed9","text":"始终使用能够产生正确且完整 displacement 的最小 bounding box 设置。"}
+{"id": "6201111b83a0cb5b0922cb37cc442b9a40e24e3b1ce100a4bb204f4c63fd2ac0", "item_id": "a412480d79:10", "text": "和"}

@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Stylized Lines</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Stylized Lines</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/REN27/542221920/Stylized+Lines">https://rmanwiki-27.pixar.com/space/REN27/542221920/Stylized+Lines</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="900" loading="lazy" src="../../attachments/542221920/RenderMan_StylizedLooks_Lines_v02.jpg" data-image-src="../../attachments/542221920/RenderMan_StylizedLooks_Lines_v02.jpg" data-height="720" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="542221934" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_StylizedLooks_Lines_v02.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542221920" data-linked-resource-container-version="1" data-media-id="fb63544f-3e00-4245-95a5-3b37bd2abf9f" data-media-type="file"></span><p>PxrStylizedLines filter 允许你为 Stylized 渲染添加线稿。它可以单独用于技术制图外观，也可以与 toon 和 hatching 结合，创造更有创意的外观。你甚至可以把多个 PxrStylizedLines filter 相互叠加，创建颜色、破碎和 width 变化，以模拟各种传统线稿技法。 </p><p><br/></p><div class="conf-macro output-block" data-hasbody="false" data-macro-name="include" data-macro-id="bd397252-f22a-4b03-8e7e-a68f1a098d0d" data-layout="default"><h3 id="StylizedLines-Result">Result（结果）</h3><p>使用这些设置预览特定 AOV，帮助开发创意线稿。</p><ul><li><p><em><strong>Disable（禁用）</strong> </em>- 关闭此节点；如果前面已连接另一个 DisplayFilter，则显示该串联链之前的 beauty，否则在没有其他 DisplayFilter 节点连接时显示常规 beauty 渲染</p></li><li><p><strong><em>Final Lines Comp </em>- </strong>查看 Final Lines 输出，它会根据 Compositing Page 中所选模式合成到上一层之上</p></li><li><strong><em>Final Lines </em>- </strong>仅查看线条输出</li><li><em><strong>Visualizer - </strong></em>此分隔符下方的菜单项表示主要用于调试和可视化的模式</li><li><strong><em>Final Lines Invert </em></strong>- 线条的反相可视化</li><li><em><strong>Final Lines Alpha </strong></em>- 由线条生成的 alpha 遮罩通道。</li><li><p><em><strong>Line Thickness from PxrStylizedControl -&nbsp;</strong></em>可视化插入到 Line Thickness Input 的任何 pattern 或纹理所生成的线条粗细，该输入属于你的 <em><strong>PxrStylizedControl</strong></em> 节点。</p></li><li><p><strong><em>Line Thickness from Lighting -</em> </strong>可视化由场景光照生成的 Line Thickness</p></li><li><strong>Signal Luminance</strong> - 用于将颜色转换为灰度的正确 RGB 权重；目前未在任何模式中使用，只作为 visualizer</li><li><strong>Signal Energy</strong> - 此节点创建并用于混合 hatching 的内部 white shader pass<br/><br/><br/></li></ul><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="eea8e6ca-a1ab-4e73-a75b-7cfd357b1eb3" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><strong>Pro Tip:<br/></strong>在交互式渲染期间，尝试更改 <em><strong>Result（结果） </strong></em>下拉菜单，以切换不同模式</div></div><p><br/></p><hr/><h2 id="StylizedLines-LineDetectionPage"><br/>Line Detection Page</h2><h4 id="StylizedLines-Type">Type</h4><p>线条检测类型。根据选择，会选取不同 data AOV 来运行线条检测：</p><p><strong>Outline</strong> - 基于对象 alpha 生成线条<br/><strong>Sections</strong> - 基于 random id 生成线条<br/><strong>LineNZ</strong> - 基于表面法线的 X、Y 分量与 Z depth 的组合生成线条，适合单位尺度<br/><strong>Curvature</strong> - 基于表面法线变化生成线条<br/><strong>Camdist</strong> - 基于摄像机距离变化生成线条<br/><strong>Custom AOV</strong> - 使用下面定义的 custom AOV</p><h4 id="StylizedLines-DataAOV">Data AOV</h4><p>用于进行线条检测的 color AOV 名称。&nbsp;</p><p>通常这是 diffuse，但也可以在这里放入 light AOV，根据灯光发射决定照片写实与 Stylized 之间的过渡。此 AOV 必须在 Maya/Katana/Houdini 中设置，否则 DisplayFilter 会退出。</p><h4 id="StylizedLines-WriteToTypeAOV">Write To Type AOV</h4><p>用线条检测的结果覆盖上面 Type 中选择的 Data AOV。通常在计算出线条检测之后，我们不再需要原始 data AOV；因此出于可视化和合成目的，会用线条检测的最终结果写回覆盖此 AOV。</p><h4 id="StylizedLines-Weight">Weight</h4><p>在线条检测加权过程中获得变化</p><p>不同 Weight type 的图表（interactive graph&nbsp;<a class="external-link" href="https://www.desmos.com/calculator/q2pkrrwv8h" rel="nofollow">https://www.desmos.com/calculator/q2pkrrwv8h</a>):</p><p><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/542235412/graph-distancetocenter-bell-hermite-sigmoid-labelled.png" data-image-src="../../attachments/542235412/graph-distancetocenter-bell-hermite-sigmoid-labelled.png" data-unresolved-comment-count="0" data-linked-resource-id="542235430" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="graph-distancetocenter-bell-hermite-sigmoid-labelled.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542235412" data-linked-resource-container-version="1" data-media-id="d1715a0d-120c-412b-b3cd-047ff2e3da24" data-media-type="file"/></span></p><h4 id="StylizedLines-Activation">Activation</h4><p>在线条检测加权过程中获得变化。可在 Spline（用户自定义控制点）或 Sigmoid 之间选择。</p><h4 id="StylizedLines-SigmoidSharpness">Sigmoid Sharpness</h4><p>See:&nbsp;<a class="external-link" href="https://www.desmos.com/calculator/g4jbxcvtqz" rel="nofollow">https://www.desmos.com/calculator/g4jbxcvtqz</a>&nbsp;并修改 sharpness 变量 “a”</p><h4 id="StylizedLines-SigmoidOffset">Sigmoid Offset</h4><p>&nbsp;See:&nbsp;<a class="external-link" href="https://www.desmos.com/calculator/g4jbxcvtqz" rel="nofollow">https://www.desmos.com/calculator/g4jbxcvtqz</a>&nbsp;并修改 offset 变量 “o”</p><p><br/></p><hr/><h2 id="StylizedLines-LineThicknessPage">Line Thickness Page</h2><h4 id="StylizedLines-LineThickness">Line Thickness</h4><p>线条的厚度，以 pixels 计量</p><p><br/></p><hr/><h2 id="StylizedLines-LineThicknessRemapPage">Line Thickness Remap Page</h2><h4 id="StylizedLines-byPxrStylizedControl">by PxrStylizedControl</h4><p>Multiply：将 Line Thickness 乘以 PxrStylizedControl 上逐对象的 Line Thickness 值</p><h4 id="StylizedLines-PxrStylizedControlScale">PxrStylizedControl Scale&nbsp;</h4><p>全局缩放 Line Thickness。如果你已逐对象设置 Line Thickness，且它们的值各不相同，当你提高渲染分辨率时，可使用此全局 scale 增加或减少所有线条的 Line Thickness，因为它们基于 pixel width。</p><h4 id="StylizedLines-byZDepth">by Z Depth</h4><p>Multiply Line Thickness by Z Depth：将 Line Thickness 乘以 Z Depth</p><h4 id="StylizedLines-CamDistZMin">Cam Dist Z Min</h4><p>Remap 摄像机距离：Z 上的 Linear step Min（来自 lineNZ 的蓝色通道）</p><h4 id="StylizedLines-CamDistZMax">Cam Dist Z Max</h4><p>Remap 摄像机距离：Z 上的 Linear step Max（来自 lineNZ 的蓝色通道）</p><h4 id="StylizedLines-ZMinThicknessScale">Z Min Thickness Scale</h4><p>在 Cam Dist Z Min 处，按此数值缩放 Line Thickness</p><h4 id="StylizedLines-ZMaxThicknessScale">Z Max Thickness Scale</h4><p>在 Cam Dist Z Max 处，按此数值缩放 Line Thickness</p><h4 id="StylizedLines-byLighting">by Lighting</h4><p>Multiply Line Thickness by Lighting signal：将 Line Thickness 乘以 Lighting signal（在 Visualizer 下拉菜单中查看 Line Thickness From Lighting 以查看该 signal）</p><h4 id="StylizedLines-LowMult">Low Mult</h4><p>Scale：在阴影中按此值缩放（multiply）Line Thickness</p><h4 id="StylizedLines-HighMult">High Mult</h4><p>Scale：在受光区域按此值缩放（multiply）Line Thickness</p><h4 id="StylizedLines-Invert">Invert</h4><p>反转上面的 min/max：使阴影中的线条更粗</p><h4 id="StylizedLines-Gamma">Gamma</h4><p>对光照响应应用 gamma curve，以驱动 thickness</p><p><br/></p><hr/><h2 id="StylizedLines-InputPage">Input Page</h2><h4 id="StylizedLines-Signal">Signal</h4><p>用于 Line Color 和由光照驱动的 Line Thickness 的 light Signal color AOV 名称。通常为 diffuse；也可以在这里放入任何 light AOV。此 AOV 必须在 Maya/Katana/Houdini 中设置，否则 DisplayFilter 会退出。</p><h4 id="StylizedLines-Mode">Mode</h4><p>在底层，会基于 Signal AOV 创建一个白色 shader 近似来驱动 Lines。默认使用 Signal AOV 的 RGB 分量平均值，但也可以用 NPRalbedo AOV 或 albedo AOV 中的纯 albedo，去除 Signal AOV 光照结果中的 albedo 分量。如果选择 NPRalbedo AOV，则必须在 Stylized Controller Pattern 节点中设置 Albedo Color。</p><p><br/></p><hr/><h2 id="StylizedLines-DilationSortingPage">Dilation Sorting Page</h2><h4 id="StylizedLines-Enable">Enable</h4><p>开启后：会将参与生成线条的信号（albedo color、thickness、z-depth 等）膨胀到几何体外，因为线条检测会越出几何体。如果 Dilate Sort 关闭，几何体外不正确的数据会产生不理想的双线。它还会排序，为更靠近摄像机的对象分配更高优先级。</p><h4 id="StylizedLines-Radius">Radius</h4><p>用于膨胀信号的 Radius 大小，以 pixels 计。</p><h4 id="StylizedLines-DepthScale">Depth Scale</h4><p>Scale Z depth：根据场景尺度缩放 Z depth 以进行排序</p><h4 id="StylizedLines-Weight.1">Weight</h4><p>与 Line thickness edge detection 相同的 Weight 类型，但用于 Dilate Sort radius</p><h4 id="StylizedLines-UseAlpha">Use Alpha</h4><p>如果对象有 alpha channel：camera depth 上的零 alpha 会不正确。请改为切换为 ON，根据 alpha 在对象的 camera depth 与 Dilate_Sort_Max_depth 之间混合</p><h4 id="StylizedLines-MaxDepth">Max Depth</h4><p>alpha 外部要考虑的 Max Depth</p><p><br/></p><hr/><h2 id="StylizedLines-LineColorPage">Line Color Page</h2><h4 id="StylizedLines-From">From</h4><p>提供多个不同选项来确定 Line Color：<br/><br/><em><strong>Color Swatch -&nbsp;</strong></em>从下方 Line Color 中为此节点的所有线条选择颜色<br/><em><strong>PxrStylizedControl -&nbsp;</strong></em>从 PxrStylizedControl pattern 节点获取 Line Color<br/><em><strong>NPRalbedo AOV - </strong></em>从 <em><strong>NPRalbedo </strong></em>AOV 获取 Line Color，该 AOV 由 PxrStylizedControl pattern 节点设置<br/><em><strong>albedo AOV - </strong></em>从 factory RenderMan <em><strong>albedo</strong></em> AOV</p><h4 id="StylizedLines-LineColor">Line Color</h4><p>用于选择颜色的 Color swatch</p><h4 id="StylizedLines-LightTint">Light Tint</h4><p>根据从亮部到 shadow 的光照为线条着色：<br/><br/><em><strong>HSV Light Dark - </strong></em>在光照的 Light 与 Dark（shadow）部分选择 Hue/Saturation/Value tint<br/><em><strong>Line Color Shadow - </strong></em>选择 shadow areas 中的 Line Color</p><p><br/></p><hr/><h2 id="StylizedLines-LineDistortPage">Line Distort Page</h2><p><em><strong>New in RenderMan v25!</strong></em></p><p><em><strong><span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image" width="900" loading="lazy" src="../../attachments/542235412/Lines-distort-katana-rm25.png" data-image-src="../../attachments/542235412/Lines-distort-katana-rm25.png" data-unresolved-comment-count="0" data-linked-resource-id="542235436" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Lines-distort-katana-rm25.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542235412" data-linked-resource-container-version="1" data-media-id="4272ad55-feec-4205-884e-c98a67b7310c" data-media-type="file"/></span></strong></em></p><h4 id="StylizedLines-Enable.1">Enable</h4><p>开启 Line Distort 功能</p><h4 id="StylizedLines-Offset">Offset</h4><p>使线条偏离原始位置的 distortion 量</p><h4 id="StylizedLines-Remap">Remap</h4><p>Remap line distort signal：将 line distort signal（通常是插入到 PxrStylizedControl Distort/Distort U &amp; Distort V input 的 PxrFractal）在 -1 到 1 之间重映射（假设原始范围为 0 到 1）</p><h4 id="StylizedLines-Demovideos">Demo videos</h4><p><a class="external-link" href="https://vimeo.com/790232205" rel="nofollow"><span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image" width="900" loading="lazy" src="../../attachments/542235412/Lines-vimeo-distort-katana.png" data-image-src="../../attachments/542235412/Lines-vimeo-distort-katana.png" data-unresolved-comment-count="0" data-linked-resource-id="542235439" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Lines-vimeo-distort-katana.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542235412" data-linked-resource-container-version="1" data-media-id="4e0ce08f-3213-421f-9381-c8846613b898" data-media-type="file"/></span></a></p><h2 id="StylizedLines-MaskPage">Mask Page</h2><h4 id="StylizedLines-PxrStylizedControlMask">PxrStylizedControl Mask</h4><p>使用 PxrStylizedControl pattern 节点中配置的 mask</p><h4 id="StylizedLines-InputMask">Input Mask</h4><p>使用上方 Input/Signal 数据作为先前串联的 Stylized shaders 和/或基于物理的照明的遮罩</p><h4 id="StylizedLines-FinalLineGamma">Final Line Gamma</h4><p>线条检测发生后，对 Final Lines 应用 gamma。使用 Curvature Line Type 时，可用此参数控制 Curvature falloff，以微调线稿</p><h4 id="StylizedLines-LinesInsideAlpha">Lines Inside Alpha</h4><p>乘以 alpha，使线条检测得到的线条仅位于内部，不越出 geo</p><h2 id="StylizedLines-CompositingPage">Compositing Page（合成页面）</h2><h4 id="StylizedLines-Mode.1">Mode</h4><p><em><strong>Over -</strong></em> 使用 Lines 的 alpha，合成到上一层之上<br/><em><strong>Plus -&nbsp;</strong></em>使用 Lines 的 alpha，与上一层相加<br/><em><strong>Multiply -&nbsp;</strong></em>使用 Lines 的 alpha，与上一层相乘</p></div><hr/><h4 id="StylizedLines-LineworkTips">Linework Tips</h4><ul><li><p>为了让线条更扎实，可尝试将 Weight Type 改为 Hermite 或 Double Sigmoid</p></li><li><p>将纹理或 pattern 插入 PxrStylizedControl 节点的 Line Thickness input，以破碎并改变 width（线宽），为线条增加创意变化。</p></li><li><p>尝试通过叠加多个 PxrStylizedLines filter 来探索线稿；每个 filter 都有自己独特的宽度、颜色和厚度。</p></li></ul>
+  </article>
+</main>
+</body>
+</html>

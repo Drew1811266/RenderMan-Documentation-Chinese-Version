@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>tq: Tractor Query tool</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>tq: Tractor Query tool</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/TRA/22184306/tq%3A+Tractor+Query+tool">https://rmanwiki-27.pixar.com/space/TRA/22184306/tq%3A+Tractor+Query+tool</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p><strong>tq</strong> is a powerful command line tool to search for and operate on jobs, tasks, commands, invocations, and blades. It permits extensive inspection of the current state of the queue and render farm, as well as historical analysis of commands that have run.</p><p>tq has extensive built-in help so that you don't have to leave the command-line to get assistance. To access this help, simply type tq help.</p><p>For more in-depth examples, see the <a href="22184318-tq Cookbook.html" rel="nofollow">tq Cookbook</a>.</p><p> </p><h3 id="tq:TractorQuerytool-ASimpleExample">A Simple Example</h3><p>tq takes a subcommand name as its first argument. In this simple example, tq jobs lists all of the jobs in the system.</p><p><code>% tq jobs</code></p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="96d53a5f-7c54-479d-baa6-9717bc34ea1a" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">    jid user   title                     pri wait actv err done spooled
+======= ====== ======================== ==== ==== ==== === ==== ===========
+1305301 joe    RenderMan Monkey Left     400       840      160 05/30|14:26
+1305303 joe    RenderMan Monkey Right    400  925   72   1    3 05/30|14:48
+1305311 eve    Comp MV-CA 8_25            50         1          05/31|12:02
+1305312 pablo  Interactive 4              20    5             3 05/31|12:03
+1305313 btr    Interactive 5              20         1        7 05/31|12:07
+1306042 mcgr   Interactive 6              20    8               06/04|16:47
+...
+</pre>
+</div></div><p>In a similar fashion, tasks, commands, invocations, and blades can be listed.</p><p>Typically, a user wants to see only a subset of the items. The remaining non-option arguments on the command line form a <a href="22184262-Search Clauses.html" rel="nofollow">&quot;search clause&quot;</a> that is used to narrow the search. For example, this command lists all of the jobs owned by user mango that were spooled over 24 hours ago:</p><p><code>% tq jobs &quot;owner=mango and spooltime &lt; -1d&quot;
+</code></p><p>In short, the search clause is a boolean expression (here with and) composed of comparisons (=, &lt;) of the entity's attributes (owner, spooltime). Accommodations are made to reduce the amount of typing on the command line. For example, the literal mango is not enclosed in quotes, and the string -1d is a short form meaning &quot;one day ago&quot;.</p><p>More details on the search clause syntax can be found <a href="22184262-Search Clauses.html" rel="nofollow">here</a>.</p><p> </p><h3 id="tq:TractorQuerytool-Columns">Columns</h3><p>tq has a default list of attributes it displays for each of its commands. A different set of attributes can be displayed using the --columns or -c option.</p><p>For example, to display the job id, owner, title, and metadata columns:</p><p><code>% tq jobs --columns jid,owner,title,metadata
+</code></p><p>Also, columns can be added or removed relative to the default set of columns using + or - with the column name. For example, the following command removes the title column and adds the spoolhost and spoolfile columns:</p><p><code>% tq jobs -c -title,+spoolhost,+spoolfile
+</code></p><p>Some columns have a default fixed width; wider values will have charaters replaced with ... to fit in the column. Other columns have a dynamic width, set to the widest value to be displayed. Column width can be specified using the = operator, where 0 is used to specifiy a dynamically sized column. In this example, the metadata column has a width of the widest displayed value, and the existing title column is fixed at 30 characters:</p><p><code>% tq jobs -c +metadata=0,=title=30
+</code></p><p>Note that in some shells like zsh, option arguments must be enclosed in quotes if they start with an equal sign.</p><p><code>% tq jobs -c &quot;=title=30,+metadata=0&quot;
+</code></p><p><sup> </sup></p><h3 id="tq:TractorQuerytool-Sorting">Sorting</h3><p>Results can be ordered using the --sortby or -s option. Multiple attributes can be specified to indicate secondary sorting. Items are ordered in ascending order, unless the attribute is prepended with <em>-</em> to indicate descending order.</p><p>For example, to show the order in which similar jobs would be processed in a FIFO queue, we can list them in priority descending, spooltime ascending order as follows:</p><p><code>% tq jobs --sortby -priority,spooltime
+</code></p><p><sup> </sup></p><h3 id="tq:TractorQuerytool-Limiting">Limiting</h3><p>Result sets can be shortened, making them useful for &quot;top&quot; lists. For example, this command will list the ten jobs with the most number of active tasks on the farm:</p><p><code>% tq jobs active -s -numactive --limit 10
+</code></p><p>This command lists the twenty hosts with the least amount of disk space.</p><p><code>% tq blades -s availdisk --limit 20
+</code></p><p><sup> </sup></p><h3 id="tq:TractorQuerytool-Affiliation">Affiliation</h3><p>In the above examples, attribute of items are used in search clauses, column specifications, and sorting. Attributes of affiliated entities can also be specified in all of these cases by prefixing the attribute with the entity name. For example, the following command displays the active tasks owned by walt.</p><p><code>% tq tasks state=active and Job.owner=walt
+</code></p><p>Similarly, the following command displays all error tasks from jobs spooled within the last 24 hours, including their jobs' titles and spooltimes, and sorted by job priority.</p><p><code>% tq tasks &quot;state=error and Job.spooltime &gt; -24h&quot; -c +Job.spooltime,Job.title -s Job.priority
+</code></p><p>Because spooltime and priority are attributes of no other entity than a job, the entity prefix is not required. The following is equivalent:</p><p><code>% tq tasks &quot;state=error and spooltime &gt; -24h&quot; -c +spooltime,Job.title -s priority
+</code></p><h3 id="tq:TractorQuerytool-Operations">Operations</h3><p>Not only can tq list items, it can operate on them. This command shows all of my active jobs with errors:</p><p><code>% tq jobs mine and active and error
+</code></p><p>They can all be paused as follows:</p><p><code>% tq pause mine and active and error
+</code></p><p>This command nimbies the ten blades with the least amount of disk space:</p><p><code>% tq nimby --sortby availdisk --limit 10
+</code></p><p>All of the possible commands can be listed with tq help commands.</p><p>Some operations have additional options. For example, when changing the priority of a job, the --prioriy or -p option is used to specify the priority. The following command changes the priority of all of my jobs to 500.</p><p><code>% tq chpri -p 500 mine
+</code></p><p>Before an operation is executed on an item, the item will be displayed and the user will be prompted.</p><p><code>% tq delete mine</code><sup>   </sup></p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="ff4e1d72-73a7-42b4-9cd5-8dafa8aeef0b" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">    jid user   title                pri blkd redy actv err done spooled
+========== ====== =================== ==== ==== ==== ==== === ==== ===========
+      1234 adamwg starting sleep test    1                      26 01/31|16:53
+Delete this job? yes/no [y]:
+</pre>
+</div></div><p>This is helpful to avoid wide-spread destruction with a single mistyped command. If you <strong>absolutely</strong> certain that the targeted items have been properly identified, the prompt can be bypassed with the --yes option, which appears <em>before</em> the command. This is helpful when applying an operation to thousands of items, or when tq is being called from another script or by a cron job.</p><p>For example, this will kiss all of your jobs good-bye.</p><p><code>% tq --yes delete mine
+</code></p><p><sup> </sup></p><h3 id="tq:TractorQuerytool-GlobalOptions">Global Options</h3><p>There are some options that are considered global to all commands, and as such appear <strong>before</strong> the command. One such option is --yesas shown above.</p><p>tq help usage lists all of the global options.</p><p>--user, password, --login and --logout are used when authentication is required.</p><p>--engine is used to point tq do a different engine from the default one, or the one defined by the TRACTOR_ENGINE environment variable.</p><p>--force is required to operate on jobs owned by a different user to help prevent accidental damage to other users' jobs. Note that a user would still need the appropriate permissions by the engine to successfully complete the operation.</p><p> </p><h3 id="tq:TractorQuerytool-ArchivedJobs">Archived Jobs</h3><p>By default, only entities of non-deleted jobs are searched when running tq. However, those of deleted jobs can be <em>included</em> using the --archives or -a global option. This makes it useful for looking at historical invocation data.</p><p>The following command will find all invocations that ran on blade c2001 in the past week, including those of deleted jobs:</p><p><code>% tq --archives invocations &quot;blade=c2001 and starttime &gt; -1w&quot;
+</code></p><p>If you want results for <em>only</em> deleted jobs, you can add the deleted alias to the search clause.</p><p><code>% tq --archives invocations &quot;blade=c2001 and starttime &gt; -1w and deleted&quot;
+</code></p><p>The --archives flag is necessary in order to use the undelete subcommand, since only deleted jobs can be undeleted.</p><p><code>% tq -a undelete jid=1234
+</code></p><p><sup> </sup></p><h3 id="tq:TractorQuerytool-MoreExamples">More Examples</h3><p>Many helpful examples can be found in the <a href="22184318-tq Cookbook.html" rel="nofollow">tq Cookbook</a>.</p><p> </p><h3 id="tq:TractorQuerytool-Built-inHelp">Built-in Help</h3><p>tq has detailed built-in help with useful examples so that you don't have to leave the command line to get more information.</p><p><code>% tq help
+</code></p><p>will show a top-level view of help topics.</p><p><code>% tq help subcommands
+</code></p><p>will show the full list of possible tq subcommands.</p><p>To get help on a specific command, such run tq help with the command name. For example:</p><p><code>% tq help jobs
+</code></p><p>will display the usage statement, in addition to examples and a detailed description of each available option.</p>
+  </article>
+</main>
+</body>
+</html>

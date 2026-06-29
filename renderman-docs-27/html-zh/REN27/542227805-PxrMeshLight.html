@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PxrMeshLight</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>PxrMeshLight</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/REN27/542227805/PxrMeshLight">https://rmanwiki-27.pixar.com/space/REN27/542227805/PxrMeshLight</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="contentLayout2"><style>[data-colorid=xe7i7xenrx]{color:#3e3f40} html[data-color-mode=dark] [data-colorid=xe7i7xenrx]{color:#bfc0c1}[data-colorid=mts4u7zetz]{color:#3e3f40} html[data-color-mode=dark] [data-colorid=mts4u7zetz]{color:#bfc0c1}[data-colorid=gd0w4p8jxb]{color:#3e3f40} html[data-color-mode=dark] [data-colorid=gd0w4p8jxb]{color:#bfc0c1}[data-colorid=ztrbeezxce]{color:#3e3f40} html[data-color-mode=dark] [data-colorid=ztrbeezxce]{color:#bfc0c1}[data-colorid=nlzpgj992k]{color:#3e3f40} html[data-color-mode=dark] [data-colorid=nlzpgj992k]{color:#bfc0c1}[data-colorid=i7vbv9x6ax]{color:#3e3f40} html[data-color-mode=dark] [data-colorid=i7vbv9x6ax]{color:#bfc0c1}[data-colorid=ndw2sfhfjk]{color:#3e3f40} html[data-color-mode=dark] [data-colorid=ndw2sfhfjk]{color:#bfc0c1}[data-colorid=oaz8fhd7kj]{color:#3e3f40} html[data-color-mode=dark] [data-colorid=oaz8fhd7kj]{color:#bfc0c1}[data-colorid=mel1eurryq]{color:#3e3f40} html[data-color-mode=dark] [data-colorid=mel1eurryq]{color:#bfc0c1}</style>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper"><img class="confluence-embedded-image image-center" loading="lazy" src="../../attachments/542227805/meshLightAnimGlassHQ.gif" data-image-src="../../attachments/542227805/meshLightAnimGlassHQ.gif" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227885" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="meshLightAnimGlassHQ.gif" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/gif" data-linked-resource-container-id="542227805" data-linked-resource-container-version="1" data-media-id="123fec49-7a1f-414f-91d8-ed1e1d3d0802" data-media-type="file" /></span><p>PxrMeshLight 允许你创建任意形状，并将其作为真正的光源使用。这比发光几何体性能更好，并且在创建霓虹灯、未来感灯板以及为场景照明的变形形状等对象时提供很大的灵活性。</p><p>这些参数简单且易于调校；灯光会遵循形状的渲染可见性，而不是遵循灯光上的选择列表。</p><div class="confluence-information-macro confluence-information-macro-warning conf-macro output-block" data-hasbody="true" data-macro-id="4d262e3a-f4e2-4e4c-9613-f41295614d09" data-macro-name="warning"><span class="aui-icon aui-icon-small aui-iconfont-error confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>虽然你可以将网格灯光用作一块变形几何体，但目前还不支持变形运动模糊，并且可能产生不正确的结果。</p></div></div><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="3a79ff85-a6d7-498e-a0ea-79a4dda4a50e" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>创建网格灯光时，你可能会看到一个名为 PxrBlack 的材质连接到它。此材质没有参数，用于防止网格把自身发出的光再次散射出去。这样做是为了提供直观行为，不一定是物理准确的行为。</p></div></div><p><br /></p><h3 id="PxrMeshLight-Parameters">Parameters（参数）</h3><h4 id="PxrMeshLight-Basic">Basic</h4><p><br /></p><p><strong>Color</strong></p><p><span data-colorid="ndw2sfhfjk">发出灯光的颜色。</span></p><p><span data-colorid="gd0w4p8jxb"> </span></p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrMeshLght_colorAqua.jpg" width="384" loading="lazy" src="../../attachments/542227805/pxrMeshLght_colorAqua.jpg" data-image-src="../../attachments/542227805/pxrMeshLght_colorAqua.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227876" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrMeshLght_colorAqua.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227805" data-linked-resource-container-version="1" data-media-id="c92a673a-641e-4ab1-93fa-38c846ec1ddd" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrMeshLght_colorGreen.jpg" width="384" loading="lazy" src="../../attachments/542227805/pxrMeshLght_colorGreen.jpg" data-image-src="../../attachments/542227805/pxrMeshLght_colorGreen.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227873" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrMeshLght_colorGreen.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227805" data-linked-resource-container-version="1" data-media-id="ad778575-e9bb-41b7-9e8f-c764960cd6eb" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrMeshLght_colorPurple.jpg" width="384" loading="lazy" src="../../attachments/542227805/pxrMeshLght_colorPurple.jpg" data-image-src="../../attachments/542227805/pxrMeshLght_colorPurple.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227879" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrMeshLght_colorPurple.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227805" data-linked-resource-container-version="1" data-media-id="2ff9f14e-bc8e-4b18-b60a-777767ec6d0f" data-media-type="file" /></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><br /></p><p><strong>Intensity</strong></p><p>线性缩放此灯光的贡献。灯光强度使用物理衰减计算。</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrMeshLght_intensity05.jpg" width="384" loading="lazy" src="../../attachments/542227805/pxrMeshLght_intensity05.jpg" data-image-src="../../attachments/542227805/pxrMeshLght_intensity05.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227867" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrMeshLght_intensity05.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227805" data-linked-resource-container-version="1" data-media-id="a4decef6-7da6-4c3e-8816-75488d13b399" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrMeshLght_intensity10.jpg" width="384" loading="lazy" src="../../attachments/542227805/pxrMeshLght_intensity10.jpg" data-image-src="../../attachments/542227805/pxrMeshLght_intensity10.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227870" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrMeshLght_intensity10.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227805" data-linked-resource-container-version="1" data-media-id="9294dcc8-7a94-4a83-b55d-2c9e8ad089c9" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrMeshLght_intensity20.jpg" width="384" loading="lazy" src="../../attachments/542227805/pxrMeshLght_intensity20.jpg" data-image-src="../../attachments/542227805/pxrMeshLght_intensity20.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227864" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrMeshLght_intensity20.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227805" data-linked-resource-container-version="1" data-media-id="c6757c5b-72c7-41cf-b122-ba0652b01f23" data-media-type="file" /></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><br /></p><p><strong>Exposure</strong></p><p><span data-colorid="oaz8fhd7kj">指定 area light 的 Exposure，以 2 的幂表示。Exposure 增加 1 会使光源发出的能量翻倍。值 0 在光源处产生 1 的强度，-1 产生 0.5。</span> <span data-colorid="xe7i7xenrx">现实世界照明能量很高，典型 exposure 值较低；若要获得等效的&nbsp;</span>Intensity<span data-colorid="mel1eurryq">，你可能需要输入非常大的数字。对于熟悉摄影测量的艺术家来说，这也更顺手。</span></p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrMeshLght_exposure00.jpg" width="384" loading="lazy" src="../../attachments/542227805/pxrMeshLght_exposure00.jpg" data-image-src="../../attachments/542227805/pxrMeshLght_exposure00.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227858" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrMeshLght_exposure00.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227805" data-linked-resource-container-version="1" data-media-id="20b44e3b-b1d7-41c1-9608-c511f5b5e229" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrMeshLght_exposure02.jpg" width="384" loading="lazy" src="../../attachments/542227805/pxrMeshLght_exposure02.jpg" data-image-src="../../attachments/542227805/pxrMeshLght_exposure02.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227861" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrMeshLght_exposure02.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227805" data-linked-resource-container-version="1" data-media-id="03d0d620-ccf2-498b-a478-53ebd48f8209" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrMeshLght_exposure04.jpg" width="384" loading="lazy" src="../../attachments/542227805/pxrMeshLght_exposure04.jpg" data-image-src="../../attachments/542227805/pxrMeshLght_exposure04.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227855" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrMeshLght_exposure04.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227805" data-linked-resource-container-version="1" data-media-id="4a558aa9-773f-4bc9-a423-c5f5dadab322" data-media-type="file" /></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><br /></p><p><strong>Texture Color</strong></p><p><span data-colorid="ztrbeezxce">用于通过 pattern node（图案节点）将图像作为光源使用，例如 </span><a href="542225070-PxrTexture.html" rel="nofollow"><span data-colorid="mts4u7zetz">PxrTexture</span></a><span data-colorid="nlzpgj992k">。最好使用高动态范围光源。请注意，这会根据所用 HDRI 的内容影响颜色和阴影。如果不得不使用 JPEG 图像等 8-bit 源，则在作为颜色使用前应将其线性化（转换到线性颜色空间）。由于它确实是一个网格，你必须已定义 UVs 或合适的投射，才能正确放置纹理。</span></p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrMeshLght_texColor1.jpg" width="384" loading="lazy" src="../../attachments/542227805/pxrMeshLght_texColor1.jpg" data-image-src="../../attachments/542227805/pxrMeshLght_texColor1.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227852" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrMeshLght_texColor1.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227805" data-linked-resource-container-version="1" data-media-id="729095a9-5dbb-41d7-a3f2-dd6aaacfe1eb" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrMeshLght_texColor2.jpg" width="384" loading="lazy" src="../../attachments/542227805/pxrMeshLght_texColor2.jpg" data-image-src="../../attachments/542227805/pxrMeshLght_texColor2.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227846" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrMeshLght_texColor2.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227805" data-linked-resource-container-version="1" data-media-id="33d1c24e-88a6-4cf8-adbe-cf2af21f2d74" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrMeshLght_texColor3.jpg" width="384" loading="lazy" src="../../attachments/542227805/pxrMeshLght_texColor3.jpg" data-image-src="../../attachments/542227805/pxrMeshLght_texColor3.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227849" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrMeshLght_texColor3.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227805" data-linked-resource-container-version="1" data-media-id="c5c6e17c-e894-4d15-bc67-abbcc3b87385" data-media-type="file" /></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><br /></p><p><strong>Enable Temperature</strong></p><p><span data-colorid="i7vbv9x6ax">开启或关闭色温。</span></p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrMeshLght_colorTemp3000.jpg" width="384" loading="lazy" src="../../attachments/542227805/pxrMeshLght_colorTemp3000.jpg" data-image-src="../../attachments/542227805/pxrMeshLght_colorTemp3000.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227837" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrMeshLght_colorTemp3000.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227805" data-linked-resource-container-version="1" data-media-id="e8fc8973-85ba-4ad2-8475-1c499ebedcc5" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrMeshLght_colorTemp6500.jpg" width="384" loading="lazy" src="../../attachments/542227805/pxrMeshLght_colorTemp6500.jpg" data-image-src="../../attachments/542227805/pxrMeshLght_colorTemp6500.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227843" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrMeshLght_colorTemp6500.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227805" data-linked-resource-container-version="1" data-media-id="233e1043-8440-4dce-90cc-d664a372a29a" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrMeshLght_colorTemp9000.jpg" width="384" loading="lazy" src="../../attachments/542227805/pxrMeshLght_colorTemp9000.jpg" data-image-src="../../attachments/542227805/pxrMeshLght_colorTemp9000.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542227840" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrMeshLght_colorTemp9000.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227805" data-linked-resource-container-version="1" data-media-id="0f4fb6da-a026-48a6-b93f-fed7b625699e" data-media-type="file" /></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><br /></p><p><strong>Temperature</strong></p><p>允许用户选择灯光的色温，单位为 Kelvin。不同于基础灯光颜色，这让用户可以根据标准温度测量轻松选择可信的灯光颜色。此控制的作用类似灯光前方的 filter 或 gel（一层带 tint 的透明表面）。如果灯光为白色，你会得到所选色温。如果灯光已有颜色，色温会使它更冷（高于 6500K）或更暖（低于 6500K）。</p><p><br /></p><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="a99a67cb-dea3-49ce-b677-f6e2679c20f1" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>该效果在完全饱和的单色灯光上不太明显。默认值为 6500K，在大多数显示器上应非常接近白色（sRGB 和 Rec 709 使用的 D65 illuminant）。</p></div></div><p><br /></p><p><br /></p><hr /><h4 id="PxrMeshLight-Refine">Refine</h4><p><br /></p><p><strong>Specular Amount</strong></p><p>发出的 specular light（镜面反射光）数量。这是一个非物理控制。你可以使用一个&nbsp; <strong>Specular Amount</strong> &nbsp;为 0.0 的灯光，作为场景对象的纯 diffuse light（漫反射光）来源，并避免添加高光。&nbsp;</p><p><br /></p><p><strong>Diffuse Amount</strong></p><p>发出的 diffuse light（漫反射光）数量。这是一个非物理控制。你可以使用一个&nbsp; <strong>Diffuse Amount</strong> &nbsp;为 0.0 的灯光，作为场景对象的纯高光来源。</p><p><br /></p><p><strong>Intensity Near Dist</strong></p><p>被照亮点与灯光之间的近距离，在该距离内样本不会继续变亮。当灯光靠近表面时，这可能有助于避免热点和采样问题。这些值取决于你的场景尺度/距离，因此这里只是示例。</p><p><br /></p><p><strong>Specular Near Dist</strong></p><p>带有 specular shading（镜面着色）的被照亮点与灯光之间的近距离，在该距离内样本不会继续变亮。当灯光靠近 specular surface（镜面表面）时，这可能有助于避免热点和采样问题。 <strong>注意</strong> ，此值不会应用于从 camera 看到的灯光。 <span class="legacy-color-text-default">下面，右侧球体的距离分别为 0.0、5.0，最后是 10.0。这些值取决于你的场景尺度/距离，因此这里只是示例。</span></p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrRectLght_SpecNearDist_00.jpg" width="423" loading="lazy" src="../../attachments/542227805/pxrRectLght_SpecNearDist_00.jpg" data-image-src="../../attachments/542227805/pxrRectLght_SpecNearDist_00.jpg" data-height="77760" data-width="77760" data-unresolved-comment-count="0" data-linked-resource-id="542227831" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrRectLght_SpecNearDist_00.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227805" data-linked-resource-container-version="1" data-media-id="e4c2a4b1-9633-41fa-83ad-88307f812558" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrRectLght_SpecNearDist_50.jpg" width="423" loading="lazy" src="../../attachments/542227805/pxrRectLght_SpecNearDist_50.jpg" data-image-src="../../attachments/542227805/pxrRectLght_SpecNearDist_50.jpg" data-height="77760" data-width="77760" data-unresolved-comment-count="0" data-linked-resource-id="542227828" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrRectLght_SpecNearDist_50.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227805" data-linked-resource-container-version="1" data-media-id="8225a5f6-7f1d-4b83-808e-37da9263d971" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrRectLght_SpecNearDist_100.jpg" width="423" loading="lazy" src="../../attachments/542227805/pxrRectLght_SpecNearDist_100.jpg" data-image-src="../../attachments/542227805/pxrRectLght_SpecNearDist_100.jpg" data-height="77760" data-width="77760" data-unresolved-comment-count="0" data-linked-resource-id="542227834" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrRectLght_SpecNearDist_100.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227805" data-linked-resource-container-version="1" data-media-id="78da7b35-36ee-4fa4-b03d-28c1cd401c90" data-media-type="file" /></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><br /></p><p><strong>Diffuse Near Dist</strong></p><p>带有 diffuse shading（漫反射着色）的被照亮点与灯光之间的近距离，在该距离内样本不会继续变亮。当灯光靠近 diffuse surface（漫反射表面）时，这可能有助于避免热点和采样问题。 <strong>注意</strong> ，此值不会应用于从 camera 看到的灯光。 <span class="legacy-color-text-default">下面，左侧球体的距离分别为 0.0、5.0，最后是 10.0。这些值取决于你的场景尺度/距离，因此这里只是示例。</span></p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrRectLght_DiffNearDist_00.jpg" width="423" loading="lazy" src="../../attachments/542227805/pxrRectLght_DiffNearDist_00.jpg" data-image-src="../../attachments/542227805/pxrRectLght_DiffNearDist_00.jpg" data-height="77760" data-width="77760" data-unresolved-comment-count="0" data-linked-resource-id="542227819" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrRectLght_DiffNearDist_00.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227805" data-linked-resource-container-version="1" data-media-id="91388024-9cd0-4f7e-8c08-3ef7e6b5623f" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrRectLght_DiffNearDist_50.jpg" width="423" loading="lazy" src="../../attachments/542227805/pxrRectLght_DiffNearDist_50.jpg" data-image-src="../../attachments/542227805/pxrRectLght_DiffNearDist_50.jpg" data-height="77760" data-width="77760" data-unresolved-comment-count="0" data-linked-resource-id="542227822" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrRectLght_DiffNearDist_50.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227805" data-linked-resource-container-version="1" data-media-id="b5ab439a-7d1c-401e-9300-abdbb3449bfd" data-media-type="file" /></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="pxrRectLght_DiffNearDist_100.jpg" width="423" loading="lazy" src="../../attachments/542227805/pxrRectLght_DiffNearDist_100.jpg" data-image-src="../../attachments/542227805/pxrRectLght_DiffNearDist_100.jpg" data-height="77760" data-width="77760" data-unresolved-comment-count="0" data-linked-resource-id="542227825" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrRectLght_DiffNearDist_100.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542227805" data-linked-resource-container-version="1" data-media-id="7446b699-5cd5-498a-8906-d14f89143ec9" data-media-type="file" /></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><br /></p><hr /><h4 id="PxrMeshLight-Advanced">Advanced</h4><p><br /></p><p><strong>Area Normalize</strong></p><p>启用 Normalize 时，随着你缩放光源，灯光对场景的贡献量不会改变。这让你更容易调整高光大小，而不改变场景照明。</p><p><br /></p><p><strong>Trace Light Paths</strong></p><p>启用此灯光的光照和光子追踪。此值会强制使用基于物理的灯光，并且副作用是禁用上方的&nbsp;<strong>Shadows</strong>&nbsp;控制。用户在使用 PxrVCM 或 PxrUnified Integrators 时，可以利用此功能选择哪些灯光发射光子。</p><p><br /></p><p><strong>Thin Shadow</strong></p><p>为此灯光启用 thin shadow 并禁用折射焦散。如果&nbsp;<strong>Trace Light Paths</strong>&nbsp;已启用，此参数将被忽略。这是一个非物理控制，它会为透射对象创建“伪造的”彩色阴影，而不需要为焦散生成光子。</p><p><br /></p><p><strong>Light Group</strong></p><p>指定用于 light group LPEs 的灯光组名称。这对于生成 per-light AOVs，供后续在合成中调整很有用。</p><p><br /></p><p><strong>Importance Multiplier</strong></p><p>用户无需设置显式的 Light Samples，而可以通过更改此值来改变该灯光在内部被分配的样本数量。RenderMan 会在渲染时为场景中的所有灯光创建一组样本；更改此值会在各灯光之间重新平衡样本。注意，提高此值会使&nbsp;<em>更多</em>&nbsp;样本从此灯光中被选择，同时减少场景中其他灯光的样本。低于默认值则会&nbsp;<em>减少</em>&nbsp;此灯光的样本，并把更多样本分配给场景中的其他灯光。</p></div>
+</div>
+</div>
+</div>
+  </article>
+</main>
+</body>
+</html>

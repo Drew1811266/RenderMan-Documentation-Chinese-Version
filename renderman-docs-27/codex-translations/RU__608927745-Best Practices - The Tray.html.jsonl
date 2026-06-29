@@ -1,0 +1,28 @@
+{"item_id":"25e4ac1c9b:0","text":"The Tray（托盘）"}
+{"item_id":"25e4ac1c9b:1","text":"主物体所放置的托盘，采用了与木桌类似的处理方式。"}
+{"item_id":"25e4ac1c9b:2","text":"上图中，你可以看到它在没有放置物体时的样子。"}
+{"item_id":"25e4ac1c9b:3","text":"这里则加入了牛奶，并给出特写，以便更清楚地观察表面 texturing，以及 specular 和 specular roughness 的变化。"}
+{"item_id":"25e4ac1c9b:4","text":"下面是用于创建托盘效果的实际 textures。"}
+{"item_id":"25e4ac1c9b:5","text":"这些是正方形 textures（1:1），在可能的情况下，这种比例更适合 texturing 工作。"}
+{"item_id":"25e4ac1c9b:6","text":"请注意，为了提升页面加载速度，这里显示的图像比实际项目中的对应文件压缩得更厉害。"}
+{"item_id":"25e4ac1c9b:7","text":"最终添加了一张 normal map，用来制造表面细节和形状的错觉，而不必使用 displacement 实际改变托盘形状。"}
+{"item_id":"25e4ac1c9b:8","text":"通过 utilities 传递贴图，以辅助 look development。"}
+{"item_id":"25e4ac1c9b:9","text":"绘制 texture maps 时，可能会发生绘制过程反馈有限的情况。这意味着你也许已经有一张 texture 可以尝试，但还不能确定它是否正确实现了想要的效果。它可能太暗或太亮；你的 roughness map 可能过于粗糙，也可能不够粗糙。无穷无尽的变化可能迫使你在选定的绘制程序中来回调整，而这会变得令人沮丧。"}
+{"item_id":"25e4ac1c9b:10","text":"在 Maya 中使用 IPR mode，你可以让 textures 通过一些 utility nodes，并直接在渲染中进行数值调整。"}
+{"item_id":"25e4ac1c9b:11","text":"这些"}
+{"item_id":"25e4ac1c9b:12","text":"pattern networks"}
+{"item_id":"25e4ac1c9b:13","text":"可以在渲染期间求值，也就是每次处理 texture 时求值；或者你也可以"}
+{"item_id":"25e4ac1c9b:14","text":"bake"}
+{"item_id":"25e4ac1c9b:15","text":"结果，从而提升复杂资产的整体效率。（在获得客户最终批准之前，你可能希望避免 bake，因为否则可能会不断往返 render farm。）有些 patterns 的求值开销高于其他 patterns，并且可能开始影响场景渲染时间。Baking 可以改善这一点，因为它只会作为 texture 求值一次并缓存。关于效率主题，你可以阅读"}
+{"item_id":"25e4ac1c9b:16","text":"Improving Performance"}
+{"item_id":"25e4ac1c9b:17","text":"这篇文章了解更多。"}
+{"item_id":"25e4ac1c9b:18","text":"虽然"}
+{"item_id":"25e4ac1c9b:19","text":"Ptex"}
+{"item_id":"25e4ac1c9b:20","text":"可以节省为资产准备 texturing 的时间，但其性能不如在定义了 UVs 的对象上使用标准 textures。在规划项目时，应权衡这种成本收益。如果有许多对象需要制作纹理，Ptex 总体上可能会为艺术家节省时间。否则，使用 texture maps 和典型的 UDIM（或 “tiled”）UV layout，可能会获得更好的渲染效率和更简单的流程。"}
+{"item_id":"25e4ac1c9b:21","text":"下面，Specular Roughness texture 使用一个"}
+{"item_id":"25e4ac1c9b:22","text":"PxrColorCorrect"}
+{"item_id":"25e4ac1c9b:23","text":"节点进行了修改，并在 Maya 的 IPR 中调整。pattern 的 Color Correct 部分使用了不同 Gamma 值。由于该 texture 是 grayscale（scalar）map，因此 RGB channels 都有相同的值。这里只操作 Red Channel，然后连接到 Primary Specular Roughness 参数。或者，你也可以把 Color Correct pattern 连接到类似"}
+{"item_id":"25e4ac1c9b:24","text":"PxrToFloat"}
+{"item_id":"25e4ac1c9b:25","text":"这样的转换 pattern，但这会给 node graph 增加一次额外求值，而在这个示例中并不必要。"}
+{"item_id":"25e4ac1c9b:26","text":"Next Steps（下一步）"}
+{"item_id":"25e4ac1c9b:27","text":"现在我们已经处理了托盘，下一课将看看玻璃牛奶瓶。"}

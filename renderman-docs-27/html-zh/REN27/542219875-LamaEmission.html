@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LamaEmission</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>LamaEmission</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/REN27/542219875/LamaEmission">https://rmanwiki-27.pixar.com/space/REN27/542219875/LamaEmission</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<span class="confluence-embedded-file-wrapper image-left-wrapper"><img class="confluence-embedded-image image-left" loading="lazy" src="../../attachments/542219875/Lama_Emission_Header.jpg" data-image-src="../../attachments/542219875/Lama_Emission_Header.jpg" data-height="720" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="542219896" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Lama_Emission_Header.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542219875" data-linked-resource-container-version="1" data-media-id="674905ad-04be-4207-97a0-b5773357e1e0" data-media-type="file"></span><p><span class="legacy-color-text-default">Emission，或 glow，可以让对象 </span><em>看起来</em><span class="legacy-color-text-default"> 在发光。 </span><br/><br/><span class="legacy-color-text-default">当你需要发光面板、电路、熔岩等纹理化效果，或其他在照明中具有局部影响的复杂效果时，这很有用。由于这些材质并不真正发光，因此会使用间接照明来实现此材质影响周围环境的效果。这里没有 bump 或 normal mapping 可用，因为无论在这个效果中还是现实中，都看不到这种影响。</span></p><p><br/></p><h3 id="LamaEmission-EmissionParameters"><span class="legacy-color-text-default">Emission Parameters</span></h3><p><strong>Color</strong></p><p>这是用于驱动效果的纯色，或来自 texture/procedural pattern 的 signal 结果。黑色本质上表示“关闭”或无效果。<br/><br/></p><hr/><p>在此示例中，一个 texture 插入到 Color input。TV 线条使用 PxrPhasorNoise 创建，并且 texture 与 PhasorNoise offsets 都随时间动画化，从而创建发光的全息广告牌。</p><p><br/></p><div class="embeddedObject conf-macro output-block" data-hasbody="false" data-layout="default" data-local-id="d2532927-9dff-4d0b-8060-955862a3b899" data-macro-id="1dff4514-379f-410b-8ab4-205d46763973" data-macro-name="multimedia">
+    <video src="https://renderman.atlassian.net/wiki/download/attachments/542219875/Lama_Emission_example.mp4" height="380" width="100%" controls="">
+        你的浏览器不支持 HTML5 video 元素
+</video>
+
+</div><p><br/><br/></p><hr/><p><br/></p><p><span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image" height="64" loading="lazy" src="../../attachments/542219875/RenderManFundamentals_logo.png" data-image-src="../../attachments/542219875/RenderManFundamentals_logo.png" data-unresolved-comment-count="0" data-linked-resource-id="542219902" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderManFundamentals_logo.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542219875" data-linked-resource-container-version="1" data-media-id="6b1780e7-0ef7-4538-ad47-466f962d75d1" data-media-type="file"></span><br/><strong>RenderMan Fundamentals</strong></p><p><br/></p><iframe align="middle" allowfullscreen="" class="conf-macro output-block" data-hasbody="false" data-layout="default" data-local-id="dcdceb62-9940-4df7-833b-3a6c215ee1c0" data-macro-id="a1a67358869b1abcd800727e84b38da08b912beadf10bd6bd04422977e3d7982" data-macro-name="iframe" frameborder="0" height="600" sandbox="allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-popups-to-escape-sandbox allow-presentation allow-same-origin allow-scripts allow-top-navigation-by-user-activation" scrolling="yes" src="https://player.vimeo.com/video/604779917?h=d9fe405f6b&amp;title=0&amp;byline=0&amp;portrait=0" width="960">
+    
+</iframe>
+<p><br/></p><hr/><p style="text-align: center;"><br/></p>
+  </article>
+</main>
+</body>
+</html>

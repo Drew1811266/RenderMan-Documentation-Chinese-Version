@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Engine Metrics</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Engine Metrics</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/TRA/22184236/Engine+Metrics">https://rmanwiki-27.pixar.com/space/TRA/22184236/Engine+Metrics</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>The &quot;Engine Metrics&quot; tab provides a graphical recent history of several engine health and performance statistics. Tractor engine periodically samples these values and sends them to subscribed Dashboard clients. New samples are taken approximately every 15 seconds, with approximately 10 minutes of history displayed in the graphs, by default.</p><p>These graphs are intended to provide administrators with a quick overview of the engine's status, and to help identify performance issues as they arise. Since the graphs are based on samples taken from a fast-changing system, not all of the displayed values will exactly match the system state on a moment by moment basis.<br/> </p><div class="figure align-left"><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/22184236/graphs_tasks.png" data-image-src="../../attachments/22184236/graphs_tasks.png" data-unresolved-comment-count="0" data-linked-resource-id="22195920" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="graphs_tasks.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="22184236" data-linked-resource-container-version="4" data-media-id="041d40a0-1a23-4d23-9bec-d6a96aa35844" data-media-type="file"></span></div><p><strong>waiting tasks</strong>: the number the tasks waiting to be executed across the entire job queue.</p><p><strong>active tasks</strong>: the number of tasks that have been dispatched to blades and are currently running.<br/> </p><div class="figure align-left"><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/22184236/graphs_slots.png" data-image-src="../../attachments/22184236/graphs_slots.png" data-unresolved-comment-count="0" data-linked-resource-id="22195921" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="graphs_slots.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="22184236" data-linked-resource-container-version="4" data-media-id="7422d40a-fb13-4b4d-8f4e-c4c397a32b05" data-media-type="file"></span></div><p><strong>total slots</strong>: the sum of &quot;slot&quot; counts reported by all blades on the farm. Slots are an abstract unit of assignable capacity. Some sites will configure one slot per host, some will use one slot per core, others will add their own plug-ins to the blade to generate dynamic slot values.</p><p><strong>active slots</strong>: the number of slots consumed by actively running tasks. The number used by each command is specified in the job script, and may be a dynamic number between the given &quot;at-least&quot; and &quot;at-most&quot; values.<br/> </p><div class="figure align-left"><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/22184236/graphs_dispatching.png" data-image-src="../../attachments/22184236/graphs_dispatching.png" data-unresolved-comment-count="0" data-linked-resource-id="22195919" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="graphs_dispatching.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="22184236" data-linked-resource-container-version="4" data-media-id="f3b5d28e-5bbb-49c6-8f49-a856bca18df5" data-media-type="file"></span></div><p><strong>requests / sec</strong>: an estimate of the total number of HTTP requests received by tractor-engine per second. This includes all requests from blades, browsers, and external scripts.</p><p><strong>dispatches / sec</strong>: the rate of successful task assignments. This is the number of blade requests for work that are successfully matched with waiting tasks from the job queue, and delivered back to the blade for execution, per second.<br/> </p><div class="figure align-left"><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/22184236/graphs_backlog.png" data-image-src="../../attachments/22184236/graphs_backlog.png" data-unresolved-comment-count="0" data-linked-resource-id="22195918" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="graphs_backlog.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="22184236" data-linked-resource-container-version="4" data-media-id="53db2d0c-8d82-4de1-a568-1f382256e919" data-media-type="file"></span></div><p><strong>intake backlog</strong>: an internal measure of the inbound HTTP requests to tractor-engine that have been received but not yet delegated to a specific engine subsystem for processing.</p><p><strong>assigner backlog</strong>: the number of pending requests from blades waiting to be assigned tasks from the queue. Some of these requests may be successfully processed but not result in task launch, such as when there are no remaining queued tasks or when the blade's service keys do not match the requirements of any waiting commands.</p><p><strong>i/o pool backlog</strong>: tractor uses a pool of &quot;shipper&quot; threads to concurrently handle i/o operations on connected sockets. This value is a count of the high-level i/o actions that are waiting for an available thread.</p><p><strong>monitor backlog</strong>: a count of the UI-specific HTTP requests that are waiting for processing.<br/> </p><div class="figure align-left"><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/22184236/graphs_engineload.png" data-image-src="../../attachments/22184236/graphs_engineload.png" data-unresolved-comment-count="0" data-linked-resource-id="22195917" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="graphs_engineload.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="22184236" data-linked-resource-container-version="4" data-media-id="54459e33-59d1-4baa-8fb3-640c766e8499" data-media-type="file"></span></div><p><strong>engine load</strong>: the normalized current &quot;load average&quot; on the tractor-engine host itself. The displayed value is the system one-minute loadavg, such as given by 'uptime' or 'top', but then normalized by the number of CPU cores on the host. Thus a 16-core host with 8 fully utilized cores would report a nominal loadavg of &quot;8.0&quot;, whereas this graph will report &quot;0.5&quot;. The intent is to indicate the overall fraction of the host's CPU capacity that is in use. This load may not always be due to entirely tractor-engine activity. Other activity on the host, such as file-serving or other running applications will also contribute to its load.<br/> </p><div class="figure align-left"><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/22184236/graphs_connections.png" data-image-src="../../attachments/22184236/graphs_connections.png" data-unresolved-comment-count="0" data-linked-resource-id="22195890" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="graphs_connections.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="22184236" data-linked-resource-container-version="4" data-media-id="434005d2-643c-42be-a3f4-94e86e228536" data-media-type="file"></span></div><p><strong>user connections</strong>: the number of recently connected client sessions. This includes Dashboard sessions as well as other clients that are also using the HTTP request protocol to receive job status updates or to request job or blade details. Since the &quot;end&quot; of an ongoing HTTP &quot;session&quot; can be difficult to characterize, the engine considers a connection to still be &quot;current&quot; until a relatively long interval expires without additional activity from the expected client. Specifically, fully reloading a tractor browser window temporarily cause both the old and new sessions to be counted as potentially active.</p>
+  </article>
+</main>
+</body>
+</html>

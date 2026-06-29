@@ -1,0 +1,39 @@
+{"id":"8d45bf43d1a584611d3c06fc1e65f3594a3d989b92f3da5297c2ca24d9bb23c1","item_id":"89d73ae848:0","text":"渲染时，通常需要为对象设置一个默认姿势或位置，用作之后渲染的参考，即使对象发生变形或四处移动也一样。"}
+{"id":"9910717f70f050426ce7e9bbd7e34c09ec06785ec671d0b8289e3b68abb34d37","item_id":"89d73ae848:1","text":"这样可以防止纹理在对象动画过程中看起来在表面上“滑动”或“游动”。这种让纹理粘附在对象上的做法，通常以技术名称"}
+{"id":"6da94174e57953caefa056edbe4464a689cba8828d28db8677be5eeb0fe0fc0e","item_id":"89d73ae848:2","text":"Pref"}
+{"id":"07c0a972f5556a205085089344062a0e64e20e5f5df9f28ce065ab987d7a1148","item_id":"89d73ae848:3","text":"（piː rɛf）称呼。其他 3D 应用可能称它为 “texture reference”（纹理参考）。"}
+{"id":"db7fea166c1b223457042efef0767d331a62102836c8cbad4a3c7010ad6333f1","item_id":"89d73ae848:4","text":"Pref Setup（Pref 设置）"}
+{"id":"4b56bcfbe7321818b17ff06af3227aaf919194d651f62f7cfa5acba99904d22c","item_id":"89d73ae848:5","text":"下面是我们设置好的一个基础场景。"}
+{"id":"e34fb89b1252f176f863de0deb41678ac1bce24c0e8688f47805d14b46b79d8f","item_id":"89d73ae848:6","text":"在这个场景中，圆柱体被设为 armature system（骨架系统）的子对象。"}
+{"id":"47009ab50e9f3585a10f108b85b045016a4a74b5f136e96e7ed67065b16cc2ec","item_id":"89d73ae848:7","text":"我们有一台作为 texture projector（纹理投影器）的摄像机。为了引用这个 camera projector（摄像机投影器）并将 manifold 连接到 PxrTexture 节点，我们把它用作 manifold（流形）或 texture placement（纹理放置）。"}
+{"id":"9af86e266b7760d70357353df93c45ea5884946ff31363634c7924c018f380d3","item_id":"89d73ae848:8","text":"下面更近地查看这个 shading network（着色网络）。"}
+{"id":"c3a9ad6946c71c3a51f0997584720c4c68f68fc3ca72b7928012c28037a5fa54","item_id":"89d73ae848:9","text":"请注意，我们同时将 PxrTexture 和 PxrProjector 连接到一个 PxrMix 节点。我们使用 PxrProjector 的 resultMask 输出作为 Mixer 值。这样，投影范围之外的任何区域都会由 PxrMix 节点的 Color 1 着色。"}
+{"id":"34b8e6b91dddb65d366f91680569072468ff7e61ba4d12cdc5ea147e69feb9ac","item_id":"89d73ae848:10","text":"我们把纹理投影摄像机的名称填入 PxrProjector 的 Coordinate System（坐标系统）（本例中名为 “TextureProjection”）"}
+{"id":"916d3f152ca7231c0d47769fe0d7782ed006dc02a22deece68948bee6b028e91","item_id":"89d73ae848:11","text":"如果渲染，应该会看到类似下面的结果。"}
+{"id":"f316c8e6dd120f42d5f81190ef8d9818b8e9685bbd802557fa3b2be8f97956ae","item_id":"89d73ae848:12","text":"但是，如果我们开始用骨架为圆柱体摆姿势，你会注意到纹理看起来并不符合预期："}
+{"id":"cc4b7ff81d96bd1c502a4eb540a10f1672081b341f29f55d53fa7b1746d4a840","item_id":"89d73ae848:13","text":"纹理没有随圆柱体弯曲，而是在其表面上游动。"}
+{"id":"7b24e466bd3db37f8e54d79d055aa69fe5c7106c70db204c54b269cf1ec4fa94","item_id":"89d73ae848:14","text":"Freeze Reference Pose（冻结参考姿势）"}
+{"id":"79b4547c4cb232f5ec9aa651492c402252356216c853ff06cdf685e62a6d65a6","item_id":"89d73ae848:15","text":"为了补偿这一点，需要冻结一个参考姿势。回到圆柱体尚未摆姿势的版本。"}
+{"id":"805c1e4f8c66df1900388d4daf60cf8b617a883f2474340b1ab7e14840be9906","item_id":"89d73ae848:16","text":"在圆柱体的数据属性选项卡中，在 Primitive Variables（基元变量）下，应该能看到 Freeze Reference Pose 按钮。"}
+{"id":"048029d894f2a73c8d58d76028d3f02075cdcca18fc2c9c4d47d126b0d338be2","item_id":"89d73ae848:17","text":"这会打开如下所示的对话框。"}
+{"id":"eb840f7a0bcdc10cdb64b17ff70ff2c4758f4e7aa1523b071ba8412420cb46de","item_id":"89d73ae848:18","text":"在这里可以选择要冻结的数据。"}
+{"id":"81c4326b3a11a112bc64dcd29e472429b4c0e43aef11942af19a7d550eebf75b","item_id":"89d73ae848:19","text":"__Pref"}
+{"id":"81c4326b3a11a112bc64dcd29e472429b4c0e43aef11942af19a7d550eebf75b","item_id":"89d73ae848:23","text":"__Pref"}
+{"id":"6ff9cc73fd201b71e3a75162dba62f9b89a86213733b491e1f06c68fac052f9c","item_id":"89d73ae848:20","text":"- 是参考位置点。"}
+{"id":"cc583efe69f59c09fd6b307beed6f1ecc820e3dafc8394447cbc75d2bd001907","item_id":"89d73ae848:21","text":"__WPref"}
+{"id":"c8449a565af419d5a8a3428d864820f0b73f33b72f001a584771cfb507b95857","item_id":"89d73ae848:22","text":"- 与"}
+{"id":"fd1e589e9a842794df6f8ae0392ff2485079997ece2b30063f040935318b1d16","item_id":"89d73ae848:24","text":"相同，但位于 world space（世界空间）。"}
+{"id":"fd1e589e9a842794df6f8ae0392ff2485079997ece2b30063f040935318b1d16","item_id":"89d73ae848:30","text":"相同，但位于 world space（世界空间）。"}
+{"id":"65a9515a3c3e0847aa367244b256f0f9d3d337418026e72428734edd0e813ded","item_id":"89d73ae848:25","text":"__Nref"}
+{"id":"65a9515a3c3e0847aa367244b256f0f9d3d337418026e72428734edd0e813ded","item_id":"89d73ae848:29","text":"__Nref"}
+{"id":"8a3a704fe0ac274a2f6d80eecf616f68e93505086632060f12f96ee3733a0846","item_id":"89d73ae848:26","text":"- 是参考法线。"}
+{"id":"9d0134de57a8b3901ba0bf112f28f0dbb29b6d2002ffa1d38decebaede04a06d","item_id":"89d73ae848:27","text":"__WNRef"}
+{"id":"654a5d51919f12961878b0faca4b6a9dcb3da11ffa044d71d5a868f5f2482e66","item_id":"89d73ae848:28","text":"- 与"}
+{"id":"89a95e9623bed776bc18ce1e570fb88083405d35cf8565072308c427984595e5","item_id":"89d73ae848:31","text":"注意，这些就是你会在 shading network（着色网络）中引用的名称。"}
+{"id":"b7435e9ecb07cfdbb990ddfc37894d3113b004a9c24d5e506260cb73c03294b2","item_id":"89d73ae848:32","text":"回到示例场景的 shading network（着色网络），如果进入 PxrProjector 节点，可以通过将"}
+{"id":"c36d819e7bc6d2b7da51394411c733db89c395987885ca6770167a3b9bc45c3c","item_id":"89d73ae848:33","text":"Use（使用）"}
+{"id":"663ea1bfffe5038f3f0cf667f14c4257eff52d77ce7f2a218f72e9286616ea39","item_id":"89d73ae848:34","text":"改为"}
+{"id":"614109dc2873e75851e053ab91ab8f72e390d206e16ade0302cdcf39408b5617","item_id":"89d73ae848:35","text":"Deform (__Pref + __Nref)"}
+{"id":"3c7ab0646ea539497832a27681f5f54de3c9a4847b71a9321e4b10eb000465a7","item_id":"89d73ae848:37","text":"现在，如果重新为圆柱体摆姿势并渲染，可以看到纹理会正确地随圆柱体弯曲。"}
+{"id":"072cc3919457a93363f9ea6bc59f779168beaf25385975ae6a2b0336e6e8ce6b","item_id":"89d73ae848:38","text":"如果网格发生变化（例如添加了更多点），需要重新冻结参考姿势。可以回到数据属性选项卡并点击 Re-Freeze Reference Pose。"}
+{"id": "cdb4ee2aea69cc6a83331bbe96dc2caa9a299d21329efb0336fc02a82e1839a8", "item_id": "89d73ae848:36", "text": "。"}

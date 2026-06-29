@@ -1,0 +1,26 @@
+{"item_id":"2f824cd655:0","text":"有没有好奇过，当你按下 render 按钮时，RenderMan hood 之下到底发生了什么？"}
+{"item_id":"2f824cd655:1","text":"嗯……这里是对这个过程的简化说明。"}
+{"item_id":"2f824cd655:2","text":"Read：将 scene description 读入 renderer（如果已经读入，则更新它）"}
+{"item_id":"2f824cd655:3","text":"对 geometry 进行 tessellation（并可选 displacement）；构建 ray tracing data structures"}
+{"item_id":"2f824cd655:4","text":"生成并发射 camera rays"}
+{"item_id":"2f824cd655:5","text":"对 ray hit points 进行 shading：评估 shading networks、materials，并计算 direct illumination"}
+{"item_id":"2f824cd655:6","text":"生成 indirect illumination 所需的 rays；trace 这些 rays"}
+{"item_id":"2f824cd655:7","text":"回到第 4 步。重复。"}
+{"item_id":"2f824cd655:8","text":"第 1 步：场景转换（Step 1 Scene translation）"}
+{"item_id":"2f824cd655:9","text":"Step 2 Path tracing（路径追踪）"}
+{"item_id":"2f824cd655:10","text":"第 3 步：显示数据（Step 3. Display the data）"}
+{"item_id":"2f824cd655:11","text":"第 4 步：降噪处理（Step 4. Denoising）"}
+{"item_id":"2f824cd655:12","text":"场景转换阶段（Scene Translation）"}
+{"item_id":"2f824cd655:13","text":"对 geometry 进行 tessellation / 生成 micropolygons"}
+{"item_id":"2f824cd655:14","text":"把 data 放入 RAM（system 或/和 vram）"}
+{"item_id":"2f824cd655:15","text":"TIP：将 geometry 保持为 polygons 更便宜，但 RenderMan 更偏好 subdivision"}
+{"item_id":"2f824cd655:16","text":"事实：你从不需要选择 subdiv levels；RenderMan 会为你完成全部处理，并始终保持平滑"}
+{"item_id":"2f824cd655:17","text":"Path tracing（路径追踪）"}
+{"item_id":"2f824cd655:18","text":"从 camera 发射光线 rays"}
+{"item_id":"2f824cd655:19","text":"命中场景中的 surfaces，"}
+{"item_id":"2f824cd655:20","text":"发现 shaders 并进行 render"}
+{"item_id":"2f824cd655:21","text":"TIP：Procedural shading networks 总是比 textures 更昂贵。如果你确实需要 procedural networks，可以将它们 bake 到 disc。"}
+{"item_id":"2f824cd655:22","text":"显示数据阶段（Display the data）"}
+{"item_id":"2f824cd655:23","text":"显示 render（IT 或 viewport），或保存到 disc（2D image 或 Deep data）"}
+{"item_id":"2f824cd655:24","text":"最终降噪阶段（Denoising）"}
+{"item_id":"2f824cd655:25","text":"清理 path-traced variance，并生成干净结果"}

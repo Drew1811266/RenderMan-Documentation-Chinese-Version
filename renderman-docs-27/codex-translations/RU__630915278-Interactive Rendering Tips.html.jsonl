@@ -1,0 +1,33 @@
+{"item_id":"782c1ea2f2:0","text":"一份用于优化 RenderMan XPU interactive render 体验的实用指南"}
+{"item_id":"782c1ea2f2:1","text":"交互式降噪器（Interactive Denoiser）"}
+{"item_id":"782c1ea2f2:2","text":"RenderMan 出色的 batch denoiser 也可以在 interactive viewport mode 中运行，因此开启它后，当你处理 shaders、lighting、camera 和最终细化时，它会对 viewport 进行 denoise。"}
+{"item_id":"782c1ea2f2:3","text":"对于较小的 scenes，例如 prop lookdev，你可能希望把 Interactive Denoiser Min Samples 保持在 4；对于 geometry、instancing 和 shaders 更多的大型 scenes，可以把它提高到 10 或 15。"}
+{"item_id":"782c1ea2f2:4","text":"这会告诉 RenderMan 在 denoiser 开始发挥作用之前要 render 多少 samples。"}
+{"item_id":"782c1ea2f2:5","text":"调整 Interval 也能带来一些 interactive denoising 加速。"}
+{"item_id":"782c1ea2f2:6","text":"这完全取决于你的 scene 及其 complexity。"}
+{"item_id":"782c1ea2f2:7","text":"图像分辨率（Image Resolution）"}
+{"item_id":"782c1ea2f2:8","text":"降低 image resolution 会提升 interactive performance，尤其是在更大、更复杂的 scenes 中。"}
+{"item_id":"782c1ea2f2:9","text":"缩放分辨率（Scale Resolution）"}
+{"item_id":"782c1ea2f2:10","text":"缩放 IPR resolution 可以显著提升 interactive responsiveness。例如，在 RfB 中有选项可把 resolution scale 改为 75%、50%、33%、25% 和 10%"}
+{"item_id":"782c1ea2f2:11","text":"Solaris 也有类似选项。"}
+{"item_id":"782c1ea2f2:12","text":"实际效果是将 resolution 降低，再让 DCC 把 image 重新缩放回 viewport size，为 artist 提供更“blocky”的 render；这通常已经足够在 layout、lighting 和 staging 中做创作决策。"}
+{"item_id":"782c1ea2f2:13","text":"裁剪（Pruning）"}
+{"item_id":"782c1ea2f2:14","text":"Pruning（或 hiding）shot frame 或 camera frustum 之外的 geometry，有助于加快 RenderMan 的 time to first pixel，并提升 interactivity。你需要记住，camera 外的 objects 可能仍会影响 shot 的整体 look，例如投射 shadows；但如果这不是问题，pruning 这些 objects 是良好实践。"}
+{"item_id":"782c1ea2f2:15","text":"按 distance pruning objects 也是有效的。"}
+{"item_id":"782c1ea2f2:16","text":"Progressive Pixels（渐进像素）"}
+{"item_id":"782c1ea2f2:17","text":"将 RenderMan Progressive Pixels 设置为 2 - 4，会提高 viewport interactivity speed。"}
+{"item_id":"782c1ea2f2:18","text":"首像素时间（Time to First Pixel）"}
+{"item_id":"782c1ea2f2:19","text":"当你第一次启动 XPUGPU 或 Hybrid interactive render 时，NVidia driver 需要进行一些初始的繁重工作，把 RenderMan 编译成适合你的 GFX card 的 CUDA code。"}
+{"item_id":"782c1ea2f2:20","text":"第二次重新启动 IPR session 时，这项工作已经被 driver 缓存，因此你的 time to first pixel 会快得多。"}
+{"item_id":"782c1ea2f2:21","text":"Camera Distance（相机距离）"}
+{"item_id":"782c1ea2f2:22","text":"如果 objects 应用了 SubDivision 且靠近 camera，XPU 的启动时间会比这些 objects 距离更远时更长。较低的 MicroPolygon length 也会影响 XPU 的初始启动时间。"}
+{"item_id":"782c1ea2f2:23","text":"关闭 Subdivision & Displacement"}
+{"item_id":"782c1ea2f2:24","text":"关闭 Subdivision 和 Displacement 会加快 XPU 的 time to first pixel；在很多情况下，即使不启用这两个功能，你仍然可以做出有效的艺术判断。"}
+{"item_id":"782c1ea2f2:25","text":"提高 MicroPolygon Length"}
+{"item_id":"782c1ea2f2:26","text":"Meshes 会在 render 开始时相对于 camera 进行 dicing。提高 MicroPolygon length 会减少 renderer 启动前需要完成的 tessellation 工作量，从而加快 time to first pixel。这也会带来更低的 memory consumption。"}
+{"item_id":"782c1ea2f2:27","text":"材质覆盖（Material Override）"}
+{"item_id":"782c1ea2f2:28","text":"在处理 layout 或 camera staging 时，你并不总是需要看到所有 textures 和复杂的 shading networks，因此可以给 scene geometry 应用一个简单的 material override，或使用 PxrOcclusion integrator。"}
+{"item_id":"782c1ea2f2:29","text":"完成你的 layout 工作，然后回到 PxrPathTracer！"}
+{"item_id":"782c1ea2f2:30","text":"只使用 geometry 的 DisplayColor 来 render override material，也是一种有用技术。"}
+{"item_id":"782c1ea2f2:31","text":"局部渲染区域（Render Regions）"}
+{"item_id":"782c1ea2f2:32","text":"永远不要低估 crop window 或 render region of interest 的力量，它们可以加快 scene 中特定区域的 refinement。"}

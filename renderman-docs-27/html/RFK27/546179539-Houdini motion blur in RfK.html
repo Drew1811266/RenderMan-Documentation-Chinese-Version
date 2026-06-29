@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Houdini motion blur in RfK</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Houdini motion blur in RfK</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFK27/546179539/Houdini+motion+blur+in+RfK">https://rmanwiki-27.pixar.com/space/RFK27/546179539/Houdini+motion+blur+in+RfK</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>Artists rendering exported Alembic meshes from Houdini may have trouble rendering motion blur. This is usually because the topology of the mesh changes frequently and this makes it difficult for RenderMan to calculate motion blur. The solution is to export the mesh as an Alembic using a Houdini ROP node.</p><p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="1280" loading="lazy" src="../../attachments/546179539/ROP_exportAlembic.png" data-image-src="../../attachments/546179539/ROP_exportAlembic.png" data-height="810" data-width="1023" data-unresolved-comment-count="0" data-linked-resource-id="546179560" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="ROP_exportAlembic.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="546179539" data-linked-resource-container-version="1" data-media-id="c9db9e02-fd6a-42a3-b7c2-38555af31e3b" data-media-type="file"></span><p /><p>Now for Katana to make use of this information you need to add a Velocity Apply node. Be sure the path in the CEL statement is the Alembic polymesh in the hierarchy that you exported from Houdini.</p><p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="1280" loading="lazy" src="../../attachments/546179539/velocityApply_Katana.png" data-image-src="../../attachments/546179539/velocityApply_Katana.png" data-height="352" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="546179557" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="velocityApply_Katana.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="546179539" data-linked-resource-container-version="1" data-media-id="a0cda784-34c0-4f15-8afe-d9c12d6e0d67" data-media-type="file"></span><p /><p>With motion blur enabled in the PrmanGlobalStatements and a shutter interval that isn't 0 in the RenderSettings, you should automatically get motion blur. If you do not, be sure the VelocityApply path in the CEL statement is correct, motion blur is enabled, and that there is velocity data on the mesh. You can check the velocity data by selecting the mesh and looking at the Attributes &gt; Geometry &gt; Point &gt; v  In this area you should see a table of values for the vertices. Katana automatically looks in geometry.point.V, geometry.point.v, and geometry.arbitrary.v for the correct data if you have not specified it.</p><p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="812" loading="lazy" src="../../attachments/546179539/velocity_off.jpg" data-image-src="../../attachments/546179539/velocity_off.jpg" data-height="555" data-width="1015" data-unresolved-comment-count="0" data-linked-resource-id="546179554" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="velocity_off.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="546179539" data-linked-resource-container-version="1" data-media-id="6dc168ee-b2a0-4833-aec9-88f6ba3a696b" data-media-type="file"></span><p style="text-align: center;">No motion blur</p><p style="text-align: center;"></p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="812" loading="lazy" src="../../attachments/546179539/velocity_on.jpg" data-image-src="../../attachments/546179539/velocity_on.jpg" data-height="444" data-width="812" data-unresolved-comment-count="0" data-linked-resource-id="546179551" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="velocity_on.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="546179539" data-linked-resource-container-version="1" data-media-id="01bdeee1-b7c6-4c93-8c04-c46bc5eca396" data-media-type="file"></span><p style="text-align: center;">With motion blur</p>
+  </article>
+</main>
+</body>
+</html>

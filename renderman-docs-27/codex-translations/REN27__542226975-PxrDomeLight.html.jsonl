@@ -1,0 +1,106 @@
+{"item_id":"01a50f47d0:0","text":"在大量视觉特效和动画工作中，场景主要通过高动态范围图像（HDRI）来照明。这通常在拍摄现场捕获，随后用于在你的场景中复现该照明。在很多方面，它能让你的照明完成到 80%（甚至更多）。艺术家剩下要做的，就是进一步润色照明，得到出色的最终镜头！"}
+{"item_id":"01a50f47d0:1","text":"当我们谈论 HDRI 照明时，指的是使用光照值远高于 1.0 的全浮点（或 half-float）图像来产生照明。使用低动态范围或 JPEG 这类 8-bit 图像，也许能产生可接受的反射，但照明会显得暗淡且大多很平。为避免这种情况，我们建议使用通过多重曝光捕获的 EXR、HDR 或 TIFF 浮点图像。要理解，光源（即使是人造光源）相对于周围环境也具有相当高的能量。如果你发现阴影过软或密度太浅，那是因为 HDRI 中的光源不够强。可以用图像编辑器有选择地提高这些光源的 Exposure，或把这些光源映射到 area lights 并调整它们的 Exposure 或 Intensity 来解决。"}
+{"item_id":"01a50f47d0:2","text":"此灯光模拟环境照明。它通过基于图像的照明（IBL）工作，使用环境贴图照亮布景和角色。注意，此灯光的缩放和平移会被忽略，因为它被视为近乎无限远，或至少非常遥远。只有旋转会起作用，因此你可以据此定位照明。场景中也可以有多个此类灯光，以便灵活布光，并将其链接到对象和 portal lights。"}
+{"item_id":"01a50f47d0:3","text":"为了出于优化目的将照明限制在特定区域，你可以将"}
+{"item_id":"01a50f47d0:4","text":"PxrPortalLight"}
+{"item_id":"01a50f47d0:5","text":"与 PxrDomeLight 一起使用，为带窗户和天窗的室内等场景集中采样。"}
+{"item_id":"01a50f47d0:6","text":"你会看到对“非物理”控制的提及。这些控制用于帮助艺术家通过忽略我们通常模拟的某些物理定律，制作艺术指导图像。"}
+{"item_id":"01a50f47d0:7","text":"避免通过非均匀缩放使穹顶形状发生倾斜。你的渲染可能永远无法收敛，或耗时长得多。"}
+{"item_id":"01a50f47d0:8","text":"参数"}
+{"item_id":"01a50f47d0:9","text":"Basic"}
+{"item_id":"01a50f47d0:10","text":"Intensity"}
+{"item_id":"01a50f47d0:11","text":"线性缩放此灯光的贡献。这张高动态范围图像（HDRI）经过编辑，使太阳自然明亮，并产生漂亮的深色阴影和明亮高光。注意，在太阳处，intensity 2.0 已经相当明亮！动态范围较小的其他 HDRI 可能会受益于高于 1.0 的值。"}
+{"item_id":"01a50f47d0:12","text":"Exposure"}
+{"item_id":"01a50f47d0:13","text":"指定 area light 的 Exposure，以 2 的幂表示。Exposure 增加 1 会使光源发出的能量翻倍。值 0 在光源处产生 1 的强度，-1 产生 0.5。注意，这看起来和上面的图像一样。你可能会想，为什么要使用"}
+{"item_id":"01a50f47d0:14","text":"Exposure"}
+{"item_id":"01a50f47d0:15","text":"，答案是现实世界照明能量很高，典型 exposure 值较低；如果要获得等效的"}
+{"item_id":"01a50f47d0:16","text":"Intensity"}
+{"item_id":"01a50f47d0:17","text":"，你可能必须输入非常大的数字。对于熟悉摄影测量的艺术家来说，这也更顺手。"}
+{"item_id":"01a50f47d0:18","text":"Color"}
+{"item_id":"01a50f47d0:19","text":"发出灯光的颜色。如果指定了 color map，此颜色会对 color map 进行染色。下面分别是不使用 map（默认为白色）、红色，以及用红色为 HDRI 染色的示例。注意，如这里所示，使用纯净饱和色染色可能会压过纹理。"}
+{"item_id":"01a50f47d0:20","text":"Color Map"}
+{"item_id":"01a50f47d0:21","text":"dome 纹理的文件名。下面是把不同 HDRI 用作"}
+{"item_id":"01a50f47d0:22","text":"Color Map"}
+{"item_id":"01a50f47d0:23","text":"的示例。"}
+{"item_id":"01a50f47d0:24","text":"Map Gamma"}
+{"item_id":"01a50f47d0:25","text":"对纹理进行 gamma 校正。每个通道（RGB）都可以独立调整。"}
+{"item_id":"01a50f47d0:26","text":"Map Saturation"}
+{"item_id":"01a50f47d0:27","text":"调整纹理的饱和度。"}
+{"item_id":"01a50f47d0:28","text":"Enable Temperature"}
+{"item_id":"01a50f47d0:29","text":"开启或关闭色温。下面我们使用相同的 Luxo/Pixar HDRI。"}
+{"item_id":"01a50f47d0:30","text":"Color Temperature"}
+{"item_id":"01a50f47d0:31","text":"允许用户选择灯光的"}
+{"item_id":"01a50f47d0:32","text":"色温"}
+{"item_id":"01a50f47d0:33","text":"，单位为"}
+{"item_id":"01a50f47d0:34","text":"Kelvin"}
+{"item_id":"01a50f47d0:35","text":"。不同于基础灯光颜色，这让用户可以根据标准温度测量轻松选择可信的灯光颜色。此控制的作用类似灯光前方的 filter 或 gel（一层带 tint 的透明表面）。如果灯光为白色，你会得到所选色温。如果灯光已有颜色，色温会使它更冷（高于 6500K）或更暖（低于 6500K）。"}
+{"item_id":"01a50f47d0:36","text":"该效果在完全饱和的单色灯光上不太明显。默认值为 6500K，在大多数显示器上应非常接近白色（sRGB 和 Rec 709 使用的 D65 illuminant）。"}
+{"item_id":"01a50f47d0:37","text":"Primary Visibility"}
+{"item_id":"01a50f47d0:38","text":"默认情况下，灯光会直接对 camera 可见。关闭此项会使其对 camera 不可见。"}
+{"item_id":"01a50f47d0:39","text":"Refine"}
+{"item_id":"01a50f47d0:40","text":"下面的选项是用于艺术指导图像的非物理控制。例如：你可以将灯光的"}
+{"item_id":"01a50f47d0:41","text":"Diffuse Amount"}
+{"item_id":"01a50f47d0:42","text":"设为 0.0，使其仅作为场景 objects 的高光来源。"}
+{"item_id":"01a50f47d0:43","text":"Specular Amount"}
+{"item_id":"01a50f47d0:44","text":"发出的 specular light（镜面反射光）数量。这是一个非物理控制。你可以将灯光的 Specular Amount 设为 0.0，使其仅作为场景 objects 的 diffuse light（漫反射光）来源，并避免添加高光。"}
+{"item_id":"01a50f47d0:45","text":"Diffuse Amount"}
+{"item_id":"01a50f47d0:46","text":"发出的 diffuse light（漫反射光）数量。这是一个非物理控制。你可以将灯光的 Diffuse Amount 设为 0.0，使其仅作为场景 objects 的高光来源。"}
+{"item_id":"01a50f47d0:47","text":"Shadows"}
+{"item_id":"01a50f47d0:48","text":"如果灯光的"}
+{"item_id":"01a50f47d0:49","text":"Trace Light Paths"}
+{"item_id":"01a50f47d0:50","text":"在 Advanced 中启用，则所有 shadow 参数都会被忽略。下面的选项在脱离默认状态使用时都是非物理控制。如果"}
+{"item_id":"01a50f47d0:51","text":"Trace Light Paths"}
+{"item_id":"01a50f47d0:52","text":"启用，则会强制执行其物理属性。"}
+{"item_id":"01a50f47d0:53","text":"Enable Shadows"}
+{"item_id":"01a50f47d0:54","text":"启用光线追踪阴影。"}
+{"item_id":"01a50f47d0:55","text":"Shadow Color"}
+{"item_id":"01a50f47d0:56","text":"发出光投射的阴影颜色。"}
+{"item_id":"01a50f47d0:57","text":"Shadow Max Distance"}
+{"item_id":"01a50f47d0:58","text":"从被着色点位置开始计算的最大阴影距离。-1.0 表示未设置，此时使用被着色点与灯光上点之间的距离。你可以使用此控制人为减少投射阴影的距离。它也可能通过不计算该距离之外的阴影来提高渲染速度。下面的示例使用一个距离值，防止雕像在其后方墙面上投射阴影，同时保留其他阴影。"}
+{"item_id":"01a50f47d0:59","text":"Shadow Falloff"}
+{"item_id":"01a50f47d0:60","text":"阴影衰减从灯光处开始的距离。-1.0 会关闭阴影衰减。它与"}
+{"item_id":"01a50f47d0:61","text":"Shadow Max Distance"}
+{"item_id":"01a50f47d0:62","text":"一起使用，为被"}
+{"item_id":"01a50f47d0:63","text":"Shadow Max Distance"}
+{"item_id":"01a50f47d0:64","text":"参数削弱或截断的阴影创建伪淡出。下面是两个参数一起使用且 falloff 增加的示例。注意，此参数可能影响复杂灯光设置中的性能。"}
+{"item_id":"01a50f47d0:65","text":"Shadow Falloff Gamma"}
+{"item_id":"01a50f47d0:66","text":"衰减区域中阴影强度的 gamma。这需要使用"}
+{"item_id":"01a50f47d0:67","text":"Shadow Max Distance"}
+{"item_id":"01a50f47d0:68","text":"和"}
+{"item_id":"01a50f47d0:69","text":"Shadow Falloff"}
+{"item_id":"01a50f47d0:70","text":"。数值越低，衰减越明显。"}
+{"item_id":"01a50f47d0:71","text":"Trace Subset"}
+{"item_id":"01a50f47d0:72","text":"要纳入追踪阴影求交的 geometry 集合。如果未指定，则所有 geometry 都会纳入追踪阴影求交。"}
+{"item_id":"01a50f47d0:73","text":"Don't Trace Subset"}
+{"item_id":"01a50f47d0:74","text":"要忽略追踪阴影求交的 geometry 集合。如果未指定，则所有 geometry 都用于追踪阴影求交。"}
+{"item_id":"01a50f47d0:75","text":"Advanced"}
+{"item_id":"01a50f47d0:76","text":"Trace Light Paths"}
+{"item_id":"01a50f47d0:77","text":"启用从此灯光开始的光线和光子追踪。该值会强制使用基于物理的灯光，并且作为副作用禁用上面的"}
+{"item_id":"01a50f47d0:78","text":"Shadows"}
+{"item_id":"01a50f47d0:79","text":"控制。使用 PxrVCM 或 PxrUnified Integrators 时，用户可利用此功能选择哪些灯光发射光子。"}
+{"item_id":"01a50f47d0:80","text":"Thin Shadow"}
+{"item_id":"01a50f47d0:81","text":"为此灯光启用 thin shadow（薄阴影）并禁用折射焦散。如果"}
+{"item_id":"01a50f47d0:82","text":"Trace Light Paths"}
+{"item_id":"01a50f47d0:83","text":"已启用，则会忽略此参数。这是一个非物理控制，可为透射对象创建“伪”彩色阴影，而无需为焦散生成光子。下面我们从 On（默认）切换到 Off（不透明阴影）。注意，选择 Off 时会丢失彩色阴影和内部彩色反射，但会换来一些渲染速度。"}
+{"item_id":"01a50f47d0:84","text":"Visible in Refraction"}
+{"item_id":"01a50f47d0:85","text":"开启此项可使灯光通过玻璃和窗户等透射效果可见。"}
+{"item_id":"01a50f47d0:86","text":"Manifold Walk"}
+{"item_id":"01a50f47d0:87","text":"与 PxrUnified Integrator 一起使用，并启用"}
+{"item_id":"01a50f47d0:88","text":"Enable Manifold Walk"}
+{"item_id":"01a50f47d0:89","text":"以创建低成本 caustics。注意：你必须禁用 Thin Shadows"}
+{"item_id":"01a50f47d0:90","text":"Manifold Walk Exclude Group"}
+{"item_id":"01a50f47d0:91","text":"与 PxrUnified Integrator 一起使用，并启用"}
+{"item_id":"01a50f47d0:92","text":"Enable Manifold Walk（启用流形行走选项参数），"}
+{"item_id":"01a50f47d0:93","text":"该 trace set 会在流形探索期间被忽略，以避免停止或遮挡流形探索光线"}
+{"item_id":"01a50f47d0:94","text":"Light Samples"}
+{"item_id":"01a50f47d0:95","text":"指定此光源的灯光采样数量覆盖值。如果设为非零值，它会覆盖 integrator（积分器）执行的采样。除非遇到来自该灯光且无法解决的 noise，建议保持默认值。"}
+{"item_id":"01a50f47d0:96","text":"Light Group"}
+{"item_id":"01a50f47d0:97","text":"指定用于 light group LPEs 的 Light Group 名称。这对于生成 per-light AOVs 以便之后在合成中调整很有用。"}
+{"item_id":"01a50f47d0:98","text":"Importance Multiplier"}
+{"item_id":"01a50f47d0:99","text":"用户不必显式设置 Light Samples，而可以通过更改此值来改变内部分配给该灯光的采样数量。RenderMan 会在渲染时为场景中的所有灯光创建一组采样，改变此值会在这些灯光之间重新平衡采样。注意，增大此值会使"}
+{"item_id":"01a50f47d0:100","text":"更多"}
+{"item_id":"01a50f47d0:101","text":"采样从此灯光中被选择，同时减少场景中其他灯光的采样。低于默认值则会"}
+{"item_id":"01a50f47d0:102","text":"减少"}
+{"item_id":"01a50f47d0:103","text":"该灯光的采样，同时为场景中的其他灯光提供更多采样。"}
+{"item_id":"01a50f47d0:104","text":"另请参阅"}
+{"item_id":"01a50f47d0:105","text":"PxrPortalLight"}

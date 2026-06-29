@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PxrBumpMixer</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>PxrBumpMixer</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/REN27/542222881/PxrBumpMixer">https://rmanwiki-27.pixar.com/space/REN27/542222881/PxrBumpMixer</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>This node provides a modern way to generate and layer bump maps, providing an inexpensive way to add small surface details through shading rather than modeling them.</p><p>Traditional options do not allow for order-independent mixing and this node provides for easy mixing of multiple inputs if needed. You can also chain these nodes together for more complex networks using masking to vary bump maps across surfaces while using a single material assignment.<br/><br/></p><p><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/542222881/pxrBumpMixer_Inputs.jpg" data-image-src="../../attachments/542222881/pxrBumpMixer_Inputs.jpg" data-unresolved-comment-count="0" data-linked-resource-id="542222897" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrBumpMixer_Inputs.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542222881" data-linked-resource-container-version="1" data-media-id="9c99922c-4be7-44b3-b64d-1592dd6edf91" data-media-type="file"></span><br/><br/></p><p><span>Nodes that supply a </span><strong><em>resultNG</em></strong><span> output can connect to this node, examples include </span><a href="/wiki/spaces/REN27/pages/542225070/PxrTexture" data-linked-resource-id="542225070" data-linked-resource-version="1" data-linked-resource-type="page">PxrTexture</a><span> and </span><span>many procedural patterns</span><span>. </span>This new NG vector type expresses the signal's gradient and is more accurate and efficient to compute than traditional bump map techniques.</p><p>This tech implements many of the developments in: <a class="external-link" href="http://jcgt.org/published/0009/03/04/" rel="nofollow" style="letter-spacing: 0.0px;">Surface Gradient-Based Bump Mapping Framework</a>.</p><h3 id="PxrBumpMixer-InputParameters">Input Parameters</h3><h4 id="PxrBumpMixer-Mode">Mode</h4><ul><li><p><strong>Add</strong> - Add the results together, A + B</p></li><li><p><strong>Over</strong> - Puts A over B, a mask is useful here to reveal the layer underneath, A+B(1-a)</p></li><li><p><strong>Subtract</strong> - Subtract the results, A - B</p></li></ul><h4 id="PxrBumpMixer-SurfaceGradient">Surface Gradient</h4><p>Connect your pattern or texture node <em>resultNG</em> connection here.</p><h4 id="PxrBumpMixer-Mask">Mask</h4><p>A simple grayscale (scalar) pattern or texture channel is used to mask where you want this particular layer to take effect. This is especially useful when using the Over mode.</p><h4 id="PxrBumpMixer-Amount"><strong>Amount</strong></h4><p>This is how strong you want the bump effect to be for this layer and can be controlled using a scalar input such as a pattern or texture channel.</p><h3 id="PxrBumpMixer-Advanced">Advanced</h3><h4 id="PxrBumpMixer-AdjustAmount"><strong>Adjust Amount</strong></h4><p>Sometimes you may see darkening on the surface, possibly at the horizon where the normal may point away from the camera. This control can push these normals back towards the camera to avoid this artifact.</p><h4 id="PxrBumpMixer-SurfaceNormalMix"><strong>Surface Normal Mix</strong></h4><p>Your surface geometry normals can be overridden by the shading normals this provides, if you want to mix these surface normals in with these, you can do so with this control.</p>
+  </article>
+</main>
+</body>
+</html>

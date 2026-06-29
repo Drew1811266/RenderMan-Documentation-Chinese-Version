@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PxrCamera Advanced</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>PxrCamera Advanced</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/REN27/542231837/PxrCamera+Advanced">https://rmanwiki-27.pixar.com/space/REN27/542231837/PxrCamera+Advanced</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<h5 id="PxrCameraAdvanced-ADVANCED">ADVANCED</h5><p><strong>Detail Bias</strong></p><p>Higher values shift texture mipmaps and dicing to coarser levels, or less detail. Negative increase details for both. Adjust in small increments.</p><p><strong>Enhancement</strong></p><p>Selecting a screen area (X and Y) you can embiggen (zoom) by Z amount. This maintains all other parts of the render including mipmap levels, dicing, etc. It only changes the rays to zoom into this area leaving all else the same. This is useful as a diagnostic tool to see details smaller than a pixel that may flicker or change in undesired ways (like finding geometry popping or details changing).</p><p><strong>Matte File</strong></p><p>This is used to take a deep EXR to generate a matte for the termination of rays, in this way it's similar to a generalized clipping plane. The supplied file must be an EXR and can be Deep Data or a shallow EXR (with included alpha). If it is deep data then we set the rays to terminate where the data becomes opaque, cutting away anything behind them in the render. Semi-transparent areas are importance sampled based on the depth and level of transparency. This can improve performance by skipping shading and tracing of rays. If using a shallow EXR with alpha, we terminate rays on opaque areas immediately and allow them where transparent. If there is partial transparency we stochastically sample based on the level of transparency. The shallow EXR method operates a lot like a render mask. Note that this parameter only works with RIS and <strong>not </strong>with XPU yet.</p>
+  </article>
+</main>
+</body>
+</html>

@@ -1,0 +1,49 @@
+{"item_id":"6eb1c46a4c:0","text":"虽然 Pixar 不使用 PBR Metallic workflow，但无论你使用在线材质库中的 PBR maps，还是使用 Substance Painter 这类 texturing software，它仍然是艺术家中相当常见的工作流。幸运的是，RenderMan 附带了一个方便的节点，叫做"}
+{"item_id":"6eb1c46a4c:1","text":"PxrMetallicWorkflow"}
+{"item_id":"6eb1c46a4c:2","text":"，可以很容易地与 PBR maps 和 PxrSurface 一起使用。"}
+{"item_id":"6eb1c46a4c:3","text":"本课将引导你完成这个过程。"}
+{"item_id":"6eb1c46a4c:4","text":"本课使用的 maps 由我们的渲染朋友"}
+{"item_id":"6eb1c46a4c:5","text":"Greyscalegorilla"}
+{"item_id":"6eb1c46a4c:6","text":"慷慨提供，所用示例是 Copper Corroded Heavy 01。"}
+{"item_id":"6eb1c46a4c:7","text":"由于 Eagle model 没有任何 UVs，我们采用 triplanar 方法，通过"}
+{"item_id":"6eb1c46a4c:8","text":"PxrMultiTexture"}
+{"item_id":"6eb1c46a4c:9","text":"节点将 textures 映射到模型上。"}
+{"item_id":"6eb1c46a4c:10","text":"如果你的模型有 UVs，可以使用"}
+{"item_id":"6eb1c46a4c:11","text":"PxrTexture"}
+{"item_id":"6eb1c46a4c:12","text":"节点，而不是 PxrMultiTexture 节点。"}
+{"item_id":"6eb1c46a4c:13","text":"设置如下："}
+{"item_id":"6eb1c46a4c:14","text":"创建一个 PxrSurface"}
+{"item_id":"6eb1c46a4c:15","text":"创建一个 PxrMetallicWorkflow node"}
+{"item_id":"6eb1c46a4c:16","text":"将"}
+{"item_id":"6eb1c46a4c:17","text":"resultdiffuse"}
+{"item_id":"6eb1c46a4c:18","text":"从 PxrMetallicWorkflow 连接到 PxrSurface 的"}
+{"item_id":"6eb1c46a4c:19","text":"diffusecolor"}
+{"item_id":"6eb1c46a4c:20","text":"为 diffuse map 使用 PxrTexture（或在本例中使用 PxrMultiTexture node）"}
+{"item_id":"6eb1c46a4c:21","text":"将 diffuse texture 连接到 PxrMetallicWorkflow node 的"}
+{"item_id":"6eb1c46a4c:22","text":"basecolor"}
+{"item_id":"6eb1c46a4c:23","text":"PxrMetallicWorkflow 节点的输入。"}
+{"item_id":"6eb1c46a4c:24","text":"加载 Metallic texture map。"}
+{"item_id":"6eb1c46a4c:25","text":"将 metallic map 中的"}
+{"item_id":"6eb1c46a4c:26","text":"resultr"}
+{"item_id":"6eb1c46a4c:27","text":"连接到 PxrMetallicWorkflow node 的"}
+{"item_id":"6eb1c46a4c:28","text":"metallic"}
+{"item_id":"6eb1c46a4c:29","text":"PxrMetallicWorkflow 节点的输入。"}
+{"item_id":"6eb1c46a4c:30","text":"将 PxrMetallicWorkflow 的 resultSpecularEdgeRGB 连接到 PxrSurface 的 specularEdgeColor。"}
+{"item_id":"6eb1c46a4c:31","text":"将 PxrMetallicWorkflow 的 resultSpecularFaceRGB 连接到 PxrSurface 的 specularFaceColor。"}
+{"item_id":"6eb1c46a4c:32","text":"加载 Roughness map。"}
+{"item_id":"6eb1c46a4c:33","text":"将 roughness map（粗糙度贴图）中的"}
+{"item_id":"6eb1c46a4c:34","text":"resultr"}
+{"item_id":"6eb1c46a4c:35","text":"连接到 PxrSurface 的"}
+{"item_id":"6eb1c46a4c:36","text":"specularRoughness"}
+{"item_id":"6eb1c46a4c:37","text":"PxrSurface 的输入。"}
+{"item_id":"6eb1c46a4c:38","text":"使用 PxrNormalMap node 加载你的 Normal map。"}
+{"item_id":"6eb1c46a4c:39","text":"将 PxrNormalMap node 中的"}
+{"item_id":"6eb1c46a4c:40","text":"resultN"}
+{"item_id":"6eb1c46a4c:41","text":"从 PxrNormalMap 节点连接到 PxrSurface 的"}
+{"item_id":"6eb1c46a4c:42","text":"bumpNormal"}
+{"item_id":"6eb1c46a4c:43","text":"PxrSurface 的输入。"}
+{"item_id":"6eb1c46a4c:44","text":"点击 Render，尽情沐浴在 PBR 的荣耀中！"}
+{"item_id":"6eb1c46a4c:45","text":"Further Refinements（进一步优化）"}
+{"item_id":"6eb1c46a4c:46","text":"在上面的示例中，我还使用了一个名为 EasyDust 的 Houdini Dust HDA，来自"}
+{"item_id":"6eb1c46a4c:47","text":"Timothee Maron"}
+{"item_id":"6eb1c46a4c:48","text":"的 Houdini Dust HDA，名为 EasyDust。可使用 PxrRemap、PxrThreshold 或 PxrSplineMap node，根据 lookdev 需求校正 roughness map。"}

@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PxrDispVectorLayer</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>PxrDispVectorLayer</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/REN27/542223392/PxrDispVectorLayer">https://rmanwiki-27.pixar.com/space/REN27/542223392/PxrDispVectorLayer</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>此 pattern 会对输入的矢量置换图案进行分层组合。</p><p>每个 PxrDispVectorLayer 最多支持 5 个层。若要使用超过 5 个层，可以将一个 PxrDispVectorLayer 节点的结果连接到另一个 PxrDispVectorLayer 节点的输入。 </p><div class="confluence-information-macro confluence-information-macro-tip conf-macro output-block" data-hasbody="true" data-macro-id="62deae2e-9068-4629-aa31-efe599db3a24" data-macro-name="tip"><span class="aui-icon aui-icon-small aui-iconfont-approve confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>如果需要超过 5 个层，请将一个 PxrDispVectorLayer 节点的结果连接到另一个 PxrDispVectorLayer 节点的输入。</p></div></div><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="9e5060b6-d101-4abf-8208-59738a0e0bf3" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>需要将结果连接到 <a href="542221096-PxrDisplace.html" data-linked-resource-id="542221096" data-linked-resource-version="1" data-linked-resource-type="page">PxrDisplace</a> 的 Vector Displacement 输入，才能置换几何体。</p></div></div><p><br/></p><p><span class="confluence-embedded-file-wrapper image-center-wrapper"><img class="confluence-embedded-image image-center" loading="lazy" src="../../attachments/542223392/pxrdispvectorlayer.png" data-image-src="../../attachments/542223392/pxrdispvectorlayer.png" data-unresolved-comment-count="0" data-linked-resource-id="542223406" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrdispvectorlayer.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542223392" data-linked-resource-container-version="1" data-media-id="6d8cac50-3cab-4ae5-be1f-d8d967f8dbb1" data-media-type="file"></span></p><h3 id="PxrDispVectorLayer-InputParameters">Input Parameters（输入参数）</h3><h4 id="PxrDispVectorLayer-OverallGain">Overall Gain</h4><p>控制最终分层后的矢量置换结果的增益。当需要全局调整所有分层置换值的强度时，这很方便。每个层的增益都会与此参数相乘。</p><h3 id="PxrDispVectorLayer-BaseLayer">Base Layer</h3><h4 id="PxrDispVectorLayer-Enabled">Enabled</h4><p>默认情况下，基础层处于启用状态。但如果需要调试，可以取消勾选此参数来禁用基础层。取消勾选后，基础层会在分层时被跳过。</p><h4 id="PxrDispVectorLayer-BaseLayerGain">Base Layer Gain</h4><p>基础层的 Gain（增益）。</p><h4 id="PxrDispVectorLayer-BaseLayerVector">Base Layer Vector</h4><p>连接到矢量置换 pattern。它可以是任意 pattern 的矢量或颜色输出结果，例如 resultXYZ 或 resultRGB。</p><h3 id="PxrDispVectorLayer-Layer1">Layer1</h3><h4 id="PxrDispVectorLayer-Enabled.1">Enabled</h4><p>勾选后，启用第 1 层。</p><h4 id="PxrDispVectorLayer-Layer1Gain">Layer 1 Gain</h4><p>第 1 层的 Gain（增益）。</p><h4 id="PxrDispVectorLayer-Layer1Vector">Layer 1 Vector</h4><p>连接到矢量置换。它可以是任意 pattern 的矢量或颜色输出结果，例如 resultXYZ 或 resultRGB。</p><h4 id="PxrDispVectorLayer-Layer1Mask">Layer 1 Mask</h4><p>第 1 层的 Mask。Values（值）越接近零，此层应用得越少。</p><h4 id="PxrDispVectorLayer-Layer1Operation">Layer 1 Operation</h4><p>选择此层的置换如何与基础层组合。</p><ul><li>1: Add - 将第 1 层的每个矢量分量加到基础层。</li><li>2: Over - 将第 1 层的每个矢量分量叠合到基础层之上。</li><li>3: Multiply - 将第 1 层的每个矢量分量与基础层相乘。</li><li>4: Average - 返回第 1 层与基础层之间每个矢量分量的平均值。</li><li>5: Min - 返回第 1 层与基础层之间每个矢量分量的最小值。</li><li>6: Max - 返回第 1 层与基础层之间每个矢量分量的最大值。</li></ul><h3 id="PxrDispVectorLayer-Layer2">Layer2</h3><h4 id="PxrDispVectorLayer-Enabled.2">Enabled</h4><p>勾选后，启用第 2 层。</p><h4 id="PxrDispVectorLayer-Layer2Gain">Layer 2 Gain</h4><p>第 2 层的 Gain（增益）。</p><h4 id="PxrDispVectorLayer-Layer2Vector">Layer 2 Vector</h4><p>连接到矢量置换。它可以是任意输出矢量或颜色结果的 pattern，例如 resultXYZ 或 resultRGB。</p><h4 id="PxrDispVectorLayer-Layer2Mask">Layer 2 Mask</h4><p>第 2 层的 Mask。Values（值）越接近零，此层应用得越少。</p><h4 id="PxrDispVectorLayer-Layer2Operation">Layer 2 Operation</h4><p>选择此层的置换如何与前一层组合。如果第 1 层未启用，它会与基础层的结果组合。</p><ul><li>1: Add - 将第 2 层的每个矢量分量加到第 1 层。</li><li>2: Over - 将第 2 层的每个矢量分量叠合到第 1 层之上。</li><li>3: Multiply - 将第 2 层的每个矢量分量与第 1 层相乘。</li><li>4: Average - 返回第 2 层与第 1 层之间每个矢量分量的平均值。</li><li>5: Min - 返回第 2 层与第 1 层之间每个矢量分量的最小值。</li><li>6: Max - 返回第 2 层与第 1 层之间每个矢量分量的最大值。</li></ul><h3 id="PxrDispVectorLayer-Layer3to4">Layer 3 to 4</h3><p>参数与 Layer 2 类似。</p><h3 id="PxrDispVectorLayer-OutputParameters">Output Parameters</h3><h4 id="PxrDispVectorLayer-resultXYZ">resultXYZ</h4><p>矢量结果。</p><h4 id="PxrDispVectorLayer-resultX">resultX</h4><p>来自 resultXYZ 输出的 X 分量。</p><h4 id="PxrDispVectorLayer-resultY">resultY</h4><p>来自 resultXYZ 输出的 Y 分量。</p><h4 id="PxrDispVectorLayer-resultZ">resultZ</h4><p>来自 resultXYZ 输出的 Z 分量。</p>
+  </article>
+</main>
+</body>
+</html>

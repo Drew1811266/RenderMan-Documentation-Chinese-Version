@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RMS</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>RMS</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/TRA/22184246/RMS">https://rmanwiki-27.pixar.com/space/TRA/22184246/RMS</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p /><div class="confluence-information-macro confluence-information-macro-warning conf-macro output-block" data-hasbody="true" data-macro-id="d4fe50ee-a35a-40be-aba7-d4b156d2a4fd" data-macro-name="warning"><span class="aui-icon aui-icon-small aui-iconfont-error confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p><strong>This is legacy documentation for RenderMan 21 and prior.</strong></p></div></div><h3 id="RMS-Introduction">Introduction</h3><p>The default configuration of RenderMan Studio distributes work via Tractor. Straight out of the box a user can go to the Render Options window and set things up such that any render that isn't a local internal render will use Tractor to make sure the job gets done right. That is, of course, assuming that your site happens to be using the default, straight-out-of-the-box configuration of Tractor, as well.</p><p>If, perchance, you think you're special and opted to change the default configuration, fear not. RenderMan Studio provides all the hooks you need, via preferences and other doodads, to maintain a harmonious symbiosis between your RenderMan Studio workstations and your Tractor work dispatching system.</p><hr/><h3 id="RMS-EngineLocationandTractorUsers">Engine Location and Tractor Users</h3><p>The RenderMan_for_Maya.ini provides two critical preferences for sealing RMS and Tractor's bond:</p><p><code>SetPref TractorEngine {tractor-engine:80}
+SetPref TractorUser {}</code><sup>
+</sup></p><p>These preferences are used by the MEL script that generates job scripts and spools the jobs. As with all prefs, they can be set in aRMS_SCRIPT_PATHS-based ini override file.</p><p>By default, Tractor spools to a machine called <em>tractor-engine</em>, on port 80. For any of a number of reasons, this might not be your setup, but you can override this pref in your site-specific ini, for example, like so:</p><p><code>SetPref TractorEngine { myserver:8080 }</code><sup>
+</sup></p><p>The format is: engine:port.</p><p>The default for tractor-spool.py (tractor.py in the RMS distribution) is to spool as the user spooling the job. You may want the jobs spooled as a specific user.  The second preference enables locking down the jobs to a specific user, e.g.:</p><p><code>SetPref TractorUser { mwazowski }
+</code></p><hr/><h3 id="RMS-EnvKeys">EnvKeys</h3><p>The RenderMan_for_Maya_Pro.ini file now has an additional pref that specifies the default environment key that is passed to Tractor.</p><p><code>SetPref DefaultEnvKey &quot;rms-[GetPlatform rms_version]-maya-[GetPlatform rfm_mayaversion]&quot;
+</code></p><p>This <em>envkey</em> is handled by the Tractor <em>envhandler</em>, which parses the key and properly sets up the $RMSTREE and $MAYA_LOCATION` on the tractor-blade.  (It's important to note, however, that the envhandler for RenderMan Studio sets up the environment based upon &quot;default&quot; installation location, which may be different at different sites.)</p><p>The DefaultEnvKey preference sets the default for the Render Options (both <em>Current Frame</em> and <em>Batch</em>) in RMS. In this dialog, the user can completely change the environment settings that are sent to Tractor, allowing users to append other envkeys to the default. Note that the resulting envkey then gets saved into a Maya preference, like all the other values in the batch render dialog, and is propagated to future Maya scenes. Clicking on the <em>Default</em> button for the Environment Key in the Render Options window restores the DefaultEnvKeyfrom the .ini file.</p><hr/><h3 id="RMS-tractor-bladeConfiguration">tractor-blade Configuration</h3><p>If you have changed the default install location for RenderMan Studio you will need to edit the blade configuration to change the install location, so that RMS jobs will be processed by Tractor correctly.  In particular, there are three shared.*.envkeys files that are sent from the tractor-engine to the tractor-blades. These envkey files contain environment dictionaries. The environment dictionary for the envkey &quot;rms-*-maya-*&quot; will need to be altered to point to the correct install location.</p><ul><li><p><strong>Important</strong></p></li></ul><blockquote><p>As with .ini files, we recommend that users don't edit the factory config files. Instead, copy the files to a special config directory for your site and edit them there. Then, start thetractor-engine with the --configdir=/path/to/config/files option.</p></blockquote><hr/><h3 id="RMS-Additionalenvhandlers">Additional envhandlers</h3><p>Several other envhandlers are available, and probably most used is the <em>prman</em> envkey. The <em>prman</em> key is of the format:</p><blockquote><p>&quot;prman-XX.X&quot;</p></blockquote><p>The XX.X refers to the version (example '19.0') of prman that is to be launched with the batch rendering. When this key is added to the batch dialog, the <em>rmanhandler</em> is invoked. It will locate the intended prman release on disk, set RMANTREE in the launch environment, and add $RMANTREE/bin to the launch environment path.</p><p>If RMS or RPS are installed in non-standard locations the <em>rmantree</em> and <em>rmstree</em> handlers can be used instead.</p><blockquote><p>&quot;rmantree=/path/to/my/rmantree/installation&quot;</p><p>&quot;rmstree=/path/to/my/rmstree/installation&quot;</p></blockquote><p>These handlers pull the path to the <em>rmantree</em> and <em>rmstree</em> out and add them into the environment as $RMANTREE and $RMSTREE. They also append $RMANTREE/bin and $RMSTREE/bin to the path of the launched commands.</p>
+  </article>
+</main>
+</body>
+</html>

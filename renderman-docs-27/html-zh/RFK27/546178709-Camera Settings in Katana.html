@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Camera Settings in Katana</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Camera Settings in Katana</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFK27/546178709/Camera+Settings+in+Katana">https://rmanwiki-27.pixar.com/space/RFK27/546178709/Camera+Settings+in+Katana</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p /><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="91baae69-481a-4b79-aa11-0552c1183efa" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>PrmanCameraSettings 需要 locationPath 中有上游摄影机或 /root，才能填充摄影机参数。</p></div></div><h3 id="CameraSettingsinKatana-PrmanCameraSettings">PrmanCameraSettings</h3><p>此节点用于设置摄影机选项和参数，例如景深控制、快门时序、渲染裁剪平面以及其他投影参数。PrmanCameraSettings 可按摄影机分配，也可以分配到 /root。</p><p>locationPath 应为 /root 或摄影机位置。如果希望将相同设置应用到多个摄影机，可以把所有摄影机路径添加到 CEL 参数。</p><p>如果在 /root 设置摄影机设置，场景中的摄影机会继承这些设置，包括投影参数以及 prmanCameraStatements。这些属性可以按摄影机在本地覆盖。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="684" loading="lazy" src="../../attachments/546178709/rfkPrmanCameraSettings.png" data-image-src="../../attachments/546178709/rfkPrmanCameraSettings.png" data-height="742" data-width="695" data-unresolved-comment-count="0" data-linked-resource-id="546178742" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfkPrmanCameraSettings.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="546178709" data-linked-resource-container-version="1" data-media-id="2bec872b-83b0-4994-a6b4-302d76192d7c" data-media-type="file"></span><h3 id="CameraSettingsinKatana-ProjectionPlugins">Projection Plugins（投影插件）</h3><p>所有 RenderMan projection plugins 都可在 PrmanCameraSettings 的 prmanProjectionShader 下拉菜单中使用。如果使用 C++ 创建 custom projection plugins（自定义投影插件），只要它们具有 <a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19662097" rel="nofollow">Args files</a> 并可通过 <a href="546177126-Environment Variables in Katana.html" rel="nofollow">RMAN_RIXPLUGINPATH</a> 环境变量访问。</p><p>如果 prmanProjectionShader 参数留空，RfK 将使用通过 <code>geometry.projection</code> 属性指定的投影，该属性位于 CameraCreate 节点或 Alembic_In 摄影机上。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="684" loading="lazy" src="../../attachments/546178709/rfkCameraCreate.png" data-image-src="../../attachments/546178709/rfkCameraCreate.png" data-height="120" data-width="746" data-unresolved-comment-count="0" data-linked-resource-id="546178736" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfkCameraCreate.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="546178709" data-linked-resource-container-version="1" data-media-id="7550d31f-1d65-4af0-b693-0ebd68416559" data-media-type="file"></span><p>或者，也可以将 projection plugins 创建为材质，并分配给 <code>/root</code> 或某个摄影机位置，使用 MaterialAssign 节点。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="684" loading="lazy" src="../../attachments/546178709/rfkCustomProjection.png" data-image-src="../../attachments/546178709/rfkCustomProjection.png" data-height="393" data-width="931" data-unresolved-comment-count="0" data-linked-resource-id="546178727" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfkCustomProjection.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="546178709" data-linked-resource-container-version="1" data-media-id="dcce7420-2ef4-4d11-8e99-d8881672df4f" data-media-type="file"></span><h3 id="CameraSettingsinKatana-FieldofView(FOV)">Field of View (FOV)（视场角）</h3><p>在 RenderMan 中，FOV 是 projection plugin 的一部分。由于 Katana 将摄影机的 field of view 作为 <code>geometry.fov</code> 属性而不是材质提供，因此设置 FOV 有两种方式。默认情况下，RfK 会使用摄影机 geometry.fov 属性中的 FOV，并把该值推送到 projection plugin 的 material attribute 上。如果希望通过 material attribute 设置 FOV，可将 IntAttribute, prmanCameraStatements.useGeometryFov, 设为 1。此设置在 PrmanCameraSettings 中显示为 "Use Camera FOV"。</p><h4 id="CameraSettingsinKatana-FOVMotionBlur">FOV Motion Blur（FOV 运动模糊）</h4><p>FOV motion blur 仅支持 <a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661243" rel="nofollow">PxrCamera</a> projection shader。其 <code>fov</code> 和 <code>fovEnd</code> 参数设置快门开始和结束时的 fov 值。  </p><p>如果使用摄影机的 goemetry.fov 属性指定 fov，可以将 IntAttribute, prmanCameraStatements.fovMotionBlur, 设为 1 来启用运动模糊。此设置在 PrmanCameraSettings 中显示为 "FOV Motion Blur"。RfK 会把 projection plugin 的 fov 参数设置为 geometry.fov 第一个时间采样处的值，并把投影的 fovEnd 参数设置为 geometry.fov 最后一个时间采样处的值。如果未设置 projection shader 但启用了 FOV Motion Blur，RfK 会自动将投影设置为 PxrCamera。</p>
+  </article>
+</main>
+</body>
+</html>

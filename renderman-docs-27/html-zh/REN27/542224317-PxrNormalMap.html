@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PxrNormalMap</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>PxrNormalMap</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/REN27/542224317/PxrNormalMap">https://rmanwiki-27.pixar.com/space/REN27/542224317/PxrNormalMap</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="contentLayout2">
+<div class="columnLayout single" data-layout="single">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p>从 normal map（编码法线的颜色贴图）生成 bumped normal。Bumps 会应用在 <em>object</em> space 中。 <em>object</em> space 与 <em>current</em> space 之间的 scale 变化会由节点自动应用。</p><p>和其他 texture nodes（纹理节点）一样，此节点接收一个 manifold，用它描述要将纹理应用到的 2D 或 3D domain。默认行为是：如果没有连接 manifold，则应用到几何体上定义的 s,t domain。</p><p>Texture atlas 格式文件可以读取为 UDIM (Mari) 格式或 Mudbox 格式。</p><h3 id="PxrNormalMap-InputParameters">Input Parameters</h3><h4 id="PxrNormalMap-BumpScale">Bump Scale</h4><p>Scale（缩放）bump effect。典型范围为 0.0 到 2.0。</p><h4 id="PxrNormalMap-InputNormal">Input Normal</h4><p>指定 normal map color（如果提供了 <em>Filename</em> ，此参数会被忽略）。</p><h4 id="PxrNormalMap-Filename">Filename</h4><p>Normal map 文件名。shader 只会从下方 Mapping Controls 的 <em>Channel</em> 读取文件中的一个通道。请注意，它会作为 tangent space 中的 Mudbox normal map 格式读取。</p><h4 id="PxrNormalMap-BumpOverlay">Bump Overlay</h4><p>如果需要组合多个 patterns，请在这里连接 <a href="542222840-PxrBump.html" data-linked-resource-id="542222840" data-linked-resource-version="1" data-linked-resource-type="page">PxrBump</a> 或 <a href="542224317-PxrNormalMap.html">PxrNormalMap</a> 节点。</p><h3 id="PxrNormalMap-BumpOrientation">Bump Orientation</h3><h4 id="PxrNormalMap-InvertBump">Invert Bump</h4><p>Invert（反转）bump orientation。Concave（凹面）会变为凸面，反之亦然。</p><h4 id="PxrNormalMap-Orientation">Orientation</h4><div><p>某些纹理应用提供不同的 orientation，例如 OpenGL 或 DirectX。也可以手动处理（选择 "Custom"）来尝试修正 normal map 的外观。</p></div><h4 id="PxrNormalMap-FlipX">Flip X</h4><p>翻转 normal map 的 x axis（red channel）。normal maps 没有统一编码标准，每个应用都会以不同方式编码。此开关结合 <em>Flip Y</em> 和 <em>Invert Bump</em> 即可设置正确的 orientation。</p><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="8de8eeaf-1df1-415d-937b-5f2030263f37" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>此开关仅在 <strong>Orientation</strong> 设置为 "<code>Custom</code>&quot;.</p></div></div><h4 id="PxrNormalMap-FlipY">Flip Y</h4><p>翻转 normal map 的 y axis（green channel）。normal maps 没有统一编码标准，每个应用都会以不同方式编码。此开关结合 <em>Flip X</em> 和 <em>Invert Bump</em> 即可设置正确的 orientation。</p><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="23a63479-699c-44a9-9595-2c883472225b" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>此开关仅在 <strong>Orientation</strong> 设置为 "<code>Custom</code>&quot;.</p></div></div><h3 id="PxrNormalMap-MappingControlsMappingControls"><span class="confluence-anchor-link conf-macro output-inline" data-hasbody="false" data-macro-id="d71b0114-0007-48f4-9160-cad7ccedc731" data-macro-name="anchor" id="PxrNormalMap-MappingControls"><span class="confluence-anchor-link" id="Mapping Controls"> </span></span>Mapping Controls</h3><h4 id="PxrNormalMap-Manifold">Manifold</h4><p>提供应用纹理的范围。默认值为 s,t。</p><h3 id="PxrNormalMap-Advanced">Advanced</h3><h4 id="PxrNormalMap-ReverseNormal">Reverse Normal</h4><p>反转生成的 normal。</p><h4 id="PxrNormalMap-AdjustAmount">Adjust Amount</h4><p>Amount：当 normals 背向摄像机时，用于调整它们。</p><h4 id="PxrNormalMap-SurfaceNormalMix">Surface Normal Mix</h4><p>将生成的 normals 与 surface normals 混合的 amount</p><h4 id="PxrNormalMap-Disabled">Disabled</h4><p>使用 geometric normal</p><p><br/></p><h3 id="PxrNormalMap-OutputParameters">Output Parameters（输出参数）</h3><h4 id="PxrNormalMap-resultN">resultN</h4><p>输出的 bumped normal。</p><h3 id="PxrNormalMap-NormalMapsOrientation">Normal Maps Orientation</h3><p>有时你可能会将 normal map 应用到几何体上，而结果看起来不正确。通常这是 orientation 问题，你需要找到 <em>Invert Bump</em>, <em>Flip X</em>，以及 <em>Flip Y</em>的正确组合。最好的方法是启动 IPR/LiveRender session 并尝试不同组合。一旦为你的 authoring application（ZBrush、Mudbox、3DCoat 等）找到正确组合，同一应用以相同设置导出的所有 maps 通常都可使用该组合。</p></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><span class="confluence-embedded-file-wrapper image-right-wrapper"><img class="confluence-embedded-image image-right" loading="lazy" src="../../attachments/542224317/PxrNormalMap_originalOrientation.png" data-image-src="../../attachments/542224317/PxrNormalMap_originalOrientation.png" data-unresolved-comment-count="0" data-linked-resource-id="542224331" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="PxrNormalMap_originalOrientation.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542224317" data-linked-resource-container-version="1" data-media-id="4d7eba0e-8f66-407f-b510-f7652ed94630" data-media-type="file"></span></p><p><br/></p></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/542224317/PxrNormalMap_flipX_orientation.png" data-image-src="../../attachments/542224317/PxrNormalMap_flipX_orientation.png" data-unresolved-comment-count="0" data-linked-resource-id="542224334" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="PxrNormalMap_flipX_orientation.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542224317" data-linked-resource-container-version="1" data-media-id="e76b0bf3-cfe3-4a8b-9739-88d65f2186f7" data-media-type="file"></span></p></div>
+</div>
+</div>
+</div>
+  </article>
+</main>
+</body>
+</html>

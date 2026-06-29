@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PxrLayeredTexture</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>PxrLayeredTexture</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/REN27/542224051/PxrLayeredTexture">https://rmanwiki-27.pixar.com/space/REN27/542224051/PxrLayeredTexture</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>This node allows for the layering of textures using masks. This is useful for adding decals, labels, damage, and more to your texture result.</p><p>Like all texture style nodes, this node takes a manifold which describes either a 2D or 3D domain to apply a texture to. The default behavior if no manifold is attached, is to apply over the s,t domain defined on the geometry, typically called your &quot;UV Layout&quot;.</p><p>Provides access to texture files. Texture atlas format files can be read in UDIM (Mari) format, ZBrush, or mudbox format. This plugin also supports Rtx procedural texture plugins.</p><p /><h4 id="PxrLayeredTexture-Mute">Mute</h4><p>Ignore this node in the compositing chain.</p><h4 id="PxrLayeredTexture-TextureOverlay">Texture Overlay</h4><p>Allows chaining of texture nodes by connecting an overlay here.</p><h3 id="PxrLayeredTexture-Mask">Mask</h3><h4 id="PxrLayeredTexture-MaskValue">Mask Value</h4><p>A scalar value, a pattern connection or another grayscale texture to control the visibility of this texture in the compositing chain. Texture connections are preferred in the following parameter.</p><h4 id="PxrLayeredTexture-MaskTexture">Mask Texture</h4><p>An RGB texture used to control the visibility of this node.</p><h4 id="PxrLayeredTexture-MaskChannel">Mask Channel</h4><p>Select the channel offset for the masking channel from the above texture input.</p><h4 id="PxrLayeredTexture-MaskAtlasStyle">Mask Atlas Style</h4><p>If you specify an atlas style, the <em>filename</em> must contain _MAPID_ which will be substituted automatically according to the surface parameterization and <em>atlasStyle. </em>A Mari UDIM example for the first UV tile would be Diffuse1001.tex where &quot;1001&quot; replaces _MAPID_ in the texture filename.</p><div class="table-wrap"><table data-table-width="1800" data-layout="default" data-local-id="f6df3155-a371-4968-828b-403d9cd8a3d3" class="confluenceTable"><tbody><tr><th class="confluenceTh"><p><strong>Value</strong></p></th><th class="confluenceTh"><p><strong>Application Style</strong></p></th><th class="confluenceTh"><p><strong>Example (Diffuse_MAPID_.tex)</strong></p></th></tr><tr><td class="confluenceTd"><p>0</p></td><td class="confluenceTd"><p>None</p></td><td class="confluenceTd"><p /></td></tr><tr><td class="confluenceTd"><p>1</p></td><td class="confluenceTd"><p>UDIM (Mari)</p></td><td class="confluenceTd"><p>Diffuse1001.tex, Diffuse1002.tex, etc.</p></td></tr><tr><td class="confluenceTd"><p>2</p></td><td class="confluenceTd"><p>UV Tile Base-1 (Mudbox)</p></td><td class="confluenceTd"><p>Diffuse_u1_v1.tex, Diffuse_u1_v2.tex, etc.</p></td></tr><tr><td class="confluenceTd"><p>3</p></td><td class="confluenceTd"><p>UV Tile Base-0 (Zbrush)</p></td><td class="confluenceTd"><p>Diffuse_u0_v0.tex, Diffuse_u0_v1.tex, etc.</p></td></tr></tbody></table></div><h4 id="PxrLayeredTexture-MissingMask">Missing Mask</h4><p>This is the value or pattern input to use when one of the above connections/parameters cannot be read or used. This is a useful fallback.</p><h3 id="PxrLayeredTexture-TextureInputParameters">Texture Input Parameters</h3><h4 id="PxrLayeredTexture-Filename">Filename</h4><p>The filename of the texture. This parameter must be supplied.</p><p>To use an image sequence, Typically, you'll use string substitutions to construct texture map references by embedding the frame number in your favorite representation. Here's an example:</p><div class="panel conf-macro output-block" data-hasbody="true" data-layout="default" data-local-id="2740591a-9307-42ac-9d8a-bd2dfa9836c9" data-macro-id="312f9835-005f-4e92-a903-863cbe28cc57" data-macro-name="panel" style="background-color: lightgrey;border-color: black;border-style: solid;border-width: 1px;"><div class="panelContent" style="background-color: lightgrey;">
+<p><sup>(For Maya)   $PROJPATH/sourceimages/flapping.&lt;f4&gt;.tex</sup></p><p><sup>(For Katana) '/images/flapping.%04d.tex' % frame</sup></p><p><sup>(For Houdini) use $F $F3 in the file name or Houdini expressions,`padzero(3, $F)`</sup></p>
+</div></div><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="ffcb6059-9bb0-4329-a2fc-c06624cb33d8" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>It's best to avoid special characters, diacritics, and spaces in your file path as these may not be resolved correctly and result in the texture failing to render.</p></div></div><p /><h4 id="PxrLayeredTexture-FirstChannelOffset">First Channel Offset</h4><p>Offsets the first color channel to be looked up.</p><h4 id="PxrLayeredTexture-AtlasStyle">Atlas Style</h4><p>If you specify an atlas style, the <em>filename</em> must contain _MAPID_ which will be substituted automatically according to the surface parameterization and <em>atlasStyle. </em>A Mari UDIM example for the first UV tile would be Diffuse1001.tex where &quot;1001&quot; replaces _MAPID_ in the texture filename.</p><p /><div class="table-wrap"><table data-table-width="1800" data-layout="default" data-local-id="cdb8cf63-23a7-4f08-b4c2-a92b30fa1dcb" class="confluenceTable"><tbody><tr><th class="confluenceTh"><p><strong>Value</strong></p></th><th class="confluenceTh"><p><strong>Application Style</strong></p></th><th class="confluenceTh"><p><strong>Example (Diffuse_MAPID_.tex)</strong></p></th></tr><tr><td class="confluenceTd"><p>0</p></td><td class="confluenceTd"><p>None</p></td><td class="confluenceTd"><p /></td></tr><tr><td class="confluenceTd"><p>1</p></td><td class="confluenceTd"><p>UDIM (Mari)</p></td><td class="confluenceTd"><p>Diffuse1001.tex, Diffuse1002.tex, etc.</p></td></tr><tr><td class="confluenceTd"><p>2</p></td><td class="confluenceTd"><p>UV Tile Base-1 (Mudbox)</p></td><td class="confluenceTd"><p>Diffuse_u1_v1.tex, Diffuse_u1_v2.tex, etc.</p></td></tr><tr><td class="confluenceTd"><p>3</p></td><td class="confluenceTd"><p>UV Tile Base-0 (Zbrush)</p></td><td class="confluenceTd"><p>Diffuse_u0_v0.tex, Diffuse_u0_v1.tex, etc.</p></td></tr></tbody></table></div><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="f71dc50e-0363-40f0-8fe5-e8f3eede8885" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>Users should avoid negative texture coordinates for all atlas texture workflows</p></div></div><p /><h4 id="PxrLayeredTexture-InvertT">Invert T</h4><p>Inverts the t parameter for the texture lookup.</p><h4 id="PxrLayeredTexture-Manifold">Manifold</h4><p>Provides the domain over which to apply the texture. Defaults to s,t. Supply a manifold here to manipulate the texture placement, example: <a href="/wiki/spaces/REN27/pages/542224071/PxrManifold2D" data-linked-resource-id="542224071" data-linked-resource-version="1" data-linked-resource-type="page">PxrManifold2D</a></p><h3 id="PxrLayeredTexture-TextureFiltering">Texture Filtering</h3><h4 id="PxrLayeredTexture-Filter">Filter</h4><p>Selects different reconstruction filters that can be used during texture lookup. The filters available for PxrTexture are:</p><ul><li><p>0: Nearest</p></li><li><p>1: Box</p></li><li><p>2: Bilinear</p></li><li><p>3: Bspline</p></li><li><p>6: Gaussian</p></li><li><p>7: Lagrangian</p></li></ul><h4 id="PxrLayeredTexture-Blur">Blur</h4><p>Specifies how much to blur the image retrieved from the texture file.</p><h4 id="PxrLayeredTexture-MipInterpolate">Mip Interpolate</h4><p>Selects whether to interpolate between adjacent resolutions in the multi-resolution texture, resulting in smoother transitions between levels.</p><h4 id="PxrLayeredTexture-MissingColor">Missing Color</h4><p>If there is an error opening the texture, use this color.</p><p /><h4 id="PxrLayeredTexture-MissingAlpha">Missing Alpha</h4><p>If there is an error opening the texture, use this alpha.</p><h3 id="PxrLayeredTexture-AdvancedSettings">Advanced Settings</h3><h4 id="PxrLayeredTexture-MipBias"><span class="legacy-color-text-default">MipBias</span></h4><p><span class="legacy-color-text-default">Bias mip selection chosen for rendering to either a higher (negative integers) or lower resolution (positive integers) selection.</span></p><h4 id="PxrLayeredTexture-MaxResolution"><span class="legacy-color-text-default">MaxResolution</span></h4><p><span class="legacy-color-text-default">Clamp mip selection to a preferred maximum level. This may prevent the highest resolutions from being rendered depending on your selection.</span></p><h4 id="PxrLayeredTexture-OptimizeIndirect"><span class="legacy-color-text-default">OptimizeIndirect</span></h4><p><span class="legacy-color-text-default">Sets texture filter to Box (inexpensive) on indirect hits instead of the selected filter used for other visible effects.</span></p><h3 id="PxrLayeredTexture-ColorCorrect">Color Correct</h3><h4 id="PxrLayeredTexture-Linearize">Linearize</h4><p>Apply the reverse sRGB to transform your texture. If you are painting textures in sRGB space (default for most paint packages) but viewing your data in data linear space, your textures will look washed out. This will apply the sRGB transform to your texture, which should make it appear visually linear again.</p><h4 id="PxrLayeredTexture-ColorTint">Color Tint</h4><p>A multiplier for the color values in a texture can be used to adjust brightness or manipulate individual color channels</p><h4 id="PxrLayeredTexture-ColorOffset">Color Offset</h4><p>Apply an offset to the result, shifting the colors of the result</p><h3 id="PxrLayeredTexture-OutputParameters">Output Parameters</h3><h4 id="PxrLayeredTexture-resultRGB">resultRGB</h4><p>The filtered color result. Note that all results are looked up starting at the <em>startChannel</em> offset.</p><h4 id="PxrLayeredTexture-resultR">resultR</h4><p>The R channel result</p><h4 id="PxrLayeredTexture-resultG">resultG</h4><p>The G channel result</p><h4 id="PxrLayeredTexture-resultB">resultB</h4><p>The B channel result</p><h4 id="PxrLayeredTexture-resultA">resultA</h4><p>If alpha is present and resultRGB is connected it returns the channel after RGB. If RGB is not connected it returns the first channel.</p><p />
+  </article>
+</main>
+</body>
+</html>

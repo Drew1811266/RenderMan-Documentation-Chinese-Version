@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Analytic Lights in Maya</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Analytic Lights in Maya</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFM27/544541437/Analytic+Lights+in+Maya">https://rmanwiki-27.pixar.com/space/RFM27/544541437/Analytic+Lights+in+Maya</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p><br/></p><h3 id="AnalyticLightsinMaya-CreatingLights">Creating Lights（创建灯光）</h3><p>可以从 RenderMan shelf 创建 RenderMan lights。右键单击这些按钮可显示类型列表。Environmental lights 被归在另一个单独按钮下，该按钮看起来像 Sun 图标。</p><p>在 Maya 中按下 't' 键时，RenderMan lights 会显示 aim 或其他 manipulators。</p><h3 id="AnalyticLightsinMaya-AnalyticLightTypes"><strong>Analytic Light Types（解析灯光类型）</strong></h3><p><span class="legacy-color-text-default">有关 parameters 的详细信息，请进入每种 light type 的链接。</span></p><ul><li><a href="https://rmanwiki-26.pixar.com/space/REN26/19661739/PxrRectLight" data-linked-resource-id="19661739" data-linked-resource-version="2" data-linked-resource-type="page">PxrRectLight</a> – 这是常用的矩形 area light</li><li><a href="https://rmanwiki-26.pixar.com/space/REN26/19661745/PxrCylinderLight" data-linked-resource-id="19661745" data-linked-resource-version="2" data-linked-resource-type="page">PxrCylinderLight</a> – 这是常用的圆柱形 area light，用于模拟 fluorescent lights 和 light sabers</li><li><a href="https://rmanwiki-26.pixar.com/space/REN26/19661741/PxrDiskLight" data-linked-resource-id="19661741" data-linked-resource-version="2" data-linked-resource-type="page">PxrDiskLight</a> – disk 很适合作为 area light 使用，也可以与 filters 结合来制作 spotlight</li><li><a href="https://rmanwiki-26.pixar.com/space/REN26/19661729/PxrDistantLight" data-linked-resource-id="19661729" data-linked-resource-version="2" data-linked-resource-type="page">PxrDistantLight</a> – distant light 非常适合作为 sun 或其他 distant source 使用，此时 light rays 近乎平行并覆盖整个 scene</li><li><a href="https://rmanwiki-26.pixar.com/space/REN26/19661751/PxrSphereLight" data-linked-resource-id="19661751" data-linked-resource-version="1" data-linked-resource-type="page">PxrSphereLight</a> – 对怀念 point light 的用户来说，此 light 可用于向所有方向照明</li><li><a href="https://rmanwiki-26.pixar.com/space/REN26/19661731/PxrAOVLight" data-linked-resource-id="19661731" data-linked-resource-version="1" data-linked-resource-type="page">PxrAovLight</a> – 这是一个 utility light，用于 <span class="legacy-color-text-default">输出 AOV mask；由于它不照明，因此没有 manipulator。它在 scene 中的位置并不重要</span></li><li><a href="https://rmanwiki-26.pixar.com/space/REN26/19661747/PxrDomeLight" data-linked-resource-id="19661747" data-linked-resource-version="2" data-linked-resource-type="page">PxrDomeLight</a> – dome light 充当 scene 的 <em>environment light（环境光）</em>，并映射 high dynamic range image（HDRI）；这是非常常见的 workflow</li><li><a href="https://rmanwiki-26.pixar.com/space/REN26/19661743/PxrPortalLight" data-linked-resource-id="19661743" data-linked-resource-version="2" data-linked-resource-type="page">PxrPortalLight</a> – 对于间接照明室内等困难 lighting situations，此 light 可与 PxrDomeLight 一起使用，提高 renders 的 quality 和 speed。Portal lights 需要与一个 dome light 关联。先选择一个 PxrDomeLight，然后从 RenderMan shelf 创建 PxrPortalLight，或从 Portals 下的 Domelight 创建</li><li><a href="https://rmanwiki-26.pixar.com/space/REN26/19661749/PxrEnvDayLight" data-linked-resource-id="19661749" data-linked-resource-version="2" data-linked-resource-type="page">PxrEnvDayLight</a> – 这是一个 daylight simulation shader（日光模拟 shader），你可以提供地球上任意 time 和 location，或者直接把 sunlight 放在想要的位置；使用 't' manipulator 可手动调整 sun location</li></ul>
+  </article>
+</main>
+</body>
+</html>

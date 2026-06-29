@@ -1,0 +1,34 @@
+{
+  "parentType": "page",
+  "parentId": "546178364",
+  "ownerId": "62462b56699649006ae7453f",
+  "lastOwnerId": null,
+  "createdAt": "2025-08-07T01:52:11.433Z",
+  "authorId": "62462b56699649006ae7453f",
+  "position": 31294946,
+  "version": {
+    "number": 1,
+    "message": "",
+    "minorEdit": false,
+    "authorId": "62462b56699649006ae7453f",
+    "createdAt": "2025-08-07T01:52:11.433Z",
+    "ncsStepVersion": null
+  },
+  "spaceId": "544342019",
+  "status": "current",
+  "body": {
+    "view": {
+      "representation": "view",
+      "value": "<p>Light arrays are very similar to instance arrays.  The major difference is that you don't need an instance source location.  Light arrays can be created with an OpScript. <span class=\"legacy-color-text-default\"> See the </span><a href=\"https://renderman.atlassian.net/wiki/download/attachments/20218656/lightArray.katana?version=1&amp;modificationDate=1694037887932&amp;cacheVersion=1&amp;api=v2\" rel=\"nofollow\"><span class=\"legacy-color-text-default\">lightArray.katana</span></a><span class=\"legacy-color-text-default\"> file for an example of how to create light arrays from a point cloud. </span></p><p><span class=\"legacy-color-text-default\">If you create a light array from a light in GafferThree, you need to make sure that the location type isn't changed until </span><em><span class=\"legacy-color-text-default\">after</span></em><span class=\"legacy-color-text-default\"> the ImplicitResolvers run. For example, if you change the location type via an OpScript, set the executionMode to &quot;deferred&quot;. This will allow the light array to respect the mute state of the GafferThree light.</span></p><p><span class=\"legacy-color-text-default\">Here are the steps to create a light array:</span></p><ul><li><p>Create a light location in GafferThree.  Any light filters and light linking done on this light will be respected when the light is turned into a light array.</p></li><li><p>Set the type of the light to &quot;light array&quot;.</p></li><li><p>Set the geomety.instanceMatrix representing the transform of each instance of the light.  The local transform of the light array is applied to the whole light array, rather than the individual lights.</p></li></ul><p>These are the attributes that can be set on a light array location.  Only geometry.instanceMatrix is required:</p><div class=\"table-wrap\"><table data-table-width=\"1800\" data-layout=\"default\" data-local-id=\"4c00ddb4-cd92-46ad-b192-a5a502a01f65\" class=\"confluenceTable\"><tbody><tr><td class=\"confluenceTd\"><p>geometry.instanceMatrix</p></td><td class=\"confluenceTd\"><p>For each instance in the instance array there are 16 values in the instanceMatrix representing the transformation matrix of this instance.  Note that this transform is relative to transform of the instance array itself.</p></td></tr><tr><td class=\"confluenceTd\"><p>geometry.instanceMaterialOverride</p></td><td class=\"confluenceTd\"><p>The light's attributes can be overridden with this attribute.  You will need one element per instance for each attribute that is overridden.  For example, to override the intensity you would set the geometry.instanceMaterialOverride.prmanLightParams.intensity attribute.  Note that when you set this attribute, you are no longer instancing the light because RenderMan light parameters cannot vary per instance.</p></td></tr></tbody></table></div><p />"
+    }
+  },
+  "title": "Light Arrays",
+  "id": "546178401",
+  "_links": {
+    "editui": "/pages/resumedraft.action?draftId=546178401",
+    "webui": "/spaces/RFK27/pages/546178401/Light+Arrays",
+    "edituiv2": "/spaces/RFK27/pages/edit-v2/546178401",
+    "tinyui": "/x/YQWOI",
+    "base": "https://renderman.atlassian.net/wiki"
+  }
+}

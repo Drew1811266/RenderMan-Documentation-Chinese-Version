@@ -1,0 +1,35 @@
+{"item_id":"36a122d9fc:0","text":"调度系统用户常见的问题是："}
+{"item_id":"36a122d9fc:1","text":"为什么这个 job（或 task）没有运行？"}
+{"item_id":"36a122d9fc:2","text":"job 可能不运行有许多原因：network 或 hardware failure、system misconfiguration，或者只是正常 scheduling rules 阻止了 job execution。"}
+{"item_id":"36a122d9fc:3","text":"要理解 job 如何以及何时变为 active，跟踪 job task 在系统中的生命周期可能会有帮助。"}
+{"item_id":"36a122d9fc:4","text":"job 必须已经提交。"}
+{"item_id":"36a122d9fc:5","text":"首先，你必须已经按下某个 in-app button 或发出提交 job 的 command。job 必须先由 engine 处理并加载。"}
+{"item_id":"36a122d9fc:6","text":"要验证 engine 是否已收到 job，请检查它是否在 dashboard 中可见。如果看不到该 job："}
+{"item_id":"36a122d9fc:7","text":"确保没有 job filter 或 client side search box 阻止 job 显示，"}
+{"item_id":"36a122d9fc:8","text":"检查 dashboard 是否指向与 spool 该 job 的 entity 相同的 engine，并且"}
+{"item_id":"36a122d9fc:9","text":"检查 engine log file 中是否在 job 被 spooled 时出现过 “job Loaded” message。log file 中相邻的 error messages 可能表明 job file 存在 syntax error。"}
+{"item_id":"36a122d9fc:10","text":"你也可以在 command line 上查看最近 spooled jobs，例如 “tq jobs mine --sort jid”。"}
+{"item_id":"36a122d9fc:11","text":"job 必须能够运行。"}
+{"item_id":"36a122d9fc:12","text":"验证 job"}
+{"item_id":"36a122d9fc:13","text":"没有"}
+{"item_id":"36a122d9fc:14","text":"处于以下状态："}
+{"item_id":"36a122d9fc:15","text":"paused，"}
+{"item_id":"36a122d9fc:16","text":"delayed，且"}
+{"item_id":"36a122d9fc:17","text":"没有按照其 afterJids list 所指定的那样等待其他 jobs 完成。"}
+{"item_id":"36a122d9fc:18","text":"job 必须有 ready tasks（就绪任务）。"}
+{"item_id":"36a122d9fc:19","text":"验证 job 确实有 ready tasks。提交 job 后，至少会有一个可运行的 ready task（除非 job author 能够编织出具有 circular dependencies 的 job！）。Ready tasks 会是 job graph 上的 leaf nodes，不过并非所有 leaf nodes 都一定 ready。可以在 command line 上用 “tq tasks state=ready and jid=<jid>” 列出 job 的 ready tasks。"}
+{"item_id":"36a122d9fc:20","text":"submission time 的 remaining tasks 会处于 blocked 状态；一旦其所有 child tasks 成功完成（或被 manually skipped），某个 task 就会变为 ready。对于 serial subtasks，task 可能还必须等待其 “older” sibling tasks 完成后才能变为 ready。"}
+{"item_id":"36a122d9fc:21","text":"Blades 必须正在请求 work。"}
+{"item_id":"36a122d9fc:22","text":"验证 blades 确实正在请求 work（并且请求正确的 engine:port）。参与的 blades 会在 dashboard 的 blades tab 中可见。如果一个都没有，请确保 blades 正在联系正确的 engine，并且 blade 和 engine hosts 的 firewall 中打开了 proper ports。engine 的默认 port 是 80 (TCP)，blades 的默认 port 是 9005 (TCP)。（注意，blade 和 engine 上必须打开 9005 (UDP)，progress messages 才能报告给 engine；不过这不会影响 task 是否在 blade 上启动。）"}
+{"item_id":"36a122d9fc:23","text":"你可以在 dashboard 中运行 tracer，验证某个 blade 是否正在请求 work。这会报告哪些 jobs 已被考虑用于 dispatching。如果相关 job 显示在 trace 中，也会显示它未被 picked up 的原因。如果相关 job 没有显示，可能是因为选择了更高 priority job 的 task，或因为其他 scheduling rules 会阻止该 job 在该 blade 上运行。"}
+{"item_id":"36a122d9fc:24","text":"还要考虑，如果 blades 在某个 interval 内发生若干 task failures，它们可能不会请求 work。这样的 blades 会在 blade list 的 Note column 中标记为 error accrual hiatus。"}
+{"item_id":"36a122d9fc:25","text":"blade's profile（blade 配置档案页面）"}
+{"item_id":"36a122d9fc:26","text":"中的 RecentErrorThrottle setting 管理这个 hiatus calculation 的 parameters。"}
+{"item_id":"36a122d9fc:27","text":"Scheduling rules 必须允许考虑该 job。"}
+{"item_id":"36a122d9fc:28","text":"有几条 scheduling rules 决定 task 是否在给定 blade 上运行："}
+{"item_id":"36a122d9fc:29","text":"requesting blade 的 service keys 必须匹配 task 的 service key expression，"}
+{"item_id":"36a122d9fc:30","text":"requesting blade 的 metrics 必须满足 task 的 metric requirements，"}
+{"item_id":"36a122d9fc:31","text":"task 不得受 limits 限制。这里的 limits 可能由 job、task 或 task 当前 command 的 limit tags 表示，并且"}
+{"item_id":"36a122d9fc:32","text":"task 不得受 sharing limits 限制。这里的 limits 是与 job project 关联的那些 limits。"}
+{"item_id":"36a122d9fc:33","text":"即使某个 task 满足这些 requirements，也可能存在一个更高 priority job 的 task 同样满足这些 requirements，并因此被 job 选中。"}
+{"item_id":"36a122d9fc:34","text":"还要注意，每次 task assignment 和 completion 都会影响 limit counters，这会影响哪些 tasks 有资格响应下一个 blade request。"}

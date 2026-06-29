@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Creating a Material in Solaris</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Creating a Material in Solaris</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFH27/544640743/Creating+a+Material+in+Solaris">https://rmanwiki-27.pixar.com/space/RFH27/544640743/Creating+a+Material+in+Solaris</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>有关使用 LOPs 在 USD 中创作材质的更多细节，例如添加材质 references（引用）和 variants（变体），请参见 <a class="external-link" href="https://www.sidefx.com/" rel="nofollow">LOPS tutorial 1</a>。下面将概述使用 <em>RenderMan</em> materials（材质）的基本材质工作流。</p><h3 id="CreatingaMaterialinSolaris-CreateMaterial">Create Material（创建材质）</h3><p>Materials（材质）在 Material Library LOP 中创建。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="900" loading="lazy" src="../../attachments/544640743/RenderMan_Solaris_CreateMaterial_1.jpg" data-image-src="../../attachments/544640743/RenderMan_Solaris_CreateMaterial_1.jpg" data-height="551" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="544640772" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Solaris_CreateMaterial_1.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544640743" data-linked-resource-container-version="1" data-media-id="cc09336c-dc6a-40dd-9071-0dda968e3f53" data-media-type="file"></span><p /><p>进入 <em>materiallibrary </em>内部，然后创建 RenderMan Material Builder(Hydra) 节点。 </p><p style="text-align: center;"><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/544640743/RenderMan_Solaris_CreateMaterial_2.jpg" data-image-src="../../attachments/544640743/RenderMan_Solaris_CreateMaterial_2.jpg" data-unresolved-comment-count="0" data-linked-resource-id="544640769" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Solaris_CreateMaterial_2.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544640743" data-linked-resource-container-version="1" data-media-id="f2d406d7-d2b6-427a-acbb-6fb12fcd3956" data-media-type="file"></span><br/><br/><br/>在新的 RenderMan material builder 节点内部，可以创建你的 shading networks（着色网络）。<br/><br/><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/544640743/RenderMan_Solaris_CreateMaterial_3.jpg" data-image-src="../../attachments/544640743/RenderMan_Solaris_CreateMaterial_3.jpg" data-unresolved-comment-count="0" data-linked-resource-id="544640766" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Solaris_CreateMaterial_3.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544640743" data-linked-resource-container-version="1" data-media-id="5d832285-44fc-4b48-a8ce-c8e4ec78e4a1" data-media-type="file"></span></p><p /><p><span class="legacy-color-text-default">返回 Material Library 参数并 auto-fill materials（自动填充材质）。这会把新材质添加到 Solaris Scene Graph（Solaris 场景图），以便分配。</span></p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="900" loading="lazy" src="../../attachments/544640743/RenderMan_Solaris_CreateMaterial_4.jpg" data-image-src="../../attachments/544640743/RenderMan_Solaris_CreateMaterial_4.jpg" data-height="770" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="544640763" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Solaris_CreateMaterial_4.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544640743" data-linked-resource-container-version="1" data-media-id="4791b5f2-e482-44a3-bbbb-081c9aaf1fd6" data-media-type="file"></span><hr/><h3 id="CreatingaMaterialinSolaris-AssignMaterials">Assign Materials（分配材质）</h3><p>Fill in（填写）Primitives 和 Material Path 参数，位置在 <em>assignmaterial  </em>节点上；这是每一次材质分配都需要填写的内容。可以直接输入路径，也可以从 Scene Graph Tree（场景图树）拖放。也可以使用 <em>materiallinker </em>节点<br/><br/>这里将上面创建的材质分配给 /ToyBox_PlateB/PlateGeo</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="900" loading="lazy" src="../../attachments/544640743/RenderMan_Solaris_CreateMaterial_5.jpg" data-image-src="../../attachments/544640743/RenderMan_Solaris_CreateMaterial_5.jpg" data-height="1027" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="544640760" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Solaris_CreateMaterial_5.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544640743" data-linked-resource-container-version="1" data-media-id="ede4f443-b76b-4d9e-98a8-b155313e1811" data-media-type="file"></span><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="900" loading="lazy" src="../../attachments/544640743/RenderMan_Solaris_CreateMaterial_6.jpg" data-image-src="../../attachments/544640743/RenderMan_Solaris_CreateMaterial_6.jpg" data-height="1027" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="544640757" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Solaris_CreateMaterial_6.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544640743" data-linked-resource-container-version="1" data-media-id="66c17249-28ac-4239-b0a0-b80b584fb650" data-media-type="file"></span><hr/><h2 id="CreatingaMaterialinSolaris-Multi-RendererWorkflow">Multi-Renderer Workflow（多渲染器工作流）</h2><ul><li><p>Solaris 支持 multi-render materials（多渲染器材质）。创建时，将不同渲染器的 material networks（材质网络）连接到 collect node（收集节点）。启动 hydra render（Hydra 渲染）时，会选择正确的网络。 <br/><br/></p></li></ul><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="9360819c-0594-4207-a282-523db83d193f" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>Solaris 中尚不支持 PxrMaterialBuilder；它是你在其他位置看到的默认 RfH 工作流。要打包 RenderMan material network（RenderMan 材质网络），请创建 subnetwork VOP（子网络 VOP），用于把相关着色节点集中封装，方便之后连接到材质库中。</p></div></div><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="900" loading="lazy" src="../../attachments/544640743/rfh_solaris_multirender.PNG" data-image-src="../../attachments/544640743/rfh_solaris_multirender.PNG" data-height="384" data-width="612" data-unresolved-comment-count="0" data-linked-resource-id="544640781" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfh_solaris_multirender.PNG" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544640743" data-linked-resource-container-version="1" data-media-id="3952f798-b03e-4044-b991-cd982e4ba38a" data-media-type="file"></span><p /><ul><li><p>Subnetwork VOP 包含一个子输入（subinput）和一个子输出（suboutput）。将 bxdf 与 displacement 连接接到子输出。然后将这些输出连接到 material library 的 collect node（收集节点）。子输入 VOP 可用于从材质库网络接收间接输入。这样可以把材质库中的间接数据传入打包后的网络，保持多渲染器材质结构清晰。 </p></li></ul><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="900" loading="lazy" src="../../attachments/544640743/rfh_solaris_subnet.PNG" data-image-src="../../attachments/544640743/rfh_solaris_subnet.PNG" data-height="352" data-width="609" data-unresolved-comment-count="0" data-linked-resource-id="544640778" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfh_solaris_subnet.PNG" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544640743" data-linked-resource-container-version="1" data-media-id="5f8df313-9f0d-453a-9d6d-21ce43dd5e9f" data-media-type="file"></span><p />
+  </article>
+</main>
+</body>
+</html>

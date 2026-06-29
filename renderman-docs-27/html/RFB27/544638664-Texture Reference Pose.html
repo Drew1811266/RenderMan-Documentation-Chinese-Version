@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Texture Reference Pose</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Texture Reference Pose</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFB27/544638664/Texture+Reference+Pose">https://rmanwiki-27.pixar.com/space/RFB27/544638664/Texture+Reference+Pose</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Gloop_Pref.JPG" width="760" loading="lazy" src="../../attachments/544638664/Gloop_Pref.JPG" data-image-src="../../attachments/544638664/Gloop_Pref.JPG" data-height="1196" data-width="1195" data-unresolved-comment-count="0" data-linked-resource-id="544638679" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Gloop_Pref.JPG" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544638664" data-linked-resource-container-version="1" data-media-id="bd3a3376-f7cc-430c-9d73-c7e87a1b2f52" data-media-type="file"></span><p /><p>When rendering, you usually must set a default pose or position for your object to become a reference for later renders even if the object deforms or moves around. </p><p>This prevents a texture from appearing to “slide” or “swim” across the object as it animates. This sticking of the texture, is typically referred to by its technical name of <strong>Pref</strong> (piː rɛf). Other 3D apps might call this a “texture reference.”</p><p /><h2 id="TextureReferencePose-PrefSetup">Pref Setup</h2><p>Here’s a basic scene that we have set up.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="scene.png" width="760" loading="lazy" src="../../attachments/544638664/scene.png" data-image-src="../../attachments/544638664/scene.png" data-height="1444" data-width="2565" data-unresolved-comment-count="0" data-linked-resource-id="544638709" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="scene.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544638664" data-linked-resource-container-version="1" data-media-id="02f83c40-391e-445d-bb3e-2b06fcda0266" data-media-type="file"></span><p>In the scene, we have a cylinder that’s parented under the armature system. </p><p>We have a camera that’s acting as a texture projector, which we use as our manifold or texture placement in order to reference our camera projector and connect the manifold to our PxrTexture node.  </p><p>Here’s a closer look at the shading network.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="RenderManBlender_Projector1.JPG" width="760" loading="lazy" src="../../attachments/544638664/RenderManBlender_Projector1.JPG" data-image-src="../../attachments/544638664/RenderManBlender_Projector1.JPG" data-height="1138" data-width="2291" data-unresolved-comment-count="0" data-linked-resource-id="544638676" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderManBlender_Projector1.JPG" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544638664" data-linked-resource-container-version="1" data-media-id="3a328850-342d-42d0-98d6-7434f7e5b57b" data-media-type="file"></span><p>Notice, that we connect both PxrTexture and PxrProjector to a PxrMix node. We use the PxrProjector’s resultMask output as the Mixer value. This is so that any areas outside of the projection are colored with Color 1 of the PxrMix node. </p><p>We put in the name of the texture projection camera, as our Coordinate System for our PxrProjector (in this case it’s named “TextureProjection”)</p><p>If we render, you should see something like this.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="render1.png" width="760" loading="lazy" src="../../attachments/544638664/render1.png" data-image-src="../../attachments/544638664/render1.png" data-height="1393" data-width="1100" data-unresolved-comment-count="0" data-linked-resource-id="544638703" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="render1.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544638664" data-linked-resource-container-version="1" data-media-id="de5512c6-e330-4bd4-aca4-b39beeb9eb08" data-media-type="file"></span><p>However, if we start posing the cylinder with the armature, you’ll notice that the texture doesn’t look as one would expect:</p><p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="render2.png" width="760" loading="lazy" src="../../attachments/544638664/render2.png" data-image-src="../../attachments/544638664/render2.png" data-height="1391" data-width="1114" data-unresolved-comment-count="0" data-linked-resource-id="544638700" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="render2.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544638664" data-linked-resource-container-version="1" data-media-id="b3459060-99e6-4762-aa3c-25ce2331c699" data-media-type="file"></span><p>The texture is not bending with the cylinder, instead it’s swimming on top of it.</p><p /><h2 id="TextureReferencePose-FreezeReferencePose">Freeze Reference Pose</h2><p>In order to compensate for this, we need to freeze a reference pose. Go back to the unposed version of the cylinder.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Screenshot 2025-02-07 at 8.34.13 AM.png" width="760" loading="lazy" src="../../attachments/544638664/Screenshot 2025-02-07 at 8.34.13 AM.png" data-image-src="../../attachments/544638664/Screenshot 2025-02-07 at 8.34.13 AM.png" data-height="1392" data-width="1115" data-unresolved-comment-count="0" data-linked-resource-id="544638697" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Screenshot 2025-02-07 at 8.34.13 AM.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544638664" data-linked-resource-container-version="1" data-media-id="b0e4c2b0-0989-46ba-89fc-74119c316421" data-media-type="file"></span><p>In the data properties tab for the cylinder, under Primitive Variables, you should see a Freeze Reference Pose button.</p><p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="reference_pose1.png" width="448" loading="lazy" src="../../attachments/544638664/reference_pose1.png" data-image-src="../../attachments/544638664/reference_pose1.png" data-height="546" data-width="448" data-unresolved-comment-count="0" data-linked-resource-id="544638694" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="reference_pose1.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544638664" data-linked-resource-container-version="1" data-media-id="e9d6d63d-e40c-4f12-884b-b59fdbb8ef2f" data-media-type="file"></span><p /><p>This will bring up a dialog box like this.</p><p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="reference_pose2.png" width="370" loading="lazy" src="../../attachments/544638664/reference_pose2.png" data-image-src="../../attachments/544638664/reference_pose2.png" data-height="242" data-width="370" data-unresolved-comment-count="0" data-linked-resource-id="544638691" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="reference_pose2.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544638664" data-linked-resource-container-version="1" data-media-id="a4d2c1a4-ecad-4ab4-971f-4e51f62007d5" data-media-type="file"></span><p /><p>Here we can select the data we want to freeze. </p><ul><li><p><strong>__Pref</strong> - is the reference position points. </p></li><li><p><strong>__WPref</strong> - is the same as <strong>__Pref</strong> but in world space. </p></li><li><p><strong>__Nref</strong> - is the reference normals. </p></li><li><p><strong>__WNRef</strong> - is the same <strong>__Nref</strong> but in world space. </p></li></ul><p /><p>Note, these are the names that you will reference in your shading network.</p><p>Going back to our example scene’s shading network, if we go to the PxrProjector node, we can tell the node to use the reference pose, by changing <strong>Use</strong> to <strong>Deform (__Pref + __Nref)</strong>.</p><p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="projection_shading_pref.png" width="351" loading="lazy" src="../../attachments/544638664/projection_shading_pref.png" data-image-src="../../attachments/544638664/projection_shading_pref.png" data-height="494" data-width="351" data-unresolved-comment-count="0" data-linked-resource-id="544638688" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="projection_shading_pref.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544638664" data-linked-resource-container-version="1" data-media-id="949b99ac-72d6-4913-9c14-ccbc7452460b" data-media-type="file"></span><p>Now, if we repose our cylinder and render you can now see the texture properly bending with the cylinder.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="render3.png" width="760" loading="lazy" src="../../attachments/544638664/render3.png" data-image-src="../../attachments/544638664/render3.png" data-height="1389" data-width="1106" data-unresolved-comment-count="0" data-linked-resource-id="544638685" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="render3.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544638664" data-linked-resource-container-version="1" data-media-id="95a80a74-a2cb-4a86-a87b-05c8ee08e8f8" data-media-type="file"></span><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="291deb7c-1435-47f8-83e5-92ac09c68009" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>The reference pose will need to be re-frozen if the mesh changes (ex: more points were added). You can do this by going back to the data properties tab and clicking on Re-Freeze Reference Pose.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="refreeze.png" width="413" loading="lazy" src="../../attachments/544638664/refreeze.png" data-image-src="../../attachments/544638664/refreeze.png" data-height="209" data-width="413" data-unresolved-comment-count="0" data-linked-resource-id="544638682" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="refreeze.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544638664" data-linked-resource-container-version="1" data-media-id="a12962e3-a1c9-4ad0-910f-c1f8e373c92a" data-media-type="file" /></span><p> </p></div></div>
+  </article>
+</main>
+</body>
+</html>

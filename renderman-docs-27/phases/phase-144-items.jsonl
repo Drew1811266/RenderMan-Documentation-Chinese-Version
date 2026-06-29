@@ -1,0 +1,24 @@
+{"id": "7af958d14bd96b64dc7f8d8c10351562e5bba77193371260621d0fed1733bf5a", "item_id": "28e5367ebc:0", "text": "PxrTee takes an inputRGB or inputF's value and output the unchanged value to an AOV. Its resultRGB or resultF needs to be connected to somewhere in the shading network. It sends the values out into an AOV when shading a camera-visible primary ray."}
+{"id": "4d354fed79ea80206231f0509f8ec964e48681af8ebe2f7c92bcfcf072b8a564", "item_id": "28e5367ebc:1", "text": "This is the best way to export any part of your shading network to an arbitrary AOV file on disk, helping look development artists or compositors debug in their viewer or iterate on their work in compositing."}
+{"id": "596625c4b76255458ba95cb5517a8a722510878fc3365325525ab6a681e31fe4", "item_id": "28e5367ebc:2", "text": "Note that either inputRGB or inputF is connected but not both. If both inputRGB and inputF have connections, PxrTee will output an error message. Also, since it is not useful to have uniform values for inputRGB or inputF, these parameters can only take connections."}
+{"id": "9e62c11dfbed805acf641cc66cd5bdcc4da7433f2a9086116da10bf0f2aa9fde", "item_id": "28e5367ebc:3", "text": "As its name suggested, it is like a tee:"}
+{"id": "9fb1180516aa1e27636556848339f0a8bc2702f98eb67718331e264f8c902c6f", "item_id": "28e5367ebc:4", "text": "This is also useful for debugging the shading network. For instance, if a pattern is not quite working as expected, you can insert a PxrTee node in the network to see what values are being produced at that point."}
+{"id": "094dffeba7e1cd1ee0315cb0f36843f9c238a6609be49135deb90be305e26ea7", "item_id": "28e5367ebc:5", "text": "Note that a PxrTee node must be wired into an active portion of a shading network in order to function. If its result does not eventually feed into an active Bxdf downstream then the PxrTee node will be not be invoked and will not write anything to its AOV."}
+{"id": "5e3fdf4011c62ab7f8951df9f5b0d80aad42a759a2d024676fe8a748d7d8b0fe", "item_id": "28e5367ebc:7", "text": "Input RGB"}
+{"id": "21fc894e96558adf0a6b2856dda29219912b40eef992868146f795f544447ed9", "item_id": "28e5367ebc:8", "text": "The triple to pass through to resultRGB and write to a color AOV. It can be the following types: color, vector, normal, and point. It only evaluates a connection."}
+{"id": "fd5f9eb23f15d342a80302b5539c7c8052067341e9b462dbfa6c317490518be0", "item_id": "28e5367ebc:9", "text": "Input Float"}
+{"id": "d3b8c9aa9c075d9229e984be1f445a414682ab488456601bca7a0226a25d42b3", "item_id": "28e5367ebc:10", "text": "The float to pass through to resultF and write to a float AOV. It only evaluates a connection."}
+{"id": "668937e4466f90a578e7cc8b094a2a5f1e7589727d8c542334a22d38f2bd9d1c", "item_id": "28e5367ebc:11", "text": "AOV Name"}
+{"id": "ef74aa0adb46e7ddaa14b6e4699092ee972ce100e533d874ecb7e2584a4c6b44", "item_id": "28e5367ebc:12", "text": "The name of the AOV to write to."}
+{"id": "9ef7fc32310bf163549d74a478dbe4d066dbffd5cc26a14980d9b4134dc3e528", "item_id": "28e5367ebc:13", "text": "Verbosity"}
+{"id": "813e30c0dcf1df3130ad73718cc1a8f2fc475a84b578ff3537efe02683ded199", "item_id": "28e5367ebc:14", "text": "Outputs various infos to help you debug your scenes."}
+{"id": "62ba43267e13073cc149b8c90aa79f346f5719a55d7f72e5176888daeadca949", "item_id": "28e5367ebc:15", "text": "0: Silent -- only error messages will be output."}
+{"id": "c09d9f1d0f00156492fdab82741f2878aa45fa6008a33889461c2f52d789f8fc", "item_id": "28e5367ebc:16", "text": "1: Warnings -- errors and missing attributes will be reported."}
+{"id": "53442ebcb310946b93c27cb7cee01982cd85fc475a7249bc9a10f9921e4e7886", "item_id": "28e5367ebc:17", "text": "2: Infos -- like above, plus the value of attributes."}
+{"id": "eeb5fc297218889d162086c3ff6b0076152b3b67043e7854c56b4acf1209fec2", "item_id": "28e5367ebc:20", "text": "Output triple (color, vector, normal, and point)."}
+{"id": "20cee54d3870761a41a354946a213694c0612e819dc7d1e21f529a8e727fb539", "item_id": "28e5367ebc:21", "text": "resultF"}
+{"id": "c960591f742aa53dbad5f2cf4a6c01f371f7ccd1453fbdb4e406b65d627e8fcc", "item_id": "28e5367ebc:22", "text": "Output float."}
+{"id": "ebb05a262cf6d5227e86624b3134f47adc3b4d99aa089eac76b8fccc1411224b", "item_id": "28e5367ebc:24", "text": "In this example, we want to output the resultRGB from rotationAngleVector_PxrTexture to an AOV called \"myColor.\" So we insert a PxrTee node before the node it is connected to."}
+{"id": "2ae3798104b431d81558d03ab33b9f1614ed6c9c58f202ff700d935bade580de", "item_id": "28e5367ebc:25", "text": "PxrTee Parameters"}
+{"id": "9de1721b3f1dbd3ef075a0b142b624fd2c1e2b8aff28a6d64ed70e4bbfcc557f", "item_id": "28e5367ebc:26", "text": "The Shading Graph"}
+{"id": "8b953c87bbecf5a8e82befcc72dad223dbe2ba276a173eb5667eda1b8385a191", "item_id": "28e5367ebc:27", "text": "A RIB example:"}

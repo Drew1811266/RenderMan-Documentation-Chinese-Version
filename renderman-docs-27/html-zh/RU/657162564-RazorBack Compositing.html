@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RazorBack Compositing</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>RazorBack Compositing</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RU/657162564/RazorBack+Compositing">https://rmanwiki-27.pixar.com/space/RU/657162564/RazorBack+Compositing</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<h3 id="RazorBackCompositing-Compositing">合成工作流程（Compositing）</h3><p>对于 compositing，可以考虑使用 shuffle node 采用 additive reconstruction approach，重建整套 AOVs，并恢复最终 “beauty” image。</p><p>reconstruction 完成后，可以使用 utility nodes 增强 light 和 color intensity，以更紧密匹配 references。此外，如果 references 中存在 defocus 和 motion blur，也要确保它们对齐。</p><p>用 final color-correction pass 结束 compositing process，使用 glow、vignetting 和 grain 将 asset seamless integrate 到 shot environment 中。Custom-built 自定义构建的 nodes 或来自 Nukepedia 的 nodes 可提供 technical tools，用于 precise adjustments，确保 final result 的 accuracy。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="compo_template.jpg" width="760" loading="lazy" src="../../attachments/657162564/compo_template.jpg" data-image-src="../../attachments/657162564/compo_template.jpg" data-height="501" data-width="960" data-unresolved-comment-count="0" data-linked-resource-id="657621370" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="compo_template.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="657162564" data-linked-resource-container-version="1" data-media-id="8fb5d855-4fc3-4fbd-a9bf-c0ecf65b89a4" data-media-type="file"></span><p>为了紧密匹配 references，请在 spectrum 两端调整 gain 和 gamma，使 grain 与 black-and-white points 对齐。探索 extreme values 可以提供额外 visual 和 technical insights，用于 fine-tune image 并增强 integration。</p><p>重要的是要记住，你是在匹配使用不同 assets 的 reference，这可能导致 shaders、specular highlights 和 contrast 出现 variations。例如，scales 会因其 inherent properties 而与 hair 反射 light 的方式不同。 </p><p>因此，必须相应调整你的 adjustments，以在适应每个 asset 独特 characteristics 的同时，实现 cohesive visual consistency。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="compositing_tips_gamma_matchlight.jpg" width="760" loading="lazy" src="../../attachments/657162564/compositing_tips_gamma_matchlight.jpg" data-image-src="../../attachments/657162564/compositing_tips_gamma_matchlight.jpg" data-height="652" data-width="1157" data-unresolved-comment-count="0" data-linked-resource-id="657424700" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="compositing_tips_gamma_matchlight.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="657162564" data-linked-resource-container-version="1" data-media-id="50e8e6c5-18b6-4c9e-9c7f-ab9f664d5597" data-media-type="file"></span><p /><p>使用 node switch 和 W key，在 reference 与你的 rendering 之间进行有效 comparison。仔细检查 reference，根据需要 zooming in and out，并在不同 colorimetry 和 calibration 的 screens 上测试，因为这些 factors 会影响 perception。</p><p>通过在 reference 和你的 rendering 之间切换，可以识别需要 adjustment 的 areas，从而实现更接近的 alignment。 </p><p>关注 details 和 nuances，确保你的 rendering 忠实捕捉 reference image 的 essence 和 characteristics。 </p><p>这种细致 approach 会提升 final output 的 accuracy 和 quality。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Design-sans-titre.gif" width="760" loading="lazy" src="../../attachments/657162564/Design-sans-titre.gif" data-image-src="../../attachments/657162564/Design-sans-titre.gif" data-height="648" data-width="1152" data-unresolved-comment-count="0" data-linked-resource-id="657555664" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Design-sans-titre.gif" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/gif" data-linked-resource-container-id="657162564" data-linked-resource-container-version="1" data-media-id="9ddfa2e3-2517-47fa-b806-b7e41016053a" data-media-type="file"></span><p /><p>最后，这里有一些与 film plates 匹配的 renders。 </p><p>你还在等什么？ </p><p>下载 project，尽情体验 Razorback Whiptail look-dev project！</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="plate-match.gif" width="760" loading="lazy" src="../../attachments/657162564/plate-match.gif" data-image-src="../../attachments/657162564/plate-match.gif" data-height="1075" data-width="1920" data-unresolved-comment-count="0" data-linked-resource-id="657621379" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="plate-match.gif" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/gif" data-linked-resource-container-id="657162564" data-linked-resource-container-version="1" data-media-id="7aae0d73-00f1-4f1c-9f40-bc7e3602abf8" data-media-type="file"></span><p />
+  </article>
+</main>
+</body>
+</html>

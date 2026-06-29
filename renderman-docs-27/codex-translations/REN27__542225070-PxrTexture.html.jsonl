@@ -1,0 +1,99 @@
+{"item_id":"f5576f7075:0","text":"PxrTexture 是用于加载 textures 的主节点；与所有 texture style nodes 一样，此节点接受一个 manifold，该 manifold 描述用于应用 texture 的 2D 或 3D domain。"}
+{"item_id":"f5576f7075:1","text":"如果没有连接 manifold，默认行为是应用到 geometry 上定义的 s,t domain。"}
+{"item_id":"f5576f7075:2","text":"Texture atlas 格式文件可以读取 UDIM (Mari)、ZBrush 或 Mudbox 格式。此插件还支持 Rtx procedural texture plugins。"}
+{"item_id":"f5576f7075:3","text":"Input Parameters"}
+{"item_id":"f5576f7075:4","text":"Filename"}
+{"item_id":"f5576f7075:5","text":"texture 的 filename。必须提供此参数。"}
+{"item_id":"f5576f7075:6","text":"要使用 image sequence，通常会通过在你偏好的表示方式中嵌入帧号，使用 string substitutions 构建 texture map 引用。下面是一个示例："}
+{"item_id":"f5576f7075:7","text":"（Maya）$PROJPATH/sourceimages/flapping.<f4>.tex"}
+{"item_id":"f5576f7075:8","text":"（Katana 示例）'/images/flapping.%04d.tex' % frame"}
+{"item_id":"f5576f7075:9","text":"（Houdini）在文件名中使用 $F、$F3 或 Houdini expressions，`padzero(3, $F)`"}
+{"item_id":"f5576f7075:10","text":"最好避免在 file path 中使用特殊字符、变音符号和空格，因为这些内容可能无法被正确解析，导致 texture 渲染失败。"}
+{"item_id":"f5576f7075:11","text":"除了我们支持的 Atlas substitution strings，你还可以在 filename 中引用 constant string primvar，以便在不同 geometry 片段之间复用 texture；此时 primvar 会指定 filename 约定。"}
+{"item_id":"f5576f7075:12","text":"<primstr:primvarname> - 将替换为具名 constant string primitive variable 的值，例如 asset 名称。例如，在一个带有 \"const string model\" [\"apple\"] 的 apple 上，\"/assets/<primstr:model>/diffuse.tex\" 会扩展为 \"/assets/apple/diffuse.tex\""}
+{"item_id":"f5576f7075:13","text":"First Channel Offset"}
+{"item_id":"f5576f7075:14","text":"Offsets（偏移）要查找的第一个 channel。"}
+{"item_id":"f5576f7075:15","text":"Atlas Style"}
+{"item_id":"f5576f7075:16","text":"如果指定了 atlas style，则"}
+{"item_id":"f5576f7075:17","text":"filename"}
+{"item_id":"f5576f7075:18","text":"必须包含 <UDIM>，它会根据 surface parameterization 和"}
+{"item_id":"f5576f7075:19","text":"atlasStyle 自动替换。"}
+{"item_id":"f5576f7075:20","text":"第一个 UV tile 的 Mari UDIM 示例为"}
+{"item_id":"f5576f7075:21","text":"Diffuse.1001.tex"}
+{"item_id":"f5576f7075:22","text":"其中 \"1001\" 会替换 texture filename 中的 <UDIM>。"}
+{"item_id":"f5576f7075:23","text":"Value"}
+{"item_id":"f5576f7075:24","text":"Filename"}
+{"item_id":"f5576f7075:25","text":"Atlas Style"}
+{"item_id":"f5576f7075:26","text":"Use in path"}
+{"item_id":"f5576f7075:27","text":"Alternative"}
+{"item_id":"f5576f7075:28","text":"Diffuse.1001.tex"}
+{"item_id":"f5576f7075:29","text":"UDIM (Mari)"}
+{"item_id":"f5576f7075:30","text":"Diffuse.<UDIM>.tex"}
+{"item_id":"f5576f7075:31","text":"Diffuse.<udim>.tex"}
+{"item_id":"f5576f7075:32","text":"Diffuse.U1_V1.tex"}
+{"item_id":"f5576f7075:33","text":"UV Tile Base-1 (Mudbox)"}
+{"item_id":"f5576f7075:34","text":"Diffuse.<U>_<V>.tex"}
+{"item_id":"f5576f7075:35","text":"Diffuse.u0_v0.tex"}
+{"item_id":"f5576f7075:36","text":"UV Tile Base-0 (ZBrush)"}
+{"item_id":"f5576f7075:37","text":"Diffuse.<u>_<v>.tex"}
+{"item_id":"f5576f7075:38","text":"例如："}
+{"item_id":"f5576f7075:39","text":"如果你的 textures 使用 Mari UDIM style，且 filename 为："}
+{"item_id":"f5576f7075:40","text":"Diffuse.1001.tex"}
+{"item_id":"f5576f7075:41","text":"，则需要使用"}
+{"item_id":"f5576f7075:42","text":"Diffuse.<UDIM>.tex"}
+{"item_id":"f5576f7075:43","text":"才能让 textures 加载到其正确的 UDIMs 中。"}
+{"item_id":"f5576f7075:44","text":"注意：<UDIM> 可以使用 UPPER，也可以使用小写 <udim>"}
+{"item_id":"f5576f7075:45","text":"用户在所有 atlas texture workflows 中都应避免使用负 texture coordinates"}
+{"item_id":"f5576f7075:46","text":"Invert T"}
+{"item_id":"f5576f7075:47","text":"反转 texture lookup 的 t 参数。"}
+{"item_id":"f5576f7075:48","text":"Filter"}
+{"item_id":"f5576f7075:49","text":"选择 texture lookup 期间可使用的不同重建过滤器。PxrTexture 可用的过滤器为："}
+{"item_id":"f5576f7075:50","text":"0: Nearest"}
+{"item_id":"f5576f7075:51","text":"1: Box"}
+{"item_id":"f5576f7075:52","text":"2: Bilinear"}
+{"item_id":"f5576f7075:53","text":"3: Bspline"}
+{"item_id":"f5576f7075:54","text":"6: Gaussian"}
+{"item_id":"f5576f7075:55","text":"7: Lagrangian"}
+{"item_id":"f5576f7075:56","text":"Blur"}
+{"item_id":"f5576f7075:57","text":"指定对从 texture file 取回的图像进行 Blur 的程度。"}
+{"item_id":"f5576f7075:58","text":"Mip Interpolate"}
+{"item_id":"f5576f7075:59","text":"选择是否在 multi-resolution texture 的相邻分辨率之间插值，从而在 level 之间获得更平滑的过渡。"}
+{"item_id":"f5576f7075:60","text":"Missing Color"}
+{"item_id":"f5576f7075:61","text":"如果打开 texture 时出错，使用此 color。"}
+{"item_id":"f5576f7075:62","text":"Missing Alpha"}
+{"item_id":"f5576f7075:63","text":"如果打开 texture 时出错，使用此 alpha。"}
+{"item_id":"f5576f7075:64","text":"Linearize"}
+{"item_id":"f5576f7075:65","text":"对 texture 应用反向 sRGB transform。如果你在 sRGB space 中绘制 textures（大多数绘画软件的默认值），但在 data linear space 中查看数据，textures 会显得发白。此选项会对 texture 应用 sRGB transform，使其再次呈现视觉线性。"}
+{"item_id":"f5576f7075:66","text":"Manifold"}
+{"item_id":"f5576f7075:67","text":"提供应用 texture 的 domain。默认值为 s,t。"}
+{"item_id":"f5576f7075:68","text":"Adjust Output"}
+{"item_id":"f5576f7075:69","text":"Color Scale"}
+{"item_id":"f5576f7075:70","text":"texture 中 color values 的 multiplier，可用于调整亮度或操作单个 color channels"}
+{"item_id":"f5576f7075:71","text":"Color Offset"}
+{"item_id":"f5576f7075:72","text":"对 result 应用 offset，从而移动 result 的 colors"}
+{"item_id":"f5576f7075:73","text":"Saturation"}
+{"item_id":"f5576f7075:74","text":"提高（大于 1）或降低（小于 1）texture result 的 saturation"}
+{"item_id":"f5576f7075:75","text":"Alpha Scale"}
+{"item_id":"f5576f7075:76","text":"alpha channel 的 multiplier；当 alpha 用于驱动参数时很有用"}
+{"item_id":"f5576f7075:77","text":"Alpha Offset"}
+{"item_id":"f5576f7075:78","text":"alpha channel 的 offset；当 alpha 用于驱动参数时很有用"}
+{"item_id":"f5576f7075:79","text":"Advanced Settings"}
+{"item_id":"f5576f7075:80","text":"MipBias"}
+{"item_id":"f5576f7075:81","text":"Bias mip selection 会选择用于渲染的更高（负整数）或更低分辨率（正整数）选择。"}
+{"item_id":"f5576f7075:82","text":"MaxResolution"}
+{"item_id":"f5576f7075:83","text":"Clamp mip selection 到首选最大 level。根据你的选择，这可能会阻止最高分辨率被渲染。"}
+{"item_id":"f5576f7075:84","text":"OptimizeIndirect"}
+{"item_id":"f5576f7075:85","text":"在 indirect hits 上将 texture filter 设置为 Box（低开销），而不是用于其它可见效果的所选 filter。"}
+{"item_id":"f5576f7075:86","text":"Output Parameters"}
+{"item_id":"f5576f7075:87","text":"resultRGB"}
+{"item_id":"f5576f7075:88","text":"过滤后的 color result。请注意，所有结果都会从"}
+{"item_id":"f5576f7075:89","text":"startChannel"}
+{"item_id":"f5576f7075:90","text":"offset 开始查找。"}
+{"item_id":"f5576f7075:91","text":"resultR"}
+{"item_id":"f5576f7075:92","text":"R channel result（R 通道结果）"}
+{"item_id":"f5576f7075:93","text":"resultG"}
+{"item_id":"f5576f7075:94","text":"G channel result（G 通道结果）"}
+{"item_id":"f5576f7075:95","text":"resultB"}
+{"item_id":"f5576f7075:96","text":"B channel result（B 通道结果）"}
+{"item_id":"f5576f7075:97","text":"resultA"}
+{"item_id":"f5576f7075:98","text":"如果存在 alpha 且连接了 resultRGB，则返回 RGB 之后的 channel。如果未连接 RGB，则返回第一个 channel。"}

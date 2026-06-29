@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Using PxrMatteID</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Using PxrMatteID</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFH27/544646676/Using+PxrMatteID">https://rmanwiki-27.pixar.com/space/RFH27/544646676/Using+PxrMatteID</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p><a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19662119" rel="nofollow">PxrMatteID</a> outputs matte AOVs for compositing.  This requires you add a User Attribute, explained in more detail <a href="544643715-User Attributes.html" rel="nofollow">here</a>.</p><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="fdef2b2d-b4bc-4ecf-8c6b-64b17bc39cbe" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>PxrCryptomatte has since superseded this workflow as a useful and nearly automatic alternative.</p></div></div><hr/><p /><h3 id="UsingPxrMatteID-AddauserattributeforMatteID0.">Add a user attribute for MatteID0.</h3><p>Duplicate the fields for:</p><ul><li><p>Name</p></li><li><p>Label (this is the UI name)</p></li><li><p>Tags (necessary to see RenderMan attributes and edit them during interactive rendering)<br/>script_ritype  color<br/>renderman  attr</p></li></ul><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="1141" loading="lazy" src="../../attachments/544646676/rfh_addMatteUserAttrEdit.png" data-image-src="../../attachments/544646676/rfh_addMatteUserAttrEdit.png" data-height="786" data-width="1115" data-unresolved-comment-count="0" data-linked-resource-id="544646713" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfh_addMatteUserAttrEdit.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544646676" data-linked-resource-container-version="1" data-media-id="c97c1f35-2d34-49d0-9318-5ab1405491d8" data-media-type="file"></span><p>Set its type and color value.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="1141" loading="lazy" src="../../attachments/544646676/sphereuserattrib.png" data-image-src="../../attachments/544646676/sphereuserattrib.png" data-height="298" data-width="715" data-unresolved-comment-count="0" data-linked-resource-id="544646695" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="sphereuserattrib.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544646676" data-linked-resource-container-version="1" data-media-id="7aa7cf20-bb43-43d5-8186-d21425641b7f" data-media-type="file"></span><p /><h3 id="UsingPxrMatteID-AddPxrMatteID">Add PxrMatteID</h3><p>Create a Houdini buildarray node to connect to the Utility Pattern on the PxrSurface material. Then connect a PxrMatteID Pattern node to the buildarray as shown below.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="1141" loading="lazy" src="../../attachments/544646676/rfh_matteIDArrayNode.png" data-image-src="../../attachments/544646676/rfh_matteIDArrayNode.png" data-height="748" data-width="868" data-unresolved-comment-count="0" data-linked-resource-id="544646707" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfh_matteIDArrayNode.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544646676" data-linked-resource-container-version="1" data-media-id="47ffdc5c-6d2d-45b4-9a78-f6d4686efc36" data-media-type="file"></span><p /><p>In your PxrMaterialBuilder Network, add a PxrMatteID VOP.  Set the color as the user attribute above.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="1141" loading="lazy" src="../../attachments/544646676/pxrmatteid.png" data-image-src="../../attachments/544646676/pxrmatteid.png" data-height="364" data-width="717" data-unresolved-comment-count="0" data-linked-resource-id="544646701" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrmatteid.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544646676" data-linked-resource-container-version="1" data-media-id="7e0e07e6-d363-4428-a320-ced1a9ea699a" data-media-type="file"></span><p /><p /><p>Connect PxrMatteID's resultAOV to PxrSurface's Utility Pattern.</p><h3 id="UsingPxrMatteID-SetupAOVforOutput">Set up AOV for Output</h3><p>Choose the correct/corresponding MatteID AOV output from the RenderMan ROP node Displays Tab</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="1141" loading="lazy" src="../../attachments/544646676/rfh_matteIDOutput.png" data-image-src="../../attachments/544646676/rfh_matteIDOutput.png" data-height="816" data-width="868" data-unresolved-comment-count="0" data-linked-resource-id="544646704" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfh_matteIDOutput.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544646676" data-linked-resource-container-version="1" data-media-id="36c87fdd-d998-4fa1-af3b-c8db59372153" data-media-type="file"></span><p /><p>You will notice we set a color on the OBJ with an attribute and there's also a color from the MatteID pattern itself. This is so you can multiply the color of the attribute by the pattern node. For example, you can supply a texture mask to the MatteID pattern node and have it multiplied against the color chosen in the MatteID Attribute</p><p /><p /><p /><p />
+  </article>
+</main>
+</body>
+</html>

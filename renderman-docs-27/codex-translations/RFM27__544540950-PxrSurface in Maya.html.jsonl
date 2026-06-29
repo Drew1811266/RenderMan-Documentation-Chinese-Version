@@ -1,0 +1,133 @@
+{"item_id":"f9fb600fe7:0","text":"在 Maya 中，可通过选择对象并点击按钮栏中的 PxrSurface 图标，将 PxrSurface BXDF 应用于该对象。也可以在 RenderMan Menu 的"}
+{"item_id":"f9fb600fe7:1","text":"Materials"}
+{"item_id":"f9fb600fe7:2","text":"标题下选择场景中的对象来应用 PxrSurface。"}
+{"item_id":"f9fb600fe7:3","text":"下图展示了可通过此 BXDF 修改的一小部分 attributes（属性）。"}
+{"item_id":"f9fb600fe7:4","text":"Globals 中描述的 Pattern Utility 参数不会显示在 Attribute Editor 中，因为 Maya 对 arrays（数组）的处理方式如此。你可以改为在 Hypershade 内的 Node Editor 中建立连接来使用它。示例包括使用"}
+{"item_id":"f9fb600fe7:5","text":"Maya 中的 PxrSurface"}
+{"item_id":"f9fb600fe7:6","text":"为每个 material instance（材质实例）创建 ID pass，或将 PxrSurface 与另一个 textured pattern（带纹理的 pattern）组合，创建用于 compositing（合成）的其他有用 AOV，例如 noise 等。请注意，这样做可能会增加已指定 material（材质）的 evaluation time（求值时间）。"}
+{"item_id":"f9fb600fe7:7","text":"《光年》（Lightyear）© Disney/Pixar"}
+{"item_id":"f9fb600fe7:8","text":"在 RenderMan 中渲染 surfaces（表面）依赖一种名为 PxrSurface 的可分层 material（材质）（见下方 Input Material）。"}
+{"item_id":"f9fb600fe7:9","text":"这是 Pixar Animation Studios 长片动画中使用的同一套 material model（材质模型）。因此，该材质有一些重要优势："}
+{"item_id":"f9fb600fe7:10","text":"单一 material（材质）即可处理所有 look（外观），例如："}
+{"item_id":"f9fb600fe7:11","text":"木材"}
+{"item_id":"f9fb600fe7:12","text":"皮肤"}
+{"item_id":"f9fb600fe7:13","text":"塑料"}
+{"item_id":"f9fb600fe7:14","text":"玻璃"}
+{"item_id":"f9fb600fe7:15","text":"车漆"}
+{"item_id":"f9fb600fe7:16","text":"以及更多更多！"}
+{"item_id":"f9fb600fe7:17","text":"提供 physically based（基于物理）的 presets（预设），帮助你开始。"}
+{"item_id":"f9fb600fe7:18","text":"无需牺牲灵活 controls（控制项），也能得到 physically plausible（物理可信）的结果。"}
+{"item_id":"f9fb600fe7:19","text":"艺术家可以有选择地 \"break\" energy conservation（能量守恒）。"}
+{"item_id":"f9fb600fe7:20","text":"Art direction（艺术指导）可以自然完成，无需 workaround（变通方案）。"}
+{"item_id":"f9fb600fe7:21","text":"Controls 会方便地标记为 \"Artistic\" 和 \"Physical\""}
+{"item_id":"f9fb600fe7:22","text":"Layering（分层）提供无限可能。"}
+{"item_id":"f9fb600fe7:23","text":"作为 artist（艺术家），能够为所有 shading（着色）选择单一 material（材质），可以消除猜测，并让 RenderMan 按需优化。我们会讨论所有不同设置，以及它们与制作特定 materials（材质）的关系。请特别注意关于 performance considerations（性能考量）的说明，以及哪些组合对特定 effects（效果）有用的提示。"}
+{"item_id":"f9fb600fe7:24","text":"下面会看到 material（材质）的每种 effect（效果）或"}
+{"item_id":"f9fb600fe7:25","text":"lobe"}
+{"item_id":"f9fb600fe7:26","text":"都被拆分到独立章节，以帮助用户定义希望学习的区域。不过，随着不同 lobes 被启用和调整，material 的 look（外观）会发生变化。正是通过组合这些 lobe 设置，你几乎可以创建任何想象中的 material。"}
+{"item_id":"f9fb600fe7:27","text":"Diffuse Parameters（漫反射参数）"}
+{"item_id":"f9fb600fe7:28","text":"Specular Parameters（镜面参数）"}
+{"item_id":"f9fb600fe7:29","text":"Clear Coat Parameters（清漆参数）"}
+{"item_id":"f9fb600fe7:30","text":"Glass Parameters（玻璃参数）"}
+{"item_id":"f9fb600fe7:31","text":"Iridescence Parameters（虹彩参数）"}
+{"item_id":"f9fb600fe7:32","text":"Fuzz Parameters（绒毛参数）"}
+{"item_id":"f9fb600fe7:33","text":"Subsurface Scattering Parameters（次表面散射参数）"}
+{"item_id":"f9fb600fe7:34","text":"Single Scatter Parameters（单次散射参数）"}
+{"item_id":"f9fb600fe7:35","text":"Glow Parameters（发光参数）"}
+{"item_id":"f9fb600fe7:36","text":"Input Material"}
+{"item_id":"f9fb600fe7:37","text":"连接到一个 layer pattern（层 pattern），用于对 Bxdf 的参数进行分层。这让用户能够通过 layered effects（分层效果）创建更复杂的 look。示例可能包括 dust（灰尘）、scratches（划痕），甚至 labels（标签）。"}
+{"item_id":"f9fb600fe7:38","text":"在下面的参数中，有些可以由"}
+{"item_id":"f9fb600fe7:39","text":"PxrLayer"}
+{"item_id":"f9fb600fe7:40","text":"覆盖；当它连接到"}
+{"item_id":"f9fb600fe7:41","text":"Input Material"}
+{"item_id":"f9fb600fe7:42","text":"或通过"}
+{"item_id":"f9fb600fe7:43","text":"PxrLayerMixer"}
+{"item_id":"f9fb600fe7:44","text":"连接时即可生效。"}
+{"item_id":"f9fb600fe7:45","text":"PxrLayerSurface"}
+{"item_id":"f9fb600fe7:46","text":"的设计意图是只包含 global（全局）参数，从而更清楚地显示哪些参数无法在 layer（层）中被覆盖。当你确定会使用 layering（分层）时，我们建议使用此 material（材质）。这些设置的结果不会改变。"}
+{"item_id":"f9fb600fe7:47","text":"Bold Face（粗体）"}
+{"item_id":"f9fb600fe7:48","text":"参数是 layerable（可分层）的，可以按 layer 覆盖。"}
+{"item_id":"f9fb600fe7:49","text":"Italicized（斜体）"}
+{"item_id":"f9fb600fe7:50","text":"参数无法分层或覆盖。这些参数会在所有 layers 中作为 global（全局）设置生效。例如：选择 GGX 作为 specular model（镜面模型）意味着所有 layers 的该参数都会使用 GGX。"}
+{"item_id":"f9fb600fe7:51","text":"Properties Parameters（属性参数）"}
+{"item_id":"f9fb600fe7:52","text":"本节提供整个 material（材质）的 global controls（全局控制）。例如，如果只在此处提供 Bump，则它会应用到上方所有 lobes。Presence 也是 global parameter（全局参数），会遮罩或 \"cutout\" 所有 lobes，就像在 mask 值为 0.0 的位置对象不存在一样。"}
+{"item_id":"f9fb600fe7:53","text":"Bump"}
+{"item_id":"f9fb600fe7:54","text":"除非被单个 lobe 的 bump normal 覆盖，否则用于所有 lobes 的 Normal/Bump。"}
+{"item_id":"f9fb600fe7:55","text":"Presence"}
+{"item_id":"f9fb600fe7:56","text":"在此连接 mask（遮罩），可将 cutout pattern（镂空图案）应用到对象。这对创建树叶和其他薄而复杂形状等 cutouts 很有用。对于灰度值，当直接由 camera（相机）看到时，它也可以作为 opacity（不透明度）用于半透明结果。"}
+{"item_id":"f9fb600fe7:57","text":"对于 non-thin glass refraction（非薄玻璃折射）和 \"thick\" style objects（厚式对象），此项会被忽略；在这些对象中，color（颜色）是穿过内部的 attenuation（衰减）"}
+{"item_id":"f9fb600fe7:58","text":"Presence Cached"}
+{"item_id":"f9fb600fe7:59","text":"指定 presence 是否缓存。启用 cached 时，presence 将按"}
+{"item_id":"f9fb600fe7:60","text":"per micropolygon"}
+{"item_id":"f9fb600fe7:61","text":"求值，而不是在关闭 cached 时按"}
+{"item_id":"f9fb600fe7:62","text":"per shading point"}
+{"item_id":"f9fb600fe7:63","text":"求值。"}
+{"item_id":"f9fb600fe7:64","text":"由于 presence 计算可能很昂贵，如果存在 heavy shading network（重型着色网络），例如 texturing（纹理），则 caching 有利于提升 rendering speed（渲染速度），但会增加 memory（内存）。"}
+{"item_id":"f9fb600fe7:65","text":"因为 caching 本质上存储在 tessellation level（细分镶嵌级别），如果需要更精细的 render details（渲染细节），建议使用 uncached presence，因为它按 per shading point 求值。"}
+{"item_id":"f9fb600fe7:66","text":"memory 与 speed 之间存在 trade off（权衡）。如果 presence 非常简单，例如 constant value（常量值），cached 和 uncached 可能几乎同样快，并能节省一些 memory。请注意，如果 presence 为 constant 1.0（默认值），PxrSurface 会优化所有这些处理。"}
+{"item_id":"f9fb600fe7:67","text":"启用 subsurface（次表面）或 single scattering（单次散射）时，为避免 artifacts（伪影）（与 volume tracking 相关），PxrSurface 会在内部强制使用 uncached presence（忽略 Presence Cached 的参数设置）。"}
+{"item_id":"f9fb600fe7:68","text":"出于类似原因，对于 non-thin glass refraction，PxrSurface 会忽略 presence，无论 cached 还是 not cached。"}
+{"item_id":"f9fb600fe7:69","text":"该"}
+{"item_id":"f9fb600fe7:70","text":"integrator"}
+{"item_id":"f9fb600fe7:71","text":"可以控制 opacity（不透明度）不再是 stochastic（随机/有噪声）的最大 depth（深度）。"}
+{"item_id":"f9fb600fe7:72","text":"Shadow Mode"}
+{"item_id":"f9fb600fe7:73","text":"Shadow opacity（阴影不透明度）计算模式："}
+{"item_id":"f9fb600fe7:74","text":"Shader and shadow color（Shader 和阴影颜色）"}
+{"item_id":"f9fb600fe7:75","text":"Shadow color only"}
+{"item_id":"f9fb600fe7:76","text":"Shadow Color"}
+{"item_id":"f9fb600fe7:77","text":"指定 shadow color（阴影颜色）。此参数可用于出于 art direction（艺术指导）目的伪造阴影颜色。请注意，更改 shadow color 可能会影响 performance（性能）和 global illumination（全局照明）结果，因为它会被视为 transparent shadow（透明阴影）（可理解为 colored glass（彩色玻璃）），即使对象是不透明的。"}
+{"item_id":"f9fb600fe7:78","text":"Utility Pattern"}
+{"item_id":"f9fb600fe7:79","text":"指定用于输出的 pattern node（图案节点）。例如：可以将"}
+{"item_id":"f9fb600fe7:80","text":"PxrMatteID"}
+{"item_id":"f9fb600fe7:81","text":"连接到此参数以输出 ID AOV。也可以输出另一个 pattern，例如 texture（纹理）。"}
+{"item_id":"f9fb600fe7:82","text":"Enable Manifold Exploration/Walk（启用 Manifold Exploration/Walk）"}
+{"item_id":"f9fb600fe7:83","text":"仅在使用 PxrUnified Integrator 且 Enable Manifold Walk（流形行走）选项设为 ON 时可用。对于要"}
+{"item_id":"f9fb600fe7:84","text":"捕获"}
+{"item_id":"f9fb600fe7:85","text":"caustic light paths（焦散光路）的对象，此设置应开启。例如 specular object（镜面对象）内部的 diffuse surface（漫反射表面）。"}
+{"item_id":"f9fb600fe7:86","text":"Specular Curvature Clamp（镜面曲率钳制）"}
+{"item_id":"f9fb600fe7:87","text":"此 control（控制项）用于覆盖对应的 integrator 设置，即 Specular Curvature Filter 参数，该参数位于"}
+{"item_id":"f9fb600fe7:88","text":"PxrVCM"}
+{"item_id":"f9fb600fe7:89","text":"和"}
+{"item_id":"f9fb600fe7:90","text":"PxrUnified"}
+{"item_id":"f9fb600fe7:91","text":"integrators 中"}
+{"item_id":"f9fb600fe7:92","text":"。"}
+{"item_id":"f9fb600fe7:93","text":"User Color"}
+{"item_id":"f9fb600fe7:94","text":"指定要渲染到 userColor Lobe 的 color（颜色）或 pattern（图案），它可以"}
+{"item_id":"f9fb600fe7:95","text":"作为 utility（实用输出）通过 LPE 输出"}
+{"item_id":"f9fb600fe7:96","text":"。此连接或颜色不会渲染到 beauty 中，目的是输出对 compositing（合成）或后期调整有用的 AOV。"}
+{"item_id":"f9fb600fe7:97","text":"RenderMan Fundamentals（RenderMan 基础）"}
+{"item_id":"f9fb600fe7:98","text":"返回顶部"}
+{"item_id":"f9fb600fe7:99","text":"Named Lobes（命名 Lobes）"}
+{"item_id":"f9fb600fe7:100","text":"以下是 PxrSurface 的 named lobes（命名 lobes）和 user lobes（用户 lobes）。"}
+{"item_id":"f9fb600fe7:101","text":"Named Diffuse Lobes（命名漫反射 Lobes）"}
+{"item_id":"f9fb600fe7:102","text":"Diffuse"}
+{"item_id":"f9fb600fe7:103","text":"Subsurface"}
+{"item_id":"f9fb600fe7:104","text":"Named Specular Lobes（命名镜面 Lobes）"}
+{"item_id":"f9fb600fe7:105","text":"Specular"}
+{"item_id":"f9fb600fe7:106","text":"RoughSpecular"}
+{"item_id":"f9fb600fe7:107","text":"Clearcoat"}
+{"item_id":"f9fb600fe7:108","text":"Iridescence"}
+{"item_id":"f9fb600fe7:109","text":"Fuzz"}
+{"item_id":"f9fb600fe7:110","text":"SingleScatter"}
+{"item_id":"f9fb600fe7:111","text":"Glass"}
+{"item_id":"f9fb600fe7:112","text":"User Lobes（用户 Lobes）"}
+{"item_id":"f9fb600fe7:113","text":"DiffuseAlbedo"}
+{"item_id":"f9fb600fe7:114","text":"DiffuseNormal"}
+{"item_id":"f9fb600fe7:115","text":"SubsurfaceAlbedo"}
+{"item_id":"f9fb600fe7:116","text":"SubsurfaceNormal"}
+{"item_id":"f9fb600fe7:117","text":"SpecularAlbedo"}
+{"item_id":"f9fb600fe7:118","text":"SpecularNormal"}
+{"item_id":"f9fb600fe7:119","text":"RoughSpecularAlbedo"}
+{"item_id":"f9fb600fe7:120","text":"RoughSpecularNormal"}
+{"item_id":"f9fb600fe7:121","text":"ClearcoatAlbedo"}
+{"item_id":"f9fb600fe7:122","text":"ClearcoatNormal"}
+{"item_id":"f9fb600fe7:123","text":"FuzzAlbedo"}
+{"item_id":"f9fb600fe7:124","text":"FuzzNormal"}
+{"item_id":"f9fb600fe7:125","text":"IridescenceAlbedo"}
+{"item_id":"f9fb600fe7:126","text":"IridescenceNormal"}
+{"item_id":"f9fb600fe7:127","text":"SingleScatterAlbedo"}
+{"item_id":"f9fb600fe7:128","text":"SingleScatterNormal"}
+{"item_id":"f9fb600fe7:129","text":"GlassAlbedo"}
+{"item_id":"f9fb600fe7:130","text":"GlassNormal"}
+{"item_id":"f9fb600fe7:131","text":"userColor"}
+{"item_id":"f9fb600fe7:132","text":"userWorldPosition"}

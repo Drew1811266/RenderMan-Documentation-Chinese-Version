@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Texture Manager</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Texture Manager</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFM27/544541201/Texture+Manager">https://rmanwiki-27.pixar.com/space/RFM27/544541201/Texture+Manager</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>Texture Manager 的职责很简单：将 images 转换为 RenderMan 的 texture format，使用 OpenImageIO 或 <a href="https://rmanwiki-26.pixar.com/space/REN26/19661963/txmake" data-linked-resource-id="19661963" data-linked-resource-version="4" data-linked-resource-type="page">txmake</a>。它既处理单张 images，也处理 texture atlases（UDIM、Mudbox、ZBrush）。</p><h2 id="TextureManager-Userinterface">User interface（用户界面）</h2><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Group 1.png" width="1071" loading="lazy" src="../../attachments/544541201/Group 1.png" data-image-src="../../attachments/544541201/Group 1.png" data-height="625" data-width="1397" data-unresolved-comment-count="0" data-linked-resource-id="546799697" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Group 1.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544541201" data-linked-resource-container-version="10" data-media-id="d2a2c07e-efa4-4690-8d17-b21961b2a659" data-media-type="file"></span><p /><p>打开新 scene 时，Texture Manager 会找到所有用作 textures 的 images，并将它们加入 queue 进行转换。Conversion settings 会基于一组定义在 <a href="544541201-Texture Manager.html" rel="nofollow">json file</a> 中的 rules（见下文）。使用 Settings pane 修改当前所选 image(s) 的 settings，然后使用 Apply button 以新 settings 重新转换 image(s)。</p><p>每当想转换新的 textures 时，只需按下 <strong>Parse Scene</strong>。 <strong>Pick Images</strong> 和 <strong>Pick Directories</strong> 允许你预先转换 images，而不必知道如何使用 OpenImageIO 或 <a class="external-link" href="../REN27/542236544-txmake.html" rel="nofollow">txmake</a>。</p><h3 id="TextureManager-Stop/Starttheconversionqueue">Stop / Start the conversion queue（停止/启动转换队列）</h3><p>默认情况下，conversion queue 始终运行，但有时你可能想停止 conversion process。</p><p>点击 progress bar 右侧的 icon 可以停止并重新启动 conversion queue。当 queue 停止时，正在运行的 worker processes 会立即被终止，但现有 textures 保持完好。重新启动后，它会从离开的地方继续。</p><h3 id="TextureManager-Conversioninformation">Conversion information（转换信息）</h3><p>Texture Manager window 底部有 disk usage 和 progress indicator。</p><p>列表中的每个 file 也都有 status icon。</p><h3 id="TextureManager-InteractiveversusBatchrendering">Interactive versus Batch rendering（交互式与批量渲染）</h3><ul><li><p>在 interactive renders 期间，texture manager 会将新 textures 添加到 queue，并返回 temporary texture，直到 conversion 完成。完成后，它会向 renderer 发送更新，你的 texture 会显示出来。</p></li><li><p>当你启动 <strong>Batch</strong> 或 <strong>Preview</strong> render 时，需要先转换所有 textures。从 22.3 开始，RfM 会停止 conversion queue，并将任何剩余 conversion task 添加到 LocalQueue 或 Tractor job，以确保始终得到预期图像。</p></li></ul><h2 id="TextureManager-Settings">Settings（设置）</h2><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="900" loading="lazy" src="../../attachments/544541201/txmanager_prefs.png" data-image-src="../../attachments/544541201/txmanager_prefs.png" data-height="483" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="544541229" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="txmanager_prefs.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544541201" data-linked-resource-container-version="10" data-media-id="c0d4641e-9132-4a56-a950-088af58d3982" data-media-type="file"></span><p><strong>Backend</strong>：OpenImageIO 会使用 OpenImageIO library 进行 texture conversion，并启动 rmanoiiotool processes。Legacy 会使用 RenderMan 的 txmake processes。此更改会在 Maya 重启后生效。</p><p><strong>Number of processes</strong>：同时启动多少个 worker processes。默认值为 2，但增加更多 processes 通常有助于加快 queue。</p><p><strong>Fallback Texture Path</strong>：默认情况下，texture manager 会把 texture 保存在 source image 旁边。如果由于任何原因无法保存在该目录中，则会使用 fallback texture path。</p><p><strong>Always Fallback</strong>：始终将转换后的 textures 保存在 fallback texture directory 中。</p><p><strong>Show Advanced Options</strong>：在 user interface 中显示更多 advanced options。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="900" loading="lazy" src="../../attachments/544541201/txmanager_extraSettings.png" data-image-src="../../attachments/544541201/txmanager_extraSettings.png" data-height="391" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="544541226" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="txmanager_extraSettings.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544541201" data-linked-resource-container-version="10" data-media-id="c7d562fa-7731-46a7-b40f-ae2066fdd7f0" data-media-type="file"></span><p><strong>Texture extensions</strong>：所有 texture file extensions，用于让 texture manager 知道哪些 files 可标记为已转换。</p><h2 id="TextureManager-txmakeconfigTextureManagerConfiguration"><span class="confluence-anchor-link conf-macro output-inline" data-hasbody="false" data-local-id="a7a2f58c-12b9-45e4-a3ef-2c6403f1cdfd" data-macro-id="30013bc6-1e66-41b4-991d-a45d561dd2f8" data-macro-name="anchor" id="TextureManager-txmakeconfig"><span class="confluence-anchor-link" id="txmakeconfig"> </span></span>Texture Manager Configuration（Texture Manager 配置）</h2><p>texture manager 使用一组 rules，根据以下内容选择最佳 OpenImageIO/txmake parameters：</p><ul><li><p>使用该 texture 的 node 类型： <code>pattern</code>, <code>light</code>, <code>lightfilter</code> 或 <code>imageplane</code>。</p></li><li><p>该 node 类型的一组 base parameters</p></li><li><p>在考虑 file name、bit depth 等因素时，用于修改 base parameters 的一条或多条 rules</p></li></ul><p>Custom settings（自定义设置）可以由 <a class="external-link" href="../REN27/542236770-Custom OCIO Config.html" rel="nofollow">ocio configuration</a>定义。</p><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="d7a511fe-25f5-4fa0-9058-3eb75783502c" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>默认 rules 是为效率而构建的；除非有特定 pipeline requirements，否则不需要修改它们</p></div></div><p />
+  </article>
+</main>
+</body>
+</html>

@@ -1,0 +1,16 @@
+{"item_id": "9bc870e295:0", "source": "The following sections describe displacement workflow in RenderMan for Maya (RfM) based on Mudbox and Zbrush workflow. You may be able to adapt this workflow to your own tools if necessary."}
+{"item_id": "9bc870e295:1", "source": "Mudbox Displacement Maps"}
+{"item_id": "9bc870e295:2", "source": "Zbrush Displacement Maps"}
+{"item_id": "9bc870e295:3", "source": "To match Displacement from previous versions of RenderMan, the following conversion may be of use:"}
+{"item_id": "9bc870e295:4", "source": "To get a similar tessellation level, using a shading rate (deprecated) value of X would translate in using a micropolygonlength value of sqrt(X):"}
+{"item_id": "9bc870e295:5", "source": "shading rate = 0.25, micropolygonlength = 0.5"}
+{"item_id": "9bc870e295:6", "source": "shading rate = 1, micropolygonlength = 1"}
+{"item_id": "9bc870e295:7", "source": "shading rate = 4, micropolygonlength = 2"}
+{"item_id": "9bc870e295:8", "source": "Avoiding cracks on polygonal meshes"}
+{"item_id": "9bc870e295:9", "source": "When displacing a mesh with hard normals, faces can separate and create cracks. Displacement moves vertices in the direction of its normal but adjacent vertices on different sides of a hard edge have different normals and will move is different directions, creating gaps or cracks."}
+{"item_id": "9bc870e295:10", "source": "RenderMan has a \""}
+{"item_id": "9bc870e295:11", "source": "\" attribute that will create a fully smoothed copy of the normals and use it instead of the original normals."}
+{"item_id": "9bc870e295:12", "source": "In RenderMan for Maya, this attribute is enabled by the \"Prevent polygon cracking\" (rman_preventPolyCracks) check box."}
+{"item_id": "9bc870e295:13", "source": "\"Prevent polygon cracking\" should only be enabled when necessary as it uses a bit more memory. The amount used is proportional to the number of vertices in the mesh."}
+{"item_id": "9bc870e295:14", "source": "Notice how using smoothed normals warped the cube's displacement pattern and changed its appearance:"}
+{"item_id": "9bc870e295:15", "source": "You can avoid that effect by inserting additional edges near sharp edges. This will limit the normal interpolation to the areas next to the edge and generally preserve the original appearance."}

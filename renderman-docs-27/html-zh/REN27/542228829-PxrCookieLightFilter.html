@@ -1,0 +1,854 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PxrCookieLightFilter</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>PxrCookieLightFilter</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/REN27/542228829/PxrCookieLightFilter">https://rmanwiki-27.pixar.com/space/REN27/542228829/PxrCookieLightFilter</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="contentLayout2">
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p>PxrCookieLightFilter 会在灯光前方投射绘制纹理。</p><p>这个 light filter 是以下节点的更完整版本： <a href="542230807-PxrGoboLightFilter.html" rel="nofollow">PxrGoboLightFilter</a></p><p><br/></p><hr/><p><br/></p><h3 id="PxrCookieLightFilter-Parameters">Parameters（参数）</h3><p><strong>Cookie Mode</strong></p><p>指定 cookie mode：</p><p><strong>Physical (0)</strong>：cookie 的行为类似一扇彩色玻璃窗，灯光从中穿过。falloff 和 blur 由灯光尺寸、到灯光的距离以及与 cookie 的距离决定。</p></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-right-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-right" alt="cookie_modePhysicalFar.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_modePhysicalFar.jpg" data-image-src="../../attachments/542228829/cookie_modePhysicalFar.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542229182" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_modePhysicalFar.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="08817eaf-d4db-4399-9090-f0cd99535011" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" alt="cookie_modePhysicalNear.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_modePhysicalNear.jpg" data-image-src="../../attachments/542228829/cookie_modePhysicalNear.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542229179" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_modePhysicalNear.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="05748ed0-98e1-44b2-a22a-9c933733a80e" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><strong>Analytic (1)</strong>：cookie 具有固定投影，并提供手动 blur 和 falloff 控制。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_modeAnalytic.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_modeAnalytic.jpg" data-image-src="../../attachments/542228829/cookie_modeAnalytic.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542229176" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_modeAnalytic.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="8454da09-838a-44f9-9b90-b553bf2b82be" data-media-type="file"></span><p /><p><strong>Map</strong></p><p>投射纹理的文件名。如果想控制投射边缘的 blur，请将 mask 包含在此贴图的 alpha channel（alpha 通道）中。否则，当 Blur &gt; 0.0 时，它会使用安装在 $RMANTREE/lib/textures/white.tex 的白色不透明 alpha 来进行模糊。</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_map1.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_map1.jpg" data-image-src="../../attachments/542228829/cookie_map1.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542229155" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_map1.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="082a5046-b8b6-4b21-b910-2b63c42b394c" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_map2.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_map2.jpg" data-image-src="../../attachments/542228829/cookie_map2.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542229152" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_map2.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="87de44d6-e8da-42d9-9336-f9c0497f10d7" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_map3.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_map3.jpg" data-image-src="../../attachments/542228829/cookie_map3.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542229149" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_map3.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="85e5e1e2-6650-44c8-91df-32c80ea0e248" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><strong>Fill Color</strong></p><p>如果纹理的 tile mode（平铺模式）不重复，此项指定投射矩形外部以及后方区域的颜色。当下面指定 Blur 时，投射矩形边缘会与填充颜色混合。</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_fillColorBlackLightColorGreen.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_fillColorBlackLightColorGreen.jpg" data-image-src="../../attachments/542228829/cookie_fillColorBlackLightColorGreen.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542229170" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_fillColorBlackLightColorGreen.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="94a5cfc0-b10c-4f96-8f07-5bc24938924f" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_fillColorWhiteLightColorGreen.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_fillColorWhiteLightColorGreen.jpg" data-image-src="../../attachments/542228829/cookie_fillColorWhiteLightColorGreen.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542229173" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_fillColorWhiteLightColorGreen.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="38e824c1-e98d-4430-bbf9-20ef46e044ca" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_fillColorWhiteLightColorWhite.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_fillColorWhiteLightColorWhite.jpg" data-image-src="../../attachments/542228829/cookie_fillColorWhiteLightColorWhite.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542229167" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_fillColorWhiteLightColorWhite.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="e0910a3d-cbf0-4428-9956-d348b0da65d4" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><strong>Width</strong></p><p>灯光穿过的矩形宽度。</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_width1.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_width1.jpg" data-image-src="../../attachments/542228829/cookie_width1.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542229164" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_width1.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="72979a4f-c39d-4c71-b069-d3199d61fc11" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_width3.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_width3.jpg" data-image-src="../../attachments/542228829/cookie_width3.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542229158" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_width3.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="8172ac87-6c45-46fb-a9f7-ed87b94c6dd4" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_width30.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_width30.jpg" data-image-src="../../attachments/542228829/cookie_width30.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542229161" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_width30.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="b60fb12f-cf4f-4f9b-87f5-0617671de718" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><strong>Height</strong></p><p>灯光穿过的矩形高度。</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_height1.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_height1.jpg" data-image-src="../../attachments/542228829/cookie_height1.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542229140" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_height1.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="0181073a-917c-4b89-8ed7-b55b482b5d38" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_height3.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_height3.jpg" data-image-src="../../attachments/542228829/cookie_height3.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542229143" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_height3.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="5ac65e87-fce3-4432-98b0-d3079efb281d" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_height30.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_height30.jpg" data-image-src="../../attachments/542228829/cookie_height30.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542229146" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_height30.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="ee38c33f-46a1-416e-a891-f94a7fec58a5" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h4 id="PxrCookieLightFilter-Multiplier">Multiplier</h4><p><strong>Density</strong></p><p>控制投射效果的强度。</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_density05.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_density05.jpg" data-image-src="../../attachments/542228829/cookie_density05.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542229137" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_density05.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="a999b0cf-a6c1-4975-8174-4238ce268716" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_density085.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_density085.jpg" data-image-src="../../attachments/542228829/cookie_density085.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542229134" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_density085.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="a82f2e8d-856b-4a7b-b96f-ddec05aa106c" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_density1.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_density1.jpg" data-image-src="../../attachments/542228829/cookie_density1.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542229131" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_density1.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="c40a303f-57e9-4477-8545-ea7a17b1561a" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><strong>Invert</strong></p><p>指定在应用之前是否反转投射纹理。</p></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-right-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-right" alt="cookie_invertOff.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_invertOff.jpg" data-image-src="../../attachments/542228829/cookie_invertOff.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542229125" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_invertOff.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="bf0319b4-e895-4601-b5f8-a9cacd482a94" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" alt="cookie_invertOn.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_invertOn.jpg" data-image-src="../../attachments/542228829/cookie_invertOn.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542229128" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_invertOn.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="e5901b5e-0228-41ea-93aa-4989f029c756" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><strong>Intensity</strong></p><p>下方 diffuse 和 specular 贡献的全局 Multiplier。</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_intensity0.3.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_intensity0.3.jpg" data-image-src="../../attachments/542228829/cookie_intensity0.3.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542229119" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_intensity0.3.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="210769cd-d263-4534-9018-c87ab71e4168" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_intensity1.0.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_intensity1.0.jpg" data-image-src="../../attachments/542228829/cookie_intensity1.0.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542229122" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_intensity1.0.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="61788e91-990b-4a98-a6e1-e47daadf4785" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_intensity8.0.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_intensity8.0.jpg" data-image-src="../../attachments/542228829/cookie_intensity8.0.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542229116" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_intensity8.0.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="0ea18442-4095-4b5f-b8b5-7a939fbd1a3d" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><strong>Diffuse</strong></p><p>此 light filter 结果用于 diffuse contribution 的 multiplier。</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_diffuse0.15.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_diffuse0.15.jpg" data-image-src="../../attachments/542228829/cookie_diffuse0.15.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542229113" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_diffuse0.15.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="40821525-c778-415e-b658-a6c31ea6ca06" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_diffuse01.0.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_diffuse01.0.jpg" data-image-src="../../attachments/542228829/cookie_diffuse01.0.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542229107" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_diffuse01.0.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="ce8c6936-3955-45cd-9d1e-10c75e7f2131" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_diffuse05.0.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_diffuse05.0.jpg" data-image-src="../../attachments/542228829/cookie_diffuse05.0.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542229110" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_diffuse05.0.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="a404d6b1-f234-4172-bd2c-fcfede0626d7" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><strong>Specular</strong></p><p>此 light filter 结果用于 specular contribution 的 multiplier。</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_specular0.15.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_specular0.15.jpg" data-image-src="../../attachments/542228829/cookie_specular0.15.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542229104" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_specular0.15.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="9ded7848-22be-479d-8cde-a402803b73aa" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_specular01.0.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_specular01.0.jpg" data-image-src="../../attachments/542228829/cookie_specular01.0.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542229098" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_specular01.0.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="a3c09aaf-afe6-4b27-a599-44a6bdd83977" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_specular05.0.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_specular05.0.jpg" data-image-src="../../attachments/542228829/cookie_specular05.0.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542229101" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_specular05.0.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="3eda97d8-9b93-405e-b51a-5e7e2bbd770b" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h4 id="PxrCookieLightFilter-Projection(ForAnalyticModeOnly)">Projection (For Analytic Mode Only)</h4><p><strong>Directional</strong></p><p>当开启此项时，纹理会使用正交投影沿某个方向投射。关闭时，纹理会使用由 Apex 指定的焦点进行投射。</p></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-right-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-right" alt="cookie_directionalOff.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_directionalOff.jpg" data-image-src="../../attachments/542228829/cookie_directionalOff.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542229095" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_directionalOff.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="c8e21c00-7922-46b8-a030-22a9f36bd51e" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" alt="cookie_directionalOn.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_directionalOn.jpg" data-image-src="../../attachments/542228829/cookie_directionalOn.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542229092" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_directionalOn.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="2de8653d-fa66-4615-adde-8c781df729f4" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><strong>Shear X</strong></p><p>沿 X axis 对投影进行剪切。</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_shearX0.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_shearX0.jpg" data-image-src="../../attachments/542228829/cookie_shearX0.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542229083" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_shearX0.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="76b05da0-9cce-492c-a611-0320d5208ddc" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_shearX05.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_shearX05.jpg" data-image-src="../../attachments/542228829/cookie_shearX05.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542229089" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_shearX05.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="b4788b7e-9d2d-4ea4-9e1a-ae04e48e79e5" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_shearXNeg05.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_shearXNeg05.jpg" data-image-src="../../attachments/542228829/cookie_shearXNeg05.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542229086" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_shearXNeg05.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="b9f06e8e-fb77-4d52-aa28-57d656bf5a26" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><strong>Shear Y</strong></p><p>沿 Y axis 对投影进行剪切。</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_shearY0.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_shearY0.jpg" data-image-src="../../attachments/542228829/cookie_shearY0.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542229074" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_shearY0.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="87a62ec2-d237-41b2-98ff-2484eb1c1321" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_shearY05.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_shearY05.jpg" data-image-src="../../attachments/542228829/cookie_shearY05.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542229077" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_shearY05.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="463a0e01-a5ef-4e39-9610-4b9045107019" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_shearYNeg05.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_shearYNeg05.jpg" data-image-src="../../attachments/542228829/cookie_shearYNeg05.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542229080" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_shearYNeg05.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="ed806305-b74b-4065-931d-9a6c057e3dee" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><strong>Apex</strong></p><p>cookie 中心与投影中心之间的距离。仅当 Directional 关闭时适用。</p><p><strong>Use Light Direction</strong></p><p>如果开启此项，投影方向由光源中心的位置决定。否则，它只会跟随 cookie 的方向。WARNING：这不适用于 dome 和 mesh lights。</p></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-right-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-right" alt="cookie_useLightDirectionOff.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_useLightDirectionOff.jpg" data-image-src="../../attachments/542228829/cookie_useLightDirectionOff.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542229071" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_useLightDirectionOff.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="210493e2-24a3-4cc0-92e7-c9b7a5946603" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" alt="cookie_useLightDirectionOn.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_useLightDirectionOn.jpg" data-image-src="../../attachments/542228829/cookie_useLightDirectionOn.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542229068" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_useLightDirectionOn.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="8d5cea93-1cfc-40cd-a03b-33c14b4dad5c" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><br/></p><h4 id="PxrCookieLightFilter-TextureMapping">Texture Mapping</h4><p><strong>Tile Mode</strong></p><p>指定纹理如何重复。</p><ul><li><p>No Repeat (0)</p></li><li><p>Edge Extent (1)</p></li><li><p>Tile (2)</p></li></ul></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_tileModeEdgeExtend.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_tileModeEdgeExtend.jpg" data-image-src="../../attachments/542228829/cookie_tileModeEdgeExtend.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542229062" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_tileModeEdgeExtend.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="efd640d4-0438-4d83-ae72-13befad8d86d" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_tileModeNoRepeat.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_tileModeNoRepeat.jpg" data-image-src="../../attachments/542228829/cookie_tileModeNoRepeat.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542229065" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_tileModeNoRepeat.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="4abcbf9d-bc0d-41f0-a525-10bfe5bc8da1" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_tileModeTile.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_tileModeTile.jpg" data-image-src="../../attachments/542228829/cookie_tileModeTile.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542229059" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_tileModeTile.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="8ed25a18-3a9a-445d-a0bf-38e0472393a6" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><strong>Invert U</strong></p><p>仅当你想左右翻转纹理时才开启此项。默认情况下，纹理方向会与在图像查看器中看到的方向一致。</p><p><br/></p><p><strong>Invert V</strong></p><p>仅当你想从下到上翻转纹理时才开启此项。默认情况下，纹理方向会与在图像查看器中看到的方向一致。请注意，light filter 已经考虑了 V 方向翻转，以得到正确的默认方向。</p><p><br/></p><p><strong>Scale U</strong></p><p>投射纹理在 U direction 上的 scale。</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_scaleU1.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_scaleU1.jpg" data-image-src="../../attachments/542228829/cookie_scaleU1.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542229053" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_scaleU1.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="e609d3be-3d25-4bc1-b9a9-81b2a2ea7463" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_scaleU3.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_scaleU3.jpg" data-image-src="../../attachments/542228829/cookie_scaleU3.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542229056" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_scaleU3.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="4600c9f1-ebeb-4fdd-8da4-4371a82f4ffc" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_scaleUNeg1.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_scaleUNeg1.jpg" data-image-src="../../attachments/542228829/cookie_scaleUNeg1.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542229050" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_scaleUNeg1.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="e8e035bd-a5e2-47d5-b0c4-798b0dee7631" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><strong>Scale V</strong></p><p>投射纹理在 V direction 上的 scale。</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_scaleV1.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_scaleV1.jpg" data-image-src="../../attachments/542228829/cookie_scaleV1.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542229047" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_scaleV1.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="b6035bd6-799e-4322-974e-5a7dba8ed640" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_scaleV3.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_scaleV3.jpg" data-image-src="../../attachments/542228829/cookie_scaleV3.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542229044" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_scaleV3.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="e4d71c49-700b-4c12-adc2-6f7f98490aa2" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_scaleVNeg1.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_scaleVNeg1.jpg" data-image-src="../../attachments/542228829/cookie_scaleVNeg1.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542229041" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_scaleVNeg1.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="5979b684-aa1a-4cd3-b0c8-5d2a6e8b715e" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><strong>Offset U</strong></p><p>投射纹理在 U direction 上的 offset。</p><p><br/></p><p><strong>Offset V</strong></p><p>投射纹理在 V direction 上的 offset。</p><p><strong>Use Alpha</strong><br/><br/>如果关闭此项，结果可能不够平滑。</p><p><br/></p><p><strong>Premultiplied Alpha</strong><br/><br/>如果使用未预乘 Alpha 的纹理，请将此项设为 0 或关闭，以获得正确行为。</p><p> </p><h4 id="PxrCookieLightFilter-Blur(forAnalyticModeOnly)">Blur (for Analytic Mode Only)</h4><p><strong>Blur</strong></p><p>指定投射纹理的 blur，范围为 0-1。该值会乘以 blurNear/blurFar 插值。当纹理不重复时，这会在投射颜色与填充颜色之间进行模糊。</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_blur00.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_blur00.jpg" data-image-src="../../attachments/542228829/cookie_blur00.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542229032" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_blur00.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="a53a02c3-5518-45a7-93b0-66dec533c207" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_blur03.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_blur03.jpg" data-image-src="../../attachments/542228829/cookie_blur03.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542229038" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_blur03.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="167ebbea-1594-4d58-a949-d6212087cebe" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_blur06.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_blur06.jpg" data-image-src="../../attachments/542228829/cookie_blur06.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542229035" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_blur06.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="cbe8462c-5a9e-433b-bca7-57bc3fb084c6" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><strong>S Blur Mult</strong></p><p>S 方向上的 Blur multiplier（模糊倍增）。</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_sBlurMult01.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_sBlurMult01.jpg" data-image-src="../../attachments/542228829/cookie_sBlurMult01.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542229029" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_sBlurMult01.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="8a7f325d-a44c-479c-a7d2-674c82a695e1" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_sBlurMult05.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_sBlurMult05.jpg" data-image-src="../../attachments/542228829/cookie_sBlurMult05.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542229026" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_sBlurMult05.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="23f7c261-fde2-420e-9e72-34735994b2a8" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_sBlurMult15.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_sBlurMult15.jpg" data-image-src="../../attachments/542228829/cookie_sBlurMult15.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542229023" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_sBlurMult15.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="04a4f9bd-ca50-4b6b-87fa-6f7f1e8ad23e" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><strong>T Blur Mult</strong></p><p>T 方向上的 Blur multiplier（模糊倍增）。</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_tBlurMult01.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_tBlurMult01.jpg" data-image-src="../../attachments/542228829/cookie_tBlurMult01.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542229020" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_tBlurMult01.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="c68c3497-bbeb-4f9d-a661-ffa365223359" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_tBlurMult05.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_tBlurMult05.jpg" data-image-src="../../attachments/542228829/cookie_tBlurMult05.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542229014" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_tBlurMult05.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="a13354fe-ca73-4647-a61c-8b114d4a6048" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_tBlurMult15.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_tBlurMult15.jpg" data-image-src="../../attachments/542228829/cookie_tBlurMult15.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542229017" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_tBlurMult15.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="8c680783-b438-4e1b-86b8-2a8ae77e9421" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><strong>Blur Near Dist</strong></p><p>从 cookie 起算，blur 插值开始的位置距离。</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_blurNearDist06.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_blurNearDist06.jpg" data-image-src="../../attachments/542228829/cookie_blurNearDist06.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542229008" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_blurNearDist06.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="0445c6bd-d0ba-41f5-9a27-061e1d0bb4fb" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_blurNearDist4.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_blurNearDist4.jpg" data-image-src="../../attachments/542228829/cookie_blurNearDist4.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542229005" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_blurNearDist4.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="9ecaf23e-5ad5-4871-ae97-1067de02f781" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_blurNearDist5.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_blurNearDist5.jpg" data-image-src="../../attachments/542228829/cookie_blurNearDist5.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542229011" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_blurNearDist5.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="a380e303-42cf-41df-a7fe-47415741bfc6" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><strong>Blur Midpoint</strong></p><p>near 与 far 之间、midValue 所在位置的距离。</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_blurMidpoint01.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_blurMidpoint01.jpg" data-image-src="../../attachments/542228829/cookie_blurMidpoint01.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542228999" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_blurMidpoint01.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="4aba7a46-5c4d-4577-b12a-4c615c09f38c" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_blurMidpoint05.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_blurMidpoint05.jpg" data-image-src="../../attachments/542228829/cookie_blurMidpoint05.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542229002" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_blurMidpoint05.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="1d1e619f-fa44-49c7-8b41-fc678850268a" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_blurMidpoint09.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_blurMidpoint09.jpg" data-image-src="../../attachments/542228829/cookie_blurMidpoint09.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542228996" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_blurMidpoint09.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="b4458c64-0fc4-4da6-ab14-6c8c1424b1fc" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><strong>Blur Far Dist</strong></p><p>从 cookie 起算，blur 插值结束的位置距离。</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_blurFarDist001.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_blurFarDist001.jpg" data-image-src="../../attachments/542228829/cookie_blurFarDist001.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542228993" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_blurFarDist001.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="6d3b3476-d32c-44f9-990c-b9eabb1f2921" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_blurFarDist010.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_blurFarDist010.jpg" data-image-src="../../attachments/542228829/cookie_blurFarDist010.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542228987" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_blurFarDist010.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="a8ae3bb0-e48e-494d-9dbb-3e668c15c059" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_blurFarDist500.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_blurFarDist500.jpg" data-image-src="../../attachments/542228829/cookie_blurFarDist500.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542228990" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_blurFarDist500.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="1a689fb3-0051-4162-894f-f3def822e7df" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><strong>Blur Near Value</strong></p><p>blur 插值开始处的 Blur multiplier。</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_blurNearVal1.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_blurNearVal1.jpg" data-image-src="../../attachments/542228829/cookie_blurNearVal1.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542228981" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_blurNearVal1.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="d83fc7ec-8cbb-427c-9e85-97b07205241e" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_blurNearVal10.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_blurNearVal10.jpg" data-image-src="../../attachments/542228829/cookie_blurNearVal10.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542228978" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_blurNearVal10.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="e725d47c-52f7-4d93-b7f1-02c8ac76e365" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_blurNearVal100.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_blurNearVal100.jpg" data-image-src="../../attachments/542228829/cookie_blurNearVal100.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542228984" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_blurNearVal100.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="e5202c32-d87d-4326-bb7e-7aa535b79ed1" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><strong>Blur Mid Value</strong></p><p>blur 插值中间位置的 Blur multiplier。</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_blurMidVal1.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_blurMidVal1.jpg" data-image-src="../../attachments/542228829/cookie_blurMidVal1.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542228969" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_blurMidVal1.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="30247738-f72f-44a9-b6bc-01378b0def3e" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_blurMidVal100.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_blurMidVal100.jpg" data-image-src="../../attachments/542228829/cookie_blurMidVal100.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542228975" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_blurMidVal100.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="5bba3beb-8afd-4bff-bdd5-1051dff0bbc3" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_blurMidVal1000.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_blurMidVal1000.jpg" data-image-src="../../attachments/542228829/cookie_blurMidVal1000.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542228972" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_blurMidVal1000.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="57196989-5ff8-4b50-b4f9-fde95891cfcd" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><strong>Blur Far Value</strong></p><p>blur 插值结束处的 Blur multiplier。</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_blurFarVal1.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_blurFarVal1.jpg" data-image-src="../../attachments/542228829/cookie_blurFarVal1.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542228960" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_blurFarVal1.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="1f3d56ff-1cae-4ebe-9247-825a2ab9b6af" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_blurFarVal10.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_blurFarVal10.jpg" data-image-src="../../attachments/542228829/cookie_blurFarVal10.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542228963" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_blurFarVal10.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="d0effd1f-b5e1-4668-b2e9-09935d19960a" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_blurFarVal100.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_blurFarVal100.jpg" data-image-src="../../attachments/542228829/cookie_blurFarVal100.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542228966" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_blurFarVal100.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="8569686b-0566-4e85-a5e2-bcc97b164e91" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><strong>Blur Exponent</strong></p><p>blur 插值的幂指数。</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_blurPow0.1.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_blurPow0.1.jpg" data-image-src="../../attachments/542228829/cookie_blurPow0.1.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542228951" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_blurPow0.1.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="e6c0a819-b820-46ef-9a82-8a8992e82df5" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_blurPow1.0.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_blurPow1.0.jpg" data-image-src="../../attachments/542228829/cookie_blurPow1.0.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542228957" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_blurPow1.0.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="a23205e3-32ee-4411-874b-2cff35b576dd" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_blurPow10.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_blurPow10.jpg" data-image-src="../../attachments/542228829/cookie_blurPow10.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542228954" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_blurPow10.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="0770e3af-6423-494e-a992-1f4ec151b483" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><br/></p><h4 id="PxrCookieLightFilter-DensityFalloff(forAnalyticModeOnly)">Density Falloff (for Analytic Mode Only)</h4><p><strong>Density Near Dist</strong></p><p>从 cookie 起算，密度插值开始的位置距离。</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_densityNearDist1.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_densityNearDist1.jpg" data-image-src="../../attachments/542228829/cookie_densityNearDist1.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542228948" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_densityNearDist1.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="f7503588-2463-4c56-9477-79eba04bc86b" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_densityNearDist3.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_densityNearDist3.jpg" data-image-src="../../attachments/542228829/cookie_densityNearDist3.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542228945" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_densityNearDist3.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="da67cdc1-04b3-49d5-8bd6-93874fed18d0" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_densityNearDist5.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_densityNearDist5.jpg" data-image-src="../../attachments/542228829/cookie_densityNearDist5.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542228942" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_densityNearDist5.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="4b58a448-7126-44ef-93a1-d32b2c924b4c" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><strong>Density Midpoint</strong></p><p>near 与 far 之间、midValue 所在位置的距离。</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_densityMidpoint01.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_densityMidpoint01.jpg" data-image-src="../../attachments/542228829/cookie_densityMidpoint01.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542228936" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_densityMidpoint01.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="a95a702b-3946-4676-a6ea-093bb7ff1077" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_densityMidpoint05.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_densityMidpoint05.jpg" data-image-src="../../attachments/542228829/cookie_densityMidpoint05.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542228939" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_densityMidpoint05.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="f9984992-1e9f-440a-927b-1d6a9d2abadd" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_densityMidpoint09.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_densityMidpoint09.jpg" data-image-src="../../attachments/542228829/cookie_densityMidpoint09.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542228933" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_densityMidpoint09.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="84747bd1-e793-4010-b0fe-e5180b1d5327" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><strong>Density Far Dist</strong></p><p>从 cookie 起算，密度插值结束的位置距离。</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_densityFarDist10.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_densityFarDist10.jpg" data-image-src="../../attachments/542228829/cookie_densityFarDist10.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542228930" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_densityFarDist10.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="103fe575-22dc-40eb-92da-3dea93f77d44" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_densityFarDist5.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_densityFarDist5.jpg" data-image-src="../../attachments/542228829/cookie_densityFarDist5.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542228924" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_densityFarDist5.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="12f72335-d756-48a9-bea4-09c8a7fdcdef" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_densityFarDist7.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_densityFarDist7.jpg" data-image-src="../../attachments/542228829/cookie_densityFarDist7.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542228927" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_densityFarDist7.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="fdfcc6ba-27e5-4a63-95e1-f1ade075453d" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><strong>Density Near Value</strong></p><p>模糊插值开始处的 Density multiplier。</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_densityNearVal0.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_densityNearVal0.jpg" data-image-src="../../attachments/542228829/cookie_densityNearVal0.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542228921" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_densityNearVal0.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="9e56fa7a-82a5-4781-891f-a152cc84109c" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_densityNearVal05.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_densityNearVal05.jpg" data-image-src="../../attachments/542228829/cookie_densityNearVal05.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542228915" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_densityNearVal05.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="61b4c0e5-3a32-42b0-9ec3-15d0975a962b" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_densityNearVal1.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_densityNearVal1.jpg" data-image-src="../../attachments/542228829/cookie_densityNearVal1.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542228918" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_densityNearVal1.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="b1330c8c-5516-43d9-9f5f-c0dc9c6e0db4" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><strong>Density Mid Value</strong></p><p>密度插值中间位置的 Density multiplier。</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_densityMidVal0.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_densityMidVal0.jpg" data-image-src="../../attachments/542228829/cookie_densityMidVal0.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542228909" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_densityMidVal0.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="df4e1873-146b-4033-bf26-68fa358b0f76" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_densityMidVal05.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_densityMidVal05.jpg" data-image-src="../../attachments/542228829/cookie_densityMidVal05.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542228906" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_densityMidVal05.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="83727e2a-0136-4354-bc27-84467d1ff937" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_densityMidVal1.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_densityMidVal1.jpg" data-image-src="../../attachments/542228829/cookie_densityMidVal1.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542228912" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_densityMidVal1.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="e4a137ed-c8a7-4035-985e-e99295a5f172" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><strong>Density Far Value</strong></p><p>模糊插值结束处的 Density multiplier。</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_densityFarVal0.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_densityFarVal0.jpg" data-image-src="../../attachments/542228829/cookie_densityFarVal0.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542228900" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_densityFarVal0.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="4c0408f5-8be7-449d-b060-d7c1f22c6988" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_densityFarVal05.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_densityFarVal05.jpg" data-image-src="../../attachments/542228829/cookie_densityFarVal05.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542228903" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_densityFarVal05.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="2870fe35-9d36-498a-bb08-3c4ccb025628" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_densityFarVal1.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_densityFarVal1.jpg" data-image-src="../../attachments/542228829/cookie_densityFarVal1.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542228897" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_densityFarVal1.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="3897bb43-419c-4c9a-845c-7e08cbf333a6" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><strong>Density Exponent</strong></p><p>密度插值的幂指数。</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_densityPow01.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_densityPow01.jpg" data-image-src="../../attachments/542228829/cookie_densityPow01.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542228894" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_densityPow01.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="5fb7132d-2c5f-4918-98e2-cd6def35e777" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_densityPow05.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_densityPow05.jpg" data-image-src="../../attachments/542228829/cookie_densityPow05.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542228891" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_densityPow05.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="6f5dce73-6083-46a0-a41b-80104cd35780" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_densityPow09.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_densityPow09.jpg" data-image-src="../../attachments/542228829/cookie_densityPow09.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542228888" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_densityPow09.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="7c774ef1-a9c2-4078-bdc4-2320ae623734" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><br/></p><h4 id="PxrCookieLightFilter-Saturation,Contrast,Tint">Saturation, Contrast, Tint</h4><p><strong>Saturation</strong></p><p>结果的 Saturation（0=灰度，1=正常，&gt;1=增强颜色）。</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_saturation0.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_saturation0.jpg" data-image-src="../../attachments/542228829/cookie_saturation0.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542228885" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_saturation0.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="5cbaf9b0-95ca-4f77-91f9-80fa49b4e408" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_saturation05.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_saturation05.jpg" data-image-src="../../attachments/542228829/cookie_saturation05.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542228882" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_saturation05.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="e0a8de9d-7294-4769-81eb-5e09e56d9420" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_saturation1.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_saturation1.jpg" data-image-src="../../attachments/542228829/cookie_saturation1.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542228879" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_saturation1.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="d78326f8-9ae5-4bce-a35c-bb92bc6f5377" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><strong>Midpoint</strong></p><p>contrast 控制的 Midpoint。</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_midpoint01.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_midpoint01.jpg" data-image-src="../../attachments/542228829/cookie_midpoint01.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542228873" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_midpoint01.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="817d2ee0-7c11-41a6-8e25-d1c76a7302c5" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_midpoint1.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_midpoint1.jpg" data-image-src="../../attachments/542228829/cookie_midpoint1.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542228870" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_midpoint1.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="3dcd1932-3715-433f-8f40-cb7fa3558587" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_midpoint2.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_midpoint2.jpg" data-image-src="../../attachments/542228829/cookie_midpoint2.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542228876" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_midpoint2.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="140b2ccb-f41c-46d5-a5aa-bb8ea93e32d7" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><strong>Contrast</strong></p><p>Contrast control（小于 1 = 降低对比度，大于 1 = 提高对比度）。</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_contrast0.5.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_contrast0.5.jpg" data-image-src="../../attachments/542228829/cookie_contrast0.5.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542228864" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_contrast0.5.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="477d5eed-f33d-4906-9128-3fb20d6122ee" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_contrast1.0.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_contrast1.0.jpg" data-image-src="../../attachments/542228829/cookie_contrast1.0.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542228861" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_contrast1.0.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="a18f016d-7e5e-4b07-84aa-4f44c9ad0c2a" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_contrast2.0.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_contrast2.0.jpg" data-image-src="../../attachments/542228829/cookie_contrast2.0.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542228867" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_contrast2.0.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="ae39940d-6dd5-419c-9abc-50cffb009c67" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><strong>White Point</strong></p><p>如果 (contrast &gt; 1.0)，用于 contrast control 的 white point。</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_whitepoint0.5.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_whitepoint0.5.jpg" data-image-src="../../attachments/542228829/cookie_whitepoint0.5.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542228855" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_whitepoint0.5.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="8eb943b7-5897-4c00-95cf-37c6f8d0e3f5" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_whitepoint1.0.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_whitepoint1.0.jpg" data-image-src="../../attachments/542228829/cookie_whitepoint1.0.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542228858" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_whitepoint1.0.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="576cf8b6-5736-402d-a1db-f998de01dbef" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_whitepoint3.0.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_whitepoint3.0.jpg" data-image-src="../../attachments/542228829/cookie_whitepoint3.0.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542228852" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_whitepoint3.0.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="892a99a1-ec9f-4137-aaee-badc03344209" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><strong>Tint</strong></p><p>经过 saturation、contrast 和 clamp 后所得颜色的 Tint。</p></div>
+</div>
+</div>
+<div class="columnLayout three-equal" data-layout="three-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_tintBlue.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_tintBlue.jpg" data-image-src="../../attachments/542228829/cookie_tintBlue.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542228849" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_tintBlue.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="0cb6ebe7-3f39-4e13-8d9e-bcf3eae99ecf" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_tintRed.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_tintRed.jpg" data-image-src="../../attachments/542228829/cookie_tintRed.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542228846" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_tintRed.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="0215446a-1063-4d56-997b-864eaf1bd8a8" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_tintWhite.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_tintWhite.jpg" data-image-src="../../attachments/542228829/cookie_tintWhite.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542228843" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_tintWhite.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="7d544b37-1432-4962-a7d9-296fc0be5ade" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<h4 id="PxrCookieLightFilter-CombineMode">Combine Mode</h4><p>Combine Mode</p><p><strong>mult</strong>：所有滤镜的结果会相乘。</p><p><strong>max</strong>：使用所有滤镜中的最大结果。这最适合灰度灯光滤镜。</p><p><strong>min</strong>：使用所有滤镜中的最小结果。这最适合灰度灯光滤镜。</p><p><strong>screen</strong>：类似于 max 操作，但会以更平滑的方式组合渐变。这最适合灰度灯光。</p><p>附加在灯光上的 Light filters 会按各自的 combine mode 分组。同一组中的 Light filters 会一起执行，并按 combine mode 进行组合。各组按以下顺序执行（max、min、screen，然后 mult），并且会相互相乘；这意味着 mult 组中把结果变黑的 filter 会将所有其他 filter 清零。</p></div>
+</div>
+</div>
+</div>
+  </article>
+</main>
+</body>
+</html>

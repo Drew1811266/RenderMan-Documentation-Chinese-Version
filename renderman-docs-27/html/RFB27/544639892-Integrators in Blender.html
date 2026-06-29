@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Integrators in Blender</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Integrators in Blender</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFB27/544639892/Integrators+in+Blender">https://rmanwiki-27.pixar.com/space/RFB27/544639892/Integrators+in+Blender</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Integrators_image1.png" width="870" loading="lazy" src="../../attachments/544639892/Integrators_image1.png" data-image-src="../../attachments/544639892/Integrators_image1.png" data-height="360" data-width="640" data-unresolved-comment-count="0" data-linked-resource-id="544639910" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Integrators_image1.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544639892" data-linked-resource-container-version="1" data-media-id="38f454f8-6027-40f8-b707-6129c26d4081" data-media-type="file"></span><p style="text-align: center;"><strong> </strong><em><strong>Disco teapots, rendered using the PxrVCM integrator.</strong></em><strong> </strong></p><p>Integrators take the camera rays and return results to the renderer. For the main integrators these are estimates of the light energy (radiance) from the surfaces seen from the outside along the rays. These main integrators are responsible for computing the overall light transport, that is, light that travels from a light source through your scene from object to object (or through objects and volumes) to reach the camera. Interior integrators assist in specialized cases by handling the light within surfaces or volumes. We provide three main production quality integrators, though users can substitute their own.</p><p><a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661775" rel="nofollow">PxrPathTracer</a> implements a unidirectional path tracer. This combines information from the materials at the hit points with light samples to estimate direct lighting and shadowing, then spawns/shoots additional rays to handle indirect lighting. This works well with environment lights, and large direct light sources. Typically exterior scenes, scenes lit by dome lights/HDRI, and many typical visual effects shots are rendered with this integrator.</p><p><a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661785" rel="nofollow">PxrVCM</a> extends this with bidirectional path tracing. In addition to the paths from the camera, it traces paths from the light sources and tries to connect them. It can resolve complicated indirect paths that may be slow to converge with PxrPathTracer. In particular, it is designed to handle specular caustics. Caustics are an effect of light being refocused after reflecting or refracting off a surface. The above image illustrates both of these effects. If your scene requires these effects or you have complex lighting where some lights may be covered or hidden in fixtures, then the PxrVCM integrator is your most likely efficient choice.</p><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="db99e0a3-753d-4987-be7c-decece99f74b" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p><a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661787" rel="nofollow">PxrUnified</a> is available but currently experimental until it supports all the features of commercial RenderMan.</p></div></div><h2 id="IntegratorsinBlender-SettingIntegratorsinBlender">Setting Integrators in Blender</h2><p>By default, RenderMan for Blender will use PxrPathTracer as the integrator for the scene. To set/use a different integrator, go to the render properties <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image" height="24" loading="lazy" src="../../attachments/544639892/render_properties.png" data-image-src="../../attachments/544639892/render_properties.png" data-unresolved-comment-count="0" data-linked-resource-id="544639913" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="render_properties.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544639892" data-linked-resource-container-version="1" data-media-id="aab0eec9-a1f6-4398-8889-d2f8ccb3582b" data-media-type="file"></span>and click Add RenderMan Integrator Nodetree.</p><span class="confluence-embedded-file-wrapper image-left-wrapper"><img class="confluence-embedded-image image-left" loading="lazy" src="../../attachments/544639892/integrators.png" data-image-src="../../attachments/544639892/integrators.png" data-height="53" data-width="405" data-unresolved-comment-count="0" data-linked-resource-id="544639916" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="integrators.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544639892" data-linked-resource-container-version="1" data-media-id="f0a3f01e-ac30-47ea-ac72-0841dd97a879" data-media-type="file"></span><p>You should then see something like this:</p><span class="confluence-embedded-file-wrapper image-left-wrapper"><img class="confluence-embedded-image image-left" loading="lazy" src="../../attachments/544639892/integrators2.png" data-image-src="../../attachments/544639892/integrators2.png" data-height="346" data-width="411" data-unresolved-comment-count="0" data-linked-resource-id="544639922" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="integrators2.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544639892" data-linked-resource-container-version="1" data-media-id="3fe0f040-b0ad-49fc-8902-ba4b83ab53d2" data-media-type="file"></span><p>You can select a different integrator by using the drop down menu.</p><span class="confluence-embedded-file-wrapper image-left-wrapper"><img class="confluence-embedded-image image-left" loading="lazy" src="../../attachments/544639892/integrators3.png" data-image-src="../../attachments/544639892/integrators3.png" data-height="353" data-width="411" data-unresolved-comment-count="0" data-linked-resource-id="544639919" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="integrators3.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544639892" data-linked-resource-container-version="1" data-media-id="fc5b15b3-2be9-4c07-9e4a-a241451be3f6" data-media-type="file"></span><p>Note, integrators in Blender are just shading nodes in the world node's shading graph. If you look at shading nodes for the world node in shader editor <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image" height="19" loading="lazy" src="../../attachments/544639892/shader_editor.png" data-image-src="../../attachments/544639892/shader_editor.png" data-unresolved-comment-count="0" data-linked-resource-id="544639928" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="shader_editor.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544639892" data-linked-resource-container-version="1" data-media-id="95675bdb-5df1-4e59-bd81-5384077fef49" data-media-type="file"></span> you should see something like this:</p><span class="confluence-embedded-file-wrapper image-left-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-left" width="170" loading="lazy" src="../../attachments/544639892/world_shading_nodes.png" data-image-src="../../attachments/544639892/world_shading_nodes.png" data-height="335" data-width="235" data-unresolved-comment-count="0" data-linked-resource-id="544639931" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="world_shading_nodes.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544639892" data-linked-resource-container-version="1" data-media-id="42edbb34-d8e1-4602-aa24-174d08158156" data-media-type="file"></span><p />
+  </article>
+</main>
+</body>
+</html>

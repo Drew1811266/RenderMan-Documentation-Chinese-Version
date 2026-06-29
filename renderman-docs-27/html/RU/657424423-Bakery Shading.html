@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bakery Shading</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Bakery Shading</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RU/657424423/Bakery+Shading">https://rmanwiki-27.pixar.com/space/RU/657424423/Bakery+Shading</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<h3 id="BakeryShading-Shading">Shading</h3><p>Another advantage of Substance (or other 3D paint softwares like Mari) is its preview capability, which gives you a good overview of the material and allows you to adjust the maps beforehand. However, this does not mean that once the maps have been applied to our PxrSurface, all we have to do is connect them to the corresponding channels to consider the shading complete. There may be differences between the rendering obtained in Substance and the one obtained in RenderMan. This is why it is sometimes necessary to remap, color correct, or manipulate our textures in other ways while we refine the final result.</p><h5 id="BakeryShading-DuplicationandPxrVary"><br/>Duplication and PxrVary</h5><p>With many duplicated elements sharing the same PxrSurface, we have to find a way to vary all this stuff. One of the most useful nodes in this case is PxrVary. When connected to the color base, this node can introduce variations in saturation, value and hue. This makes for greater realism and avoids the dreaded “perfect 3D” effect. For example, for our breads and pastries, this gave us the ability to add subtlety to our baked goods, as breads are never 100% the same ... as they vary slightly in flour, water, yeast, and baking time.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Breads_Pastries_PxrVary_comparison.gif" width="760" loading="lazy" src="../../attachments/657424423/Breads_Pastries_PxrVary_comparison.gif" data-image-src="../../attachments/657424423/Breads_Pastries_PxrVary_comparison.gif" data-height="720" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="657227923" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Breads_Pastries_PxrVary_comparison.gif" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/gif" data-linked-resource-container-id="657424423" data-linked-resource-container-version="1" data-media-id="aebc437b-ad81-4bc3-b3a5-46fdf4e420ba" data-media-type="file"></span><h5 id="BakeryShading-RoughnessandSpecular">Roughness and Specular</h5><p>Another technique I've got is to invert my Roughness map using a remap before applying it to the EdgeColor. You can then adjust the remap to suit your needs; in this case, I lowered it to preserve the gloss of the paint. This trick allows more variation in roughness and enriches the texture a little more.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Wood_Remap_Specular_Comparison.gif" width="760" loading="lazy" src="../../attachments/657424423/Wood_Remap_Specular_Comparison.gif" data-image-src="../../attachments/657424423/Wood_Remap_Specular_Comparison.gif" data-height="720" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="657227930" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Wood_Remap_Specular_Comparison.gif" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/gif" data-linked-resource-container-id="657424423" data-linked-resource-container-version="1" data-media-id="3ea58693-4f34-4cc8-8474-a82196d03386" data-media-type="file"></span><p>Finally ,one of the special features of this set is its viewpoint, designed for an overall shot where the objects appear relatively far away. As we already mentioned in the UV section, we optimize rendering time by exporting small maps but we can also avoid applying Displacement maps for that. Indeed, at this distance, a simple Normal map is more than enough to simulate relief effectively.</p><iframe allowfullscreen="" allowtransparency="true" class="fullscreen-video-iframe conf-macro output-block" data-hasbody="false" data-layout="wide" data-local-id="d2e15d85-bbdd-4223-9b47-d5aeed6a9bf3" data-macro-id="d1243998-9479-480d-ad0f-ff5738e6ddfd" data-macro-name="widget" frameborder="0" height="540" mozallowfullscreen="" src="https://player.vimeo.com/video/1056945242" style="border:none; margin:1em 0em;" webkitallowfullscreen="" width="960">
+</iframe>
+
+<p /><hr/>
+  </article>
+</main>
+</body>
+</html>

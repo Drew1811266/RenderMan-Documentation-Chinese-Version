@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Thread Control in Katana</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Thread Control in Katana</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFK27/546178787/Thread+Control+in+Katana">https://rmanwiki-27.pixar.com/space/RFK27/546178787/Thread+Control+in+Katana</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<h2 id="ThreadControlinKatana-SettingTraversalThreadCount">设置 Traversal Thread Count（遍历线程数）</h2><p>当 RfK 将 Katana scene graph（场景图）转换为用于渲染的 Rix scene graph 时，会并行执行，并在 location 分支处生成新线程。默认值是 "all on"，意味着它会在 scene 中每个子 location 上 fork；这对大多数场景未必理想，但允许作者更深入地控制 parallelism（并行度）。控制层级有多种，需要一些调整，才能得出适合你的 pipeline 以及后续各个 scene 的配置。 </p><ol start="1"><li><p><strong>prmanGlobalStatements.plugin.traversalMethod:</strong> 全局 traversal（遍历）设置。当设为 'Serial' 时，它会完全禁用并行 scene traversal。通常不建议这样做，但它对计时对比和 reentrant diagnostics（可重入诊断）很有用（也就是说，我在串行和并行 traversal 中都能看到这个问题吗？）。</p></li><li><p><strong>prmanGlobalStatements.plugin.maxTraversalThreads: </strong>请求用于 traversal（遍历）的线程数：这是开始调优的首要位置。默认 max 设置为 4，但根据机器配置和 scene layout，此级别的性能可能提升一倍，也可能减半。对技术用户来说，这个值用于初始化 RfK 的 TBB task scheduler。将它设置为 TBB 默认值 '0'  <strong>不建议</strong>。根据经验，将它设为 '0' 时我们见过明显减速，可能是因为与正在使用的其他 TBB sessions 冲突。</p></li><li><p><strong>prmanStatements.traversal.forceSerial:</strong> 用于按 location 对 scene 或 asset 进行精细调优的设置。强烈建议在 component 或 group 层级将它设为 true，使 traversal 不会尝试一直并行化到 gprim 层级。更多关于 location-level thread tuning 的细节，请参见 <a class="external-link" href="http://rmanwiki-test.pixar.com/display/RFK24/PrmanObjectStatements#PrmanObjectStatements-Traversal" rel="nofollow">PrmanObjectStatements</a>。<br/> </p></li></ol><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="0917042f-35b7-423d-8dc7-ef84c550683f" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p><strong>性能说明</strong></p><p>请理解，某些分支以串行方式处理可能会改善 time to first pixel（开始发送像素前所需的时间），而且这高度依赖 scene；同时也要理解，对所有内容都使用并行 traversal 可能代价较高。</p></div></div><h2 id="ThreadControlinKatana-SettingRenderThreadCount"><br/>设置 Render Thread Count（渲染线程数）</h2><p>目前在 RfK 中有三种设置 render threads（渲染线程）数量的方法。前两种会向 prman 的命令行参数添加 "<code>-t:#</code>"；按照 RenderMan 对 prman 参数的定义，这会覆盖 RIB 中的任何线程规格（第三种选项）。</p><p>设置 thread count（线程数）的方法， <strong>按优先级顺序</strong>：</p><ol start="1"><li><p>Katana preferences（偏好设置）： <strong>interactiveRenderThreadsOverride</strong> 和 <strong>interactiveRenderThreads3D</strong>（等同于在 batch mode（批处理模式）中使用 "<code>--threads3d</code>" 命令行参数）。</p></li><li><p>Katana attribute（属性）：<strong> renderSettings.renderThreads.</strong></p></li><li><p>PRMan option（选项）： <strong>prmanGlobalStatements.options.limits.threads</strong>。</p></li></ol><p>这些值的设置方式和位置如下详述。</p><h4 id="ThreadControlinKatana-Option1:interactiveRenderThreadPreferences">Option 1（选项 1）：interactiveRenderThread Preferences（偏好设置）</h4><p>下面是 preferences（偏好设置）的屏幕截图 <strong>interactiveRenderThreadsOverride</strong> 和 <strong>interactiveRenderThreads3D</strong>（等同于在 batch mode（批处理模式）中使用 "<code>--threads3d</code>" 命令行参数）。如果你想明确设置 render threads 的数量，应在这里设置。将 <strong>interactiveRenderThreadsOverride</strong> = <em>Yes</em>，并将 <strong>interactiveRenderThreads3D</strong> 的值设为所需的线程数：</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="417" loading="lazy" src="../../attachments/546178787/rfkThreadsPreferences.png" data-image-src="../../attachments/546178787/rfkThreadsPreferences.png" data-height="426" data-width="711" data-unresolved-comment-count="0" data-linked-resource-id="546178810" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfkThreadsPreferences.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="546178787" data-linked-resource-container-version="4" data-media-id="7d0c0446-4c4d-40de-9d28-9b0db3184f64" data-media-type="file"></span><h4 id="ThreadControlinKatana-Option2:renderThreadsAttribute">Option 2（选项 2）：renderThreads Attribute（属性）</h4><p>属性 <strong>renderSettings.renderThreads</strong> 必须通过 AttributeSet 或 OpScript 设置，因为它不会在 RenderSettings 中公开。下面是使用 AttributeSet 节点设置该 attribute（属性）的示例：</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="376" loading="lazy" src="../../attachments/546178787/rfkThreadsRenderSettings.png" data-image-src="../../attachments/546178787/rfkThreadsRenderSettings.png" data-height="324" data-width="488" data-unresolved-comment-count="0" data-linked-resource-id="546178807" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfkThreadsRenderSettings.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="546178787" data-linked-resource-container-version="4" data-media-id="515994c5-5b53-4e37-a48f-7e3017c82205" data-media-type="file"></span><h4 id="ThreadControlinKatana-Option3:limits.threadsprmanOption">Option 3（选项 3）：limits.threads prman Option（选项）</h4><p>prman option（选项） <strong>limits.threads</strong> 的设置通过 <strong>Options（选项）</strong> section（部分）设置，该部分位于 PrmanGlobalStatements 节点中：</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="307" loading="lazy" src="../../attachments/546178787/rfkThreadsOptionsLimits.png" data-image-src="../../attachments/546178787/rfkThreadsOptionsLimits.png" data-height="392" data-width="482" data-unresolved-comment-count="0" data-linked-resource-id="546178801" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfkThreadsOptionsLimits.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="546178787" data-linked-resource-container-version="4" data-media-id="2f5835f0-32f7-4a34-9112-c02e734ac353" data-media-type="file"></span><p>该 attribute（属性）会直接转换为 RIB：</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="aa48246f-265b-448e-8359-3c75216734dd" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">Option &quot;limits&quot; &quot;int threads&quot; [N]</pre>
+</div></div><p>由于它在优先级列表中最低，如果 (1) preferences（偏好设置）或 (2) render settings（渲染设置）启用了线程值，这个 thread option（线程选项）就会被覆盖。</p><h3 id="ThreadControlinKatana-SpecialValues">特殊值</h3><p>在所有情况下，如果给 prman 的值为 0（zero），则会使用所有 CPU 进行渲染。如果指定负值（-N），则 prman 会使用除 N 个 CPU 之外的所有 CPU 进行渲染。</p>
+  </article>
+</main>
+</body>
+</html>

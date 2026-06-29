@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PxrTee</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>PxrTee</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/REN27/542225035/PxrTee">https://rmanwiki-27.pixar.com/space/REN27/542225035/PxrTee</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>PxrTee takes an inputRGB or inputF's value and output the unchanged value to an AOV. Its resultRGB or resultF needs to be connected to somewhere in the shading network. It sends the values out into an AOV when shading a camera-visible primary ray.</p><p>This is the best way to export any part of your shading network to an arbitrary AOV file on disk, helping look development artists or compositors debug in their viewer or iterate on their work in compositing.</p><p>Note that either inputRGB or inputF is connected but not both. If both inputRGB and inputF have connections, PxrTee will output an error message. Also, since it is not useful to have uniform values for inputRGB or inputF, these parameters can only take connections.</p><p>As its name suggested, it is like a tee:</p><span class="confluence-embedded-file-wrapper image-center-wrapper"><img class="confluence-embedded-image image-center" loading="lazy" src="../../attachments/542225035/PxrTee.png" data-image-src="../../attachments/542225035/PxrTee.png" data-height="168" data-width="738" data-unresolved-comment-count="0" data-linked-resource-id="542225047" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="PxrTee.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542225035" data-linked-resource-container-version="1" data-media-id="39768e5f-b02f-4d4f-9abd-48a9bd0d3615" data-media-type="file"></span><p>This is also useful for debugging the shading network. For instance, if a pattern is not quite working as expected, you can insert a PxrTee node in the network to see what values are being produced at that point.</p><p>Note that a PxrTee node must be wired into an active portion of a shading network in order to function. If its result does not eventually feed into an active Bxdf downstream then the PxrTee node will be not be invoked and will not write anything to its AOV.<br/>Input Parameters</p><h4 id="PxrTee-InputRGB">Input RGB</h4><p>The triple to pass through to resultRGB and write to a color AOV. It can be the following types: color, vector, normal, and point. It only evaluates a connection.</p><h4 id="PxrTee-InputFloat">Input Float</h4><p>The float to pass through to resultF and write to a float AOV. It only evaluates a connection.</p><h4 id="PxrTee-AOVName">AOV Name</h4><p>The name of the AOV to write to.</p><h4 id="PxrTee-Verbosity">Verbosity</h4><p>Outputs various infos to help you debug your scenes.</p><ul><li><p>0: Silent -- only error messages will be output.</p></li><li><p>1: Warnings -- errors and missing attributes will be reported.</p></li><li><p>2: Infos -- like above, plus the value of attributes.</p></li></ul><h3 id="PxrTee-OutputParameters">Output Parameters</h3><h4 id="PxrTee-resultRGB">resultRGB</h4><p>Output triple (color, vector, normal, and point).</p><h4 id="PxrTee-resultF">resultF</h4><p>Output float.</p><h3 id="PxrTee-Example">Example</h3><p>In this example, we want to output the resultRGB from rotationAngleVector_PxrTexture to an AOV called &quot;myColor.&quot; So we insert a PxrTee node before the node it is connected to.</p><span class="confluence-embedded-file-wrapper image-center-wrapper"><img class="confluence-embedded-image image-center" loading="lazy" src="../../attachments/542225035/PxrTeeParams.png" data-image-src="../../attachments/542225035/PxrTeeParams.png" data-height="104" data-width="386" data-unresolved-comment-count="0" data-linked-resource-id="542225050" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="PxrTeeParams.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542225035" data-linked-resource-container-version="1" data-media-id="c052425d-1867-443d-8dbc-96e7f2fa6f56" data-media-type="file"></span><p style="text-align: center;"><em>PxrTee Parameters</em></p><span class="confluence-embedded-file-wrapper image-center-wrapper"><img class="confluence-embedded-image image-center" loading="lazy" src="../../attachments/542225035/PxrTeeShadingNetwork.png" data-image-src="../../attachments/542225035/PxrTeeShadingNetwork.png" data-height="242" data-width="959" data-unresolved-comment-count="0" data-linked-resource-id="542225053" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="PxrTeeShadingNetwork.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="542225035" data-linked-resource-container-version="1" data-media-id="db06d072-6317-4f76-af7b-72554aed5717" data-media-type="file"></span><p style="text-align: center;"><em>The Shading Graph</em></p><p> </p><p>A RIB example:</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="591d0901-253b-4b16-9acf-cfe350c0d921" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">DisplayChannel &quot;varying color myColor&quot;
+Display &quot;myBeauty.exr&quot; &quot;openexr&quot; &quot;rgba&quot;
+Display &quot;+/myColor.exr&quot; &quot;openexr&quot; &quot;myColor&quot;
+
+
+Pattern &quot;PxrManifold2D&quot;
+  &quot;rotationAngleVector_PxrManifold2D&quot;
+  &quot;float scaleS&quot; [20] &quot;float scaleT&quot; [20]
+Pattern &quot;PxrTexture&quot;
+  &quot;rotationAngleVector_PxrTexture&quot;
+  &quot;string filename&quot; [&quot;aniso_vec_circles.tex&quot;]
+  &quot;reference struct manifold&quot; [&quot;rotationAngleVector_PxrManifold2D:result&quot;]
+Pattern &quot;PxrTee&quot; &quot;PxrTee&quot;
+  &quot;string aov&quot; [&quot;myColor&quot;]
+  &quot;reference color inputRGB&quot; [&quot;rotationAngleVector_PxrTexture:resultRGB&quot;]</pre>
+</div></div>
+  </article>
+</main>
+</body>
+</html>

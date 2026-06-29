@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Solaris Denoise Workflow</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Solaris Denoise Workflow</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFH27/544641829/Solaris+Denoise+Workflow">https://rmanwiki-27.pixar.com/space/RFH27/544641829/Solaris+Denoise+Workflow</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="contentLayout2">
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p>RenderMan requires certain AOVs to be enabled for the denoiser to work correctly on batch renders.  </p><p>These AOVs can be applied in 2 ways.</p><p>Either with a <em>rendermanrendervars </em>node or via the <em>rendermanrendersettings </em>node.  Both are valid workflows.</p><p>The Denoiser AOVs needs to be activated, and the easiest way to do this is by clicking the blue R in the top right corner (highlighted red in the images below)</p><p>This will enable all AOVs required by the Denoiser.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="RenderMan_SolarisRenderVars.jpg" width="1800" loading="lazy" src="../../attachments/544641829/RenderMan_SolarisRenderVars.jpg" data-image-src="../../attachments/544641829/RenderMan_SolarisRenderVars.jpg" data-height="790" data-width="1871" data-unresolved-comment-count="0" data-linked-resource-id="634290375" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_SolarisRenderVars.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544641829" data-linked-resource-container-version="8" data-media-id="4c128710-acc6-4fcf-8c28-ea3953c45501" data-media-type="file"></span><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="RenderMan_Solaris_denoiser_Setup2.jpg" width="1800" loading="lazy" src="../../attachments/544641829/RenderMan_Solaris_denoiser_Setup2.jpg" data-image-src="../../attachments/544641829/RenderMan_Solaris_denoiser_Setup2.jpg" data-height="875" data-width="1859" data-unresolved-comment-count="0" data-linked-resource-id="634290387" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Solaris_denoiser_Setup2.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544641829" data-linked-resource-container-version="8" data-media-id="d7078a0c-5840-4bf5-b8ff-0649bac63625" data-media-type="file"></span><p /><p>Once you have activated the required denoising AOVS, you can do one of the following two setups:</p><hr/><p>Setup 1 - ROP Fetch Node</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="RenderMan_Solaris_Denoise_1.jpg" width="1341" loading="lazy" src="../../attachments/544641829/RenderMan_Solaris_Denoise_1.jpg" data-image-src="../../attachments/544641829/RenderMan_Solaris_Denoise_1.jpg" data-height="745" data-width="1491" data-unresolved-comment-count="0" data-linked-resource-id="544641850" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Solaris_Denoise_1.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544641829" data-linked-resource-container-version="8" data-media-id="bd7d575a-ea9d-483c-b52f-8db21f981742" data-media-type="file"></span><ol start="1"><li><p>In the OUT context, create a ROP <em>fetch</em> node</p></li><li><p>Set the <em>Source</em> parameter to a desired desired LOP <em>usdrender_rop</em> node in the Solaris/Stage context.</p></li><li><p>Connect a ROP <em>denoise</em> node to the ROP <em>fetch</em> node input.</p></li><li><p>On the ROP <em>denoise</em> node, set mode type, output location, asymmetry, flow and debug options, and once ready to render, press the Denoise button.<br/><br/>Houdini will render the LOP <em>usdrender_rop</em> node using the frame range on the <em>denoise</em> node. Once all the frames have been rendered, the denoise process will begin.</p></li></ol><p /><hr/><p>Setup 2 - ROP USD Render Node</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="RenderMan_Solaris_Denoise_2.jpg" width="1341" loading="lazy" src="../../attachments/544641829/RenderMan_Solaris_Denoise_2.jpg" data-image-src="../../attachments/544641829/RenderMan_Solaris_Denoise_2.jpg" data-height="1290" data-width="1494" data-unresolved-comment-count="0" data-linked-resource-id="544641847" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Solaris_Denoise_2.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544641829" data-linked-resource-container-version="8" data-media-id="4beabe31-f2ba-4c70-b4a5-3861eb75f2ec" data-media-type="file"></span><ol start="1"><li><p>In the OUT context, create a ROP <em>usdrender</em> node, and change the render delegate to RenderMan RIS (XPU rendering is not currently supported with denoising in Solaris)</p></li><li><p>Set the<em> LOP path </em>parameter to a desired node in the Solaris/Stage context where some <em>RenderSettings</em> primitive exist (the most probable default case will be <em>/stage/rendermanrendersettings</em>)</p></li><li><p>Set the <em>Render Settings</em> parameter to the location in your scene graph tree where the desired <em>RenderSettings</em> primitive is (the most probable default case will be /Render/rendersettings)</p></li><li><p>Connect a ROP <em>denoise</em> node to the ROP usdrender node input</p></li><li><p>On the ROP <em>denoise</em> node, set your desired parameters, and click the denoise button to begin rendering the frames to disc and denoise.</p></li></ol><p style="margin-left: 30.0px;">Houdini will render the ROP <em>usdrender</em> node using the frame range on the <em>denoise</em> node. Once all the frames have been rendered, the denoise process will begin.</p><p /><hr/><p /><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="73f72c7c-16d5-4d65-9d8b-bcbb0bf1d622" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>Note : At this time we do not support the denoising workflow for Solaris in TOPs / PDG yet</p></div></div><p /></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="RenderMan_Studio_rough_Close_noised.jpg" width="686" loading="lazy" src="../../attachments/544641829/RenderMan_Studio_rough_Close_noised.jpg" data-image-src="../../attachments/544641829/RenderMan_Studio_rough_Close_noised.jpg" data-height="1080" data-width="1920" data-unresolved-comment-count="0" data-linked-resource-id="544641844" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Studio_rough_Close_noised.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544641829" data-linked-resource-container-version="8" data-media-id="dbe58c0d-e329-4cd5-bf71-7880da42e737" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="RenderMan_Studio_rough_Close_denoised.jpg" width="686" loading="lazy" src="../../attachments/544641829/RenderMan_Studio_rough_Close_denoised.jpg" data-image-src="../../attachments/544641829/RenderMan_Studio_rough_Close_denoised.jpg" data-height="1080" data-width="1920" data-unresolved-comment-count="0" data-linked-resource-id="544641841" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Studio_rough_Close_denoised.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544641829" data-linked-resource-container-version="8" data-media-id="8ef87b4c-5f1c-4984-9a2b-e22cc4e94a3c" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p><br/>1920 x 1080<br/>Pixel Variance = 0.26<br/>Max Samples = 64</p></div>
+</div>
+</div>
+</div>
+  </article>
+</main>
+</body>
+</html>

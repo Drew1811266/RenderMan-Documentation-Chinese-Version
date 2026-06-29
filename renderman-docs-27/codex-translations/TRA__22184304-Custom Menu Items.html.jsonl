@@ -1,0 +1,60 @@
+{"item_id":"2cf4b1464d:0","text":"Dashboard 的 context menus 可以通过 custom items 扩展，以调用站点指定的 scripts。要扩展 context menu，必须在站点 configuration directory 中名为 menus.config 的 JSON configuration file 里添加一个 entry。"}
+{"item_id":"2cf4b1464d:1","text":"示例：触发 Request For Help Email"}
+{"item_id":"2cf4b1464d:2","text":"下面的示例演示如何通过 custom menu item 创建一封 request for help email。"}
+{"item_id":"2cf4b1464d:3","text":"配置条目说明（Configuration Entry）"}
+{"item_id":"2cf4b1464d:4","text":"在此示例中，menu item 会出现在 job list 的 context menu 中，因为它定义在 top-level dictionary 中以 job 为 key 的 list 里。task 和 blade 是 custom menu items 可能出现的其他 menus。"}
+{"item_id":"2cf4b1464d:5","text":"其中"}
+{"item_id":"2cf4b1464d:6","text":"comment"}
+{"item_id":"2cf4b1464d:7","text":"attribute 用于记录 menu item 的用途。它目前在 Dashboard 中不承担功能性角色。"}
+{"item_id":"2cf4b1464d:8","text":"其中"}
+{"item_id":"2cf4b1464d:9","text":"title"}
+{"item_id":"2cf4b1464d:10","text":"attribute 定义 menu item 在菜单中显示的名称。在此示例中，job list 的 context menu 会显示 ask for help。"}
+{"item_id":"2cf4b1464d:11","text":"其中"}
+{"item_id":"2cf4b1464d:12","text":"crews"}
+{"item_id":"2cf4b1464d:13","text":"attribute 将 script 的运行限制为指定 crews 的 users。如果未列出 crews，任何 user 都可以调用该 menu item。在此示例中，lighting 和 animation crews 中的 users 被允许调用该 menu item。"}
+{"item_id":"2cf4b1464d:14","text":"其中"}
+{"item_id":"2cf4b1464d:15","text":"suppress"}
+{"item_id":"2cf4b1464d:16","text":"attribute 表示 Dashboard 是否会在新窗口中显示 script 的 output。在本例中，没有有用的 output，因此把它设置为 false 有助于避免窗口膨胀。不过，一些 scripts（例如 report generator 或 image previewer）可以处理 selected items，并以文本或图形 response 返回它们。如果存在任何 script output，则 suppress 设置会被忽略；这对于捕获 exceptions 并显示 traceback 很有用，如本页末尾的示例所示。"}
+{"item_id":"2cf4b1464d:17","text":"其中"}
+{"item_id":"2cf4b1464d:18","text":"exec"}
+{"item_id":"2cf4b1464d:19","text":"attribute 指定将由 engine 执行的 arguments vector。如果第一个 argument 以 / 开头，则视为 absolute path；否则视为相对于站点 configuration directory 的 path。在此示例中，engine 会运行站点 configuration directory 的 menu-scripts 子目录中的 askForHelp 脚本。"}
+{"item_id":"2cf4b1464d:20","text":"其中"}
+{"item_id":"2cf4b1464d:21","text":"values"}
+{"item_id":"2cf4b1464d:22","text":"attribute 表示 selected items 的哪些 attributes 会发送到已执行 script 的 stdin。在此示例中，selected jobs 的 jid 和 owner 会发送到 askForHelp 的 stdin；script 可使用这些值创建一条 message，说明哪些 user(s) 正在请求 help，以及他们需要帮助的具体 jobs。所有 attributes 的 reference 可在"}
+{"item_id":"2cf4b1464d:23","text":"这里"}
+{"item_id":"2cf4b1464d:24","text":"找到。对于 task menu items，也可以列出 jid、priority 和 owner 等 job attributes。"}
+{"item_id":"2cf4b1464d:25","text":"其中"}
+{"item_id":"2cf4b1464d:26","text":"enabled"}
+{"item_id":"2cf4b1464d:27","text":"attribute 表示是否显示该 menu item。这对于临时隐藏 menu items，或在 config file 中保留 examples 以备将来使用很有用。默认情况下，所有 menu items 都是 enabled，因此只有在需要隐藏时才需要该设置。"}
+{"item_id":"2cf4b1464d:28","text":"JSON Payload"}
+{"item_id":"2cf4b1464d:29","text":"发送到 script stdin 的 JSON payload 将是 dictionaries 列表，每个 dictionary 表示一个 selected item。在上面的示例中，values 设置为 [\"jid\", \"owner\"]，对三个 selected jobs 发送给 askForHelp 的 JSON payload 大致如下："}
+{"item_id":"2cf4b1464d:30","text":"Script"}
+{"item_id":"2cf4b1464d:31","text":"下面是 askForHelp 的一个 example implementation："}
+{"item_id":"2cf4b1464d:32","text":"示例：Image Output"}
+{"item_id":"2cf4b1464d:33","text":"下面的示例演示如何返回 image，并在 browser 的新窗口中显示。"}
+{"item_id":"2cf4b1464d:34","text":"配置条目说明（Configuration Entry）"}
+{"item_id":"2cf4b1464d:35","text":"suppress 默认值为 False，因此如果需要，可以在 menu definition 中省略它。"}
+{"item_id":"2cf4b1464d:36","text":"JSON Payload"}
+{"item_id":"2cf4b1464d:37","text":"单个 selected task 的 JSON payload 大致如下："}
+{"item_id":"2cf4b1464d:38","text":"Script"}
+{"item_id":"2cf4b1464d:39","text":"通过让 script 在 response header 中适当地设置 Content-type，browser 随后就能知道如何处理并显示返回的 image data。"}
+{"item_id":"2cf4b1464d:40","text":"要让此示例正常工作，需要在 engine 的 /tmp directory 中有一个名为 eye.png 的 image file，并且 engine process owner 可读取它。"}
+{"item_id":"2cf4b1464d:41","text":"Troubleshooting（故障排查）"}
+{"item_id":"2cf4b1464d:42","text":"设置或编辑 custom menu items 时，需要重新加载 dashboard 才能反映更改。"}
+{"item_id":"2cf4b1464d:43","text":"缺失的 Menu Item 菜单项"}
+{"item_id":"2cf4b1464d:44","text":"如果看不到 custom menu item，请确认自己属于该 menu item 的 crews（如果列出了任何 crews）。Custom menu items 只会显示给被授权调用它们的 users。"}
+{"item_id":"2cf4b1464d:45","text":"另一个导致 custom menu items 缺失的原因是 config file 中存在 JSON syntax error。可以通过检查 browser console 中的相关 error message，或通过 JSON validator（例如"}
+{"item_id":"2cf4b1464d:46","text":"http://jsonlint.com"}
+{"item_id":"2cf4b1464d:47","text":"）运行 menus.config 文件来检测。"}
+{"item_id":"2cf4b1464d:48","text":"从 Command Line 命令行测试"}
+{"item_id":"2cf4b1464d:49","text":"如果 menu item 出现但未按预期运行，请尝试以下一些步骤。"}
+{"item_id":"2cf4b1464d:50","text":"检查 script 是否可由 engine owner 读取和执行。"}
+{"item_id":"2cf4b1464d:51","text":"检查 menu-scripts directory 是否可由 engine owner 读取和执行。"}
+{"item_id":"2cf4b1464d:52","text":"尝试以 engine owner 身份从 command line 运行 script；如果有助于覆盖相关 code paths，可以 pipe 一个 test JSON string。下面的示例模拟选择了名为 hostA 和 hostB 的两个 blades，且 menu item 的 values list 表示应发送每个 blade 的 name 时所运行的 command。"}
+{"item_id":"2cf4b1464d:53","text":"在 Windows 中编辑"}
+{"item_id":"2cf4b1464d:54","text":"如果 script 在 Windows 上编辑，或在 editor 的 Windows mode 中编辑，interpreter name 后可能留下 trailing ^M character，导致 script 失败。^M 在某些 editors 或 editing modes 中不可见。engine log 和 output window 都不会显示此错误，因此很难检测。"}
+{"item_id":"2cf4b1464d:55","text":"从 command line 测试 script 会暴露此错误。python script 中的此类错误会显示为："}
+{"item_id":"2cf4b1464d:56","text":"捕获 Exceptions 异常处理说明"}
+{"item_id":"2cf4b1464d:57","text":"调试 python scripts 的一种方法是捕获 exceptions，并将它们作为 response 发送给 browser。这很有用，因为 stderr 不会发送给 browser。"}
+{"item_id":"2cf4b1464d:58","text":"下面的 python 示例展示如何捕获任何 exception，并向 user 或 script writer 提供有用反馈。"}
+{"item_id":"2cf4b1464d:59","text":"一个 edge case 是，目前无法捕获 syntax errors，因为 script 会在进入 main block 之前失败。从 command line 测试 script 会暴露这类 syntax errors。"}

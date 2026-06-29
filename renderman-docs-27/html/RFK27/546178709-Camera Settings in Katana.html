@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Camera Settings in Katana</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Camera Settings in Katana</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFK27/546178709/Camera+Settings+in+Katana">https://rmanwiki-27.pixar.com/space/RFK27/546178709/Camera+Settings+in+Katana</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p /><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="91baae69-481a-4b79-aa11-0552c1183efa" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>PrmanCameraSettings needs an upstream camera or /root in the locationPath to populate the camera parameters.</p></div></div><h3 id="CameraSettingsinKatana-PrmanCameraSettings">PrmanCameraSettings</h3><p>This node is used to set camera options and parameters like depth of field controls, shutter timing, render clipping planes, and other projection parameters.  PrmanCameraSettings can be assigned per camera or to /root.</p><p>The locationPath should be either /root or a camera location.  If you wish to apply the same settings to multiple cameras, you can add all the camera paths to the CEL parameter.</p><p>If camera settings are set at /root, they will be inherited by the cameras in the scene - projection parameters as well as prmanCameraStatements.  These attributes can be overridden locally per camera.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="684" loading="lazy" src="../../attachments/546178709/rfkPrmanCameraSettings.png" data-image-src="../../attachments/546178709/rfkPrmanCameraSettings.png" data-height="742" data-width="695" data-unresolved-comment-count="0" data-linked-resource-id="546178742" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfkPrmanCameraSettings.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="546178709" data-linked-resource-container-version="1" data-media-id="2bec872b-83b0-4994-a6b4-302d76192d7c" data-media-type="file"></span><h3 id="CameraSettingsinKatana-ProjectionPlugins">Projection Plugins</h3><p>All of RenderMan's projection plugins are available in the prmanProjectionShader drop down menu of PrmanCameraSettings.  If you create custom projection plugins using C++, these will also show up in the drop down menu as long as they have <a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19662097" rel="nofollow">Args files</a> and are accessible via the <a href="546177126-Environment Variables in Katana.html" rel="nofollow">RMAN_RIXPLUGINPATH</a> environment variable.</p><p>If the prmanProjectionShader parameter is left empty, RfK will use the projection specified via the <code>geometry.projection</code> attribute on either in the CameraCreate node or Alembic_In camera.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="684" loading="lazy" src="../../attachments/546178709/rfkCameraCreate.png" data-image-src="../../attachments/546178709/rfkCameraCreate.png" data-height="120" data-width="746" data-unresolved-comment-count="0" data-linked-resource-id="546178736" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfkCameraCreate.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="546178709" data-linked-resource-container-version="1" data-media-id="7550d31f-1d65-4af0-b693-0ebd68416559" data-media-type="file"></span><p>Alternatively, projection plugins can be created with as a material and assigned to <code>/root</code> or a camera location with a MaterialAssign node.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="684" loading="lazy" src="../../attachments/546178709/rfkCustomProjection.png" data-image-src="../../attachments/546178709/rfkCustomProjection.png" data-height="393" data-width="931" data-unresolved-comment-count="0" data-linked-resource-id="546178727" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfkCustomProjection.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="546178709" data-linked-resource-container-version="1" data-media-id="dcce7420-2ef4-4d11-8e99-d8881672df4f" data-media-type="file"></span><h3 id="CameraSettingsinKatana-FieldofView(FOV)">Field of View (FOV)</h3><p>In RenderMan, the FOV is set as a part of the projection plugin.  Since Katana supplies the field of view on camera as the <code>geometry.fov</code> attribute rather than material, we have two ways to set FOV.  By default, RfK will use the FOV from the camera's geometry.fov attribute, pushing this value onto the projection plugin's material attribute.  If you wish to set the FOV with the material attribute, you can set the IntAttribute, prmanCameraStatements.useGeometryFov, to 1.  This is available in PrmanCameraSettings as &quot;Use Camera FOV&quot;.</p><h4 id="CameraSettingsinKatana-FOVMotionBlur">FOV Motion Blur</h4><p>FOV motion blur is only supported with the <a href="https://renderman.atlassian.net/wiki/spaces/REN26/pages/19661243" rel="nofollow">PxrCamera</a> projection shader.  The <code>fov</code> and <code>fovEnd</code> parameters set the value of the fov at the beginning and end of the shutter.  </p><p>If you are using the camera's goemetry.fov attribute to specify the fov, you can enable motion blur by setting the IntAttribute, prmanCameraStatements.fovMotionBlur, to 1.  This is available in PrmanCameraSettings as &quot;FOV Motion Blur&quot;.  RfK will set the projection plugin's fov parameter to the value at the first time sample of geometry.fov and set the projection's fovEnd parameter to the value at the last time sample of geometry.fov.  If you don't set up a projection shader but enable FOV Motion Blur, RfK will automatically set the projection to PxrCamera.</p>
+  </article>
+</main>
+</body>
+</html>

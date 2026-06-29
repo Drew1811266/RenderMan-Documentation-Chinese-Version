@@ -1,0 +1,95 @@
+{"item_id":"a6aa9327e7:0","text":"PxrPathTracer 是 RenderMan 中的核心最终质量积分器。"}
+{"item_id":"a6aa9327e7:1","text":"它实现了正向路径追踪算法，擅长户外和高度镜面的场景。该算法结构简洁，通常易于使用和实现。其不足可能包括收敛速度较慢，尤其是在具有显著焦散照明的场景中（更多信息请参见下方"}
+{"item_id":"a6aa9327e7:38","text":"clampLuminance"}
+{"item_id":"a6aa9327e7:40","text":"allowCaustics"}
+{"item_id":"a6aa9327e7:5","text":"参数）。"}
+{"item_id":"a6aa9327e7:6","text":"对于直接照明，numLightSamples 和 numBxdfSamples 参数决定 light（灯光）与 Bxdf（材质）直接照明采样的数量，生成的直接照明贡献会使用多重重要性采样进行组合。"}
+{"item_id":"a6aa9327e7:7","text":"对于间接照明，sampleMode 参数控制间接光线数量在 diffuse（漫反射）、glossy/specular（光泽/镜面）、subsurface（次表面）以及 refraction/transmission（折射/透射）Bxdf 波瓣之间的分配策略。"}
+{"item_id":"a6aa9327e7:8","text":"当 sampleMode 参数设为 \"bxdf\"（默认值）时，每个摄影机命中点生成的间接照明光线数量由 numIndirectSamples 参数值控制，并且每个摄影机命中点处的 Bxdf 实现会控制从 Bxdf 的 diffuse（漫反射）、glossy（光泽）与 specular（镜面）波瓣中采样生成 indirect rays（间接光线）的概率；换句话说，Bxdf 会控制每个摄影机命中点生成多少 indirect diffuse、glossy 与 specular 光线。"}
+{"item_id":"a6aa9327e7:9","text":"当 sampleMode 参数设为 \"manual\" 时，numIndirectSamples 参数值会被忽略，用户需要手动控制 Bxdf 每个波瓣的 indirect rays（间接光线）总数。具体而言，当 sampleMode 设为 \"manual\" 时，numDiffuseSamples 参数明确控制每个摄影机命中点应生成的间接漫反射光线数量，numSpecularSamples 参数控制每个摄影机命中点应创建的间接光泽/镜面光线数量，numSubsurfaceSamples 参数值用于确定从每个摄影机命中点发射的次表面光线数量，而 numRefractionSamples 参数值等于每个摄影机命中点创建的折射/透射光线数量。"}
+{"item_id":"a6aa9327e7:10","text":"PxrPathTracer 支持 path guiding（路径引导）；这项技术会学习场景中的间接 radiance（辐射亮度）来源，并使用重要性采样将 indirect rays（间接光线）引向这些来源，从而更高效地收敛，尤其适用于间接照明占主导的区域。"}
+{"item_id":"a6aa9327e7:12","text":"参数"}
+{"item_id":"a6aa9327e7:14","text":"maxIndirectBounces"}
+{"item_id":"a6aa9327e7:15","text":"控制最大光线深度的绝对上限。例如，该参数值为 0 时只允许直接照明；值为 4 时允许最多 4 次全局照明反弹。默认值为 8。"}
+{"item_id":"a6aa9327e7:16","text":"sampleMode"}
+{"item_id":"a6aa9327e7:17","text":"控制 indirect rays（间接光线）数量在 diffuse、glossy 与 specular Bxdf 波瓣之间的分配策略。此参数的有效值为 \"bxdf\" 或 \"manual\"。如果 \"sampleMode\" 设为 \"bxdf\"，则 Bxdf 负责在每个摄影机命中点的 diffuse、glossy 与 specular 波瓣之间平衡将要生成的 indirect rays（间接光线）数量，并且每个摄影机命中点生成的 indirect rays 总数由 numIndirectSamples 参数控制。如果 \"sampleMode\" 设为 \"manual\"，则用户需要通过 numDiffuseSamples、numSpecularSamples、numSubsurfaceSamples 和 numRefractionSamples 参数，显式指定每个摄影机命中点上每个 Bxdf 波瓣要生成的 indirect rays 数量。默认值为 \"bxdf\"。"}
+{"item_id":"a6aa9327e7:18","text":"numLightSamples"}
+{"item_id":"a6aa9327e7:19","text":"控制每个摄影机命中点用于直接照明的灯光采样数量。默认值为 1。较小数值可能提升交互式和渐进式更新的性能。较大数值可能看起来收敛更好，但更新会更慢。"}
+{"item_id":"a6aa9327e7:20","text":"numBxdfSamples"}
+{"item_id":"a6aa9327e7:21","text":"控制每个摄影机命中点用于直接照明的 Bxdf 采样数量。默认值为 1。较小数值可能提升交互式和渐进式更新的性能。较大数值可能看起来收敛更好，但更新会更慢。"}
+{"item_id":"a6aa9327e7:22","text":"numIndirectSamples"}
+{"item_id":"a6aa9327e7:23","text":"当 sampleMode 设为 Bxdf 时，此参数控制每个摄影机命中点要生成的 indirect rays（间接光线）总数。当 sampleMode 设为 manual 时，此参数值会被忽略。默认值为 1。"}
+{"item_id":"a6aa9327e7:24","text":"numDiffuseSamples"}
+{"item_id":"a6aa9327e7:25","text":"当 sampleMode 设为 manual 时，此参数控制每个摄影机命中点要生成的间接漫反射反射光线数量。当 sampleMode 设为 Bxdf 时会被忽略。默认值为 1。"}
+{"item_id":"a6aa9327e7:26","text":"numSpecularSamples"}
+{"item_id":"a6aa9327e7:27","text":"当 sampleMode 设为 manual 时，此参数控制每个摄影机命中点要生成的间接镜面/光泽反射光线数量。当 sampleMode 设为 Bxdf 时会被忽略。默认值为 1。"}
+{"item_id":"a6aa9327e7:28","text":"numSubsurfaceSamples"}
+{"item_id":"a6aa9327e7:29","text":"当 sampleMode 设为 manual 时，此参数控制每个摄影机命中点要生成的次表面光线数量。当 sampleMode 设为 Bxdf 时会被忽略。默认值为 1。"}
+{"item_id":"a6aa9327e7:30","text":"numRefractionSamples"}
+{"item_id":"a6aa9327e7:31","text":"当 sampleMode 设为 manual 时，此参数控制每个摄影机命中点要生成的折射/透射光线数量。当 sampleMode 设为 \"bxdf\" 时会被忽略。默认值为 1。"}
+{"item_id":"a6aa9327e7:32","text":"rouletteDepth"}
+{"item_id":"a6aa9327e7:33","text":"控制开始执行 Russian Roulette（俄罗斯轮盘）的光线深度。在此深度之后，Russian Roulette 可能会终止光线，尤其是当它们对结果贡献很小时。默认值为 1。"}
+{"item_id":"a6aa9327e7:34","text":"rouletteThreshold"}
+{"item_id":"a6aa9327e7:35","text":"控制执行 Russian Roulette（俄罗斯轮盘）的 path throughput（路径吞吐量）阈值；低于该阈值时会执行 Russian Roulette。这会控制光线贡献在何种程度上小到可以终止该光线。默认值为 0.2。"}
+{"item_id":"a6aa9327e7:36","text":"clampDepth"}
+{"item_id":"a6aa9327e7:37","text":"如果指定了 clampLuminance 参数值，则 clampDepth 控制从哪个光线深度开始基于逐光线亮度进行钳制。例如，将此参数设为 2，并同时为 clampLuminance 指定值 4，将确保在所有间接照明中，每条光线贡献的亮度不超过 4，同时不会影响或钳制直接照明。默认值为 2。"}
+{"item_id":"a6aa9327e7:39","text":"默认情况下，PxrPathTracer 积分器会将每条光线贡献的亮度钳制到最多 10.0。不过，可以通过为 clampLuminance 参数指定不同的值来改变此行为。为 clampLuminance 参数指定相对较低的值（例如 2 到 20 之间）可以大幅加快收敛，并且在许多情况下会让 PxrPathTracer 比更复杂的 PxrVCM 或 PxrUnified 积分器收敛得更快。在某些情况下，间接照明光路可能会因为钳制而明显变暗；这在特定情况下可能是可以接受的折衷。将此参数设为非常大的数字（例如 1e30）会有效禁用所有钳制。默认值为 10.0。"}
+{"item_id":"a6aa9327e7:41","text":"控制是否允许来自焦散光路的照明，也就是镜面照明落到漫反射表面上的情况。默认值为 0（off）。"}
+{"item_id":"a6aa9327e7:42","text":"accumOpacity"}
+{"item_id":"a6aa9327e7:43","text":"控制路径追踪器是否沿路径跟踪累积不透明度。默认值为 off。如果你计划渲染半不透明对象，并且关心用于合成的 alpha 值，可能需要将其打开。使用 \"manual\" sample mode 时，此功能不起作用。我们建议使用默认的 BxDF sampling。"}
+{"item_id":"a6aa9327e7:44","text":"maxNonStochasticOpacityEvents"}
+{"item_id":"a6aa9327e7:45","text":"定义计算真实不透明度的深度。超过此数值的深度会按随机 presence 计算。较低数值可能提升性能，但代价是噪声增加。此设置只适用于 camera/primary rays（摄影机/主光线）。其他所有光线都按随机 presence 计算。"}
+{"item_id":"a6aa9327e7:46","text":"maxContinuationLength"}
+{"item_id":"a6aa9327e7:47","text":"这是用于渲染重叠体积的高级旋钮。与 maxIndirectBounces 类似，它控制包含 continuation rays（延续光线）在内的最大光线深度上限。负值会让路径追踪器使用经验式启发规则来限制光线深度。正值会覆盖该启发规则，并让路径追踪器直接使用参数值作为最大 continuation ray（延续光线）深度。continuation rays 通常由体积产生，当体积的某些子区域中不存在密度时就会出现。如果存在许多这样的零密度子区域互相重叠，就可能很快达到最大 continuation 深度。如果你正在渲染高度重叠体积的场景，可能需要将此参数调得足够宽松，让光线能够离开场景。"}
+{"item_id":"a6aa9327e7:48","text":"risPathGuiding"}
+{"item_id":"a6aa9327e7:49","text":"设为 1 时，会启用 indirect path guiding（间接路径引导）。在渲染进行期间，此技术会学习场景中的间接 radiance（辐射亮度）分布，并使用多重重要性采样将这些信息与 Bxdf 采样结合，以缩短收敛时间。它对光泽和漫反射表面尤其有效，也适用于间接光占主导的区域。"}
+{"item_id":"a6aa9327e7:50","text":"Standard AOVs（标准 AOV）"}
+{"item_id":"a6aa9327e7:51","text":"除了常规的基于 LPE 的 AOV 之外，此积分器还会输出若干合成师通常使用的标准 AOV。"}
+{"item_id":"a6aa9327e7:52","text":"声明"}
+{"item_id":"a6aa9327e7:53","text":"内容"}
+{"item_id":"a6aa9327e7:54","text":"Channels（通道）"}
+{"item_id":"a6aa9327e7:55","text":"color __Pworld"}
+{"item_id":"a6aa9327e7:56","text":"P，位于 world-space（世界空间）"}
+{"item_id":"a6aa9327e7:57","text":"__Pworld.r：x 分量"}
+{"item_id":"a6aa9327e7:58","text":"__Pworld.g：y 分量"}
+{"item_id":"a6aa9327e7:59","text":"__Pworld.b：z 分量"}
+{"item_id":"a6aa9327e7:60","text":"color __Nworld"}
+{"item_id":"a6aa9327e7:61","text":"Nn，位于 world-space（世界空间）"}
+{"item_id":"a6aa9327e7:62","text":"__Nworld.r：x 分量"}
+{"item_id":"a6aa9327e7:63","text":"__Nworld.g：y 分量"}
+{"item_id":"a6aa9327e7:64","text":"__Nworld.b：z 分量"}
+{"item_id":"a6aa9327e7:65","text":"color __depth"}
+{"item_id":"a6aa9327e7:66","text":"多用途 AOV"}
+{"item_id":"a6aa9327e7:67","text":"__depth.r：从摄影机算起、位于 world-space（世界空间）的深度"}
+{"item_id":"a6aa9327e7:68","text":"__depth.g：world-space（世界空间）中的高度"}
+{"item_id":"a6aa9327e7:69","text":"__depth.b：几何朝向比：abs(Nn.V)"}
+{"item_id":"a6aa9327e7:70","text":"color __st"}
+{"item_id":"a6aa9327e7:71","text":"纹理坐标"}
+{"item_id":"a6aa9327e7:72","text":"__st.x：s"}
+{"item_id":"a6aa9327e7:73","text":"__st.y：t"}
+{"item_id":"a6aa9327e7:74","text":"__st.z：0.0"}
+{"item_id":"a6aa9327e7:75","text":"color __Pref"}
+{"item_id":"a6aa9327e7:76","text":"Reference Position primvar（参考位置 primvar，如可用）"}
+{"item_id":"a6aa9327e7:77","text":"__Pref.r：x 分量"}
+{"item_id":"a6aa9327e7:78","text":"__Pref.g：y 分量"}
+{"item_id":"a6aa9327e7:79","text":"__Pref.b：z 分量"}
+{"item_id":"a6aa9327e7:80","text":"color __Nref"}
+{"item_id":"a6aa9327e7:81","text":"Reference Normal primvar（参考法线 primvar，如可用）"}
+{"item_id":"a6aa9327e7:82","text":"__Nref.r：x 分量"}
+{"item_id":"a6aa9327e7:83","text":"__Nref.g：y 分量"}
+{"item_id":"a6aa9327e7:84","text":"__Nref.b：z 分量"}
+{"item_id":"a6aa9327e7:85","text":"color __WPref"}
+{"item_id":"a6aa9327e7:86","text":"Reference World Position primvar（参考世界位置 primvar，如可用）"}
+{"item_id":"a6aa9327e7:87","text":"__WPref.r：x 分量"}
+{"item_id":"a6aa9327e7:88","text":"__WPref.g：y 分量"}
+{"item_id":"a6aa9327e7:89","text":"__WPref.b：z 分量"}
+{"item_id":"a6aa9327e7:90","text":"color __WNref"}
+{"item_id":"a6aa9327e7:91","text":"Reference World Normal primvar（参考世界法线 primvar，如可用）"}
+{"item_id":"a6aa9327e7:92","text":"__WNref.r：x 分量"}
+{"item_id":"a6aa9327e7:93","text":"__WNref.g：y 分量"}
+{"item_id":"a6aa9327e7:94","text":"__WNref.b：z 分量"}
+{"id": "cd1c5dc85bb60d42e4f1e3dcbdf75bf99dd6b034aa584abb6f9a5fa5b03efa0c", "item_id": "a6aa9327e7:2", "text": "clampLuminance"}
+{"id": "6201111b83a0cb5b0922cb37cc442b9a40e24e3b1ce100a4bb204f4c63fd2ac0", "item_id": "a6aa9327e7:3", "text": "和"}
+{"id": "71ea176034fe657fbfa06f68756eb1f173a3334a745fa755b5a1e8e1d2eb7faa", "item_id": "a6aa9327e7:4", "text": "allowCaustics"}
+{"id": "e68b36b17cbd990802f57741cb75cf3a73fa66a61999b0cd70e3cf7d26cfb25f", "item_id": "a6aa9327e7:11", "text": "Parameters（参数）"}
+{"id": "526e0087cc3f254d9f86f6c7d8e23d954c4dfda2b312efc29194ae8a860106ba", "item_id": "a6aa9327e7:13", "text": "说明"}

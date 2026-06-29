@@ -1,0 +1,89 @@
+{"item_id":"3b9e13785a:0","text":"Blender 体积聚合使用指南"}
+{"item_id":"3b9e13785a:1","text":"体积聚合编辑器（Volume Aggregates 管理界面）"}
+{"item_id":"3b9e13785a:2","text":"要创建 volume aggregate（体积聚合），可以使用 Volume Aggregate Editor（体积聚合编辑器）；它可从视口右键菜单打开："}
+{"item_id":"3b9e13785a:3","text":"点击 + 按钮创建新的 aggregate（聚合组）。随后可以开始把场景中的体积添加到该聚合组："}
+{"item_id":"3b9e13785a:4","text":"也可以先在视口中选中所需体积，然后通过右键菜单把它加入组："}
+{"item_id":"3b9e13785a:5","text":"渲染积分器（Integrator）"}
+{"item_id":"3b9e13785a:6","text":"要为积分器指定全局聚合体积，请先确认已经创建积分器节点树（参见"}
+{"item_id":"3b9e13785a:7","text":"Blender 中的 Integrators（积分器节点设置）"}
+{"item_id":"3b9e13785a:8","text":"），然后在 Volume Aggregate Name 下拉列表中选择聚合体积名称。"}
+{"item_id":"3b9e13785a:9","text":"如果没有为积分器指定聚合体积名称，属于某个聚合体积的任何体积都不会渲染。"}
+{"item_id":"3b9e13785a:10","text":"云景聚合体积构成与最终渲染对比 - Luca © Disney/Pixar"}
+{"item_id":"3b9e13785a:11","text":"为什么使用 Aggregate Volumes（聚合体积）？"}
+{"item_id":"3b9e13785a:12","text":"Aggregate volumes（聚合体积）面向包含许多独立体积、且这些体积没有边界行为的工作流。"}
+{"item_id":"3b9e13785a:13","text":"由于光线不会在体积边界处反射或折射，渲染器可以针对这类大量体积的集合做显著优化。"}
+{"item_id":"3b9e13785a:14","text":"在上方的 Luca 云场景中，几十个独立云元素被分层组合成统一的云景。Aggregate volume 工作流可以高效渲染这些云元素，而不必先把它们合并为一个体积；合并往往需要在渲染器外部执行，成本可能很高。"}
+{"item_id":"3b9e13785a:15","text":"此外，聚合体积允许创建一组具名体积，可用于特殊情况，例如把一个 heterogeneous interior（非均匀内部介质）绑定到 dielectric surface（电介质表面）的 interior（内部介质）。"}
+{"item_id":"3b9e13785a:16","text":"工作流"}
+{"item_id":"3b9e13785a:17","text":"聚合体积的常见工作流是创建一个具名聚合体积，方法是将"}
+{"item_id":"3b9e13785a:18","text":"附加到一个或多个"}
+{"item_id":"3b9e13785a:19","text":"RiVolumes"}
+{"item_id":"3b9e13785a:20","text":"图元，其中"}
+{"item_id":"3b9e13785a:21","text":"就是该聚合体积所需的名称。这些体积图元应使用"}
+{"item_id":"3b9e13785a:22","text":"PxrVolume"}
+{"item_id":"3b9e13785a:23","text":"shader（着色器）来控制它们的体积外观。当若干体积图元已用相同名称标记此属性后，可以把这个具名聚合体积作为"}
+{"item_id":"3b9e13785a:24","text":"参数提供给"}
+{"item_id":"3b9e13785a:51","text":"PxrPathTracer"}
+{"item_id":"3b9e13785a:26","text":"积分器。这表示场景的"}
+{"item_id":"3b9e13785a:27","text":"全局聚合体积"}
+{"item_id":"3b9e13785a:28","text":"就是这个具名聚合体积。该具名聚合体积随后会出现在渲染中。体积的积分和采样方式由 PxrPathTracer 积分器上的参数控制。"}
+{"item_id":"3b9e13785a:29","text":"如果这些体积的数据源是"}
+{"item_id":"3b9e13785a:30","text":"OpenVDB"}
+{"item_id":"3b9e13785a:31","text":"文件，密度信号直接来自文件，且不会通过 shading（着色）增加，那么强烈建议将新的"}
+{"item_id":"3b9e13785a:32","text":"设置为"}
+{"item_id":"3b9e13785a:33","text":"。这样渲染器可以利用密度的最小值和最大值，更快地为体积构建加速结构：这些数值可以直接从 VDB 文件读取预烘焙数据，也可以在加载体积时即时生成。这样能大幅缩短到首像素时间，因为渲染器在发射光线前不再需要预先运行密度 shading 作为预处理。如果体积密度是在 shader 中程序化推导的，则"}
+{"item_id":"3b9e13785a:34","text":"应设为 0。有一种例外是需要快速调整密度时："}
+{"item_id":"3b9e13785a:79","text":"impl_openvdb"}
+{"item_id":"3b9e13785a:36","text":"提供了新的控制项，可在仍然支持"}
+{"item_id":"3b9e13785a:37","text":"1 优化的同时，对密度进行全局缩放和塑形。"}
+{"item_id":"3b9e13785a:38","text":"此外，如果 OpenVDB 文件包含非常丰富的细节，并且预期这些文件相对实际需求可能过密，可以选择先用"}
+{"item_id":"3b9e13785a:82","text":"vdbmake"}
+{"item_id":"3b9e13785a:40","text":"预处理 VDB 文件以生成 mipmaps。这样做"}
+{"item_id":"3b9e13785a:41","text":"可能会"}
+{"item_id":"3b9e13785a:42","text":"降低峰值内存需求，因为渲染器只需加载 mipmap 金字塔中较低的层级。另一方面，加载两个精细层级的 mipmap 金字塔有时可能比只加载金字塔基础层使用更多内存；尤其是 OpenVDB 文件格式，相比其他可能的体积文件格式，mipmapping 的优势可能不那么明显。"}
+{"item_id":"3b9e13785a:43","text":"虽然通常 PxrPathTracer 积分器只能渲染一个全局聚合体积，但可以创建任意数量的聚合体积。这些聚合体积可作为 interior（内部介质）绑定到使用"}
+{"item_id":"3b9e13785a:45","text":"材质的闭合 dielectric surface（电介质表面）。不同于常规体积，聚合体积完全支持作为"}
+{"item_id":"3b9e13785a:47","text":"的 PxrSurface interior（内部介质）。这是创建复杂效果的最佳方式，例如宝石内部的遮蔽、晶球内部旋转的一团烟雾，或者 Luca 在带有云隙光的海洋中游泳。"}
+{"item_id":"3b9e13785a:48","text":"绑定到海洋内部的聚合体积雾光束层，与最终合成对比 - Luca © Disney/Pixar"}
+{"item_id":"3b9e13785a:49","text":"能力与优势"}
+{"item_id":"3b9e13785a:50","text":"聚合体积完全受"}
+{"item_id":"3b9e13785a:53","text":"PxrUnified"}
+{"item_id":"3b9e13785a:54","text":"积分器支持。如上所述，在存在数十甚至数百个重叠体积的情况下，聚合体积被设计为比以往的体积工作流更高效，并且不限制重叠体积的数量。这种设计还意味着，在处理重合几何（例如重合的体积边界，或与表面重合的体积）时，聚合体积更不容易出现问题。"}
+{"item_id":"3b9e13785a:55","text":"聚合体积还提供了一些非聚合体积不具备的优势。当体积密度直接来自 VDB 文件且没有通过 shading 增加时，聚合体积通常可以显著缩短复杂渲染的 time to first judgement（首次判断时间）。聚合体积还支持"}
+{"item_id":"3b9e13785a:56","text":"mipmapped（经过 mipmap 金字塔层级处理的）"}
+{"item_id":"3b9e13785a:57","text":"体积，这可能降低过度细致体积的内存消耗。在复杂光传输场景中，聚合体积还可能更快收敛，因为渲染器能够访问场景中更多体积的信息，从而对采样做出更好的全局决策。"}
+{"item_id":"3b9e13785a:58","text":"预计聚合体积会成为未来 XPU 渲染器版本中主要支持的体积工作流。"}
+{"item_id":"3b9e13785a:59","text":"限制"}
+{"item_id":"3b9e13785a:60","text":"聚合体积的主要限制在于：系统会跨多个体积构建单一加速结构，而该加速结构无法存储单个体积的许多属性。这是出于性能原因；如果必须构建一个了解所有单体属性的加速结构，遍历这些体积的迭代速度会大幅变慢。会影响光线遍历的单个体积属性，除非经过特殊处理，否则无法用于聚合体积；而这种特殊处理会要求渲染器在体积中的每一步都执行额外检查。举例来说，把体积分组到 trace memberships（追踪成员关系）并使用 ray subsets（光线子集）"}
+{"item_id":"3b9e13785a:61","text":"确实可以工作"}
+{"item_id":"3b9e13785a:62","text":"，但效率可能不如普通表面渲染情形。"}
+{"item_id":"3b9e13785a:63","text":"不起作用的主要单个体积属性包括："}
+{"item_id":"3b9e13785a:64","text":"volume sampling flags（体积采样标志）：PxrVolume 上控制采样技术的参数（例如"}
+{"item_id":"3b9e13785a:65","text":"）在使用聚合体积时不适用。相应地，体积采样控制项会设置在主 PxrPathTracer 积分器中。"}
+{"item_id":"3b9e13785a:66","text":"还有若干限制与渲染器可跨许多不相交体积执行的优化相关。聚合体积不支持 single scattering（单次散射）；multiple scattering（多重散射）是唯一选择，且"}
+{"item_id":"3b9e13785a:67","text":"这个参数在"}
+{"item_id":"3b9e13785a:68","text":"上会被忽略。聚合体积也没有针对严格 homogeneous volumes（均匀体积）做优化。虽然渲染算法针对接近均匀的体积做了优化，但即便某个单独元素是均匀的，它仍假设聚合体积整体是 heterogeneous（非均匀）的，因此无法完全相应地对这些体积进行重要性采样。"}
+{"item_id":"3b9e13785a:69","text":"聚合体积只支持使用"}
+{"item_id":"3b9e13785a:70","text":"几何图元。"}
+{"item_id":"3b9e13785a:71","text":"与非聚合体积相比，聚合体积工作流中单个体积的高速变换运动模糊不会同样高效。"}
+{"item_id":"3b9e13785a:72","text":"虽然聚合体积可以作为 interior（内部介质）绑定到 PxrSurface，但不建议将其用于复杂的 nested dielectric（嵌套电介质）场景，例如混浊的染色水位于染色玻璃内部，而整个结构又处在有雾房间中。"}
+{"item_id":"3b9e13785a:73","text":"聚合体积目前不受 PxrVCM 支持。PxrPathTracer 和 PxrUnified 均完全支持聚合体积。"}
+{"item_id":"3b9e13785a:74","text":"Multi-scattering（多重散射）优化受到完整支持，但 PxrVolume 上的相关控制项会在聚合体积上被忽略。相反，在聚合体积工作流中，这些控制项现在位于光源本身。"}
+{"item_id":"3b9e13785a:75","text":"mipmap 映射"}
+{"item_id":"3b9e13785a:76","text":"Mipmapping 是一种标准技术，可根据屏幕上纹理的观看尺寸和角度，从金字塔结构中自动选择合适的纹理分辨率层级，从而改善纹理 aliasing（走样）并提升渲染性能。该技术可以"}
+{"item_id":"3b9e13785a:77","text":"选择性地"}
+{"item_id":"3b9e13785a:78","text":"应用到由 voxels（体素）组成的体积数据：这与 2D mipmap 金字塔层级中的 texels（纹素）是由四个更精细 texel 平均得到类似，3D mipmap 金字塔层级中的每个 voxel 都由八个更精细 voxel 平均得到。对体积资产进行 mipmapping 会显著增加磁盘占用；如果最精细 voxel 的大小与相机所需细节层级匹配，渲染时的内存也可能有所增加。但是，如果 voxel 的细节远高于相机设置所需，mipmapping 可以节省大量 RAM 和渲染时间，因为渲染器只需加载更粗的平均 voxel。使用"}
+{"item_id":"3b9e13785a:80","text":"plugin（插件）作为体积图元数据源的聚合体积，可启用 mipmapping；做法是将"}
+{"item_id":"3b9e13785a:81","text":"参数设为大于 0 的值；该参数是渲染器计算出的标准 filterwidth 的乘数。"}
+{"item_id":"3b9e13785a:83","text":"是 RenderMan 发行版随附的新实用工具，用于帮助创建 OpenVDB 格式的这些优化文件。"}
+{"item_id":"3b9e13785a:84","text":"以包含一组 grids（网格）的 OpenVDB 文件作为输入，并创建带有辅助 mipmapped grids（mipmap 网格）和这些 grid 的预烘焙加速信息的 OpenVDB 文件。"}
+{"item_id":"3b9e13785a:85","text":"多重散射近似"}
+{"item_id":"3b9e13785a:86","text":"用于近似深度多重散射体积外观的技术，依赖于根据 camera ray（相机光线）的深度改变体积的密度属性。对于 volume aggregates（体积聚合），这些控制项已经移到灯光上。更多信息请参阅"}
+{"item_id":"3b9e13785a:87","text":"使用聚合体积渲染云"}
+{"id": "c66c3367fc146e7ab68fcb67ccdd75c3909cd0bca2343b35b4f46f0cbc0a6a52", "item_id": "3b9e13785a:25", "text": "PxrPathTracer"}
+{"id": "307dbfedbbb3ef530490ed07f917c13ccd4e723be955e0115b2dc9c80dcf6f0b", "item_id": "3b9e13785a:35", "text": "impl_openvdb"}
+{"id": "fa378aea73950a9ccb3de8af19acdc724ebb28665828e190fb1884c98b4b146d", "item_id": "3b9e13785a:39", "text": "vdbmake"}
+{"id": "8608905e6533fb79c29dcbee9e54642763cc7988fd456046ba16656c6564e8fd", "item_id": "3b9e13785a:44", "text": "PxrSurface"}
+{"id": "bd9999a0cfe6293814243d68ccb4a72927e72505b12161e395fb0fdb4e970a90", "item_id": "3b9e13785a:46", "text": "非均匀"}
+{"id": "6201111b83a0cb5b0922cb37cc442b9a40e24e3b1ce100a4bb204f4c63fd2ac0", "item_id": "3b9e13785a:52", "text": "和"}
+{"id": "cdb4ee2aea69cc6a83331bbe96dc2caa9a299d21329efb0336fc02a82e1839a8", "item_id": "3b9e13785a:88", "text": "。"}

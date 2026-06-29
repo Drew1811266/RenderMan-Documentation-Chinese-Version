@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PxrVary</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>PxrVary</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/REN27/542225490/PxrVary">https://rmanwiki-27.pixar.com/space/REN27/542225490/PxrVary</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/542225490/PxrVary_Three.jpg" data-image-src="../../attachments/542225490/PxrVary_Three.jpg" data-unresolved-comment-count="0" data-linked-resource-id="542225505" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="PxrVary_Three.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542225490" data-linked-resource-container-version="1" data-media-id="777785bb-516d-44fd-ae79-fe8976c93125" data-media-type="file"></span><br/><br/>This node creates controlled random variations. The variation source can be attribute- or primvar-based. Primvars should have a constant detail (a single value per object). Only non-zero id/primvar/attribute values will create a variation. If the source can not be read, there will be no variation. Being able to lookup an arbitrary float or int attribute is a good way to debug a scene. For examples, if you are wondering which objects are single-sided, you can enter 'Ri:Sides' in varName.</p><h3 id="PxrVary-InputParameters">Input Parameters</h3><h4 id="PxrVary-InputColor">Input Color</h4><p>The color that you would like to vary.</p><h4 id="PxrVary-VarySource">Vary Source</h4><p>The source of the variation. One of:</p><ul><li>0: Identifier Id</li><li>1: Identifier Name</li><li>2: Primvar</li><li>3: Attribute</li></ul><h4 id="PxrVary-VariableName">Variable Name</h4><p>If varySource is 1 or 2, the name of the primvar or user attribute. If using a primvar, it should be either constant; per-vertex/face primvars are not supported. For user attributes, type &quot;<code>user:myattribute</code>&quot;.</p><h4 id="PxrVary-Hue">Hue</h4><p>Limit random hue shift. Ranges from 0 (no variation) to 1 (full variation).</p><h4 id="PxrVary-Saturation">Saturation</h4><p>Limit random saturation scale. Ranges from 0 (no variation) to 1 (full variation).</p><h4 id="PxrVary-Luminance">Luminance</h4><p>Limit random luminance scale. Ranges from 0 (no variation) to 1 (full variation).</p><h4 id="PxrVary-Gamma">Gamma</h4><p>Limit random gamma variation. Ranges from 0 (no variation) to 1 (full variation).</p><h3 id="PxrVary-Advanced">Advanced</h3><h4 id="PxrVary-Probability">Probability</h4><p>Range from 0 to 1 specifies the possibility of applying the variation.</p><h4 id="PxrVary-HueMode">Hue Mode</h4><p>How the color hue will be varied:</p><ul><li>0: Centered -- the variation will be centered around the current value.</li><li>1: Additive -- the variation will be added to the current value.</li><li>2: Subtractive -- the variation will be subtracted from the current value.</li></ul><h4 id="PxrVary-SaturationMode">Saturation Mode</h4><p>How the color saturation will be varied:</p><ul><li>0: Centered -- the variation will be centered around the current value.</li><li>1: Additive -- the variation will be added to the current value.</li><li>2: Subtractive -- the variation will be subtracted from the current value.</li></ul><h4 id="PxrVary-LuminanceMode">Luminance Mode</h4><p>How the color luminance will be varied:</p><ul><li>0: Centered -- the variation will be centered around the current value.</li><li>1: Additive -- the variation will be added to the current value.</li><li>2: Subtractive -- the variation will be subtracted from the current value.</li></ul><h4 id="PxrVary-GammaMode">Gamma Mode</h4><p>How the color gamma will be varied:</p><ul><li>0: Centered -- the variation will be centered around the current value.</li><li>1: Additive -- the variation will be added to the current value.</li><li>2: Subtractive -- the variation will be subtracted from the current value.</li></ul><h4 id="PxrVary-Seed">Seed</h4><p>Allows the variations to be changed without altering the set primvar</p><h4 id="PxrVary-ScaleNormalizedPrimvar">Scale Normalized Primvar</h4><p>Will take the set primvars and scale them to an expected 0-1 range used in the pattern for items that the primvar scale is beyond the normalized range</p><h4 id="PxrVary-Verbosity">Verbosity</h4><p>Outputs various info to help you debug your scenes.</p><ul><li>0: Silent -- only error messages will be output.</li><li>1: Warnings -- errors and missing attributes will be reported.</li><li>2: Infos -- like above, plus the value of attributes.</li></ul><h3 id="PxrVary-OutputParameters">Output Parameters</h3><h4 id="PxrVary-resultRGB">resultRGB</h4><p>The clamped color result.</p><h4 id="PxrVary-resultR">resultR</h4><p>The R channel from the <em>resultRGB</em> output.</p><h4 id="PxrVary-resultG">resultG</h4><p>The G channel from the <em>resultRGB</em> output.</p><h4 id="PxrVary-resultB">resultB</h4><p>The B channel from the <em>resultRGB</em> output.</p>
+  </article>
+</main>
+</body>
+</html>

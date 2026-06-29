@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Setting up LPEs in Solaris</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Setting up LPEs in Solaris</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFH27/544641953/Setting+up+LPEs+in+Solaris">https://rmanwiki-27.pixar.com/space/RFH27/544641953/Setting+up+LPEs+in+Solaris</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="900" loading="lazy" src="../../attachments/544641953/RenderMan_Solaris_LPE..jpg" data-image-src="../../attachments/544641953/RenderMan_Solaris_LPE..jpg" data-height="720" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="544641969" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Solaris_LPE..jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544641953" data-linked-resource-container-version="2" data-media-id="53c28a16-381b-4406-b04e-be8d385643d4" data-media-type="file"></span><p /><p><span class="legacy-color-text-blue3">In production, it often becomes necessary to create non-physical effects and art-directed changes to your shot. Light Path Expressions (LPE) are a powerful way to collect and output specific light paths for alteration later.</span><br/></p><p>Some examples of the power of LPE are the ability to:</p><ul><li><p>Allow for additive compositing, preserving the physical nature of the image and avoiding artifacts through multiplication or division in post-processing.</p></li><li><p>Output a specific bounce of light (2nd, 3rd, etc.) or even a range of bounces (4th to 8th bounce of light). You can use this to isolate effects or even noisy bounces for subtraction.</p></li><li><p>Output a specific object to an LPE. While you can use <a href="/wiki/spaces/REN26/pages/19661911/PxrCryptomatte" data-linked-resource-id="19661911" data-linked-resource-version="2" data-linked-resource-type="page">Cryptomatte</a> to isolate objects with an ID, you can also output the object or collection of objects and their contribution separately.</p></li><li><p>Isolate a particular noisy light path for subtraction in comp or an LPE without these light paths to composite.</p></li><li><p>Create a non-physical effect like differently colored caustics from their source, change the color cast of an object or scale lighting.</p></li><li><p>Output per-light AOVs for manipulation later.</p></li></ul><p /><hr/><p /><p><span class="legacy-color-text-blue3">In this example, we're going to create a LPE from an individual light in our studio scene.</span></p><p><span class="legacy-color-text-blue3">First, select the light you want to create a Light and under the RenderMan tab → Light Group, create a name for your light groups.  Note, you can add more than one light into a light group to create various isolated lighting setups.</span></p><p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="900" loading="lazy" src="../../attachments/544641953/RenderMan_Solaris_LPE_Node1.jpg" data-image-src="../../attachments/544641953/RenderMan_Solaris_LPE_Node1.jpg" data-height="676" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="544641975" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Solaris_LPE_Node1.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544641953" data-linked-resource-container-version="2" data-media-id="65fd87a1-326b-480c-9116-7ba442985f98" data-media-type="file"></span><p /><hr/><p><br/><span class="legacy-color-text-blue3">Next, we want to create the actual LPE expression to be able to isolate this light in our AOV channels.  </span></p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="renderVarLOP.png" width="964" loading="lazy" src="../../attachments/544641953/renderVarLOP.png" data-image-src="../../attachments/544641953/renderVarLOP.png" data-height="748" data-width="964" data-unresolved-comment-count="0" data-linked-resource-id="662798531" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="renderVarLOP.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544641953" data-linked-resource-container-version="2" data-media-id="8d26d41c-1a7f-4750-a6cc-7f8af0eb6eb9" data-media-type="file"></span><p><br/>Using a Render Var LOP<span class="legacy-color-text-blue3">, you will there be able to enter in the desired information to create the LPE.  As you can see, the LPE will be called SideRoom_LPE and the source name defines the structure of the LPE and also included in the expression is the SideRoomLight, which refers to our previously created Light Group.</span></p><p><span class="legacy-color-text-blue3">More information on LPE expressions can be found </span><a href="/wiki/spaces/REN26/pages/19661899/Using+LPE" data-linked-resource-id="19661899" data-linked-resource-version="3" data-linked-resource-type="page"><span style="color: rgb(23,43,77);">here</span></a><span class="legacy-color-text-blue3">.</span></p><p>Simply connecting the Render Var LOP to the first input of the RenderMan Render Settings LOP will be enough for the created Render Product primitive to add it to the <em>orderedVars</em> attribute (as shown below in the Scene Graph).</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="renderVarSceneGraph.png" width="941" loading="lazy" src="../../attachments/544641953/renderVarSceneGraph.png" data-image-src="../../attachments/544641953/renderVarSceneGraph.png" data-height="387" data-width="941" data-unresolved-comment-count="0" data-linked-resource-id="665714710" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="renderVarSceneGraph.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544641953" data-linked-resource-container-version="2" data-media-id="ffb4fa5c-ac40-4710-a8ad-ab3310a57540" data-media-type="file"></span><p>The image below demonstrates the SideRoomLight LPE contribution.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="900" loading="lazy" src="../../attachments/544641953/RenderMan_Solaris_LPE_Room.jpg" data-image-src="../../attachments/544641953/RenderMan_Solaris_LPE_Room.jpg" data-height="720" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="544641972" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_Solaris_LPE_Room.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544641953" data-linked-resource-container-version="2" data-media-id="22e4a302-ff32-4153-a92d-0b15f995a682" data-media-type="file"></span><p />
+  </article>
+</main>
+</body>
+</html>

@@ -1,0 +1,34 @@
+{
+  "parentType": "page",
+  "parentId": "546178629",
+  "spaceId": "544342019",
+  "ownerId": "62462b56699649006ae7453f",
+  "lastOwnerId": null,
+  "createdAt": "2025-08-07T01:52:14.611Z",
+  "authorId": "62462b56699649006ae7453f",
+  "position": 0,
+  "version": {
+    "number": 4,
+    "message": "",
+    "minorEdit": false,
+    "authorId": "712020:a163a1ff-c9c1-4e30-8c12-91021183fde1",
+    "createdAt": "2025-10-30T21:31:50.553Z",
+    "ncsStepVersion": "6"
+  },
+  "id": "546178644",
+  "status": "current",
+  "body": {
+    "view": {
+      "representation": "view",
+      "value": "<p>Motion blur is enabled when RenderSettings' <em>maxTimeSamples</em> is greater than 1. A value of 1 implies no motion blur.</p><span class=\"confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size\"><img class=\"confluence-embedded-image image-center\" width=\"834\" loading=\"lazy\" src=\"https://renderman.atlassian.net/wiki/download/thumbnails/546178644/rfkMotionBlur.png?version=1&amp;modificationDate=1754531534686&amp;cacheVersion=1&amp;api=v2&amp;width=755&amp;height=362\" data-image-src=\"https://renderman.atlassian.net/wiki/download/attachments/546178644/rfkMotionBlur.png?version=1&amp;modificationDate=1754531534686&amp;cacheVersion=1&amp;api=v2\" data-height=\"362\" data-width=\"755\" data-unresolved-comment-count=\"0\" data-linked-resource-id=\"546178663\" data-linked-resource-version=\"1\" data-linked-resource-type=\"attachment\" data-linked-resource-default-alias=\"rfkMotionBlur.png\" data-base-url=\"https://renderman.atlassian.net/wiki\" data-linked-resource-content-type=\"image/png\" data-linked-resource-container-id=\"546178644\" data-linked-resource-container-version=\"4\" data-media-id=\"f7bec397-e11d-4c72-a54c-d2584a54a1aa\" data-media-type=\"file\" srcset=\"https://renderman.atlassian.net/wiki/download/thumbnails/546178644/rfkMotionBlur.png?version=1&amp;modificationDate=1754531534686&amp;cacheVersion=1&amp;api=v2&amp;width=755&amp;height=362 2x, https://renderman.atlassian.net/wiki/download/thumbnails/546178644/rfkMotionBlur.png?version=1&amp;modificationDate=1754531534686&amp;cacheVersion=1&amp;api=v2&amp;width=755&amp;height=362 1x\"></span><p>The <em>maxTimeSamples</em> parameter is used for two cases:</p><ul><li><p>For nodes that support multi-sampling such as CameraCreate and PrimitiveCreate - maxTimeSamples is the number of time samples for the motion block (MotionBegin/MotionEnd).</p></li><li><p>For plugin such as Alembic_In - </p><ul><li><p>maxTimeSamples is used only as a switch to turn on/off motion blur. Changing it does not modify the number of time samples for the motion block. </p></li><li><p>The Alembic_In node provides a parameter in the advanced section called &quot;useOnlyShutterOpenCloseTimes&quot;, which will force the Alembic cache to only use the time samples corresponding to shutter open and close times when maxTimeSamples is set to 2.</p></li><li><p>To modify the number of time samples for the alembic cache in Maya's Alembic Exporter, turn on <em>Frame relative sample</em> and set its Low and High values.  </p></li></ul></li></ul><p /><h3 id=\"MotionBlurinKatana-ShutterOpen/Close\">Shutter Open/Close</h3><p>The <em>shutterOpen</em> and <em>shutterClose</em> parameters in RenderSettings set the min and max time at which the shutter opens and closes. Open (min) should be less than Close (max). If min is equal to max, there is no motion blur.  Moving objects will blur while the camera shutter is open.</p><p /><h3 id=\"MotionBlurinKatana-CameraShutterOpening\">Camera Shutter Opening</h3><p>Controls for a camera's <a href=\"/wiki/spaces/REN26/pages/19661763/Shutter\" data-linked-resource-id=\"19661763\" data-linked-resource-version=\"6\" data-linked-resource-type=\"page\">shutter efficiency</a> are available in <a href=\"/wiki/spaces/RFK27/pages/546178709/Camera+Settings+in+Katana\" data-linked-resource-id=\"546178709\" data-linked-resource-version=\"1\" data-linked-resource-type=\"page\">PrmanCameraSettings</a>. These controls allow to you control the rate of the shutter's opening and closing, allowing you to simulate a more physical camera shutter appearance.</p><h3 id=\"MotionBlurinKatana-AdjustingSamples\">Adjusting Samples</h3><p>When there is a lot of motion blur, it is important to increase the number of <em>maxsamples</em> on the raytrace hider to see the details in the blur. Note that higher samples will take longer to render.</p>"
+    }
+  },
+  "title": "Motion Blur in Katana",
+  "_links": {
+    "editui": "/pages/resumedraft.action?draftId=546178644",
+    "webui": "/spaces/RFK27/pages/546178644/Motion+Blur+in+Katana",
+    "edituiv2": "/spaces/RFK27/pages/edit-v2/546178644",
+    "tinyui": "/x/VAaOI",
+    "base": "https://renderman.atlassian.net/wiki"
+  }
+}

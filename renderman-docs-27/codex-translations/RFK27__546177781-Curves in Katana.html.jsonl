@@ -1,0 +1,24 @@
+{"item_id":"fc2475bbcb:0","text":"Curves（曲线）通常用于渲染 fur（毛皮）、hair（头发）、grass（草）以及其他 vegetation（植被）。在大多数情况下，艺术家已经花时间对 curves 进行 grooming（梳理）或 styling（造型），以得到批准的 look（外观）。随后会应用 physics simulation（物理模拟），让它们在场景中自然运动。当你或另一位艺术家完成上述全部工作后，就可以开始渲染了。"}
+{"item_id":"fc2475bbcb:1","text":"Cached Curves in Katana（Katana 中的缓存曲线）"}
+{"item_id":"fc2475bbcb:2","text":"有几种方法可以把 curves（曲线）带入 Katana。如果你的上游应用程序支持将 curves 导出为 Alembic 或 USD（如果你已从以下地址安装 USD 插件："}
+{"item_id":"fc2475bbcb:3","text":"http://graphics.pixar.com/usd/"}
+{"item_id":"fc2475bbcb:4","text":"），就可以将文件直接导入 Katana。你可以在 Katana 的 Viewer 中可视化这些 curves。如果你的对象有大量 curves，并且你选择展开 Scenegraph 以便在 Viewer 中查看它们，Katana 展开 Scenegraph 可能需要一些时间。"}
+{"item_id":"fc2475bbcb:5","text":"Procedural Curves in Katana（Katana 中的过程曲线）"}
+{"item_id":"fc2475bbcb:6","text":"否则，你会使用 renderer procedural 在 RenderMan 渲染时将 curves 动态发射到 RenderMan 中。如果你使用 Yeti 或内部 fur system（毛皮系统）之类的系统，则会使用 render procedural。在这种情况下，Katana 不会知道这些 curves。请参阅"}
+{"item_id":"fc2475bbcb:7","text":"Procedurals in Katana（Katana 中的过程程序）"}
+{"item_id":"fc2475bbcb:8","text":"了解如何设置 procedural（过程程序）的详细信息。"}
+{"item_id":"fc2475bbcb:9","text":"Curve Details（曲线细节）"}
+{"item_id":"fc2475bbcb:10","text":"当 Katana 知道这些 curves（例如你导入 Alembic 时），它会将它们直接发送给 RenderMan。Alembic 文件中如何指定 curves，它们就会如何渲染。请参阅 RenderMan 关于"}
+{"item_id":"fc2475bbcb:11","text":"curves（曲线）"}
+{"item_id":"fc2475bbcb:12","text":"的文档，了解 RenderMan 期望如何指定 curves 的具体细节。"}
+{"item_id":"fc2475bbcb:13","text":"为了得到外观有趣的 curves，你很可能希望让 curve 的 width（宽度）从根部到尖端发生变化。需要将 Primitive Variables (primvars) 附加到 curve 上，才能改变 width。你的上游应用程序负责完成这一点，并将其输出到 Alembic 文件中，或者作为 RenderMan 动态输出的一部分，提供沿 curve 变化的 width 等数据。"}
+{"item_id":"fc2475bbcb:14","text":"在上游应用程序中创建 curves 时，请确保创建的是 degree 1 (linear) 或 degree 3 (cubic) 的 curves。RenderMan 只支持这两种类型。不支持 degree 2 (quadratic)。"}
+{"item_id":"fc2475bbcb:15","text":"例如，如果你在 Maya 中使用 nHair 创建 curves 并将其导出到 Alembic，nHair 默认会创建 degree 2 的 curves。要使用 RenderMan 渲染它们，必须将其转换为 degree 3。要执行此操作，请进入 Outliner，选择所有 follicles（毛囊），进入 Channel Box，然后将 degree 改为 3。"}
+{"item_id":"fc2475bbcb:16","text":"Shading Curves（为曲线着色）"}
+{"item_id":"fc2475bbcb:17","text":"如果你使用 curves 表示 hair 或 fur，我们提供"}
+{"item_id":"fc2475bbcb:18","text":"PxrMarschnerHair"}
+{"item_id":"fc2475bbcb:19","text":"bxdf 作为首选材质。请参阅"}
+{"item_id":"fc2475bbcb:20","text":"Shading in Katana（Katana 中的着色）"}
+{"item_id":"fc2475bbcb:21","text":"部分，了解如何将材质应用到 geometry（几何体）。"}
+{"item_id":"fc2475bbcb:22","text":"Sample File + Scene Setup + Rendering Recommendations（示例文件 + 场景设置 + 渲染建议）"}
+{"item_id":"fc2475bbcb:23","text":"附件中可以找到一个示例 .katana 文件，其中加载并渲染了一个包含 curves 的 Alembic 文件。下方渲染图使用的质量设置高于附件 .katana 文件中的设置。如果下载并打开该 .katana 文件，需要在 \"Alembic_In\" 节点以及 \"AttributeSet_viewerProxy\" 节点中更改 Alembic 文件路径。"}

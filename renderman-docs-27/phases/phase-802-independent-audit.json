@@ -1,0 +1,217 @@
+{
+  "phase": 802,
+  "file": "TRA/22184302-Scheduling Modes.html",
+  "file_id": "1d10f1d1c0",
+  "source_items": 61,
+  "translation_rows": 61,
+  "source_items_match_translation_rows": true,
+  "duplicate_rows": [],
+  "missing_item_ids": [],
+  "extra_item_ids": [],
+  "tag_fingerprint_identical": true,
+  "rendered_markup_matches_target_markup": true,
+  "glossary_violations": [],
+  "direct_placement_missing": [],
+  "actionable_long_source_residuals": [],
+  "accepted_long_source_residuals": [
+    {
+      "item_id": "1d10f1d1c0:24",
+      "source": "simple job priority"
+    },
+    {
+      "item_id": "1d10f1d1c0:55",
+      "source": "checkpoint - yield - resume"
+    },
+    {
+      "item_id": "1d10f1d1c0:57",
+      "source": "Limit Sharing and Resource Allocations"
+    }
+  ],
+  "actionable_ascii_heavy_residuals": [],
+  "accepted_ascii_heavy_residuals": [
+    {
+      "item_id": "1d10f1d1c0:0",
+      "text": "概述（Overview）",
+      "ascii_letters": 8,
+      "cjk_chars": 2
+    },
+    {
+      "item_id": "1d10f1d1c0:1",
+      "text": "任务调度说明（Scheduling）",
+      "ascii_letters": 10,
+      "cjk_chars": 6
+    },
+    {
+      "item_id": "1d10f1d1c0:2",
+      "text": "指 Tractor 用来决定 tasks 分配给 blades 的顺序的 policies 和 algorithms；更一般地说，也包括执行管理 priorities、permissions 和 capability requirements 的规则。|",
+      "ascii_letters": 79,
+      "cjk_chars": 29
+    },
+    {
+      "item_id": "1d10f1d1c0:3",
+      "text": "调度层级说明（Dispatching Tiers）",
+      "ascii_letters": 16,
+      "cjk_chars": 6
+    },
+    {
+      "item_id": "1d10f1d1c0:4",
+      "text": "Queue 中的每个 job 都关联一个 dispatching tier。Tiers 提供最高层级的 job dispatching control；高取值 tiers 中的 jobs 总是先于低取值 tiers 中的 jobs 被考虑。例如，rush tier 中的 jobs 可以先于 batch tier 处理。在每个 tier 内，jobs 会按该 tier 的 Scheduling Mode（见下文）排序。",
+      "ascii_letters": 114,
+      "cjk_chars": 56
+    },
+    {
+      "item_id": "1d10f1d1c0:7",
+      "text": "，因此可以临时挂起或启用整个 job group 的 dispatching，例如在允许一系列 administrative jobs 继续运行时暂停 general dispatching。Dashboard 还提供一些基于 tiers 过滤和排序 jobs 的 controls。",
+      "ascii_letters": 81,
+      "cjk_chars": 42
+    },
+    {
+      "item_id": "1d10f1d1c0:8",
+      "text": "Tier membership 会作为简单的 tier name attribute 存储在每个 job 上。",
+      "ascii_letters": 34,
+      "cjk_chars": 12
+    },
+    {
+      "item_id": "1d10f1d1c0:9",
+      "text": "tier definitions",
+      "ascii_letters": 15,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "1d10f1d1c0:10",
+      "text": "本身位于 tractor.config 中，和",
+      "ascii_letters": 13,
+      "cjk_chars": 6
+    },
+    {
+      "item_id": "1d10f1d1c0:11",
+      "text": "其他 policy settings 放在一起。",
+      "ascii_letters": 14,
+      "cjk_chars": 6
+    },
+    {
+      "item_id": "1d10f1d1c0:14",
+      "text": "每个 tier 都可以有不同的 scheduling policy，",
+      "ascii_letters": 20,
+      "cjk_chars": 9
+    },
+    {
+      "item_id": "1d10f1d1c0:15",
+      "text": "如下文所述。如果某个 tier 没有指定 policy，则使用 JobSchedulingMode fallback value。",
+      "ascii_letters": 40,
+      "cjk_chars": 16
+    },
+    {
+      "item_id": "1d10f1d1c0:16",
+      "text": "Scheduling Modes（调度模式）",
+      "ascii_letters": 15,
+      "cjk_chars": 4
+    },
+    {
+      "item_id": "1d10f1d1c0:17",
+      "text": "Tractor 支持几种 job queue sorting modes，它们是主 task assignment scheduling system 的核心。大多数工作室会发现",
+      "ascii_letters": 57,
+      "cjk_chars": 20
+    },
+    {
+      "item_id": "1d10f1d1c0:19",
+      "text": "很适合主要是 batch style 的 jobs，而",
+      "ascii_letters": 14,
+      "cjk_chars": 8
+    },
+    {
+      "item_id": "1d10f1d1c0:21",
+      "text": "适合主要是 interactive mix 的场景。",
+      "ascii_letters": 14,
+      "cjk_chars": 8
+    },
+    {
+      "item_id": "1d10f1d1c0:24",
+      "text": "simple job priority",
+      "ascii_letters": 17,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "1d10f1d1c0:26",
+      "text": "Dispatching Tiers",
+      "ascii_letters": 16,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "1d10f1d1c0:28",
+      "text": "在每个 tier 内，jobs 会按该 tier 的 Scheduling Mode 排序。以 P+ 开头的 modes 总是先按 numerical Priority value 对 jobs 排序，从高到低。具有相同 priority 的 jobs 会按所选 policy mode 产生的顺序考虑：",
+      "ascii_letters": 80,
+      "cjk_chars": 41
+    },
+    {
+      "item_id": "1d10f1d1c0:30",
+      "text": "-- 这是将 available blades 分配给 jobs 的默认 scheme。它始终选择 priority value 最高（数值最大）的 job；如果有多个 jobs 具有相同 priority，则选择最早提交的那个。该 job 中所有 runnable tasks 会在匹配 blades 可用时被分配。如果 available blades 多于 runnable tasks，或某个 available blade 不匹配 top job 的 requirements，则检查 sorted queue 中的下一个 job。",
+      "ascii_letters": 149,
+      "cjk_chars": 73
+    },
+    {
+      "item_id": "1d10f1d1c0:36",
+      "text": "-- Active Task Count Leveling，该 mode 倾向于把 available blades 分配给 active tasks 最少的 jobs，试图均衡每个 job 中的 active tasks 数量。当 queue 中 ready tasks 多于 available blade slots 时，会允许较旧的 jobs 先完成，然后再启动较新的 jobs。由于它保持大致相等的 active task counts，拥有 short-running tasks 的 jobs 会比拥有相同数量 long-running tasks 的 jobs 更早完成。总体上倾向于偏好最旧的 jobs。",
+      "ascii_letters": 174,
+      "cjk_chars": 80
+    },
+    {
+      "item_id": "1d10f1d1c0:40",
+      "text": "，区别在于它如何处理 waiting tasks 多于 blades 的情况。它添加 round-robin component（在 equal priority jobs 的组内），倾向于",
+      "ascii_letters": 54,
+      "cjk_chars": 24
+    },
+    {
+      "item_id": "1d10f1d1c0:44",
+      "text": "priority block 中的 jobs 之间平衡 active task count。总体上偏好等待 blades 最久的 jobs。",
+      "ascii_letters": 42,
+      "cjk_chars": 16
+    },
+    {
+      "item_id": "1d10f1d1c0:46",
+      "text": "举例来说，假设有 100 个相同 priority 的 waiting jobs，而 farm 中只有 25 个 blades。",
+      "ascii_letters": 29,
+      "cjk_chars": 16
+    },
+    {
+      "item_id": "1d10f1d1c0:50",
+      "text": "这些 waiting jobs。因此，全部 100 个 jobs 都会周期性获得一些 blades。两种 schemes 都偏好分配给 already-running tasks 最少的 jobs。当",
+      "ascii_letters": 51,
+      "cjk_chars": 28
+    },
+    {
+      "item_id": "1d10f1d1c0:52",
+      "text": "criteria 相同时，P+ATCL 偏好最旧的 jobs，而 P+ATCL+RR 偏好等待新 blade assignment 最久的 jobs。",
+      "ascii_letters": 43,
+      "cjk_chars": 17
+    },
+    {
+      "item_id": "1d10f1d1c0:55",
+      "text": "checkpoint - yield - resume",
+      "ascii_letters": 21,
+      "cjk_chars": 0
+    },
+    {
+      "item_id": "1d10f1d1c0:56",
+      "text": "processing 的 tasks 在该 tier 中所有 jobs 范围内重新执行。它总体上是 FIFO ordering，但每个 job 在所有 active tasks 都到达 checkpoint 后会被 suspended。当 equal priority group 中所有 jobs 都到达该点后，会再次从 top job 恢复 processing。",
+      "ascii_letters": 106,
+      "cjk_chars": 46
+    },
+    {
+      "item_id": "1d10f1d1c0:57",
+      "text": "Limit Sharing and Resource Allocations（Limit 共享与资源分配）",
+      "ascii_letters": 39,
+      "cjk_chars": 7
+    },
+    {
+      "item_id": "1d10f1d1c0:59",
+      "text": "Tractor Limits",
+      "ascii_letters": 13,
+      "cjk_chars": 0
+    }
+  ],
+  "required_phrase_missing": [],
+  "section_order_positions": [],
+  "section_order_ok": true,
+  "passed": true
+}

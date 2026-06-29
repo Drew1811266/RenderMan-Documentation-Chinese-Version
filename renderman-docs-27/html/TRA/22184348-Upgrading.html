@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Upgrading</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Upgrading</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/TRA/22184348/Upgrading">https://rmanwiki-27.pixar.com/space/TRA/22184348/Upgrading</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="document"><p>Upgrading an engine is as simple as restarting it with the new version. Unless otherwise specified, active tasks can be allowed to run during the restart. A new engine is compatible with older blades; restarting blades is only required to take advantage of new blade functionality.</p><p>Some sites may wish to back up their job data before upgrading. The benefits of doing this are twofold: a backup guards against losing historical job data should an unforeseen problem happen during upgrade (e.g. software or hardware failure); also, the system can be restored to its pre-upgrade state should a downgrade be required. Backups and downgrades are discussed below.</p><p> </p><div class="section"><h3 id="Upgrading-DownTime">Down Time</h3><p>The time to perform an upgrade is affected primarily by operations required to modify the database schema. Documentation for a specific upgrade will advise when there may be significant time (e.g. over one minute) to perform the upgrade. During the upgrade, active tasks can continue to run, however no new work will be scheduled, no new jobs can be submitted, and Dashboard, command-line, and API communication with the engine will block.</p><p> </p></div><div class="section"><h3 id="Upgrading-BackingUp">Backing Up</h3><p>Before backing up a job database, ensure that the tractor engine and the postgresql database have stopped. The engine will automatically shut down the database server unless a site has set DBShutdown to False in its site db.config file, or if the engine has difficulty communicating with the database server. <span class="pre">tractor-dbctl</span> <span class="pre">--status</span> can be used to verify that the database server has stopped. If it is still running, it can be stopped with <span class="pre">tractor-dbctl</span> <span class="pre">--stop</span>.</p><p>To back up the job database, run <span class="pre">tractor-dbctl</span> <span class="pre">--backup</span> <span class="pre">&lt;path-to-backup-file&gt;</span>. Ensure there is enough space to store the backup file. The backup file is a compressed tarball of the engine data directory's psql/ subdirectory, so it will only need a fraction of the space used by that directory.</p><p> </p></div><div class="section"><h3 id="Upgrading-Downgrading">Downgrading</h3><p>When downgrading, it may not be possible to use the existing database if it has undergone a schema change. In this case, it will be necessary to start with a new job database or to restore from a backup. Please contact Customer Support if it is necessary to preserve job submissions and state changes that occured after the upgrade.</p><p>To perform a downgrade, stop the existing engine and database server as described above in <em>Backing Up</em>. Then destroy the job database with <span class="pre">tractor-dbctl</span> <span class="pre">--destroy</span>.</p><p>To restore the job database from a backup, use <span class="pre">tractor-dbctl</span> <span class="pre">--restore</span> <span class="pre">&lt;path-to-backup-file&gt;</span> and start with the applicable version of the engine; job IDs will resume from the last used job ID when the backup was created. Jobs that were queued when the backup was taken will be rescheduled when the system is restored to the backup. Jobs submitted after the backup will not appear in the restored job database.</p><p>If a the job database is not restored from a backup, it will simply be an empty job database with job IDs starting at 1.</p><p>Note that if a job ID is reused, its log file output will be appened to the log files of the former job of the same ID. Thus, it is advised to remove log files associated with the job IDs that will be reused.</p><p>The job ID sequence can resume from a different value in order to avoid reusing job IDs. First start the database server with <span class="pre">tractor-dbctl</span> <span class="pre">--start-for-engine</span> and then run <span class="pre">tractor-dbctl</span> <span class="pre">--set-job-counter</span> &lt;#&gt;.</p><p>To summarize, the steps to downgrade are as follows:</p><blockquote><ol style="margin-left: 28.0px;" class="arabic simple"><li>Pause dispatching in the Dashboard admin panel.</li><li>Retry all active tasks: tq <span class="pre">--force</span> <span class="pre">--yes</span> retry active</li><li>Kill the engine.</li><li>Destroy the job database: <span class="pre">tractor-dbctl</span> <span class="pre">--destroy</span></li><li>Optionally restore the backed up database: <span class="pre">tractor-dbctl</span> <span class="pre">--restore</span> <span class="pre">&lt;path-to-backup-file&gt;</span></li><li>Start the database server: <span class="pre">tractor-dbctl</span> <span class="pre">--start-for-engine</span></li><li>Note the last used job ID with <span class="pre">tractor-dbctl</span> <span class="pre">--show-params</span> and remove any log files from jobs with a higher job ID.</li><li>Optionally set the job counter: <span class="pre">tractor-dbctl</span> <span class="pre">--set-job-counter</span> &lt;#&gt;</li><li>Start the applicable engine.</li></ol></blockquote><p>Note that all of the tractor-dbctl commands described here will require the site configuration directory to be specified with the --configdir option.</p><p> </p></div><div class="section"><h3 id="Upgrading-MultipleEngines">Multiple Engines</h3><p>It is possible to simultaneoulsy run different Tractor engines with different versions, such as to test a new version before deployment into production. Multiple engines may run on the same host; however, they must have distinct ports, configuration directories, data directories, and database directories. Even if engines are not running on the same host, if they use the same network-sharable volumes for any of the above directories, corruption is possible. Configuration settings of importance here are TractorDataDirectory in tractor.configand DBDataDir in db.config. You will also need to manage distinct locations for log files and for pointing blades to the appropriate engine.</p><p> </p></div><div class="section"><h3 id="Upgrading-AdditionalInformation">Additional Information</h3><p>Please refer to the following documents for version-specific upgrade information.</p><a href="/wiki/spaces/TRA/pages/22184350/Upgrading+from+Tractor+1.x" data-linked-resource-id="22184350" data-linked-resource-version="2" data-linked-resource-type="page"><br />Upgrading from 1.x</a><p><a href="/wiki/spaces/TRA/pages/22184358/Upgrading+to+2.1" data-linked-resource-id="22184358" data-linked-resource-version="9" data-linked-resource-type="page">Upgrading to 2.1</a></p><p><a href="/wiki/spaces/TRA/pages/22184360/Upgrading+to+2.2" data-linked-resource-id="22184360" data-linked-resource-version="2" data-linked-resource-type="page">Upgrading to 2.2</a></p></div></div>
+  </article>
+</main>
+</body>
+</html>

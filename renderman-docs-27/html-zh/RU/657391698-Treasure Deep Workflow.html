@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Treasure Deep Workflow</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Treasure Deep Workflow</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RU/657391698/Treasure+Deep+Workflow">https://rmanwiki-27.pixar.com/space/RU/657391698/Treasure+Deep+Workflow</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<h3 id="TreasureDeepWorkflow-DeepData">宝藏项目中的深度数据合成流程（Deep Data）</h3><p>这个 project 也是一次学习 deep rendering 的机会，因为这是我以前的 projects 中从未接触过的一个方面……结果发现处理起来非常有趣。</p><p>要在 RfK 中实现这一点，我们只需要把 file type 改为 deep，RenderMan for Katana 就会自动输出 deep EXR format。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="DEEP_renderOUT_v01.png" width="760" loading="lazy" src="../../attachments/657391698/DEEP_renderOUT_v01.png" data-image-src="../../attachments/657391698/DEEP_renderOUT_v01.png" data-height="918" data-width="1696" data-unresolved-comment-count="0" data-linked-resource-id="657621149" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="DEEP_renderOUT_v01.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="657391698" data-linked-resource-container-version="1" data-media-id="419bb442-0f59-496e-a985-1de59d46eae4" data-media-type="file"></span><p>Nuke 中的 deep data 让我们能够对非常细微的 detail 做到 pixel perfect compositing。而且在 Nuke 中浏览它也相当有趣。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="deep3DSpace.gif" width="760" loading="lazy" src="../../attachments/657391698/deep3DSpace.gif" data-image-src="../../attachments/657391698/deep3DSpace.gif" data-height="1036" data-width="1683" data-unresolved-comment-count="0" data-linked-resource-id="657621156" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="deep3DSpace.gif" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/gif" data-linked-resource-container-id="657391698" data-linked-resource-container-version="1" data-media-id="f88a2f16-1bc6-484d-a111-62755d09c528" data-media-type="file"></span><p>虽然 Deep compositing 对我来说是一个需要学习的新概念，但我发现它是很吸引人的 concept 和 toolset，尤其适合在 compositing 阶段加入 2D volumetrics 来模拟 distance fog。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="deepUsageA.png" width="760" loading="lazy" src="../../attachments/657391698/deepUsageA.png" data-image-src="../../attachments/657391698/deepUsageA.png" data-height="937" data-width="1665" data-unresolved-comment-count="0" data-linked-resource-id="657621162" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="deepUsageA.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="657391698" data-linked-resource-container-version="1" data-media-id="a0c9a436-cd3d-45d4-a358-8bc86fb907e5" data-media-type="file"></span><p>最后，这里展示的是我在 NukeX 中的 comp treatment 和 final scene graph。你需要在本地 render frames，但希望整个 project 能让你看到一个高效 pipeline 的有益示例，并从中获得 ideas，复制到自己的 personal projects 中。</p><p>如果你有兴趣进一步了解这个很棒的 project，请通过下方简介中的 link 访问 Fady 的 website。 </p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Nuke_script.png" width="760" loading="lazy" src="../../attachments/657391698/Nuke_script.png" data-image-src="../../attachments/657391698/Nuke_script.png" data-height="1308" data-width="1120" data-unresolved-comment-count="0" data-linked-resource-id="657621168" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Nuke_script.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="657391698" data-linked-resource-container-version="1" data-media-id="23577b23-7042-4d30-ba53-c10a75227dae" data-media-type="file"></span><p /><hr/>
+  </article>
+</main>
+</body>
+</html>

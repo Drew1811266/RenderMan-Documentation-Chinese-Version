@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mudbox Vector Displacement</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Mudbox Vector Displacement</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFM27/544540737/Mudbox+Vector+Displacement">https://rmanwiki-27.pixar.com/space/RFM27/544540737/Mudbox+Vector+Displacement</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<h3 id="MudboxVectorDisplacement-ExportFBXfromMudbox">Export FBX from Mudbox</h3><p>Before you start sculpting, export your Fbx from Mudbox.</p><h3 id="MudboxVectorDisplacement-ExportanOpenEXRfromMudbox">Export an OpenEXR from Mudbox</h3><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="394" loading="lazy" src="../../attachments/544540737/mudbox_extractTextureMaps.png" data-image-src="../../attachments/544540737/mudbox_extractTextureMaps.png" data-height="1137" data-width="446" data-unresolved-comment-count="0" data-linked-resource-id="544540761" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="mudbox_extractTextureMaps.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544540737" data-linked-resource-container-version="1" data-media-id="110f2014-8bcd-4391-91b8-7293b35a099b" data-media-type="file"></span><h3 id="MudboxVectorDisplacement-ExportaPTexfromMudbox">Export a PTex from Mudbox</h3><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="394" loading="lazy" src="../../attachments/544540737/mudbox_ptex_extractTextureMaps.png" data-image-src="../../attachments/544540737/mudbox_ptex_extractTextureMaps.png" data-height="1146" data-width="447" data-unresolved-comment-count="0" data-linked-resource-id="544540767" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="mudbox_ptex_extractTextureMaps.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544540737" data-linked-resource-container-version="1" data-media-id="9f9ec12f-24df-4704-9c9b-6d7c6e8489b0" data-media-type="file"></span><p><br/></p><h3 id="MudboxVectorDisplacement-ImportFBXandAddSubdivScheme">Import FBX and Add Subdiv Scheme</h3><ul><li><p>Import the FBX you just exported from Mudbox.  For its shape node, add <strong>Attributes|RenderMan|Subdiv Scheme:</strong></p></li></ul><span class="confluence-embedded-file-wrapper image-center-wrapper"><img class="confluence-embedded-image image-center" loading="lazy" src="../../attachments/544540737/subdivScheme.png" data-image-src="../../attachments/544540737/subdivScheme.png" data-height="119" data-width="367" data-unresolved-comment-count="0" data-linked-resource-id="544540758" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="subdivScheme.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544540737" data-linked-resource-container-version="1" data-media-id="572c463e-8f1e-4889-a884-b06c3acbad6c" data-media-type="file"></span><h3 id="MudboxVectorDisplacement-AssignDisplacementShader(UVTexture)">Assign Displacement Shader (UV Texture)</h3><ul><li><p>Create a <strong>PxrTexture</strong> node. Set the Filename to your exported Muxbox EXR map. Keep all parameters at their defaults.</p></li><li><p>Create <strong> PxrDispTransform</strong> node. Set Displacement Type to <strong>Mudbox Vector</strong> and Vector Space to <strong>Tangent</strong>.</p></li></ul><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="985" loading="lazy" src="../../attachments/544540737/mudbox_PxrDispTransform.png" data-image-src="../../attachments/544540737/mudbox_PxrDispTransform.png" data-height="350" data-width="442" data-unresolved-comment-count="0" data-linked-resource-id="544540764" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="mudbox_PxrDispTransform.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544540737" data-linked-resource-container-version="1" data-media-id="1e4a12fa-95eb-4314-a428-e3c30e8e0f27" data-media-type="file"></span><ul><li><p>Create a <strong>PxrDisplace</strong> node (this is the displacement shader that actually displaces your surface).</p></li><li><p>Connect PxrTexture's output Result RGB to PxrDispTransform's Disp Vector.</p></li><li><p>Connect PxrDispTransform's Result XYZ to PxrDisplace's Disp Vector. Your graph should look like this:</p></li></ul><h3 id="MudboxVectorDisplacement-AssignDisplacementShader(PTex)"><span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image" width="800" loading="lazy" src="../../attachments/544540797/vectorDispGraph.png" data-image-src="../../attachments/544540797/vectorDispGraph.png" data-unresolved-comment-count="0" data-linked-resource-id="544540841" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="vectorDispGraph.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544540797" data-linked-resource-container-version="2" data-media-id="30850a1d-144b-46d0-9b1e-341d080e40b8" data-media-type="file"></span>Assign Displacement Shader (PTex)</h3><ul><li><p>Create a <strong>PxrPtexture</strong> node. Set the Filename to your exported Muxbox ptx map. Keep all parameters at their defaults.</p></li><li><p>Create <strong> PxrDispTransform</strong> node. Set Displacement Type to <strong>Mudbox Vector</strong> and Vector Space to <strong>World</strong>.</p></li></ul><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="482" loading="lazy" src="../../attachments/544540737/mudbox_ptex_PxrDispTransform.png" data-image-src="../../attachments/544540737/mudbox_ptex_PxrDispTransform.png" data-height="270" data-width="437" data-unresolved-comment-count="0" data-linked-resource-id="544540770" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="mudbox_ptex_PxrDispTransform.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544540737" data-linked-resource-container-version="1" data-media-id="bf8302e4-db20-439c-ae49-0ec90e49da0c" data-media-type="file"></span><ul><li><p>Create a <strong>PxrDisplace</strong> node (this is the displacement shader that actually displaces your surface).</p></li><li><p>Connect PxrTexture's output Result RGB to PxrDispTransform's Disp Vector.</p></li><li><p>Connect PxrDispTransform's Result XYZ to PxrDisplace's Disp Vector. Your graph should look like this:</p></li></ul><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="578" loading="lazy" src="../../attachments/544540737/mudbox_ptex_vectorDispGraph.png" data-image-src="../../attachments/544540737/mudbox_ptex_vectorDispGraph.png" data-height="356" data-width="830" data-unresolved-comment-count="0" data-linked-resource-id="544540773" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="mudbox_ptex_vectorDispGraph.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544540737" data-linked-resource-container-version="1" data-media-id="56316a4f-c522-4172-a042-ffdec3a36d36" data-media-type="file"></span><h3 id="MudboxVectorDisplacement-Render">Render</h3><ul><li><p>Add <a href="https://renderman.atlassian.net/wiki/pages/createpage.action?spaceKey=RFM24&amp;title=PxrSurface" rel="nofollow">PxrSurface</a>, assign it to the model and add some <a href="/wiki/spaces/RFM27/pages/544541369/Lighting+in+Maya" data-linked-resource-id="544541369" data-linked-resource-version="1" data-linked-resource-type="page">lights</a>, set the displacement bound appropriately, and render! <br/><em>Toad King created created by Craig Barr, Autodesk Media and Entertainment.</em><br/></p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="mudbox_ptex_toadKing.jpg" width="1280" loading="lazy" src="../../attachments/544540737/mudbox_ptex_toadKing.jpg" data-image-src="../../attachments/544540737/mudbox_ptex_toadKing.jpg" data-height="720" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="544540755" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="mudbox_ptex_toadKing.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544540737" data-linked-resource-container-version="1" data-media-id="480e659a-7ab6-4d58-bd21-d02f20c5c924" data-media-type="file"></span><p> <br/><br/></p><p><br/><br/><br/></p></li></ul>
+  </article>
+</main>
+</body>
+</html>

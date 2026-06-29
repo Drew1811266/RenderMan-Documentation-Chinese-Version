@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Procedural Ground Dirt</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Procedural Ground Dirt</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RU/392265765/Procedural+Ground+Dirt">https://rmanwiki-27.pixar.com/space/RU/392265765/Procedural+Ground+Dirt</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="RenderMan_GroundDirt_Header.jpg" width="760" loading="lazy" src="../../attachments/392265765/RenderMan_GroundDirt_Header.jpg" data-image-src="../../attachments/392265765/RenderMan_GroundDirt_Header.jpg" data-height="1080" data-width="1920" data-unresolved-comment-count="0" data-linked-resource-id="392265775" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_GroundDirt_Header.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="392265765" data-linked-resource-container-version="17" data-media-id="8ecb1044-1e3d-4f7f-941d-a1dfeba826e3" data-media-type="file"></span><p>通常，当一个 prop（道具）被放在地面或架子上，或者积累了带方向性的 grunge（污垢/旧化痕迹）时，prop 的下半部分会比上半部分更脏。</p><p>想象一个在街角放了很多年的消防栓、一个留在脏地板上的盒子，或者像本例这样，一个展示盒长期放在凌乱的架子上，底部开始比顶部更脏。</p><p>当然，你可以使用 Mari 或 Substance Painter 绘制 dirt ground mask，但在这个例子中，我们想看看如何使用 RenderMan 的 shading toolkit，以 procedural（程序化）方式实现同样的效果。</p><p>以 procedural 方式制作这个效果的优势在于，如果有许多这样的托盘散布在工作台、地板或展示架上，我们不必为每个 tray instance 分别绘制 mask，而且还能为每个 tray 获得 shading variation。</p><p>让我们看看如何在 Blender 中实现这一点。当然，这个效果也可以在其他 DCCs 中同样实现，但本例会使用 Blender。  </p><hr/><div class="panel conf-macro output-block" data-hasbody="true" data-macro-id="ef27dff9-7259-40fa-b7c9-29c9ddc38a13" data-macro-name="panel" style="background-color: #4C9AFF;border-width: 1px;"><div class="panelContent" style="background-color: #4C9AFF;">
+<p><strong><span class="legacy-color-text-inverse">Goal（目标）</span></strong></p>
+</div></div><p>我们的目标是创建一个从 prop 底部开始并向上延伸的黑白 gradient。  </p><p>然后将它作为 mask，用于叠加 dirt diffuse layer。</p><hr/><div class="panel conf-macro output-block" data-hasbody="true" data-macro-id="1171d31f-2343-4d36-8c5b-6e233a106506" data-macro-name="panel" style="background-color: #4C9AFF;border-width: 1px;"><div class="panelContent" style="background-color: #4C9AFF;">
+<p><strong><span class="legacy-color-text-inverse">Steps（步骤）</span></strong></p>
+</div></div><p>为了演示效果，这个 shader 已通过使用 PxrConstant node 简化，因此我们可以轻松预览正在创建的 mask。</p><p>实现这个效果的关键在几个 nodes 上。第一个是 PxrRamp，第二个使用 PxrManifold3D node。  </p><ul><li><p>如果把 PxrRamp 连接到 PxrConstant 的 EmitColor，就会得到这样的结果。</p></li></ul><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="RenderMan_ProceduralGroundDirt_01.jpg" width="760" loading="lazy" src="../../attachments/392265765/RenderMan_ProceduralGroundDirt_01.jpg" data-image-src="../../attachments/392265765/RenderMan_ProceduralGroundDirt_01.jpg" data-height="916" data-width="2832" data-unresolved-comment-count="0" data-linked-resource-id="392167534" data-linked-resource-version="2" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_ProceduralGroundDirt_01.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="392265765" data-linked-resource-container-version="17" data-media-id="18f2c4ff-5fae-4c28-85ad-30b3ab886e69" data-media-type="file"></span><p>目前它还不算很有用，也不太惊艳，但先等等…… </p><p>下一步是创建一个 PxrManifold3D node，并将它连接到刚才创建的 PxrRamp node 的 manifold input。  </p><ul><li><p>接下来，在 PxrRamp node 中，将 Ramp Type 改为 T Ramp。</p></li></ul><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="RenderMan_ProceduralGroundDirt_02.jpg" width="760" loading="lazy" src="../../attachments/392265765/RenderMan_ProceduralGroundDirt_02.jpg" data-image-src="../../attachments/392265765/RenderMan_ProceduralGroundDirt_02.jpg" data-height="918" data-width="2833" data-unresolved-comment-count="0" data-linked-resource-id="392298544" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_ProceduralGroundDirt_02.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="392265765" data-linked-resource-container-version="17" data-media-id="9af78387-19c2-48a8-bb5c-1ad8c2d1a1b1" data-media-type="file"></span><p>为了让这个效果真正可控，我们需要在 Blender 中创建一个 coordinate system，以便控制 gradient 的方向。</p><ul><li><p>创建 Empty-&gt; Plain Axis</p></li><li><p>给 Plain Axis node 起一个有意义的名字，例如 GroundDirt</p></li><li><p>在 RenderMan Geometry 下，开启 Export as CoordSys</p></li></ul><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="RenderMan_ProceduralGroundDirt_03.jpg" width="760" loading="lazy" src="../../attachments/392265765/RenderMan_ProceduralGroundDirt_03.jpg" data-image-src="../../attachments/392265765/RenderMan_ProceduralGroundDirt_03.jpg" data-height="516" data-width="970" data-unresolved-comment-count="0" data-linked-resource-id="390955399" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_ProceduralGroundDirt_03.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="392265765" data-linked-resource-container-version="17" data-media-id="f1058cd0-6998-4798-afae-89d10c3828d4" data-media-type="file"></span><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="55a3342a-3944-40b7-bbe6-f1222edcd891" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>注意：在 Maya 中，可以使用 <a class="external-link" href="https://help.autodesk.com/view/MAYAUL/2025/ENU/?guid=GUID-DA87060A-A3D6-4AB7-A6A1-A70ED1A9B1BE" rel="nofollow">3D Placement </a>node 来创建 coordinate system（坐标系）</p></div></div><p>完成后，我们需要告诉 PxrManifold3D node：我们希望使用这个 Axis controller 作为 coordinate system。</p><ul><li><p>在 PxrManifold3D node 的 Coordinate System 下，输入你新建的 Axis Node 名称。在本例中，它叫 GroundDirt</p></li></ul><p>现在，我们的 gradient 看起来有用多了。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="RenderMan_ProceduralGroundDirt_04.jpg" width="760" loading="lazy" src="../../attachments/392265765/RenderMan_ProceduralGroundDirt_04.jpg" data-image-src="../../attachments/392265765/RenderMan_ProceduralGroundDirt_04.jpg" data-height="939" data-width="2838" data-unresolved-comment-count="0" data-linked-resource-id="392429590" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_ProceduralGroundDirt_04.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="392265765" data-linked-resource-container-version="17" data-media-id="d5b6282f-7f19-4754-9d59-ff612e34fd67" data-media-type="file"></span><p>我们可以通过调整 ramp knots，设置 dirt 在 prop 上开始和结束的位置，从而控制这个效果。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="RenderMan_ProceduralGroundDirt_05.jpg" width="765" loading="lazy" src="../../attachments/392265765/RenderMan_ProceduralGroundDirt_05.jpg" data-image-src="../../attachments/392265765/RenderMan_ProceduralGroundDirt_05.jpg" data-height="141" data-width="663" data-unresolved-comment-count="0" data-linked-resource-id="392298554" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_ProceduralGroundDirt_05.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="392265765" data-linked-resource-container-version="17" data-media-id="1dfab17c-0805-4fc9-97dc-6eaba7ea4278" data-media-type="file"></span><p>还可以通过上下移动 GroundDirt Axis 来进一步精调 placement。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><a href="https://renderman.atlassian.net/wiki/download/attachments/392265765/GroundDirt_MoveAxis.mp4?version=2&amp;modificationDate=1742817910891&amp;cacheVersion=1&amp;api=v2&amp;width=760">GroundDirt_MoveAxis.mp4</a></span><p>现在，我们有了一个更有用的 ground-dirt mask……但还可以通过用 dirt texture map 打破 ramp 的平滑度，把它推得更远。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="RenderMan_ProceduralGroundDirt_06.jpg" width="760" loading="lazy" src="../../attachments/392265765/RenderMan_ProceduralGroundDirt_06.jpg" data-image-src="../../attachments/392265765/RenderMan_ProceduralGroundDirt_06.jpg" data-height="1447" data-width="1441" data-unresolved-comment-count="0" data-linked-resource-id="392265791" data-linked-resource-version="2" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_ProceduralGroundDirt_06.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="392265765" data-linked-resource-container-version="17" data-media-id="3da82b43-2d39-40ef-b0c9-4e8756f9d4b3" data-media-type="file"></span><p>可以用很多不同方式使用这个 texture map 来 breakup 我们的 ramp，其中一种方法是使用 PxrBlend node，将上方的 dirt spots texture 与 ground dirt ramp 进行 Blend。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="RenderMan_ProceduralGroundDirt_07.jpg" width="760" loading="lazy" src="../../attachments/392265765/RenderMan_ProceduralGroundDirt_07.jpg" data-image-src="../../attachments/392265765/RenderMan_ProceduralGroundDirt_07.jpg" data-height="916" data-width="2899" data-unresolved-comment-count="0" data-linked-resource-id="392396879" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_ProceduralGroundDirt_07.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="392265765" data-linked-resource-container-version="17" data-media-id="f058c5ea-e670-494b-9fe0-8d08f98446cd" data-media-type="file"></span><p>由于我们希望尽可能保持 procedural，因此会使用 PxrRoundCube &amp; PxrMultiTexture setup，把 dirt spot texture 以 tri-planar 方式投射到 prop 上。这个方法允许我们把 dirt spots 随机 offset、rotate 和 tile 到其他 instances 上。</p><ul><li><p>使用 PxrBlend node 后，我们用 Multiply ink mode，把 tri-planar dirt spot texture 叠在 ground dirt ramp 上进行 Blend。你也可以尝试不同的 ink modes，以获得不同结果。</p></li><li><p>如果需要让 mask 效果更明显，可以再次通过多种方式调整 mask；在本例中，我们会使用 PxrSplineMap node 和 curves 来调整 mask。</p></li></ul><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="RenderMan_ProceduralGroundDirt_08.jpg" width="760" loading="lazy" src="../../attachments/392265765/RenderMan_ProceduralGroundDirt_08.jpg" data-image-src="../../attachments/392265765/RenderMan_ProceduralGroundDirt_08.jpg" data-height="923" data-width="2838" data-unresolved-comment-count="0" data-linked-resource-id="392200270" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_ProceduralGroundDirt_08.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="392265765" data-linked-resource-container-version="17" data-media-id="af1a9a3f-136a-41eb-83a0-74d6da66b17c" data-media-type="file"></span><p>很好！</p><p>现在，我们可以把这个 mask 用作 procedural Lama 或 PxrSurfaceLayer shading setup 的 layer mix。  </p><p>请注意，一旦开始在实际 shader 中使用这个 mask，你可能会发现还需要进一步调整 mask 的 brightness 和 contrast，才能调出想要的 look。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="RenderMan_ProceduralGroundDirt_09.jpg" width="760" loading="lazy" src="../../attachments/392265765/RenderMan_ProceduralGroundDirt_09.jpg" data-image-src="../../attachments/392265765/RenderMan_ProceduralGroundDirt_09.jpg" data-height="1232" data-width="2835" data-unresolved-comment-count="0" data-linked-resource-id="392200277" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_ProceduralGroundDirt_09.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="392265765" data-linked-resource-container-version="17" data-media-id="45eab991-4188-450e-9789-582b93e78bff" data-media-type="file"></span><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="RenderMan_GroundDirt_Header2.jpg" width="760" loading="lazy" src="../../attachments/392265765/RenderMan_GroundDirt_Header2.jpg" data-image-src="../../attachments/392265765/RenderMan_GroundDirt_Header2.jpg" data-height="1080" data-width="1920" data-unresolved-comment-count="0" data-linked-resource-id="393183271" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_GroundDirt_Header2.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="392265765" data-linked-resource-container-version="17" data-media-id="549737a2-ce2f-412c-9cb1-776d9b12ca91" data-media-type="file"></span><hr/><div class="panel conf-macro output-block" data-hasbody="true" data-macro-id="3379ce78-80d2-4559-a325-691fc01859c4" data-macro-name="panel" style="background-color: #4C9AFF;border-width: 1px;"><div class="panelContent" style="background-color: #4C9AFF;">
+<p><strong><span class="legacy-color-text-inverse">Further Practice（进一步练习）</span></strong></p>
+</div></div><ol start="1"><li><p>尝试使用其他 textures 或 PxrFractal node，进一步打散 ground dirt gradient</p></li><li><p>使用 PxrDirt node 向 mask 中添加 crevice dirt（如上面的 setup 所示）</p></li><li><p>使用 PxrDirt node，从那些不一定总会受到 ground dirt 影响的 objects 内部移除 crevice dirt。<br/></p></li></ol><hr/><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="RenderManUniversity_logo.svg" width="132" loading="lazy" src="../../attachments/392265765/RenderManUniversity_logo.svg" data-image-src="../../attachments/392265765/RenderManUniversity_logo.svg" data-height="73" data-width="59" data-unresolved-comment-count="0" data-linked-resource-id="395346014" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderManUniversity_logo.svg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/svg+xml" data-linked-resource-container-id="392265765" data-linked-resource-container-version="17" data-media-id="48243b20-9fe2-48b0-b709-753ff84afafc" data-media-type="file"></span>
+  </article>
+</main>
+</body>
+</html>

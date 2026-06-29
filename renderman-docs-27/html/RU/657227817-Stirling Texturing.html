@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Stirling Texturing</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Stirling Texturing</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RU/657227817/Stirling+Texturing">https://rmanwiki-27.pixar.com/space/RU/657227817/Stirling+Texturing</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<h3 id="StirlingTexturing-TexturingandUVs">Texturing and UVs</h3><p>Before we move on to what might be the most technical part of this tutorial, I want to emphasize the importance of proper layering. If done carelessly, it can quickly turn into a headache. I highly recommend taking the time to explore the dedicated docs pages on <strong>Holdouts, Layering, and Trace Sets</strong>.</p><p>In this scene, we have two types of objects: <strong>reflected objects</strong> and <strong>reflectors</strong> (which act as holdouts). First, let’s take a look at how the layering for the reflected objects was set up.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image15.jpg" width="760" loading="lazy" src="../../attachments/657227817/image15.jpg" data-image-src="../../attachments/657227817/image15.jpg" data-height="720" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="656998455" data-linked-resource-version="2" data-linked-resource-type="attachment" data-linked-resource-default-alias="image15.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="657227817" data-linked-resource-container-version="1" data-media-id="af7c8d29-619d-4b21-98a6-99b112b92cd2" data-media-type="file"></span><p>For the car itself (left image), the setup is fairly straightforward: I made everything except the car directly and indirectly invisible to the camera. However, you’ll notice that I chose to hide the glass windows.</p><p>Glass can be tricky to handle when aiming for accurate refractions in your integration. To simplify the process, I placed it on a separate layer, as shown in the right image. The approach I used here was to retrieve the selection of visible elements from my first layer (which includes the entire car but excludes its windows and interior) and create a Matte Object collection. This setup ensures that I can seamlessly composite the glass back into the scene in Nuke, avoiding any intersection issues.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image11.jpg" width="760" loading="lazy" src="../../attachments/657227817/image11.jpg" data-image-src="../../attachments/657227817/image11.jpg" data-height="720" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="656998462" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image11.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="657227817" data-linked-resource-container-version="1" data-media-id="3865fad0-64b9-4505-aaaf-febb6fb23069" data-media-type="file"></span><p>For the refractions, I created a plane with a PxrConstant shader and constrained it to the camera. Within this PxrConstant, I simply connected the image sequence of the base plate and offset it far enough to always remain behind the car.</p><p>This setup allows me to seamlessly merge the windows back onto the car while ensuring proper refractions. Without this adjustment, the distorted background from the HDRI would have been a significant distraction.</p><p>Now, let’s move on to the layering of the car reflectors.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image15.jpg" width="760" loading="lazy" src="../../attachments/657227817/image15.jpg" data-image-src="../../attachments/657227817/image15.jpg" data-height="720" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="656998455" data-linked-resource-version="2" data-linked-resource-type="attachment" data-linked-resource-default-alias="image15.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="657227817" data-linked-resource-container-version="1" data-media-id="af7c8d29-619d-4b21-98a6-99b112b92cd2" data-media-type="file"></span><p>We’ll be using the layer with the van that appears at the beginning of the video, as it provides the most complete example. However, all the reflector layers are set up in a similar way.</p><p>First, we’ll create a Holdout override (feel free to check the dedicated page for <strong>Holdouts</strong>) for the van, which has been quickly shaded to match the look shown in the footage. Everything outside of our main object (the van) will again be made directly invisible to the camera. </p><p>However, this time, the focus will be on indirect visibility. This is where trace sets will really work their magic for us.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image2.jpg" width="760" loading="lazy" src="../../attachments/657227817/image2.jpg" data-image-src="../../attachments/657227817/image2.jpg" data-height="720" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="656998479" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image2.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="657227817" data-linked-resource-container-version="1" data-media-id="017b32ba-b578-4a4e-93ff-66e5fcf6e6df" data-media-type="file"></span><p /><p>In our footage, we can see that the car and its reflection should be receiving a shadow on its right side, cast by the black car. However, to keep our objects separate for cleaner and more manageable compositing, we disable indirect visibility for the black car proxy. As a result, the shadow it casts on our car disappears, breaking the realism of the reflection.</p><p>This is where trace sets come in, allowing us to get the best of both worlds.</p><p>To create a trace set, refer to the <strong>Creating Trace Sets in Maya</strong> documentation. In this case, I simply created a set containing all the objects I didn’t want reflected in my holdout and excluded them from the van’s trace sets.</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image10.jpg" width="760" loading="lazy" src="../../attachments/657227817/image10.jpg" data-image-src="../../attachments/657227817/image10.jpg" data-height="484" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="656998485" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image10.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="657227817" data-linked-resource-container-version="1" data-media-id="9801314f-9336-42a2-b0b1-8221883ae6b0" data-media-type="file"></span><p>Glad to see you’ve made it this far! Now, repeat this process for as many layers as your project requires, and you’re finally ready to dive into rendering settings.</p>
+  </article>
+</main>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PxrAttribute</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>PxrAttribute</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/REN27/542222552/PxrAttribute">https://rmanwiki-27.pixar.com/space/REN27/542222552/PxrAttribute</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>PxrAttribute allows the user to read attributes attached to (stored) on a node. Such an example would be to add a color attribute to a set of objects to be read by a material later. In this way, a material can change its result based on the object being rendered instead of a different material. Below there are color attributes attached to the sphere's of the shader ball. A single <a href="/wiki/spaces/REN27/pages/542213836/PxrSurface" data-linked-resource-id="542213836" data-linked-resource-version="2" data-linked-resource-type="page">PxrSurface</a> material renders with a different diffuse color as specific by each shape's defined attribute. Examples on usage are below.</p><p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" height="384" width="384" loading="lazy" src="../../attachments/542222552/pxrAttribute.jpg" data-image-src="../../attachments/542222552/pxrAttribute.jpg" data-unresolved-comment-count="0" data-linked-resource-id="542222568" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="pxrAttribute.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542222552" data-linked-resource-container-version="1" data-media-id="8df93ef3-9f59-40d9-8f06-6b0c8e16a236" data-media-type="file"></span></p><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="18efa6b2-d51c-4aca-b570-5304385c159e" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>There may be a performance penalty for using this node in many places in your scene. Efficiency is key to avoid too many evaluations of user attributes if not necessary.</p></div></div><p><br/></p><h3 id="PxrAttribute-InputParameters">Input Parameters</h3><h4 id="PxrAttribute-Variablename">Variable name</h4><p>This field takes a string that identifies the attribute.  The string should include the namespace for the attribute and the attribute name separated by a colon.  For example, trace:maxdiffusedepth or user:Ball.</p><h4 id="PxrAttribute-VariableType">Variable Type</h4><p>This specifies the type of variable to read and must match what was specified above on the other nodes.</p><ul><li>Integer</li><li>Float</li><li>Float 2</li><li>Color</li><li>Point</li><li>Vector</li><li>Normal</li></ul><h4 id="PxrAttribute-DefaultFloat">Default Float</h4><p>If there is an error when retrieving an attribute of type float, this is the value that will be used.</p><h4 id="PxrAttribute-Verbosity">Verbosity</h4><p>Diagnostic output levels for scene debugging</p><ul><li>Silent</li><li>Warnings</li><li>Info</li></ul><h3 id="PxrAttribute-OutputParameters">Output Parameters</h3><h4 id="PxrAttribute-resultF">resultF</h4><p>A float result.</p><h4 id="PxrAttribute-resultRGB">resultRGB</h4><p>The color result.</p><p><br/></p><h3 id="PxrAttribute-ExampleUsage">Example Usage</h3><p>DCC applications may use a different mechanism for applying a user attribute. Below are two examples for applying a color user attribute named &quot;Ball&quot; to a shape:</p><h4 id="PxrAttribute-Maya:">Maya:</h4><p>Add a user attribute from the Maya Attribute editor transform node, Name: Ball Type: color Color: Light Pink. The resulting export is below, note that we assume a User attribute from the Maya Editor automatically and does not need to be specified.</p><pre>RiAttribute &quot;user&quot; &quot;color Ball&quot; 1 0.2 0.65</pre><h4 id="PxrAttribute-Katana:">Katana:</h4><p>The below is an OpScript example of the same attribute in Katana</p><p>gb = GroupBuilder()<br/>gb:set(&quot;value&quot;, FloatAttribute({1.0, 0.2, 0.65}, 3))<br/>gb:set(&quot;type&quot;, StringAttribute(&quot;color&quot;))<br/>Interface.SetAttr(&quot;prmanStatements.attributes.user.Ball&quot;, gb:build())</p><h4 id="PxrAttribute-Houdini:">Houdini:</h4><p>See <a href="/wiki/spaces/RFH24/pages/21299353/Using+PxrMatteID" data-linked-resource-id="21299353" data-linked-resource-version="2" data-linked-resource-type="page">Using PxrMatteID</a> as an example of how to add user attribute in Houdini.</p><pre><br/></pre>
+  </article>
+</main>
+</body>
+</html>

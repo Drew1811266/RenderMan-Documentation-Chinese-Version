@@ -1,0 +1,34 @@
+{
+  "parentType": "page",
+  "parentId": "604569807",
+  "ownerId": "712020:9d5ecfb2-d6a8-470c-8147-e3a49ba45e31",
+  "lastOwnerId": null,
+  "createdAt": "2025-11-08T08:29:34.190Z",
+  "authorId": "712020:9d5ecfb2-d6a8-470c-8147-e3a49ba45e31",
+  "position": 623,
+  "version": {
+    "number": 1,
+    "message": "",
+    "minorEdit": false,
+    "authorId": "712020:9d5ecfb2-d6a8-470c-8147-e3a49ba45e31",
+    "createdAt": "2025-11-08T08:29:49.596Z",
+    "ncsStepVersion": "3"
+  },
+  "spaceId": "476282890",
+  "status": "current",
+  "body": {
+    "view": {
+      "representation": "view",
+      "value": "<h3 id=\"TreasureScattering-TreasureScatter\">Treasure Scatter</h3><p>Let’s start with the scattering of the gold sea that was static. In this portion, I used the height-field scatter technique. I started with a pre-simulated clump of coins, armor pieces, and other miscellaneous assets to create the look of not just coins, but a busy cluster of treasures.</p><p>After doing a quick sim to relax the pieces in a ground plane, I exported the results to a single USD file. To reach the shape of the Gold Sea quickly, I used a few very simple height-field techniques to sculpt the final shape.</p><p>Using the same output, and utilizing the amazing heightfield scatter node, with some mask painting and after some trial and error trying to figure out scatter density, I was able to find the right ratio of coverage for the composition, while not leaving any gaps…and since this is never perfect, I applied the same gold material on the base geometry to fill in any remaining treasure gaps.</p><p /><hr/><h3 id=\"TreasureScattering-CoinSimulation\">Coin Simulation</h3><p>At the beginning of this journey, I started to experiment with ways to create a simulation with a fluid-like coin motion. In one of my first tries, I created a flip fluid tank and ran the simulation with very low particle separation density. This gave me a manageable amount of points to instance from. From there, I tried running rigid body dynamic sims.</p><p>This ended up being highly computationally expensive, so instead, I distilled my approach from separate, multi-million-points that clogged my 256 GB of RAM, to creating clusters of treasures (same technique as I used in the scattering step) and with very efficient usage of collision geometry to avoid long and accurate collisions. This method resulted in a much faster, albeit a less accurate simulation.</p><p>To speed things up even more, I localized where I wanted to sim using separate caches which were all timed to run in a sequential manner to suit the art direction I was looking for according to the camera movement.</p>"
+    }
+  },
+  "title": "Treasure Scattering",
+  "id": "656834654",
+  "_links": {
+    "editui": "/pages/resumedraft.action?draftId=656834654",
+    "webui": "/spaces/RU/pages/656834654/Treasure+Scattering",
+    "edituiv2": "/spaces/RU/pages/edit-v2/656834654",
+    "tinyui": "/x/XoAmJw",
+    "base": "https://renderman.atlassian.net/wiki"
+  }
+}

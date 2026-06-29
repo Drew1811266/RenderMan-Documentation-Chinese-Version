@@ -1,0 +1,80 @@
+{"item_id":"59c3b80a95:0","text":"Tractor configuration settings 大体可分为几类：engine dispatching behavior、blade characteristics、user permissions 和 data locations。下面按 topic 链接相关讨论。configuration settings 本身保存在 \"config\" 区域中的多个 .config files 中，site overrides 则保存在单独目录中。"}
+{"item_id":"59c3b80a95:1","text":"Engine"}
+{"item_id":"59c3b80a95:2","text":"Engine 初始化与调度控制（scheduling controls）。"}
+{"item_id":"59c3b80a95:3","text":"Blades"}
+{"item_id":"59c3b80a95:4","text":"针对你的 execution environment 的 Blade customizations。"}
+{"item_id":"59c3b80a95:5","text":"Crews"}
+{"item_id":"59c3b80a95:6","text":"Crew membership 和访问策略（access policies）。"}
+{"item_id":"59c3b80a95:7","text":"PostgreSQL"}
+{"item_id":"59c3b80a95:8","text":"PostgreSQL server process management。"}
+{"item_id":"59c3b80a95:9","text":"Dashboard"}
+{"item_id":"59c3b80a95:10","text":"Dashboard 的身份认证和功能扩展（authentication 和 extensions）。"}
+{"item_id":"59c3b80a95:11","text":"Limits"}
+{"item_id":"59c3b80a95:12","text":"Limits 管理，这是共享和管理 resources 的基础。"}
+{"item_id":"59c3b80a95:13","text":"Logging"}
+{"item_id":"59c3b80a95:14","text":"系统日志与 command log files 的管理。"}
+{"item_id":"59c3b80a95:15","text":"登录和账户管理（Login Management）"}
+{"item_id":"59c3b80a95:16","text":"有效 user 和 authentication 的管理。"}
+{"item_id":"59c3b80a95:17","text":"RenderMan for Maya"}
+{"item_id":"59c3b80a95:18","text":"Tractor 使用的 RenderMan for Maya configuration。"}
+{"item_id":"59c3b80a95:19","text":"配置文件说明（Configuration Files）"}
+{"item_id":"59c3b80a95:20","text":"Tractor 的 settings 位于 .config files 中。Tractor install area 的 \"config\" directory 保存所有带默认 settings 的文件。针对 studio 的这些文件 overrides 应放在 install area 外部的 site-specific directory 中，并通过"}
+{"item_id":"59c3b80a95:21","text":"--configdir"}
+{"item_id":"59c3b80a95:22","text":"(path) start-up option 将其位置传给 tractor-engine。记得根据你的站点需求为这些文件设置适当的 read 和 write permissions。最常自定义的文件包括："}
+{"item_id":"59c3b80a95:23","text":"tractor.config：tractor.config 包含 Tractor 的基础 configuration 和 policy settings，例如 license server location、job database location 以及 basic scheduling mode。详情请参阅文件自身的 comments。crews.config：crews.config 文件包含 crew definitions 和基本 job queue editing permissions。Crews 只是命名的 tractor users 列表。Permissions 可以授予单个 users，也可以授予指定 crew 的所有 members。详情请参阅文件自身的 comments。blade.config：blade.config 文件控制 farm 上 hosts 的基本 scheduling attributes。Host configurations 使用 blade profiles 描述，每个 profile 可应用到多个 blade servers。limits.config：limits.config 文件指定 Tractor 在 farm 上启动的 concurrently executing applications 数量限制。Limit \"tags\" 是与每个 application 关联的任意 keywords，Tractor 会为每个 tag 维护 tally。例如，如果整个 studio 中某个 application 只有有限数量 licenses 可用，则 limits.config 中的 entry 可以确保 Tractor 不会超过该程序的 simultaneous launches 数量。"}
+{"item_id":"59c3b80a95:24","text":"站点专用配置覆盖（Site-Specific Configuration Overrides）"}
+{"item_id":"59c3b80a95:25","text":"在"}
+{"item_id":"59c3b80a95:26","text":"installation"}
+{"item_id":"59c3b80a95:27","text":"期间，engine startup service 会被调整为将 engine 指向你维护 custom configuration files 的目录。最好将修改内容保存在某个目录中，且该目录位于 Tractor 特定版本的 installation directory"}
+{"item_id":"59c3b80a95:28","text":"之外"}
+{"item_id":"59c3b80a95:29","text":"，这样安装新版本 Tractor 时可重复使用这些修改，并且重新安装产品时不会丢失更改。"}
+{"item_id":"59c3b80a95:30","text":"从 Tractor 2.0 开始，你的 configuration directory 可以更加"}
+{"item_id":"59c3b80a95:31","text":"sparse（稀疏），"}
+{"item_id":"59c3b80a95:32","text":"只包含你实际想要修改的文件副本。不在 configuration directory 中的文件将从 Tractor-2.0/config install area 中的 stock originals 读取。"}
+{"item_id":"59c3b80a95:33","text":"此外，tractor.config 和 db.config 这两个文件会应用特殊处理 -- 你在 --configdir directory 中的这些文件副本可以缩减为"}
+{"item_id":"59c3b80a95:34","text":"仅包含"}
+{"item_id":"59c3b80a95:35","text":"你实际想修改的少数 key-value pairs。对于这两个文件，engine 会先从 installed distribution config directory 加载 stock file，然后加载 --configdir 中的版本，并将 \"deltas\" overlay 到结果 dictionary 中。其他 config files"}
+{"item_id":"59c3b80a95:36","text":"不会"}
+{"item_id":"59c3b80a95:37","text":"以这种方式处理，以避免删除或部分替换 nested stock entries 所带来的复杂性。"}
+{"item_id":"59c3b80a95:38","text":"选择一个用于 \"EngineOwner\" 的 login 账号"}
+{"item_id":"59c3b80a95:39","text":"重要 -- 如果你打算以 root 身份启动 tractor-engine process（这是一个有用的默认做法，因为它可以获取用于 connection requests 的 \"protected\" port 80），那么你必须编辑 tractor.config 中名为 \"EngineOwner\" 的 entry，并指定一个 NON-root account，由它在 start-up 后拥有 engine 和 database processes。database app 不允许自己以 root 运行，因此 engine 会负责以你在 tractor.config 中指定的 login 启动它。许多 studios 会专门创建一个 account 来拥有这类 service processes。"}
+{"item_id":"59c3b80a95:40","text":"\"@merge\" Convenience Function（便捷函数）"}
+{"item_id":"59c3b80a95:41","text":"engine 的 configuration file parser 支持一个简单的 \"@merge\" mechanism，用于把 JSON \"subfiles\" 加载到 parameter block 中。例如，在 blade.config 中，如果多个 profiles 共享相同的 environment handler definitions，可以把 common text 放到单独文件中，然后 \"merged\" 到每个 profile definition 中。"}
+{"item_id":"59c3b80a95:42","text":"parser 会检查 value strings 中类似 \"@merge('file.json')\" 的 text，并将该 string 替换为指定文件的 parsed contents。注意："}
+{"item_id":"59c3b80a95:43","text":"@merge call must be INSIDE a regular JSON string；也就是说 @merge call 必须位于常规 JSON string 内部，"}
+{"item_id":"59c3b80a95:44","text":"也就是必须用 double-quotes 包起来。"}
+{"item_id":"59c3b80a95:45","text":"Tractor Network Port Usage（网络端口使用）"}
+{"item_id":"59c3b80a95:46","text":"下表列出了各个 Tractor components 使用的 network service ports。这些"}
+{"item_id":"59c3b80a95:47","text":"listener ports"}
+{"item_id":"59c3b80a95:48","text":"允许位于不同 hosts 上的 Tractor 各个部分相互通信。Networking"}
+{"item_id":"59c3b80a95:49","text":"firewalls"}
+{"item_id":"59c3b80a95:50","text":"默认可能阻止这些 connections，因此你可能需要为这些 ports 添加 \"firewall exceptions\"（有时称为 \"pinholes\"）。并不是每个 port 都需要在每台 machine 上设置 exception！"}
+{"item_id":"59c3b80a95:51","text":"Host"}
+{"item_id":"59c3b80a95:52","text":"Port"}
+{"item_id":"59c3b80a95:53","text":"Purpose"}
+{"item_id":"59c3b80a95:54","text":"engine"}
+{"item_id":"59c3b80a95:55","text":"80/tcp"}
+{"item_id":"59c3b80a95:56","text":"main job queue 在此 port 上监听来自所有 client components 的 job spooling 和 Dashboard connections。可以用 \"tractor-engine --port=NNNN\" 或 tractor.config 中的 ListenerPort 指定 alternate ports（以及 interfaces）。"}
+{"item_id":"59c3b80a95:57","text":"engine"}
+{"item_id":"59c3b80a95:58","text":"80/udp"}
+{"item_id":"59c3b80a95:59","text":"engine 的 UDP listener 接收来自 blades 的 progress updates，随后收集这些 updates 并发送到 Dashboard sessions，用于绘制各个 tasks 的 progress bars。此 port number 始终设置为与上方 main TCP listener 相同的 numeric value。"}
+{"item_id":"59c3b80a95:60","text":"engine"}
+{"item_id":"59c3b80a95:61","text":"9180/tcp"}
+{"item_id":"59c3b80a95:62","text":"command output 的默认 logging mechanism 会将每个 command 的 output stream 发送到 engine host 上运行的 centralized log archiver process。拥有大量 blades 或 heavy logging requirements 的 studios 应改用"}
+{"item_id":"59c3b80a95:63","text":"直接写入方式（direct writes）。"}
+{"item_id":"59c3b80a95:64","text":"engine"}
+{"item_id":"59c3b80a95:65","text":"9876/tcp"}
+{"item_id":"59c3b80a95:66","text":"PostgreSQL database server port。注意：正常使用中，此 port 只在 \"loopback\" interface 上供 tractor-engine 自身的 private connections 使用。通常不需要来自 external hosts 的任何 connections，因此也无需为此 service 创建 firewall pinholes。"}
+{"item_id":"59c3b80a95:67","text":"blade"}
+{"item_id":"59c3b80a95:68","text":"9005/tcp"}
+{"item_id":"59c3b80a95:69","text":"Tractor-blade 在此 port 上监听多种 asynchronous connections。对于简单 dispatching，这不是严格必需的，因为 blade 会只向 engine 发起 outbound-only requests 来请求 task assignments。不过，中断正在运行的 job 需要 asynchronous connections，某些 blade status reports 也需要。使用 \"tractor-blade -L NNNN\" parameter 可指定 alternate port，blade 会将该值注册到 engine。使用 \"-L 0\"（zero）可让 operating system 为此用途分配一个随机 unused port；但当需要 firewall pinholes 时，这种做法不合适。"}
+{"item_id":"59c3b80a95:70","text":"engine 以及其他主机（engine, others）"}
+{"item_id":"59c3b80a95:71","text":"239.255.255.250 1900/udp"}
+{"item_id":"59c3b80a95:72","text":"这个"}
+{"item_id":"59c3b80a95:73","text":"\"engine discovery\" multicast scheme"}
+{"item_id":"59c3b80a95:74","text":"（SSDP）使用给定 multicast address 和 port，既用于请求当前 engine 的 availability advertisements，也用于监听这些 advertisements。这些 broadcasts 是可选的，在大型 studios 中通常并不受欢迎。"}
+{"item_id":"59c3b80a95:75","text":"license server"}
+{"item_id":"59c3b80a95:76","text":"9010/tcp"}
+{"item_id":"59c3b80a95:77","text":"PixarLicenseServer process 在此 port 上监听 license check-out requests。可以使用其他 port numbers，但需要从"}
+{"item_id":"59c3b80a95:78","text":"Customer Support"}
+{"item_id":"59c3b80a95:79","text":"获取更新后的 license。"}

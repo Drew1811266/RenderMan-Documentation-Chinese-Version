@@ -1,0 +1,112 @@
+{"item_id":"55814469e8:0","text":"虽然 portal light（门户灯）是矩形形状，但它不能与"}
+{"item_id":"55814469e8:1","text":"PxrRectLight（矩形灯）"}
+{"item_id":"55814469e8:2","text":"互换，也不能由它替代，因为我们是使用"}
+{"item_id":"55814469e8:3","text":"PxrDomeLight（穹顶灯）"}
+{"item_id":"55814469e8:4","text":"从 3D environment（三维环境）获得 illumination（照明）。"}
+{"item_id":"55814469e8:5","text":"PxrPortalLight 是"}
+{"item_id":"55814469e8:6","text":"one-sided（单面）"}
+{"item_id":"55814469e8:7","text":"。也就是说，portal（门户）背面没有 illumination（照明）。如果需要照亮背面，可以再创建一个朝向相反方向的 portal。"}
+{"item_id":"55814469e8:8","text":"可以像对其他 light 一样向 portal light 添加 light filters（灯光滤镜）。实际上，PxrBarnLightFilter 用于这种 light 类型时效果很好。"}
+{"item_id":"55814469e8:9","text":"更多信息可参阅技术论文："}
+{"item_id":"55814469e8:10","text":"Benedikt Bitterli、Jan Novák"}
+{"item_id":"55814469e8:11","text":"Wojciech Jarosz。"}
+{"item_id":"55814469e8:12","text":"Portal-Masked Environment Map Sampling（门户遮罩环境贴图采样）"}
+{"item_id":"55814469e8:13","text":"。Eurographics Symposium on Rendering（EGSR），2015"}
+{"item_id":"55814469e8:14","text":"Portal Lights（门户灯）不能与 PxrEnvDayLight 系统一起工作。请使用带有适当 HDRI 或 HDRI 序列的 PxrDomeLight。"}
+{"item_id":"55814469e8:15","text":"与同一 parent dome light（父级穹顶灯）和同一 portal name（portal 名称）关联的所有 portal lights（门户灯）"}
+{"item_id":"55814469e8:16","text":"must have the same rotation（必须具有相同旋转）"}
+{"item_id":"55814469e8:17","text":"。如果需要更改 portal light 的 rotation（旋转），则需要使用新的 portal name。不过，不同的 translation（平移）和 scaling（缩放）可以共享同一个 portal name。"}
+{"item_id":"55814469e8:18","text":"“为什么要使用 portal light（门户灯）？”"}
+{"item_id":"55814469e8:19","text":"由于对于 renderer（渲染器）来说，解析直接照明很少或没有直接照明的室内场景很困难，portal lights（门户灯）有助于把 renderer 的注意力引导到外部 light source（光源）。如下方经典 Classroom scene（教室场景）所示，RenderMan 可以很好地利用 PxrPortalLight。两张图像都以相同的每像素 32 samples 渲染。但可以清楚看到，右侧使用 portal lights 的结果比左侧未使用时有效得多。"}
+{"item_id":"55814469e8:20","text":"Parameters（参数）"}
+{"item_id":"55814469e8:21","text":"Basic（基本）"}
+{"item_id":"55814469e8:22","text":"Intensity Multiplier（强度倍增）"}
+{"item_id":"55814469e8:23","text":"相对于 parent dome light Intensity（父级穹顶灯强度）的 Intensity adjustment（强度调整）。该值会与 parent dome light 的 Intensity 和 power 相乘。"}
+{"item_id":"55814469e8:24","text":"Color Tint（颜色染色）"}
+{"item_id":"55814469e8:25","text":"此参数会对 dome texture（穹顶纹理）中的颜色进行 tint（染色）。下方每个 portal 都分配了不同颜色，形成漂亮的彩虹效果。"}
+{"item_id":"55814469e8:26","text":"此参数会对 dome texture（穹顶纹理）中的颜色进行 tint（染色）。下方每个 portal 都分配了不同颜色，形成漂亮的彩虹效果。"}
+{"item_id":"55814469e8:27","text":"Map Gamma（贴图 Gamma）"}
+{"item_id":"55814469e8:28","text":"对 texture（纹理）进行 gamma correction（Gamma 校正）。每个 channel（RGB）都可以独立调整。如果该 map gamma 未从默认值更改，则会继承 parent dome light 的 map gamma。"}
+{"item_id":"55814469e8:29","text":"Map Saturation（贴图饱和度）"}
+{"item_id":"55814469e8:30","text":"调整 texture（纹理）的 saturation（饱和度）。如果该 map saturation 未从默认值更改，则会继承 parent dome light 的 map saturation。"}
+{"item_id":"55814469e8:31","text":"Enable Temperature（启用色温）"}
+{"item_id":"55814469e8:32","text":"打开或关闭 color temperature（色温）。"}
+{"item_id":"55814469e8:33","text":"Color Temperature（色温）"}
+{"item_id":"55814469e8:34","text":"允许用户以 Kelvins（开尔文）选择 light 的 color temperature（色温）。与基本 light color 不同，这让用户可以基于标准温度测量轻松选择合理的 light color。此控件会像位于 light 前方的 filter 或 gel（带色透明表面）一样工作。如果 light 为白色，将得到所选 color temperature；如果 light 已带颜色，color temperature 会使其变得更冷（高于 6500K）或更暖（低于 6500K）。"}
+{"item_id":"55814469e8:35","text":"在完全饱和的 mono-chromatic lights（单色光）上，该效果不会那么明显。默认值为 6500K，在大多数显示器上应非常接近白色（sRGB 和 Rec 709 使用的 D65 illuminant）。"}
+{"item_id":"55814469e8:36","text":"Primary Visibility（主可见性）"}
+{"item_id":"55814469e8:37","text":"默认情况下，light 不会直接对 camera（摄影机）可见。启用后会使其可见，并可使用 emission token（发射 token）'O' 写入 LPE。"}
+{"item_id":"55814469e8:38","text":"Refine（细化）"}
+{"item_id":"55814469e8:39","text":"Specular Amount（镜面量）"}
+{"item_id":"55814469e8:40","text":"发射的 specular light（镜面光）数量。这是 non-physical control（非物理控件）。"}
+{"item_id":"55814469e8:41","text":"可以使用一个"}
+{"item_id":"55814469e8:42","text":"Specular Amount（镜面量）"}
+{"item_id":"55814469e8:43","text":"为 0.0 的 light，使其只作为场景对象的 diffuse light（漫射光）源，并避免添加 highlights（高光）。请注意，场景仍会收集房间中其他对象产生的 indirect reflection（间接反射）。"}
+{"item_id":"55814469e8:44","text":"Diffuse Amount（漫射量）"}
+{"item_id":"55814469e8:45","text":"发射的 diffuse light（漫射光）数量。这是 non-physical control（非物理控件）。"}
+{"item_id":"55814469e8:46","text":"可以使用一个"}
+{"item_id":"55814469e8:47","text":"Diffuse Amount（漫射量）"}
+{"item_id":"55814469e8:48","text":"为 0.0 的 light，使其只作为场景对象的 highlights（高光）源。"}
+{"item_id":"55814469e8:49","text":"Shadows（阴影）"}
+{"item_id":"55814469e8:50","text":"如果 light 的"}
+{"item_id":"55814469e8:51","text":"Trace Light Paths（追踪光路）"}
+{"item_id":"55814469e8:52","text":"在 Advanced（高级）中启用，则所有 shadow parameters（阴影参数）都会被忽略。以下选项在偏离默认状态使用时都是 non-physical controls（非物理控件）。如果"}
+{"item_id":"55814469e8:53","text":"Trace Light Paths（追踪光路）"}
+{"item_id":"55814469e8:54","text":"启用，则会强制使用它们的物理性质。"}
+{"item_id":"55814469e8:55","text":"Enable Shadows（启用阴影）"}
+{"item_id":"55814469e8:56","text":"启用 raytraced shadows（光线追踪阴影）。下方显示 on（默认）和 off。"}
+{"item_id":"55814469e8:57","text":"Shadow Color（阴影颜色）"}
+{"item_id":"55814469e8:58","text":"由发射 light 投射的 shadows（阴影）的颜色。下方展示来自不同 portal lights 的 Red、Green 和 Blue。"}
+{"item_id":"55814469e8:59","text":"由发射 light 投射的 shadows（阴影）的颜色。下方展示来自不同 portal lights 的 Red、Green 和 Blue。"}
+{"item_id":"55814469e8:60","text":"Shadow Max Distance（阴影最大距离）"}
+{"item_id":"55814469e8:61","text":"从被 shading（着色）点的位置开始计算的 shadow（阴影）最大距离。-1.0 表示未设置，将使用被着色点与 light 上点之间的距离。可以使用此控件人为缩短 shadows 投射的距离。由于不会计算该距离之外的 shadows，这也可能提高 render speed（渲染速度）。请注意椅子和桌腿的 shadows 在一定距离后被截断，以及 classroom 前方墙面上的 shadow。"}
+{"item_id":"55814469e8:62","text":"Shadow Falloff（阴影衰减）"}
+{"item_id":"55814469e8:63","text":"从 light 开始计算、shadow falloff（阴影衰减）开始的距离。-1.0 会关闭 shadow falloff。它会与"}
+{"item_id":"55814469e8:64","text":"Shadow Max Distance（阴影最大距离）"}
+{"item_id":"55814469e8:65","text":"一起使用，为 shadows（阴影）创建假 fade（淡出）；这些 shadows 会被"}
+{"item_id":"55814469e8:66","text":"Shadow Max Distance（阴影最大距离）"}
+{"item_id":"55814469e8:67","text":"参数缩短或截断。下方示例同时使用了两个参数，并增大了 falloff。请注意，此参数可能影响复杂 lighting setups（照明设置）的性能。"}
+{"item_id":"55814469e8:68","text":"Shadow Falloff Gamma（阴影衰减 Gamma）"}
+{"item_id":"55814469e8:69","text":"falloff zone（衰减区域）中 shadow strength（阴影强度）的 gamma。此项需要使用"}
+{"item_id":"55814469e8:70","text":"Shadow Max Distance（阴影最大距离）"}
+{"item_id":"55814469e8:71","text":"和"}
+{"item_id":"55814469e8:72","text":"Shadow Falloff（阴影衰减）"}
+{"item_id":"55814469e8:73","text":"。"}
+{"item_id":"55814469e8:74","text":"Trace Subset（追踪子集）"}
+{"item_id":"55814469e8:75","text":"用于 traced shadow intersection（追踪阴影相交）考虑的 geometry（几何体）集合。如果未指定，则所有 geometry 都会被纳入 traced shadow intersection。"}
+{"item_id":"55814469e8:76","text":"Don't Trace Subset（不追踪子集）"}
+{"item_id":"55814469e8:77","text":"用于 traced shadow intersection（追踪阴影相交）忽略的 geometry（几何体）集合。如果未指定，则所有 geometry 都会用于 traced shadow intersection。"}
+{"item_id":"55814469e8:78","text":"Advanced（高级）"}
+{"item_id":"55814469e8:79","text":"Trace Light Paths（追踪光路）"}
+{"item_id":"55814469e8:80","text":"启用从此 light 发出的 light tracing（光线追踪）和 photon tracing（光子追踪）。该值会强制使用 physically-based light（基于物理的灯光），并作为副作用禁用上面的"}
+{"item_id":"55814469e8:81","text":"Shadows（阴影）"}
+{"item_id":"55814469e8:82","text":"控件。使用 PxrVCM 或 PxrUnified Integrators 时，用户可以通过此功能选择性决定哪些 lights 发射 photons（光子）。"}
+{"item_id":"55814469e8:83","text":"Thin Shadow（薄阴影）"}
+{"item_id":"55814469e8:84","text":"为此 light 启用 thin shadow（薄阴影）并禁用 refraction caustics（折射焦散）。如果"}
+{"item_id":"55814469e8:85","text":"Trace Light Paths（追踪光路）"}
+{"item_id":"55814469e8:86","text":"已启用，则会忽略此参数。这是一个 non-physical control（非物理控件），会为 transmissive objects（透射对象）创建 “fake”（假）colored shadows（彩色阴影），而无需为 caustics（焦散）生成 photons。下方从 On（默认）切换到 Off（不透明阴影）。请注意，选择 Off 后会丢失 colored shadows 和内部 colored reflection（彩色反射），但会获得一些 render speed。"}
+{"item_id":"55814469e8:87","text":"Visible in Refraction（折射中可见）"}
+{"item_id":"55814469e8:88","text":"启用后，使 light 能通过 glass（玻璃）和 windows（窗户）等 transmission effects（透射效果）可见。"}
+{"item_id":"55814469e8:89","text":"Manifold Walk（流形行走）"}
+{"item_id":"55814469e8:90","text":"与 PxrUnified Integrator 一起使用，并启用"}
+{"item_id":"55814469e8:91","text":"Enable Manifold Walk（启用 Manifold Walk（流形行走））"}
+{"item_id":"55814469e8:92","text":"来创建低成本 caustics（焦散）。注意：必须禁用 Thin Shadows"}
+{"item_id":"55814469e8:93","text":"Manifold Walk Exclude Group（流形行走排除组；Manifold Walk（流形行走））"}
+{"item_id":"55814469e8:94","text":"与 PxrUnified Integrator 一起使用，并启用"}
+{"item_id":"55814469e8:95","text":"Enable Manifold Walk（启用 Manifold Walk（流形行走）），"}
+{"item_id":"55814469e8:96","text":"此 trace set（追踪集）会在 manifold exploration（流形探索）期间被忽略，以避免停止或遮挡 manifold exploration rays（流形探索光线）。"}
+{"item_id":"55814469e8:97","text":"Light Samples（灯光采样数）"}
+{"item_id":"55814469e8:98","text":"指定此 light source（光源）要采集的 light samples（灯光采样数）覆盖值。如果设置为非零值，它将覆盖 integrator 执行的 sampling（采样）。如果此 light 存在难以解决的 noise（噪声）并需要更多 samples，可考虑使用此项。"}
+{"item_id":"55814469e8:99","text":"Light Group（灯光组）"}
+{"item_id":"55814469e8:100","text":"指定用于 light group LPEs 的 light group name（灯光组名称）。这对于生成 per-light AOVs 以便后续在 compositing（合成）中调整很有用。"}
+{"item_id":"55814469e8:101","text":"Importance Multiplier（重要性倍增）"}
+{"item_id":"55814469e8:102","text":"相比设置显式 Light Samples，用户可以通过更改此值来改变 light 内部分配到的 samples 数量。RenderMan 会在 render time（渲染时）为场景中的所有 lights 创建一组 samples，更改此值会在 lights 之间重新平衡 samples。请注意，增大该值会导致"}
+{"item_id":"55814469e8:103","text":"more（更多）"}
+{"item_id":"55814469e8:104","text":"samples 从此 light 中被选择，同时减少场景中其他 lights 的 samples。低于默认值会"}
+{"item_id":"55814469e8:105","text":"decrease（减少）"}
+{"item_id":"55814469e8:106","text":"samples，同时为场景中的其他 lights 提供更多 samples。"}
+{"item_id":"55814469e8:107","text":"Application Interface（应用程序接口）"}
+{"item_id":"55814469e8:108","text":"RenderMan for Maya 或 Katana 等 bridge application（桥接应用）提供了便捷界面，用于创建 portal light 并将其链接到 parent dome light。它还会为 rotation（旋转）与 parent dome light 不同的 portal lights 自动分配唯一的 portal names。默认情况下，portal light 会继承 parent dome light 的所有参数。如果在 portal light 中修改了某个参数，则会改用本地覆盖的参数。有两个例外："}
+{"item_id":"55814469e8:109","text":"intensity 和 color 会与 parent dome 的 intensity 和 color 相乘"}
+{"item_id":"55814469e8:110","text":"。"}
+{"item_id":"55814469e8:111","text":"bridge product（桥接产品）会把所有修改过的参数作为 PxrPortalLight 写入 RIB。请注意，PxrDomeLight 不会被写出。"}

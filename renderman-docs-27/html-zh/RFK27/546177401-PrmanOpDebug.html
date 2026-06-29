@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PrmanOpDebug</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>PrmanOpDebug</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFK27/546177401/PrmanOpDebug">https://rmanwiki-27.pixar.com/space/RFK27/546177401/PrmanOpDebug</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>Katana 使用 Ops 来构建和修改场景的属性状态。有些 ops 会在交互式 Katana 会话中产生可见效果，但有些会在后台运行。如果你编写自己的 terminal ops，或者正在调试某个属性为什么没有进入渲染，那么在你的 op 运行位置检查属性状态会非常有用。PrmanOpDebug 节点可让你检查完整的 ops 集合，包括 Interactive Render Filters (IRFs)、Implicit Resolvers 和 Terminal Ops。</p><h3 id="PrmanOpDebug-Howtousethenode">How to use the node（如何使用该节点）</h3><ol start="1"><li><p>将该节点插入到 Node Graph（节点图）的末尾。如果有 Render node（渲染节点），则放在它正前方</p></li><li><p>该节点会自动填充当前的 IRF、Implicit Resolver 和 Terminal Op 状态。</p></li><li><p>展开 Parameters Tab（参数选项卡）中的每个组，即可查看完整 ops 列表</p></li><li><p>要查看某个 Op 的效果，可以右键单击该 op 名称并选择 "View at Location"<br/></p></li></ol><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rfk_pod_view.png" width="684" loading="lazy" src="../../attachments/546177401/rfk_pod_view.png" data-image-src="../../attachments/546177401/rfk_pod_view.png" data-height="632" data-width="810" data-unresolved-comment-count="0" data-linked-resource-id="546177416" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfk_pod_view.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="546177401" data-linked-resource-container-version="1" data-media-id="f587920d-e799-4532-a165-9b845337501d" data-media-type="file"></span><p /><ol start="5"><li><p>可以在 Katana 的 Attributes Tab（属性选项卡）中查看属性状态。</p></li><li><p>请注意，此节点创建后，不会拾取场景 Op 和 IRF 状态的任何变化。每种 op 类型在其对应的 <em>user</em> 组下都有一个刷新按钮。<br/></p></li></ol><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="rfk_pod_syncIRF.png" width="683" loading="lazy" src="../../attachments/546177401/rfk_pod_syncIRF.png" data-image-src="../../attachments/546177401/rfk_pod_syncIRF.png" data-height="367" data-width="581" data-unresolved-comment-count="0" data-linked-resource-id="546177413" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="rfk_pod_syncIRF.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="546177401" data-linked-resource-container-version="1" data-media-id="4c2b7b9b-226c-474a-939d-e54f3805e32d" data-media-type="file"></span><p />
+  </article>
+</main>
+</body>
+</html>

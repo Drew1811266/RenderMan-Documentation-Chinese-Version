@@ -1,0 +1,127 @@
+{"item_id":"dcabcb6c44:0","text":"Lightyear © Disney/Pixar"}
+{"item_id":"dcabcb6c44:1","text":"在 RenderMan 中渲染表面依赖一种可分层材质（见下方 Input Material），名为 PxrSurface。"}
+{"item_id":"dcabcb6c44:2","text":"这是 Pixar Animation Studios 长片动画中使用的同一套材质模型。因此，这种材质有一些重要优势："}
+{"item_id":"dcabcb6c44:3","text":"一个材质即可处理各种外观，例如："}
+{"item_id":"dcabcb6c44:4","text":"木材"}
+{"item_id":"dcabcb6c44:5","text":"皮肤"}
+{"item_id":"dcabcb6c44:6","text":"塑料"}
+{"item_id":"dcabcb6c44:7","text":"玻璃（Glass）"}
+{"item_id":"dcabcb6c44:105","text":"Glass"}
+{"item_id":"dcabcb6c44:8","text":"车漆"}
+{"item_id":"dcabcb6c44:9","text":"以及更多更多！"}
+{"item_id":"dcabcb6c44:10","text":"提供基于物理的预设，帮助你快速开始。"}
+{"item_id":"dcabcb6c44:11","text":"即使使用灵活的控制项，也不必牺牲物理可信性。"}
+{"item_id":"dcabcb6c44:12","text":"艺术家可以有选择地“打破”能量守恒。"}
+{"item_id":"dcabcb6c44:13","text":"艺术指导会变得自然，不需要额外变通。"}
+{"item_id":"dcabcb6c44:14","text":"控制项被方便地标记为 “Artistic” 和 “Physical”。"}
+{"item_id":"dcabcb6c44:15","text":"分层提供无限可能。"}
+{"item_id":"dcabcb6c44:16","text":"作为艺术家，能够为所有着色选择单一材质，可以消除猜测，并让 RenderMan 按需优化。我们会讨论所有不同设置，以及它们与制作特定材质之间的关系。请特别注意有关性能考量的说明，以及哪些组合适用于特定效果的提示。"}
+{"item_id":"dcabcb6c44:17","text":"下面将每种效果或"}
+{"item_id":"dcabcb6c44:18","text":"波瓣"}
+{"item_id":"dcabcb6c44:19","text":"分别放入自己的章节，以帮助用户定位想了解的区域。不过，随着不同波瓣被启用和调整，材质外观也会变化。正是通过组合这些波瓣设置，你几乎可以制作任何想象中的材质。"}
+{"item_id":"dcabcb6c44:20","text":"Diffuse Parameters"}
+{"item_id":"dcabcb6c44:21","text":"Specular Parameters"}
+{"item_id":"dcabcb6c44:22","text":"Clear Coat Parameters"}
+{"item_id":"dcabcb6c44:23","text":"Glass Parameters"}
+{"item_id":"dcabcb6c44:24","text":"Iridescence Parameters"}
+{"item_id":"dcabcb6c44:25","text":"Fuzz Parameters"}
+{"item_id":"dcabcb6c44:26","text":"Subsurface Scattering Parameters"}
+{"item_id":"dcabcb6c44:27","text":"Single Scatter Parameters"}
+{"item_id":"dcabcb6c44:28","text":"Glow Parameters"}
+{"item_id":"dcabcb6c44:34","text":"Input Material"}
+{"item_id":"dcabcb6c44:30","text":"连接到一个 layer pattern，用于对 Bxdf 参数进行分层。这让用户能够通过分层效果创建更复杂的外观。例如灰尘、划痕，甚至标签。"}
+{"item_id":"dcabcb6c44:31","text":"在下方参数中，有些参数可在连接到"}
+{"item_id":"dcabcb6c44:32","text":"PxrLayer"}
+{"item_id":"dcabcb6c44:33","text":"后，通过"}
+{"item_id":"dcabcb6c44:35","text":"被覆盖，或通过"}
+{"item_id":"dcabcb6c44:36","text":"PxrLayerMixer"}
+{"item_id":"dcabcb6c44:37","text":"覆盖。"}
+{"item_id":"dcabcb6c44:38","text":"PxrLayerSurface"}
+{"item_id":"dcabcb6c44:39","text":"设计用于更清楚地展示哪些参数不能在层中被覆盖：它只包含全局参数。当你确定要进行分层时，建议使用这种材质。这些设置的结果保持不变。"}
+{"item_id":"dcabcb6c44:40","text":"Bold Face"}
+{"item_id":"dcabcb6c44:41","text":"参数是可分层的，可以按层覆盖。"}
+{"item_id":"dcabcb6c44:42","text":"Italicized"}
+{"item_id":"dcabcb6c44:43","text":"参数不能分层或覆盖。所有层都会全局遵循这些参数。例如：选择 GGX 作为 Specular 模型时，所有层在该参数上都会使用 GGX。"}
+{"item_id":"dcabcb6c44:44","text":"Properties Parameters"}
+{"item_id":"dcabcb6c44:45","text":"本节为整个材质提供全局控制。例如，如果只在这里提供 Bump，它会应用到上面的所有波瓣。Presence 也是一个全局参数，它会遮罩掉或“镂空”所有波瓣，就像遮罩值为 0.0 的位置对象不存在一样。"}
+{"item_id":"dcabcb6c44:46","text":"Bump"}
+{"item_id":"dcabcb6c44:47","text":"用于所有波瓣的 Normal/Bump，除非被单个波瓣的 bump normal 覆盖。"}
+{"item_id":"dcabcb6c44:48","text":"Presence"}
+{"item_id":"dcabcb6c44:49","text":"在这里连接遮罩，可把镂空图案应用到对象上。这对于创建叶片和其他细薄、复杂形状等镂空效果很有用。当从相机直接看到时，它也可把灰度值用作不透明度，以得到半不透明结果。"}
+{"item_id":"dcabcb6c44:50","text":"对于非薄玻璃折射，以及颜色通过内部衰减的“厚实”风格对象，此设置会被忽略。"}
+{"item_id":"dcabcb6c44:51","text":"Presence Cached"}
+{"item_id":"dcabcb6c44:52","text":"指定 Presence 是否缓存。启用缓存时，Presence 将按"}
+{"item_id":"dcabcb6c44:53","text":"每个微多边形"}
+{"item_id":"dcabcb6c44:54","text":"求值，而不是"}
+{"item_id":"dcabcb6c44:55","text":"每个着色点"}
+{"item_id":"dcabcb6c44:56","text":"；关闭缓存时则按每个着色点求值。"}
+{"item_id":"dcabcb6c44:57","text":"XPU 不支持 Presence 缓存。"}
+{"item_id":"dcabcb6c44:58","text":"由于 Presence 计算可能很昂贵，如果存在纹理等较重的着色网络，缓存有利于提高渲染速度，不过会增加内存。"}
+{"item_id":"dcabcb6c44:59","text":"由于缓存本质上存储在镶嵌细分级别，如果需要更细的渲染细节，建议使用非缓存 Presence，因为它会按每个着色点求值。"}
+{"item_id":"dcabcb6c44:60","text":"内存和速度之间存在取舍。如果 Presence 非常简单，例如常量值，那么缓存和非缓存速度可能几乎一样快，而非缓存还能节省一些内存。请注意，如果 Presence 为常量 1.0（默认值），PxrSurface 会优化所有这些处理。"}
+{"item_id":"dcabcb6c44:61","text":"启用次表面或单次散射时，为避免伪影（与体积跟踪有关），PxrSurface 会在内部强制使用非缓存 Presence（忽略 Presence Cached 的参数设置）。"}
+{"item_id":"dcabcb6c44:62","text":"出于类似原因，对于非薄玻璃折射，PxrSurface 会忽略 Presence，无论它是否缓存。"}
+{"item_id":"dcabcb6c44:64","text":"积分器"}
+{"item_id":"dcabcb6c44:65","text":"可以控制不透明度不再随机（有噪声）的最大深度。"}
+{"item_id":"dcabcb6c44:66","text":"Shadow Mode"}
+{"item_id":"dcabcb6c44:67","text":"阴影不透明度计算模式："}
+{"item_id":"dcabcb6c44:68","text":"着色器和阴影颜色"}
+{"item_id":"dcabcb6c44:69","text":"仅阴影颜色"}
+{"item_id":"dcabcb6c44:70","text":"Shadow Color"}
+{"item_id":"dcabcb6c44:71","text":"指定阴影颜色。该参数可用于为艺术指导目的伪造阴影颜色。请注意，修改阴影颜色可能影响性能和全局照明结果，因为它会被视为透明阴影（可以理解为彩色玻璃），即使对象本身是不透明的。"}
+{"item_id":"dcabcb6c44:72","text":"Utility Pattern"}
+{"item_id":"dcabcb6c44:73","text":"指定一个用于输出的 pattern 节点。例如，可以把"}
+{"item_id":"dcabcb6c44:74","text":"PxrMatteID"}
+{"item_id":"dcabcb6c44:75","text":"连接到此参数来输出 ID AOV。也可以输出另一种 pattern，例如纹理。"}
+{"item_id":"dcabcb6c44:76","text":"Enable Manifold Exploration/Walk"}
+{"item_id":"dcabcb6c44:77","text":"仅在使用 PxrUnified Integrator（积分器），并且 Enable Manifold Walk 选项设置为 ON 时可用。对于需要"}
+{"item_id":"dcabcb6c44:78","text":"捕获"}
+{"item_id":"dcabcb6c44:79","text":"焦散光路的对象，应开启此设置。例如镜面对象内部的漫反射表面。"}
+{"item_id":"dcabcb6c44:80","text":"Specular Curvature Clamp"}
+{"item_id":"dcabcb6c44:81","text":"该控制项用于覆盖对应的 Specular Curvature Filter 参数，该参数位于"}
+{"item_id":"dcabcb6c44:82","text":"PxrVCM"}
+{"item_id":"dcabcb6c44:84","text":"PxrUnified"}
+{"item_id":"dcabcb6c44:85","text":"积分器中"}
+{"item_id":"dcabcb6c44:87","text":"User Color"}
+{"item_id":"dcabcb6c44:88","text":"指定要渲染到 userColor Lobe 的颜色或 pattern，该 Lobe 可作为实用输出"}
+{"item_id":"dcabcb6c44:89","text":"通过 LPE 输出"}
+{"item_id":"dcabcb6c44:90","text":"。此连接或颜色不会渲染在 beauty 中，而是用于输出对合成或后期调整有用的 AOV。"}
+{"item_id":"dcabcb6c44:91","text":"RenderMan Fundamentals"}
+{"item_id":"dcabcb6c44:92","text":"返回顶部"}
+{"item_id":"dcabcb6c44:93","text":"命名波瓣"}
+{"item_id":"dcabcb6c44:94","text":"下面列出 PxrSurface 中的命名波瓣和用户波瓣。"}
+{"item_id":"dcabcb6c44:95","text":"命名 Diffuse 波瓣"}
+{"item_id":"dcabcb6c44:96","text":"Diffuse"}
+{"item_id":"dcabcb6c44:97","text":"Subsurface"}
+{"item_id":"dcabcb6c44:98","text":"命名 Specular 波瓣"}
+{"item_id":"dcabcb6c44:99","text":"Specular"}
+{"item_id":"dcabcb6c44:100","text":"RoughSpecular"}
+{"item_id":"dcabcb6c44:101","text":"Clearcoat"}
+{"item_id":"dcabcb6c44:102","text":"Iridescence"}
+{"item_id":"dcabcb6c44:103","text":"Fuzz"}
+{"item_id":"dcabcb6c44:104","text":"SingleScatter"}
+{"item_id":"dcabcb6c44:106","text":"用户波瓣"}
+{"item_id":"dcabcb6c44:107","text":"DiffuseAlbedo"}
+{"item_id":"dcabcb6c44:108","text":"DiffuseNormal"}
+{"item_id":"dcabcb6c44:109","text":"SubsurfaceAlbedo"}
+{"item_id":"dcabcb6c44:110","text":"SubsurfaceNormal"}
+{"item_id":"dcabcb6c44:111","text":"SpecularAlbedo"}
+{"item_id":"dcabcb6c44:112","text":"SpecularNormal"}
+{"item_id":"dcabcb6c44:113","text":"RoughSpecularAlbedo"}
+{"item_id":"dcabcb6c44:114","text":"RoughSpecularNormal"}
+{"item_id":"dcabcb6c44:115","text":"ClearcoatAlbedo"}
+{"item_id":"dcabcb6c44:116","text":"ClearcoatNormal"}
+{"item_id":"dcabcb6c44:117","text":"FuzzAlbedo"}
+{"item_id":"dcabcb6c44:118","text":"FuzzNormal"}
+{"item_id":"dcabcb6c44:119","text":"IridescenceAlbedo"}
+{"item_id":"dcabcb6c44:120","text":"IridescenceNormal"}
+{"item_id":"dcabcb6c44:121","text":"SingleScatterAlbedo"}
+{"item_id":"dcabcb6c44:122","text":"SingleScatterNormal"}
+{"item_id":"dcabcb6c44:123","text":"GlassAlbedo"}
+{"item_id":"dcabcb6c44:124","text":"GlassNormal"}
+{"item_id":"dcabcb6c44:125","text":"userColor"}
+{"item_id":"dcabcb6c44:126","text":"userWorldPosition"}
+{"id": "bf967e5500a96fdaf14953c3efe0c2432ba604358c2504d3132f93144a7e2107", "item_id": "dcabcb6c44:29", "text": "Input Material"}
+{"id": "b344d80e24a3679999fa964450b34bc24d1578a35509f934c1418b0a20d21a67", "item_id": "dcabcb6c44:63", "text": "该"}
+{"id": "6201111b83a0cb5b0922cb37cc442b9a40e24e3b1ce100a4bb204f4c63fd2ac0", "item_id": "dcabcb6c44:83", "text": "和"}
+{"id": "cdb4ee2aea69cc6a83331bbe96dc2caa9a299d21329efb0336fc02a82e1839a8", "item_id": "dcabcb6c44:86", "text": "。"}

@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Surface Orientation</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Surface Orientation</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFK27/546178221/Surface+Orientation">https://rmanwiki-27.pixar.com/space/RFK27/546178221/Surface+Orientation</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<div class="contentLayout2">
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<p>In Katana, you can specify the surface orientation (normal direction) of objects using the PrmanObjectStatements node.</p><p>The handedness of a coordinate system is referred to as its orientation. The initial &quot;camera&quot; coordinate system is left-handed: x points right, y point up, and z points in. Transformations, however, can flip the orientation of the current coordinate system. An example of a transformation that does not preserve orientation is a reflection.</p><p>Similarly, geometric primitives have an orientation, which determines whether their surface normals are defined using a right-handed or left-handed rule in their object coordinate system. RfK assume right-handed orientation: x points right, y point up, and z points out. <span class="legacy-color-text-default">Positive rotation is </span>counterclockwise. If a primitive is inside-out, its normal will be computed so that it points in the opposite direction. This has implications for culling, shading, and solids (nested dielectrics for example). The outside surface of a primitive is the side from which the normal points outward; the inside surface is the opposite side. The interior of a solid is the volume that is adjacent to the inside surface and the exterior is the region adjacent to the outside.</p><p>If the current orientation is not the same as the orientation of the current coordinate system, geometric primitives are turned inside out, and their normals are automatically flipped.</p><p><br/></p><p>Below the teapot create macro is rendered with sides = 1, meaning only single sided. Black teapots indicates the object normals are inward facing, by default PxrSurface does not shade the inside of non-transmissive objects.</p></div>
+</div>
+</div>
+<div class="columnLayout two-equal" data-layout="two-equal">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="insideOrient.png" width="512" loading="lazy" src="../../attachments/546178221/insideOrient.png" data-image-src="../../attachments/546178221/insideOrient.png" data-height="512" data-width="512" data-unresolved-comment-count="0" data-linked-resource-id="546178236" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="insideOrient.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="546178221" data-linked-resource-container-version="1" data-media-id="6332313a-aaf5-486d-96a2-bde8091171d0" data-media-type="file"></span></div>
+</div>
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="reverseOrient.png" width="512" loading="lazy" src="../../attachments/546178221/reverseOrient.png" data-image-src="../../attachments/546178221/reverseOrient.png" data-height="512" data-width="512" data-unresolved-comment-count="0" data-linked-resource-id="546178233" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="reverseOrient.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="546178221" data-linked-resource-container-version="1" data-media-id="fab280b9-d061-4b6e-9945-48f2a2391de0" data-media-type="file"></span></div>
+</div>
+</div>
+<div class="columnLayout fixed-width" data-layout="fixed-width">
+<div class="cell normal" data-type="normal">
+<div class="innerCell">
+<ul><li><p>Reverse - Reverses from whatever the current coordinate system is regardless of its selection.</p></li></ul><p>Sides options:</p><ul><li><p>2 - default, means both sides are renderable/visible</p></li><li><p>1 - only the outward normal facing side is rendered/visible. Useful for backface culling visibility tricks.</p></li></ul></div>
+</div>
+</div>
+</div>
+  </article>
+</main>
+</body>
+</html>

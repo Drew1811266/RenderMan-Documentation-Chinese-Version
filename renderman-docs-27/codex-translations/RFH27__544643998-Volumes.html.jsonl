@@ -1,0 +1,215 @@
+{"id": "3783bf575c5a17c495988a7a40cf75d9bbbaab52ec7f4577ce154b808668c772", "item_id": "209d0a2456:0", "text": "体积渲染是任何 Houdini pipeline（流程）中的关键组成部分，RenderMan 也在持续添加功能和改进。其中"}
+{"id": "6b2b3cbd4ad476016050e61b781d1112117b06945fb578fbffcfc4ff3f6daa69", "item_id": "209d0a2456:1", "text": "PxrVolume"}
+{"id": "9898e7789252536d04e292c7685fd216992bcd21e5410ad1a4c3ee763f8cd19c", "item_id": "209d0a2456:2", "text": "材质设计用于通过单次散射或多重散射效果生成快速且准确的结果。"}
+{"id": "789a0b597daed40364c51598c4181d7d175bea327f865b81dfa8146815228259", "item_id": "209d0a2456:3", "text": "在 Houdini 中调试时，可以直接引用 VDB 文件，也可以允许在渲染过程中转换为 VDB。("}
+{"id": "017259cbde8497a1df02a2ee9288685d78173017c7b44bc3497eef798f2baede", "item_id": "209d0a2456:4", "text": "关键是它必须采用 OpenVDB 形式，RenderMan 才能读取。"}
+{"id": "2e89ffa0bc109a6ad54dadd44ce685989b3fade5634242dd3ed8ef644df6b33c", "item_id": "209d0a2456:5", "text": "Houdini 导出的 volumes（体积）帧率可能与 RenderMan 预期不一致。请注意下面的文档提示："}
+{"id": "dbc70cfea9f8ef3cb221921efa8aa1cdd2df41e78804c0d376b94542d925193f", "item_id": "209d0a2456:6", "text": "速度向量值应相对于整个帧。如果正在使用以每秒单位测量的速度数据，可能需要按每秒帧数（即 1/24.0）缩放数据，才能得到正确画面。"}
+{"id": "eeaa35e7d81b453ed8be5aa54b4d98934e1800dd780ab21a0a8e9aa4e4c021c8", "item_id": "209d0a2456:48", "text": "体积着色器，针对处理“纯”体积进行了优化。它无法处理不同介质类型边界处的折射或反射等任何表面效果，因此不能用 PxrVolume 渲染浑浊玻璃或水面之类的对象。如果需要一个既能处理表面效果，又能处理少量体积效果的着色器，请参阅"}
+{"id": "8f4e1dbb057a47aa99186e58cab27dc0abb9c4f6c15ecc006b95d484292500ee", "item_id": "209d0a2456:142", "text": "scattering albedo（散射反照率）"}
+{"id": "e78849353181678dbd0ffb0c83a3d11382341ad162a77eaeff5297965b41890d", "item_id": "209d0a2456:148", "text": "属于"}
+{"id": "1fb3a421bc502e8869b674e87184333daddff5e895724b27930acbb02495d6af", "item_id": "209d0a2456:149", "text": "aggregate volume（聚合体积）"}
+{"id": "ec94d08d966b6eabfb123859dafb9e4f5b0ef7fdaa93535cf6a9db40d6466287", "item_id": "209d0a2456:150", "text": "的体积不能作为光源处理。在某些 DCCs 中，将体积放入 aggregate（聚合）意味着选择 light source（光源）选项不会产生效果，并且需要将该体积从 aggregate（聚合）中移除。"}
+{"id": "885be42e268051e9bf7f39748d26bb1aef8886c34a1f24c2cb2ba199036e7fb9", "item_id": "209d0a2456:173", "text": "deformation motion-blurred volumes（变形运动模糊体积）主要使用 Bxdf controls 启用"}
+{"id": "6ed884df95f4ef7c2a182257ebcc3274fce01dcceece36e14de58721c848b0af", "item_id": "209d0a2456:175", "text": "渲染器支持使用 “Eulerian” 方法处理 deformation motion-blurred volumes（变形运动模糊体积），该方法在 23.5 中加入（现在也是唯一支持的方法）。此方法预处理时间短、内存开销很低、bias 较低（假设 micropolygon length 设为合理值），并且相当准确。这项技术的缺点是 velocity 值"}
+{"id": "121004cb8a70dda808f82aa975b22163fdfa1bf46cb6829b3fe2c51765eaf9c6", "item_id": "209d0a2456:189", "text": "体积密度直接控制光如何被体积衰减，即直接影响体积如何 casts shadows（投射阴影）。如果 density color 从默认值改变，density float 参数会被 density color 覆盖。除非需要 colored shadows（彩色阴影），否则应优先设置此参数，而不是 density color 参数，因为这样体积渲染会更高效。"}
+{"id": "0ce9f4c7f9d3419ddc6ff871067763221dc28e40053cdcb80786588041a0812e", "item_id": "209d0a2456:197", "text": "体积密度直接控制光如何被体积衰减，即直接影响体积如何 casts shadows（投射阴影）。如果 density color 从默认值改变，density color 参数会覆盖 density float。如果不需要来自体积的 colored shadows（彩色阴影），则应设置 density float 参数，并保持 density color 参数不变；这样体积渲染会更高效。"}
+{"id": "90a2568b6641436853047d0f7b33b27623905092db5e7381127013bdd2ce787a", "item_id": "209d0a2456:42", "text": "multiple scattering（多重散射）"}
+{"id": "90a2568b6641436853047d0f7b33b27623905092db5e7381127013bdd2ce787a", "item_id": "209d0a2456:161", "text": "multiple scattering（多重散射）"}
+{"id": "e046e131f388631ee6b17f42bb922c920312f53242d809f4a05e2d07f8474892", "item_id": "209d0a2456:179", "text": "下列图像使用 Eulerian 运动模糊渲染，并配合一个包含速度网格的 OpenVDB 文件。左图无模糊，右图通过连接到 PxrPrimVar 节点，从文件读取速度网格来提供速度。速度被放大了 10 倍。请注意，此 OpenVDB 文件（来自"}
+{"id": "688776c9f145d2cc105e5fdc70d1f3e9fcbe692257106649981a6ee7757dec52", "item_id": "209d0a2456:214", "text": "从左到右：对于主各向异性 = 0.0、次级各向异性 = 0.8 的多重散射体积，lobe blend factor（波瓣混合因子）分别设为 0、0.5 和 1.0。请注意，第一张和第三张图本质上是使用单个各向异性波瓣渲染的。"}
+{"id": "541604600803ccba1f3ad952c65a7a9e5e237888c9f65a0ce963b8090c392c6c", "item_id": "209d0a2456:220", "text": "设置使用等角采样而非密度采样的概率。等角采样可以改善靠近光源的体积收敛；处理密集或密度变化很大的体积时，密度采样可能更合适。默认值 0.5 表示两种技术会同等使用，并通过多重重要性采样组合。如果体积较密且远离光源，降低等角权重可能改善收敛。此设置不适用于多重散射体积。"}
+{"id": "cf2cbe4dd5ff936fd792cb4ec175142cc47820b1767e3674f48a08dcf285a80e", "item_id": "209d0a2456:7", "text": "Moana Cloud"}
+{"id": "875c96c795224c8fb7844a8d09f6e4cfbee4cb21d36302b967f5a2c87b07a19d", "item_id": "209d0a2456:8", "text": "使用 RenderMan 渲染 - VDB 资产由"}
+{"id": "bfc4f82c1220a189671601fe7ec6ef5f1e6c699f1677484bc0c9eb6242f3a3f5", "item_id": "209d0a2456:9", "text": "Walt Disney Animation"}
+{"id": "cdb4ee2aea69cc6a83331bbe96dc2caa9a299d21329efb0336fc02a82e1839a8", "item_id": "209d0a2456:10", "text": "。"}
+{"id": "5975213b61b0c2db14643c803368d253a9f2bf6d138f6ff5b9305f703a162576", "item_id": "209d0a2456:11", "text": "CC BY-SA 3.0"}
+{"id": "5c0c2d079d17ffb0561026bae14d284518eb3393a1ee22820d7a65e37c108a64", "item_id": "209d0a2456:12", "text": "许可。"}
+{"id": "f3a1b10ec14878a9371d57b04755be95a23cd71291309728db6745f42f98ba58", "item_id": "209d0a2456:13", "text": "Basic Workflows（基础工作流）"}
+{"id": "a0d08e0bd9de4bdeb79b637bf29e372a6e5150591aab11d4c4b8bb499eae8e00", "item_id": "209d0a2456:14", "text": "Constant fog（恒定雾）"}
+{"id": "29b52bfcccd01518e9de561ca2e3eb7833293506f0ed0743ae2b83a1a8ee7351", "item_id": "209d0a2456:15", "text": "Smoke（烟雾）"}
+{"id": "e45347b019f0ac8f227b221b8baf7538742f1a4e7ffbf18ecbead92807b6d350", "item_id": "209d0a2456:16", "text": "Clouds（云）"}
+{"id": "5dafd3c1925215586d614bcaa9cd093513dbaa7a23f76aa1f40ce3b57e27ca04", "item_id": "209d0a2456:17", "text": "Advanced Workflows（高级工作流）"}
+{"id": "a0d40ce055c3ac686c1427804073b88a561b5707fe968e20675e9499e0e6d741", "item_id": "209d0a2456:18", "text": "Crepuscular Beams（曙暮光束）"}
+{"id": "6db4c04522903fa8952ca27a7d4f4d7cc15a37be86397df71ff611a35206c410", "item_id": "209d0a2456:19", "text": "Performance Suggestions（性能建议）"}
+{"id": "e68b36b17cbd990802f57741cb75cf3a73fa66a61999b0cd70e3cf7d26cfb25f", "item_id": "209d0a2456:20", "text": "Parameters（参数）"}
+{"id": "0133d4e8a3142638a5ed17a2457cf1eb80d21f0f7bb90897a44b376de437af2a", "item_id": "209d0a2456:21", "text": "Diffuse Color"}
+{"id": "e79434b37974536d159305a5ce17bfb873029221872e4a7ac08b7c55cf7ba488", "item_id": "209d0a2456:22", "text": "Emit Color"}
+{"id": "e87faf31810f25331e82ec5c7fa75c61ba047281e27cc8db4bce1da5dbd090ca", "item_id": "209d0a2456:23", "text": "Light Source"}
+{"id": "22405b4cad54ef56b29c4bcf808808b3cdb94e58b7af1b3d6ca3397e9bd58904", "item_id": "209d0a2456:24", "text": "Multiple Scattering"}
+{"id": "a11b9a50cafce2bb06509692cd541ca7de4cfcf758d6a4f645bb7627f98f59cd", "item_id": "209d0a2456:25", "text": "Velocity and Motion Blur（速度与运动模糊）"}
+{"id": "0e8e194064ccddf58caa9e22f9614459a6b75d2d1b89b6e7728a8606be5329ca", "item_id": "209d0a2456:26", "text": "PxrVolume 是一种材质，可用于渲染复杂度差异极大的体积效果，包括："}
+{"id": "c4d04545b1a40a7484d9869c50d8127f9eb976b71bfd236d5a82fc5b061bf1bd", "item_id": "209d0a2456:28", "text": "（一种恒定的"}
+{"id": "9527c1c86df82e51bc870d9886e2f99d3028e68e4b12d018c4793b7217d50130", "item_id": "209d0a2456:29", "text": "均匀"}
+{"id": "bce47c3aeaabd7d2cf8d7fc74f09e25abe9df281a996ad469919c3b176de136f", "item_id": "209d0a2456:30", "text": "体积，具有"}
+{"id": "1d953f83e54c4cadb1ed3e135f8e867e10556aa53171608e91bd2a78664f5ee0", "item_id": "209d0a2456:31", "text": "单次散射"}
+{"id": "be09ff0fb2f6e74e129ae730cc32565a53ddb6a19d6abf1fe1f5baccdea328ff", "item_id": "209d0a2456:33", "text": "（一种"}
+{"id": "bd9999a0cfe6293814243d68ccb4a72927e72505b12161e395fb0fdb4e970a90", "item_id": "209d0a2456:34", "text": "非均匀"}
+{"id": "34360c5c7fa0468c502f5decb858560a77e970e1db747923c23a9f9426192c41", "item_id": "209d0a2456:35", "text": "体积，单次散射即可满足需求）；"}
+{"id": "c141faa80e43a11909f5736d1e767f12e1468aa06dadd446081746934e875fc3", "item_id": "209d0a2456:36", "text": "Fire（火）"}
+{"id": "e18317b3732ab898610d0d27ad6978b4f25662f4e37532efed8a3f297c6b5dcd", "item_id": "209d0a2456:37", "text": "（一种具有"}
+{"id": "0dfa7e77f44d92fc1fafb3696b236a7f56da16b4053220852b7e168d7cf11f87", "item_id": "209d0a2456:38", "text": "发光"}
+{"id": "847409a73bfe740b77197f483232c6712503d467a81da9b3d852a1f51f2652f6", "item_id": "209d0a2456:39", "text": "属性的非均匀体积）；"}
+{"id": "6eb070ca2172fd1537c251a885c8803f2fc3d35ef8555fa2fc0ca2c4de12cb36", "item_id": "209d0a2456:41", "text": "（一种通常需要"}
+{"id": "7c02ab95e01c0f2a258d1b991eb8015213b19f747ad87355a3c60eff8da741f1", "item_id": "209d0a2456:43", "text": "的非均匀体积）"}
+{"id": "efd733a408fc83dc1c867acfc4ac10e2ff71c31515a19c068280d64064d35989", "item_id": "209d0a2456:44", "text": "PxrVolume 旨在作为一种基础材质，输入少量体积属性即可使用。复杂体积属性的建模应由上游节点处理，或由模拟工具烘焙到 OpenVDB 等体积文件格式中。"}
+{"id": "7c2e0d05edd089b0132e381ca31b037be9e852b8ec138cbb2b309d14cddc1fad", "item_id": "209d0a2456:45", "text": "PxrVolume 用户应了解均匀体积与非均匀体积的区别：均匀体积具有恒定的密度和颜色，而非均匀体积的密度和/或颜色会变化。非均匀体积的渲染通常比均匀体积慢得多，也更容易产生噪点。"}
+{"id": "de460c7c7d1abc5bd5a067a60e8edfb2be59a45542fb6f3b7aebcc94964f7b54", "item_id": "209d0a2456:46", "text": "PxrVolume 是一个"}
+{"id": "462b641b205469ea29a796f63cc6f048213bf7b46d3627526f811a850fbe8035", "item_id": "209d0a2456:47", "text": "专用的"}
+{"id": "8608905e6533fb79c29dcbee9e54642763cc7988fd456046ba16656c6564e8fd", "item_id": "209d0a2456:49", "text": "PxrSurface"}
+{"id": "131e6b4cd65b7d100c8bcf23da84ae64bb4f41d3eeac84106180d6c7d28201b5", "item_id": "209d0a2456:53", "text": "恒定的雾效（即涉及均匀体积的效果）只使用 PxrVolume 参数即可轻松建模，不需要任何输入连接。这会提供最高效的渲染。"}
+{"id": "3afbbe2ace5c773e2b5a3775c7023d172942d590d261c716c9634e6ebb958b4f", "item_id": "209d0a2456:54", "text": "对于任何包围相机或包裹光源的雾效，PxrVolume 必须附加到"}
+{"id": "e9a36b8b0a3c1a12dbb61a0509f252e6d9b9d8b91fa4a44c72a87d39ffa500ae", "item_id": "209d0a2456:55", "text": "RiVolume"}
+{"id": "c97cc6132424c18b2680d82d0f29518102ebadfc3b54c4c6a7a3e26ff5f052ee", "item_id": "209d0a2456:56", "text": "对象上。否则，PxrVolume 可以附加到任何封闭几何体上，用于创建形状区域等简单效果。"}
+{"id": "1f248d652731165477a8a94506acafd07594ca5fc0f017da20e6744922ef6f4c", "item_id": "209d0a2456:57", "text": "如果只需要深度衰减，"}
+{"id": "812d803c0b2e5e6a7611ba93a66b9035e3fc7551f9465fa55d5cd9087a1c53dd", "item_id": "209d0a2456:59", "text": "可以设为黑色：光不会被体积散射，只会被吸收，并且"}
+{"id": "77a283d69258c2ae985dc2343725d0af253da0fc1d87626966f7cefe4a3c7469", "item_id": "209d0a2456:60", "text": "Density"}
+{"id": "d0dd2d4d05c97e002dc173a2b41f8d3190682ffab9342e7015be816d5e50816b", "item_id": "209d0a2456:61", "text": "是唯一重要的参数。否则，diffuse color 需要设为雾的颜色。"}
+{"id": "8936ce5fb8ca7bcbb63d058a46b14533f3d9d6f32a0074e9cbcde3deacd6af96", "item_id": "209d0a2456:63", "text": "对于 Smoke 等非均匀介质，典型做法是将烟雾属性烘焙到 OpenVDB file 等文件中。OpenVDB file 会包含少量属性，包括密度、velocity（如果使用 motion blur）以及可能的 albedo。OpenVDB 应附加到"}
+{"id": "1b1949e6e5049eea591f96463369782fd83d97b100301468e486835a5cb03933", "item_id": "209d0a2456:65", "text": "并使用 impl_openvdb plugin 读取。随后会将 OpenVDB file 中密度属性的名称直接用于 PxrVolume 的"}
+{"id": "0e220c5bb72257d366316a9fe09a20b275d1e8943c3c868e478e918f123a751c", "item_id": "209d0a2456:66", "text": "Density Float PrimVar"}
+{"id": "75c4c72394da3401ef50760ab6ddc331570d9d5f8a7351c184e55541c9ae868f", "item_id": "209d0a2456:67", "text": "参数。"}
+{"id": "97dbf8bfc05997acef51b8d185dfc1c177a3e138bbef967ce1b802980409d9cc", "item_id": "209d0a2456:68", "text": "Smoke 通常具有很低的 albedo，因此"}
+{"id": "f9e39416258757ab2421d7af6b2b7fca1eab6a56e34a9a09892bdc3aa78e4c73", "item_id": "209d0a2456:70", "text": "参数会使用较暗的颜色。（如果颜色已烘焙到 OpenVDB file 中，可使用 PxrPrimVar node 从中提取 color 属性。）由于这种低 albedo，体积中多次散射后的光量通常很低，因此"}
+{"id": "f5c497876ae98b0b55a6137f4d1215f0b280e3eaa7b9324aea62ff9bd7791840", "item_id": "209d0a2456:72", "text": "可以保持关闭，并且"}
+{"id": "bc228b269ce0d87fc0ddeaed2bc6ed73b48b3c676d2b3bfc2b7e759e146529ca", "item_id": "209d0a2456:73", "text": "Samples"}
+{"id": "424d1e84184356fa43a7e3e61a650ea01c55c10fec13363a853682b5475fe8a6", "item_id": "209d0a2456:74", "text": "可以提高到 1 以上，以加快渲染。"}
+{"id": "4d182a53b3345a3a70134ee365248c3d38da1afd535ce295dc87bb805f11d97b", "item_id": "209d0a2456:75", "text": "由于 Smoke 通常是各向同性的，"}
+{"id": "8d92c2498f5ca083b4554452796bb60e0c21fed9667a057002c36465571d949d", "item_id": "209d0a2456:76", "text": "Anisotropy"}
+{"id": "dfb2b16b950e5c021f7fd130811d0fdc5baaaca908e0fdebf87335fcc1ed6e06", "item_id": "209d0a2456:77", "text": "设置可以保持默认。"}
+{"id": "f45961c2688c4777e3ad6f9a9c270dfeeb147cc489ff1baf9ef5917886e5364b", "item_id": "209d0a2456:78", "text": "Equiangular weight"}
+{"id": "5a1c0c55a0076d043c4723ecc57e743728d427d44851d06641f4625b101b6977", "item_id": "209d0a2456:79", "text": "如果预计光源位于体积附近或体积内部，可保持原值；如果预计没有任何光源靠近体积，可设为 0.0。"}
+{"id": "b5505ad53182db1d9e572cfd57bd598bc423dfd5918267acf00d2509f746f609", "item_id": "209d0a2456:87", "text": "Clouds 是非常难渲染的体积，因为水滴的聚合行为及其与光的交互是复杂现象。与 Smoke 不同，从云到达眼睛的光通常已经在云内部反弹了数十甚至数百次。除此之外，散射行为（光在云内部反弹的方式）也非常复杂，因为它既涉及前向散射，也涉及后向散射，并且两者都有多个峰值。"}
+{"id": "c4102dd8436a6f74d5ca51caed1af3b8a31de4e6d0f402de522e9403198e0f70", "item_id": "209d0a2456:88", "text": "对云本身建模的典型方法，是将云的密度烘焙到 OpenVDB file 等文件中，然后将 OpenVDB file 中密度属性的名称直接用于 PxrVolume 的"}
+{"id": "1e54581b523ae99aa79c63bd4cfef576d6549e435c057074c18b7d1a71cbcea9", "item_id": "209d0a2456:90", "text": "参数。Clouds 通常会反射所有光，因此一个简单的"}
+{"id": "fb7136271e95f477f4bce322cab37113381b3607453159b6eee1729d0f90bcc9", "item_id": "209d0a2456:92", "text": "（1, 1, 1）设置就足够。为了捕捉云本身复杂的光照行为，"}
+{"id": "6e379b84cd8041f166f133c2dc43239e9e7755697d391e35d37639f39f740569", "item_id": "209d0a2456:94", "text": "是必需的，并且还需要设置"}
+{"id": "180b168fab020e0c10972bc27580e5c1688cdc2f0c19283d14a84217e4ab4b46", "item_id": "209d0a2456:95", "text": "Primary and Secondary Anisotropy。"}
+{"id": "05c689673774fd567cd80d0680bc2596f156aba3f1fb52a9c0b472060ec1fac5", "item_id": "209d0a2456:96", "text": "下方 Anisotropy 设置体现了对真实云复杂散射行为的物理近似。由于使用了 multiple scattering，sample 参数不会被使用，可设为 1。最后，如果云内部没有光源，"}
+{"id": "c5537c6452cb9e2390eed4b948b11d1850200f0c752d246cd4a6d35231602e28", "item_id": "209d0a2456:98", "text": "可以设为 0.0，因为 equiangular sampling 不会带来收益。（另一方面，在暴风天气中，如果可能在云内部放置光源来模拟闪电，equiangular sampling 可能会有帮助。）"}
+{"id": "7b1547d510281672cc4729bea2b3add96ba1a9329ead59c81e9d0a23247cff98", "item_id": "209d0a2456:99", "text": "注意，体积中的散射由所选 integrator 中的 Max Path Length 参数以及 diffuse trace depth 控制。更多信息可在下方名为"}
+{"id": "3a110d2e3a0665d758cdc95aa58ccbc282ee5a3a9c4b1bb16a4768e9f773fc1a", "item_id": "209d0a2456:104", "text": "Crepuscular beams（有时称为“God rays（神光）”）只是体积中光散射的结果。当这种光被分离成光束时（例如穿过森林冠层的几束阳光），体积中会散射光的部分与其余部分之间的对比会形成醒目的效果。"}
+{"id": "79b519fdea14ded885d70c8ef2bc45e06c49c951d841750610742f716c12c60a", "item_id": "209d0a2456:105", "text": "为了高效渲染 Crepuscular beams，需要尽量最大化"}
+{"id": "f77f2b19178890fb49cf96ee210cbdedba4deb9ede60ed8e987119cfef0055c4", "item_id": "209d0a2456:106", "text": "直接照明"}
+{"id": "cc3bd5b301f90b121a94add810a2484634239383bd21237f58fffc03b80f6554", "item_id": "209d0a2456:107", "text": "- 即最大化体积中可直接追踪到光源的部分。如果体积必须经过另一个表面或材质，以间接方式追踪到光源，光束的收敛可能会非常慢，并产生不可接受的噪点。在上图中，右侧的彩色玻璃窗被建模为"}
+{"id": "0dd68336f7338b53818e85c754d6ed00cdccffea4eb36eb19d6f89e5b7ff57ff", "item_id": "209d0a2456:108", "text": "“thin glass（薄玻璃）”"}
+{"id": "6de7a31b684a4e499bdcf564fc6b8fd64bdf71149f460cbc2164cbab512cfe81", "item_id": "209d0a2456:109", "text": "：它不是依赖二次材质反弹来经玻璃折射，而是让从体积朝光源追踪的 shadow rays 不受阻挡（不折射），只依赖彩色玻璃材质的 shadow tinting（阴影着色）行为。“thin” 参数在"}
+{"id": "3e9c701d117d9b763cf605b18b460b798e3b9b0b88c1d1e82ce49c9581891eae", "item_id": "209d0a2456:111", "text": "中（位于 glass 参数下）可实现这一优化。"}
+{"id": "c53b30c08f1326ec61a724de8bccb2f73249adc050a716e7e8e8e8a00dfc1636", "item_id": "209d0a2456:114", "text": "是体积最关键的属性。它同时衡量体积会吸收多少光、散射多少光。一次渲染过程中，体积积分可能需要数十亿次密度求值，因此必须确保渲染器能尽快评估密度。这也是将复杂信号烘焙到 OpenVDB 等体积文件格式中会很有用的原因，因为渲染器可以直接从数据中查找值。为了获得最佳性能，我们强烈建议尽可能使用"}
+{"id": "cac111cc96107ee2cf5331ac1fbb2d126d3c028f519e32ee3fb3ef11f9f4fa18", "item_id": "209d0a2456:115", "text": "PrimVar density parameters"}
+{"id": "197f9ec13d23489887c55e25d2b8026fbe9e8bccedd72823e1673e38ba59f24d", "item_id": "209d0a2456:116", "text": "，而不是使用输入连接，即使该输入连接只是一个单独的 PxrPrimVar node。"}
+{"id": "da055e235767cd1cc8efa374b61a58f55cd6027d6928455d396907f0561c3b48", "item_id": "209d0a2456:117", "text": "对于使用 RiVolume primitive 的非均匀体积，在渲染开始时，PxrVolume 会自动计算体积内部各处的密度，并在渲染过程中利用这些信息大幅加速密度采样。此计算的精度（以及变形运动模糊的精度）由"}
+{"id": "e1e025805cd63af3eaf1de7c010a537df1fa24009c5d332f3a068cd382e46ca7", "item_id": "209d0a2456:118", "text": "dice"}
+{"id": "a92bfd02c450af0360dea55f99018b267c91eb4d4dbe50142135af7282c612e6", "item_id": "209d0a2456:119", "text": "attribute"}
+{"id": "22fe6dc5d63f4b8a672079307c29f6cab4559927f6c8816514778e876383a57b", "item_id": "209d0a2456:120", "text": "micropolygonlength"}
+{"id": "6deaea7c078a34c25e20e595af4317dca2550a4c1cc547781278df18f74e113e", "item_id": "209d0a2456:121", "text": "控制。将 micropolygonlength 设为较低数值会得到非常精确的密度估计，但可能导致初始计算耗时很长（表现为第一次渲染迭代很慢），也可能导致渲染器使用大量内存。将该值设得过高会使密度估计不够准确，可能漏掉体积中局部密度很高的孤立区域。对于 2K 渲染，除非变形运动模糊需要更低设置，否则建议使用 5 或更高的设置。如果相机穿过体积或靠近体积，可能适合将 dicing projection 从 planar 改为 world 或 spherical。这样可能会损失相机附近的一些细节，但也可能避免在镜头附近生成大量数据。"}
+{"id": "099525af6effa2bbe99d6983e38a204817aee9a3f029a316f86b7024caec898b", "item_id": "209d0a2456:122", "text": "Emissive volumes（发光体积）"}
+{"id": "14c7055a0d35ed89f2e76a3e311a8ffd976d3d69c8fef843fc79e15d7ba2e5fb", "item_id": "209d0a2456:123", "text": "可能收敛非常慢，尤其当它们是场景中唯一的光源时，可能需要数百甚至数千个 camera samples 才能渲染出无噪图像。在体积被支持为可用于直接照明的完整光源之前，我们建议非常谨慎地使用发光体积。"}
+{"id": "5255713983bcecd9f23c7cdae304012d996c97eb180cce318c25f7860a0f521c", "item_id": "209d0a2456:125", "text": "是一种非常昂贵的效果，因为它意味着光会在体积中多反弹许多次，同时也因为 PxrVolume 本身无法采集更多样本（"}
+{"id": "4ec5ae26c1d5874a30dbabeed7170f83054a0f4000749702d976d62a16af88be", "item_id": "209d0a2456:127", "text": "参数会被忽略），只能受 Integrator 设置支配。此外，multiple scattering 可能会减慢体积后方对象的收敛。因此，我们建议尽可能避免 multiple scattering。对于低 albedo 介质，multiple scattering 对最终渲染的贡献很小。对于 Clouds 等介质，其光传输涉及数十或数百次光反弹，遗憾的是 multiple scattering 可能无法避免。"}
+{"id": "39fb01d0cb7c122b4f6dc536d501381c7704d06e5f6b7e13be794ef0a2065222", "item_id": "209d0a2456:128", "text": "使用"}
+{"id": "09df3780daaea37c216504282bc97a6f7f56bc857b25e694e75df3c628ee0c74", "item_id": "209d0a2456:130", "text": "时，提高体积中采集的"}
+{"id": "d61207888bd6348046ab8558935772dfdad25d47596febf54fd876fc491e727a", "item_id": "209d0a2456:132", "text": "数量来改善收敛，通常比增加 camera samples 数量更具成本效益。"}
+{"id": "1cb8ae312c0e5952e19e8fc11d1ddad1248d03d3f8da3012bd8b635cc15d63d6", "item_id": "209d0a2456:133", "text": "Equiangular sampling（等角采样）"}
+{"id": "572029b3020b1c9cdb1acba50c63b8aa8d7d0d09d093e4c5bf3cb0f12624c34c", "item_id": "209d0a2456:134", "text": "可改善由体积内部或附近光源照明的体积的收敛；但如果光源很远，反而会拖慢体积渲染。equiangular sampling 的默认值（0.5）是一种折衷，在大多数场景中表现尚可。如果确定体积附近没有光源，应将 equiangular weight 设为 0.0 以加快渲染。在 21.5 及更高版本中，multi-scatter volumes 会禁用 Equiangular sampling。"}
+{"id": "36d6a4fdf1864fb612f03a2f646db667a067e3eedad2d8685abd50eeac1c183c", "item_id": "209d0a2456:135", "text": "在 samples 较低时，Equiangular sampling 可能导致 volume alpha 出现负值。这是该参数工作方式产生的副作用。有两种解决方式：将 Equiangular Weight 设为 0.0，或允许采集更多 samples，使结果正确平均为正数。"}
+{"id": "0b5f0615e32450ba9e893c95946247ce6013eca3ee862133bc0cdc3a28b729ed", "item_id": "209d0a2456:136", "text": "Anisotropic"}
+{"id": "bccba4e9de3f81c66a841133110796e69ea6a04dab5057054f0403a7342a1af9", "item_id": "209d0a2456:137", "text": "体积由于所涉及采样的本质，往往比各向同性体积收敛更慢。"}
+{"id": "2c35283c498c39f7e20e869b34244a9a86e35b3dc199af57746ea886596081f6", "item_id": "209d0a2456:140", "text": "体积的颜色。默认值为白色（1,1,1）。在此参数上建立连接会创建非均匀体积。"}
+{"id": "6d6a46bf348a8c284bc35868cac927488b29c5762a170573b4bb289722e81461", "item_id": "209d0a2456:141", "text": "如果熟悉散射、吸收和消光系数，请注意这里的 diffuse color 是"}
+{"id": "2fce902c41e604a60c3c11503b4421b7977bb22423f96ac7828bb69cbc2bc6dd", "item_id": "209d0a2456:143", "text": "，即散射系数除以消光系数。"}
+{"id": "9e785ed416ef160ccdbb694fe8b1398c590d8640748b9cf8483c2c16847ea9f9", "item_id": "209d0a2456:145", "text": "体积的发光颜色。这可用于建模磷光雾或火焰等效果。默认值为黑色（0,0,0），即体积不会发光。下列图像展示了在场景中没有其他光源时，将 emit color 设为（1, 1, 1）和（5, 2.5, 2.5）的效果。"}
+{"id": "40dc3398e68d0ea8acf7faaa74a133e506a5a976aea6fd8a5989c9597e411c70", "item_id": "209d0a2456:147", "text": "选择此选项时，体积的发光属性会作为光源采样。通过改进采样，这可能会使场景变亮。注意，emit color 不能为黑色，否则此功能不会生效。对于单次散射体积，即使 Max Path Length 为 1，它也等价于关闭 light source 选项的 multiscatter volume。下方为关闭与开启的对比。"}
+{"id": "25e3f15943489a24652c1142c2112182557bbd2cf8793c073c40ee71e1f3cef4", "item_id": "209d0a2456:151", "text": "如果体积光源还需要配合高级照明功能，例如"}
+{"id": "ae8eee2c0bf50d958f9ef05bdec4012c36913278e8c512d25dff77eea42fc11c", "item_id": "209d0a2456:152", "text": "light filters（灯光滤镜）"}
+{"id": "91591f9faee229b5c53fdc577608327e95033df039c191e996645fa52089908c", "item_id": "209d0a2456:153", "text": "，则无法使用 light source 选项。在这种情况下，需要创建体积副本，并附加"}
+{"id": "42754252184d273e59c48701940421e789ad52e9628610b6318c1bc4a6b82e91", "item_id": "209d0a2456:154", "text": "PxrMeshLight"}
+{"id": "21b2edbd1493a3002076e9deb4ec1e38dd97b10ae847b1cf76d1ba56cd3cdddd", "item_id": "209d0a2456:155", "text": "shader。有关此工作流设置的更多细节，请参阅下方 Using Meshlight 部分。"}
+{"id": "179fb272f8146728208c0226e59b57c373f5f2afdc6a86139445358322a715b4", "item_id": "209d0a2456:157", "text": "使用"}
+{"id": "07c8fbb91a8ac6d308b51150d0fe268d182aef6719a54f86a1c1fadf4fe4bc09", "item_id": "209d0a2456:158", "text": "聚合体积"}
+{"id": "fc9ffbe03fa65f4eeb69685d8c26456b88961a97a0df344bcfde56604c84d0dd", "item_id": "209d0a2456:159", "text": "时，此参数无效，因为 aggregate volumes 总是执行 multiple scattering。"}
+{"id": "2800f19ae7529c5c4be1fb9f2ff36e26640190ce105b0184a7e9941536de7433", "item_id": "209d0a2456:160", "text": "此参数用于提示体积是否应在体积内部计算间接照明（也称为"}
+{"id": "7c8d9408288af9a949c58a56814f83fad13dd902eb25b289688e8cc00333d95b", "item_id": "209d0a2456:162", "text": "，因为光会在体积中散射"}
+{"id": "4bfd19fb206e55ee00be29bb71758529b273217271c434eae96fd28430fb0739", "item_id": "209d0a2456:163", "text": "不止一次"}
+{"id": "f88b7a1ae102b05787a25e59d0e2fb3151384bc7e64d16e5a7cab2ce0ca3040d", "item_id": "209d0a2456:164", "text": "）。如果 multiple scattering 参数设为 0，并且 integrator 遵循此提示，PxrVolume 将只执行"}
+{"id": "370647191bd2c24d73a91011f2f758248e03786f02fae89f56da68e9d60d4c24", "item_id": "209d0a2456:166", "text": "：体积内部的点只会由光源直接照明。如果设为 1，体积内部的点也会受到间接照明。下方第一张图将 multiple scattering 设为 0，即单次散射体积。中间图开启 multiple scattering，并使用 2 次光反弹。右侧图开启 multiple scattering，并使用 4 次光反弹。"}
+{"id": "5449aabf90896e875bdac6c29fb9b160f80fb26ed6eb13e04c98195cc05585a5", "item_id": "209d0a2456:167", "text": "对于具有高各向异性的极高密度体积，光在到达眼睛前往往会在体积内部散射许多次，multiple scattering 是获得正确外观的唯一方式。它也常常是正确渲染体积焦散等特定效果的唯一方式。另一方面，multiple scattering 可能非常昂贵，这也是该参数默认为 0（关闭）的原因。此外，在渲染均匀体积时，关闭 multiple scattering 可能会让直接照明的"}
+{"id": "0dc405fbb2e973d9dad5bdece8bcf48ee6acd6cebd72b155fdfc4b571fb257d4", "item_id": "209d0a2456:168", "text": "表面"}
+{"id": "1b5e563841d505da6cbc7a966dffd33633edadada0f397bef2004af0c43293f5", "item_id": "209d0a2456:169", "text": "在体积后方时噪点更少。"}
+{"id": "bcd273555a351a784df239620599ae33238f47f1844035a1bf89298320f754ae", "item_id": "209d0a2456:170", "text": "注意，由于某些 integrators 的算法性质，尤其是 PxrVCM 等双向路径追踪器，它们只能实现体积的 multiple scattering，因此会忽略这一提示。"}
+{"id": "97d42bf5d1fd267a079372e378c06fe5a7a33da958bbb9acec8963274b3da6ef", "item_id": "209d0a2456:172", "text": "与 RenderMan 中所有其他几何体类型不同，"}
+{"id": "e1cc839c2dca73248638765c93ffa64ea58b3a230affb71ce54b63f845e814bd", "item_id": "209d0a2456:174", "text": "。使用 PxrVolume 启用变形运动模糊很直接：为 velocity 参数指定一个 vector-valued 值。在底层，渲染器会自动使用 velocity vector 为所有 varying inputs 生成随时间变化的数据。这个预处理步骤发生在渲染开始时，并会增加首个像素时间；不过，为了大幅提高渲染模糊体积的效率，这是必要的。"}
+{"id": "fca937098c37c5beb7b1843ee0ad0a585e6ac59b919df9eea2143b8a5420f716", "item_id": "209d0a2456:176", "text": "必须非零，并且必须在运动路径的所有位置提供"}
+{"id": "b8011001e47e1346f1da043d9be612adf0ab79dc808e3356810cd72d39bcfedd", "item_id": "209d0a2456:177", "text": "，即使体积在当前烘焙 shutter time 的该路径上没有“presence”也一样。这是因为 Eulerian 技术假定体积随时间变化的属性（例如随时间变化的密度）可以通过使用当前时间的 velocity 值进行回溯，并在回溯位置查找密度来近似。下列来自 Houdini 的图像展示了 Eulerian motion blur 的边界速度要求。第 1 张图显示两个带密度的球体，以及代表 velocity field bounds 的线框盒。绿色线条表示体积预期运动。如果 velocity field 没有在整个运动范围内完整写出，Eulerian motion blur 会像右侧渲染图像所示那样裁切 velocity。注意，在某些高度混沌的流体场景中，即使不满足此要求，渲染图像仍可能看起来可以接受（裁切可能并不明显）。"}
+{"id": "0651335396bc12ebf5a795e437cb47b3d092bb372994f48d248979ee9936edea", "item_id": "209d0a2456:178", "text": "velocity vector 值应相对于整个 shutter range。如果使用以每秒单位测量的 velocity data，而 shutter 未设置为整整一秒的时间长度，可能需要按每秒帧数（即 1/24.0）缩放数据，才能得到正确图像。我们提供了 Velocity Multiplier 控制项，帮助在数据测量方式不正确时进行转换，也允许对 motion blur 做艺术化调整。或者，也可以直接在几何体上设置 Attribute \"volume\" \"fps\" 来完成同样的事；在这种情况下，该属性的值应直接是每秒帧数（24），而不是倒数。"}
+{"id": "2fb4947e7482d7b56dd4a2b9fbf88fdde416c4e15174456865e06a0cf52879bc", "item_id": "209d0a2456:180", "text": "openvdb.org"}
+{"id": "36a20c724e2f8e718b38f4edefb027aa11d87aaf1d18b85b3b637795804b66dc", "item_id": "209d0a2456:181", "text": "）不满足在所有运动区域都具有 velocity data 的边界要求；这一点可从体积轮廓边缘在夸大的运动下仍没有显著变化看出。不过，没有明显令人反感的伪影，并且远离边界的体积区域传达了所需的 velocity detail。"}
+{"id": "f0cea3f77737a573b7d4dbdb81d7cf2464eec4f849dd1f013a2eea1542caeffb", "item_id": "209d0a2456:182", "text": "Density Parameters（密度参数）"}
+{"id": "f98bad6aaad95ef80e910514faa8691eee782e1b37017a5861a34b19e60d3957", "item_id": "209d0a2456:183", "text": "Extinction Distance"}
+{"id": "5c4199ca2c9712ef4ba95d5b658e74f3e64e6a9cae5c2046011ef91528c6bbbb", "item_id": "209d0a2456:184", "text": "这是均匀体积变为不透明时的距离（以 scene units 计）。如果此值非零，它会覆盖 density connections，并保持均匀体积。这非常适合创建填满场景的 fog/mist。下方我们先将参数设为较低值，然后逐渐增大，直到场景中最后一盏灯清晰可见。"}
+{"id": "64083b16258392f883fcb07ba9fd5da997d8f00fc20d2bb5494f57986e09c182", "item_id": "209d0a2456:186", "text": "来自几何体的 primvar，会覆盖体积的 density float，默认未设置。设置此项会覆盖 densityFloat input，并且比简单使用 PxrPrimVar pattern connection 更高效。"}
+{"id": "cd1525515440205ec19b3bf0c4e01ea169a8c50488b0d8a45e7d9fac2f8185cb", "item_id": "209d0a2456:187", "text": "对于使用烘焙体积表示（例如 OpenVDB file）的工作流，我们强烈建议使用此参数设置，而不是使用连接到 Density Float 参数的 noise pattern。"}
+{"id": "26393e176cbf22910f938f0465efeb72f5ba8dd49c242907e1a68a6e9561c41e", "item_id": "209d0a2456:188", "text": "Density Float"}
+{"id": "3fbdc43b03984460467f958994bc95aea330b70d0384d91a5db69e93dd434fda", "item_id": "209d0a2456:190", "text": "在此参数上建立 input connection 会创建非均匀体积。"}
+{"id": "e885db43e1c500064fa36edbd4d256d523011ca1e5b3d3e5666ffad4a30b9faf", "item_id": "209d0a2456:191", "text": "密度也称为消光系数（吸收系数与散射系数之和）。"}
+{"id": "3746bbe8b7f447be4ae1dfd3a8b1f94c68d817997f7087b76d42e44a51971eb0", "item_id": "209d0a2456:192", "text": "下方从左到右：密度为 0.1、0.25 和 2.0。"}
+{"id": "82c60c9cf00dfff07b43f0121eaca8b0e098b78ab7b07888239f1eeeb952b5eb", "item_id": "209d0a2456:193", "text": "Density Color PrimVar"}
+{"id": "2f570d6d680494ea9bd148208f4650c81319d24bc98dcf4d083d312c77a29eca", "item_id": "209d0a2456:194", "text": "来自几何体的 primvar，会覆盖体积的 density color，默认未设置。设置此项会覆盖 densityColor input，并且比简单使用 PxrPrimVar pattern connection 更高效。"}
+{"id": "b8f19bdd09696d3528eeb300ec0339083cc2c6bb77a9ca653def7f92adb2d63d", "item_id": "209d0a2456:195", "text": "对于使用烘焙体积表示（例如 OpenVDB file）的工作流，我们强烈建议使用此参数设置，而不是使用连接到 Density Color 参数的输入。"}
+{"id": "13490a6774bdf8e2930d93933d2e6a6cfe75be9b8a406d710b5ca5e454f8238a", "item_id": "209d0a2456:196", "text": "Density Color"}
+{"id": "031bb650e0761755c0bc2092ccb4f496f32b81f0389ac4b8f6ae1d15b6e2342f", "item_id": "209d0a2456:200", "text": "下方从左到右：density color 为（1.0, 0.25, 0.25）、（2.0, 0.25, 0.25）和（5.0, 0.25, 0.25）。注意，由于体积密度在红色通道中更高，更多红光会被散射掉，留下青色贡献。"}
+{"id": "ed6c01bce3c111a8a454083c6b5e8733587e5587d1a2f79511670cfed55cba82", "item_id": "209d0a2456:201", "text": "Max Density"}
+{"id": "e67e159ae92bf53eb91d18535c12b8bf400d06ed353592edde326361cee2e9a8", "item_id": "209d0a2456:202", "text": "max density 参数只由非均匀体积使用，并控制用于采样体积的步长。为了获得正确的无偏渲染，max density 必须高于体积内部遇到的任何 density。较高的 max density 值可能导致渲染变慢，因为需要更多步来采样体积。将 max density 设得过小会加快渲染，但也会导致不正确的（有偏）渲染，因为体积中的高密度区域会采样不足。"}
+{"id": "b861fdcf6198726f5f3c453b52579b204e87dfc9611c1626fb95419ea9e7603f", "item_id": "209d0a2456:203", "text": "从 20.7 版开始，仅对于 RiVolumes，PxrVolume 还会自动计算体积各子区域的 density bounds，并利用这些信息沿光线改变步长。这意味着只有在体积中密度更高的部分才会采用更多步。因此，对于非常非均匀的体积，设置较高的 max density 值不会再对整个体积产生负面影响；在实践中，通常可以直接将其设为很高的值，而不再担心该参数。"}
+{"id": "8796fcd8ceae502d1d68ccf771e9ec244bc68a0e20d2e91573d177b761695cb0", "item_id": "209d0a2456:204", "text": "max density 的默认值为 1.0。"}
+{"id": "d188c10e7ba713543217a2fb98ae4bb99ff0aa9a63580e032fcfe7c33472b67c", "item_id": "209d0a2456:205", "text": "Anisotropy Parameters（各向异性参数）"}
+{"id": "79e06d7f2451e2b60e308f9d4d57c4e7c8f1284376a5bd1cf286b0ff07c1a46a", "item_id": "209d0a2456:206", "text": "Primary Anisotropy"}
+{"id": "4894d66321528e824acece01064ce317041e4555e97849668d38d90498c59b7f", "item_id": "209d0a2456:207", "text": "控制体积散射光的方向。anisotropy 参数范围为 -1 到 1，默认值为 0。值为 0 表示体积是各向同性的：光以相等概率向所有方向散射。大于 0 的正值表示体积为前向散射：入射光更可能沿同一方向散射（远离入射光方向）。小于 0 的 anisotropy 值表示体积为后向散射：入射光更可能沿反方向散射（朝向入射光方向返回）。"}
+{"id": "6bae307918bdd5ac8de5318de448dc7499215f30a8129caa4275e8e4123785a4", "item_id": "209d0a2456:208", "text": "许多体积（例如 Smoke）通常是各向同性的，但其他体积可能具有很强的各向异性。例如，肉和皮肤等有机材料往往具有很强的前向散射特性。注意，一旦涉及 multiple scattering，高各向异性的影响会减弱，因为这类材质在多次光反弹后往往会收敛到各向同性行为。"}
+{"id": "d8e30eaef9a3605e363aa6fe89d0fb8927c3b656b19b92a2dbe3bbe9d5b1b57a", "item_id": "209d0a2456:209", "text": "下方是单次散射体积在 anisotropy 为 -0.8、0.0 和 0.8 时的示例。"}
+{"id": "3e029efce939c7f2c3383d62e40b0f5f2d5d0283be8d67269e02401af94d0150", "item_id": "209d0a2456:210", "text": "这里是 multiple scattering 体积在 anisotropy 为 -0.8、0.0 和 0.8 时的更多示例。"}
+{"id": "05bdf58b5a2514dc3f578b7d255ac4735679f01632c2e6bb2f25ae8e5e700e22", "item_id": "209d0a2456:211", "text": "Secondary Anisotropy and Lobe Blend Factor（二级各向异性与瓣混合因子）"}
+{"id": "97c485f1c79f532c4255df515a195314e379096c882d74c93795247850f3b6e7", "item_id": "209d0a2456:212", "text": "某些体积材质的散射特性无法用单个 anisotropy lobe 捕捉。例如，Clouds 的散射行为非常复杂：它们大多具有很强的前向散射，但仍有相当大的后向散射分量，这很大程度上造成了暗云上可见的 “silver lining（银边亮缘）”。为了渲染这类材质，可以在体积上启用第二个 anisotropy lobe，并配合一个 blend factor，用于决定如何在两个独立 lobe 之间混合。blend factor 为 0（默认）表示只考虑 primary anisotropy。blend factor 为 1 表示只使用 secondary anisotropy，而 blend factor 为 0.5 表示两个 lobe 被同等考虑。"}
+{"id": "a02d7a6789ae7f5804508c07701d45fb415ae93869b6bd0b07af9f95659517a3", "item_id": "209d0a2456:213", "text": "从左到右：对于 primary anisotropy = 0.0、secondary anisotropy = 0.8 的单次散射体积，lobe blend factor 分别设为 0、0.5 和 1.0。注意，第一张和第三张图本质上使用单个 anisotropic lobe 渲染。"}
+{"id": "d4eadbb1a6d6a3d82696b12cdbcac071091f5f2c03fa5b3bb60136333791f651", "item_id": "209d0a2456:215", "text": "Sampling Parameters（采样参数）"}
+{"id": "f0f7469417c92c1249bce0bdebd185fa9a2a600d7811f1716d1c10801df9fa82", "item_id": "209d0a2456:216", "text": "这些 sampling parameters 对"}
+{"id": "ac818d58bddb197fba3ec1193f43fd3a8d0cd8b55a4a9f4e8117cead0e1d70e2", "item_id": "209d0a2456:219", "text": "Equiangular Weight"}
+{"id": "82f774b271d061ccedce527f79e6d553299645fa519586d8660dc853f776b03d", "item_id": "209d0a2456:221", "text": "min/max Samples"}
+{"id": "809e263b42df4819d788144ae3faac73b409b56cb76a8d43194815996e82233d", "item_id": "209d0a2456:222", "text": "此设置控制单次散射体积的 sample quality。更多 volume samples 会以渲染时间为代价改善体积收敛。不过，在包含其他对象的场景中，这种取舍是：体积会采样更多，但不会增加图像其他区域的成本，并可能改善结果。注意，体积内部的收敛速率也会变化，这意味着某些区域用少量 volume samples 就能合理收敛，而其他区域可能需要更多帮助。"}
+{"id": "c6059298d2bc6b003c986bab0255f4bafa28318d5ef4ec0b5e754777dbf228d4", "item_id": "209d0a2456:223", "text": "minSamples 强制设置采样下限，仅在 Single Scattering 下有效"}
+{"id": "2a797be36b0a754545850715235b951906b1b26c962260488fa9e314e2b80a27", "item_id": "209d0a2456:224", "text": "maxSamples 是 Volume 内每条 ray 的最大限制"}
+{"id": "3c0176e43bf0f8187f2cf39f5cc5ef8827409945b2c50f8223be8fdfb564d609", "item_id": "209d0a2456:225", "text": "Multiscatter Optimization"}
+{"id": "20c48b3b35dea897b752b1187c2e1bb137f4304f00f9d3885bc99e0585f1ca0e", "item_id": "209d0a2456:226", "text": "Multiscatter Optimization (Valid for PxrPathTracer)（多重散射优化，适用于 PxrPathTracer）"}
+{"id": "41e71567b88b4424135668cdcf72d2e6d54c22f99858f7f731918caca20ba3a1", "item_id": "209d0a2456:227", "text": "On/Off，默认值为 off。"}
+{"id": "2403c72de04094337e2e07bfd322d5ab67d3f794b5ee6dd74ef5050773f3108e", "item_id": "209d0a2456:228", "text": "Extinction Multiplier"}
+{"id": "e52b250c5eba9ba7d300e1dabc47402ddb332e999910afd5c850bf03e200d78a", "item_id": "209d0a2456:229", "text": "此参数在"}
+{"id": "c4010360549b5caa282344920250da0c6c938e5f2b63d50873622461ec9ae272", "item_id": "209d0a2456:230", "text": "Multiscatter"}
+{"id": "1c322177ff03a9cc1ebe01657f4917bf280037464433b219251ce175de1572a8", "item_id": "209d0a2456:231", "text": "体积渲染期间使用。该值必须大于 0.0，默认值为 1.0，即不做修改。低于 1 的值会降低 extinction coefficients，高于 1.0 的值会提高它们。"}
+{"id": "54d1bd72258b656e3fb8abb28321cf5d31b27a7a2a808141b632f192c6fb474f", "item_id": "209d0a2456:232", "text": "Contribution Multiplier"}
+{"id": "db263602858b128862748a544ad6951523ed5333d239e8e19b93ea1e8bea4624", "item_id": "209d0a2456:233", "text": "此 multiplier 在"}
+{"id": "ecfc1676029a18509563901322bfee4e8021256458cff35a5d74e0213c624f40", "item_id": "209d0a2456:235", "text": "体积渲染期间使用。此参数会乘到 multi scatter events 的直接照明贡献上。值必须大于 0.0，默认值为 1.0，即不做修改。低于 1.0 的值会降低直接照明贡献，高于 1.0 的值会提高它们（这可能让体积显得更柔和、更半透明）。"}
+{"id": "65798a7f820f10f24fc40ead9bc61774620d223f676c04ded4e8987ea1312c41", "item_id": "209d0a2456:236", "text": "Using Meshlight（使用 Meshlight）"}
+{"id": "8e19d37f4cf289d09fbef67ec2040ed510293a59f93d29d249263d33a9e37aab", "item_id": "209d0a2456:237", "text": "上面的 “Light Source” 参数在使用具有发光属性的体积时适用于很多场景。但有时需要控制来自体积的光的影响范围。这需要使用"}
+{"id": "105a163236d67e97604bc4579dccc13611579fb8ce088a9660af1479127ec3db", "item_id": "209d0a2456:238", "text": "light filter（灯光滤镜）"}
+{"id": "926556a52601619666c92c67b11c40010b28246cc143958087b2661034fdb615", "item_id": "209d0a2456:239", "text": "。PxrVolume material 无法使用 light filter，因此可以将"}
+{"id": "83b0641066e5446a5aca7c63b5da55a76748d70b65c8df44db430ddf6ef98216", "item_id": "209d0a2456:240", "text": "PxrMeshlight"}
+{"id": "a642d4b934d292fa678cf2dc3a3a4f0a251266c1c44628077e2e2af794edcbf9", "item_id": "209d0a2456:241", "text": "material 与用于 shading 的 PxrVolume 一起应用到 volume object 上。"}
+{"id": "1b64fdb712318caa72ced4f6f6090c0751e8fa17b6944ca2b728ef2a5a44016e", "item_id": "209d0a2456:242", "text": "这样做会照亮场景，同时允许通过 mesh light controls 连接并使用 light filter。但此工作流有一个注意事项，需要在设置时额外考虑。"}
+{"id": "d016c7961c1172699eb8156249f6c5a7e313f4ee4cbb4541da2ca7289f235689", "item_id": "209d0a2456:243", "text": "将 mesh light 应用于体积时，可能会注意到照明增强和/或额外噪点。这是因为体积发光与 mesh light 本身产生了双重贡献。以下是当前用于减少此问题的步骤。"}
+{"id": "100c4febec4178069b4db864c99b1fb212a3b09800cb8a1cfa411a6a46a0f96d", "item_id": "209d0a2456:244", "text": "如果不需要 light filter，则此工作流是不必要的，直接使用 “Light Source” 参数即可。"}
+{"id": "d8c14857059272e3de4d733bb1ec4859515eb7a6959d78bf71a2d8da5f842596", "item_id": "209d0a2456:245", "text": "复制原始体积"}
+{"id": "3148d627dcc170dbce4d88a0510d59c688c6332fcff240be8ee4d52cdc973e4f", "item_id": "209d0a2456:246", "text": "在副本上指定一个重复的 PxrVolume，并让它正确连接到原始 patterns；这些 patterns 可能用于驱动 emission、density 等"}
+{"id": "f088d3484368e5ebbc51fc0d9e6b23734186cbd6a99795708c202e706cf8302f", "item_id": "209d0a2456:247", "text": "使用 DCC application options（SG Node、Material Builder 等）将 PxrMeshlight 指定给体积"}
+{"id": "9cae02d1f3ae04efd32b1e1f59cb5126b9908ec4112b181e0b46249b23705bbe", "item_id": "209d0a2456:248", "text": "从 indirect visibility 中隐藏此体积，我们只需要 light contribution。"}
+{"id": "3eb5c862400327fd7aa20a013ea37ebc35fff7568941dac5cd430c9da0c15a6c", "item_id": "209d0a2456:249", "text": "在原始体积中断开 emission；它现在会由副本体积的 mesh light source 照亮。这可防止双重光照贡献"}
+{"id": "75a5b15f321f518b6484241ea908ab7c93f71d6bbc010e24e78c75548e0851a1", "item_id": "209d0a2456:250", "text": "按需将 light filter 应用于带有 meshlight 的副本体积"}
+{"id": "1889f03338b79bbad8bdcdc925ef5e83069569c17e433174ef9a49f62e7d5ee7", "item_id": "209d0a2456:251", "text": "示例："}
+{"id": "c76acf0eddd2e80d3c54b434b2b5edb09e888e36505b69d9d4c7e1aa8ac6020d", "item_id": "209d0a2456:252", "text": "Using Light Source（使用 Light Source）"}
+{"id": "a6372ed1c71a647471c4a21351fd7905e1e2f5e70e84529d98b9ecfe0cbf37e3", "item_id": "209d0a2456:253", "text": "添加 mesh light 会增加场景中的光照和噪点，这是"}
+{"id": "203d3536bd62ad33ac70b7ea3d4f5e10b6d52ebd0cb7582841a053aebb7186a3", "item_id": "209d0a2456:254", "text": "incorrect（错误的）"}
+{"id": "da7f739f627198465eeab537a6f7a435dc4a0c332f9e4a8462293eb3f4ab7ee0", "item_id": "209d0a2456:255", "text": "workflow（工作流）"}
+{"id": "03d145b57783ebd02fadc6d26fd5b296c05d764eed6efb6bd919b0c22d2907ca", "item_id": "209d0a2456:256", "text": "此图像使用"}
+{"id": "16ce27dbb08f16f9c868e523c9d512db6039c0d69c9f2f9ad113fc452962f132", "item_id": "209d0a2456:257", "text": "above workflow（上述工作流）"}
+{"id": "c7e90c95637537be3f32147494da95594fefaac81087522bdda60e924911eda3", "item_id": "209d0a2456:258", "text": "来创建收敛良好的渲染，同时允许使用 light filter"}
+{"id": "90763974a3c8e31bc10c7016ef2fca576d710f1544fdb3223b048cdee8a830a4", "item_id": "209d0a2456:259", "text": "User Lobes（用户瓣）"}
+{"id": "1886487a6a70e3496329138b8b6a7fd366b9b1c35e5fefc6de52503d1d6ed953", "item_id": "209d0a2456:260", "text": "PxrVolume 还会写入 U2 user lobe，名称为 “DiffuseAlbedo”"}

@@ -1,0 +1,169 @@
+{"id": "db3f9e7699ebdde06ad06bed259f9d1f7048050c5c6a2909eda9553657d5822e", "item_id": "e54cdd8991:0", "text": "Image from"}
+{"id": "a5602217f77b5b94a9bd140c7574ee49b35c2161fc2e41c88cbef3fc2406f2c0", "item_id": "e54cdd8991:1", "text": "Incredibles 2"}
+{"id": "5f487ddceddeb9c6a33f1423eb969a91fae870b5cc6dc57f76064ee5f775c540", "item_id": "e54cdd8991:2", "text": "PxrUnified is initially included in RenderMan as an experimental integrator. Eventually this integrator will become full-featured and ready for reliable production rendering. This integrator is not available in RenderMan XPU."}
+{"id": "33bf1773dca4f3ca4c34de84c7e4d9208c20ff98e345185dba52b4f3fde045bd", "item_id": "e54cdd8991:3", "text": "Note that PxrUnified does not"}
+{"id": "74b01175ba74602b476152129e175091ff9302071b85a52aa42e9ace3d21762d", "item_id": "e54cdd8991:4", "text": "currently"}
+{"id": "a18603086e5bdf9df88ccc9f5a083fed093e819976e87456b74dafcbd7011114", "item_id": "e54cdd8991:5", "text": "support"}
+{"id": "c791cb0a79cfbb1ad0629ef4dbdab61fa2a07d2c8367ad413fabe069f7f809a1", "item_id": "e54cdd8991:6", "text": "Holdout workflow"}
+{"id": "cd6d0aa8a67b960d265ede12c605b14c251061d4cc0a215beeb86b883e464ee0", "item_id": "e54cdd8991:7", "text": "LPE output in Bidirectional mode"}
+{"id": "bed2926237b6857b71d7e833816886d90227f7664c672667c4abd98982809a53", "item_id": "e54cdd8991:8", "text": "Shadow Collectors"}
+{"id": "1aa0ccc1847be71563fb63ed79d6becd1f41101d50498218c43af5d9d8737419", "item_id": "e54cdd8991:9", "text": "Exclude Shadow Subsets"}
+{"id": "ec797feca8c6ff710a99ed9bd4cb58ec47a0f59561c85c0dae826124e0d6abac", "item_id": "e54cdd8991:10", "text": "PxrUnified is the integrator Pixar relies on for its own film and animated shorts. It implements both the forward path tracing algorithm and bidirectional choices along with faster caustics using the Manifold Next Event Estimation technique here called"}
+{"id": "75f6369479e4700694fe684f0e46559e7d1e8c2e9496265fc78f5b7cb9cacbec", "item_id": "e54cdd8991:11", "text": "Manifold Walk"}
+{"id": "1e955f5030eacd65c862590d5ac690b7c73ff86702879443578d921ee8e5ca74", "item_id": "e54cdd8991:12", "text": ". We also include two options for"}
+{"id": "3b0bca2fd7d55378a486df5d88169d41b1924d7223c9690894afdebb433d7127", "item_id": "e54cdd8991:13", "text": "Indirect Guiding"}
+{"id": "1fb019272a6fefc82aa1a54e053d898c31082dc26865c6c4b58babcda52ab79f", "item_id": "e54cdd8991:14", "text": "that improves indirect lighting by sampling from the better lit or more important areas of the scene. One indirect guiding method is based on Practical Path Guiding For Efficient Light-Transport Simulation by Muller et al. This approach has a relatively high overhead, but can be beneficial for some scenes, particularly those with highly specular indirect interactions. The second approach, which we call risPathGuiding, has a much lower overhead and is more effective for diffuse and glossy scenes. See"}
+{"id": "81f196f6f6e6705bc390ca93684d742a9b6e262b31662b4413919278de296b5b", "item_id": "e54cdd8991:99", "text": "Path Guiding"}
+{"id": "8afbc774cc05c8c65ce7319618fa97ea7af17c6e1d03db5ee06ea5fe6adb94a9", "item_id": "e54cdd8991:17", "text": "Note that the Max Path Length is the single control used to control global trace depth, PxrUnified ignores the settings for separate specular and diffuse trace depth. The implication is that a simpler control is intuitive but some scenes may take longer to render and appear differently than in other integrators where users have optimized the bounces based on their scene. Setting the control to 0 means only direct lighting and camera visible effects. Increasing the setting allows light to travel further into and off of objects in the scene."}
+{"id": "5ef29e9feed3b8325942ac561a3ce3a5b8dcecbb83a41168a61a2e94a825b032", "item_id": "e54cdd8991:18", "text": "For direct illumination, the numLightSamples and numBxdfSamples parameters determine the number of light vs. Bxdf (material) direct illumination samples, and the resulting direct illumination contributions are combined using multiple importance sampling."}
+{"id": "b3aa23a9c481e59b9e796c82c9b7bcd23dc185638eca8d60814782ee08a711d1", "item_id": "e54cdd8991:19", "text": "For indirect illumination, the numIndirectSamples parameter controls whether rays are sent to sample indirect paths. Only values of 0 and 1 are currently supported."}
+{"id": "3befc3727cee91aa904953376bd9a57f1d0cf7f616a1ec27a2c6cf21261f933a", "item_id": "e54cdd8991:20", "text": "SubSurface Over-sampling is used to help reduce the noise when rendering complex lighting and objects with subsurface shading enabled."}
+{"id": "5403511997123eb1a4198c38d0e730aec068d69f240e2262c32d0bd4a7992514", "item_id": "e54cdd8991:21", "text": "For more technical information on the advanced features, you can take a look at these research papers:"}
+{"id": "d8b71d3f87fba8f7874308fcfdc4f9ab4929a231de4ba39444d0b9fb5dbce002", "item_id": "e54cdd8991:22", "text": "Thomas Müller, Markus Gross, and Jan Novák."}
+{"id": "ba213ef42a258948765e2e57a07553e7e797963b8943ed9523de626eb8764579", "item_id": "e54cdd8991:23", "text": "Practical Path Guiding for Efficient Light-Transport Simulation"}
+{"id": "22b1d9e7a196c682d7dec6bcb9e490a8502e840c4b7bf7c89423b0e0e2b774ec", "item_id": "e54cdd8991:24", "text": ". Computer Graphics Forum (Proceedings of EGSR 2017), vol. 36, no. 4"}
+{"id": "0fafcf2676ccb045389b7c0e3d72d1f4387c7e3f5319fc2c8f47cb83dcfc6c83", "item_id": "e54cdd8991:25", "text": "Johannes Hanika, Marc Droske and Luca Fascione."}
+{"id": "fab86629363e22915f86da4146903684ff2262cb486414e5a89360a33c0adfe9", "item_id": "e54cdd8991:26", "text": "Manifold Next Event Estimation."}
+{"id": "7006e75cc78f9f6903adb174f884a17ae0a569a3e4a5109a452442799a669cd4", "item_id": "e54cdd8991:27", "text": "Eurographics Symposium on Rendering 2015, vol. 34, no. 4"}
+{"id": "7494446a2cce1bcd7dea4e30605443801775e21b3b697b4995e2b7d3d5a3aac6", "item_id": "e54cdd8991:28", "text": "Basic Parameters"}
+{"id": "dd066ec1bf1d4485d3597f93a32c2f64b88ccdb6c555428ac4af3d17bf691cc2", "item_id": "e54cdd8991:130", "text": "Parameter"}
+{"id": "0c0d374e6e2cbf460e83e8803fe3042c889a95a17a57492c8dc522d5c4fa39f2", "item_id": "e54cdd8991:31", "text": "traceLightPaths"}
+{"id": "83574887f29aeab308ae2b1b61cdbea207ceadd9b6a34083e92023b11bb55a08", "item_id": "e54cdd8991:32", "text": "This enables bidirectional path tracing modes. PxrUnified has 4 integration modes, based on how light paths are sampled. More options are available and some are invalid based on selections. Similar to PxrVCM selections as noted below. More details on settings to come as the integrator is finalized."}
+{"id": "ca7981b46ecf2c1787b6d76d81d9fd7fa0ca95842e2fcc2a452869891a9334d1", "item_id": "e54cdd8991:33", "text": "Off"}
+{"id": "4aab41cf4f217dc4f0a18e5ef6f14429059daf9854afcac67d69ebcf6c5929a4", "item_id": "e54cdd8991:34", "text": "Unidirectional path tracing, like PxrPathTracer"}
+{"id": "130011756125313c72f2cab730db4347e2841526d236a89cb25f38789fa49229", "item_id": "e54cdd8991:35", "text": "On"}
+{"id": "9828a7599c91bcef38fa66e486fe88c9553b5dbf4c06fa12aa6bcd21a93c2a66", "item_id": "e54cdd8991:36", "text": "Bidirectional path tracing, like PxrVCM with connect on and merge off. Indirect Guiding is disabled."}
+{"id": "f8c886a7262f8e628f0720b06ba6a09d056804eb11695984247ef10bc4fde598", "item_id": "e54cdd8991:37", "text": "Photons Only"}
+{"id": "23aef7680001878737f5c30825559313a931e21807365ab19161d8971b2368de", "item_id": "e54cdd8991:38", "text": "Progressive photon mapping, like PxrVCM with connect off and merge on. Indirect Guiding is disabled. Photo Controls are then exposed."}
+{"id": "bddfd616582117146bc5cb13ecc11661b57a9dbe715dc06f045462a194c91dbd", "item_id": "e54cdd8991:39", "text": "UPS/VCM"}
+{"id": "09a25bf22d3fd8aae7e773dce6df4087b568c88ebb25660956095fd1566f5723", "item_id": "e54cdd8991:40", "text": "Bidirectional path tracing with progressive photon mapping, like PxrVCM with connect on and merge on."}
+{"id": "2aed1b2108d7b2e40952b46bde5d2d7bf6b3044b5ccc1fbd01a10b35e3154d93", "item_id": "e54cdd8991:41", "text": "maxIndirectBounces"}
+{"id": "4f7c43cff7dfac913a8b4f868a8bd2c0512fb52233b2884d954578e0cefe3cea", "item_id": "e54cdd8991:42", "text": "Controls the absolute upper bound on the maximum ray depth. For example, a value of 0 for this parameter will allow direct illumination only, while a value of 4 will permit up to 4 bounces of global illumination. Default value is 8."}
+{"id": "f278750dc82f604f75d8e6a71bf899bfd09d3572821c9050e75746c1e578d7f8", "item_id": "e54cdd8991:43", "text": "useTraceDepth"}
+{"id": "c705ea42096e2fe8390167e768a2ca1210c4d8175e49e35e10ea59770fe8af9c", "item_id": "e54cdd8991:44", "text": "When active, the integrator will follow the trace depth assigned to objects in the scene, this is often used as an optimization in render to limited the number of types of bounces to what's necessary visually. See"}
+{"id": "8c14e0dd893519c17e1f2a180ff8f8351eafe76d998c2e4fd6d6532853c5cc4f", "item_id": "e54cdd8991:45", "text": "Trace Depth"}
+{"id": "7e5f45617eff4bc4a7847483bca093914aeef8cf16421229bd2c496eacdbc168", "item_id": "e54cdd8991:47", "text": "maxRayDistance"}
+{"id": "8ae6b287ebe5c81758f483278fb27087ec17c5f4db9b938ecd806dac6024f16e", "item_id": "e54cdd8991:48", "text": "This controls the distance (in scene units) an"}
+{"id": "fdbf5bfd03fbfa1453c3e55ff5ec913e444b2fe5c7529be42aac8965b0290770", "item_id": "e54cdd8991:49", "text": "indirect"}
+{"id": "bae38d695d6bde0caffebb2014dd6ba54afcb5a0ae974335b4f9751753e6bd8e", "item_id": "e54cdd8991:50", "text": "ray will travel before being terminated. If your scene scale is such that objects far from one another would not visually interact indirectly you can use this to optimize the scene. Note that rays traveling through windows and other objects are indirect rays and may be terminated too early and disappear from glass refraction. (Imagine a render where you view a mountain range through your living room window, be sure these rays reach far enough.)"}
+{"id": "e8f7dcd21b683700e232836c99590f9333b9a7b088f856cc97858b92f9ae9a87", "item_id": "e54cdd8991:51", "text": "catchAllLights"}
+{"id": "84c1b250f05a66a7d61934b23a340a5800cf7da19b674aac9cbf4e100329a428", "item_id": "e54cdd8991:52", "text": "On the last hit, evaluate the lights without shadowing, the default is off (0.0). If you find refraction goes dark, setting this slider to 1.0 adds the full contribution of the light samples. Turning this on may brighten your scene."}
+{"id": "87a4cfd0ddef4e4fb22beb1f33cd423f27c26fd22cfd8595f9cf74f5ac7eaff7", "item_id": "e54cdd8991:53", "text": "emissionMultiplier"}
+{"id": "e2a29be0cf502c370afb1c451305e31ea31600d75e9e5eba821409815ecff7cb", "item_id": "e54cdd8991:54", "text": "Multiplies all emissive and \"glow\" properties set on materials and lights."}
+{"id": "36f8e00b8f40730460b4d27c71c7c96b6ac44e6a097dfb42de5c68f2f2fc4535", "item_id": "e54cdd8991:55", "text": "accumOpacity"}
+{"id": "4d4c5fbac42b7eb38d499bc37f73ffdc3f06a1d378e09ff5fdeb49170ab2a051", "item_id": "e54cdd8991:56", "text": "Controls whether or not the path tracer will keep track of accumulated opacity along the path. The default is off. If you plan to render refractive objects and care about alpha values for compositing, you might want to turn this on, car windows for example."}
+{"id": "a999d3f5df20758a9b94ff036e4b3de979a1e74c004bad6d5e34a94926a0dec8", "item_id": "e54cdd8991:57", "text": "specularCurvatureFilter"}
+{"id": "3ee9c74f128cc51206ce3f34da38eb060193a9e30c3fd4c49b2da106c1c830fc", "item_id": "e54cdd8991:58", "text": "Filter the roughness for specular interactions, setting it to 0.0 is no filtering or \"ground truth\". The default is designed to reduce noise."}
+{"id": "c9628057ab30d715ca3820183191fa39fb3c0daf337a1498d065f4aa6ad0551f", "item_id": "e54cdd8991:59", "text": "numLightSamples"}
+{"id": "3abcb715cbcc00ffcd19ce1e8f6b99bfd039d44344b7ec739d9320891dfc6276", "item_id": "e54cdd8991:60", "text": "Controls the number of light samples for direct illumination per camera hit point. The default is 1. Small numbers may improve performance of interactive and progressive updates. Larger numbers may appear to converge better while being slower to update."}
+{"id": "a2e9f218be6dccbc33c6344b81184e38aa8829ef2b0c85bb073a8be6f59fe348", "item_id": "e54cdd8991:61", "text": "numBxdfSamples"}
+{"id": "b9be212ccb9c9cd3ad4877d63e71d93fd55236b51ff6e794982721d6d4e306d5", "item_id": "e54cdd8991:62", "text": "Controls the number of Bxdf samples for direct illumination per camera hit point. The default is 1. Small numbers may improve performance of interactive and progressive updates. Larger numbers may appear to converge better while being slower to update."}
+{"id": "82a616170ab65445d164282e52c8fb8654fbb9817bc80851f8fa2cff1a43afa7", "item_id": "e54cdd8991:63", "text": "numIndirectSamples"}
+{"id": "f0299d01f31ccc3428dc7f507ac0114244a8c432443c2cc7005f491dda1a2597", "item_id": "e54cdd8991:64", "text": "Operates as a toggle of off (0, or no indirect and on (1)"}
+{"id": "1e681ef89e8ad996f06fc99f43698afffc916eec27e910031583ea684988fc52", "item_id": "e54cdd8991:65", "text": "sssOversampling"}
+{"id": "75c3f79759c6269ef9e7689d042e4f247328612dd4593ad16e577f5653ad3886", "item_id": "e54cdd8991:66", "text": "Controls the number of subsurface rays to spawn per camera hit point. The default is 8."}
+{"id": "fb99de51dd63759868bde0923b2ef75bcd979b8c73c515b1e62c109734a2ded1", "item_id": "e54cdd8991:67", "text": "allowMultilobeIndirect"}
+{"id": "121554fa6d5748596b61c92a699741709110358952144dc62b3ea563924cf87a", "item_id": "e54cdd8991:68", "text": "Allows the re-use of samples during hair rendering to speed up convergence. This may alter the resulting LPEs."}
+{"id": "fd06ec0531a0a0f00754930003a08dab45c5b512679519d6200d6dd0f4371e79", "item_id": "e54cdd8991:69", "text": "rouletteDepth"}
+{"id": "8e3eda705a20d2bc5fbc7711c51e84636a0e5c8e20f905e817c2da147999d866", "item_id": "e54cdd8991:70", "text": "Controls the ray depth to begin performing Russian Roulette. Russian Roulette may terminate rays after this depth especially if they contribute little to the result. The default is 1."}
+{"id": "c1c0a847047db12fd7eb97fbe1ff8a6e14cb2d5ea6fbcb244df9c2986aecafb6", "item_id": "e54cdd8991:71", "text": "rouletteThreshold"}
+{"id": "f88b18ff84447cbf6b95c0f9c9d721671e17242843c5f1e339b2db902801ba6f", "item_id": "e54cdd8991:72", "text": "Controls the path throughput threshold below which to perform Russian Roulette. This controls at which point the contribution of the ray is unimportant enough to terminate the ray. The default is 0.2."}
+{"id": "d5c9d89aa90a340e3b599b3880174878bb02ed23281a45b2b7d0c2d5db6fd9c3", "item_id": "e54cdd8991:73", "text": "directClamp"}
+{"id": "73e9b7baf41f16a5d9fb68e3aaed6d23c89c4ec496f5e5be8087fa66c2977fca", "item_id": "e54cdd8991:74", "text": "Sets the amount where values will be clamped, for direct lighting the default is high to preserve the dynamic range of a scene's lighting. Lowering it will reduce noise like fireflies at the cost of dynamic range. The default is 1000000.0"}
+{"id": "e3096458d98d90444200e787629f8bb2a075166c62b01da2c4f52dae86d6cf26", "item_id": "e54cdd8991:75", "text": "indirectClamp"}
+{"id": "750191cd7f712767ebbc9947574c476d0bd4d655df398e56f5266f9d5d602e44", "item_id": "e54cdd8991:76", "text": "Sets the amount where values will be clamped, for indirect lighting the default is low, this avoids noise in secondary effects that have already absorbed some energy anyway. Lowering it will reduce noise but also darken indirect effects. The default is 8.0"}
+{"id": "9f6f3cff6427c67cbca10fcfb2ea72477110c130009531c99dad4f446bc05ebf", "item_id": "e54cdd8991:77", "text": "causticClamp"}
+{"id": "478c7fe599155ba8aa0a91fe4b6bb40d4c427c32ae93643157fc023c96e964d2", "item_id": "e54cdd8991:78", "text": "Sets the amount where values will be clamped, for caustics the default is high to preserve the light patterns that result from light focusing off of or through objects. Lowering it will reduce noise like fireflies at the cost of dynamic range. The default is 1000000.0"}
+{"id": "679614548424eca5cc550422e240f09c7c4037431d3a4fc056dc83bf5e6298e7", "item_id": "e54cdd8991:79", "text": "Manifold Walk (Not Currently Available With BDPT modes)"}
+{"id": "0061c27c3a9b8e087cacdeb09da48fb6a5edc05a6ee5fb45135cee4ce37c4574", "item_id": "e54cdd8991:82", "text": "manifoldWalk"}
+{"id": "7e0bb8c4b3762edc37eab77757215e89ca6ec2e0540ef0823c559876cb2d055d", "item_id": "e54cdd8991:83", "text": "This enables or disables the calculation for the manifold walk. Note that there is more needed to setup the scene and you can find these settings in, Lights, PxrSurface, and the integrator that work together."}
+{"id": "825df14610cc75d3e2a1e1e35276bce9686d82063e3d66f9c449100bc1e74f7b", "item_id": "e54cdd8991:84", "text": "maxIterations"}
+{"id": "2e3ebaac6d63ca42b0fb76814e0576097d68f33aa4cec90ff8e7c65be78af22a", "item_id": "e54cdd8991:85", "text": "This is the maximum number of iterations the walk will perform before giving up and terminating"}
+{"id": "e9c33fa9d2a3ac03d1d20fbb4d5155ab5b3b40eb0132d449577a64707047fa57", "item_id": "e54cdd8991:86", "text": "maxInterfaces"}
+{"id": "7b13f6a40b3e0c5e042f4c10693acaae495c57fa91c5f0c00c0f4d3cf6d48b7f", "item_id": "e54cdd8991:87", "text": "This is the maximum expected number of transmissive interfaces the walk is expected to encounter on its way to the light. Values too low may prevent it from exiting and finding the light source."}
+{"id": "c50055aa60a98b55de164bdfabbea4e17c4513d95414130ad698ff84652716a7", "item_id": "e54cdd8991:88", "text": "walkThreshold"}
+{"id": "76ff938a23d5628952d53411013e792e6a415bde6b6d0003b17b3e6e884e4faa", "item_id": "e54cdd8991:89", "text": "This is the threashold used to control the convergence of the manifold walk. Higher values may generate noise."}
+{"id": "3cbc8251e2176b5dd85216cafe5bb5d1567a2d5e8393c7abe0c5778e07e9353f", "item_id": "e54cdd8991:90", "text": "enableVolumeCaustics"}
+{"id": "213dcf5f100e5627a976c3e700029f4a969bdff51b2c939c470b78ee5300d35a", "item_id": "e54cdd8991:91", "text": "This allows for volumetric caustics in the medium (if one is present). The object enclosing the medium must be part of a specific"}
+{"id": "28ad83972d1a6ce5b094cd9d62362b299ffc6c30d65245dd30fc44df1a479eff", "item_id": "e54cdd8991:92", "text": "trace set"}
+{"id": "9c396835ef0840d0a5472573b411602b07e4be5a8820696a0a807795219f7f79", "item_id": "e54cdd8991:93", "text": ": mw_volume_include_subset This is an expensive technique."}
+{"id": "e35b050d9bbf27c98517a3112225ce86ec9ad2b16b09170cda3d09f535d68aff", "item_id": "e54cdd8991:94", "text": "RIS Indirect Guiding"}
+{"id": "d23609fd716db06d356b4db14cd596ed8a6f270425ed5f30365d7d3270592e89", "item_id": "e54cdd8991:97", "text": "risPathGuiding"}
+{"id": "4a60fac8da45c4a7c04ba9fa3a67f3b07b24cb907bb933e7ee1b7ab5803fa71b", "item_id": "e54cdd8991:98", "text": "When set to 1, this enables indirect path guiding. While rendering is underway, this technique learns the distribution of indirect radiance in the scene and combines this information, using multiple importance sampling, with Bxdf sampling to improve convergence time. It's particularly effective for glossy and diffuse surfaces, and in areas where indirect light dominates."}
+{"id": "45f3f9ae0cc0924fe6f31e01f8ac3344177ca3ba8e04b5b6f0ab6458c1a18a18", "item_id": "e54cdd8991:100", "text": "PPG Indirect Guiding"}
+{"id": "2516e8559cebd1372367022862f44fa32d691f7246bfb0e52d034b597935959a", "item_id": "e54cdd8991:103", "text": "indirectTrainingSamples"}
+{"id": "cbfe1224adedeb6241922e0803f5178c6d02e3382bcc3661b09c0b455046e5c2", "item_id": "e54cdd8991:104", "text": "This is the number of samples used to \"learn\" the scene's light distribution. This number should never be more than the minSample set by the hider and no more than 10 to 20% of the maxSamples. 64 should be the minimum (meaning your minSamples should be at least 64 or if set to 0 it's the square root of your maxSamples and possibly too low)"}
+{"id": "44992dcefa6da7a68158a945288e18b1a2d17d9563dd5ae010265eb1d1fe1ea4", "item_id": "e54cdd8991:105", "text": "indirectSpatialBlurRadius"}
+{"id": "16990d7641b1f317036e5556dc83e28791f8075b271971ab54a17c1a087d738a", "item_id": "e54cdd8991:106", "text": "This blurs boundaries of the spatial tree, this only affects the sampling, it's not a blurring parameter for the resulting samples. Use this if you see discontinuities caused by the grid structure."}
+{"id": "5c07eb3fb647b8a2d4d7464e87ff8dd6df113f8a5ccfd28478fc0dce09709fa6", "item_id": "e54cdd8991:107", "text": "indirectDirectionalBlurRadius"}
+{"id": "69886a852eb05758eaee3db5ad8199983ba2fb68c1bccdf3a7dc2367fe22cee5", "item_id": "e54cdd8991:108", "text": "This blurs the directions given in the spatial tree, this only affects the sampling, it's not a blurring parameter for the resulting samples. Use this if you see discontinuities caused by the grid structure."}
+{"id": "5ed9279e51596200185f07de5920e0640772509ab8fecbf8ffbd14d28d28086c", "item_id": "e54cdd8991:109", "text": "indirectOversampling"}
+{"id": "49c9b46fe7d2d5e30a9ccd429a70051f3844f8fd7e1c4dcbcfa2496e97f0e928", "item_id": "e54cdd8991:110", "text": "Over sample the lookup tree for improved results. Usually a very subtle effect."}
+{"id": "9921e03f1010a4e7af565fdfa46f16cc4db6c866b1b7731a9438de94ad6328d1", "item_id": "e54cdd8991:111", "text": "Photons (Enabled with Trace Light Paths set to Photons or UPS/VCM modes)"}
+{"id": "14c09d7094b49c0b57416576be7027dc54a2f2199f947380c6137e242adfb75f", "item_id": "e54cdd8991:114", "text": "photonEstimationRadius"}
+{"id": "7a14e529932d07d09bba0986efaf5251f3ef908fac543df96658496684a8c7f8", "item_id": "e54cdd8991:115", "text": "A search radius in scene units for photon lookup optimization, typically the default is fine unless you want a different preview as it converges"}
+{"id": "de935d8c034d98bd3b749b989a40763c9b5148265a09ee3d38bd4cae6ef3e825", "item_id": "e54cdd8991:116", "text": "photonEstimationNumber"}
+{"id": "61a60ebdc8cf97d9ba0737b90edcb4bd4cae88dbd3af9e3a9d2cfa54e32b60cd", "item_id": "e54cdd8991:117", "text": "The number of photons to use for estimation inside the above search radius"}
+{"id": "46e7181fd3ff4ba594574b3ce4bb06e04a6b4c5ffca0139d6f922f43104db0f8", "item_id": "e54cdd8991:118", "text": "photonVisibilityRod"}
+{"id": "39720496736c43b48acd8881c6c73bc3aa1f35b36fa1873486024894a2b84626", "item_id": "e54cdd8991:119", "text": "A targeting shape for photons, on or off"}
+{"id": "37d7d15647342b76c4af13cc9aa75c472074b0a61d26aca5f6c8cbb1c9636580", "item_id": "e54cdd8991:120", "text": "photonVisibilityRodDirectProb"}
+{"id": "c70c576965cd55e185b1098bcf63fe728e4ee803cc0a8c22f509b3acf8c39604", "item_id": "e54cdd8991:121", "text": "How tightly to target photons to the Rod box specified below. Values approaching 1.0 will begin to bias the image"}
+{"id": "b5a3c47e0fe763f4151eaac41f2accbd49754e0341a96b928d4578f2bc181658", "item_id": "e54cdd8991:122", "text": "photonVisibilityRodDirectMin"}
+{"id": "75138202ce9ab381b4e657a383e971fd983c7d10a267d81fc51f00334d796a75", "item_id": "e54cdd8991:123", "text": "The minimum bounds of the photon targeting area"}
+{"id": "d7b95e79cf47dc6e0cf23c495a75575926ba7504a398021324dc38d5e449ffb3", "item_id": "e54cdd8991:124", "text": "photonVisibilityRodDirectMax"}
+{"id": "ecf8a24c4b1d00a551cbee558a0321a82ddd0455e0784caca36e040405dc6339", "item_id": "e54cdd8991:125", "text": "The maxiumum bounds of the photon targeting area"}
+{"id": "639b7c61cc44212ace56ac8f167833b338379845dac40924cc2b6af5001ba2d7", "item_id": "e54cdd8991:126", "text": "photonAdaptive"}
+{"id": "7e95fff6fbfa9511e916bbf0b9abc597fa5b920a9cd6a2f5295ffe8a900d3503", "item_id": "e54cdd8991:127", "text": "Based on the paper:"}
+{"id": "26b6611fc655d1992b4a9095b31382eb408a0988a9e81b11f234e245ee2c3870", "item_id": "e54cdd8991:128", "text": "\"Adaptive Progressive Photon Mapping\""}
+{"id": "b1fa878a98a15b74d970ceea6ea791354c52b43d99bccefa209ac6e9b59c946c", "item_id": "e54cdd8991:129", "text": "Diagnostic"}
+{"id": "c3ae240b17c412f7c04fb3cecdb980e36fb570c00851bafa61c8dd90aeb3782c", "item_id": "e54cdd8991:132", "text": "suppressNaNs"}
+{"id": "c13a832af568024296f51c0f637a6f82ea2e642fc19e6777f267862bf528cb9d", "item_id": "e54cdd8991:133", "text": "This invalidates individual samples that return \"not a number\" before they get splatted to the image. There is overhead to perform this check and is off by default."}
+{"id": "36f13c09d1287b3e9c1307d54a8c12cf726e8de2442d9761c97e747a19b1d4a9", "item_id": "e54cdd8991:134", "text": "enableShadingTimers"}
+{"id": "55660bea085f0fa8c11c5e7dc9dc52a2b0ec0902bc47e9e95972d08bba2930db", "item_id": "e54cdd8991:135", "text": "(developer option) Enables timers that will collect shading cost of shaders group by the profileGroup user attribute"}
+{"id": "338fddf2e70deea6e542bc615de047aecfef92b84c3a2ce7a890801ede2174b5", "item_id": "e54cdd8991:136", "text": "enableSampleTimers"}
+{"id": "77bea7dc90375048c43e81ddb3535d0551f5bb9fe6163aaa339ccf4e561fea39", "item_id": "e54cdd8991:137", "text": "(developer option) Enables the timers that track pixel sample iteration cost"}
+{"id": "412118da206c4e53419f838826996f39ebd20a39736a0b4ef7ee9877ed2b2d11", "item_id": "e54cdd8991:138", "text": "Standard AOVs"}
+{"id": "66e6a9589f8b79781fa4a3085a2a52371bb8e174d59a3ef79fa4ce697c93527c", "item_id": "e54cdd8991:139", "text": "On top of regular LPE-based AOVs, this integrator outputs a number of standard AOVs typically used by compositors."}
+{"id": "7609342dc466589fdf6cb15b3c6d44a70ad491cf72cc8051cd04d8e03fd9078b", "item_id": "e54cdd8991:140", "text": "Declaration"}
+{"id": "437aea62a5bd6ad4762e494c81b88532809a231477c82bdecf6fd6636908b7ab", "item_id": "e54cdd8991:141", "text": "Contents"}
+{"id": "4c8906cf76f5740ab8792aef9f0033fe21a92045e90b357816064e9f6860a03e", "item_id": "e54cdd8991:142", "text": "Channels"}
+{"id": "71b5e7aa9fbe9fcb59bc102cd410c4a35f5c1caaffd7fcce1a2b8ae752ed3d50", "item_id": "e54cdd8991:143", "text": "color __Pworld"}
+{"id": "045352ab90783c8f7aad450451afe14c78673a9f3847de415e82db95aa125e6e", "item_id": "e54cdd8991:144", "text": "P in world-space"}
+{"id": "a90d8193bbd879d2bdd8ba8b0056967fc20102a17d16f7e6d24c9202a8d05cc1", "item_id": "e54cdd8991:145", "text": "__Pworld.r : x component"}
+{"id": "09d6f0246eb496cac79cb1917d93803c4d52b492fcb146a2a22fc600637eb65e", "item_id": "e54cdd8991:146", "text": "__Pworld.g : y component"}
+{"id": "d344e56cae5417b565206e81ce9b02b445b230141731a90de03ab0ca30b92fe4", "item_id": "e54cdd8991:147", "text": "__Pworld.b : z component"}
+{"id": "b551042987acb3ffd0666a269e0eabbc0ad9c38ff6b762aa2bf4872c94f199e8", "item_id": "e54cdd8991:148", "text": "color __Nworld"}
+{"id": "1653fe1301cc4b8e402ba38e8a4ba59bce3dad7641a0df539c740459dc733564", "item_id": "e54cdd8991:149", "text": "Nn in world-space"}
+{"id": "100b727929951c0c37c12b87a058cbbada445e769526ce4e68f5f2849cf3616f", "item_id": "e54cdd8991:150", "text": "__Nworld.r : x component"}
+{"id": "5e4a67fee16144cce521635a897e35a15ba7edd0e576adf6a2fc7af50a5524e6", "item_id": "e54cdd8991:151", "text": "__Nworld.g : y component"}
+{"id": "69db72774749a6eb1770f7250352a29951da2512b27457e0cc34f698065f0d08", "item_id": "e54cdd8991:152", "text": "__Nworld.b : z component"}
+{"id": "cfa1cde870c7a27527d1447662be0ea3ae6e28bd302952c3712595658ea5c0e9", "item_id": "e54cdd8991:153", "text": "color __depth"}
+{"id": "b926731a319198478fd84d1ae664bf0194ce094022299f2deec6dd60121f2909", "item_id": "e54cdd8991:154", "text": "Multi-purpose AOV"}
+{"id": "acea8dcd0b3ffe41a44669f5aaeb7a5de17bac732692a497f7ccf3309a023859", "item_id": "e54cdd8991:155", "text": "__depth.r : depth from camera in world-space"}
+{"id": "1fde3d84deb597a3b54616680d108cee44782b007418378c88b4b850fad205c9", "item_id": "e54cdd8991:156", "text": "__depth.g : height in world-space"}
+{"id": "74d8465db4d582a4afb30e2f31f7ffa403f59ec2af4d24b72ad773866ad170ec", "item_id": "e54cdd8991:157", "text": "__depth.b : geometric facing ratio : abs(Nn.V)"}
+{"id": "ed746f46f07bfa9f0025dbd4cc7923c467abb700113d13ce30ec491ce7535ace", "item_id": "e54cdd8991:158", "text": "color __st"}
+{"id": "c00616d938847a67d89be09176619238fb4f2cc8e82351490e69bc332c6ef1bd", "item_id": "e54cdd8991:159", "text": "Texture coords"}
+{"id": "1be23a648a54276e094ee73669d777b39249dea37d0d47e587a6c4a853b97ee6", "item_id": "e54cdd8991:160", "text": "__st.x : s"}
+{"id": "30f6a2684e1e4e2bea4c86ff4cb815b4de370f819de48f6ee8fc027ec0005442", "item_id": "e54cdd8991:161", "text": "__st.y : t"}
+{"id": "7e33861115feabfdab22878eb8811b5dc6bee72cad2de7403a32c0d0a58cb54c", "item_id": "e54cdd8991:162", "text": "__st.z : 0.0"}
+{"id": "e632f9ed14e3e792090141165d4db1e8fadaa503dc4a54bf87f707681ee59b53", "item_id": "e54cdd8991:163", "text": "color __Pref"}
+{"id": "2fb10f7c9c86928c010ab3aabbbd8b6d6559903df8eaf19013a6f5b9eb2ed194", "item_id": "e54cdd8991:164", "text": "Reference Position primvar (if available)"}
+{"id": "1c960bfff8f402aca3702e89e7d1fb905d00514a016f7d2741f147611aa49d97", "item_id": "e54cdd8991:165", "text": "__Pref.r : x component"}
+{"id": "befb87c43c5c0350c9f318ebbfdb7700799a3367994c4f0bb9acdbe9b5ff3594", "item_id": "e54cdd8991:166", "text": "__Pref.g : y component"}
+{"id": "4218030ea6ae861bbffa5fdd34674932b117508ed9a12c97ce6bce2630a40d58", "item_id": "e54cdd8991:167", "text": "__Pref.b : z component"}
+{"id": "f17f844a519186f2c88d9c57dfba945172e10b93de12170174f118cd4b971cd0", "item_id": "e54cdd8991:168", "text": "color __Nref"}
+{"id": "904e618209d9e4cc526b46d6215bd1e95e5815b9e793cd6917e3f78037daa123", "item_id": "e54cdd8991:169", "text": "Reference Normal primvar (if available)"}
+{"id": "7b387e8da2b4bb8b2827e7431fe1772c669ea60636d57beaf24715cfe401a585", "item_id": "e54cdd8991:170", "text": "__Nref.r : x component"}
+{"id": "83dbdb498df65ec0836dca4c2b91ba97602f3e74fc04341415cd2d72e255d0d4", "item_id": "e54cdd8991:171", "text": "__Nref.g : y component"}
+{"id": "41c596fb19301be14f3d814fdc8352f01eb1618d3df5f27bb6a0da20ede0cec5", "item_id": "e54cdd8991:172", "text": "__Nref.b : z component"}
+{"id": "8a482d1428928f2c366ebf2a103e2567ff17bff48ce4707f282a557568346d63", "item_id": "e54cdd8991:173", "text": "color __WPref"}
+{"id": "96de6cdc1490da02075481591dda70deebad4b04c60540de0a393ec4f4a3babd", "item_id": "e54cdd8991:174", "text": "Reference World Position primvar (if available)"}
+{"id": "05f6fc667b6cedb99fadbfadc049f9339d6f4baa587a1842b9f6a4bd2a342dea", "item_id": "e54cdd8991:175", "text": "__WPref.r : x component"}
+{"id": "33ec51cb531b948d6691564dee961291dedfc88c54b374fbf9210bb2b97f2f92", "item_id": "e54cdd8991:176", "text": "__WPref.g : y component"}
+{"id": "87b3e28cad31607e1cc2c72e2e1fc01ba6c9105b20be9d4e66d280f88a31c3a0", "item_id": "e54cdd8991:177", "text": "__WPref.b : z component"}
+{"id": "89758167fb04dd5942b783859d6187a7b2dfc38c64f6e91af4678b2e324910e5", "item_id": "e54cdd8991:178", "text": "color __WNref"}
+{"id": "e7682e0eb92cb514f15f1eea33146dce57317b3a2153d491e975b0eb2293d846", "item_id": "e54cdd8991:179", "text": "Reference World Normal primvar (if available)"}
+{"id": "9563be593f51b8947c8f8a6042a29b47085ac3bce9044bff9be370e3eadbab10", "item_id": "e54cdd8991:180", "text": "__WNref.r : x component"}
+{"id": "d4d379b8375a82a7641ebe1b93731ad3546bc3e678cde9591dfe8ca015f76f17", "item_id": "e54cdd8991:181", "text": "__WNref.g : y component"}
+{"id": "959ab478238efcbdd52ea0ea4fe6ce7641c4bba1c9cafd27eba6425e179df5e1", "item_id": "e54cdd8991:182", "text": "__WNref.b : z component"}

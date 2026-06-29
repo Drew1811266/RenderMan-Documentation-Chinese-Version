@@ -1,0 +1,233 @@
+{"item_id":"aac353cecc:0","text":"PxrLayerSurface 是一种简化材质，依赖于对"}
+{"item_id":"aac353cecc:1","text":"PxrLayer"}
+{"item_id":"aac353cecc:2","text":"与"}
+{"item_id":"aac353cecc:3","text":"PxrLayerMixer"}
+{"item_id":"aac353cecc:4","text":"进行分层。这是你在应用程序中进行分层的推荐节点。你会注意到该节点与"}
+{"item_id":"aac353cecc:5","text":"PxrSurface"}
+{"item_id":"aac353cecc:6","text":"不同：许多你熟悉的参数看起来都不见了。"}
+{"item_id":"aac353cecc:7","text":"PxrLayerSurface 既作为分配给场景中对象的材质，也作为中心节点，用于修改所有分层材质的全局功能。由于并非所有参数都能在分层节点上覆盖，该节点包含适用于所有连接层的全局参数。你可能记得在 PxrSurface 中，参数会根据性质以粗体或斜体标识。PxrLayerSurface 只包含那些曾以斜体显示的参数。"}
+{"item_id":"aac353cecc:8","text":"例如：目前对 Beckmann 和 GGX 这样的不同 reflection models 进行分层并不合理，因此所选模型会由所有层共享。"}
+{"item_id":"aac353cecc:9","text":"参数从下方开始。"}
+{"item_id":"aac353cecc:10","text":"Input Material"}
+{"item_id":"aac353cecc:11","text":"连接到一个 layer pattern，用于对 Bxdf 参数进行分层。这让用户能够通过分层效果创建更复杂的外观。例如灰尘、划痕，甚至标签。"}
+{"item_id":"aac353cecc:12","text":"下方参数不能被覆盖，并将被所有连接的层共同遵循。"}
+{"item_id":"aac353cecc:13","text":"Diffuse Parameters"}
+{"item_id":"aac353cecc:14","text":"Diffuse Parameters"}
+{"item_id":"aac353cecc:15","text":"Double Sided"}
+{"item_id":"aac353cecc:16","text":"如果开启，会照亮此 Diffuse 波瓣的表面两侧，也就是说，也会照亮法线背向摄像机的表面（二维对象）。这样背面会被着色而不是黑色。默认关闭。"}
+{"item_id":"aac353cecc:17","text":"Exponent"}
+{"item_id":"aac353cecc:18","text":"Diffuse exponent 控制 Diffuse 衰减。它是一个幂指数。数值越高，衰减越锐利。例如，在月球表面，可以设置较高的 Exponent 来产生更锐利的衰减。"}
+{"item_id":"aac353cecc:19","text":"Diffuse exponent 仅适用于 Lambertian Diffuse，也就是 Roughness 为 0.0 时。将 Diffuse exponent 与 Oren-Nayar Roughness 组合没有意义，因此当 Roughness > 0.0 时会被忽略。"}
+{"item_id":"aac353cecc:20","text":"Specular Parameters"}
+{"item_id":"aac353cecc:21","text":"Specular, Rough Specular, and Clear Coat Parameters"}
+{"item_id":"aac353cecc:22","text":"Specular 参数控制 specular reflection。你可以在这里定义对象有多闪亮或多具反射性：它是塑料、抛光大理石桌面，还是一面镜子？下面的"}
+{"item_id":"aac353cecc:23","text":"Rough Specular"}
+{"item_id":"aac353cecc:24","text":"和"}
+{"item_id":"aac353cecc:25","text":"Clear Coat"}
+{"item_id":"aac353cecc:26","text":"波瓣具有相同的设置和效果。"}
+{"item_id":"aac353cecc:27","text":"Specular Fresnel Mode"}
+{"item_id":"aac353cecc:28","text":"在 Artistic mode 中，Specular fresnel 响应由 Face Color、Edge Color 和 Fresnel Exponent 控制。"}
+{"item_id":"aac353cecc:29","text":"在 Physical mode 中，Specular fresnel 响应由 Refractive Index、Extinction Coefficient 和 Edge Color 控制。"}
+{"item_id":"aac353cecc:30","text":"Specular Model"}
+{"item_id":"aac353cecc:31","text":"选择要使用的 Specular model：Beckmann 或 Ggx。Beckmann 适合完美镜面和类似铬的材质。Ggx 可能因其“尾部”更受青睐，也就是高光从光源中心反射向外柔和衰减的方式。左侧为 Beckmann，右侧为 Roughness 0.25 的 GGX。"}
+{"item_id":"aac353cecc:32","text":"Fresnel Exponent"}
+{"item_id":"aac353cecc:33","text":"(Artistic Mode)"}
+{"item_id":"aac353cecc:34","text":"Specular fresnel 曲线指数。较低数值会减弱"}
+{"item_id":"aac353cecc:35","text":"Face Color"}
+{"item_id":"aac353cecc:36","text":"的效果，同时增强"}
+{"item_id":"aac353cecc:37","text":"Edge Color"}
+{"item_id":"aac353cecc:38","text":"的效果。较高数值则相反。如果 face 和 edge 颜色相同，则没有可见效果。下方使用"}
+{"item_id":"aac353cecc:39","text":"红色"}
+{"item_id":"aac353cecc:40","text":"Face Color 和"}
+{"item_id":"aac353cecc:41","text":"绿色"}
+{"item_id":"aac353cecc:42","text":"Edge Color，并在较小 Roughness 下将 Fresnel Exponent 从 0.1 增加到 1.5，最后到 5.0。"}
+{"item_id":"aac353cecc:43","text":"Shading Tangent"}
+{"item_id":"aac353cecc:44","text":"控制 Anisotropy 方向。仅当连接到 Pattern 时有效。这对制作拉丝金属很有用。下方三个示例使用纹理以及"}
+{"item_id":"aac353cecc:45","text":"Anisotropy"}
+{"item_id":"aac353cecc:46","text":"-10"}
+{"item_id":"aac353cecc:47","text":"Double Sided"}
+{"item_id":"aac353cecc:48","text":"如果开启，会照亮此 Specular 波瓣的表面两侧，也就是说，它也会照亮法线背向摄像机的表面。默认关闭以提升性能。"}
+{"item_id":"aac353cecc:49","text":"Specular Clearcoat Globals"}
+{"item_id":"aac353cecc:50","text":"Specular Energy Compensation"}
+{"item_id":"aac353cecc:51","text":"对 Diffuse 和 Subsurface illumination lobes 应用 Fresnel energy compensation。值 1.0 会尝试通过根据 Specular 和 Rough Specular illumination responses 将它们变暗，来完全平衡这些结果。"}
+{"item_id":"aac353cecc:52","text":"Specular 和 Rough Specular Roughness 也会被考虑在内。随着 specular face 或 edge color 接近 1.0，该效果会淡出，因此金属可以添加一个 Diffuse baseline color。可查看 Clearcoat Energy Compensation 的可视化示例。"}
+{"item_id":"aac353cecc:53","text":"Clearcoat Energy Compensation"}
+{"item_id":"aac353cecc:54","text":"对 Clearcoat 本身以外的所有波瓣应用 Fresnel energy compensation。值 1.0 会尝试通过根据 Clearcoat illumination response 将它们变暗，来完全平衡这些结果。"}
+{"item_id":"aac353cecc:55","text":"Clearcoat Roughness 也会被考虑在内。随着 Clearcoat face 或 edge color 接近 1.0，该效果会淡出，因此金属可以添加一个 Diffuse baseline color。左侧为 0.0（默认），右侧为 1.0。注意发生的变暗（能量守恒变化）。"}
+{"item_id":"aac353cecc:56","text":"Iridescence Parameters"}
+{"item_id":"aac353cecc:57","text":"Iridescence"}
+{"item_id":"aac353cecc:58","text":"Iridescence 是一种依赖视角的光散射，会导致颜色偏移。这与肥皂泡、孔雀羽毛或闪亮甲虫上的色彩旋涡是同一种效果。“Holographic” 或变色漆也会使用这种效果。"}
+{"item_id":"aac353cecc:59","text":"Iridescence Mode"}
+{"item_id":"aac353cecc:60","text":"选择要使用的 Iridescence mode："}
+{"item_id":"aac353cecc:61","text":"Artistic"}
+{"item_id":"aac353cecc:62","text":"或"}
+{"item_id":"aac353cecc:63","text":"Physical"}
+{"item_id":"aac353cecc:64","text":"。"}
+{"item_id":"aac353cecc:65","text":"在"}
+{"item_id":"aac353cecc:66","text":"Artistic mode"}
+{"item_id":"aac353cecc:67","text":"中，我们只设置 2 种颜色。根据 Iridescence scale factor，你会看到 N 条“彩虹”。默认的红色和蓝色适合获得最大色彩跨度，但你可以通过更改这些默认值来减少渲染出的颜色数量。除非另有说明或正在演示"}
+{"item_id":"aac353cecc:68","text":"Artistic"}
+{"item_id":"aac353cecc:69","text":"参数，示例都使用"}
+{"item_id":"aac353cecc:70","text":"Physical"}
+{"item_id":"aac353cecc:71","text":"mode。"}
+{"item_id":"aac353cecc:72","text":"在"}
+{"item_id":"aac353cecc:73","text":"Physical mode"}
+{"item_id":"aac353cecc:74","text":"中，我们传入薄膜厚度，单位为纳米。当物理厚度接近可见光谱时，会产生 Iridescence 效果。你可以从大约 800nm 开始，并增加该值来观察效果。该选项很好，因为它以灵活性为代价减少了需要调整的参数。除非另有说明或正在演示"}
+{"item_id":"aac353cecc:75","text":"Artistic"}
+{"item_id":"aac353cecc:76","text":"参数，示例都使用"}
+{"item_id":"aac353cecc:77","text":"Physical"}
+{"item_id":"aac353cecc:78","text":"mode。下方是"}
+{"item_id":"aac353cecc:79","text":"Artistic"}
+{"item_id":"aac353cecc:80","text":"（左）和"}
+{"item_id":"aac353cecc:81","text":"Physical"}
+{"item_id":"aac353cecc:82","text":"（右）mode。"}
+{"item_id":"aac353cecc:83","text":"Fresnel Exponent"}
+{"item_id":"aac353cecc:84","text":"控制 face 与 edge 之间的 falloff。类似于"}
+{"item_id":"aac353cecc:85","text":"Fresnel Exponent"}
+{"item_id":"aac353cecc:86","text":"（Specular Lobes 中的参数）。通常保持默认值为"}
+{"item_id":"aac353cecc:87","text":"Falloff Speed"}
+{"item_id":"aac353cecc:88","text":"这仅适用于"}
+{"item_id":"aac353cecc:89","text":"Artistic mode"}
+{"item_id":"aac353cecc:90","text":"。"}
+{"item_id":"aac353cecc:91","text":"从 Primary Color 到 Secondary Color 的 falloff speed。数值越大，衰减越慢。下方使用"}
+{"item_id":"aac353cecc:92","text":"Artistic Mode"}
+{"item_id":"aac353cecc:93","text":"的默认值，但我们将 Falloff Speed 从 0.1 改为 0.5，再改为 1.0"}
+{"item_id":"aac353cecc:94","text":"Falloff Scale"}
+{"item_id":"aac353cecc:95","text":"这仅适用于"}
+{"item_id":"aac353cecc:96","text":"Artistic mode"}
+{"item_id":"aac353cecc:97","text":"。"}
+{"item_id":"aac353cecc:98","text":"此项设置 Iridescence “彩虹”颜色重复的次数。下方从 0.5 到 1.0，最后到 3.0。注意较高值会开始重复彩虹效果。这对模拟油膜图案很有用，例如水面油膜或肥皂泡。"}
+{"item_id":"aac353cecc:99","text":"Flip Hue Direction"}
+{"item_id":"aac353cecc:100","text":"这仅适用于"}
+{"item_id":"aac353cecc:101","text":"Artistic mode"}
+{"item_id":"aac353cecc:102","text":"。"}
+{"item_id":"aac353cecc:103","text":"在 primary 和 secondary colors 之间翻转 hue wheel 方向。默认情况下，hue wheel 方向为逆时针。左侧为"}
+{"item_id":"aac353cecc:104","text":"off"}
+{"item_id":"aac353cecc:105","text":"，右侧为"}
+{"item_id":"aac353cecc:106","text":"on"}
+{"item_id":"aac353cecc:107","text":"。"}
+{"item_id":"aac353cecc:108","text":"Double Sided"}
+{"item_id":"aac353cecc:109","text":"如果开启，会照亮此 Iridescence 波瓣的表面两侧。这对没有厚度建模的薄开口表面（如羽毛和叶片）很有用。"}
+{"item_id":"aac353cecc:110","text":"Fuzz Parameters"}
+{"item_id":"aac353cecc:111","text":"Fuzz Parameters"}
+{"item_id":"aac353cecc:112","text":"此参数会引入一点 retroreflection，并帮助模拟织物、Fuzz 和细粉末。"}
+{"item_id":"aac353cecc:113","text":"Cone Angle"}
+{"item_id":"aac353cecc:114","text":"Fuzz roughness（对应 Marschner R cone angle）。请注意，这里使用了 Marschner 毛发模型中的内容，有助于模拟类似 hair/fur 的响应。数值越高，正对角度处的效果越强。下方为 8、16 和 32。"}
+{"item_id":"aac353cecc:115","text":"Double Sided"}
+{"item_id":"aac353cecc:116","text":"如果开启，会照亮此 Fuzz 波瓣的表面两侧，也就是说，它也会照亮法线背向摄像机的表面。"}
+{"item_id":"aac353cecc:117","text":"Subsurface Scattering Parameters"}
+{"item_id":"aac353cecc:118","text":"Subsurface Scattering Parameters"}
+{"item_id":"aac353cecc:119","text":"Subsurface Model"}
+{"item_id":"aac353cecc:120","text":"选择 Subsurface Scattering 模型：Jensen Dipole、d'Eon Better Dipole、Burley Normalized、Multiple Mean Free Paths，以及新的 Path Traced 选项。参数会根据所选模型填充，并且只对该模型有效。如果更改所用模型，你的连接可能会因参数无效而丢失。你可以在主"}
+{"item_id":"aac353cecc:121","text":"PxrSurface"}
+{"item_id":"aac353cecc:122","text":"页面了解这些控制项和模型的详细信息。"}
+{"item_id":"aac353cecc:123","text":"Burley Normalized"}
+{"item_id":"aac353cecc:124","text":"可在保留细节的同时产生准确效果。"}
+{"item_id":"aac353cecc:125","text":"Jensen and d'Eon Dipoles"}
+{"item_id":"aac353cecc:126","text":"非常适合软糖这类高度半透明对象，以及扩展的艺术指导。"}
+{"item_id":"aac353cecc:127","text":"Multiple Mean Free Paths"}
+{"item_id":"aac353cecc:128","text":"非常适合通过纹理以直观方式产生色彩渗透。虽然不一定物理正确，但它对纹理颜色的散射很适合艺术指导，同时能避免颜色偏移。"}
+{"item_id":"aac353cecc:129","text":"Exponential Path Traced 对准确且详细的 Subsurface Scattering 非常出色。"}
+{"item_id":"aac353cecc:130","text":"Non-Exponential Path Traced 与上述 Path Traced 解法类似，但允许光线散射得更远。"}
+{"item_id":"aac353cecc:131","text":"Double Sided"}
+{"item_id":"aac353cecc:132","text":"如果开启，该 Subsurface 波瓣会照亮表面的两侧，也就是说，它也会照亮法线背向摄像机的表面。如果未开启，则不会在背面渲染。"}
+{"item_id":"aac353cecc:133","text":"Trace Control:"}
+{"item_id":"aac353cecc:134","text":"Consider Backside"}
+{"item_id":"aac353cecc:135","text":"控制 Subsurface 是否考虑另一侧的表面。这针对命中侧，而不是照明侧（照明侧由 subsurfaceDoubleSided 控制）："}
+{"item_id":"aac353cecc:136","text":"“Off” - 完全忽略另一侧的表面。这有助于让对象看起来比实际更厚。"}
+{"item_id":"aac353cecc:137","text":"“On” - 正常模式，扩散会发生在正面与其后的第一个表面之间。"}
+{"item_id":"aac353cecc:138","text":"Continuation Ray Mode"}
+{"item_id":"aac353cecc:139","text":"当用户需要散射在不同对象之间产生贡献，或在内部带有空洞/空间的对象内部产生贡献时，此选项很有用，例如嘴巴与面部属于同一网格的模型。"}
+{"item_id":"aac353cecc:140","text":"控制 Continuation Ray Mode："}
+{"item_id":"aac353cecc:141","text":"“Off” - 只从对象中追踪出去（默认）。"}
+{"item_id":"aac353cecc:142","text":"“Last Hit” - 忽略内部几何体，并跳到最后一个表面。"}
+{"item_id":"aac353cecc:143","text":"“All Hits” - 当光线离开对象时，在所有命中处进行散射（收集光照）。这可以带来额外亮度，代价是增加噪声。"}
+{"item_id":"aac353cecc:144","text":"下方左侧使用“All Hits”，可以清楚看到嵌入球体中的“SUBSURFACE”文字。右侧设置为“Off”，这会通过截断该衰减导致嵌入几何体渲染不正确。"}
+{"item_id":"aac353cecc:145","text":"Max Continuation Hits"}
+{"item_id":"aac353cecc:146","text":"在 All Hits 模式中要测试的最大命中数。仅当 Continuation Ray Mode 等于 All Hits 时有效。"}
+{"item_id":"aac353cecc:147","text":"Follow Topology"}
+{"item_id":"aac353cecc:148","text":"控制在 Subsurface 计算中考虑法线的强度。这也可能影响通过 bump mapping 创建的可见细节。"}
+{"item_id":"aac353cecc:149","text":"Trace Subset"}
+{"item_id":"aac353cecc:150","text":"指定在被光线间接击中时用于包含/排除的 trace subset。"}
+{"item_id":"aac353cecc:151","text":"Single Scatter Parameters"}
+{"item_id":"aac353cecc:152","text":"Single Scattering Parameters"}
+{"item_id":"aac353cecc:153","text":"Single scatter 是一种简单且开销较低的散射效果。下方有一个"}
+{"item_id":"aac353cecc:154","text":"圆盘灯被放置在模型内部"}
+{"item_id":"aac353cecc:155","text":"（所有这些示例都如此），我们先在没有 diffuse color 的情况下渲染，然后再使用默认中灰 diffuse color 渲染。"}
+{"item_id":"aac353cecc:156","text":"Double Sided"}
+{"item_id":"aac353cecc:157","text":"如果开启，该 single scatter 波瓣会照亮表面的两侧，也就是说，它也会照亮法线背向摄像机的表面。"}
+{"item_id":"aac353cecc:158","text":"Trace Control Parameters（操作方式与说明中展示的 Subsurface Controls 类似）："}
+{"item_id":"aac353cecc:159","text":"Consider Backside"}
+{"item_id":"aac353cecc:160","text":"控制 single scatter 是否考虑另一侧的表面。这针对命中侧，而不是照明侧（照明侧由 singlescatterDoubleSided 控制）："}
+{"item_id":"aac353cecc:161","text":"“Off” - 完全忽略另一侧的表面。这有助于让对象看起来比实际更厚。"}
+{"item_id":"aac353cecc:162","text":"“On” - 正常模式，扩散会发生在正面与其后的第一个表面之间。"}
+{"item_id":"aac353cecc:163","text":"Continuation Ray Mode"}
+{"item_id":"aac353cecc:164","text":"控制 Continuation Ray Mode："}
+{"item_id":"aac353cecc:165","text":"“Off” - 只从对象中追踪出去（默认）。"}
+{"item_id":"aac353cecc:166","text":"“Last Hit” - 忽略内部几何体，并跳到最后一个表面。"}
+{"item_id":"aac353cecc:167","text":"“All Hits” - 当光线离开对象时，在所有命中处进行散射（收集光照）。这可以带来额外亮度，代价是增加噪声。"}
+{"item_id":"aac353cecc:168","text":"Max Continuation Hits"}
+{"item_id":"aac353cecc:169","text":"在 All Hits 模式中要测试的最大命中数。仅当 Continuation Ray Mode 等于 All Hits 时有效。"}
+{"item_id":"aac353cecc:170","text":"Direct Gain Mode"}
+{"item_id":"aac353cecc:171","text":"控制 Continuation Ray Mode："}
+{"item_id":"aac353cecc:172","text":"“First Hit” - 只追踪到下一个表面（这与 considerBackside 绑定）。"}
+{"item_id":"aac353cecc:173","text":"“Last Hit” - 忽略内部几何体，并跳到最后一个表面。"}
+{"item_id":"aac353cecc:174","text":"“All Hits” - 当光线离开对象时，在所有命中处进行散射（收集光照）。这可以带来额外亮度，代价是增加噪声。"}
+{"item_id":"aac353cecc:175","text":"Trace Subset"}
+{"item_id":"aac353cecc:176","text":"指定在被光线间接击中时用于包含/排除的 trace subset。"}
+{"item_id":"aac353cecc:177","text":"Scattering Globals"}
+{"item_id":"aac353cecc:178","text":"Irradiance Tint"}
+{"item_id":"aac353cecc:179","text":"在由 Subsurface 或 single scatter 散射之前应用到照明上的 Tint。"}
+{"item_id":"aac353cecc:180","text":"Irradiance Roughness"}
+{"item_id":"aac353cecc:181","text":"应用于 Subsurface 或 single scatter 的 Diffuse roughness。值为 0 表示经典 Lambertian shading model。非零值会提高 Oren-Nayar shading model 的 microfacet roughness。更大的值会产生更粗糙的 Diffuse，并可能显得略暗。"}
+{"item_id":"aac353cecc:182","text":"Unit Length"}
+{"item_id":"aac353cecc:183","text":"Subsurface 和 single scatter 的 Unit Length。它是 Mean Free Path Distance 的乘数。Mean Free Path Distance 通常以毫米为单位。如果场景以其他尺度建模，应相应设置 Unit Length。默认值 0.1 适合以厘米建模的场景（Maya 默认）和以毫米测量的 Mean Free Path Distance。较小数值会让对象更 Diffuse（半透明程度更低），较大数值会增强 scatter 效果，使其更半透明。"}
+{"item_id":"aac353cecc:184","text":"Glass Parameters"}
+{"item_id":"aac353cecc:185","text":"Glass Parameters"}
+{"item_id":"aac353cecc:186","text":"Thin"}
+{"item_id":"aac353cecc:187","text":"如果开启，会根据 Refractive Index 在 Reflection 和 Refraction 之间正确分配能量，但不会在 Refraction 中弯折光线（用单层玻璃模拟双层玻璃，或模拟中空玻璃装饰物）。下方的"}
+{"item_id":"aac353cecc:188","text":"内部"}
+{"item_id":"aac353cecc:189","text":"参数不适用于该模式。"}
+{"item_id":"aac353cecc:190","text":"Interior Parameters"}
+{"item_id":"aac353cecc:191","text":"Single Scatter Albedo"}
+{"item_id":"aac353cecc:192","text":"Single Scatter Albedo 颜色会在玻璃表面内部创建雾。这对于含有淤泥或脏污（均匀）水的容器很有用。"}
+{"item_id":"aac353cecc:193","text":"Extinction"}
+{"item_id":"aac353cecc:194","text":"不应为黑色或 0。纹理化需要 3D Manifold 才能工作。"}
+{"item_id":"aac353cecc:195","text":"Overlapping Volumes"}
+{"item_id":"aac353cecc:196","text":"用于启用或禁用表面内的 Overlapping Volumes。如果关闭，则只有内部体积可见。如果开启，内部体积会与表面内部的其他体积混合。"}
+{"item_id":"aac353cecc:197","text":"Multiscatter"}
+{"item_id":"aac353cecc:198","text":"启用时，该参数会在内部体积中启用 indirect bounces。"}
+{"item_id":"aac353cecc:199","text":"Extinction"}
+{"item_id":"aac353cecc:200","text":"Extinction 颜色。它应用于上方的 Single Scatter Albedo。要让 Single Scatter Albedo 生效，它不应为黑色。该参数选择最受 Extinction 影响的颜色或颜色组合。选择纯红色表示红色会被消光，但绿色和蓝色组合不会。"}
+{"item_id":"aac353cecc:201","text":"Single Directionality"}
+{"item_id":"aac353cecc:202","text":"控制散射的方向性。"}
+{"item_id":"aac353cecc:203","text":"0：isotropic"}
+{"item_id":"aac353cecc:204","text":"1：forward"}
+{"item_id":"aac353cecc:205","text":"-1：backward"}
+{"item_id":"aac353cecc:206","text":"Global Properties Parameters"}
+{"item_id":"aac353cecc:207","text":"Properties Parameters"}
+{"item_id":"aac353cecc:208","text":"本节为整个材质提供全局控制。例如，如果只在这里提供 Bump，它会应用到上面的所有波瓣。Presence 也是一个全局参数，它会遮罩掉或“镂空”所有波瓣，就像遮罩值为 0.0 的位置对象不存在一样。"}
+{"item_id":"aac353cecc:209","text":"Presence"}
+{"item_id":"aac353cecc:210","text":"在这里连接遮罩，可把镂空图案应用到对象上。这对于创建叶片和其他细薄、复杂形状等镂空效果很有用。当从相机直接看到时，它也可把灰度值用作不透明度，以得到半不透明结果。"}
+{"item_id":"aac353cecc:211","text":"对于非 Thin glass refraction，以及颜色通过内部 attenuation 的“thick”风格对象，此设置会被忽略。"}
+{"item_id":"aac353cecc:212","text":"Presence Cached"}
+{"item_id":"aac353cecc:213","text":"指定 Presence 是否缓存。启用 cached 时，Presence 将按"}
+{"item_id":"aac353cecc:214","text":"per micropolygon"}
+{"item_id":"aac353cecc:215","text":"求值，而不是"}
+{"item_id":"aac353cecc:216","text":"per shading point"}
+{"item_id":"aac353cecc:217","text":"；关闭 cached 时则按 per shading point 求值。"}
+{"item_id":"aac353cecc:218","text":"由于 Presence 计算可能很昂贵，如果存在纹理等较重的 shading network，缓存有利于提高渲染速度，不过会增加内存。"}
+{"item_id":"aac353cecc:219","text":"由于缓存本质上存储在 tessellation 层级，如果需要更细的渲染细节，建议使用 uncached Presence，因为它会按 per shading point 求值。"}
+{"item_id":"aac353cecc:220","text":"内存和速度之间存在取舍。如果 Presence 非常简单，例如常量值，那么 cached 和 uncached 可能几乎一样快，并能节省一些内存。请注意，如果 Presence 为常量 1.0（默认值），PxrSurface 会优化所有这些处理。"}
+{"item_id":"aac353cecc:221","text":"当 Subsurface 或 single scattering 开启时，为避免伪影（与 volume tracking 相关），PxrSurface 会在内部强制使用 uncached Presence（忽略 Presence Cached 的参数设置）。"}
+{"item_id":"aac353cecc:222","text":"出于类似原因，对于非 Thin glass refraction，PxrSurface 会忽略 Presence，无论它是否 cached。"}
+{"item_id":"aac353cecc:223","text":"Shadow Mode"}
+{"item_id":"aac353cecc:224","text":"Shadow opacity computation mode："}
+{"item_id":"aac353cecc:225","text":"Shader and shadow color"}
+{"item_id":"aac353cecc:226","text":"Shadow color only"}
+{"item_id":"aac353cecc:227","text":"Shadow Color"}
+{"item_id":"aac353cecc:228","text":"指定 Shadow Color。该参数可用于为艺术指导目的伪造阴影颜色。"}
+{"item_id":"aac353cecc:229","text":"Utility Pattern"}
+{"item_id":"aac353cecc:230","text":"指定一个用于输出的 Pattern 节点。例如：可以把"}
+{"item_id":"aac353cecc:231","text":"PxrMatteID"}
+{"item_id":"aac353cecc:232","text":"连接到此参数来输出 ID AOV。也可以输出另一种 Pattern，例如纹理。"}

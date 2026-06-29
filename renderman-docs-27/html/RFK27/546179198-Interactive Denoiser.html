@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Interactive Denoiser</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Interactive Denoiser</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFK27/546179198/Interactive+Denoiser">https://rmanwiki-27.pixar.com/space/RFK27/546179198/Interactive+Denoiser</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="900" loading="lazy" src="../../attachments/546179198/RenderMan_InteractiveDenoiser_Katana.jpg" data-image-src="../../attachments/546179198/RenderMan_InteractiveDenoiser_Katana.jpg" data-height="679" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="546179219" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_InteractiveDenoiser_Katana.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="546179198" data-linked-resource-container-version="2" data-media-id="dd24171f-c59d-42a7-b535-9db2ff76da0b" data-media-type="file"></span><p /><hr/><h3 id="InteractiveDenoiser-ActivateInteractiveDenoising">Activate Interactive Denoising</h3><p>The interactive denoising option can be found on the PrmanGlobalStatements node</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="900" loading="lazy" src="../../attachments/546179198/RenderMan_InteractiveDenoiser_Panel.jpg" data-image-src="../../attachments/546179198/RenderMan_InteractiveDenoiser_Panel.jpg" data-height="190" data-width="1178" data-unresolved-comment-count="0" data-linked-resource-id="546179213" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_InteractiveDenoiser_Panel.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="546179198" data-linked-resource-container-version="2" data-media-id="8203dec0-f110-4eff-abb3-9366d41dfd26" data-media-type="file"></span><hr/><h3 id="InteractiveDenoiser-Preferences"><strong>Preferences</strong></h3><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="900" loading="lazy" src="../../attachments/546179198/RenderMan_InteractiveDenoiser_Prefs.jpg" data-image-src="../../attachments/546179198/RenderMan_InteractiveDenoiser_Prefs.jpg" data-height="754" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="546179216" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderMan_InteractiveDenoiser_Prefs.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="546179198" data-linked-resource-container-version="2" data-media-id="67a87ee2-8580-4736-af36-d387b0eff69d" data-media-type="file"></span><p><strong>Cheap First Pass</strong><br/><span class="legacy-color-text-default">If checked, the first pass will use a cheaper (slightly faster but lower quality) heuristic.</span></p><p><span class="legacy-color-text-default">This can be useful if rendering something that is converging very quickly and you want to prioritize getting a denoised result faster.</span></p><p><strong>Interval</strong><br/><span class="legacy-color-text-default">The time interval in between denoise runs (in seconds)</span></p><p><strong>LogInfo</strong><br/><span class="legacy-color-text-default">Output logging info</span></p><p><strong>Min Samples</strong><br/><span class="legacy-color-text-default">The minimum number of average samples per bucket before the interactive denoiser runs for the first time.  Changing this preference requires the render to be restarted for this option to be respected</span><br/><br/><br/></p><p /><div class="embeddedObject conf-macro output-block" data-hasbody="false" data-layout="default" data-local-id="8e51d9c0-51b2-4ddb-8b74-749411be9713" data-macro-id="82dd2c89-69d5-4cd9-accf-43c4b65d3a3a" data-macro-name="multimedia">
+    <video src="/wiki/download/attachments/546179198/KatanaDenoiser.mp4" height="540" width="960" autoplay="" controls="">
+        Your browser does not support the HTML5 video element
+</video>
+
+</div>
+  </article>
+</main>
+</body>
+</html>

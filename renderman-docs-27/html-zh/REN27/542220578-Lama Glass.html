@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lama Glass</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Lama Glass</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/REN27/542220578/Lama+Glass">https://rmanwiki-27.pixar.com/space/REN27/542220578/Lama+Glass</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<p>LamaDielectric 节点适用于各种材质。向 diffuse 层添加涂层可以创建基础塑料材质、清澈和浑浊液体，以及漂亮的玻璃材质。  <br/><br/>处理 Glass（玻璃）材质和对象时，有几件事需要考虑。</p><ol start="1"><li><p> 需要将 Specular Depth 设置得足够高，让所有光线都能穿过对象，从而得到完全透明的对象。 <br/><br/>在以下示例中，Max Specular Depth 设置为 22。这确保光线能够穿过机械茶壶内部所有复杂元素，避免玻璃茶壶中出现任何黑色区域。有关这方面的更多信息，可以观看 <a class="external-link" href="https://vimeo.com/manage/videos/637863207" rel="nofollow">RenderMan Fundamentals 中关于 LamaDielectric 的课程</a><br/><br/></p></li><li><p>你需要确保在 LamaSurface 节点中已启用 <br/><br/><br/></p></li></ol><hr/><h3 id="LamaGlass-ColoredGlass">Colored Glass（彩色玻璃）</h3><p>第一个示例演示了如何准确创建彩色玻璃材质。<br/><br/></p><p style="text-align: center;"><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/542220578/LamaConductor_BlueGlass.jpg" data-image-src="../../attachments/542220578/LamaConductor_BlueGlass.jpg" data-unresolved-comment-count="0" data-linked-resource-id="542220595" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="LamaConductor_BlueGlass.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542220578" data-linked-resource-container-version="1" data-media-id="8a6b263c-d57b-4a14-8d7c-b72d1fe0ba75" data-media-type="file"></span><br/></p><p><br/>尽管你可能会以为要使用 Reflection Tint 和 Transmission Tint 来创建物理准确的彩色玻璃，但那并不正确。这两个控制项用于细微调整色调，以匹配参考材质。<br/><br/>正确方式是使用 Absorption Color 设置玻璃颜色，然后调整 Absorption Radius 来控制<span class="legacy-color-text-default"> 吸收多少光。在上面的示例中，我们的大茶壶高 20cm，因此 Absorption Radius 设置为 0.02。  </span><br/><br/><span class="legacy-color-text-default">MaterialX Lama 及其参数让你能够最大程度控制材质，因此可以放心调整设置，以匹配期望外观和参考图像。</span><br/><br/><br/></p><hr/><h3 id="LamaGlass-Diamond">Diamond（钻石）</h3><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="1306" loading="lazy" src="../../attachments/542220578/Diamond_rough.jpg" data-image-src="../../attachments/542220578/Diamond_rough.jpg" data-height="720" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="542220598" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Diamond_rough.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542220578" data-linked-resource-container-version="1" data-media-id="93273cb9-0178-4b9a-b753-8ea6cc4a94bf" data-media-type="file"></span><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="1313" loading="lazy" src="../../attachments/542220578/Lama_Diamond.jpg" data-image-src="../../attachments/542220578/Lama_Diamond.jpg" data-height="532" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="542220592" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Lama_Diamond.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542220578" data-linked-resource-container-version="1" data-media-id="2f126cf2-242c-4052-aa75-c1d98bbf6522" data-media-type="file"></span><p><br/><br/>LamaDielectric 节点适用于各种材质。向 diffuse 层添加涂层可以创建基础塑料材质、清澈和浑浊液体，以及漂亮的玻璃材质。  <br/><br/>处理 Glass（玻璃）材质和对象时，有几件事需要考虑。</p><ol start="1"><li><p> 需要将 Specular Depth 设置得足够高，让所有光线都能穿过对象，从而得到完全透明的对象。 <br/><br/>在以下示例中，Max Specular Depth 设置为 22。这确保光线能够穿过机械茶壶内部所有复杂元素，避免玻璃茶壶中出现任何黑色区域。有关这方面的更多信息，可以观看 <a class="external-link" href="https://vimeo.com/manage/videos/637863207" rel="nofollow">RenderMan Fundamentals 中关于 LamaDielectric 的课程</a><br/><br/></p></li><li><p>你需要确保在 LamaSurface 节点中已启用 <br/><br/><br/></p></li></ol><hr/><h3 id="LamaGlass-ColoredGlass.1">Colored Glass（彩色玻璃）</h3><p>第一个示例演示了如何准确创建彩色玻璃材质。<br/><br/></p><p><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" loading="lazy" src="../../attachments/542220578/LamaConductor_BlueGlass.jpg" data-image-src="../../attachments/542220578/LamaConductor_BlueGlass.jpg" data-unresolved-comment-count="0" data-linked-resource-id="542220595" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="LamaConductor_BlueGlass.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542220578" data-linked-resource-container-version="1" data-media-id="8a6b263c-d57b-4a14-8d7c-b72d1fe0ba75" data-media-type="file"></span><br/><br/><br/>尽管你可能会以为要使用 Reflection Tint 和 Transmission Tint 来创建物理准确的彩色玻璃，但那并不正确。这两个控制项用于细微调整色调，以匹配参考材质。<br/><br/>正确方式是使用 Absorption Color 设置玻璃颜色，然后调整 Absorption Radius 来控制<span class="legacy-color-text-default"> 吸收多少光。在上面的示例中，我们的大茶壶高 20cm，因此 Absorption Radius 设置为 0.02。  </span><br/><br/><span class="legacy-color-text-default">MaterialX Lama 及其参数让你能够最大程度控制材质，因此可以放心调整设置，以匹配期望外观和参考图像。</span><br/><br/><br/></p><hr/><h3 id="LamaGlass-Diamond.1">Diamond（钻石）</h3><span class="confluence-embedded-file-wrapper image-left-wrapper"><img class="confluence-embedded-image image-left" loading="lazy" src="../../attachments/542220578/Diamond_rough.jpg" data-image-src="../../attachments/542220578/Diamond_rough.jpg" data-height="720" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="542220598" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Diamond_rough.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542220578" data-linked-resource-container-version="1" data-media-id="93273cb9-0178-4b9a-b753-8ea6cc4a94bf" data-media-type="file"></span><span class="confluence-embedded-file-wrapper image-left-wrapper"><img class="confluence-embedded-image image-left" loading="lazy" src="../../attachments/542220578/Lama_Diamond.jpg" data-image-src="../../attachments/542220578/Lama_Diamond.jpg" data-height="532" data-width="1280" data-unresolved-comment-count="0" data-linked-resource-id="542220592" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Lama_Diamond.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542220578" data-linked-resource-container-version="1" data-media-id="2f126cf2-242c-4052-aa75-c1d98bbf6522" data-media-type="file"></span><p><br/><br/><br/><br/><br/><br/><br/><br/></p>
+  </article>
+</main>
+</body>
+</html>

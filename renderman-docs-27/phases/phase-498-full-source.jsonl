@@ -1,0 +1,133 @@
+{"item_id": "f9fb600fe7:0", "source": "A PxrSurface BXDF can be applied to an object in Maya by simply selecting the object and then clicking the PxrSurface Icon in the button bar. PxrSurface can also be applied to objects in the scene by selecting them from the RenderMan Menu itself under the"}
+{"item_id": "f9fb600fe7:1", "source": "Materials"}
+{"item_id": "f9fb600fe7:2", "source": "heading."}
+{"item_id": "f9fb600fe7:3", "source": "The image below shows a small subset of the attributes that can be modified with this BXDF."}
+{"item_id": "f9fb600fe7:4", "source": "The Pattern Utility parameter described in the Globals is not visible in the Attribute Editor because of how arrays are handled in Maya. Instead, you may use this by making connections using the Node Editor inside the Hypershade. Examples include using a"}
+{"item_id": "f9fb600fe7:5", "source": "PxrSurface in Maya"}
+{"item_id": "f9fb600fe7:6", "source": "for creating an ID pass per material instance or combining a PxrSurface with another textured pattern to create other useful AOVs for compositing like noise, and more. Note that doing so may increase evaluation time for your assigned material."}
+{"item_id": "f9fb600fe7:7", "source": "Lightyear © Disney/Pixar"}
+{"item_id": "f9fb600fe7:8", "source": "Rendering surfaces in RenderMan relies on a layerable material (See Input Material below) called PxrSurface."}
+{"item_id": "f9fb600fe7:9", "source": "This is the same material model used in Pixar Animation Studios' feature animation. As such there are some important benefits to this material:"}
+{"item_id": "f9fb600fe7:10", "source": "A single material handles all your looks like:"}
+{"item_id": "f9fb600fe7:11", "source": "Wood"}
+{"item_id": "f9fb600fe7:12", "source": "Skin"}
+{"item_id": "f9fb600fe7:13", "source": "Plastic"}
+{"item_id": "f9fb600fe7:14", "source": "Glass"}
+{"item_id": "f9fb600fe7:15", "source": "Car Paint"}
+{"item_id": "f9fb600fe7:16", "source": "and many many more!"}
+{"item_id": "f9fb600fe7:17", "source": "Physically based presets provided to get you started."}
+{"item_id": "f9fb600fe7:18", "source": "Flexible controls are not required to result in something physically plausible."}
+{"item_id": "f9fb600fe7:19", "source": "Artists can selectively \"break\" energy conservation."}
+{"item_id": "f9fb600fe7:20", "source": "Art direction becomes natural without workarounds."}
+{"item_id": "f9fb600fe7:21", "source": "Controls are conveniently labeled as \"Artistic\" and \"Physical\""}
+{"item_id": "f9fb600fe7:22", "source": "Layering provides limitless possibilities."}
+{"item_id": "f9fb600fe7:23", "source": "As an artist, being able to choose a single material for all your shading eliminates guesswork and allows RenderMan to optimize as needed. We discuss all the different settings and their relevance to making certain materials. Pay special attention to notes about performance considerations as well as hints on what combinations will be useful for particular effects."}
+{"item_id": "f9fb600fe7:24", "source": "Below you will find each effect or"}
+{"item_id": "f9fb600fe7:25", "source": "lobe"}
+{"item_id": "f9fb600fe7:26", "source": "of the material has been separated into its own section to help users define the area they wish to learn about. However, as different lobes are activated and tweaked, the material will change looks. It's by combining these lobe settings that you can make just about any material you imagine."}
+{"item_id": "f9fb600fe7:27", "source": "Diffuse Parameters"}
+{"item_id": "f9fb600fe7:28", "source": "Specular Parameters"}
+{"item_id": "f9fb600fe7:29", "source": "Clear Coat Parameters"}
+{"item_id": "f9fb600fe7:30", "source": "Glass Parameters"}
+{"item_id": "f9fb600fe7:31", "source": "Iridescence Parameters"}
+{"item_id": "f9fb600fe7:32", "source": "Fuzz Parameters"}
+{"item_id": "f9fb600fe7:33", "source": "Subsurface Scattering Parameters"}
+{"item_id": "f9fb600fe7:34", "source": "Single Scatter Parameters"}
+{"item_id": "f9fb600fe7:35", "source": "Glow Parameters"}
+{"item_id": "f9fb600fe7:36", "source": "Input Material"}
+{"item_id": "f9fb600fe7:37", "source": "Connect to a layer pattern that layers the parameters for the Bxdf. This lets users create more complex looks through layered effects. Examples might be dust, scratches, or even labels."}
+{"item_id": "f9fb600fe7:38", "source": "In the parameters below, some of them can be overridden by a"}
+{"item_id": "f9fb600fe7:39", "source": "PxrLayer"}
+{"item_id": "f9fb600fe7:40", "source": "when connected to the"}
+{"item_id": "f9fb600fe7:41", "source": "Input Material"}
+{"item_id": "f9fb600fe7:42", "source": "or through a"}
+{"item_id": "f9fb600fe7:43", "source": "PxrLayerMixer"}
+{"item_id": "f9fb600fe7:44", "source": "."}
+{"item_id": "f9fb600fe7:45", "source": "PxrLayerSurface"}
+{"item_id": "f9fb600fe7:46", "source": "is designed to better illustrate which parameters are not able to be overridden in a layer by including only parameters that are global. We recommend this material when you know you will be layering. The results of these settings are unchanged."}
+{"item_id": "f9fb600fe7:47", "source": "Bold Face"}
+{"item_id": "f9fb600fe7:48", "source": "parameters are layerable, able to be overridden per layer."}
+{"item_id": "f9fb600fe7:49", "source": "Italicized"}
+{"item_id": "f9fb600fe7:50", "source": "parameters are not able to be layered or overridden. These are globally obeyed for all layers. For example: Choosing GGX as a specular model will mean all layers will be GGX for that parameter."}
+{"item_id": "f9fb600fe7:51", "source": "Properties Parameters"}
+{"item_id": "f9fb600fe7:52", "source": "This section provide global controls for the entire material. For example, if a Bump is only supplied here, it applies to all the above lobes. Presence is also a global parameter that will mask out or \"cutout\" all the lobes as-if the object isn't present where the mask has a value of 0.0"}
+{"item_id": "f9fb600fe7:53", "source": "Bump"}
+{"item_id": "f9fb600fe7:54", "source": "Normal/Bump to use for all lobes unless it is overridden by the individual lobe's bump normal."}
+{"item_id": "f9fb600fe7:55", "source": "Presence"}
+{"item_id": "f9fb600fe7:56", "source": "Connect a mask here to apply a cutout pattern to your object. This is useful for cutouts like creating leaves and other thin, complex shapes. It can also be used as opacity for gray values for semi-opaque results when seen directly by the camera."}
+{"item_id": "f9fb600fe7:57", "source": "This is ignored for non-thin glass refraction and \"thick\" style objects where color is attenuation through the interior"}
+{"item_id": "f9fb600fe7:58", "source": "Presence Cached"}
+{"item_id": "f9fb600fe7:59", "source": "Specify whether presence is cached or not.  When cached is on, presence will be evaluated"}
+{"item_id": "f9fb600fe7:60", "source": "per micropolygon"}
+{"item_id": "f9fb600fe7:61", "source": "as opposed to"}
+{"item_id": "f9fb600fe7:62", "source": "per shading point"}
+{"item_id": "f9fb600fe7:63", "source": "when cached is off."}
+{"item_id": "f9fb600fe7:64", "source": "Since presence computation can be expensive, if there is a heavy shading network such as texturing, then caching is advantageous for better rendering speed though it increases memory."}
+{"item_id": "f9fb600fe7:65", "source": "Because caching is essentially stored at the tessellation level, if we need finer render details, uncached presence is recommended since it evaluates per shading point."}
+{"item_id": "f9fb600fe7:66", "source": "There is a trade off between memory and speed.  If we have a very simple presence such as a constant value, cached and uncached could be almost equally fast and save some memory.  Note that if presence is at constant 1.0 (which is the default), PxrSurface optimizes all of this."}
+{"item_id": "f9fb600fe7:67", "source": "When subsurface or single scattering is on, to avoid artifacts (related to volume tracking), PxrSurface forces uncached presence internally (ignoring the parameter setting of Presence Cached)."}
+{"item_id": "f9fb600fe7:68", "source": "For similar reasons, PxrSurface ignores presence, cached or not cached, for non-thin glass refraction."}
+{"item_id": "f9fb600fe7:69", "source": "The"}
+{"item_id": "f9fb600fe7:70", "source": "integrator"}
+{"item_id": "f9fb600fe7:71", "source": "may control the maximum depth at which opacity is not stochastic (noisy)"}
+{"item_id": "f9fb600fe7:72", "source": "Shadow Mode"}
+{"item_id": "f9fb600fe7:73", "source": "Shadow opacity computation mode:"}
+{"item_id": "f9fb600fe7:74", "source": "Shader and shadow color"}
+{"item_id": "f9fb600fe7:75", "source": "Shadow color only"}
+{"item_id": "f9fb600fe7:76", "source": "Shadow Color"}
+{"item_id": "f9fb600fe7:77", "source": "Specify shadow color. This parameter is useful for faking a shadow color for art direction purposes. Note that changing the shadow color may impact performance and the result of global illumination as it is treated as a transparent shadow (think of colored glass), even for opaque objects."}
+{"item_id": "f9fb600fe7:78", "source": "Utility Pattern"}
+{"item_id": "f9fb600fe7:79", "source": "Specify a pattern node for output. For example: One can connect a"}
+{"item_id": "f9fb600fe7:80", "source": "PxrMatteID"}
+{"item_id": "f9fb600fe7:81", "source": "to this parameter to output an ID AOV. Or another pattern can be output such as a texture."}
+{"item_id": "f9fb600fe7:82", "source": "Enable Manifold Exploration/Walk"}
+{"item_id": "f9fb600fe7:83", "source": "Only available when using the PxrUnified Integrator and the option for Enable Manifold Walk set to ON. This setting should be on for objects intended to"}
+{"item_id": "f9fb600fe7:84", "source": "catch"}
+{"item_id": "f9fb600fe7:85", "source": "caustic light paths. Like a diffuse service inside a specular object."}
+{"item_id": "f9fb600fe7:86", "source": "Specular Curvature Clamp"}
+{"item_id": "f9fb600fe7:87", "source": "This control is used to override the corresponding integrator setting of Specular Curvature Filter parameter found in"}
+{"item_id": "f9fb600fe7:88", "source": "PxrVCM"}
+{"item_id": "f9fb600fe7:89", "source": "and"}
+{"item_id": "f9fb600fe7:90", "source": "PxrUnified"}
+{"item_id": "f9fb600fe7:91", "source": "integrators"}
+{"item_id": "f9fb600fe7:92", "source": "."}
+{"item_id": "f9fb600fe7:93", "source": "User Color"}
+{"item_id": "f9fb600fe7:94", "source": "Specify a color or pattern to be rendered to the userColor Lobe that can be output"}
+{"item_id": "f9fb600fe7:95", "source": "using LPE as a utility"}
+{"item_id": "f9fb600fe7:96", "source": ". This connection or color is not rendered in the beauty and is meant to output AOVs useful for compositing or adjusting in post"}
+{"item_id": "f9fb600fe7:97", "source": "RenderMan Fundamentals"}
+{"item_id": "f9fb600fe7:98", "source": "Back to the top"}
+{"item_id": "f9fb600fe7:99", "source": "Named Lobes"}
+{"item_id": "f9fb600fe7:100", "source": "Below are the named and user lobes from PxrSurface."}
+{"item_id": "f9fb600fe7:101", "source": "Named Diffuse Lobes"}
+{"item_id": "f9fb600fe7:102", "source": "Diffuse"}
+{"item_id": "f9fb600fe7:103", "source": "Subsurface"}
+{"item_id": "f9fb600fe7:104", "source": "Named Specular Lobes"}
+{"item_id": "f9fb600fe7:105", "source": "Specular"}
+{"item_id": "f9fb600fe7:106", "source": "RoughSpecular"}
+{"item_id": "f9fb600fe7:107", "source": "Clearcoat"}
+{"item_id": "f9fb600fe7:108", "source": "Iridescence"}
+{"item_id": "f9fb600fe7:109", "source": "Fuzz"}
+{"item_id": "f9fb600fe7:110", "source": "SingleScatter"}
+{"item_id": "f9fb600fe7:111", "source": "Glass"}
+{"item_id": "f9fb600fe7:112", "source": "User Lobes"}
+{"item_id": "f9fb600fe7:113", "source": "DiffuseAlbedo"}
+{"item_id": "f9fb600fe7:114", "source": "DiffuseNormal"}
+{"item_id": "f9fb600fe7:115", "source": "SubsurfaceAlbedo"}
+{"item_id": "f9fb600fe7:116", "source": "SubsurfaceNormal"}
+{"item_id": "f9fb600fe7:117", "source": "SpecularAlbedo"}
+{"item_id": "f9fb600fe7:118", "source": "SpecularNormal"}
+{"item_id": "f9fb600fe7:119", "source": "RoughSpecularAlbedo"}
+{"item_id": "f9fb600fe7:120", "source": "RoughSpecularNormal"}
+{"item_id": "f9fb600fe7:121", "source": "ClearcoatAlbedo"}
+{"item_id": "f9fb600fe7:122", "source": "ClearcoatNormal"}
+{"item_id": "f9fb600fe7:123", "source": "FuzzAlbedo"}
+{"item_id": "f9fb600fe7:124", "source": "FuzzNormal"}
+{"item_id": "f9fb600fe7:125", "source": "IridescenceAlbedo"}
+{"item_id": "f9fb600fe7:126", "source": "IridescenceNormal"}
+{"item_id": "f9fb600fe7:127", "source": "SingleScatterAlbedo"}
+{"item_id": "f9fb600fe7:128", "source": "SingleScatterNormal"}
+{"item_id": "f9fb600fe7:129", "source": "GlassAlbedo"}
+{"item_id": "f9fb600fe7:130", "source": "GlassNormal"}
+{"item_id": "f9fb600fe7:131", "source": "userColor"}
+{"item_id": "f9fb600fe7:132", "source": "userWorldPosition"}

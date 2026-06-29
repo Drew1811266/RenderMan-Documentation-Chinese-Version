@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Instances</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      color: #202124;
+      background: #f6f7f8;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+      background: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    header {
+      border-bottom: 1px solid #d8dde4;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+    }
+    .source {
+      color: #5f6368;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f1f3f4;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    th, td {
+      border: 1px solid #d8dde4;
+      padding: 8px;
+      vertical-align: top;
+    }
+    .confluence-information-macro,
+    .confluence-information-macro-note,
+    .confluence-information-macro-warning,
+    .confluence-information-macro-tip {
+      border-left: 4px solid #ff8a00;
+      background: #fff7e6;
+      padding: 12px 16px;
+      margin: 16px 0;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/offline-docs.css">
+  <script src="../assets/offline-docs-data.js" defer></script>
+  <script src="../assets/offline-docs.js" defer></script>
+</head>
+<body class="rm-themed rm-doc-page">
+<main>
+  <header>
+    <h1>Instances</h1>
+    <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RFB27/544638080/Instances">https://rmanwiki-27.pixar.com/space/RFB27/544638080/Instances</a></div>
+    <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
+  </header>
+  <article>
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="Rfb_Instancing.png" width="760" loading="lazy" src="../../attachments/544638080/Rfb_Instancing.png" data-image-src="../../attachments/544638080/Rfb_Instancing.png" data-height="1074" data-width="1916" data-unresolved-comment-count="0" data-linked-resource-id="544638113" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Rfb_Instancing.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="544638080" data-linked-resource-container-version="1" data-media-id="c09d8ca4-6b87-4094-a918-4102668b8f8c" data-media-type="file"></span><p>RfB 应该支持 Blender 中大多数与实例化相关的工作流。</p><p>将子对象实例化到 mesh（网格）的顶点或面上，就是 RenderMan 支持的这类工作流之一。</p><p>在下图中，我们把单个 locker（储物柜）实例化到了平面几何体的顶点上。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="RenderManBlender_VertexInstancing.jpg" width="760" loading="lazy" src="../../attachments/544638080/RenderManBlender_VertexInstancing.jpg" data-image-src="../../attachments/544638080/RenderManBlender_VertexInstancing.jpg" data-height="1299" data-width="3070" data-unresolved-comment-count="0" data-linked-resource-id="544638110" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderManBlender_VertexInstancing.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544638080" data-linked-resource-container-version="1" data-media-id="7d991d91-6e32-41b4-a8a3-1ac163294db2" data-media-type="file"></span><p>如需进一步控制，也可以使用 Blender 中的 Collection Instancing（集合实例化，Shift A）工作流，如下例所示。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="RenderManBlender_Collectionnstancing.jpg" width="760" loading="lazy" src="../../attachments/544638080/RenderManBlender_Collectionnstancing.jpg" data-image-src="../../attachments/544638080/RenderManBlender_Collectionnstancing.jpg" data-height="1314" data-width="3072" data-unresolved-comment-count="0" data-linked-resource-id="544638107" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderManBlender_Collectionnstancing.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544638080" data-linked-resource-container-version="1" data-media-id="a2473405-5e3f-48c5-8992-d969974fbce1" data-media-type="file"></span><p>RenderMan 还支持通过 Blender 的 Geometry Nodes（几何节点）进行 mesh（网格）和 collection（集合）实例化。在下面的示例中，我们使用一个简单的 Geometry Nodes 设置，沿一条线实例化 Locker Collection（储物柜集合）。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="RenderManBlender_GeometryNodes.jpg" width="760" loading="lazy" src="../../attachments/544638080/RenderManBlender_GeometryNodes.jpg" data-image-src="../../attachments/544638080/RenderManBlender_GeometryNodes.jpg" data-height="1888" data-width="3070" data-unresolved-comment-count="0" data-linked-resource-id="544638104" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderManBlender_GeometryNodes.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544638080" data-linked-resource-container-version="1" data-media-id="47d9aaf2-b0b0-4870-8254-657d1a67e7fd" data-media-type="file"></span><hr/><h2 id="Instances-ShadingVariation">Shading Variation（着色变化）</h2><p>现实世界中没有什么东西看起来完全相同，那么实例化出来的储物柜为什么要一模一样呢？  </p><p>先来看一下我们用于储物柜的 Lama 着色设置。它由多个层构成。</p><h3 id="Instances-Layer1.BaseMetal-LamaConductor">Layer 1（第 1 层）：Base Metal（基础金属）- LamaConductor</h3><p>基础材质是一个 LamaConductor，IOR 设置为 Aluminium（铝）。</p><h3 id="Instances-Layer2.Paint-LamaDiffuse+LamaDielectric">Layer 2（第 2 层）：Paint（油漆）- LamaDiffuse + LamaDielectric</h3><p>为了在金属储物柜表面创建油漆层，我们使用一个 LamaDiffuse 设置提供 base color（基础颜色）。在 LamaDiffuse 之上（Over），再添加一个 LamaDielectric 层来加入 Specular Roughness（镜面粗糙度）。</p><p>随后使用 edge mask（边缘遮罩）设置，把这个油漆层叠加到基础金属之上；该设置会加入边缘破损和划痕，让下方的基础金属层显露出来。</p><h3 id="Instances-Layer3.Dirt-LamaDiffuse">Layer 3（第 3 层）：Dirt（污垢）- LamaDiffuse</h3><p>储物柜顶部又添加了一层污垢，它由一个简单的污垢色 LamaDiffuse 节点提供，并通过 PxrDirt 节点控制，把污垢加入储物柜的遮蔽区域。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="RenderManBlender_Locker_LamaMaterial.jpg" width="760" loading="lazy" src="../../attachments/544638080/RenderManBlender_Locker_LamaMaterial.jpg" data-image-src="../../attachments/544638080/RenderManBlender_Locker_LamaMaterial.jpg" data-height="1941" data-width="3693" data-unresolved-comment-count="0" data-linked-resource-id="544638101" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderManBlender_Locker_LamaMaterial.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544638080" data-linked-resource-container-version="1" data-media-id="1b91ae3c-0e95-43c9-8319-e5b7cc96fe53" data-media-type="file"></span><p>那么，如果希望每个储物柜都有不同颜色呢？</p><p>这很简单！</p><p>关键在于 PxrVary 节点。   </p><p>在下面的示例中，我们把 PxrVary 节点连接到了 PxrHSL 节点的 input color（输入颜色）；PxrHSL 提供了原始的红色 base color。</p><p>为了展示材质变化，我们调大了 PxrVary 的 hue（色相）值，以演示 PxrVary 产生的效果。  </p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="RenderManBlender_Locker_LamaMaterial_PxrVary.jpg" width="760" loading="lazy" src="../../attachments/544638080/RenderManBlender_Locker_LamaMaterial_PxrVary.jpg" data-image-src="../../attachments/544638080/RenderManBlender_Locker_LamaMaterial_PxrVary.jpg" data-height="1951" data-width="2643" data-unresolved-comment-count="0" data-linked-resource-id="544638098" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderManBlender_Locker_LamaMaterial_PxrVary.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544638080" data-linked-resource-container-version="1" data-media-id="c4dd7e15-43e8-41c9-b1b4-f123a18e76a6" data-media-type="file"></span><p>它们看起来很花哨，但现实中，每个储物柜通常会有相似的基础颜色，只带一点颜色变化。可以想象，每个储物柜最初都是同一种颜色（毕竟都来自同一桶漆），但随着时间推移，有些被阳光晒褪色了，有些则重新喷过漆。</p><p>下面的示例通过 Hue 参数设置基础红色，然后细微调整每个实例的饱和度、亮度和 gamma。每个储物柜之间的差异很轻微，而这正是我们想要的效果。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="RenderManBlender_Locker_LamaMaterial_PxrVary2.jpg" width="760" loading="lazy" src="../../attachments/544638080/RenderManBlender_Locker_LamaMaterial_PxrVary2.jpg" data-image-src="../../attachments/544638080/RenderManBlender_Locker_LamaMaterial_PxrVary2.jpg" data-height="1937" data-width="2429" data-unresolved-comment-count="0" data-linked-resource-id="544638095" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderManBlender_Locker_LamaMaterial_PxrVary2.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544638080" data-linked-resource-container-version="1" data-media-id="45d55cb0-165a-4187-b14c-2e54be06ad86" data-media-type="file"></span><p>如果进一步强化这个储物柜 shader（着色器），细心观察会发现，每个储物柜都有不同的边缘破损、污渍和 roughness（粗糙度）。  </p><p>不仅储物柜基础红色的变化由 PxrVary 随机化，所有已用纹理的 placement（放置）也会通过 PxrRoundCube 节点内部的 Randomise（随机化）参数来随机化。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="RenderManBlender_Locker_LamaMaterial_PxrVary3.jpg" width="760" loading="lazy" src="../../attachments/544638080/RenderManBlender_Locker_LamaMaterial_PxrVary3.jpg" data-image-src="../../attachments/544638080/RenderManBlender_Locker_LamaMaterial_PxrVary3.jpg" data-height="1018" data-width="2167" data-unresolved-comment-count="0" data-linked-resource-id="544638092" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="RenderManBlender_Locker_LamaMaterial_PxrVary3.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="544638080" data-linked-resource-container-version="1" data-media-id="2010df25-7897-4abd-87bc-5caf6804f66f" data-media-type="file"></span><p>了解这一点后，就可以在 RfB 的实例化中尽情发挥创意了……为 The Redwood Wildcats 加油！</p><p />
+  </article>
+</main>
+</body>
+</html>

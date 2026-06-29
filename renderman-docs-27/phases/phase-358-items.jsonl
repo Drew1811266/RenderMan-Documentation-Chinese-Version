@@ -1,0 +1,16 @@
+{"id": "15baae354cf5e8b06eb23e90236735a64b92472e23c0b158df3434fcc9559db2", "item_id": "b1c4cccdc4:0", "text": "TOP networks are used to schedule tasks - anywhere from running simulations to rendering. Read more about PDG"}
+{"id": "0a7776f9aa1f2fbd5731875d804909c5fd2f28f2f6e8f58a013a6202f6f37ebd", "item_id": "b1c4cccdc4:2", "text": ". RenderMan is now integrated into PDG with various nodes for rendering, converting textures, denoising, and generating RIB.  Note that \"Do Nothing\" selections will use the RenderMan default unless Set otherwise by the user."}
+{"id": "0c1a54e0cd96461a77c7ff890c1a41d020828c2995bf5946a1bd9820210b41fe", "item_id": "b1c4cccdc4:3", "text": "Currently there is bug where the output of RenderMan render TOPs is the rib file path even if one is not generated."}
+{"id": "3d87e435cf138c2d9c94c8bc5dbac130c5ecabdb5a42304fe79112b1e0e0553e", "item_id": "b1c4cccdc4:4", "text": "ROP Fetch"}
+{"id": "0f9729bcadafec1343bb19eadc9c15efd81e6ea4be7e229a375b7f3caa354ed5", "item_id": "b1c4cccdc4:5", "text": "The simplest render node is the ROP Fetch. Set the ROP Path to a render node in the OUT context."}
+{"id": "74238b312d33b9a5d254169c0045a76bd970f7b24047cab62820b5dc348f356a", "item_id": "b1c4cccdc4:6", "text": "RenderMan Render"}
+{"id": "391a264b52761d83df5bdeca40428cd22a19b6b3b4cd6b224434b9e1159c37e9", "item_id": "b1c4cccdc4:7", "text": "The RenderMan TOP has similar functionality to the ROP Fetch except that the ROP node is inside the network and all the RenderMan ROP options are exposed as parameters on the node."}
+{"id": "cc6875514fb876811b5442ccaee03a1fc838e242c77cb6c5a76dca0d72d5c036", "item_id": "b1c4cccdc4:8", "text": "Generate RIB"}
+{"id": "5009f71d81d673d2efd1f456b5a11472ab6f12061362636e91fb61ab21dd5937", "item_id": "b1c4cccdc4:9", "text": "This TOP node is a clone of the RenderMan Render TOP except with the \"Write RIB\" parameter enabled."}
+{"id": "eab99721bfb528735c4e7d3ac23e5c53c64bf10f40f74421d7acec7ae45c296e", "item_id": "b1c4cccdc4:10", "text": "RenderMan Denoise"}
+{"id": "c753595304e5f9ff23355283f8e7cf082e57753d23dea5a46310fd41ade24d22", "item_id": "b1c4cccdc4:11", "text": "The output of the parent node will be denoised unless the Image parameter is set. This image needs the proper AOVs for denoising. See an explanation of these parameters"}
+{"id": "2a302875b1475d713e727dd1a919c8f234dd06e0a901bbfba2878e184d574c43", "item_id": "b1c4cccdc4:14", "text": "Crossframe denoising is not yet supported."}
+{"id": "79e6395330d29424c193ed2760cf94e8c4a642f1287378abce614341bc17c758", "item_id": "b1c4cccdc4:15", "text": "Render RIB"}
+{"id": "a7fc83400adf31f02cefdd54fc6e731b6262859c4f9898dc3c55ceaf99d0120d", "item_id": "b1c4cccdc4:16", "text": "Wire in a generate rib node as input or provide a RIB path. This node is a wrapper of the prman executable with all the available command line arguments provided as parameters. See an explanation of these parameters"}
+{"id": "85c21adb35e32c602c7732a0e0a9a7394c973630cbb381fae805ad489588514e", "item_id": "b1c4cccdc4:19", "text": "Texture Maker"}
+{"id": "6c198b6f70cd19154b9be2585537d287f0ccd3a6cf1ab34177d1911d2a90469c", "item_id": "b1c4cccdc4:20", "text": "This node will convert the input image or the image parameter if provided to a texture by calling txmake with the set parameters. See an explanation of these parameters"}
