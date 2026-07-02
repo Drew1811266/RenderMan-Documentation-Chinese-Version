@@ -76,7 +76,7 @@
     <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
   </header>
   <article>
-<p>要跟随学习，Project X Handler 的完整 code listing 可在 <a href="22184300-Example Envrionment Handler.html" rel="nofollow">这里</a>找到。</p><p>让我们逐段查看代码，了解这个 handler 会做什么。</p><ul><li><p>首先，看一下 handler initialization：</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="717c0a3a-abed-4e7a-938e-fe847f541f80" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<p>要跟随学习，Project X Handler 的完整代码清单可在 <a href="22184300-Example Envrionment Handler.html" rel="nofollow">这里</a>找到。</p><p>让我们逐段查看代码，了解这个处理器会做什么。</p><ul><li><p>首先，看一下处理器初始化：</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="717c0a3a-abed-4e7a-938e-fe847f541f80" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
 <pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">from TrEnvHandler import TrEnvHandler
 import logging
 
@@ -85,7 +85,7 @@ class projxhandler(TrEnvHandler):
         self.logger = logging.getLogger(&quot;tractor-blade&quot;)
         self.logger.info(&quot;initializing projxhandler: %s&quot; % (name))
         TrEnvHandler.__init__(self, name, envkeydict, envkeys)</pre>
-</div></div><p>initialization 非常直接。首先导入 TrEnvHandler（base class），以及 logging module。</p><p>__init__ routine 设置 logger，然后调用 superclass initialization。</p></li><li><p>environment handler 中的主要处理发生在两个 methods 中。</p><p>环境更新方法说明（updateEnvironment method()）：</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="819a797c-7d05-4ee4-8583-0abf2f8e110a" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+</div></div><p>初始化非常直接。首先导入 TrEnvHandler（基类）和 logging 模块。</p><p>__init__ 例程设置日志记录器，然后调用超类初始化。</p></li><li><p>环境处理器的主要处理发生在两个方法中。</p><p>updateEnvironment() 方法：</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="819a797c-7d05-4ee4-8583-0abf2f8e110a" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
 <pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">def updateEnvironment(self, cmd, env, envkeys):
     self.logger.debug(&quot;projxhandler.updateEnvironment: %s&quot; % repr(envkeys))
     self.initLocalVars()
@@ -105,8 +105,8 @@ class projxhandler(TrEnvHandler):
 def initLocalVars(self):
     self.scene = None
     self.shot = None</pre>
-</div></div><p>updateEnvironment method 对每个 handler 调用一次，参数是 pending command 中与该 handler 处理的 envkeys 匹配的 envkeys 列表。在我们的示例中，如上方 dictionary 所示，当 envkey key 包含 “ProjectX”、“SHOT=somevalue” 或 “SCENE=”somevalue” 时，会调用这个 handler。</p><p>假设 command envkey definition 通常大致如下：</p><p><code>RemoteCommand{ ...... } -envkey { ProjectX SHOT=27234-A SCENE=5125 }
-</code></p><p>updateEnvironment() method 的主要职责，是定义放入 handler 自身 environment 中的 values。它最后通常会调用 base class 的 updateEnvironment() method，将 handler environment 与 blade 提供的 launching command environment 合并。</p><p>这个 handler 中的 code 会遍历与 launching command 关联的所有 envkeys。然后它设置一些 internal variables，供后续使用，并在 handler 的 local environment dictionary 中设置多个 environment variables。</p><p>在上面的 Project X handler environment dictionary 中，你会找到以下内容：</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="aef67847-3f14-400d-8cfa-26555eb44363" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+</div></div><p>updateEnvironment 方法会针对每个处理器调用一次，参数是待处理命令中的 envkeys 列表，这些 envkeys 与该处理器处理的 envkeys 匹配。在我们的示例中，如上方字典所示，当 envkey 键包含 “ProjectX”、“SHOT=somevalue” 或 “SCENE=somevalue” 时，会调用这个处理器。</p><p>假设命令的 envkey 定义通常大致如下：</p><p><code>RemoteCommand{ ...... } -envkey { ProjectX SHOT=27234-A SCENE=5125 }
+</code></p><p>updateEnvironment() 方法的主要职责，是定义放入处理器自身环境中的值。它最后通常会调用基类的 updateEnvironment() 方法，将处理器环境与 blade 提供的启动命令环境合并。</p><p>这个处理器中的代码会遍历与启动命令关联的所有 envkeys。然后设置一些内部变量，供后续使用，并在处理器的本地环境字典中设置多个环境变量。</p><p>在上面的 Project X 处理器环境字典中，你会找到以下内容：</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="aef67847-3f14-400d-8cfa-26555eb44363" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
 <pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">&quot;environment&quot;: {
   &quot;CURRENT_SHOW&quot;: &quot;Project X, Venture of Mystery&quot;,
   &quot;CURRENT_SHOT&quot;: &quot;$SHOT&quot;,
@@ -114,7 +114,7 @@ def initLocalVars(self):
   &quot;RMANTREE&quot;: &quot;/opt/pixar/RenderManProServer-15.2&quot;,
   &quot;PATH&quot;: &quot;$RMANTRE:/bin;$PATH&quot;
 },</pre>
-</div></div><p>CURRENT_SHOT 和 CURRENT_SCENE environment variables 基于处理 dictionary 时预期存在的 variables。因此，在 handler code 中，你会看到 self.environmentdict["SCENE"] 和 self.environmentdict["SHOT"] 在 handler 的 updateEnvironment() method 中定义。当调用 base class updateEnvironment() method 时，该 dictionary 会合并到 launching command 的 environment 中，从而正确定义 CURRENT_SHOT 和 CURRENT_SCENE。</p><p>我们还看到一个 environment 内部 flattening 的示例：RMANTREE 被定义为指向该 show 的特定 RPS version，并且 $RMANTREE/bin 被加载到 PATH environment variable 的开头。</p></li><li><p>调用 updateEnvironment() method 后，blade 接着调用 handler 的 remapCmdArgs() method。此 method 的目的是允许 handler 在 command 启动之前重写原始 command。</p><p>rewrite method 重写方法如下：</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="5304fee1-32c1-4ef0-b7ab-f3c244cb1547" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+</div></div><p>CURRENT_SHOT 和 CURRENT_SCENE 环境变量基于处理字典时预期存在的变量。因此，在处理器代码中，你会看到 self.environmentdict["SCENE"] 和 self.environmentdict["SHOT"] 在处理器的 updateEnvironment() 方法中定义。调用基类 updateEnvironment() 方法时，该字典会合并到启动命令的环境中，从而正确定义 CURRENT_SHOT 和 CURRENT_SCENE。</p><p>我们还看到一个环境内部扁平化的示例：RMANTREE 被定义为指向该项目的特定 RPS 版本，并且 $RMANTREE/bin 被加载到 PATH 环境变量的开头。</p></li><li><p>调用 updateEnvironment() 方法后，blade 接着调用处理器的 remapCmdArgs() 方法。此方法的目的是允许处理器在命令启动之前重写原始命令。</p><p>重写方法如下：</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="5304fee1-32c1-4ef0-b7ab-f3c244cb1547" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
 <pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">def remapCmdArgs(self, cmdinfo, launchenv, thisHost):
     self.logger.debug(&quot;projxhandler.remapCmdArgs: %s&quot; % self.name)
     argv = TrEnvHandler.remapCmdArgs(self, cmdinfo, launchenv, thisHost)
@@ -142,7 +142,7 @@ def initLocalVars(self):
             launchenv[&quot;LIB&quot;] = launchenv[&quot;VCLIB&quot;]
 
     return argv</pre>
-</div></div><p>handlers 通常做的第一件事，是调用 base class remapCmdArgs() method。base class 处理所有软件都会使用的通用 remapping。它处理 alfred scripting language 允许的标准 remapping，例如 “%h, %H”。它还会查找任何 command line 中的 $val。随后预期从 launch environment 中提供这个 $val。例如 <em>$render</em> 可能会被 remapped 为 <em>prman</em>。</p><p>调用 base class 后，handler 可以提供它需要的任何 custom remapping。在我们的示例 handler 中，它执行以下操作：</p><ul><li><p>它将 environment variable TRACTOR 设置为 1，让 downstream scripts 知道这是一个由 tractor launched job。</p></li><li><p>它检查要启动的 application 是否为 <em>render</em>，并检查 RMANTREE 是否在 environment 中。如果是，它会把 launch command 改为（实际上） <em>$RMANTREE/bin/prman</em>，并通过添加基于 current scene 和 shot values 的 output stats file 来扩展 command。</p></li><li><p>随后这个 handler 会检查 current blade 的 platform。如果确定是 windows platform，它会把 Visual Studio INCLUDE 和 LIBS values 添加到 launch environment 中。</p></li></ul><p>根据为 command 提供的 envkeys 数量，可能会有多个 environment handlers 处理该 command。 <em>default</em> handler 总是最先被调用，然后其他 handlers 会级联执行。当最后一个 handler 处理完 environment 和 launch command 后，blade 才会启动修改后的 command。</p></li></ul>
+</div></div><p>处理器通常做的第一件事，是调用基类 remapCmdArgs() 方法。基类处理所有软件都会使用的通用重映射。它处理 Alfred 脚本语言允许的标准重映射，例如 “%h, %H”。它还会查找任何命令行中的 $val。随后预期从启动环境中提供这个 $val。例如 <em>$render</em> 可能会被重映射为 <em>prman</em>。</p><p>调用基类后，处理器可以提供所需的任何自定义重映射。在我们的示例处理器中，它会执行以下操作：</p><ul><li><p>它将环境变量 TRACTOR 设置为 1，让下游脚本知道这是一个由 Tractor 启动的作业。</p></li><li><p>它检查要启动的应用程序是否为 <em>render</em>，并检查 RMANTREE 是否在环境中。如果是，它会把启动命令改为（实际上） <em>$RMANTREE/bin/prman</em>，并通过添加基于当前场景和镜头值的输出统计文件来扩展命令。</p></li><li><p>随后这个处理器会检查当前 blade 的平台。如果确定是 Windows 平台，它会把 Visual Studio INCLUDE 和 LIBS 值添加到启动环境中。</p></li></ul><p>根据为命令提供的 envkeys 数量，可能会有多个环境处理器处理该命令。 <em>default</em> 处理器总是最先被调用，然后其他处理器会级联执行。当最后一个处理器处理完环境和启动命令后，blade 才会启动修改后的命令。</p></li></ul>
   </article>
 </main>
 </body>

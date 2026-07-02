@@ -80,7 +80,7 @@
 <div class="columnLayout fixed-width" data-layout="fixed-width">
 <div class="cell normal" data-type="normal">
 <div class="innerCell">
-<p>在大量视觉特效和动画工作中，场景主要通过高动态范围图像（HDRI）来照明。这通常在拍摄现场捕获，随后用于在你的场景中复现该照明。在很多方面，它能让你的照明完成到 80%（甚至更多）。艺术家剩下要做的，就是进一步润色照明，得到出色的最终镜头！</p><p><br /></p><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="a0e68ee2-2b86-4390-9723-29d0abd0b48b" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>当我们谈论 HDRI 照明时，指的是使用光照值远高于 1.0 的全浮点（或 half-float）图像来产生照明。使用低动态范围或 JPEG 这类 8-bit 图像，也许能产生可接受的反射，但照明会显得暗淡且大多很平。为避免这种情况，我们建议使用通过多重曝光捕获的 EXR、HDR 或 TIFF 浮点图像。要理解，光源（即使是人造光源）相对于周围环境也具有相当高的能量。如果你发现阴影过软或密度太浅，那是因为 HDRI 中的光源不够强。可以用图像编辑器有选择地提高这些光源的 Exposure，或把这些光源映射到 area lights 并调整它们的 Exposure 或 Intensity 来解决。</p></div></div><p><br /></p><p>此灯光模拟环境照明。它通过基于图像的照明（IBL）工作，使用环境贴图照亮布景和角色。注意，此灯光的缩放和平移会被忽略，因为它被视为近乎无限远，或至少非常遥远。只有旋转会起作用，因此你可以据此定位照明。场景中也可以有多个此类灯光，以便灵活布光，并将其链接到对象和 portal lights。</p><p>为了出于优化目的将照明限制在特定区域，你可以将&nbsp;<a href="542228147-PxrPortalLight.html" rel="nofollow">PxrPortalLight</a>&nbsp;与 PxrDomeLight 一起使用，为带窗户和天窗的室内等场景集中采样。</p><p><br /></p><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="5366eb3d-5c38-4606-86b8-619540f53ec8" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>你会看到对“非物理”控制的提及。这些控制用于帮助艺术家通过忽略我们通常模拟的某些物理定律，制作艺术指导图像。</p></div></div><div class="confluence-information-macro confluence-information-macro-warning conf-macro output-block" data-hasbody="true" data-macro-id="e17eadd4-371e-47a2-bec9-dbe2786f5cd1" data-macro-name="warning"><span class="aui-icon aui-icon-small aui-iconfont-error confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>避免通过非均匀缩放使穹顶形状发生倾斜。你的渲染可能永远无法收敛，或耗时长得多。</p></div></div><p><br /></p><h3 id="PxrDomeLight-Parameters">参数</h3><p><br /></p><h4 id="PxrDomeLight-Basic">Basic</h4><p><strong>Intensity</strong></p><p>线性缩放此灯光的贡献。这张高动态范围图像（HDRI）经过编辑，使太阳自然明亮，并产生漂亮的深色阴影和明亮高光。注意，在太阳处，intensity 2.0 已经相当明亮！动态范围较小的其他 HDRI 可能会受益于高于 1.0 的值。</p></div>
+<p>在大量视觉特效和动画工作中，场景主要通过高动态范围图像（HDRI）来照明。这通常在拍摄现场捕获，随后用于在你的场景中复现该照明。在很多方面，它能让你的照明完成到 80%（甚至更多）。艺术家剩下要做的，就是进一步润色照明，得到出色的最终镜头！</p><p><br /></p><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="a0e68ee2-2b86-4390-9723-29d0abd0b48b" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>当我们谈论 HDRI 照明时，指的是使用光照值远高于 1.0 的全浮点（或半浮点）图像来产生照明。使用低动态范围或 JPEG 这类 8 位图像，也许能产生可接受的反射，但照明会显得暗淡且大多很平。为避免这种情况，我们建议使用通过多重曝光捕获的 EXR、HDR 或 TIFF 浮点图像。要理解，光源（即使是人造光源）相对于周围环境也具有相当高的能量。如果你发现阴影过软或密度太浅，那是因为 HDRI 中的光源不够强。可以用图像编辑器有选择地提高这些光源的 Exposure，或把这些光源映射到区域灯并调整它们的 Exposure 或 Intensity 来解决。</p></div></div><p><br /></p><p>此灯光模拟环境照明。它通过基于图像的照明（IBL）工作，使用环境贴图照亮布景和角色。注意，此灯光的缩放和平移会被忽略，因为它被视为近乎无限远，或至少非常遥远。只有旋转会起作用，因此你可以据此定位照明。场景中也可以有多个此类灯光，以便灵活布光，并将其链接到对象和门户灯。</p><p>为了出于优化目的将照明限制在特定区域，你可以将&nbsp;<a href="542228147-PxrPortalLight.html" rel="nofollow">PxrPortalLight</a>&nbsp;与 PxrDomeLight 一起使用，为带窗户和天窗的室内等场景集中采样。</p><p><br /></p><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="5366eb3d-5c38-4606-86b8-619540f53ec8" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>你会看到对“非物理”控制的提及。这些控制用于帮助艺术家通过忽略我们通常模拟的某些物理定律，制作艺术指导图像。</p></div></div><div class="confluence-information-macro confluence-information-macro-warning conf-macro output-block" data-hasbody="true" data-macro-id="e17eadd4-371e-47a2-bec9-dbe2786f5cd1" data-macro-name="warning"><span class="aui-icon aui-icon-small aui-iconfont-error confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>避免通过非均匀缩放使穹顶形状发生倾斜。你的渲染可能永远无法收敛，或耗时长得多。</p></div></div><p><br /></p><h3 id="PxrDomeLight-Parameters">参数</h3><p><br /></p><h4 id="PxrDomeLight-Basic">Basic</h4><p><strong>Intensity</strong></p><p>线性缩放此灯光的贡献。这张高动态范围图像（HDRI）经过编辑，使太阳自然明亮，并产生漂亮的深色阴影和明亮高光。注意，在太阳处，Intensity 2.0 已经相当明亮！动态范围较小的其他 HDRI 可能会受益于高于 1.0 的值。</p></div>
 </div>
 </div>
 <div class="columnLayout three-equal" data-layout="three-equal">
@@ -100,7 +100,7 @@
 <div class="columnLayout fixed-width" data-layout="fixed-width">
 <div class="cell normal" data-type="normal">
 <div class="innerCell">
-<p><strong>Exposure</strong></p><p>指定 area light 的 Exposure，以 2 的幂表示。Exposure 增加 1 会使光源发出的能量翻倍。值 0 在光源处产生 1 的强度，-1 产生 0.5。注意，这看起来和上面的图像一样。你可能会想，为什么要使用 <strong>Exposure</strong>，答案是现实世界照明能量很高，典型 exposure 值较低；如果要获得等效的&nbsp;<strong>Intensity</strong>，你可能必须输入非常大的数字。对于熟悉摄影测量的艺术家来说，这也更顺手。</p></div>
+<p><strong>Exposure</strong></p><p>指定区域灯的 Exposure，以 2 的幂表示。Exposure 增加 1 会使光源发出的能量翻倍。值 0 在光源处产生 1 的强度，-1 产生 0.5。注意，这看起来和上面的图像一样。你可能会想，为什么要使用 <strong>Exposure</strong>，答案是现实世界照明能量很高，典型曝光值较低；如果要获得等效的&nbsp;<strong>Intensity</strong>，你可能必须输入非常大的数字。对于熟悉摄影测量的艺术家来说，这也更顺手。</p></div>
 </div>
 </div>
 <div class="columnLayout three-equal" data-layout="three-equal">
@@ -120,7 +120,7 @@
 <div class="columnLayout fixed-width" data-layout="fixed-width">
 <div class="cell normal" data-type="normal">
 <div class="innerCell">
-<p><br /></p><p><strong>Color</strong></p><p>发出灯光的颜色。如果指定了 color map，此颜色会对 color map 进行染色。下面分别是不使用 map（默认为白色）、红色，以及用红色为 HDRI 染色的示例。注意，如这里所示，使用纯净饱和色染色可能会压过纹理。</p></div>
+<p><br /></p><p><strong>Color</strong></p><p>发出灯光的颜色。如果指定了颜色贴图，此颜色会对颜色贴图进行染色。下面分别是不使用贴图（默认为白色）、红色，以及用红色为 HDRI 染色的示例。注意，如这里所示，使用纯净饱和色染色可能会压过纹理。</p></div>
 </div>
 </div>
 <div class="columnLayout three-equal" data-layout="three-equal">
@@ -140,7 +140,7 @@
 <div class="columnLayout fixed-width" data-layout="fixed-width">
 <div class="cell normal" data-type="normal">
 <div class="innerCell">
-<p><br /></p><p><strong>Color Map</strong></p><p>dome 纹理的文件名。下面是把不同 HDRI 用作 <strong>Color Map</strong>的示例。</p></div>
+<p><br /></p><p><strong>Color Map</strong></p><p>穹顶纹理的文件名。下面是把不同 HDRI 用作 <strong>Color Map</strong>的示例。</p></div>
 </div>
 </div>
 <div class="columnLayout three-equal" data-layout="three-equal">
@@ -180,7 +180,7 @@
 <div class="columnLayout fixed-width" data-layout="fixed-width">
 <div class="cell normal" data-type="normal">
 <div class="innerCell">
-<p><br /></p><p><strong>Color Temperature</strong></p><p>允许用户选择灯光的&nbsp;<a class="external-link" href="https://en.wikipedia.org/wiki/Color_temperature" rel="nofollow">色温</a>&nbsp;，单位为&nbsp;<a class="external-link" href="https://en.wikipedia.org/wiki/Kelvin" rel="nofollow">Kelvin</a>。不同于基础灯光颜色，这让用户可以根据标准温度测量轻松选择可信的灯光颜色。此控制的作用类似灯光前方的 filter 或 gel（一层带 tint 的透明表面）。如果灯光为白色，你会得到所选色温。如果灯光已有颜色，色温会使它更冷（高于 6500K）或更暖（低于 6500K）。&nbsp;</p><p><br /></p><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="293824f4-ef58-4900-8566-edf6d403c4a3" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>该效果在完全饱和的单色灯光上不太明显。默认值为 6500K，在大多数显示器上应非常接近白色（sRGB 和 Rec 709 使用的 D65 illuminant）。</p></div></div><p><br /></p><p><strong>Primary Visibility</strong></p><p>默认情况下，灯光会直接对 camera 可见。关闭此项会使其对 camera 不可见。</p><p><br /></p><hr /><h4 id="PxrDomeLight-Refine">Refine</h4><p>下面的选项是用于艺术指导图像的非物理控制。例如：你可以将灯光的 <strong>Diffuse Amount</strong> 设为 0.0，使其仅作为场景 objects 的高光来源。</p><p><strong> </strong><br /></p><p><strong>Specular Amount</strong></p><p>发出的 specular light（镜面反射光）数量。这是一个非物理控制。你可以将灯光的 Specular Amount 设为 0.0，使其仅作为场景 objects 的 diffuse light（漫反射光）来源，并避免添加高光。</p></div>
+<p><br /></p><p><strong>Color Temperature</strong></p><p>允许用户选择灯光的&nbsp;<a class="external-link" href="https://en.wikipedia.org/wiki/Color_temperature" rel="nofollow">色温</a>&nbsp;，单位为&nbsp;<a class="external-link" href="https://en.wikipedia.org/wiki/Kelvin" rel="nofollow">Kelvin</a>。不同于基础灯光颜色，这让用户可以根据标准温度测量轻松选择可信的灯光颜色。此控制的作用类似灯光前方的滤镜或色片（一层带色调的透明表面）。如果灯光为白色，你会得到所选色温。如果灯光已有颜色，色温会使它更冷（高于 6500K）或更暖（低于 6500K）。&nbsp;</p><p><br /></p><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="293824f4-ef58-4900-8566-edf6d403c4a3" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>该效果在完全饱和的单色灯光上不太明显。默认值为 6500K，在大多数显示器上应非常接近白色（sRGB 和 Rec 709 使用的 D65 标准照明体）。</p></div></div><p><br /></p><p><strong>Primary Visibility</strong></p><p>默认情况下，灯光会直接对相机可见。关闭此项会使其对相机不可见。</p><p><br /></p><hr /><h4 id="PxrDomeLight-Refine">Refine</h4><p>下面的选项是用于艺术指导图像的非物理控制。例如：你可以将灯光的 <strong>Diffuse Amount</strong> 设为 0.0，使其仅作为场景对象的高光来源。</p><p><strong> </strong><br /></p><p><strong>Specular Amount</strong></p><p>发出的镜面反射光数量。这是一个非物理控制。你可以将灯光的 Specular Amount 设为 0.0，使其仅作为场景对象的漫反射光来源，并避免添加高光。</p></div>
 </div>
 </div>
 <div class="columnLayout three-equal" data-layout="three-equal">
@@ -200,7 +200,7 @@
 <div class="columnLayout fixed-width" data-layout="fixed-width">
 <div class="cell normal" data-type="normal">
 <div class="innerCell">
-<p><br /></p><p><strong>Diffuse Amount</strong></p><p>发出的 diffuse light（漫反射光）数量。这是一个非物理控制。你可以将灯光的 Diffuse Amount 设为 0.0，使其仅作为场景 objects 的高光来源。</p></div>
+<p><br /></p><p><strong>Diffuse Amount</strong></p><p>发出的漫反射光数量。这是一个非物理控制。你可以将灯光的 Diffuse Amount 设为 0.0，使其仅作为场景对象的高光来源。</p></div>
 </div>
 </div>
 <div class="columnLayout three-equal" data-layout="three-equal">
@@ -220,7 +220,7 @@
 <div class="columnLayout fixed-width" data-layout="fixed-width">
 <div class="cell normal" data-type="normal">
 <div class="innerCell">
-<p><br /></p><hr /><h4 id="PxrDomeLight-Shadows">Shadows</h4><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="8996492b-a5d2-4def-8203-c9686cfacf35" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p><span data-colorid="b2r0x1djat">如果灯光的&nbsp;</span> <strong>Trace Light Paths</strong> <span data-colorid="olakvqpwxp">&nbsp;在 Advanced 中启用，则所有 shadow 参数都会被忽略。下面的选项在脱离默认状态使用时都是非物理控制。如果&nbsp;</span> <strong>Trace Light Paths</strong> <span data-colorid="y22wzb4ixz">&nbsp;启用，则会强制执行其物理属性。</span></p></div></div><p><strong> </strong><br /></p><p><strong>Enable Shadows</strong></p><p>启用光线追踪阴影。</p></div>
+<p><br /></p><hr /><h4 id="PxrDomeLight-Shadows">Shadows</h4><div class="confluence-information-macro confluence-information-macro-note conf-macro output-block" data-hasbody="true" data-macro-id="8996492b-a5d2-4def-8203-c9686cfacf35" data-macro-name="note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p><span data-colorid="b2r0x1djat">如果灯光的&nbsp;</span> <strong>Trace Light Paths</strong> <span data-colorid="olakvqpwxp">&nbsp;在 Advanced 中启用，则所有阴影参数都会被忽略。下面的选项在脱离默认状态使用时都是非物理控制。如果&nbsp;</span> <strong>Trace Light Paths</strong> <span data-colorid="y22wzb4ixz">&nbsp;启用，则会强制执行其物理属性。</span></p></div></div><p><strong> </strong><br /></p><p><strong>Enable Shadows</strong></p><p>启用光线追踪阴影。</p></div>
 </div>
 </div>
 <div class="columnLayout two-equal" data-layout="two-equal">
@@ -272,7 +272,7 @@
 <div class="columnLayout fixed-width" data-layout="fixed-width">
 <div class="cell normal" data-type="normal">
 <div class="innerCell">
-<p><br /></p><p><strong>Shadow Falloff</strong></p><p>阴影衰减从灯光处开始的距离。-1.0 会关闭阴影衰减。它与 <strong>Shadow Max Distance</strong> 一起使用，为被 <strong>Shadow Max Distance</strong> 参数削弱或截断的阴影创建伪淡出。下面是两个参数一起使用且 falloff 增加的示例。注意，此参数可能影响复杂灯光设置中的性能。</p></div>
+<p><br /></p><p><strong>Shadow Falloff</strong></p><p>阴影衰减从灯光处开始的距离。-1.0 会关闭阴影衰减。它与 <strong>Shadow Max Distance</strong> 一起使用，为被 <strong>Shadow Max Distance</strong> 参数削弱或截断的阴影创建伪淡出。下面是两个参数一起使用且衰减增加的示例。注意，此参数可能影响复杂灯光设置中的性能。</p></div>
 </div>
 </div>
 <div class="columnLayout three-equal" data-layout="three-equal">
@@ -312,7 +312,7 @@
 <div class="columnLayout fixed-width" data-layout="fixed-width">
 <div class="cell normal" data-type="normal">
 <div class="innerCell">
-<p><br /></p><p><strong>Trace Subset</strong></p><p>要纳入追踪阴影求交的 geometry 集合。如果未指定，则所有 geometry 都会纳入追踪阴影求交。</p><p><strong> </strong><br /></p><p><strong>Don't Trace Subset</strong></p><p>要忽略追踪阴影求交的 geometry 集合。如果未指定，则所有 geometry 都用于追踪阴影求交。</p><p><br /></p><p><br /></p><hr /><h4 id="PxrDomeLight-Advanced">Advanced</h4><p><br /></p><p><strong>Trace Light Paths</strong></p><p>启用从此灯光开始的光线和光子追踪。该值会强制使用基于物理的灯光，并且作为副作用禁用上面的 <strong>Shadows</strong> 控制。使用 PxrVCM 或 PxrUnified Integrators 时，用户可利用此功能选择哪些灯光发射光子。</p><p><strong> </strong><br /></p><p><strong>Thin Shadow</strong></p><p>为此灯光启用 thin shadow（薄阴影）并禁用折射焦散。如果 <strong>Trace Light Paths</strong> 已启用，则会忽略此参数。这是一个非物理控制，可为透射对象创建“伪”彩色阴影，而无需为焦散生成光子。下面我们从 On（默认）切换到 Off（不透明阴影）。注意，选择 Off 时会丢失彩色阴影和内部彩色反射，但会换来一些渲染速度。</p></div>
+<p><br /></p><p><strong>Trace Subset</strong></p><p>要纳入追踪阴影求交的几何体集合。如果未指定，则所有几何体都会纳入追踪阴影求交。</p><p><strong> </strong><br /></p><p><strong>Don't Trace Subset</strong></p><p>要忽略追踪阴影求交的几何体集合。如果未指定，则所有几何体都用于追踪阴影求交。</p><p><br /></p><p><br /></p><hr /><h4 id="PxrDomeLight-Advanced">Advanced</h4><p><br /></p><p><strong>Trace Light Paths</strong></p><p>启用从此灯光开始的光线和光子追踪。该值会强制使用基于物理的灯光，并且作为副作用禁用上面的 <strong>Shadows</strong> 控制。使用 PxrVCM 或 PxrUnified 积分器时，用户可利用此功能选择哪些灯光发射光子。</p><p><strong> </strong><br /></p><p><strong>Thin Shadow</strong></p><p>为此灯光启用薄阴影并禁用折射焦散。如果 <strong>Trace Light Paths</strong> 已启用，则会忽略此参数。这是一个非物理控制，可为透射对象创建“伪”彩色阴影，而无需为焦散生成光子。下面我们从 On（默认）切换到 Off（不透明阴影）。注意，选择 Off 时会丢失彩色阴影和内部彩色反射，但会换来一些渲染速度。</p></div>
 </div>
 </div>
 <div class="columnLayout two-equal" data-layout="two-equal">
@@ -328,7 +328,7 @@
 <div class="columnLayout fixed-width" data-layout="fixed-width">
 <div class="cell normal" data-type="normal">
 <div class="innerCell">
-<p><br /></p><p><strong>Visible in Refraction</strong></p><p>开启此项可使灯光通过玻璃和窗户等透射效果可见。</p><p><br /></p><p><strong>Manifold Walk</strong></p><p>与 PxrUnified Integrator 一起使用，并启用&nbsp;<strong>Enable Manifold Walk</strong>&nbsp;以创建低成本 caustics。注意：你必须禁用 Thin Shadows</p><p><br /></p><p><strong>Manifold Walk Exclude Group</strong></p><p>与 PxrUnified Integrator 一起使用，并启用&nbsp;<strong>Enable Manifold Walk（启用流形行走选项参数）， </strong>该 trace set 会在流形探索期间被忽略，以避免停止或遮挡流形探索光线</p><p><br /></p><p><strong>Light Samples</strong></p><p>指定此光源的灯光采样数量覆盖值。如果设为非零值，它会覆盖 integrator（积分器）执行的采样。除非遇到来自该灯光且无法解决的 noise，建议保持默认值。</p><p><strong> </strong><br /></p><p><strong>Light Group</strong></p><p>指定用于 light group LPEs 的 Light Group 名称。这对于生成 per-light AOVs 以便之后在合成中调整很有用。</p><p><br /></p><p><strong>Importance Multiplier</strong></p><p>用户不必显式设置 Light Samples，而可以通过更改此值来改变内部分配给该灯光的采样数量。RenderMan 会在渲染时为场景中的所有灯光创建一组采样，改变此值会在这些灯光之间重新平衡采样。注意，增大此值会使&nbsp;<em>更多</em>&nbsp;采样从此灯光中被选择，同时减少场景中其他灯光的采样。低于默认值则会&nbsp;<em>减少</em>&nbsp;该灯光的采样，同时为场景中的其他灯光提供更多采样。</p><p><br /></p><h3 id="PxrDomeLight-SeeAlso">另请参阅</h3><ul><li><p><a href="542228147-PxrPortalLight.html" rel="nofollow">PxrPortalLight</a></p></li></ul></div>
+<p><br /></p><p><strong>Visible in Refraction</strong></p><p>开启此项可使灯光通过玻璃和窗户等透射效果可见。</p><p><br /></p><p><strong>Manifold Walk</strong></p><p>与 PxrUnified Integrator 一起使用，并启用&nbsp;<strong>Enable Manifold Walk</strong>&nbsp;以创建低成本焦散。注意：你必须禁用 Thin Shadows</p><p><br /></p><p><strong>Manifold Walk Exclude Group</strong></p><p>与 PxrUnified Integrator 一起使用，并启用&nbsp;<strong>Enable Manifold Walk（启用流形行走选项参数）， </strong>该追踪集合会在流形探索期间被忽略，以避免停止或遮挡流形探索光线</p><p><br /></p><p><strong>Light Samples</strong></p><p>指定此光源的灯光采样数量覆盖值。如果设为非零值，它会覆盖积分器执行的采样。除非遇到来自该灯光且无法解决的噪声，建议保持默认值。</p><p><strong> </strong><br /></p><p><strong>Light Group</strong></p><p>指定用于灯光组 LPE 的 Light Group 名称。这对于生成逐灯光 AOV 以便之后在合成中调整很有用。</p><p><br /></p><p><strong>Importance Multiplier</strong></p><p>用户不必显式设置 Light Samples，而可以通过更改此值来改变内部分配给该灯光的采样数量。RenderMan 会在渲染时为场景中的所有灯光创建一组采样，改变此值会在这些灯光之间重新平衡采样。注意，增大此值会使&nbsp;<em>更多</em>&nbsp;采样从此灯光中被选择，同时减少场景中其他灯光的采样。低于默认值则会&nbsp;<em>减少</em>&nbsp;该灯光的采样，同时为场景中的其他灯光提供更多采样。</p><p><br /></p><h3 id="PxrDomeLight-SeeAlso">另请参阅</h3><ul><li><p><a href="542228147-PxrPortalLight.html" rel="nofollow">PxrPortalLight</a></p></li></ul></div>
 </div>
 </div>
 </div>

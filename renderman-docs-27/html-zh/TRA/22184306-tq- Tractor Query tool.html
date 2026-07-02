@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>tq: Tractor Query tool</title>
+  <title>tq: Tractor 查询工具</title>
   <style>
     :root { color-scheme: light; }
     body {
@@ -71,12 +71,12 @@
 <body class="rm-themed rm-doc-page">
 <main>
   <header>
-    <h1>tq: Tractor Query tool</h1>
+    <h1>tq: Tractor 查询工具</h1>
     <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/TRA/22184306/tq%3A+Tractor+Query+tool">https://rmanwiki-27.pixar.com/space/TRA/22184306/tq%3A+Tractor+Query+tool</a></div>
     <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
   </header>
   <article>
-<p><strong>tq</strong> 是一个强大的 command line tool，用于 search 并 operate jobs、tasks、commands、invocations 和 blades。它允许对 queue 和 render farm 的当前状态进行广泛 inspection，也可对已经运行过的 commands 进行 historical analysis。</p><p>tq 具有 extensive built-in help，因此无需离开 command-line 就能获得帮助。要访问此 help，只需输入 tq help。</p><p>更深入的 examples 请参阅 <a href="22184318-tq Cookbook.html" rel="nofollow">tq Cookbook</a>。</p><p> </p><h3 id="tq:TractorQuerytool-ASimpleExample">简单使用示例（A Simple Example）</h3><p>tq 把 subcommand name 作为第一个 argument。在这个 simple example 中，tq jobs 会列出 system 中的所有 jobs。</p><p><code>% tq jobs</code></p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="96d53a5f-7c54-479d-baa6-9717bc34ea1a" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<p><strong>tq</strong> 是一个强大的命令行工具，用于搜索并操作作业、任务、命令、调用记录和 blade。它允许广泛检查队列和渲染农场的当前状态，也可对已经运行过的命令进行历史分析。</p><p>tq 具有完整的内置帮助，因此无需离开命令行就能获得说明。要访问此帮助，只需输入 tq help。</p><p>更深入的示例请参阅 <a href="22184318-tq Cookbook.html" rel="nofollow">tq Cookbook</a>。</p><p> </p><h3 id="tq:TractorQuerytool-ASimpleExample">简单示例</h3><p>tq 把子命令名称作为第一个参数。在这个简单示例中，tq jobs 会列出系统中的所有作业。</p><p><code>% tq jobs</code></p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="96d53a5f-7c54-479d-baa6-9717bc34ea1a" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
 <pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">    jid user   title                     pri wait actv err done spooled
 ======= ====== ======================== ==== ==== ==== === ==== ===========
 1305301 joe    RenderMan Monkey Left     400       840      160 05/30|14:26
@@ -87,35 +87,35 @@
 1306042 mcgr   Interactive 6              20    8               06/04|16:47
 ...
 </pre>
-</div></div><p>类似地，也可以列出 tasks、commands、invocations 和 blades。</p><p>通常，user 只想查看 items 的一个 subset。Command line 上剩余的 non-option arguments 会组成一个 <a href="22184262-Search Clauses.html" rel="nofollow">search clause</a>，用于缩小 search 范围。例如，此 command 会列出 user mango 拥有且在 24 小时前 spooled 的所有 jobs：</p><p><code>% tq jobs &quot;owner=mango and spooltime &lt; -1d&quot;
-</code></p><p>简而言之，search clause 是一个 boolean expression（这里使用 and），由 entity attributes（owner、spooltime）的 comparisons（=、&lt;）组成。为了减少 command line 上的输入量，做了一些便利处理。例如，literal mango 没有放在 quotes 中，而 string -1d 是表示 one day ago 的 short form。</p><p>有关 search clause syntax 的更多细节可在 <a href="22184262-Search Clauses.html" rel="nofollow">这里</a>找到。</p><p> </p><h3 id="tq:TractorQuerytool-Columns">Columns（列）</h3><p>tq 对每个 commands 都有默认显示的 attributes list。可以使用 --columns 或 -c option 显示另一组 attributes。</p><p>例如，要显示 job id、owner、title 和 metadata columns：</p><p><code>% tq jobs --columns jid,owner,title,metadata
-</code></p><p>还可以使用 + 或 - 加 column name，相对于默认 columns set 添加或移除 columns。例如，下面的 command 会移除 title column，并添加 spoolhost 和 spoolfile columns：</p><p><code>% tq jobs -c -title,+spoolhost,+spoolfile
-</code></p><p>某些 columns 有默认 fixed width；较宽的 values 会被替换为 ... 以适配 column。其他 columns 具有 dynamic width，会设置为要显示的最宽 value。可以使用 = operator 指定 column width，其中 0 用于指定 dynamically sized column。在此示例中，metadata column 的 width 为所显示值中的最宽值，现有 title column 固定为 30 characters：</p><p><code>% tq jobs -c +metadata=0,=title=30
-</code></p><p>注意，在某些 shells（如 zsh）中，如果 option arguments 以 equal sign 开头，必须放在 quotes 中。</p><p><code>% tq jobs -c &quot;=title=30,+metadata=0&quot;
-</code></p><p><sup> </sup></p><h3 id="tq:TractorQuerytool-Sorting">Sorting（排序）</h3><p>可以使用 --sortby 或 -s option 对 results 排序。可以指定多个 attributes 来表示 secondary sorting。Items 默认按 ascending order 排列，除非 attribute 前加上 <em>-</em> 以表示 descending order 降序排列。</p><p>例如，要显示类似 jobs 在 FIFO queue 中会被处理的顺序，可以按 priority descending、spooltime ascending order 列出它们，如下所示：</p><p><code>% tq jobs --sortby -priority,spooltime
-</code></p><p><sup> </sup></p><h3 id="tq:TractorQuerytool-Limiting">Limiting（限制结果数量）</h3><p>Result sets 可以缩短，使其适用于 top lists。例如，此 command 会列出 farm 上 active tasks 数量最多的十个 jobs：</p><p><code>% tq jobs active -s -numactive --limit 10
-</code></p><p>此 command 会列出 disk space 最少的二十台 hosts。</p><p><code>% tq blades -s availdisk --limit 20
-</code></p><p><sup> </sup></p><h3 id="tq:TractorQuerytool-Affiliation">关联关系说明（Affiliation）</h3><p>在上述 examples 中，items 的 attributes 用于 search clauses、column specifications 和 sorting。在所有这些情况下，也可以通过在 attribute 前加 entity name 来指定 affiliated entities 的 attributes。例如，下面的 command 会显示 walt 拥有的 active tasks。</p><p><code>% tq tasks state=active and Job.owner=walt
-</code></p><p>类似地，下面的 command 会显示过去 24 小时内 spooled 的 jobs 中的所有 error tasks，包括其 jobs 的 titles 和 spooltimes，并按 job priority 排序。</p><p><code>% tq tasks &quot;state=error and Job.spooltime &gt; -24h&quot; -c +Job.spooltime,Job.title -s Job.priority
-</code></p><p>因为 spooltime 和 priority 不是 job 以外其他 entity 的 attributes，所以不需要 entity prefix。下面是等价写法：</p><p><code>% tq tasks &quot;state=error and spooltime &gt; -24h&quot; -c +spooltime,Job.title -s priority
-</code></p><h3 id="tq:TractorQuerytool-Operations">Operations（操作）</h3><p>tq 不仅可以 list items，也可以 operate on them。这个 command 会显示我所有带 errors 的 active jobs：</p><p><code>% tq jobs mine and active and error
-</code></p><p>可以按如下方式全部 pause：</p><p><code>% tq pause mine and active and error
-</code></p><p>这个 command 会对 disk space 最少的十个 blades 执行 nimby：</p><p><code>% tq nimby --sortby availdisk --limit 10
-</code></p><p>所有可能的 commands 可以用 tq help commands 列出。</p><p>某些 operations 有额外 options。例如，修改 job 的 priority 时，使用 --prioriy 或 -p option 指定 priority。下面的 command 会把我所有 jobs 的 priority 改为 500。</p><p><code>% tq chpri -p 500 mine
-</code></p><p>在对 item 执行 operation 之前，会显示该 item，并提示 user。</p><p><code>% tq delete mine</code><sup>   </sup></p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="ff4e1d72-73a7-42b4-9cd5-8dafa8aeef0b" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+</div></div><p>类似地，也可以列出任务、命令、调用记录和 blade。</p><p>通常，用户只想查看条目的一个子集。命令行上剩余的非选项参数会组成一个 <a href="22184262-Search Clauses.html" rel="nofollow">搜索子句</a>，用于缩小搜索范围。例如，此命令会列出用户 mango 拥有且在 24 小时前提交的所有作业：</p><p><code>% tq jobs &quot;owner=mango and spooltime &lt; -1d&quot;
+</code></p><p>简而言之，搜索子句是一个布尔表达式（这里使用 and），由实体属性（owner、spooltime）的比较（=、&lt;）组成。为了减少命令行上的输入量，做了一些便利处理。例如，字面值 mango 没有放在引号中，而字符串 -1d 是表示“一天前”的简写形式。</p><p>有关搜索子句语法的更多细节可在 <a href="22184262-Search Clauses.html" rel="nofollow">这里</a>找到。</p><p> </p><h3 id="tq:TractorQuerytool-Columns">列</h3><p>tq 对每个命令都有默认显示的属性列表。可以使用 --columns 或 -c 选项显示另一组属性。</p><p>例如，要显示作业 id、owner、title 和 metadata 列：</p><p><code>% tq jobs --columns jid,owner,title,metadata
+</code></p><p>还可以在列名之前加 + 或 -，相对于默认列集合添加或移除列。例如，下面的命令会移除 title 列，并添加 spoolhost 和 spoolfile 列：</p><p><code>% tq jobs -c -title,+spoolhost,+spoolfile
+</code></p><p>某些列有默认固定宽度；较宽的值会被替换为 ... 以适配列宽。其他列具有动态宽度，会设置为要显示的最宽值。可以使用 = 运算符指定列宽，其中 0 用于指定动态大小列。在此示例中，metadata 列的宽度为所显示值中的最宽值，现有 title 列固定为 30 个字符：</p><p><code>% tq jobs -c +metadata=0,=title=30
+</code></p><p>注意，在某些 shell（如 zsh）中，如果选项参数以等号开头，必须放在引号中。</p><p><code>% tq jobs -c &quot;=title=30,+metadata=0&quot;
+</code></p><p><sup> </sup></p><h3 id="tq:TractorQuerytool-Sorting">排序</h3><p>可以使用 --sortby 或 -s 选项对结果排序。可以指定多个属性来表示次级排序。条目默认按升序排列，除非属性前加上 <em>-</em> 以表示降序排列。</p><p>例如，要显示类似作业在 FIFO 队列中会被处理的顺序，可以按 priority 降序、spooltime 升序列出它们，如下所示：</p><p><code>% tq jobs --sortby -priority,spooltime
+</code></p><p><sup> </sup></p><h3 id="tq:TractorQuerytool-Limiting">限制结果数量</h3><p>结果集可以缩短，使其适用于“top”列表。例如，此命令会列出农场上活动任务数量最多的十个作业：</p><p><code>% tq jobs active -s -numactive --limit 10
+</code></p><p>此命令会列出磁盘空间最少的二十台主机。</p><p><code>% tq blades -s availdisk --limit 20
+</code></p><p><sup> </sup></p><h3 id="tq:TractorQuerytool-Affiliation">关联关系</h3><p>在上述示例中，条目的属性用于搜索子句、列规范和排序。在所有这些情况下，也可以通过在属性前加实体名称来指定关联实体的属性。例如，下面的命令会显示 walt 拥有的活动任务。</p><p><code>% tq tasks state=active and Job.owner=walt
+</code></p><p>类似地，下面的命令会显示过去 24 小时内提交的作业中的所有错误任务，包括这些作业的 title 和 spooltime，并按作业 priority 排序。</p><p><code>% tq tasks &quot;state=error and Job.spooltime &gt; -24h&quot; -c +Job.spooltime,Job.title -s Job.priority
+</code></p><p>因为 spooltime 和 priority 不是作业以外其他实体的属性，所以不需要实体前缀。下面是等价写法：</p><p><code>% tq tasks &quot;state=error and spooltime &gt; -24h&quot; -c +spooltime,Job.title -s priority
+</code></p><h3 id="tq:TractorQuerytool-Operations">操作</h3><p>tq 不仅可以列出条目，也可以对它们执行操作。这个命令会显示我所有带错误的活动作业：</p><p><code>% tq jobs mine and active and error
+</code></p><p>可以按如下方式全部暂停：</p><p><code>% tq pause mine and active and error
+</code></p><p>这个命令会对磁盘空间最少的十个 blade 执行 nimby：</p><p><code>% tq nimby --sortby availdisk --limit 10
+</code></p><p>所有可能的命令可以用 tq help commands 列出。</p><p>某些操作有额外选项。例如，修改作业的 priority 时，使用 --prioriy 或 -p 选项指定 priority。下面的命令会把我所有作业的 priority 改为 500。</p><p><code>% tq chpri -p 500 mine
+</code></p><p>在对条目执行操作之前，会显示该条目，并提示用户。</p><p><code>% tq delete mine</code><sup>   </sup></p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="ff4e1d72-73a7-42b4-9cd5-8dafa8aeef0b" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
 <pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">    jid user   title                pri blkd redy actv err done spooled
 ========== ====== =================== ==== ==== ==== ==== === ==== ===========
       1234 adamwg starting sleep test    1                      26 01/31|16:53
 Delete this job? yes/no [y]:
 </pre>
-</div></div><p>这有助于避免一次 mistyped command 造成大范围破坏。如果你 <strong>绝对</strong> 确定目标 items 已正确识别，可以用 --yes option 绕过 prompt；该 option 出现在 command <em>之前</em>。当把 operation 应用于数千 items，或 tq 由另一个 script 或 cron job 调用时，这很有用。</p><p>例如，这会向你的所有 jobs 说再见。</p><p><code>% tq --yes delete mine
-</code></p><p><sup> </sup></p><h3 id="tq:TractorQuerytool-GlobalOptions">Global Options（全局选项）</h3><p>有些 options 被视为对所有 commands 都 global，因此出现在 <strong>command 之前</strong>。其中一个就是上面所示的 --yes。</p><p>tq help usage 会列出所有 global options。</p><p>--user、password、--login 和 --logout 在需要 authentication 时使用。</p><p>--engine 用于让 tq 指向不同于默认 engine 或 TRACTOR_ENGINE environment variable 所定义 engine 的另一个 engine。</p><p>--force 是操作由其他 user 拥有的 jobs 时必需的，用于帮助防止意外损坏其他 users 的 jobs。注意，user 仍需要 engine 授予适当 permissions，才能成功完成 operation。</p><p> </p><h3 id="tq:TractorQuerytool-ArchivedJobs">Archived Jobs（已归档作业）</h3><p>默认情况下，运行 tq 时只会 search 非 deleted jobs 的 entities。不过，deleted jobs 的 entities 也可以被 <em>包含</em>，方法是使用 --archives 或 -a global option。这使它适合查看 historical invocation data。</p><p>下面的 command 会查找过去一周在 blade c2001 上运行的所有 invocations，包括 deleted jobs 的 invocations：</p><p><code>% tq --archives invocations &quot;blade=c2001 and starttime &gt; -1w&quot;
-</code></p><p>如果你想要 <em>只包含</em> deleted jobs 的 results，可以向 search clause 添加 deleted alias。</p><p><code>% tq --archives invocations &quot;blade=c2001 and starttime &gt; -1w and deleted&quot;
-</code></p><p>要使用 undelete subcommand，--archives flag 是必需的，因为只有 deleted jobs 可以 undeleted。</p><p><code>% tq -a undelete jid=1234
-</code></p><p><sup> </sup></p><h3 id="tq:TractorQuerytool-MoreExamples">更多 Examples 使用示例</h3><p>许多有用 examples 可在 <a href="22184318-tq Cookbook.html" rel="nofollow">tq Cookbook</a>中找到。</p><p> </p><h3 id="tq:TractorQuerytool-Built-inHelp">Built-in Help（内置帮助）</h3><p>tq 有详细的 built-in help 和有用 examples，因此无需离开 command line 就能获得更多 information。</p><p><code>% tq help
-</code></p><p>会显示 help topics 帮助主题的 top-level view 顶层视图。</p><p><code>% tq help subcommands
-</code></p><p>会显示完整的可能 tq subcommands 列表。</p><p>要获取特定 command 的 help，请用 command name 运行 tq help。例如：</p><p><code>% tq help jobs
-</code></p><p>会显示 usage statement，以及 examples 和每个可用 option 的 detailed description。</p>
+</div></div><p>这有助于避免一次输错命令造成大范围破坏。如果你 <strong>绝对</strong> 确定目标条目已正确识别，可以用 --yes 选项绕过提示；该选项出现在命令 <em>之前</em>。当把操作应用于数千个条目，或 tq 由另一个脚本或 cron 作业调用时，这很有用。</p><p>例如，这会向你的所有作业说再见。</p><p><code>% tq --yes delete mine
+</code></p><p><sup> </sup></p><h3 id="tq:TractorQuerytool-GlobalOptions">全局选项</h3><p>有些选项被视为对所有命令都全局生效，因此出现在 <strong>command 之前</strong>。其中一个就是上面所示的 --yes。</p><p>tq help usage 会列出所有全局选项。</p><p>--user、password、--login 和 --logout 在需要认证时使用。</p><p>--engine 用于让 tq 指向不同于默认 engine，或不同于 TRACTOR_ENGINE 环境变量所定义 engine 的另一个 engine。</p><p>--force 是操作由其他用户拥有的作业时必需的，用于帮助防止意外损坏其他用户的作业。注意，用户仍需要 engine 授予适当权限，才能成功完成操作。</p><p> </p><h3 id="tq:TractorQuerytool-ArchivedJobs">已归档作业</h3><p>默认情况下，运行 tq 时只会搜索未删除作业的实体。不过，已删除作业的实体也可以被 <em>包含</em>，方法是使用 --archives 或 -a 全局选项。这使它适合查看历史调用记录数据。</p><p>下面的命令会查找过去一周在 blade c2001 上运行的所有调用记录，包括已删除作业的调用记录：</p><p><code>% tq --archives invocations &quot;blade=c2001 and starttime &gt; -1w&quot;
+</code></p><p>如果你想要 <em>只包含</em> 已删除作业的结果，可以向搜索子句添加 deleted 别名。</p><p><code>% tq --archives invocations &quot;blade=c2001 and starttime &gt; -1w and deleted&quot;
+</code></p><p>要使用 undelete 子命令，--archives 标志是必需的，因为只有已删除作业可以取消删除。</p><p><code>% tq -a undelete jid=1234
+</code></p><p><sup> </sup></p><h3 id="tq:TractorQuerytool-MoreExamples">更多示例</h3><p>许多有用示例可在 <a href="22184318-tq Cookbook.html" rel="nofollow">tq Cookbook</a>中找到。</p><p> </p><h3 id="tq:TractorQuerytool-Built-inHelp">内置帮助</h3><p>tq 有详细的内置帮助和有用示例，因此无需离开命令行就能获得更多信息。</p><p><code>% tq help
+</code></p><p>会显示帮助主题的顶层视图。</p><p><code>% tq help subcommands
+</code></p><p>会显示所有可用 tq 子命令的完整列表。</p><p>要获取特定命令的帮助，请用命令名称运行 tq help。例如：</p><p><code>% tq help jobs
+</code></p><p>会显示用法说明，以及示例和每个可用选项的详细说明。</p>
   </article>
 </main>
 </body>

@@ -80,7 +80,7 @@
 <div class="columnLayout fixed-width" data-layout="fixed-width">
 <div class="cell normal" data-type="normal">
 <div class="innerCell">
-<p>在 Katana 中，可以使用 PrmanObjectStatements 节点指定对象的 surface orientation（表面朝向，即法线方向）。</p><p>坐标系统的 handedness（手性）称为它的 orientation（朝向）。初始的“camera”坐标系统是左手系：x 指向右方，y 指向上方，z 指向内侧。不过，变换可能会翻转当前坐标系统的朝向。reflection（反射）就是一种不保持朝向的变换示例。</p><p>类似地，geometric primitives（几何图元）也具有 orientation（朝向），它决定其 surface normals（表面法线）在对象坐标系统中是按右手规则还是左手规则定义。RfK 假定使用右手朝向：x 指向右方，y 指向上方，z 指向外侧。 <span class="legacy-color-text-default">正向旋转为 </span>逆时针方向。如果某个 primitive（图元）是 inside-out（内外翻转）的，其法线会被计算为指向相反方向。这会影响 culling（剔除）、shading（着色）和 solids（实体，例如 nested dielectrics）。primitive 的外表面是法线向外指向的一侧；内表面则是相反的一侧。solid 的内部是与内表面相邻的体积，外部则是与外表面相邻的区域。</p><p>如果当前 orientation（朝向）与当前坐标系统的 orientation 不一致，geometric primitives（几何图元）会被内外翻转，并且其法线会自动翻转。</p><p><br/></p><p>下方的 teapot create macro 使用 sides = 1 渲染，表示仅 single-sided（单面）。黑色茶壶表示对象法线朝内；默认情况下，PxrSurface 不会对非透射对象的内部进行着色。</p></div>
+<p>在 Katana 中，可以使用 PrmanObjectStatements 节点指定对象的表面朝向，即法线方向。</p><p>坐标系统的手性称为它的朝向。初始的“camera”坐标系统是左手系：x 指向右方，y 指向上方，z 指向内侧。不过，变换可能会翻转当前坐标系统的朝向。反射就是一种不保持朝向的变换示例。</p><p>类似地，几何图元也具有朝向，它决定其表面法线在对象坐标系统中是按右手规则还是左手规则定义。RfK 假定使用右手朝向：x 指向右方，y 指向上方，z 指向外侧。 <span class="legacy-color-text-default">正向旋转为 </span>逆时针方向。如果某个图元是内外翻转的，其法线会被计算为指向相反方向。这会影响剔除、着色和实体（例如嵌套电介质）。图元的外表面是法线向外指向的一侧；内表面则是相反的一侧。实体的内部是与内表面相邻的体积，外部则是与外表面相邻的区域。</p><p>如果当前朝向与当前坐标系统的朝向不一致，几何图元会被内外翻转，并且其法线会自动翻转。</p><p><br/></p><p>下方的 teapot create macro 使用 sides = 1 渲染，表示仅单面。黑色茶壶表示对象法线朝内；默认情况下，PxrSurface 不会对非透射对象的内部进行着色。</p></div>
 </div>
 </div>
 <div class="columnLayout two-equal" data-layout="two-equal">
@@ -96,7 +96,7 @@
 <div class="columnLayout fixed-width" data-layout="fixed-width">
 <div class="cell normal" data-type="normal">
 <div class="innerCell">
-<ul><li><p>Reverse - 不论当前坐标系统的选择为何，都会在其基础上反向。</p></li></ul><p>Sides 选项：</p><ul><li><p>2 - 默认值，表示两侧都可渲染/可见</p></li><li><p>1 - 只渲染/显示朝向外侧法线的一面。适合用于 backface culling（背面剔除）可见性技巧。</p></li></ul></div>
+<ul><li><p>Reverse - 不论当前坐标系统的选择为何，都会在其基础上反向。</p></li></ul><p>Sides 选项：</p><ul><li><p>2 - 默认值，表示两侧都可渲染/可见</p></li><li><p>1 - 只渲染/显示朝向外侧法线的一面。适合用于背面剔除可见性技巧。</p></li></ul></div>
 </div>
 </div>
 </div>

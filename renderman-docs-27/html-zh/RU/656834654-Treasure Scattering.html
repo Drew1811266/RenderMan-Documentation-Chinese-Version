@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Treasure Scattering</title>
+  <title>宝藏散布</title>
   <style>
     :root { color-scheme: light; }
     body {
@@ -71,12 +71,12 @@
 <body class="rm-themed rm-doc-page">
 <main>
   <header>
-    <h1>Treasure Scattering</h1>
+    <h1>宝藏散布</h1>
     <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RU/656834654/Treasure+Scattering">https://rmanwiki-27.pixar.com/space/RU/656834654/Treasure+Scattering</a></div>
     <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
   </header>
   <article>
-<h3 id="TreasureScattering-TreasureScatter">宝藏散布（Treasure Scatter）流程</h3><p>让我们从 static gold sea 的 scattering 开始。在这一部分，我使用了 height-field scatter technique。起初，我使用一组预先 simulated 的 coins、armor pieces 和其他 miscellaneous assets，来创建的不只是 coins，而是一簇繁忙 treasure cluster 的 look。</p><p>做完一个 quick sim，让这些 pieces 在 ground plane 中放松后，我把结果导出为单个 USD file。为了快速得到 Gold Sea 的 shape，我使用了几个非常简单的 height-field techniques 来 sculpt 最终 shape。</p><p>使用同一个 output，并利用出色的 heightfield scatter node，加上一些 mask painting，并在反复试错中确定 scatter density 后，我找到了适合 composition 的 coverage 比例，同时不留下 gaps……由于这永远不会完美，我在 base geometry 上应用了同样的 gold material 来填补剩余 treasure gaps。</p><p /><hr/><h3 id="TreasureScattering-CoinSimulation">金币模拟（Coin Simulation）流程</h3><p>在这段旅程开始时，我开始尝试用各种方式创建具有 fluid-like coin motion 的 simulation。在最初的一次尝试中，我创建了一个 flip fluid tank，并以非常低的 particle separation density 运行 simulation。这给了我可管理数量的 points 用于 instancing。随后，我尝试运行 rigid body dynamic sims。</p><p>这最终变得非常 computationally expensive，因此我把方法从会堵满 256 GB RAM 的独立 multi-million-points，提炼成创建 treasure clusters（与 scattering 步骤中使用的相同 technique），并非常高效地使用 collision geometry 来避免漫长而精确的 collisions。这个方法带来了快得多的 simulation，尽管准确性稍低。</p><p>为了进一步加速，我使用 separate caches 将需要 sim 的位置局部化，这些 caches 都按 sequential manner 计时运行，以符合我根据 camera movement 所追求的 art direction。</p>
+<h3 id="TreasureScattering-TreasureScatter">宝藏散布流程</h3><p>让我们从静态金海的散布开始。在这一部分，我使用了高度场散布技术。起初，我使用一组预先模拟好的金币、盔甲碎片和其他杂项资产，创建的不只是金币，而是一簇繁忙宝藏堆的外观。</p><p>做完一个快速模拟，让这些碎片在地面平面中松散下来后，我把结果导出为单个 USD 文件。为了快速得到金海的形状，我使用了几个非常简单的高度场技术来雕刻最终形状。</p><p>使用同一个输出，并利用出色的 heightfield scatter 节点，加上一些遮罩绘制，并在反复试错中确定散布密度后，我找到了适合作图的覆盖比例，同时不留下空隙……由于这永远不会完美，我在基础几何体上应用了同样的黄金材质来填补剩余宝藏空隙。</p><p /><hr/><h3 id="TreasureScattering-CoinSimulation">金币模拟流程</h3><p>在这段旅程开始时，我开始尝试用各种方式创建具有流体般金币运动的模拟。在最初的一次尝试中，我创建了一个 FLIP 流体槽，并以非常低的粒子分离密度运行模拟。这给了我可管理数量的点用于实例化。随后，我尝试运行刚体动力学模拟。</p><p>这最终变得计算成本很高，因此我把方法从会堵满 256 GB RAM 的独立数百万点数据，提炼成创建宝藏簇（与散布步骤中使用的相同技术），并非常高效地使用碰撞几何体来避免漫长而精确的碰撞。这个方法带来了快得多的模拟，尽管准确性稍低。</p><p>为了进一步加速，我使用独立缓存将需要模拟的位置局部化，这些缓存都按顺序计时运行，以符合我根据相机运动所追求的美术指导。</p>
   </article>
 </main>
 </body>

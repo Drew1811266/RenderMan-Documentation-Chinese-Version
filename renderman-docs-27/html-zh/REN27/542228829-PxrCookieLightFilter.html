@@ -80,7 +80,7 @@
 <div class="columnLayout fixed-width" data-layout="fixed-width">
 <div class="cell normal" data-type="normal">
 <div class="innerCell">
-<p>PxrCookieLightFilter 会在灯光前方投射绘制纹理。</p><p>这个 light filter 是以下节点的更完整版本： <a href="542230807-PxrGoboLightFilter.html" rel="nofollow">PxrGoboLightFilter</a></p><p><br/></p><hr/><p><br/></p><h3 id="PxrCookieLightFilter-Parameters">Parameters（参数）</h3><p><strong>Cookie Mode</strong></p><p>指定 cookie mode：</p><p><strong>Physical (0)</strong>：cookie 的行为类似一扇彩色玻璃窗，灯光从中穿过。falloff 和 blur 由灯光尺寸、到灯光的距离以及与 cookie 的距离决定。</p></div>
+<p>PxrCookieLightFilter 会在灯光前方投射绘制纹理。</p><p>这个灯光滤镜是以下节点的更完整版本： <a href="542230807-PxrGoboLightFilter.html" rel="nofollow">PxrGoboLightFilter</a></p><p><br/></p><hr/><p><br/></p><h3 id="PxrCookieLightFilter-Parameters">参数</h3><p><strong>Cookie Mode</strong></p><p>指定 cookie 模式：</p><p><strong>Physical (0)</strong>：cookie 的行为类似一扇彩色玻璃窗，灯光从中穿过。衰减和模糊由灯光尺寸、到灯光的距离以及与 cookie 的距离决定。</p></div>
 </div>
 </div>
 <div class="columnLayout two-equal" data-layout="two-equal">
@@ -96,7 +96,7 @@
 <div class="columnLayout fixed-width" data-layout="fixed-width">
 <div class="cell normal" data-type="normal">
 <div class="innerCell">
-<p><strong>Analytic (1)</strong>：cookie 具有固定投影，并提供手动 blur 和 falloff 控制。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_modeAnalytic.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_modeAnalytic.jpg" data-image-src="../../attachments/542228829/cookie_modeAnalytic.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542229176" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_modeAnalytic.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="8454da09-838a-44f9-9b90-b553bf2b82be" data-media-type="file"></span><p /><p><strong>Map</strong></p><p>投射纹理的文件名。如果想控制投射边缘的 blur，请将 mask 包含在此贴图的 alpha channel（alpha 通道）中。否则，当 Blur &gt; 0.0 时，它会使用安装在 $RMANTREE/lib/textures/white.tex 的白色不透明 alpha 来进行模糊。</p></div>
+<p><strong>Analytic (1)</strong>：cookie 具有固定投影，并提供手动模糊和衰减控制。</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="cookie_modeAnalytic.jpg" width="384" loading="lazy" src="../../attachments/542228829/cookie_modeAnalytic.jpg" data-image-src="../../attachments/542228829/cookie_modeAnalytic.jpg" data-height="384" data-width="384" data-unresolved-comment-count="0" data-linked-resource-id="542229176" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="cookie_modeAnalytic.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="542228829" data-linked-resource-container-version="1" data-media-id="8454da09-838a-44f9-9b90-b553bf2b82be" data-media-type="file"></span><p /><p><strong>Map</strong></p><p>投射纹理的文件名。如果想控制投射边缘的模糊，请将遮罩包含在此贴图的 alpha 通道中。否则，当 Blur &gt; 0.0 时，它会使用安装在 $RMANTREE/lib/textures/white.tex 的白色不透明 alpha 来进行模糊。</p></div>
 </div>
 </div>
 <div class="columnLayout three-equal" data-layout="three-equal">
@@ -116,7 +116,7 @@
 <div class="columnLayout fixed-width" data-layout="fixed-width">
 <div class="cell normal" data-type="normal">
 <div class="innerCell">
-<p><strong>Fill Color</strong></p><p>如果纹理的 tile mode（平铺模式）不重复，此项指定投射矩形外部以及后方区域的颜色。当下面指定 Blur 时，投射矩形边缘会与填充颜色混合。</p></div>
+<p><strong>Fill Color</strong></p><p>如果纹理的平铺模式不重复，此项指定投射矩形外部以及后方区域的颜色。当下面指定 Blur 时，投射矩形边缘会与填充颜色混合。</p></div>
 </div>
 </div>
 <div class="columnLayout three-equal" data-layout="three-equal">
@@ -212,7 +212,7 @@
 <div class="columnLayout fixed-width" data-layout="fixed-width">
 <div class="cell normal" data-type="normal">
 <div class="innerCell">
-<p><strong>Intensity</strong></p><p>下方 diffuse 和 specular 贡献的全局 Multiplier。</p></div>
+<p><strong>Intensity</strong></p><p>下方漫反射和镜面反射贡献的全局 Multiplier。</p></div>
 </div>
 </div>
 <div class="columnLayout three-equal" data-layout="three-equal">
@@ -232,7 +232,7 @@
 <div class="columnLayout fixed-width" data-layout="fixed-width">
 <div class="cell normal" data-type="normal">
 <div class="innerCell">
-<p><strong>Diffuse</strong></p><p>此 light filter 结果用于 diffuse contribution 的 multiplier。</p></div>
+<p><strong>Diffuse</strong></p><p>此灯光滤镜结果用于漫反射贡献的倍增值。</p></div>
 </div>
 </div>
 <div class="columnLayout three-equal" data-layout="three-equal">
@@ -252,7 +252,7 @@
 <div class="columnLayout fixed-width" data-layout="fixed-width">
 <div class="cell normal" data-type="normal">
 <div class="innerCell">
-<p><strong>Specular</strong></p><p>此 light filter 结果用于 specular contribution 的 multiplier。</p></div>
+<p><strong>Specular</strong></p><p>此灯光滤镜结果用于镜面反射贡献的倍增值。</p></div>
 </div>
 </div>
 <div class="columnLayout three-equal" data-layout="three-equal">
@@ -288,7 +288,7 @@
 <div class="columnLayout fixed-width" data-layout="fixed-width">
 <div class="cell normal" data-type="normal">
 <div class="innerCell">
-<p><strong>Shear X</strong></p><p>沿 X axis 对投影进行剪切。</p></div>
+<p><strong>Shear X</strong></p><p>沿 X 轴对投影进行剪切。</p></div>
 </div>
 </div>
 <div class="columnLayout three-equal" data-layout="three-equal">
@@ -308,7 +308,7 @@
 <div class="columnLayout fixed-width" data-layout="fixed-width">
 <div class="cell normal" data-type="normal">
 <div class="innerCell">
-<p><strong>Shear Y</strong></p><p>沿 Y axis 对投影进行剪切。</p></div>
+<p><strong>Shear Y</strong></p><p>沿 Y 轴对投影进行剪切。</p></div>
 </div>
 </div>
 <div class="columnLayout three-equal" data-layout="three-equal">
@@ -328,7 +328,7 @@
 <div class="columnLayout fixed-width" data-layout="fixed-width">
 <div class="cell normal" data-type="normal">
 <div class="innerCell">
-<p><strong>Apex</strong></p><p>cookie 中心与投影中心之间的距离。仅当 Directional 关闭时适用。</p><p><strong>Use Light Direction</strong></p><p>如果开启此项，投影方向由光源中心的位置决定。否则，它只会跟随 cookie 的方向。WARNING：这不适用于 dome 和 mesh lights。</p></div>
+<p><strong>Apex</strong></p><p>cookie 中心与投影中心之间的距离。仅当 Directional 关闭时适用。</p><p><strong>Use Light Direction</strong></p><p>如果开启此项，投影方向由光源中心的位置决定。否则，它只会跟随 cookie 的方向。警告：这不适用于 dome light 和 mesh light。</p></div>
 </div>
 </div>
 <div class="columnLayout two-equal" data-layout="two-equal">
@@ -364,7 +364,7 @@
 <div class="columnLayout fixed-width" data-layout="fixed-width">
 <div class="cell normal" data-type="normal">
 <div class="innerCell">
-<p><strong>Invert U</strong></p><p>仅当你想左右翻转纹理时才开启此项。默认情况下，纹理方向会与在图像查看器中看到的方向一致。</p><p><br/></p><p><strong>Invert V</strong></p><p>仅当你想从下到上翻转纹理时才开启此项。默认情况下，纹理方向会与在图像查看器中看到的方向一致。请注意，light filter 已经考虑了 V 方向翻转，以得到正确的默认方向。</p><p><br/></p><p><strong>Scale U</strong></p><p>投射纹理在 U direction 上的 scale。</p></div>
+<p><strong>Invert U</strong></p><p>仅当你想左右翻转纹理时才开启此项。默认情况下，纹理方向会与在图像查看器中看到的方向一致。</p><p><br/></p><p><strong>Invert V</strong></p><p>仅当你想从下到上翻转纹理时才开启此项。默认情况下，纹理方向会与在图像查看器中看到的方向一致。请注意，灯光滤镜已经考虑了 V 方向翻转，以得到正确的默认方向。</p><p><br/></p><p><strong>Scale U</strong></p><p>投射纹理在 U 方向上的缩放。</p></div>
 </div>
 </div>
 <div class="columnLayout three-equal" data-layout="three-equal">
@@ -384,7 +384,7 @@
 <div class="columnLayout fixed-width" data-layout="fixed-width">
 <div class="cell normal" data-type="normal">
 <div class="innerCell">
-<p><strong>Scale V</strong></p><p>投射纹理在 V direction 上的 scale。</p></div>
+<p><strong>Scale V</strong></p><p>投射纹理在 V 方向上的缩放。</p></div>
 </div>
 </div>
 <div class="columnLayout three-equal" data-layout="three-equal">
@@ -404,7 +404,7 @@
 <div class="columnLayout fixed-width" data-layout="fixed-width">
 <div class="cell normal" data-type="normal">
 <div class="innerCell">
-<p><strong>Offset U</strong></p><p>投射纹理在 U direction 上的 offset。</p><p><br/></p><p><strong>Offset V</strong></p><p>投射纹理在 V direction 上的 offset。</p><p><strong>Use Alpha</strong><br/><br/>如果关闭此项，结果可能不够平滑。</p><p><br/></p><p><strong>Premultiplied Alpha</strong><br/><br/>如果使用未预乘 Alpha 的纹理，请将此项设为 0 或关闭，以获得正确行为。</p><p> </p><h4 id="PxrCookieLightFilter-Blur(forAnalyticModeOnly)">Blur (for Analytic Mode Only)</h4><p><strong>Blur</strong></p><p>指定投射纹理的 blur，范围为 0-1。该值会乘以 blurNear/blurFar 插值。当纹理不重复时，这会在投射颜色与填充颜色之间进行模糊。</p></div>
+<p><strong>Offset U</strong></p><p>投射纹理在 U 方向上的偏移。</p><p><br/></p><p><strong>Offset V</strong></p><p>投射纹理在 V 方向上的偏移。</p><p><strong>Use Alpha</strong><br/><br/>如果关闭此项，结果可能不够平滑。</p><p><br/></p><p><strong>Premultiplied Alpha</strong><br/><br/>如果使用未预乘 Alpha 的纹理，请将此项设为 0 或关闭，以获得正确行为。</p><p> </p><h4 id="PxrCookieLightFilter-Blur(forAnalyticModeOnly)">Blur (for Analytic Mode Only)</h4><p><strong>Blur</strong></p><p>指定投射纹理的模糊量，范围为 0-1。该值会乘以 blurNear/blurFar 插值。当纹理不重复时，这会在投射颜色与填充颜色之间进行模糊。</p></div>
 </div>
 </div>
 <div class="columnLayout three-equal" data-layout="three-equal">
@@ -424,7 +424,7 @@
 <div class="columnLayout fixed-width" data-layout="fixed-width">
 <div class="cell normal" data-type="normal">
 <div class="innerCell">
-<p><strong>S Blur Mult</strong></p><p>S 方向上的 Blur multiplier（模糊倍增）。</p></div>
+<p><strong>S Blur Mult</strong></p><p>S 方向上的模糊倍增值。</p></div>
 </div>
 </div>
 <div class="columnLayout three-equal" data-layout="three-equal">
@@ -444,7 +444,7 @@
 <div class="columnLayout fixed-width" data-layout="fixed-width">
 <div class="cell normal" data-type="normal">
 <div class="innerCell">
-<p><strong>T Blur Mult</strong></p><p>T 方向上的 Blur multiplier（模糊倍增）。</p></div>
+<p><strong>T Blur Mult</strong></p><p>T 方向上的模糊倍增值。</p></div>
 </div>
 </div>
 <div class="columnLayout three-equal" data-layout="three-equal">
@@ -464,7 +464,7 @@
 <div class="columnLayout fixed-width" data-layout="fixed-width">
 <div class="cell normal" data-type="normal">
 <div class="innerCell">
-<p><strong>Blur Near Dist</strong></p><p>从 cookie 起算，blur 插值开始的位置距离。</p></div>
+<p><strong>Blur Near Dist</strong></p><p>从 cookie 起算，模糊插值开始的位置距离。</p></div>
 </div>
 </div>
 <div class="columnLayout three-equal" data-layout="three-equal">
@@ -484,7 +484,7 @@
 <div class="columnLayout fixed-width" data-layout="fixed-width">
 <div class="cell normal" data-type="normal">
 <div class="innerCell">
-<p><strong>Blur Midpoint</strong></p><p>near 与 far 之间、midValue 所在位置的距离。</p></div>
+<p><strong>Blur Midpoint</strong></p><p>近端与远端之间、midValue 所在位置的距离。</p></div>
 </div>
 </div>
 <div class="columnLayout three-equal" data-layout="three-equal">
@@ -504,7 +504,7 @@
 <div class="columnLayout fixed-width" data-layout="fixed-width">
 <div class="cell normal" data-type="normal">
 <div class="innerCell">
-<p><strong>Blur Far Dist</strong></p><p>从 cookie 起算，blur 插值结束的位置距离。</p></div>
+<p><strong>Blur Far Dist</strong></p><p>从 cookie 起算，模糊插值结束的位置距离。</p></div>
 </div>
 </div>
 <div class="columnLayout three-equal" data-layout="three-equal">
@@ -524,7 +524,7 @@
 <div class="columnLayout fixed-width" data-layout="fixed-width">
 <div class="cell normal" data-type="normal">
 <div class="innerCell">
-<p><strong>Blur Near Value</strong></p><p>blur 插值开始处的 Blur multiplier。</p></div>
+<p><strong>Blur Near Value</strong></p><p>模糊插值开始处的模糊倍增值。</p></div>
 </div>
 </div>
 <div class="columnLayout three-equal" data-layout="three-equal">
@@ -544,7 +544,7 @@
 <div class="columnLayout fixed-width" data-layout="fixed-width">
 <div class="cell normal" data-type="normal">
 <div class="innerCell">
-<p><strong>Blur Mid Value</strong></p><p>blur 插值中间位置的 Blur multiplier。</p></div>
+<p><strong>Blur Mid Value</strong></p><p>模糊插值中间位置的模糊倍增值。</p></div>
 </div>
 </div>
 <div class="columnLayout three-equal" data-layout="three-equal">
@@ -564,7 +564,7 @@
 <div class="columnLayout fixed-width" data-layout="fixed-width">
 <div class="cell normal" data-type="normal">
 <div class="innerCell">
-<p><strong>Blur Far Value</strong></p><p>blur 插值结束处的 Blur multiplier。</p></div>
+<p><strong>Blur Far Value</strong></p><p>模糊插值结束处的模糊倍增值。</p></div>
 </div>
 </div>
 <div class="columnLayout three-equal" data-layout="three-equal">
@@ -584,7 +584,7 @@
 <div class="columnLayout fixed-width" data-layout="fixed-width">
 <div class="cell normal" data-type="normal">
 <div class="innerCell">
-<p><strong>Blur Exponent</strong></p><p>blur 插值的幂指数。</p></div>
+<p><strong>Blur Exponent</strong></p><p>模糊插值的幂指数。</p></div>
 </div>
 </div>
 <div class="columnLayout three-equal" data-layout="three-equal">
@@ -624,7 +624,7 @@
 <div class="columnLayout fixed-width" data-layout="fixed-width">
 <div class="cell normal" data-type="normal">
 <div class="innerCell">
-<p><strong>Density Midpoint</strong></p><p>near 与 far 之间、midValue 所在位置的距离。</p></div>
+<p><strong>Density Midpoint</strong></p><p>近端与远端之间、midValue 所在位置的距离。</p></div>
 </div>
 </div>
 <div class="columnLayout three-equal" data-layout="three-equal">
@@ -664,7 +664,7 @@
 <div class="columnLayout fixed-width" data-layout="fixed-width">
 <div class="cell normal" data-type="normal">
 <div class="innerCell">
-<p><strong>Density Near Value</strong></p><p>模糊插值开始处的 Density multiplier。</p></div>
+<p><strong>Density Near Value</strong></p><p>密度插值开始处的密度倍增值。</p></div>
 </div>
 </div>
 <div class="columnLayout three-equal" data-layout="three-equal">
@@ -684,7 +684,7 @@
 <div class="columnLayout fixed-width" data-layout="fixed-width">
 <div class="cell normal" data-type="normal">
 <div class="innerCell">
-<p><strong>Density Mid Value</strong></p><p>密度插值中间位置的 Density multiplier。</p></div>
+<p><strong>Density Mid Value</strong></p><p>密度插值中间位置的密度倍增值。</p></div>
 </div>
 </div>
 <div class="columnLayout three-equal" data-layout="three-equal">
@@ -704,7 +704,7 @@
 <div class="columnLayout fixed-width" data-layout="fixed-width">
 <div class="cell normal" data-type="normal">
 <div class="innerCell">
-<p><strong>Density Far Value</strong></p><p>模糊插值结束处的 Density multiplier。</p></div>
+<p><strong>Density Far Value</strong></p><p>密度插值结束处的密度倍增值。</p></div>
 </div>
 </div>
 <div class="columnLayout three-equal" data-layout="three-equal">
@@ -744,7 +744,7 @@
 <div class="columnLayout fixed-width" data-layout="fixed-width">
 <div class="cell normal" data-type="normal">
 <div class="innerCell">
-<p><br/></p><h4 id="PxrCookieLightFilter-Saturation,Contrast,Tint">Saturation, Contrast, Tint</h4><p><strong>Saturation</strong></p><p>结果的 Saturation（0=灰度，1=正常，&gt;1=增强颜色）。</p></div>
+<p><br/></p><h4 id="PxrCookieLightFilter-Saturation,Contrast,Tint">Saturation, Contrast, Tint</h4><p><strong>Saturation</strong></p><p>结果的饱和度（0=灰度，1=正常，&gt;1=增强颜色）。</p></div>
 </div>
 </div>
 <div class="columnLayout three-equal" data-layout="three-equal">
@@ -764,7 +764,7 @@
 <div class="columnLayout fixed-width" data-layout="fixed-width">
 <div class="cell normal" data-type="normal">
 <div class="innerCell">
-<p><strong>Midpoint</strong></p><p>contrast 控制的 Midpoint。</p></div>
+<p><strong>Midpoint</strong></p><p>对比度控制的中点。</p></div>
 </div>
 </div>
 <div class="columnLayout three-equal" data-layout="three-equal">
@@ -784,7 +784,7 @@
 <div class="columnLayout fixed-width" data-layout="fixed-width">
 <div class="cell normal" data-type="normal">
 <div class="innerCell">
-<p><strong>Contrast</strong></p><p>Contrast control（小于 1 = 降低对比度，大于 1 = 提高对比度）。</p></div>
+<p><strong>Contrast</strong></p><p>对比度控制（小于 1 = 降低对比度，大于 1 = 提高对比度）。</p></div>
 </div>
 </div>
 <div class="columnLayout three-equal" data-layout="three-equal">
@@ -804,7 +804,7 @@
 <div class="columnLayout fixed-width" data-layout="fixed-width">
 <div class="cell normal" data-type="normal">
 <div class="innerCell">
-<p><strong>White Point</strong></p><p>如果 (contrast &gt; 1.0)，用于 contrast control 的 white point。</p></div>
+<p><strong>White Point</strong></p><p>如果 (contrast &gt; 1.0)，用于对比度控制的白点。</p></div>
 </div>
 </div>
 <div class="columnLayout three-equal" data-layout="three-equal">
@@ -824,7 +824,7 @@
 <div class="columnLayout fixed-width" data-layout="fixed-width">
 <div class="cell normal" data-type="normal">
 <div class="innerCell">
-<p><strong>Tint</strong></p><p>经过 saturation、contrast 和 clamp 后所得颜色的 Tint。</p></div>
+<p><strong>Tint</strong></p><p>经过饱和度、对比度和钳制后所得颜色的色调。</p></div>
 </div>
 </div>
 <div class="columnLayout three-equal" data-layout="three-equal">
@@ -844,7 +844,7 @@
 <div class="columnLayout fixed-width" data-layout="fixed-width">
 <div class="cell normal" data-type="normal">
 <div class="innerCell">
-<h4 id="PxrCookieLightFilter-CombineMode">Combine Mode</h4><p>Combine Mode</p><p><strong>mult</strong>：所有滤镜的结果会相乘。</p><p><strong>max</strong>：使用所有滤镜中的最大结果。这最适合灰度灯光滤镜。</p><p><strong>min</strong>：使用所有滤镜中的最小结果。这最适合灰度灯光滤镜。</p><p><strong>screen</strong>：类似于 max 操作，但会以更平滑的方式组合渐变。这最适合灰度灯光。</p><p>附加在灯光上的 Light filters 会按各自的 combine mode 分组。同一组中的 Light filters 会一起执行，并按 combine mode 进行组合。各组按以下顺序执行（max、min、screen，然后 mult），并且会相互相乘；这意味着 mult 组中把结果变黑的 filter 会将所有其他 filter 清零。</p></div>
+<h4 id="PxrCookieLightFilter-CombineMode">Combine Mode</h4><p>Combine Mode</p><p><strong>mult</strong>：所有滤镜的结果会相乘。</p><p><strong>max</strong>：使用所有滤镜中的最大结果。这最适合灰度灯光滤镜。</p><p><strong>min</strong>：使用所有滤镜中的最小结果。这最适合灰度灯光滤镜。</p><p><strong>screen</strong>：类似于 max 操作，但会以更平滑的方式组合渐变。这最适合灰度灯光。</p><p>附加在灯光上的灯光滤镜会按各自的组合模式分组。同一组中的灯光滤镜会一起执行，并按组合模式进行组合。各组按以下顺序执行（max、min、screen，然后 mult），并且会相互相乘；这意味着 mult 组中把结果变黑的滤镜会将所有其他滤镜清零。</p></div>
 </div>
 </div>
 </div>

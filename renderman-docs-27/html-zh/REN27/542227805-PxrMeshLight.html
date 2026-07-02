@@ -120,7 +120,7 @@
 <div class="columnLayout fixed-width" data-layout="fixed-width">
 <div class="cell normal" data-type="normal">
 <div class="innerCell">
-<p><br /></p><p><strong>Exposure</strong></p><p><span data-colorid="oaz8fhd7kj">指定 area light 的 Exposure，以 2 的幂表示。Exposure 增加 1 会使光源发出的能量翻倍。值 0 在光源处产生 1 的强度，-1 产生 0.5。</span> <span data-colorid="xe7i7xenrx">现实世界照明能量很高，典型 exposure 值较低；若要获得等效的&nbsp;</span>Intensity<span data-colorid="mel1eurryq">，你可能需要输入非常大的数字。对于熟悉摄影测量的艺术家来说，这也更顺手。</span></p></div>
+<p><br /></p><p><strong>Exposure</strong></p><p><span data-colorid="oaz8fhd7kj">指定面光源的 Exposure，以 2 的幂表示。Exposure 增加 1 会使光源发出的能量翻倍。值 0 在光源处产生 1 的强度，-1 产生 0.5。</span> <span data-colorid="xe7i7xenrx">现实世界照明能量很高，典型 exposure 值较低；若要获得等效的&nbsp;</span>Intensity<span data-colorid="mel1eurryq">，你可能需要输入非常大的数字。对于熟悉摄影测量的艺术家来说，这也更顺手。</span></p></div>
 </div>
 </div>
 <div class="columnLayout three-equal" data-layout="three-equal">
@@ -140,7 +140,7 @@
 <div class="columnLayout fixed-width" data-layout="fixed-width">
 <div class="cell normal" data-type="normal">
 <div class="innerCell">
-<p><br /></p><p><strong>Texture Color</strong></p><p><span data-colorid="ztrbeezxce">用于通过 pattern node（图案节点）将图像作为光源使用，例如 </span><a href="542225070-PxrTexture.html" rel="nofollow"><span data-colorid="mts4u7zetz">PxrTexture</span></a><span data-colorid="nlzpgj992k">。最好使用高动态范围光源。请注意，这会根据所用 HDRI 的内容影响颜色和阴影。如果不得不使用 JPEG 图像等 8-bit 源，则在作为颜色使用前应将其线性化（转换到线性颜色空间）。由于它确实是一个网格，你必须已定义 UVs 或合适的投射，才能正确放置纹理。</span></p></div>
+<p><br /></p><p><strong>Texture Color</strong></p><p><span data-colorid="ztrbeezxce">用于通过图案节点将图像作为光源使用，例如 </span><a href="542225070-PxrTexture.html" rel="nofollow"><span data-colorid="mts4u7zetz">PxrTexture</span></a><span data-colorid="nlzpgj992k">。最好使用高动态范围光源。请注意，这会根据所用 HDRI 的内容影响颜色和阴影。如果不得不使用 JPEG 图像等 8 位源，则在作为颜色使用前应将其线性化（转换到线性颜色空间）。由于它确实是一个网格，你必须已定义 UV 或合适的投射，才能正确放置纹理。</span></p></div>
 </div>
 </div>
 <div class="columnLayout three-equal" data-layout="three-equal">
@@ -180,7 +180,7 @@
 <div class="columnLayout fixed-width" data-layout="fixed-width">
 <div class="cell normal" data-type="normal">
 <div class="innerCell">
-<p><br /></p><p><strong>Temperature</strong></p><p>允许用户选择灯光的色温，单位为 Kelvin。不同于基础灯光颜色，这让用户可以根据标准温度测量轻松选择可信的灯光颜色。此控制的作用类似灯光前方的 filter 或 gel（一层带 tint 的透明表面）。如果灯光为白色，你会得到所选色温。如果灯光已有颜色，色温会使它更冷（高于 6500K）或更暖（低于 6500K）。</p><p><br /></p><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="a99a67cb-dea3-49ce-b677-f6e2679c20f1" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>该效果在完全饱和的单色灯光上不太明显。默认值为 6500K，在大多数显示器上应非常接近白色（sRGB 和 Rec 709 使用的 D65 illuminant）。</p></div></div><p><br /></p><p><br /></p><hr /><h4 id="PxrMeshLight-Refine">Refine</h4><p><br /></p><p><strong>Specular Amount</strong></p><p>发出的 specular light（镜面反射光）数量。这是一个非物理控制。你可以使用一个&nbsp; <strong>Specular Amount</strong> &nbsp;为 0.0 的灯光，作为场景对象的纯 diffuse light（漫反射光）来源，并避免添加高光。&nbsp;</p><p><br /></p><p><strong>Diffuse Amount</strong></p><p>发出的 diffuse light（漫反射光）数量。这是一个非物理控制。你可以使用一个&nbsp; <strong>Diffuse Amount</strong> &nbsp;为 0.0 的灯光，作为场景对象的纯高光来源。</p><p><br /></p><p><strong>Intensity Near Dist</strong></p><p>被照亮点与灯光之间的近距离，在该距离内样本不会继续变亮。当灯光靠近表面时，这可能有助于避免热点和采样问题。这些值取决于你的场景尺度/距离，因此这里只是示例。</p><p><br /></p><p><strong>Specular Near Dist</strong></p><p>带有 specular shading（镜面着色）的被照亮点与灯光之间的近距离，在该距离内样本不会继续变亮。当灯光靠近 specular surface（镜面表面）时，这可能有助于避免热点和采样问题。 <strong>注意</strong> ，此值不会应用于从 camera 看到的灯光。 <span class="legacy-color-text-default">下面，右侧球体的距离分别为 0.0、5.0，最后是 10.0。这些值取决于你的场景尺度/距离，因此这里只是示例。</span></p></div>
+<p><br /></p><p><strong>Temperature</strong></p><p>允许用户选择灯光的色温，单位为 Kelvin。不同于基础灯光颜色，这让用户可以根据标准温度测量轻松选择可信的灯光颜色。此控制的作用类似灯光前方的滤镜或色片（一层带色调的透明表面）。如果灯光为白色，你会得到所选色温。如果灯光已有颜色，色温会使它更冷（高于 6500K）或更暖（低于 6500K）。</p><p><br /></p><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="a99a67cb-dea3-49ce-b677-f6e2679c20f1" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>该效果在完全饱和的单色灯光上不太明显。默认值为 6500K，在大多数显示器上应非常接近白色（sRGB 和 Rec 709 使用的 D65 标准照明体）。</p></div></div><p><br /></p><p><br /></p><hr /><h4 id="PxrMeshLight-Refine">Refine</h4><p><br /></p><p><strong>Specular Amount</strong></p><p>发出的镜面反射光数量。这是一个非物理控制。你可以使用一个&nbsp; <strong>Specular Amount</strong> &nbsp;为 0.0 的灯光，作为场景对象的纯漫反射光来源，并避免添加高光。&nbsp;</p><p><br /></p><p><strong>Diffuse Amount</strong></p><p>发出的漫反射光数量。这是一个非物理控制。你可以使用一个&nbsp; <strong>Diffuse Amount</strong> &nbsp;为 0.0 的灯光，作为场景对象的纯高光来源。</p><p><br /></p><p><strong>Intensity Near Dist</strong></p><p>被照亮点与灯光之间的近距离，在该距离内样本不会继续变亮。当灯光靠近表面时，这可能有助于避免热点和采样问题。这些值取决于你的场景尺度/距离，因此这里只是示例。</p><p><br /></p><p><strong>Specular Near Dist</strong></p><p>带有镜面着色的被照亮点与灯光之间的近距离，在该距离内样本不会继续变亮。当灯光靠近镜面表面时，这可能有助于避免热点和采样问题。 <strong>注意</strong>，此值不会应用于从摄影机看到的灯光。 <span class="legacy-color-text-default">下面，右侧球体的距离分别为 0.0、5.0，最后是 10.0。这些值取决于你的场景尺度/距离，因此这里只是示例。</span></p></div>
 </div>
 </div>
 <div class="columnLayout three-equal" data-layout="three-equal">
@@ -200,7 +200,7 @@
 <div class="columnLayout fixed-width" data-layout="fixed-width">
 <div class="cell normal" data-type="normal">
 <div class="innerCell">
-<p><br /></p><p><strong>Diffuse Near Dist</strong></p><p>带有 diffuse shading（漫反射着色）的被照亮点与灯光之间的近距离，在该距离内样本不会继续变亮。当灯光靠近 diffuse surface（漫反射表面）时，这可能有助于避免热点和采样问题。 <strong>注意</strong> ，此值不会应用于从 camera 看到的灯光。 <span class="legacy-color-text-default">下面，左侧球体的距离分别为 0.0、5.0，最后是 10.0。这些值取决于你的场景尺度/距离，因此这里只是示例。</span></p></div>
+<p><br /></p><p><strong>Diffuse Near Dist</strong></p><p>带有漫反射着色的被照亮点与灯光之间的近距离，在该距离内样本不会继续变亮。当灯光靠近漫反射表面时，这可能有助于避免热点和采样问题。 <strong>注意</strong>，此值不会应用于从摄影机看到的灯光。 <span class="legacy-color-text-default">下面，左侧球体的距离分别为 0.0、5.0，最后是 10.0。这些值取决于你的场景尺度/距离，因此这里只是示例。</span></p></div>
 </div>
 </div>
 <div class="columnLayout three-equal" data-layout="three-equal">
@@ -220,7 +220,7 @@
 <div class="columnLayout fixed-width" data-layout="fixed-width">
 <div class="cell normal" data-type="normal">
 <div class="innerCell">
-<p><br /></p><hr /><h4 id="PxrMeshLight-Advanced">Advanced</h4><p><br /></p><p><strong>Area Normalize</strong></p><p>启用 Normalize 时，随着你缩放光源，灯光对场景的贡献量不会改变。这让你更容易调整高光大小，而不改变场景照明。</p><p><br /></p><p><strong>Trace Light Paths</strong></p><p>启用此灯光的光照和光子追踪。此值会强制使用基于物理的灯光，并且副作用是禁用上方的&nbsp;<strong>Shadows</strong>&nbsp;控制。用户在使用 PxrVCM 或 PxrUnified Integrators 时，可以利用此功能选择哪些灯光发射光子。</p><p><br /></p><p><strong>Thin Shadow</strong></p><p>为此灯光启用 thin shadow 并禁用折射焦散。如果&nbsp;<strong>Trace Light Paths</strong>&nbsp;已启用，此参数将被忽略。这是一个非物理控制，它会为透射对象创建“伪造的”彩色阴影，而不需要为焦散生成光子。</p><p><br /></p><p><strong>Light Group</strong></p><p>指定用于 light group LPEs 的灯光组名称。这对于生成 per-light AOVs，供后续在合成中调整很有用。</p><p><br /></p><p><strong>Importance Multiplier</strong></p><p>用户无需设置显式的 Light Samples，而可以通过更改此值来改变该灯光在内部被分配的样本数量。RenderMan 会在渲染时为场景中的所有灯光创建一组样本；更改此值会在各灯光之间重新平衡样本。注意，提高此值会使&nbsp;<em>更多</em>&nbsp;样本从此灯光中被选择，同时减少场景中其他灯光的样本。低于默认值则会&nbsp;<em>减少</em>&nbsp;此灯光的样本，并把更多样本分配给场景中的其他灯光。</p></div>
+<p><br /></p><hr /><h4 id="PxrMeshLight-Advanced">Advanced</h4><p><br /></p><p><strong>Area Normalize</strong></p><p>启用 Normalize 时，随着你缩放光源，灯光对场景的贡献量不会改变。这让你更容易调整高光大小，而不改变场景照明。</p><p><br /></p><p><strong>Trace Light Paths</strong></p><p>启用此灯光的光照和光子追踪。此值会强制使用基于物理的灯光，并且副作用是禁用上方的&nbsp;<strong>Shadows</strong>&nbsp;控制。用户在使用 PxrVCM 或 PxrUnified 积分器时，可以利用此功能选择哪些灯光发射光子。</p><p><br /></p><p><strong>Thin Shadow</strong></p><p>为此灯光启用 thin shadow（薄阴影）并禁用折射焦散。如果&nbsp;<strong>Trace Light Paths</strong>&nbsp;已启用，此参数将被忽略。这是一个非物理控制，它会为透射对象创建“伪造的”彩色阴影，而不需要为焦散生成光子。</p><p><br /></p><p><strong>Light Group</strong></p><p>指定用于灯光组 LPE 的灯光组名称。这对于生成按灯光 AOV，供后续在合成中调整很有用。</p><p><br /></p><p><strong>Importance Multiplier</strong></p><p>用户无需设置显式的 Light Samples，而可以通过更改此值来改变该灯光在内部被分配的样本数量。RenderMan 会在渲染时为场景中的所有灯光创建一组样本；更改此值会在各灯光之间重新平衡样本。注意，提高此值会使&nbsp;<em>更多</em>&nbsp;样本从此灯光中被选择，同时减少场景中其他灯光的样本。低于默认值则会&nbsp;<em>减少</em>&nbsp;此灯光的样本，并把更多样本分配给场景中的其他灯光。</p></div>
 </div>
 </div>
 </div>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Search Clauses</title>
+  <title>搜索子句</title>
   <style>
     :root { color-scheme: light; }
     body {
@@ -71,39 +71,39 @@
 <body class="rm-themed rm-doc-page">
 <main>
   <header>
-    <h1>Search Clauses</h1>
+    <h1>搜索子句</h1>
     <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/TRA/22184262/Search+Clauses">https://rmanwiki-27.pixar.com/space/TRA/22184262/Search+Clauses</a></div>
     <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
   </header>
   <article>
-<p>Tractor search clauses 用于 <a href="22184282-Dashboard App.html" rel="nofollow">Dashboard 查询界面的</a> query page 查询页面部分、 <a href="22184266-Query Python API.html" rel="nofollow">Python query API</a>以及 <a href="22184306-tq- Tractor Query tool.html" rel="nofollow">tq command-line tool</a>。它们采用高级语法，简化从 engine 搜索 job 和 blade information 的过程。该语法对 boolean expressions 和 comparison operators 使用 Pythonic 约定；不过，也提供额外便利以减少 syntactic overhead，下文会说明。最终得到的是一种简洁的 search syntax，易于编写、阅读和记忆。</p><p>注意，在 command-line 上使用时，某些字符可能需要 escape，或者整个 expression 需要放在 quotes 中，以避免被 shell 解释。<br/> </p><h3 id="SearchClauses-BooleanExpressions">Boolean Expressions（布尔表达式）</h3><p>使用标准 comparison operators、boolean terms 和 parentheses 来构建 search clause。</p><p>下面会匹配具有 active tasks 的 jobs：</p><p><code>numactive &gt; 0
-</code></p><p>下面会匹配没有 errored tasks 的 active jobs：</p><p><code>numactive &gt; 0 and numerror = 0
-</code></p><p>下面会匹配处于 active 或可能变为 active、且带有 errored tasks 的 jobs。这些 jobs 会继续消耗 farm 上的 compute time，但由于错误无法完全完成：</p><p><code>(numactive &gt; 0 or numready &gt; 0) and numerror &gt; 0</code><br/><code>
-</code></p><h3 id="SearchClauses-Stand-aloneTerms">独立项说明（Stand-alone Terms）</h3><p>Numeric attributes 可以独立出现，表示 not equal to zero。鉴于 numactive 不可能为负数，下面两个 clauses 是等价的</p><p><code>numactive &gt; 0 and numerror = 0
+<p>Tractor 搜索子句用于 <a href="22184282-Dashboard App.html" rel="nofollow">Dashboard 查询界面的</a> 查询页面、 <a href="22184266-Query Python API.html" rel="nofollow">Python 查询 API</a>以及 <a href="22184306-tq- Tractor Query tool.html" rel="nofollow">tq 命令行工具</a>。它们采用高级语法，简化从 Engine 搜索作业和 Blade 信息的过程。该语法对布尔表达式和比较操作符使用 Pythonic 约定；不过，也提供额外便利以减少语法负担，下文会说明。最终得到的是一种简洁的搜索语法，易于编写、阅读和记忆。</p><p>注意，在命令行上使用时，某些字符可能需要转义，或者整个表达式需要放在引号中，以避免被 shell 解释。<br/> </p><h3 id="SearchClauses-BooleanExpressions">布尔表达式</h3><p>使用标准比较操作符、布尔项和圆括号来构建搜索子句。</p><p>下面会匹配具有 active 任务的作业：</p><p><code>numactive &gt; 0
+</code></p><p>下面会匹配没有 errored 任务的 active 作业：</p><p><code>numactive &gt; 0 and numerror = 0
+</code></p><p>下面会匹配处于 active 或可能变为 active、且带有 errored 任务的作业。这些作业会继续消耗农场上的计算时间，但由于错误无法完全完成：</p><p><code>(numactive &gt; 0 or numready &gt; 0) and numerror &gt; 0</code><br/><code>
+</code></p><h3 id="SearchClauses-Stand-aloneTerms">独立项</h3><p>数值属性可以独立出现，表示不等于零。鉴于 numactive 不可能为负数，下面两个子句是等价的</p><p><code>numactive &gt; 0 and numerror = 0
 numactive and not numerror</code><br/><sup>
-</sup></p><h3 id="SearchClauses-StringMatching">String Matching（字符串匹配）</h3><p>String attributes 可以按 equality 匹配。下面会匹配 adamwg 拥有的所有 jobs：</p><p><code>owner=&quot;adamwg&quot;
-</code></p><p>String attributes 也可以使用 like 通过 regular expressions 匹配。下面会匹配 title 中包含 candy 的 jobs：</p><p><code>title like &quot;candy&quot;
-</code></p><p>下面会匹配 RHEL 后跟一个 integer 的 jobs：</p><p><code>title like &quot;RHEL\d+&quot;</code><br/><code>
-</code></p><h3 id="SearchClauses-OptionalQuotes">Optional Quotes（可选引号）</h3><p>对于不会与 attribute names 或 aliases 冲突的 single-word literals，不需要 quotes。</p><p>例如，下面的 clauses 会匹配 adamwg 拥有的 jobs：</p><p><code>owner=&quot;adamwg&quot;
+</sup></p><h3 id="SearchClauses-StringMatching">字符串匹配</h3><p>字符串属性可以按相等关系匹配。下面会匹配 adamwg 拥有的所有作业：</p><p><code>owner=&quot;adamwg&quot;
+</code></p><p>字符串属性也可以使用 like 通过正则表达式匹配。下面会匹配 title 中包含 candy 的作业：</p><p><code>title like &quot;candy&quot;
+</code></p><p>下面会匹配 RHEL 后跟一个整数的作业：</p><p><code>title like &quot;RHEL\d+&quot;</code><br/><code>
+</code></p><h3 id="SearchClauses-OptionalQuotes">可选引号</h3><p>对于不会与属性名或别名冲突的单词字面量，不需要引号。</p><p>例如，下面的子句会匹配 adamwg 拥有的作业：</p><p><code>owner=&quot;adamwg&quot;
 owner=adamwg
-</code></p><p>下面的 clause 使用 quotes，因为 Smith Tower 是 multi-word literal：</p><p><code>title=&quot;Smith Tower&quot;
-</code></p><p>下面的 clause 使用 quotes，是为了查找 title 中包含 literal owner 的 jobs。如果没有 quotes，会找到 title 中包含其实际 owner 的 jobs，因为 owner 是 job 的 attribute。</p><p><code>title like &quot;owner&quot;</code><sup>
-</sup></p><p>这个 clause 不需要 double quotes，因为 adamwg 不是 Tractor entity 的 attribute。</p><p><code>title like adamwg</code><br/><sup>
-</sup></p><h3 id="SearchClauses-ListMatching">列表匹配说明（List Matching）</h3><p>in operator 可用于搜索存储 value list 的 fields。下面会匹配 tags 中包含 prman 的 jobs：</p><p><code>prman in tags
-</code></p><p>List matching 可用于简化某些 queries。下面的 clauses 会匹配 owner 为 tom、dick 或 harry 的 jobs：</p><p><code>owner=tom or owner=dick or owner=harry
+</code></p><p>下面的子句使用引号，因为 Smith Tower 是多词字面量：</p><p><code>title=&quot;Smith Tower&quot;
+</code></p><p>下面的子句使用引号，是为了查找 title 中包含字面量 owner 的作业。如果没有引号，会找到 title 中包含其实际 owner 的作业，因为 owner 是作业的属性。</p><p><code>title like &quot;owner&quot;</code><sup>
+</sup></p><p>这个子句不需要双引号，因为 adamwg 不是 Tractor 实体的属性。</p><p><code>title like adamwg</code><br/><sup>
+</sup></p><h3 id="SearchClauses-ListMatching">列表匹配</h3><p>in 操作符可用于搜索存储值列表的字段。下面会匹配 tags 中包含 prman 的作业：</p><p><code>prman in tags
+</code></p><p>列表匹配可用于简化某些查询。下面的子句会匹配 owner 为 tom、dick 或 harry 的作业：</p><p><code>owner=tom or owner=dick or owner=harry
 owner in [tom dick harry]</code><sup>
-</sup></p><p>has operator 可用于在 arrays 中搜索多个 values。下面两个 clauses 会匹配 keys 中同时包含 prman 和 linux 的 jobs：</p><p><code>prman in tags and linux in tags
+</sup></p><p>has 操作符可用于在数组中搜索多个值。下面两个子句会匹配 keys 中同时包含 prman 和 linux 的作业：</p><p><code>prman in tags and linux in tags
 tags has [prman linux]</code><br/><sup>
-</sup></p><h3 id="SearchClauses-Aliases">Aliases（别名）</h3><p>某些常输入的 arguments 可替换为 aliases。tq 支持四类 aliases： <em>attribute</em>, <em>search</em>,<em>argument</em>以及 <em>command</em> aliases。</p><p>Attribute aliases 只是 attribute 的替代名称。例如，可以用 file 代替 job 的 spoolfile，或用 user 代替 owner。这些 aliases 可以用于 search clauses，也可以用于指定 column names 或 sort order 的列表。下面的 search clauses 是等价的：</p><p><code>owner in [adamwg dml]
+</sup></p><h3 id="SearchClauses-Aliases">别名</h3><p>某些常输入的参数可替换为别名。tq 支持四类别名： <em>attribute</em>, <em>search</em>,<em>argument</em>以及 <em>command</em> 别名。</p><p>属性别名只是属性的替代名称。例如，可以用 file 代替作业的 spoolfile，或用 user 代替 owner。这些别名可以用于搜索子句，也可以用于指定列名或排序顺序的列表。下面的搜索子句是等价的：</p><p><code>owner in [adamwg dml]
 user in [adamwg dml]</code><sup>
-</sup></p><p>Search aliases 表示对 boolean expression 的替换，并可与其他 clauses 和 aliases 组合。例如，在搜索 jobs 时，active 表示 numactive &gt; 0。下面的 search clauses 是等价的：</p><p><code>numactive &gt; 0 and error=0
+</sup></p><p>搜索别名表示对布尔表达式的替换，并可与其他子句和别名组合。例如，在搜索作业时，active 表示 numactive &gt; 0。下面的搜索子句是等价的：</p><p><code>numactive &gt; 0 and error=0
 active and not error</code><sup>
-</sup></p><p>Clause aliases 的含义会根据所用 command 而变化。与上面的示例对照，在搜索 tasks 时，active 表示 state=active。</p><p>Argument 和 command aliases 超出了本文关于 search clause syntax 的范围；不过可以说明，这类 aliases 会把 search clause 作为其 definition 的一部分。</p><p>可以在 command line 上使用以下命令列出所有已知 aliases：</p><p><code>% tq aliases</code><br/><sup>
-</sup></p><h3 id="SearchClauses-AffiliatedEntities">关联实体说明（Affiliated Entities）</h3><p>有时搜索会涉及 related entities 的 attributes。例如，下面的 clause 会匹配 active tasks：</p><p><code>state=active</code><sup>
-</sup></p><p>但也可能需要查找某个 owner 的 jobs 中的 active tasks。下面的 clause 会匹配 adamwg 拥有的 jobs 的 tasks：</p><p><code>state=active and owner=adamwg</code><sup>
-</sup></p><p>系统会自动判断 owner attribute 与 job 关联。不过，如果两个 entities 拥有相同的 attribute name，就需要用 entity 对 attributes 进行限定。</p><p>例如，下面的 clause 会匹配 task title 中包含 render 的 active tasks：</p><p><code>state=active and title like render</code><sup>
-</sup></p><p>而下面的 clause 会匹配 job title 中包含 render 的 active tasks：</p><p><code>state=active and Job.title like render</code><br/><code>
-</code></p><h3 id="SearchClauses-TimeComparisons">时间比较说明（Time Comparisons）</h3><p>对于表示 time 或 elapsed seconds 的 database fields，有几个快捷写法。下面列出可接受格式。</p><p><sup>10am        - 当前日期的 10am
+</sup></p><p>子句别名的含义会根据所用命令而变化。与上面的示例对照，在搜索任务时，active 表示 state=active。</p><p>参数和命令别名超出了本文关于搜索子句语法的范围；不过可以说明，这类别名会把搜索子句作为其定义的一部分。</p><p>可以在命令行上使用以下命令列出所有已知别名：</p><p><code>% tq aliases</code><br/><sup>
+</sup></p><h3 id="SearchClauses-AffiliatedEntities">关联实体</h3><p>有时搜索会涉及相关实体的属性。例如，下面的子句会匹配 active 任务：</p><p><code>state=active</code><sup>
+</sup></p><p>但也可能需要查找某个 owner 的作业中的 active 任务。下面的子句会匹配 adamwg 拥有的作业的任务：</p><p><code>state=active and owner=adamwg</code><sup>
+</sup></p><p>系统会自动判断 owner 属性与作业关联。不过，如果两个实体拥有相同的属性名，就需要用实体对属性进行限定。</p><p>例如，下面的子句会匹配 task title 中包含 render 的 active 任务：</p><p><code>state=active and title like render</code><sup>
+</sup></p><p>而下面的子句会匹配 job title 中包含 render 的 active 任务：</p><p><code>state=active and Job.title like render</code><br/><code>
+</code></p><h3 id="SearchClauses-TimeComparisons">时间比较</h3><p>对于表示时间或经过秒数的数据库字段，有几个快捷写法。下面列出可接受格式。</p><p><sup>10am        - 当前日期的 10am
 5pm         - 当前日期的 5pm
 11:37       - 当前日期的 11:37am
 16:21       - 当前日期的 4:21pm
@@ -119,14 +119,14 @@ active and not error</code><sup>
 -1h         - 1 小时前
 -1d         - 1 天前
 -1w         - 1 周前
-</sup></p><p>下面会匹配 2014 年 1 月 6 日之后 spooled 的所有 jobs：</p><p><code>spooltime &gt; 1/6/14
-</code></p><p>下面会匹配过去一小时内 started 的所有 tasks：</p><p><code>starttime &gt; -1h
-</code></p><p>下面会匹配今天上午 9am 之后没有向 engine 注册的所有 blades：</p><p><code>heartbeattime &lt; 9am</code><br/><code>
-</code></p><h3 id="SearchClauses-Units">Units（单位）</h3><p>该语法支持用于 time 和 space related attributes 的不同 units。</p><p>例如，下面会匹配 wall clock time 超过 1 小时的 invocations：</p><p><sup>elapsedreal &gt; 3600
+</sup></p><p>下面会匹配 2014 年 1 月 6 日之后提交的所有作业：</p><p><code>spooltime &gt; 1/6/14
+</code></p><p>下面会匹配过去一小时内启动的所有任务：</p><p><code>starttime &gt; -1h
+</code></p><p>下面会匹配今天上午 9am 之后没有向 Engine 注册的所有 Blade：</p><p><code>heartbeattime &lt; 9am</code><br/><code>
+</code></p><h3 id="SearchClauses-Units">单位</h3><p>该语法支持用于时间和空间相关属性的不同单位。</p><p>例如，下面会匹配挂钟时间超过 1 小时的 invocation：</p><p><sup>elapsedreal &gt; 3600
 elapsedreal &gt; 3600s
 elapsedreal &gt; 60m
 elapsedreal &gt; 1h
-</sup></p><p>下面会匹配 available memory 小于 1G 的 blades：</p><p><sup>内存单位示例：
+</sup></p><p>下面会匹配可用内存小于 1G 的 Blade：</p><p><sup>内存单位示例：
 availmemory &lt; 1
 availmemory &lt; 1G
 availmemory &lt; 1024M

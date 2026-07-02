@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Best Practices - Milk Bottle</title>
+  <title>最佳实践 - 牛奶瓶</title>
   <style>
     :root { color-scheme: light; }
     body {
@@ -71,7 +71,7 @@
 <body class="rm-themed rm-doc-page">
 <main>
   <header>
-    <h1>Best Practices - Milk Bottle</h1>
+    <h1>最佳实践 - 牛奶瓶</h1>
     <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RU/619642881/Best+Practices+-+Milk+Bottle">https://rmanwiki-27.pixar.com/space/RU/619642881/Best+Practices+-+Milk+Bottle</a></div>
     <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
   </header>
@@ -80,7 +80,7 @@
 <div class="columnLayout fixed-width" data-layout="fixed-width">
 <div class="cell normal" data-type="normal">
 <div class="innerCell">
-<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="CookiesNMilk_new_Banner.jpg" width="760" loading="lazy" src="../../attachments/619642881/CookiesNMilk_new_Banner.jpg" data-image-src="../../attachments/619642881/CookiesNMilk_new_Banner.jpg" data-height="1073" data-width="1074" data-unresolved-comment-count="0" data-linked-resource-id="619642916" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="CookiesNMilk_new_Banner.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="619642881" data-linked-resource-container-version="4" data-media-id="12311083-b0ea-412a-820f-c05d2bd0c4a5" data-media-type="file" /></span><h2 id="BestPractices-MilkBottle-MilkBottle">牛奶瓶（Milk Bottle）制作</h2><p>现在我们可以看看牛奶和瓶子了。</p></div>
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="CookiesNMilk_new_Banner.jpg" width="760" loading="lazy" src="../../attachments/619642881/CookiesNMilk_new_Banner.jpg" data-image-src="../../attachments/619642881/CookiesNMilk_new_Banner.jpg" data-height="1073" data-width="1074" data-unresolved-comment-count="0" data-linked-resource-id="619642916" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="CookiesNMilk_new_Banner.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="619642881" data-linked-resource-container-version="4" data-media-id="12311083-b0ea-412a-820f-c05d2bd0c4a5" data-media-type="file" /></span><h2 id="BestPractices-MilkBottle-MilkBottle">牛奶瓶</h2><p>现在我们可以看看牛奶和瓶子了。</p></div>
 </div>
 </div>
 <div class="columnLayout two-equal" data-layout="two-equal">
@@ -96,7 +96,7 @@
 <div class="columnLayout fixed-width" data-layout="fixed-width">
 <div class="cell normal" data-type="normal">
 <div class="innerCell">
-<p>牛奶本身没有使用 textures，后面会单独介绍；因此我们先隔离瓶子，讨论它如何真实地实现“dirty bottle”（脏瓶子）外观。</p><p>玻璃具有几项独特特性，使它显得很特别。也正因如此，PxrSurface material 有完整的一节用于重建玻璃及最常见的外观。要理解不完美和脏污玻璃，可以试着拆解图像中发生的事情。不完美玻璃的表面 roughness 会发生变化。与水晶和少数其他表面不同，许多陈旧和磨损的玻璃物体并非完美 reflective 或 transmissive（refractive）。玻璃表面还会增加 fingerprints 和 smudges。你可以使用 masks 生成这些效果，并把它们添加到 diffuse lobe 中，混入 dirt、paint、dust 等额外元素。</p><p>更轻松地分层这个效果有两个选项可讨论，另外还有第三个关于 trace depth 的注意事项，会在另一篇文档中介绍：</p><ul><li><p>使用“ <a class="external-link" href="https://rmanwiki-26.pixar.com/space/REN26/19661463" rel="nofollow"><u>PxrLayerSurface</u></a> ”来分离并重新组合玻璃和污垢的 shading。</p></li><li><p>正确的 UV layout，可以防止内外表面出现 texture repetition。</p></li><li><p>合理控制“ <a class="external-link" href="https://rmanwiki-26.pixar.com/space/REN26/19661825" rel="nofollow"><u>ray depth</u></a> ”，以获得玻璃的正确物理结果。</p></li></ul><p /><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="40d29113-c623-400b-b23f-2acf947046df" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>最好以体积方式建模对象。它们应该有真实厚度，玻璃表面之间的空间会像真实世界中一样工作，也应按你的预期表现。除非确实合理，例如叶片或纸张这类对象，否则应避免使用二维模型。</p></div></div><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="e5fa2627-b353-4dd1-a6ee-d9834ab8cca7" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>渲染大多数带液体的玻璃容器时，理解 <a class="external-link" href="https://rmanwiki-26.pixar.com/space/REN26/19661549" rel="nofollow"><u>intersection priority</u></a> 会很有帮助，可避免 artifacts 和 “air gaps”。技术上，这称为 dielectric interface 或 nested dielectrics。</p></div></div><p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="milkNCookies_emptyBottle.jpg" width="400" loading="lazy" src="../../attachments/619642881/milkNCookies_emptyBottle.jpg" data-image-src="../../attachments/619642881/milkNCookies_emptyBottle.jpg" data-height="600" data-width="400" data-unresolved-comment-count="0" data-linked-resource-id="619413607" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="milkNCookies_emptyBottle.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="619642881" data-linked-resource-container-version="4" data-media-id="97f543b3-3698-487b-82a6-f97ffa27f90c" data-media-type="file" /></span><p /><p>首先，我们移除上层的污垢和牛奶，检查玻璃层。</p></div>
+<p>牛奶本身没有使用纹理，后面会单独介绍；因此我们先隔离瓶子，讨论它如何真实地实现“脏瓶子”外观。</p><p>玻璃具有几项独特特性，使它显得很特别。也正因如此，PxrSurface 材质有完整的一节用于重建玻璃及最常见的外观。要理解不完美和脏污玻璃，可以试着拆解图像中发生的事情。不完美玻璃的表面粗糙度会发生变化。与水晶和少数其他表面不同，许多陈旧和磨损的玻璃物体并非完美反射或透射（折射）。玻璃表面还会增加指纹和污渍。你可以使用遮罩生成这些效果，并把它们添加到漫反射波瓣中，混入污垢、漆迹、灰尘等额外元素。</p><p>更轻松地分层这个效果有两个选项可讨论，另外还有第三个关于光线深度的注意事项，会在另一篇文档中介绍：</p><ul><li><p>使用“ <a class="external-link" href="https://rmanwiki-26.pixar.com/space/REN26/19661463" rel="nofollow"><u>PxrLayerSurface</u></a> 来分离并重新组合玻璃和污垢的着色。</p></li><li><p>正确的 UV 布局，可以防止内外表面出现纹理重复。</p></li><li><p>合理控制“ <a class="external-link" href="https://rmanwiki-26.pixar.com/space/REN26/19661825" rel="nofollow"><u>光线深度</u></a> ”，以获得玻璃的正确物理结果。</p></li></ul><p /><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="40d29113-c623-400b-b23f-2acf947046df" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>最好以体积方式建模对象。它们应该有真实厚度，玻璃表面之间的空间会像真实世界中一样工作，也应按你的预期表现。除非确实合理，例如叶片或纸张这类对象，否则应避免使用二维模型。</p></div></div><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block" data-hasbody="true" data-macro-id="e5fa2627-b353-4dd1-a6ee-d9834ab8cca7" data-macro-name="info"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>渲染大多数带液体的玻璃容器时，理解 <a class="external-link" href="https://rmanwiki-26.pixar.com/space/REN26/19661549" rel="nofollow"><u>相交优先级</u></a> 会很有帮助，可避免伪影和“空气间隙”。技术上，这称为电介质界面或嵌套电介质。</p></div></div><p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="milkNCookies_emptyBottle.jpg" width="400" loading="lazy" src="../../attachments/619642881/milkNCookies_emptyBottle.jpg" data-image-src="../../attachments/619642881/milkNCookies_emptyBottle.jpg" data-height="600" data-width="400" data-unresolved-comment-count="0" data-linked-resource-id="619413607" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="milkNCookies_emptyBottle.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="619642881" data-linked-resource-container-version="4" data-media-id="97f543b3-3698-487b-82a6-f97ffa27f90c" data-media-type="file" /></span><p /><p>首先，我们移除上层的污垢和牛奶，检查玻璃层。</p></div>
 </div>
 </div>
 <div class="columnLayout two-equal" data-layout="two-equal">
@@ -112,7 +112,7 @@
 <div class="columnLayout fixed-width" data-layout="fixed-width">
 <div class="cell normal" data-type="normal">
 <div class="innerCell">
-<p>在 glass base material 中，diffuse channel 以较低 gain 0.2 加入了一些 dirt。低 gain 结合较暗的 texture，可以确保该效果不会过于 opaque，否则瓶子会显得不像玻璃制成。 </p><p /></div>
+<p>在玻璃基础材质中，漫反射通道以较低增益 0.2 加入了一些污垢。较低增益结合较暗纹理，可以确保该效果不会过于不透明，否则瓶子会显得不像玻璃制成。 </p><p /></div>
 </div>
 </div>
 <div class="columnLayout two-equal" data-layout="two-equal">
@@ -122,7 +122,7 @@
 </div>
 <div class="cell normal" data-type="normal">
 <div class="innerCell">
-<p>在 glass base material 中，diffuse channel 以较低 gain 0.2 加入了一些 dirt。低 gain 结合较暗的 texture，可以确保该效果不会过于 opaque，否则瓶子会看起来不像玻璃制成。 </p><p>请注意，瓶子的内壁和外壁是分别映射的。fingerprint 通常不应该同时出现在瓶子的外侧&nbsp;<em>和</em>&nbsp;内侧。</p><p /></div>
+<p>在玻璃基础材质中，漫反射通道以较低增益 0.2 加入了一些污垢。较低增益结合较暗纹理，可以确保该效果不会过于不透明，否则瓶子会看起来不像玻璃制成。 </p><p>请注意，瓶子的内壁和外壁是分别映射的。指纹通常不应该同时出现在瓶子的外侧&nbsp;<em>和</em>&nbsp;内侧。</p><p /></div>
 </div>
 </div>
 <div class="columnLayout two-equal" data-layout="two-equal">
@@ -132,7 +132,7 @@
 </div>
 <div class="cell normal" data-type="normal">
 <div class="innerCell">
-<p>reflection gain 像托盘和桌子一样使用 texture，用于定义瓶子最 reflective 的区域，或最少磨损和脏污的区域。</p><p /></div>
+<p>反射增益像托盘和桌子一样使用纹理，用于定义瓶子反射性最强的区域，或最少磨损和脏污的区域。</p><p /></div>
 </div>
 </div>
 <div class="columnLayout two-equal" data-layout="two-equal">
@@ -142,7 +142,7 @@
 </div>
 <div class="cell normal" data-type="normal">
 <div class="innerCell">
-<p>refraction color 用来为穿过玻璃的 light transmission 着色或衰减。在这个例子中，为了暗示更多不完美之处，一张 map 被连接到这个 color input。白色区域表示这些位置的玻璃是 clear <em>且</em> 无色的。</p><p /></div>
+<p>折射颜色用来为穿过玻璃的光线透射着色或衰减。在这个例子中，为了暗示更多不完美之处，一张贴图被连接到这个颜色输入。白色区域表示这些位置的玻璃是清澈的 <em>且</em> 无色的。</p><p /></div>
 </div>
 </div>
 <div class="columnLayout two-equal" data-layout="two-equal">
@@ -152,13 +152,13 @@
 </div>
 <div class="cell normal" data-type="normal">
 <div class="innerCell">
-<p>roughness 与 diffuse map 类似，但移除了颜色，并调整了 black point。这意味着 texture 上不应有任何区域是完全黑色，或值为 0, 0, 0。 </p><p>相反，它被略微提高到 2%，即使最清澈的区域也会带有细微 roughness，这对这张图像来说更真实。</p><p /><p /></div>
+<p>粗糙度与漫反射贴图类似，但移除了颜色，并调整了黑场。这意味着纹理上不应有任何区域是完全黑色，或值为 0, 0, 0。 </p><p>相反，它被略微提高到 2%，即使最清澈的区域也会带有细微粗糙度，这对这张图像来说更真实。</p><p /><p /></div>
 </div>
 </div>
 <div class="columnLayout fixed-width" data-layout="fixed-width">
 <div class="cell normal" data-type="normal">
 <div class="innerCell">
-<p /><p>在这个 glass layer 上方，是一张简单的 dried milk smudge map，作为 PxrLayerSurface 中的上层应用。一个简单 mask 被应用到白色 diffuse color 上。 </p><p>下面是在瓶子上渲染出的 diffuse color 和 mask。</p></div>
+<p /><p>在这个玻璃层上方，是一张简单的干牛奶污渍贴图，作为 PxrLayerSurface 中的上层应用。一个简单遮罩被应用到白色漫反射颜色上。 </p><p>下面是在瓶子上渲染出的漫反射颜色和遮罩。</p></div>
 </div>
 </div>
 <div class="columnLayout two-equal" data-layout="two-equal">
@@ -178,13 +178,13 @@
 </div>
 <div class="cell normal" data-type="normal">
 <div class="innerCell">
-<p>这里是使用的 mask；它在 PxrLayerMixer 中用于全局控制 “MilkDirt_Layer”。</p></div>
+<p>这里是使用的遮罩；它在 PxrLayerMixer 中用于全局控制 “MilkDirt_Layer”。</p></div>
 </div>
 </div>
 <div class="columnLayout fixed-width" data-layout="fixed-width">
 <div class="cell normal" data-type="normal">
 <div class="innerCell">
-<p /><p>然后将这些内容合成为最终结果。你会发现，选择创建 PxrLayerSurface material 的选项后，自动创建的 Mix node 能让这个过程非常直接。</p><p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="milkBottleNetwork.png" width="760" loading="lazy" src="../../attachments/619642881/milkBottleNetwork.png" data-image-src="../../attachments/619642881/milkBottleNetwork.png" data-height="765" data-width="957" data-unresolved-comment-count="0" data-linked-resource-id="619413640" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="milkBottleNetwork.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="619642881" data-linked-resource-container-version="4" data-media-id="461ad3b7-7aad-4011-8dd4-fd3c29f812b9" data-media-type="file" /></span><p /><p /><hr /><h3 id="BestPractices-MilkBottle-NextSteps"><span data-colorid="z14r54416e">Next Steps（下一步）</span></h3><p>很好，我们已经调出了玻璃牛奶瓶的 look。现在来看看牛奶本身。</p><p /></div>
+<p /><p>然后将这些内容合成为最终结果。你会发现，选择创建 PxrLayerSurface 材质的选项后，自动创建的 Mix node 能让这个过程非常直接。</p><p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="milkBottleNetwork.png" width="760" loading="lazy" src="../../attachments/619642881/milkBottleNetwork.png" data-image-src="../../attachments/619642881/milkBottleNetwork.png" data-height="765" data-width="957" data-unresolved-comment-count="0" data-linked-resource-id="619413640" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="milkBottleNetwork.png" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/png" data-linked-resource-container-id="619642881" data-linked-resource-container-version="4" data-media-id="461ad3b7-7aad-4011-8dd4-fd3c29f812b9" data-media-type="file" /></span><p /><p /><hr /><h3 id="BestPractices-MilkBottle-NextSteps"><span data-colorid="z14r54416e">下一步</span></h3><p>很好，我们已经调出了玻璃牛奶瓶的外观。现在来看看牛奶本身。</p><p /></div>
 </div>
 </div>
 <div class="columnLayout two-equal" data-layout="two-equal">

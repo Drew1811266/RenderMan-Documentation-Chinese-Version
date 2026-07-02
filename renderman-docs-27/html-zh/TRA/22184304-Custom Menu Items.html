@@ -76,7 +76,7 @@
     <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
   </header>
   <article>
-<p>Dashboard 的 context menus 可以通过 custom items 扩展，以调用站点指定的 scripts。要扩展 context menu，必须在站点 configuration directory 中名为 menus.config 的 JSON configuration file 里添加一个 entry。</p><h3 id="CustomMenuItems-Example:TriggeringARequestForHelpEmail">示例：触发 Request For Help Email</h3><p>下面的示例演示如何通过 custom menu item 创建一封 request for help email。</p><h4 id="CustomMenuItems-ConfigurationEntry">配置条目说明（Configuration Entry）</h4><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="a52a49db-cdb6-46c2-a1d5-750b938ad5b1" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<p>Dashboard 的上下文菜单可以通过自定义项扩展，用来调用站点指定脚本。要扩展上下文菜单，必须在站点配置目录中名为 menus.config 的 JSON 配置文件里添加一个条目。</p><h3 id="CustomMenuItems-Example:TriggeringARequestForHelpEmail">示例：触发求助邮件</h3><p>下面的示例演示如何通过自定义菜单项创建一封求助邮件。</p><h4 id="CustomMenuItems-ConfigurationEntry">配置条目</h4><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="a52a49db-cdb6-46c2-a1d5-750b938ad5b1" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
 <pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">{
   &quot;job&quot;:
   [
@@ -91,13 +91,13 @@
     }
   ]
 }</pre>
-</div></div><p /><p>在此示例中，menu item 会出现在 job list 的 context menu 中，因为它定义在 top-level dictionary 中以 job 为 key 的 list 里。task 和 blade 是 custom menu items 可能出现的其他 menus。</p><p>其中 <strong>comment</strong> attribute 用于记录 menu item 的用途。它目前在 Dashboard 中不承担功能性角色。</p><p>其中 <strong>title</strong> attribute 定义 menu item 在菜单中显示的名称。在此示例中，job list 的 context menu 会显示 ask for help。</p><p>其中 <strong>crews</strong> attribute 将 script 的运行限制为指定 crews 的 users。如果未列出 crews，任何 user 都可以调用该 menu item。在此示例中，lighting 和 animation crews 中的 users 被允许调用该 menu item。</p><p>其中 <strong>suppress</strong> attribute 表示 Dashboard 是否会在新窗口中显示 script 的 output。在本例中，没有有用的 output，因此把它设置为 false 有助于避免窗口膨胀。不过，一些 scripts（例如 report generator 或 image previewer）可以处理 selected items，并以文本或图形 response 返回它们。如果存在任何 script output，则 suppress 设置会被忽略；这对于捕获 exceptions 并显示 traceback 很有用，如本页末尾的示例所示。</p><p>其中 <strong>exec</strong> attribute 指定将由 engine 执行的 arguments vector。如果第一个 argument 以 / 开头，则视为 absolute path；否则视为相对于站点 configuration directory 的 path。在此示例中，engine 会运行站点 configuration directory 的 menu-scripts 子目录中的 askForHelp 脚本。</p><p>其中 <strong>values</strong> attribute 表示 selected items 的哪些 attributes 会发送到已执行 script 的 stdin。在此示例中，selected jobs 的 jid 和 owner 会发送到 askForHelp 的 stdin；script 可使用这些值创建一条 message，说明哪些 user(s) 正在请求 help，以及他们需要帮助的具体 jobs。所有 attributes 的 reference 可在 <a class="external-link" href="https://renderman.pixar.com/resources/current/tractor/tractor_glossary.html" rel="nofollow">这里</a>找到。对于 task menu items，也可以列出 jid、priority 和 owner 等 job attributes。</p><p>其中 <strong>enabled</strong> attribute 表示是否显示该 menu item。这对于临时隐藏 menu items，或在 config file 中保留 examples 以备将来使用很有用。默认情况下，所有 menu items 都是 enabled，因此只有在需要隐藏时才需要该设置。</p><h4 id="CustomMenuItems-JSONPayload">JSON Payload</h4><p>发送到 script stdin 的 JSON payload 将是 dictionaries 列表，每个 dictionary 表示一个 selected item。在上面的示例中，values 设置为 ["jid", "owner"]，对三个 selected jobs 发送给 askForHelp 的 JSON payload 大致如下：</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="82fc92a7-afc1-49da-bb77-64ca6377843d" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+</div></div><p /><p>在此示例中，菜单项会出现在作业列表的上下文菜单中，因为它定义在顶层字典中以 job 为键的列表里。task 和 blade 是自定义菜单项可以出现的另外两类菜单。</p><p>其中 <strong>comment</strong> 属性用于记录菜单项的用途。它目前在 Dashboard 中不承担功能性角色。</p><p>其中 <strong>title</strong> 属性定义菜单项在菜单中显示的名称。在此示例中，作业列表的上下文菜单会显示 ask for help。</p><p>其中 <strong>crews</strong> 属性将脚本运行限制为指定 crew 的用户。如果未列出 crew，任何用户都可以调用该菜单项。在此示例中，lighting 和 animation crew 中的用户被允许调用该菜单项。</p><p>其中 <strong>suppress</strong> 属性表示 Dashboard 是否会在新窗口中显示脚本输出。在本例中，没有有用的输出，因此把它设置为 false 有助于避免窗口膨胀。不过，一些脚本（例如报告生成器或图像预览器）可以处理选中项，并以文本或图形响应返回它们。如果存在任何脚本输出，则 suppress 设置会被忽略；这对于捕获异常并显示 traceback 很有用，如本页末尾的示例所示。</p><p>其中 <strong>exec</strong> 属性指定将由 Engine 执行的参数向量。如果第一个参数以 / 开头，则视为绝对路径；否则视为相对于站点配置目录的路径。在此示例中，Engine 会运行站点配置目录的 menu-scripts 子目录中的 askForHelp 脚本。</p><p>其中 <strong>values</strong> 属性表示选中项的哪些属性会发送到已执行脚本的标准输入 stdin。在此示例中，选中作业的 jid 和 owner 会发送到 askForHelp 的 stdin；脚本可使用这些值创建一条消息，说明哪些用户正在请求帮助，以及他们需要帮助的具体作业。所有属性参考可在 <a class="external-link" href="https://renderman.pixar.com/resources/current/tractor/tractor_glossary.html" rel="nofollow">这里</a>找到。对于任务菜单项，也可以列出 jid、priority 和 owner 等作业属性。</p><p>其中 <strong>enabled</strong> 属性表示是否显示该菜单项。这对于临时隐藏菜单项，或在配置文件中保留示例以备将来使用很有用。默认情况下，所有菜单项都是启用的，因此只有在需要隐藏时才需要该设置。</p><h4 id="CustomMenuItems-JSONPayload">JSON 载荷</h4><p>发送到脚本标准输入 stdin 的 JSON 载荷将是字典列表，每个字典表示一个选中项。在上面的示例中，values 设置为 ["jid", "owner"]，对三个选中作业发送给 askForHelp 的 JSON 载荷大致如下：</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="82fc92a7-afc1-49da-bb77-64ca6377843d" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
 <pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">[
   {&quot;jid&quot;: 1056, &quot;owner&quot;: &quot;harry&quot;},
   {&quot;jid&quot;: 1058, &quot;owner&quot;: &quot;sally&quot;},
   {&quot;jid&quot;: 1042, &quot;owner&quot;: &quot;sally&quot;}
 ]</pre>
-</div></div><p /><h4 id="CustomMenuItems-Script">Script</h4><p>下面是 askForHelp 的一个 example implementation：</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="34e9c769-d920-4927-b57c-60f59559bb83" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+</div></div><p /><h4 id="CustomMenuItems-Script">脚本</h4><p>下面是 askForHelp 的一个示例实现：</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="34e9c769-d920-4927-b57c-60f59559bb83" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
 <pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">#!/usr/bin/python
 
 import sys, json, smtplib
@@ -145,7 +145,7 @@ if __name__==&quot;__main__&quot;:
     # sys.stdout.write(&quot;Message sent.&quot;)
     # sys.stdout.write(&quot;&lt;/body&gt;&lt;/html&gt;&quot;)
 </pre>
-</div></div><h3 id="CustomMenuItems-Example:ImageOutput">示例：Image Output</h3><p>下面的示例演示如何返回 image，并在 browser 的新窗口中显示。</p><h4 id="CustomMenuItems-ConfigurationEntry.1">配置条目说明（Configuration Entry）</h4><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="00c49550-4e3d-4e95-93a2-4312446b2047" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+</div></div><h3 id="CustomMenuItems-Example:ImageOutput">示例：图像输出</h3><p>下面的示例演示如何返回图像，并在浏览器的新窗口中显示。</p><h4 id="CustomMenuItems-ConfigurationEntry.1">配置条目</h4><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="00c49550-4e3d-4e95-93a2-4312446b2047" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
 <pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">{
   ...
   &quot;task&quot;:
@@ -161,11 +161,11 @@ if __name__==&quot;__main__&quot;:
   ]
   ...
 }</pre>
-</div></div><p>suppress 默认值为 False，因此如果需要，可以在 menu definition 中省略它。</p><h4 id="CustomMenuItems-JSONPayload.1">JSON Payload</h4><p>单个 selected task 的 JSON payload 大致如下：</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="d6d3cd34-d972-440c-9d07-c37c782eba8c" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+</div></div><p>suppress 默认值为 False，因此如果需要，可以在菜单定义中省略它。</p><h4 id="CustomMenuItems-JSONPayload.1">JSON 载荷</h4><p>单个选中任务的 JSON 载荷大致如下：</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="d6d3cd34-d972-440c-9d07-c37c782eba8c" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
 <pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">[
   {&quot;jid&quot;: 1098, &quot;tid&quot;: 5}
 ]</pre>
-</div></div><p /><h4 id="CustomMenuItems-Script.1">Script</h4><p>通过让 script 在 response header 中适当地设置 Content-type，browser 随后就能知道如何处理并显示返回的 image data。</p><p>要让此示例正常工作，需要在 engine 的 /tmp directory 中有一个名为 eye.png 的 image file，并且 engine process owner 可读取它。</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="4ec1c98a-2ef0-4769-a58d-6b481b321534" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+</div></div><p /><h4 id="CustomMenuItems-Script.1">脚本</h4><p>通过让脚本在响应头中适当地设置 Content-type，浏览器随后就能知道如何处理并显示返回的图像数据。</p><p>要让此示例正常工作，需要在 Engine 的 /tmp 目录中有一个名为 eye.png 的图像文件，并且 Engine 进程所有者可读取它。</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="4ec1c98a-2ef0-4769-a58d-6b481b321534" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
 <pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">#!/usr/bin/python
 
 import sys, json
@@ -186,15 +186,15 @@ if __name__==&quot;__main__&quot;:
     sys.stdout.write(&quot;Content-type: image/png\n\n&quot;)
     sys.stdout.write(content)
 </pre>
-</div></div><h3 id="CustomMenuItems-Troubleshooting">Troubleshooting（故障排查）</h3><p>设置或编辑 custom menu items 时，需要重新加载 dashboard 才能反映更改。</p><h4 id="CustomMenuItems-MissingMenuItem">缺失的 Menu Item 菜单项</h4><p>如果看不到 custom menu item，请确认自己属于该 menu item 的 crews（如果列出了任何 crews）。Custom menu items 只会显示给被授权调用它们的 users。</p><p>另一个导致 custom menu items 缺失的原因是 config file 中存在 JSON syntax error。可以通过检查 browser console 中的相关 error message，或通过 JSON validator（例如 <a class="external-link" href="http://jsonlint.com/" rel="nofollow">http://jsonlint.com</a>）运行 menus.config 文件来检测。</p><h4 id="CustomMenuItems-TestingFromtheCommandLine">从 Command Line 命令行测试</h4><p>如果 menu item 出现但未按预期运行，请尝试以下一些步骤。</p><p>检查 script 是否可由 engine owner 读取和执行。</p><p>检查 menu-scripts directory 是否可由 engine owner 读取和执行。</p><p>尝试以 engine owner 身份从 command line 运行 script；如果有助于覆盖相关 code paths，可以 pipe 一个 test JSON string。下面的示例模拟选择了名为 hostA 和 hostB 的两个 blades，且 menu item 的 values list 表示应发送每个 blade 的 name 时所运行的 command。</p><p><code>% echo '[{&quot;name&quot;: &quot;hostA&quot;}, {&quot;name&quot;: &quot;hostB&quot;}]' | ./testScript
-</code></p><h4 id="CustomMenuItems-EditinginWindows">在 Windows 中编辑</h4><p>如果 script 在 Windows 上编辑，或在 editor 的 Windows mode 中编辑，interpreter name 后可能留下 trailing ^M character，导致 script 失败。^M 在某些 editors 或 editing modes 中不可见。engine log 和 output window 都不会显示此错误，因此很难检测。</p><p>从 command line 测试 script 会暴露此错误。python script 中的此类错误会显示为：</p><p><code>/usr/bin/python^M: bad interpreter: No such file or directory
-</code></p><h4 id="CustomMenuItems-CatchExceptions">捕获 Exceptions 异常处理说明</h4><p>调试 python scripts 的一种方法是捕获 exceptions，并将它们作为 response 发送给 browser。这很有用，因为 stderr 不会发送给 browser。</p><p>下面的 python 示例展示如何捕获任何 exception，并向 user 或 script writer 提供有用反馈。</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="58319cb1-7ba0-43ac-8148-d3fa98eb6502" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+</div></div><h3 id="CustomMenuItems-Troubleshooting">故障排查</h3><p>设置或编辑自定义菜单项时，需要重新加载 Dashboard 才能反映更改。</p><h4 id="CustomMenuItems-MissingMenuItem">缺失菜单项</h4><p>如果看不到自定义菜单项，请确认自己属于该菜单项的 crew（如果列出了任何 crew）。自定义菜单项只会显示给被授权调用它们的用户。</p><p>另一个导致自定义菜单项缺失的原因是配置文件中存在 JSON 语法错误。可以通过检查浏览器控制台中的相关错误消息，或通过 JSON 校验器（例如 <a class="external-link" href="http://jsonlint.com/" rel="nofollow">http://jsonlint.com</a>）运行 menus.config 文件来检测。</p><h4 id="CustomMenuItems-TestingFromtheCommandLine">从命令行测试</h4><p>如果菜单项出现但未按预期运行，请尝试以下步骤。</p><p>检查脚本是否可由 Engine 所有者读取和执行。</p><p>检查 menu-scripts 目录是否可由 Engine 所有者读取和执行。</p><p>尝试以 Engine 所有者身份从命令行运行脚本；如果有助于覆盖相关代码路径，可以通过管道传入一个测试 JSON 字符串。下面的示例模拟选择了名为 hostA 和 hostB 的两个 Blade，且菜单项的 values 列表表示应发送每个 Blade 的 name 时所运行的命令。</p><p><code>% echo '[{&quot;name&quot;: &quot;hostA&quot;}, {&quot;name&quot;: &quot;hostB&quot;}]' | ./test脚本
+</code></p><h4 id="CustomMenuItems-EditinginWindows">在 Windows 中编辑</h4><p>如果脚本在 Windows 上编辑，或在编辑器的 Windows 模式中编辑，解释器名称后可能留下尾随 ^M 字符，导致脚本失败。^M 在某些编辑器或编辑模式中不可见。Engine 日志和输出窗口都不会显示此错误，因此很难检测。</p><p>从命令行测试脚本会暴露此错误。Python 脚本中的此类错误会显示为：</p><p><code>/usr/bin/python^M: bad interpreter: No such file or directory
+</code></p><h4 id="CustomMenuItems-CatchExceptions">捕获异常</h4><p>调试 Python 脚本的一种方法是捕获异常，并将它们作为响应发送给浏览器。这很有用，因为 stderr 不会发送给浏览器。</p><p>下面的 Python 示例展示如何捕获任何异常，并向用户或脚本编写者提供有用反馈。</p><div class="code panel pdl conf-macro output-block" data-hasbody="true" data-macro-id="58319cb1-7ba0-43ac-8148-d3fa98eb6502" data-macro-name="code" style="border-width: 1px;"><div class="codeContent panelContent pdl">
 <pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: java; gutter: false; theme: Confluence" data-theme="Confluence">#!/usr/bin/python
 
 import sys
 import json
 
-def testScript(bladeinfo):
+def test脚本(bladeinfo):
     # intentional error: bar is not defined
     foo = bar
 
@@ -202,7 +202,7 @@ if __name__ == &quot;__main__&quot;:
     try:
         jsonData = sys.stdin.read()
         bladeinfo = json.loads(jsonData)
-        testScript(bladeinfo)
+        test脚本(bladeinfo)
     except:
         import traceback
         sys.stdout.write(&quot;Content-type:text/html\r\n\r\n&quot;)
@@ -210,7 +210,7 @@ if __name__ == &quot;__main__&quot;:
         sys.stdout.write(&quot;menu script error:\n&quot;)
         sys.stdout.write(traceback.format_exc())
         sys.stdout.write(&quot;&lt;pre&gt;&lt;/body&gt;&lt;/html&gt;&quot;)</pre>
-</div></div><p>一个 edge case 是，目前无法捕获 syntax errors，因为 script 会在进入 main block 之前失败。从 command line 测试 script 会暴露这类 syntax errors。</p>
+</div></div><p>一个边界情况是，目前无法捕获语法错误，因为脚本会在进入 main block 之前失败。从命令行测试脚本会暴露这类语法错误。</p>
   </article>
 </main>
 </body>

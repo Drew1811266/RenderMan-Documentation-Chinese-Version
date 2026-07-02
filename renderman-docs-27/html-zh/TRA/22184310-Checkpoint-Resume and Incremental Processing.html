@@ -76,7 +76,7 @@
     <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
   </header>
   <article>
-<div class="document"><p>作业脚本、调度和 Dashboard 的最新扩展增加了与增量计算相关的有趣新能力。Tractor 还支持通用的“从最后一个 checkpoint 重试”方案。这两项功能都与新的 RenderMan 19 RIS checkpoint 和 incremental rendering（增量渲染）功能集成。<br/> </p><div class="section"><h3 id="Checkpoint-ResumeandIncrementalProcessing-Retryfromlastpartialresult">从最后一个局部结果重试</h3><p>例如，Pixar RenderMan renderer prman 在使用兼容输出格式时，多年来一直支持内置重试方案。</p><pre class="codefhead literal-block">A basic render command:
+<div class="document"><p>作业脚本、调度和 Dashboard 的最新扩展增加了与增量计算相关的新能力。Tractor 还支持通用的“从最后一个检查点重试”方案。这两项功能都与新的 RenderMan 19 RIS 检查点和增量渲染功能集成。<br/> </p><div class="section"><h3 id="Checkpoint-ResumeandIncrementalProcessing-Retryfromlastpartialresult">从最后一个局部结果重试</h3><p>例如，Pixar RenderMan 渲染器 prman 在使用兼容输出格式时，多年来一直支持内置重试方案。</p><pre class="codefhead literal-block">A basic render command:
    prman frame123.rib
 </pre><p>如果该进程在渲染一小时后由于某种原因被终止，但期间生成了局部图像文件，那么通常可以从该点重新开始渲染。</p><pre class="codefhead literal-block">Restart from the last image checkpoint:
    prman -recover 1 frame123.rib
@@ -85,10 +85,10 @@
          RemoteCmd {prman -recover %r frame123.rib} -service PixarRender
      }
 }
-</pre><p>在命令第一次启动时，或用户请求完全重启任务时，Tractor 会在参数列表中把 %r 替换为数字零；当用户请求从最后一个 checkpoint 恢复时，则替换为数字一。</p><p>因此，Tractor 对此功能的支持假定许多应用程序或其 wrapper scripts（包装脚本）的重启行为，可以通过某个接受简单 '0' 或 '1' 的命令行参数来控制。<br/> </p></div><div class="section"><h3 id="Checkpoint-ResumeandIncrementalProcessing-IncrementalCheckpoint-ResumeIterations">增量 Checkpoint-Resume（检查点恢复）迭代</h3><p>引入新的 Tractor 作业脚本控制项：</p><pre class="codefhead literal-block">-resumeblock
+</pre><p>在命令第一次启动时，或用户请求完全重启任务时，Tractor 会在参数列表中把 %r 替换为数字零；当用户请求从最后一个检查点恢复时，则替换为数字一。</p><p>因此，Tractor 对此功能的支持假定许多应用程序或其包装脚本的重启行为，可以通过某个接受简单 '0' 或 '1' 的命令行参数来控制。<br/> </p></div><div class="section"><h3 id="Checkpoint-ResumeandIncrementalProcessing-IncrementalCheckpoint-ResumeIterations">增量检查点恢复迭代</h3><p>引入新的 Tractor 作业脚本控制项：</p><pre class="codefhead literal-block">-resumeblock
 -resumewhile
 -resumepin
-</pre><p>目标是将一组任务（整个依赖子树）标记为一个 group；当某些元素已经到达 checkpoint 但尚未完成时，该 group 会重新运行。</p><p>-resumeblock 选项放在组根部的 <strong>Task</strong> 上。-resumewhile 子句放在遵循 checkpoint-resume 语义的 <strong>RemoteCmd</strong> 上。 <span class="pre">-resumepin</span> 1 选项是带有 -resumewhile 的命令上的额外限定符，表示重启必须发生在该命令初始 pass（轮次）所用的同一 blade 上。</p><p>注意：在 -resumeblock Task 指定的子树中，并非所有任务都会在每个 pass 中重启。只有 -resumewhile 子句求值为 "true"（非零）的那些命令，才会在下一轮重试。其中一些命令可能会比块中的其他命令提前几个 pass 完全完成。一旦某个命令的 resumewhile 子句求值为 "false"（零），它就不会再由此循环机制重启。还请注意， <em>任何</em> 依赖于被恢复任务的任务，一直到 resume block 的根部，也会被重试。由 -resumewhile 引起的重试在这方面的行为与手动任务重试相同：依赖的后继任务也会被重试。</p><p>替换模式 %r、%R 和 %q 会在 tractor-blade 启动每个命令之前填入：当任务全新开始时 %r 为 0；当用户或系统请求从 checkpoint 恢复时，%r 为大于零的整数；%R 是因 -resumewhile 构造而重启的命令的“loop count（循环计数）”；当任务因其依赖的子任务进入 final quality runs（最终质量运行）而执行时，%q 的值为 1.0；如果某个子任务在当前 resumewhile 循环中只到达 checkpoint，则 %q 小于 1.0。许多被启动的命令不支持这些区分；作业作者需要根据每个命令的情况适当使用这些可选参数。</p><pre class="codefhead literal-block">Job -title &quot;checkpoint-resume iteration example&quot; -service PixarRender -subtasks {
+</pre><p>目标是将一组任务（整个依赖子树）标记为一个组；当某些元素已经到达检查点但尚未完成时，该组会重新运行。</p><p>-resumeblock 选项放在组根部的 <strong>Task</strong> 上。-resumewhile 子句放在遵循 checkpoint-resume 语义的 <strong>RemoteCmd</strong> 上。 <span class="pre">-resumepin</span> 1 选项是带有 -resumewhile 的命令上的额外限定符，表示重启必须发生在该命令初始轮次所用的同一 blade 上。</p><p>注意：在 -resumeblock Task 指定的子树中，并非所有任务都会在每个轮次中重启。只有 -resumewhile 子句求值为 "true"（非零）的那些命令，才会在下一轮重试。其中一些命令可能会比块中的其他命令提前几个轮次完全完成。一旦某个命令的 resumewhile 子句求值为 "false"（零），它就不会再由此循环机制重启。还请注意， <em>任何</em> 依赖于被恢复任务的任务，一直到恢复块的根部，也会被重试。由 -resumewhile 引起的重试在这方面的行为与手动任务重试相同：依赖的后继任务也会被重试。</p><p>替换模式 %r、%R 和 %q 会在 tractor-blade 启动每个命令之前填入：当任务全新开始时 %r 为 0；当用户或系统请求从检查点恢复时，%r 为大于零的整数；%R 是因 -resumewhile 构造而重启的命令的“循环计数”；当任务因其依赖的子任务进入最终质量运行而执行时，%q 的值为 1.0；如果某个子任务在当前 resumewhile 循环中只到达检查点，则 %q 小于 1.0。许多被启动的命令不支持这些区分；作业作者需要根据每个命令的情况适当使用这些可选参数。</p><pre class="codefhead literal-block">Job -title &quot;checkpoint-resume iteration example&quot; -service PixarRender -subtasks {
     Task {the wait} -subtasks {
         Task {the loop} -resumeblock 1 -subtasks {
             Task {render f1} -cmds {

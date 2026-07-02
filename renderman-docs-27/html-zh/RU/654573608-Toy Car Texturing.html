@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Toy Car Texturing</title>
+  <title>玩具车贴图制作</title>
   <style>
     :root { color-scheme: light; }
     body {
@@ -71,17 +71,17 @@
 <body class="rm-themed rm-doc-page">
 <main>
   <header>
-    <h1>Toy Car Texturing</h1>
+    <h1>玩具车贴图制作</h1>
     <div class="source">Source: <a href="https://rmanwiki-27.pixar.com/space/RU/654573608/Toy+Car+Texturing">https://rmanwiki-27.pixar.com/space/RU/654573608/Toy+Car+Texturing</a></div>
     <div class="source">Downloaded: 2026-06-15T03:49:12+00:00</div>
   </header>
   <article>
-<h3 id="ToyCarTexturing-TexturingandUVs">Texturing and UVs（贴图与 UVs）</h3><p>对我来说，UV layout 最重要的是保持一致的 texel density，并确保 surfaces 之间有干净的 transitions。我根据四种主要 surface types 来组织 UDIMs，这有助于简化后面的 masking 和 cleanup 阶段。</p><p>我以尽量少的 fragmentation 打包 UV islands，确保每个区域都有足够的 texture space。事实证明，这种方法非常高效，既能保留 resolution，又能在 Mari 中绘制时减少视觉杂乱。它让我保持 scene 轻量，同时在 close-up shots 和宽阔视角中都获得足够细节。</p><p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image6.jpg" width="760" loading="lazy" src="../../attachments/654573608/image6.jpg" data-image-src="../../attachments/654573608/image6.jpg" data-height="1057" data-width="1895" data-unresolved-comment-count="0" data-linked-resource-id="654901325" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image6.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="654573608" data-linked-resource-container-version="2" data-media-id="3603d3e0-8969-4c6a-bb3e-513e6a680128" data-media-type="file"></span><hr/><h3 id="ToyCarTexturing-Texturing">贴图制作（Texturing）阶段</h3><p>我使用 Mari 进行 texturing process，并且很喜欢这个 workflow，尤其是它的 node-based structure 带来的灵活性，帮助我保持所有内容干净有序。由于我在 PxrSurface material 中使用了 Physical Specular mode，因此相应地准备了 texture structure。 </p><p>我首先把 base color data 投射到 model 上，这些数据是用 cross-polarization techniques 捕获的。通过同时给 camera 和 light source 使用 polarizing filters，我能够消除 surface reflections，从而获得更准确的 color 和更干净的 mask extraction。</p><p>projection 之后，我使用 Clone Tool 进行了大量 cleanup，以修正 imperfections 和 surface inconsistencies。在没有 scan data 的区域，我自己创建 textures，以保持 material continuity。 </p><p>为了隔离 material regions，我依赖 Color to Mask method，它允许我直接从 base color information 生成精确 masks。这支持了一种 layered approach，让我逐步构建 chipped paint、dirt、filler material 和 subtle wear 等 surface detail。</p><iframe allowfullscreen="" allowtransparency="true" class="fullscreen-video-iframe conf-macro output-block" data-hasbody="false" data-layout="wide" data-local-id="579a2d66-9ce2-43a5-9857-e68ca2501fba" data-macro-id="c802a65e-ab93-4dab-8650-b34d4cc952a8" data-macro-name="widget" frameborder="0" height="540" mozallowfullscreen="" src="https://player.vimeo.com/video/1084813359" style="border:none; margin:1em 0em;" webkitallowfullscreen="" width="960">
+<h3 id="ToyCarTexturing-TexturingandUVs">贴图制作与 UV</h3><p>对我来说，UV 布局最重要的是保持一致的纹素密度，并确保表面之间有干净的过渡。我根据四种主要表面类型来组织 UDIM，这有助于简化后面的遮罩和清理阶段。</p><p>我以尽量少的碎片化来打包 UV 岛，确保每个区域都有足够的纹理空间。事实证明，这种方法非常高效，既能保留分辨率，又能在 Mari 中绘制时减少视觉杂乱。它让我保持场景轻量，同时在特写镜头和宽阔视角中都获得足够细节。</p><p /><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" alt="image6.jpg" width="760" loading="lazy" src="../../attachments/654573608/image6.jpg" data-image-src="../../attachments/654573608/image6.jpg" data-height="1057" data-width="1895" data-unresolved-comment-count="0" data-linked-resource-id="654901325" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image6.jpg" data-base-url="https://renderman.atlassian.net/wiki" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="654573608" data-linked-resource-container-version="2" data-media-id="3603d3e0-8969-4c6a-bb3e-513e6a680128" data-media-type="file"></span><hr/><h3 id="ToyCarTexturing-Texturing">贴图制作</h3><p>我使用 Mari 进行贴图制作，并且很喜欢这个工作流，尤其是它的基于节点的结构带来的灵活性，帮助我保持所有内容干净有序。由于我在 PxrSurface 材质中使用了 Physical Specular 模式，因此相应地准备了纹理结构。 </p><p>我首先把基础颜色数据投射到模型上，这些数据是用交叉偏振技术捕获的。通过同时给摄像机和光源使用偏振滤镜，我能够消除表面反射，从而获得更准确的颜色和更干净的遮罩提取结果。</p><p>投射之后，我使用 Clone Tool 进行了大量清理，以修正瑕疵和表面不一致。在没有扫描数据的区域，我自己创建纹理，以保持材质连续性。 </p><p>为了隔离材质区域，我依赖 Color to Mask 方法，它允许我直接从基础颜色信息生成精确遮罩。这支持了一种分层方法，让我逐步构建掉漆、污垢、填补材料和细微磨损等表面细节。</p><iframe allowfullscreen="" allowtransparency="true" class="fullscreen-video-iframe conf-macro output-block" data-hasbody="false" data-layout="wide" data-local-id="579a2d66-9ce2-43a5-9857-e68ca2501fba" data-macro-id="c802a65e-ab93-4dab-8650-b34d4cc952a8" data-macro-name="widget" frameborder="0" height="540" mozallowfullscreen="" src="https://player.vimeo.com/video/1084813359" style="border:none; margin:1em 0em;" webkitallowfullscreen="" width="960">
 </iframe>
 
 <p /><div class="panel conf-macro output-block" data-hasbody="true" data-macro-id="" data-macro-name="panel" style="background-color: #EAE6FF;border-color: #998DD9;border-width: 1px;"><div class="panelContent" style="background-color: #EAE6FF;">
-<p>Tip：整个项目中，我通过定义 OCIO environment variables 使用 ACES 1.2 作为 color management system。这有助于在 Mari、RenderMan 以及 production workflow 的每个阶段保持准确且一致的 color。</p>
-</div></div><hr/><h3 id="ToyCarTexturing-Shading">Shading（着色）</h3>
+<p>提示：整个项目中，我通过定义 OCIO 环境变量使用 ACES 1.2 作为色彩管理系统。这有助于在 Mari、RenderMan 以及生产工作流的每个阶段保持准确且一致的色彩。</p>
+</div></div><hr/><h3 id="ToyCarTexturing-Shading">着色</h3>
   </article>
 </main>
 </body>

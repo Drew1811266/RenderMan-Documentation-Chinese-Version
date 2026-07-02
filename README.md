@@ -4,7 +4,7 @@
 
 项目目标不是只翻译正文，而是让中文文档在内容结构、页面层级、导航、版式、资源引用和核心阅读/搜索体验上尽量与官方文档一致；简体中文文本是唯一有意差异。
 
-当前版本：`0.01`
+当前版本：`0.02`
 
 ## 当前状态
 
@@ -15,6 +15,7 @@
 - 浏览器视觉抽样：816 / 816 通过
 - 待视觉校对页面：0
 - 最终版式完成审计：11 / 11 项通过
+- 专业术语审查：816 / 816 完成
 
 关键审计结果记录在：
 
@@ -22,6 +23,21 @@
 - `renderman-docs-27/official-layout-page-audit.md`
 - `renderman-docs-27/official-layout-alignment.md`
 - `renderman-docs-27/translation-progress.md`
+- `renderman-docs-27/terminology-audit/completion-audit-summary.md`
+
+## 版本记录
+
+### 0.02
+
+- 完成全量专业术语审查，覆盖 816 个中文页面。
+- 根据术语审查结果优化中文表达，减少误译、过度翻译和不必要的英文夹杂。
+- 保持官方风格版式、入口页、章节面板、导航、搜索和本地附件路径不变。
+- 明确本地 HTTP 预览入口为 `http://127.0.0.1:8765/html-zh/index.html`，避免附件路径断链。
+
+### 0.01
+
+- 完成 RenderMan 27 官方文档的中文静态文档初版。
+- 完成官方风格版式复刻、链接重写、离线搜索和初轮版式审计。
 
 ## 如何查看
 
@@ -56,7 +72,8 @@ http://127.0.0.1:8765/html-zh/index.html
 │   ├── audit_html_translation_phase.py
 │   ├── apply_renderman_official_theme.py
 │   ├── rewrite_local_confluence_links.py
-│   └── audit_official_layout_alignment.py
+│   ├── audit_official_layout_alignment.py
+│   └── audit_terminology.py
 └── renderman-docs-27/
     ├── html/                         # 英文源 HTML
     ├── html-zh/                      # 中文静态文档
@@ -64,6 +81,7 @@ http://127.0.0.1:8765/html-zh/index.html
     ├── api/                          # 原始页面 API 响应
     ├── source/                       # sitemap 和源 URL 列表
     ├── glossary/                     # RenderMan 术语库
+    ├── terminology-audit/            # 专业术语审查计划、批次记录和完成报告
     ├── codex-translations/           # Codex 逐页翻译 JSONL
     ├── codex-translation-packs/      # 翻译批次包
     ├── phases/                       # 阶段应用与审计报告
