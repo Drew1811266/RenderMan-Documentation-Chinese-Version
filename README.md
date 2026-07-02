@@ -6,6 +6,10 @@
 
 当前版本：`0.02`
 
+## 效果图
+
+<img src="output/playwright/renderman-docs-homepage-v0.02.png" alt="RenderMan 27 中文文档首页效果图" width="960">
+
 ## 当前状态
 
 - 源 HTML 页面：816
@@ -65,6 +69,7 @@ http://127.0.0.1:8765/html-zh/index.html
 .
 ├── README.md
 ├── TRANSLATION_PIPELINE.md
+├── output/playwright/               # README 效果图和浏览器验证截图
 ├── tools/
 │   ├── download_renderman_docs.py
 │   ├── translate_html_docs.py
